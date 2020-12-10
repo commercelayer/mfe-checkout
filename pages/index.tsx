@@ -1,4 +1,3 @@
-import Head from "next/head";
 import {
   CommerceLayer,
   PricesContainer,
@@ -7,7 +6,8 @@ import {
   LineItemsContainer,
   LineItem,
   LineItemName,
-} from "@commercelayer/react-components";
+} from "@commercelayer/react-components"
+import Head from "next/head"
 
 export default function Home() {
   return (
@@ -38,5 +38,5 @@ export default function Home() {
         </CommerceLayer>
       </main>
     </div>
-  );
+  )
 }
