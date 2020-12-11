@@ -10,7 +10,7 @@
     "lint:fix": "eslint ./ --ext .tsx,.ts --fix"
   },
   "dependencies": {
-    "@commercelayer/react-components": "^1.6.1",
+    "@commercelayer/react-components": "^1.7.0",
     "next": "10.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1"

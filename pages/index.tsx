@@ -1,42 +1,77 @@
 import {
   CommerceLayer,
-  PricesContainer,
-  Price,
   OrderContainer,
   LineItemsContainer,
   LineItem,
+  LineItemImage,
   LineItemName,
+  LineItemQuantity,
+  LineItemAmount,
+  LineItemsCount,
 } from "@commercelayer/react-components"
+import { NextPage } from "next"
 import Head from "next/head"
 
-export default function Home() {
-  return (
-    <div>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!!</a>
-        </h1>
-        <button className="btn-blue">click me</button>
-
-        <CommerceLayer
-          accessToken="eyJhbGciOiJIUzUxMiJ9.eyJvcmdhbml6YXRpb24iOnsiaWQiOjIwNTd9LCJhcHBsaWNhdGlvbiI6eyJpZCI6MjkxNSwia2luZCI6IndlYmFwcCIsInB1YmxpYyI6ZmFsc2V9LCJ0ZXN0Ijp0cnVlLCJvd25lciI6eyJpZCI6MjgzNzEsInR5cGUiOiJVc2VyIn0sImV4cCI6MTYwNzUxODY3MiwibWFya2V0Ijp7ImlkIjozNzk2LCJwcmljZV9saXN0X2lkIjozNzc0LCJzdG9ja19sb2NhdGlvbl9pZHMiOlszOTI4LDM5MjldLCJnZW9jb2Rlcl9pZCI6bnVsbCwiYWxsb3dzX2V4dGVybmFsX3ByaWNlcyI6ZmFsc2V9LCJyYW5kIjowLjk2NjgyODkxNTIwODI5NzF9.oOInyfXuKWv3k8uMLQnBhFWcggvDA7RGqW8iuWmPW_FH9pnyu1cs14cD_ji8satPRb68zFJnSlGneTPC7SQY5Q"
-          endpoint="https://the-green-brand-120.commercelayer.io"
-        >
-          <PricesContainer>
-            <Price
-              skuCode="BABYONBU000000E63E7412MX"
-              className="your-custom-class"
-              compareClassName="your-custom-class"
-              // showCompare={false}
-            />
-          </PricesContainer>
-        </CommerceLayer>
-      </main>
-    </div>
-  )
+interface Props {
+  accessToken: string
 }
+
+const Home: NextPage<Props> = ({ accessToken }) => (
+  <div>
+    <Head>
+      <title>Create Next App</title>
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
+
+    <main>
+      <h1>
+        Welcome to <a href="https://nextjs.org">Next.js!!</a>
+      </h1>
+      <button className="btn-blue">click me</button>
+
+      <CommerceLayer
+        accessToken={accessToken}
+        endpoint="https://the-green-brand-120.commercelayer.io"
+      >
+        <OrderContainer orderId="NZrQherdeL">
+          <LineItemsContainer>
+            <p className="your-custom-class">
+              Your shopping cart contains <LineItemsCount /> items
+            </p>
+            <LineItem>
+              <LineItemImage width={50} />
+              <LineItemName />
+              <LineItemQuantity>
+                {(props) => <p className="text-red-500">{props.quantity}</p>}
+              </LineItemQuantity>
+
+              <LineItemAmount className="text-red-500" />
+            </LineItem>
+          </LineItemsContainer>
+        </OrderContainer>
+      </CommerceLayer>
+    </main>
+  </div>
+)
+
+export async function getStaticProps() {
+  const res = await fetch(
+    `https://${process.env.CLAYER_DOMAIN}.commercelayer.io/oauth/token`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        grant_type: "client_credentials",
+        client_id: process.env.CLAYER_CLIENT_ID,
+        scope: process.env.CLAYER_SCOPE,
+      }),
+    }
+  )
+  const json = await res.json()
+  return { props: { accessToken: json.access_token } }
+}
+
+export default Home
