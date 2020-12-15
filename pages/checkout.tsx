@@ -6,6 +6,7 @@ import { Base } from "components/ui/Base"
 import { Card } from "components/ui/Card"
 import { Container } from "components/ui/Container"
 import { Logo } from "components/ui/Logo"
+import { StepHeader } from "components/ui/StepHeader"
 
 const Checkout: NextPage = () => {
   return (
@@ -20,6 +21,12 @@ const Checkout: NextPage = () => {
         <Grid>
           <SectionSteps>
             <Card>
+              <StepHeader
+                stepNumber={1}
+                status="edit"
+                label="Step title"
+                info="Lorem ipsum..."
+              />
               <div tw="py-5 h-44">STEPS</div>
             </Card>
           </SectionSteps>
