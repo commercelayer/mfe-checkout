@@ -59,24 +59,20 @@ const Home: NextPage<Props> = ({ accessToken }) => (
   </div>
 )
 
-export async function getStaticProps() {
-  const res = await fetch(
-    `https://${process.env.CLAYER_DOMAIN}.commercelayer.io/oauth/token`,
-    {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        grant_type: "client_credentials",
-        client_id: process.env.CLAYER_CLIENT_ID,
-        scope: process.env.CLAYER_SCOPE,
-      }),
-    }
-  )
-  const json = await res.json()
-  return { props: { accessToken: json.access_token } }
-}
+// export async function getServerSideProps(context: NextPageContext) {
+//   const res = await fetch("http://localhost:3000/api/settings", {
+//     method: "POST",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(context.query),
+//   })
+//   const data = await res.json()
+
+//   return {
+//     props: { ...data }, // will be passed to the page component as props
+//   }
+// }
 
 export default Home
