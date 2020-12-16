@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import { CheckmarkIcon } from "./CheckmarkIcon"
+
 interface Props {
   status: "edit" | "done" | "disabled"
   label: string
@@ -17,23 +19,51 @@ export const StepHeader: React.FC<Props> = ({
   onEditRequest,
 }) => {
   return (
-    <div tw="flex items-start px-4">
-      <Badge>{status === "done" ? "OK" : stepNumber}</Badge>
-      <div tw={"pl-3"}>
-        <div>
-          <span tw="text-lg">{label}</span>
+    <Wrapper>
+      <Badge>{status === "done" ? <CheckmarkIcon /> : stepNumber}</Badge>
+      <Body>
+        <Top>
+          <Title>{label}</Title>
           {status === "done" ? (
-            <div>
-              <button onClick={onEditRequest}>Edit</button>
-            </div>
+            <Edit>
+              &mdash; <EditButton onClick={onEditRequest}>Edit</EditButton>
+            </Edit>
           ) : null}
-        </div>
-        <div tw={"text-gray-400"}>{info}</div>
-      </div>
-    </div>
+        </Top>
+        <Info>{info}</Info>
+      </Body>
+    </Wrapper>
   )
 }
 
+const Wrapper = styled.div`
+  ${tw`flex items-start px-4`}
+`
+
+const Body = styled.div`
+  ${tw`pl-3`}
+`
+
+const Top = styled.div`
+  ${tw`flex items-center`}
+`
+
+const Edit = styled.div`
+  ${tw`ml-2`}
+`
+
+const EditButton = styled.button`
+  ${tw` text-sm text-blue-500 hover:underline hover:text-blue-700`}
+`
+
 const Badge = styled.div`
-  ${tw`mt-1 rounded-full	bg-blue-400 text-white flex justify-center items-center w-6 h-6 text-xs font-bold`}
+  ${tw`mt-1 rounded-full bg-blue-400 text-white flex justify-center items-center w-6 h-6 text-xs font-bold`}
+`
+
+const Title = styled.div`
+  ${tw`text-lg font-bold`}
+`
+
+const Info = styled.div`
+  ${tw`text-gray-400 text-sm italic`}
 `

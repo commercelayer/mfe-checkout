@@ -4,5 +4,5 @@ import tw from "twin.macro"
 export const Card: React.FC = ({ children }) => <Wrapper>{children}</Wrapper>
 
 const Wrapper = styled.div`
-  ${tw`bg-white rounded-md p-4 shadow-md`}
+  ${tw`bg-white rounded-md py-10 px-4 shadow-md`}
 `
