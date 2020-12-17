@@ -23,18 +23,16 @@ import { StepHeader } from "components/ui/StepHeader"
 
 interface Props {
   accessToken: string
+  endpoint: string
 }
 
-const Home: NextPage<Props> = ({ accessToken }) => {
+const Home: NextPage<Props> = ({ accessToken, endpoint }) => {
   return (
     <div>
       <Head>
         <title>Commerce Layer - Hosted Checkout</title>
       </Head>
-      <CommerceLayer
-        accessToken={accessToken}
-        endpoint="https://the-green-brand-120.commercelayer.io"
-      >
+      <CommerceLayer accessToken={accessToken} endpoint={endpoint}>
         <OrderContainer orderId="NZrQherdeL">
           <Base>
             <Container>

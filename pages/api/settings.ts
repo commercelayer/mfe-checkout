@@ -26,5 +26,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const json = await checkToken.json()
 
   res.statusCode = 200
-  res.json({ accessToken: json.access_token, validCheckout: true })
+  res.json({
+    accessToken: json.access_token,
+    validCheckout: true,
+    endpoint: "https://the-green-brand-120.commercelayer.io",
+  })
 }
