@@ -24,9 +24,16 @@ import { StepHeader } from "components/ui/StepHeader"
 interface Props {
   accessToken: string
   endpoint: string
+  logoUrl: string
+  companyName: string
 }
 
-const Home: NextPage<Props> = ({ accessToken, endpoint }) => {
+const Home: NextPage<Props> = ({
+  accessToken,
+  endpoint,
+  logoUrl,
+  companyName,
+}) => {
   return (
     <div>
       <Head>
@@ -37,8 +44,8 @@ const Home: NextPage<Props> = ({ accessToken, endpoint }) => {
           <Base>
             <Container>
               <Logo
-                logoUrl="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
-                companyName="Test company"
+                logoUrl={logoUrl}
+                companyName={companyName}
                 tw="mb-10 pl-4"
               />
               <LayoutDefault.Wrapper>

@@ -30,5 +30,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     accessToken: json.access_token,
     validCheckout: true,
     endpoint: "https://the-green-brand-120.commercelayer.io",
+    logoUrl:
+      "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
+    companyName: "Test company",
   })
 }
