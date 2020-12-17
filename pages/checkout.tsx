@@ -1,7 +1,7 @@
 import { NextPage } from "next"
-import styled from "styled-components"
-import tw from "twin.macro"
+import "twin.macro"
 
+import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Base } from "components/ui/Base"
 import { Card } from "components/ui/Card"
 import { Container } from "components/ui/Container"
@@ -18,9 +18,8 @@ const Checkout: NextPage = () => {
           companyName="Test company"
           tw="mb-10 pl-4"
         />
-
-        <Grid>
-          <SectionSteps>
+        <LayoutDefault.Wrapper>
+          <LayoutDefault.Main>
             <Card>
               <div tw="mb-6">
                 <StepHeader
@@ -48,26 +47,14 @@ const Checkout: NextPage = () => {
                 </StepContent>
               </div>
             </Card>
-          </SectionSteps>
-          <SectionRecap>
+          </LayoutDefault.Main>
+          <LayoutDefault.Aside>
             <div tw="text-lg">RECAP</div>
-          </SectionRecap>
-        </Grid>
+          </LayoutDefault.Aside>
+        </LayoutDefault.Wrapper>
       </Container>
     </Base>
   )
 }
-
-const Grid = styled.div`
-  ${tw`grid md:grid-cols-3 gap-4`}
-`
-
-const SectionSteps = styled.div`
-  ${tw`md:col-span-2`}
-`
-
-const SectionRecap = styled.div`
-  display: block;
-`
 
 export default Checkout

@@ -10,54 +10,104 @@ import {
   LineItemsCount,
 } from "@commercelayer/react-components"
 import { NextPage } from "next"
+import "twin.macro"
 import Head from "next/head"
+
+import { LayoutDefault } from "components/layouts/LayoutDefault"
+import { Base } from "components/ui/Base"
+import { Card } from "components/ui/Card"
+import { Container } from "components/ui/Container"
+import { Logo } from "components/ui/Logo"
+import { StepContent } from "components/ui/StepContent"
+import { StepHeader } from "components/ui/StepHeader"
 
 interface Props {
   accessToken: string
 }
 
-const Home: NextPage<Props> = ({ accessToken }) => (
-  <div>
-    <Head>
-      <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,400&display=swap"
-        rel="stylesheet"
-      />
-    </Head>
-
-    <main>
-      <h1>
-        Welcome to <a href="https://nextjs.org">Next.js!!</a>
-      </h1>
-      <button className="btn-blue">click me</button>
-
+const Home: NextPage<Props> = ({ accessToken }) => {
+  return (
+    <div>
+      <Head>
+        <title>Commerce Layer - Hosted Checkout</title>
+      </Head>
       <CommerceLayer
         accessToken={accessToken}
         endpoint="https://the-green-brand-120.commercelayer.io"
       >
         <OrderContainer orderId="NZrQherdeL">
-          <LineItemsContainer>
-            <p className="your-custom-class">
-              Your shopping cart contains <LineItemsCount /> items
-            </p>
-            <LineItem>
-              <LineItemImage width={50} />
-              <LineItemName />
-              <LineItemQuantity>
-                {(props) => <p className="text-red-500">{props.quantity}</p>}
-              </LineItemQuantity>
+          <Base>
+            <Container>
+              <Logo
+                logoUrl="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
+                companyName="Test company"
+                tw="mb-10 pl-4"
+              />
+              <LayoutDefault.Wrapper>
+                <LayoutDefault.Main>
+                  <Card>
+                    <div tw="mb-6">
+                      <StepHeader
+                        stepNumber={1}
+                        status="done"
+                        label="Customer"
+                        info="Billing information and shipping address"
+                      />
+                      <StepContent>
+                        <div>&lt;BillingAddressContainer&gt;</div>
+                        <div>&lt;NextStepContainer&gt;</div>
+                      </StepContent>
+                    </div>
 
-              <LineItemAmount className="text-red-500" />
-            </LineItem>
-          </LineItemsContainer>
+                    <div tw="mb-6">
+                      <StepHeader
+                        stepNumber={2}
+                        status="edit"
+                        label="Delivery"
+                        info="Shipment summary and delivery methods"
+                      />
+                      <StepContent>
+                        <div>&lt;ShippingAddressContainer&gt;</div>
+                        <div>&lt;NextStepContainer&gt;</div>
+                      </StepContent>
+                    </div>
+                  </Card>
+                </LayoutDefault.Main>
+                <LayoutDefault.Aside>
+                  <LineItemsContainer>
+                    <h4 tw="text-lg mb-5 font-bold">
+                      Your shopping cart contains <LineItemsCount /> items
+                    </h4>
+                    <LineItem>
+                      <div tw="flex flex-row mb-4">
+                        <LineItemImage width={50} />
+                        <div tw="pl-4">
+                          <LineItemName />
+                          <div tw="flex flex-row justify-between">
+                            <LineItemQuantity>
+                              {(props) => (
+                                <p tw="text-gray-400">
+                                  Quantity: {props.quantity}
+                                </p>
+                              )}
+                            </LineItemQuantity>
+                            <div tw="font-bold">
+                              <LineItemAmount className="text-red-500" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </LineItem>
+                  </LineItemsContainer>
+                </LayoutDefault.Aside>
+              </LayoutDefault.Wrapper>
+            </Container>
+          </Base>
         </OrderContainer>
       </CommerceLayer>
-    </main>
-  </div>
-)
+    </div>
+  )
+}
 
 // export async function getServerSideProps(context: NextPageContext) {
 //   const res = await fetch("http://localhost:3000/api/settings", {
