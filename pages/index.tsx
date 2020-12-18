@@ -1,4 +1,3 @@
-import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import { NextPage } from "next"
 import "twin.macro"
 import Head from "next/head"
@@ -9,36 +8,27 @@ import { StepShipping } from "components/composite/StepShipping"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Logo } from "components/ui/Logo"
 
-const Home: NextPage<CheckoutPageContextProps> = ({
-  accessToken,
-  endpoint,
-  logoUrl,
-  companyName,
-  orderId,
-}) => {
+const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
   return (
     <div>
       <Head>
         <title>Commerce Layer - Hosted Checkout</title>
       </Head>
-      <CommerceLayer accessToken={accessToken} endpoint={endpoint}>
-        <OrderContainer orderId={orderId}>
-          <LayoutDefault
-            aside={
-              <div>
-                <Logo logoUrl={logoUrl} companyName={companyName} />
-                <OrderRecap />
-              </div>
-            }
-            main={
-              <div>
-                <StepCustomer tw="mb-6" />
-                <StepShipping tw="mb-6" />
-              </div>
-            }
-          />
-        </OrderContainer>
-      </CommerceLayer>
+      <LayoutDefault
+        aside={
+          <div>
+            <Logo logoUrl={logoUrl} companyName={companyName} />
+            <OrderRecap />
+          </div>
+        }
+        main={
+          <div>
+            <StepCustomer tw="mb-6" />
+
+            <StepShipping tw="mb-6" />
+          </div>
+        }
+      />
     </div>
   )
 }

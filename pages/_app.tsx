@@ -1,10 +1,27 @@
 import "../styles/globals.css"
+import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import type { AppProps } from "next/app"
 import { AppContextType } from "next/dist/next-server/lib/utils"
 
+import { AppProvider } from "components/data/AppProvider"
+
 function CheckoutApp(props: AppProps) {
   const { Component, pageProps } = props
-  return <Component {...pageProps} />
+
+  return pageProps.accessToken && pageProps.orderId ? (
+    <CommerceLayer
+      accessToken={pageProps.accessToken}
+      endpoint={pageProps.endpoint}
+    >
+      <OrderContainer orderId={pageProps.orderId}>
+        <AppProvider>
+          <Component {...pageProps} />
+        </AppProvider>
+      </OrderContainer>
+    </CommerceLayer>
+  ) : (
+    <Component {...pageProps} />
+  )
 }
 
 CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
