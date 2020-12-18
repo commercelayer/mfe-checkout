@@ -27,7 +27,7 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     appContext.ctx.res.writeHead(302, { Location: "/invalid" }).end()
   }
 
-  const checkoutContext: CheckoutContextProps = {
+  const checkoutContext: CheckoutPageContextProps = {
     orderId: data.orderId,
     accessToken: data.accessToken,
     companyName: data.companyName,

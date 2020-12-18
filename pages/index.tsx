@@ -9,7 +9,7 @@ import { StepShipping } from "components/composite/StepShipping"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Logo } from "components/ui/Logo"
 
-const Home: NextPage<CheckoutContextProps> = ({
+const Home: NextPage<CheckoutPageContextProps> = ({
   accessToken,
   endpoint,
   logoUrl,

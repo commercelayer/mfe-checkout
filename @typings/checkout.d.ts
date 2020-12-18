@@ -7,7 +7,7 @@ interface CheckoutSettings {
   companyName: string
 }
 
-type CheckoutContextProps = Pick<
+type CheckoutPageContextProps = Pick<
   CheckoutSettings,
   "accessToken" | "orderId" | "logoUrl" | "companyName" | "endpoint"
 >
