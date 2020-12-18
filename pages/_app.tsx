@@ -16,10 +16,16 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     },
     body: JSON.stringify(appContext.ctx.query),
   })
+  // console.log("data", res)
   const data = await res.json()
-
-  if (!data.validCheckout && appContext.ctx.res) {
-    return { redirectTo: "/invalid" }
+  console.log("data", data)
+  // console.log("ctx res", appContext.ctx.res)
+  if (
+    !data.validCheckout &&
+    appContext.ctx.res &&
+    appContext.ctx.pathname !== "/invalid"
+  ) {
+    appContext.ctx.res.writeHead(302, { Location: "/invalid" }).end()
   }
 
   return {

@@ -2,32 +2,35 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { accessToken } = req.body
+  const { accessToken, orderId } = req.body
 
-  if (!accessToken) {
+  if (!accessToken || !orderId) {
     res.statusCode = 200
     return res.json({ validCheckout: false })
   }
-  const checkToken = await fetch(
-    `https://${process.env.CLAYER_DOMAIN}.commercelayer.io/oauth/token`,
+
+  const order = await fetch(
+    `https://${process.env.CLAYER_DOMAIN}.commercelayer.io/api/orders/${orderId}`,
     {
-      method: "POST",
+      method: "GET",
       headers: {
-        Accept: "application/json",
+        Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        grant_type: "client_credentials",
-        client_id: process.env.CLAYER_CLIENT_ID,
-        scope: process.env.CLAYER_SCOPE,
-      }),
     }
   )
-  const json = await checkToken.json()
+
+  const json = await order.json()
+
+  if (!json.data?.id || json.data.attributes.status === "placed") {
+    res.statusCode = 200
+    return res.json({ validCheckout: false })
+  }
 
   res.statusCode = 200
-  res.json({
-    accessToken: json.access_token,
+  return res.json({
+    accessToken,
+    orderId: json.data.id,
     validCheckout: true,
     endpoint: "https://the-green-brand-120.commercelayer.io",
     logoUrl:
@@ -35,3 +38,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     companyName: "Test company",
   })
 }
+
+// const checkToken = await fetch(
+//   `https://${process.env.CLAYER_DOMAIN}.commercelayer.io/api/token`,
+//   {
+//     method: "POST",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       grant_type: "client_credentials",
+//       client_id: process.env.CLAYER_CLIENT_ID,
+//       scope: process.env.CLAYER_SCOPE,
+//     }),
+//   }
+// )
+// const json = await checkToken.json()

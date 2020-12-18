@@ -114,20 +114,4 @@ const Home: NextPage<Props> = ({
   )
 }
 
-// export async function getServerSideProps(context: NextPageContext) {
-//   const res = await fetch("http://localhost:3000/api/settings", {
-//     method: "POST",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(context.query),
-//   })
-//   const data = await res.json()
-
-//   return {
-//     props: { ...data }, // will be passed to the page component as props
-//   }
-// }
-
 export default Home
