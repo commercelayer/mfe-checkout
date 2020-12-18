@@ -3,7 +3,7 @@ import { NextPage } from "next"
 import "twin.macro"
 import Head from "next/head"
 
-import { OrderRecap } from "components/composite/OderRecap"
+import { OrderRecap } from "components/composite/OrderRecap"
 import { StepCustomer } from "components/composite/StepCustomer"
 import { StepShipping } from "components/composite/StepShipping"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
