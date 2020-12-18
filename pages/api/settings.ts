@@ -11,11 +11,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   CLayer.init({
-    accessToken,
+    accessToken: accessToken,
     endpoint: `https://${process.env.CLAYER_DOMAIN}.commercelayer.io`,
   })
 
-  const order = await Order.find(orderId)
+  let order
+
+  try {
+    order = await Order.find(orderId)
+  } catch (e) {
+    console.log(`error on retrieving order: ${e}`)
+  }
 
   if (!order?.id || order.status === "placed") {
     res.statusCode = 200
@@ -28,7 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     accessToken,
     orderId: order.id,
     validCheckout: true,
-    endpoint: "https://the-green-brand-120.commercelayer.io",
+    endpoint: `https://${process.env.CLAYER_DOMAIN}.commercelayer.io`,
     logoUrl:
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
     companyName: "Test company",
