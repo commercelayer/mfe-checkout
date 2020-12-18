@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import CLayer, { Order } from "@commercelayer/js-sdk"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,20 +10,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.json({ validCheckout: false })
   }
 
-  const order = await fetch(
-    `https://${process.env.CLAYER_DOMAIN}.commercelayer.io/api/orders/${orderId}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    }
-  )
+  CLayer.init({
+    accessToken,
+    endpoint: `https://${process.env.CLAYER_DOMAIN}.commercelayer.io`,
+  })
 
-  const json = await order.json()
+  const order = await Order.find(orderId)
 
-  if (!json.data?.id || json.data.attributes.status === "placed") {
+  if (!order?.id || order.status === "placed") {
     res.statusCode = 200
     return res.json({ validCheckout: false })
   }
@@ -30,7 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   res.statusCode = 200
   return res.json({
     accessToken,
-    orderId: json.data.id,
+    orderId: order.id,
     validCheckout: true,
     endpoint: "https://the-green-brand-120.commercelayer.io",
     logoUrl:
