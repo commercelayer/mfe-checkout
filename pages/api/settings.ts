@@ -23,7 +23,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   res.statusCode = 200
-  return res.json({
+
+  const appSettings: CheckoutSettings = {
     accessToken,
     orderId: order.id,
     validCheckout: true,
@@ -31,7 +32,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     logoUrl:
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
     companyName: "Test company",
-  })
+  }
+  return res.json(appSettings)
 }
 
 // const checkToken = await fetch(

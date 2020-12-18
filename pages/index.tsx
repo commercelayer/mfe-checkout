@@ -8,18 +8,13 @@ import { StepCustomer } from "components/composite/StepCustomer"
 import { StepShipping } from "components/composite/StepShipping"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Logo } from "components/ui/Logo"
-interface Props {
-  accessToken: string
-  endpoint: string
-  logoUrl: string
-  companyName: string
-}
 
-const Home: NextPage<Props> = ({
+const Home: NextPage<CheckoutContextProps> = ({
   accessToken,
   endpoint,
   logoUrl,
   companyName,
+  orderId,
 }) => {
   return (
     <div>
@@ -27,7 +22,7 @@ const Home: NextPage<Props> = ({
         <title>Commerce Layer - Hosted Checkout</title>
       </Head>
       <CommerceLayer accessToken={accessToken} endpoint={endpoint}>
-        <OrderContainer orderId="NZrQherdeL">
+        <OrderContainer orderId={orderId}>
           <LayoutDefault
             aside={
               <div>

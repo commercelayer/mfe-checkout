@@ -17,7 +17,7 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     body: JSON.stringify(appContext.ctx.query),
   })
 
-  const data = await res.json()
+  const data: CheckoutSettings = await res.json()
 
   if (
     !data.validCheckout &&
@@ -27,8 +27,16 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     appContext.ctx.res.writeHead(302, { Location: "/invalid" }).end()
   }
 
+  const checkoutContext: CheckoutContextProps = {
+    orderId: data.orderId,
+    accessToken: data.accessToken,
+    companyName: data.companyName,
+    logoUrl: data.logoUrl,
+    endpoint: data.endpoint,
+  }
+
   return {
-    pageProps: { ...data }, // will be passed to the page component as props
+    pageProps: { ...checkoutContext }, // will be passed to the page component as props
   }
 }
 
