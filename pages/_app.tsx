@@ -16,10 +16,9 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     },
     body: JSON.stringify(appContext.ctx.query),
   })
-  // console.log("data", res)
+
   const data = await res.json()
-  console.log("data", data)
-  // console.log("ctx res", appContext.ctx.res)
+
   if (
     !data.validCheckout &&
     appContext.ctx.res &&
