@@ -1,6 +1,4 @@
-import { stat } from "fs"
-
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import tw from "twin.macro"
 
 import { CheckmarkIcon } from "./CheckmarkIcon"
@@ -11,7 +9,6 @@ interface Props {
   info: string
   stepNumber?: number
   onEditRequest?: () => void
-  onAddRequest?: () => void
 }
 
 export const StepHeader: React.FC<Props> = ({
@@ -20,10 +17,9 @@ export const StepHeader: React.FC<Props> = ({
   info,
   stepNumber,
   onEditRequest,
-  onAddRequest,
 }) => {
   return (
-    <Wrapper>
+    <Wrapper disabled={status === "disabled"}>
       <Badge>{status === "done" ? <CheckmarkIcon /> : stepNumber}</Badge>
       <Body>
         <Top>
@@ -35,24 +31,23 @@ export const StepHeader: React.FC<Props> = ({
           ) : null}
         </Top>
         <Info>{info}</Info>
-
-        {status === "add" ? (
-          <div>
-            <button
-              tw="bg-blue-600 mt-2 text-white block px-3"
-              onClick={onAddRequest}
-            >
-              Add customer data
-            </button>
-          </div>
-        ) : null}
       </Body>
     </Wrapper>
   )
 }
 
-const Wrapper = styled.div`
+interface WrapperProps {
+  disabled?: boolean
+}
+
+const Wrapper = styled.div<WrapperProps>`
   ${tw`flex items-start px-4`}
+  ${({ disabled }) =>
+    disabled
+      ? css`
+          filter: saturate(0);
+        `
+      : null}
 `
 
 const Body = styled.div`
