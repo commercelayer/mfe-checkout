@@ -14,7 +14,10 @@ function CheckoutApp(props: AppProps) {
       endpoint={pageProps.endpoint}
     >
       <OrderContainer orderId={pageProps.orderId}>
-        <AppProvider>
+        <AppProvider
+          orderId={pageProps.orderId}
+          accessToken={pageProps.accessToken}
+        >
           <Component {...pageProps} />
         </AppProvider>
       </OrderContainer>

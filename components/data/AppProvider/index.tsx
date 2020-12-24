@@ -1,40 +1,69 @@
 import { createContext, useState, useEffect } from "react"
 
+import { fetchOrderById } from "./fetchOrderByOrder"
+
 interface AppProviderData {
-  hasCustomer: boolean
-  hasShipping: boolean
-  onCustomerUpdated: () => void
-  onShippingUpdated: () => void
+  hasBillingAddress: boolean
+  hasShippingAddress: boolean
+  hasShippingMethod: boolean
+  hasPaymentMethod: boolean
+  isLoading: boolean
+  refetchOrder: () => void
 }
 
 export const AppContext = createContext<AppProviderData | null>(null)
 
-export const AppProvider: React.FC = ({ children }) => {
-  const [hasCustomer, setHasCustomer] = useState(false)
-  const [hasShipping, setHasShipping] = useState(false)
+interface AppProviderProps {
+  orderId?: string
+  accessToken?: string
+}
+
+export const AppProvider: React.FC<AppProviderProps> = ({
+  children,
+  orderId,
+  accessToken,
+}) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const [hasBillingAddress, setHasBillingAddress] = useState(false)
+  const [hasShippingAddress, setHasShippingAddress] = useState(false)
+  const [hasShippingMethod, setHasShippingMethod] = useState(false)
+  const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
+
+  const fetchOrderHandle = (orderId?: string, accessToken?: string) => {
+    if (!orderId || !accessToken) {
+      return
+    }
+    setIsLoading(true)
+    fetchOrderById({ orderId, accessToken }).then(
+      ({
+        hasBillingAddress,
+        hasShippingAddress,
+        hasPaymentMethod,
+        hasShippingMethod,
+      }) => {
+        setHasBillingAddress(hasBillingAddress)
+        setHasShippingAddress(hasShippingAddress)
+        setHasShippingMethod(hasShippingMethod)
+        setHasPaymentMethod(hasPaymentMethod)
+        setIsLoading(false)
+      }
+    )
+  }
 
   useEffect(() => {
-    if (hasCustomer) {
-      console.log("customer updated!")
-    }
-  }, [hasCustomer])
-
-  useEffect(() => {
-    if (hasShipping) {
-      console.log("shipping updated!")
-    }
-  }, [hasShipping])
+    fetchOrderHandle(orderId, accessToken)
+  }, [orderId, accessToken])
 
   return (
     <AppContext.Provider
       value={{
-        hasCustomer,
-        hasShipping,
-        onCustomerUpdated: () => {
-          setHasCustomer(true)
-        },
-        onShippingUpdated: () => {
-          setHasShipping(true)
+        isLoading,
+        hasBillingAddress,
+        hasShippingAddress,
+        hasShippingMethod,
+        hasPaymentMethod,
+        refetchOrder: () => {
+          fetchOrderHandle(orderId, accessToken)
         },
       }}
     >
