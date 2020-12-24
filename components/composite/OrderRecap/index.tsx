@@ -13,7 +13,7 @@ import "twin.macro"
 export const OrderRecap: React.FC = () => {
   return (
     <LineItemsContainer>
-      <h4 tw="text-lg mb-5 font-bold">
+      <h4 tw="text-lg mb-5 font-bold" data-cy="test-summary">
         Your shopping cart contains <LineItemsCount /> items
       </h4>
       <LineItem>

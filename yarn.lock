@@ -250,6 +250,13 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@commercelayer/cypress-vcr@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/cypress-vcr/-/cypress-vcr-1.1.0.tgz#435583d5cd79c3375b49d441778aec399ffca44a"
+  integrity sha512-n6OpdsnBZUESsH5kmVrj1vTzFunCYInA0xRxRLM/RUK9NdY4ncuWryJGTeABZDWdPmApgLsmPQ5yeY4NxiuLbw==
+  dependencies:
+    lodash "^4.17.20"
+
 "@commercelayer/js-sdk@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.0.2.tgz#ce34dfff82d92b5576caf5328b44b9a5da45c9ea"

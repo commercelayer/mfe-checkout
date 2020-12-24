@@ -12,13 +12,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   CLayer.init({
     accessToken: accessToken,
-    endpoint: `${process.env.CLAYER_DOMAIN}`,
+    endpoint: process.env.CLAYER_DOMAIN,
   })
 
   let order
 
   try {
-    order = await Order.find(orderId)
+    order = await Order.includes(
+      "shippingAddress",
+      "billingAddress",
+      "shipments"
+    ).find(orderId)
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
   }
@@ -28,13 +32,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.json({ validCheckout: false })
   }
 
+  // console.log("shipping", order.shippingAddress()?.line1)
+  // console.log("billing", (await order.billingAddress()).line1)
+  // console.log("shipments", order.shipments())
+
   res.statusCode = 200
 
   const appSettings: CheckoutSettings = {
     accessToken,
     orderId: order.id,
     validCheckout: true,
-    endpoint: `${process.env.CLAYER_DOMAIN}`,
+    endpoint: process.env.CLAYER_DOMAIN,
     logoUrl:
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
     companyName: "Test company",

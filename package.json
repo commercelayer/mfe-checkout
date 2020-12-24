@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint ./ --ext .tsx,.ts",
-    "lint:fix": "eslint ./ --ext .tsx,.ts --fix"
+    "lint:fix": "eslint ./ --ext .tsx,.ts --fix",
+    "test": "cypress open"
   },
   "dependencies": {
     "@commercelayer/js-sdk": "^3.0.3",
@@ -19,6 +20,7 @@
     "twin.macro": "^2.0.7"
   },
   "devDependencies": {
+    "@commercelayer/cypress-vcr": "^1.1.0",
     "@types/node": "^14.14.10",
     "@types/react": "^17.0.0",
     "@types/styled-components": "^5.1.5",

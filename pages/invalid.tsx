@@ -17,9 +17,10 @@ const Invalid: NextPage = () => {
             companyName="Test company"
             tw="pt-10 mb-10 pl-4"
           />
-
           <Card>
-            <p tw="py-5 h-44 text-center">This checkout is not valid</p>
+            <p data-cy="invalid-checkout" tw="py-5 h-44 text-center">
+              This checkout is not valid
+            </p>
           </Card>
         </Wrapper>
       </Container>
