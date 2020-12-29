@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react"
 
-import { fetchOrderById } from "./fetchOrderByOrder"
+import { fetchOrderById } from "./fetchOrderById"
 
 interface AppProviderData {
   hasBillingAddress: boolean
