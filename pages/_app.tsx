@@ -5,6 +5,13 @@ import { AppContextType } from "next/dist/next-server/lib/utils"
 
 import { AppProvider } from "components/data/AppProvider"
 
+if (
+  process.env.NEXT_PUBLIC_API_MOCKING === "enabled" &&
+  process.env.CYPRESS_RECORD === "false"
+) {
+  require("../mocks")
+}
+
 function CheckoutApp(props: AppProps) {
   const { Component, pageProps } = props
 
