@@ -5,21 +5,30 @@ describe("Checkout entrypoint", () => {
   context("missing accessToken and orderId", () => {
     it("redirect to invalid", () => {
       cy.visit("/")
-      cy.dataCy("invalid-checkout").should("have.text", "Checkout is not valid")
+      cy.dataCy("invalid-checkout").should(
+        "have.text",
+        "This checkout is not valid"
+      )
     })
   })
 
   context("missing orderId", () => {
     it("redirect to invalid", () => {
       cy.visit("/?accessToken=123123")
-      cy.dataCy("invalid-checkout").should("have.text", "Checkout is not valid")
+      cy.dataCy("invalid-checkout").should(
+        "have.text",
+        "This checkout is not valid"
+      )
     })
   })
 
   context("missing accessToken", () => {
     it("redirect to invalid", () => {
       cy.visit("/?orderId=123123")
-      cy.dataCy("invalid-checkout").should("have.text", "Checkout is not valid")
+      cy.dataCy("invalid-checkout").should(
+        "have.text",
+        "This checkout is not valid"
+      )
     })
   })
 
@@ -33,7 +42,10 @@ describe("Checkout entrypoint", () => {
     })
 
     it("redirect to invalid", () => {
-      cy.dataCy("invalid-checkout").should("have.text", "Checkout is not valid")
+      cy.dataCy("invalid-checkout").should(
+        "have.text",
+        "This checkout is not valid"
+      )
     })
   })
 
