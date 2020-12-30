@@ -8,7 +8,7 @@ import {
   LineItemsCount,
 } from "@commercelayer/react-components"
 
-import { useTranslation } from "../../../i18n"
+import { useTranslation } from "components/data/i18n"
 
 import "twin.macro"
 
@@ -17,13 +17,13 @@ export const OrderRecap: React.FC = () => {
 
   return (
     <LineItemsContainer>
-      <LineItemsCount>
-        {(props) => (
-          <h4 tw="text-lg mb-5 font-bold" data-cy="test-summary">
-            {t("orderRecap.cartContains", { value: props.quantity })}
-          </h4>
-        )}
-      </LineItemsCount>
+      <h4 tw="text-lg mb-5 font-bold" data-cy="test-summary">
+        <LineItemsCount>
+          {(props: { quantity: number }) =>
+            t("orderRecap.cartContains", { count: props.quantity })
+          }
+        </LineItemsCount>
+      </h4>
       <LineItem>
         <div tw="flex flex-row mb-4">
           <LineItemImage width={50} />
@@ -33,7 +33,8 @@ export const OrderRecap: React.FC = () => {
               <LineItemQuantity>
                 {(props) => (
                   <p tw="text-gray-400">
-                    {t("orderRecap.quantity", { value: props.quantity })}
+                    {!!props.quantity &&
+                      t("orderRecap.quantity", { count: props.quantity })}
                   </p>
                 )}
               </LineItemQuantity>
