@@ -1,0 +1,36 @@
+{
+
+    "general": {
+        "title": "Commerce Layer - Hosted Checkout (EN)",
+        "yes": "Yes",
+        "no": "No",
+        "cancel": "Cancel",
+        "systemError": "We're sorry but something went wrong!",
+        "save": "Save",
+        "edit": "Edit",
+        "delete": "Delete",
+        "done": "Done"
+    },
+
+    "stepCustomer": {
+        "customer": "Customer",
+        "bill": "Billing information and shipping address",
+        "setBillAddressAndShipping": "Hello, you have both shipping and billing address set",
+        "settedOnlyShippingAddress": "Hello, you have only shipping address set",
+        "settedOnlyBillingAddress": "Hello, you have only billing address set",
+        "noBillingOrShippingAddress": "No Billing / Shipping Address set"
+    },
+
+    "orderRecap": {
+        "cartContains": "Your shopping cart contains {{value}} items",
+        "quantity": "Quantity: {{value}}"
+    },
+
+    "stepShipping": {
+        "delivery": "Delivery",
+        "summary": "Shipment summary and delivery methods",
+        "shippingMethod": "You have a shipping method set",
+        "addShippingMethod": "Add customer data before shipping" 
+    }
+
+}
