@@ -5,12 +5,16 @@ import { AppContext } from "components/data/AppProvider"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 
+import { useTranslation } from "../../../i18n"
+
 interface Props {
   className?: string
 }
 
 export const StepShipping: React.FC<Props> = ({ className }) => {
   const appCtx = useContext(AppContext)
+  const { t } = useTranslation()
+
   if (!appCtx || !appCtx.hasShippingAddress) {
     return null
   }
@@ -22,14 +26,14 @@ export const StepShipping: React.FC<Props> = ({ className }) => {
       <StepHeader
         stepNumber={2}
         status={hasShippingMethod ? "done" : "add"}
-        label="Delivery"
-        info="Shipment summary and delivery methods"
+        label={t("stepShipping.delivery")}
+        info={t("stepShipping.summary")}
       />
       <StepContent>
         {hasShippingMethod ? (
-          <div>You have a shipping method set</div>
+          <div>{t("stepShipping.shippingMethod")}</div>
         ) : (
-          <div>Add customer data before shipping</div>
+          <div>{t("stepShipping.addShippingMethod")}</div>
         )}
       </StepContent>
     </div>

@@ -11,14 +11,17 @@ import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
+import { useTranslation } from "../i18n"
+
 const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
   const ctx = useContext(AppContext)
   const isLoading = !ctx || (ctx && ctx.isLoading)
+  const { t } = useTranslation()
 
   return (
     <div>
       <Head>
-        <title>Commerce Layer - Hosted Checkout</title>
+        <title>{t("general.title")}</title>
       </Head>
       {isLoading && <SpinnerLoader />}
       <LayoutDefault
