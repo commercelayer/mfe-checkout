@@ -19,9 +19,7 @@ export const OrderRecap: React.FC = () => {
     <LineItemsContainer>
       <h4 tw="text-lg mb-5 font-bold" data-cy="test-summary">
         <LineItemsCount>
-          {(props: { quantity: number }) =>
-            t("orderRecap.cartContains", { count: props.quantity })
-          }
+          {(props) => t("orderRecap.cartContains", { count: props.quantity })}
         </LineItemsCount>
       </h4>
       <LineItem>
