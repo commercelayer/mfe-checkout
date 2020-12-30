@@ -2,9 +2,6 @@ import { rest } from "msw"
 
 export const handlers = [
   rest.post("http://localhost:3000/api/settings", (req, res, ctx) => {
-    console.log("mock server msw")
-    console.log("body", req.body)
-    console.log("req", req.url)
     if (!req.body.orderId || req.body.orderId === "wrongOrderId") {
       return res(ctx.json({ validCheckout: false }))
     }
