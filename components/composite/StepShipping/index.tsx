@@ -2,10 +2,9 @@ import { useContext } from "react"
 
 import "twin.macro"
 import { AppContext } from "components/data/AppProvider"
+import { useTranslation } from "components/data/i18n"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-
-import { useTranslation } from "../../../i18n"
 
 interface Props {
   className?: string

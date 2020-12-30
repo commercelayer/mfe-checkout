@@ -7,11 +7,10 @@ import { OrderRecap } from "components/composite/OrderRecap"
 import { StepCustomer } from "components/composite/StepCustomer"
 import { StepShipping } from "components/composite/StepShipping"
 import { AppContext } from "components/data/AppProvider"
+import { useTranslation } from "components/data/i18n"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
-
-import { useTranslation } from "../i18n"
 
 const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
   const ctx = useContext(AppContext)

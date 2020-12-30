@@ -4,8 +4,7 @@ import type { AppProps } from "next/app"
 import { AppContextType } from "next/dist/next-server/lib/utils"
 
 import { AppProvider } from "components/data/AppProvider"
-
-import { appWithTranslation } from "../i18n"
+import { appWithTranslation } from "components/data/i18n"
 
 if (
   process.env.NEXT_PUBLIC_API_MOCKING === "enabled" &&
