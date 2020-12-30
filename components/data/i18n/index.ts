@@ -10,6 +10,7 @@ const NextI18NextIntance = new NextI18Next({
   defaultNS: "common",
   fallbackLng: defaultLanguage,
   localePath: "public/static/locales",
+  strictMode: false,
 })
 
 export const { appWithTranslation, useTranslation } = NextI18NextIntance
