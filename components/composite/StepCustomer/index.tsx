@@ -2,6 +2,7 @@ import { useContext } from "react"
 
 import "twin.macro"
 import { AppContext } from "components/data/AppProvider"
+import { useTranslation } from "components/data/i18n"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 
@@ -11,6 +12,7 @@ interface Props {
 
 export const StepCustomer: React.FC<Props> = ({ className }) => {
   const appCtx = useContext(AppContext)
+  const { t } = useTranslation()
 
   if (!appCtx) {
     return null
@@ -22,18 +24,18 @@ export const StepCustomer: React.FC<Props> = ({ className }) => {
       <StepHeader
         stepNumber={1}
         status={hasShippingAddress ? "done" : "add"}
-        label="Customer"
-        info="Billing information and shipping address"
+        label={t("stepCustomer.customer")}
+        info={t("stepCustomer.bill")}
       />
       <StepContent>
         {hasShippingAddress && hasBillingAddress ? (
-          <div>Hello, you have both shipping and billing address set</div>
+          <div>{t("stepCustomer.setBillAddressAndShipping")}</div>
         ) : hasShippingAddress ? (
-          <div>Hello, you have only shipping address set</div>
+          <div>{t("stepCustomer.setOnlyAddressShipping")}</div>
         ) : hasBillingAddress ? (
-          <div>Hello, you have only billing address set</div>
+          <div>{t("stepCustomer.settedOnlyBillingAddress")}</div>
         ) : (
-          <div>No Billing / Shipping Address set</div>
+          <div>{t("stepCustomer.noBillingOrShippingAddress")}</div>
         )}
       </StepContent>
     </div>

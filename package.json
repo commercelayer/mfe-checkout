@@ -14,6 +14,7 @@
     "@commercelayer/js-sdk": "^3.0.3",
     "@commercelayer/react-components": "^1.7.0",
     "next": "10.0.3",
+    "next-i18next": "^7.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "styled-components": "^5.2.1",
