@@ -5,6 +5,8 @@ import { AppContextType } from "next/dist/next-server/lib/utils"
 
 import { AppProvider } from "components/data/AppProvider"
 
+import { appWithTranslation } from "../i18n"
+
 if (
   process.env.NEXT_PUBLIC_API_MOCKING === "enabled" &&
   process.env.CYPRESS_RECORD === "false"
@@ -67,4 +69,4 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
   }
 }
 
-export default CheckoutApp
+export default appWithTranslation(CheckoutApp)
