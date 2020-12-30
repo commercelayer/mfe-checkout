@@ -67,7 +67,7 @@ describe("Checkout entrypoint", () => {
 
     it("redirect to valid checkout", () => {
       if (!Cypress.env("record")) {
-        cy.newStubData("getOrders1")
+        cy.newStubData("getOrders1", filename)
       }
 
       cy.wait(["@getOrders", "@retrieveLineItems"])
