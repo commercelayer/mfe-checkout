@@ -1,6 +1,3 @@
-/// <reference types="cypress" />
-/// <reference path="../support/index.d.ts" />
-
 describe("Checkout entrypoint", () => {
   context("missing accessToken and orderId", () => {
     it("redirect to invalid", () => {
