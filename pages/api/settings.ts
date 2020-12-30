@@ -18,11 +18,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let order
 
   try {
-    order = await Order.includes(
-      "shippingAddress",
-      "billingAddress",
-      "shipments"
-    ).find(orderId)
+    const orderFetched = await Order.select("id", "status", "guest").find(
+      orderId
+    )
+    order = await orderFetched?.update({ _refresh: true })
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
   }
@@ -31,10 +30,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.statusCode = 200
     return res.json({ validCheckout: false })
   }
-
-  // console.log("shipping", order.shippingAddress()?.line1)
-  // console.log("billing", (await order.billingAddress()).line1)
-  // console.log("shipments", order.shipments())
 
   res.statusCode = 200
 
