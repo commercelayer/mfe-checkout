@@ -22,8 +22,10 @@
     },
 
     "orderRecap": {
-        "cartContains": "Your shopping cart contains {{value}} items",
-        "quantity": "Quantity: {{value}}"
+        "cartContains": "Your shopping cart contains {{count}} item",
+        "cartContains_plural": "Your shopping cart contains {{count}} items",
+        "quantity": "Quantity: {{count}}",
+        "quantity_plural": "Quantities: {{count}}"
     },
 
     "stepShipping": {
