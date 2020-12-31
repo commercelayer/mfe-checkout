@@ -257,14 +257,6 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-sdk@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.0.2.tgz#ce34dfff82d92b5576caf5328b44b9a5da45c9ea"
-  integrity sha512-ButLrYLQ7689D9a6TCi7gbfeIP69B2dzKEBIRd+0tvyPrLtOK/hmGerimg8n//O01ArxHhCb7tXyxRisz5oeaA==
-  dependencies:
-    active-resource "^1.0.0-beta.7"
-    lodash "^4.17.20"
-
 "@commercelayer/js-sdk@^3.0.3":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.0.3.tgz#78dfb80cdebbacc7ce2d5816dd30165b9c024f2f"
@@ -273,13 +265,14 @@
     active-resource "^1.0.0-beta.7"
     lodash "^4.17.20"
 
-"@commercelayer/react-components@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-1.7.0.tgz#a0c8ad5c01cde30cbd0425a8e75c7e7588c1a973"
-  integrity sha512-2sz1Uhbg2Or3w/9XP5X1fY6SslbjreI/uPVs/AhVm30a0pYefrJauhihLMai5nRimxeYnBGnwZMtE/fSs71oGQ==
+"@commercelayer/react-components@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.1.3.tgz#858b72c9b5054789f7f52b5c0211040bad4f0310"
+  integrity sha512-QLWZx7Ufhj4w1m7cA7jjqVdXXyCikQyV2fSDyyBYdOs4Qdsaexve8RKWreaSib+t6r8ZOIGxVGqK+DBvp/Q1Qg==
   dependencies:
-    "@commercelayer/js-sdk" "^3.0.2"
+    "@commercelayer/js-sdk" "^3.0.3"
     lodash "^4.17.20"
+    rapid-form "^1.4.1"
 
 "@cypress/listr-verbose-renderer@^0.4.1":
   version "0.4.1"
@@ -6131,6 +6124,11 @@ randomfill@^1.0.3:
   dependencies:
     randombytes "^2.0.5"
     safe-buffer "^5.1.0"
+
+rapid-form@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/rapid-form/-/rapid-form-1.4.1.tgz#46fe067fd78faef6039b5ab7ab738e456995c0f7"
+  integrity sha512-T2IlJxYNFb5IfskRMPJS019YJKdReW9WcirxyC040EOIlr9bGpU9Yxm9MyTrpyNi2HO/ueo1RsebgRPpTHzxew==
 
 raw-body@2.4.1:
   version "2.4.1"
