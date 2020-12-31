@@ -14,11 +14,7 @@
 
     "stepCustomer": {
         "customer": "Customer",
-        "bill": "Billing information and shipping address",
-        "setBillAddressAndShipping": "Hello, you have both shipping and billing address set",
-        "settedOnlyShippingAddress": "Hello, you have only shipping address set",
-        "settedOnlyBillingAddress": "Hello, you have only billing address set",
-        "noBillingOrShippingAddress": "No Billing / Shipping Address set"
+        "bill": "Billing information and shipping address"
     },
 
     "orderRecap": {
@@ -33,6 +29,28 @@
         "summary": "Shipment summary and delivery methods",
         "shippingMethod": "You have a shipping method set",
         "addShippingMethod": "Add customer data before shipping" 
+    },
+
+    "addressForm" : {
+        "billing_address_title": "Billing Address",
+        "billing_address_first_name": "First name",
+        "billing_address_last_name": "Last name",
+        "billing_address_line_1": "Address",
+        "billing_address_city": "City",
+        "billing_address_country_code": "Country",
+        "billing_address_state_code": "State",
+        "billing_address_zip_code": "Zip Code",
+        "billing_address_phone": "Phone",
+        "ship_to_different_address": "Ship to different address",
+        "shipping_address_title": "Shipping Address",
+        "shipping_address_first_name": "First name",
+        "shipping_address_last_name": "Last name",
+        "shipping_address_line_1": "Address",
+        "shipping_address_city": "City",
+        "shipping_address_country_code": "Country",
+        "shipping_address_state_code": "State",
+        "shipping_address_zip_code": "Zip Code",
+        "shipping_address_phone": "Phone"
     }
 
 }

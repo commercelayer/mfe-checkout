@@ -14,11 +14,7 @@
 
     "stepCustomer": {
         "customer": "Cliente",
-        "bill": "Informazioni di fatturazione e indirizzo di spedizione",
-        "setBillAddressAndShipping": "Ciao, hai impostato sia l'indirizzo di spedizione che di fatturazione",
-        "setOnlyAddressShipping": "Ciao, hai impostato solo l'indirizzo di spedizione",
-        "settedOnlyBillingAddress": "Ciao, hai impostato solo l'indirizzo di fatturazione",
-        "noBillingOrShippingAddress": "Nessun indirizzo di fatturazione / spedizione impostato"
+        "bill": "Informazioni di fatturazione e indirizzo di spedizione"
     },
 
     "orderRecap": {
@@ -33,6 +29,28 @@
         "summary": "Riepilogo della spedizione e modalità di consegna",
         "shippingMethod": "Hai impostato un metodo di spedizione",
         "addShippingMethod": "Aggiungi i dati del cliente prima della spedizione"        
+    },
+
+    "addressForm" : {
+        "billing_address_title": "Indirizzo di fatturazione",
+        "billing_address_first_name": "Nome",
+        "billing_address_last_name": "Cognome",
+        "billing_address_line_1": "Indirizzo",
+        "billing_address_city": "Città",
+        "billing_address_country_code": "Paese",
+        "billing_address_state_code": "State",
+        "billing_address_zip_code": "CAP",
+        "billing_address_phone": "Telefono",
+        "ship_to_different_address": "Spedisci ad un altro indirizzo",
+        "shipping_address_title": "Indirizzo di spedizione",
+        "shipping_address_first_name": "Nome",
+        "shipping_address_last_name": "Cognome",
+        "shipping_address_line_1": "Indirizzo",
+        "shipping_address_city": "Città",
+        "shipping_address_country_code": "Paese",
+        "shipping_address_state_code": "State",
+        "shipping_address_zip_code": "CAP",
+        "shipping_address_phone": "Telefono"
     }
 
 }
