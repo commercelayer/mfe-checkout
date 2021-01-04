@@ -1,7 +1,7 @@
 describe("Checkout language", () => {
-  const filename = "language"
-
   context("validate english order", () => {
+    const filename = "language/en"
+
     beforeEach(() => {
       cy.setRoutes({
         endpoint: Cypress.env("apiEndpoint"),
@@ -23,11 +23,14 @@ describe("Checkout language", () => {
           `/?accessToken=${Cypress.env("accessToken")}&orderId=${order.id}`
         )
       })
+      cy.wait(["@getOrders", "@retrieveLineItems"])
       cy.dataCy("step-header-customer").should("have.text", "Customer")
     })
   })
 
   context("validate italian order", () => {
+    const filename = "language/it"
+
     beforeEach(() => {
       cy.setRoutes({
         endpoint: Cypress.env("apiEndpoint"),
@@ -49,6 +52,7 @@ describe("Checkout language", () => {
           `/?accessToken=${Cypress.env("accessToken")}&orderId=${order.id}`
         )
       })
+      cy.wait(["@getOrders", "@retrieveLineItems"])
       cy.dataCy("step-header-customer").should("have.text", "Cliente")
     })
   })
