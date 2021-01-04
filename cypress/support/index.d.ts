@@ -13,6 +13,8 @@ declare global {
       newStubData: NewStubData
       saveRequests: SaveRequests
       dataCy(attribute: string): Chainable<Subject>
+      // typescript OrderCollection
+      createOrder(options: { languageCode: "it" | "en" }): Chainable<Subject>
     }
   }
 }
