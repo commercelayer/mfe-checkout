@@ -1,6 +1,7 @@
 describe("Checkout language", () => {
+  const filename = "language"
+
   context("validate english order", () => {
-    const filename = "language/en"
     beforeEach(() => {
       cy.setRoutes({
         endpoint: Cypress.env("apiEndpoint"),
@@ -27,7 +28,6 @@ describe("Checkout language", () => {
   })
 
   context("validate italian order", () => {
-    const filename = "language/it"
     beforeEach(() => {
       cy.setRoutes({
         endpoint: Cypress.env("apiEndpoint"),
