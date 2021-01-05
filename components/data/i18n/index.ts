@@ -13,10 +13,10 @@ const NextI18NextInstance = new NextI18Next({
   strictMode: false,
 })
 
-export const { appWithTranslation, useTranslation, i18n } = NextI18NextInstance
+export const { appWithTranslation, useTranslation } = NextI18NextInstance
 
 export function changeLanguage(languageCode: string) {
-  return i18n.changeLanguage(
+  return NextI18NextInstance.i18n.changeLanguage(
     allLanguages.includes(languageCode) ? languageCode : defaultLanguage
   )
 }
