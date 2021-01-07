@@ -8,6 +8,7 @@ interface FetchOrderByIdProps {
 }
 
 interface FetchOrderByIdResponse {
+  hasEmailAddress: boolean
   hasShippingAddress: boolean
   hasBillingAddress: boolean
   hasShippingMethod: boolean
@@ -33,12 +34,14 @@ export const fetchOrderById = async ({
 
     changeLanguage(order.languageCode)
 
+    const hasEmailAddress = Boolean(order.customerEmail)
     const hasShippingAddress = Boolean(order.shippingAddress())
     const hasBillingAddress = Boolean(await order.billingAddress())
     const hasShippingMethod = Boolean(order.shipments())
     const hasPaymentMethod = Boolean(await order.paymentMethod())
 
     return {
+      hasEmailAddress,
       hasShippingAddress,
       hasBillingAddress,
       hasShippingMethod,
@@ -47,6 +50,7 @@ export const fetchOrderById = async ({
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
     return {
+      hasEmailAddress: false,
       hasShippingAddress: false,
       hasBillingAddress: false,
       hasShippingMethod: false,
