@@ -4,20 +4,22 @@ const defaultLanguage = "en"
 const otherLanguages = ["it"]
 const allLanguages = [defaultLanguage, ...otherLanguages]
 
-const NextI18NextIntance = new NextI18Next({
+const NextI18NextInstance = new NextI18Next({
   defaultLanguage: defaultLanguage,
   otherLanguages: otherLanguages,
   defaultNS: "common",
-  fallbackLng: defaultLanguage,
+  fallbackLng: allLanguages,
   localePath: "public/static/locales",
   strictMode: false,
+  debug: true,
 })
 
-export const { appWithTranslation, useTranslation } = NextI18NextIntance
+export const { appWithTranslation, useTranslation } = NextI18NextInstance
 
 export function changeLanguage(languageCode: string) {
-  if (allLanguages.includes(languageCode)) return languageCode
-  return defaultLanguage
+  return NextI18NextInstance.i18n.changeLanguage(
+    allLanguages.includes(languageCode) ? languageCode : defaultLanguage
+  )
 }
 
-export default NextI18NextIntance
+export default NextI18NextInstance
