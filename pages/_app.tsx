@@ -2,9 +2,10 @@ import "../styles/globals.css"
 import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import type { AppProps } from "next/app"
 import { AppContextType } from "next/dist/next-server/lib/utils"
+import { useEffect } from "react"
 
 import { AppProvider } from "components/data/AppProvider"
-import { appWithTranslation } from "components/data/i18n"
+import { appWithTranslation, changeLanguage } from "components/data/i18n"
 
 if (
   process.env.NEXT_PUBLIC_API_MOCKING === "enabled" &&
@@ -15,6 +16,11 @@ if (
 
 function CheckoutApp(props: AppProps) {
   const { Component, pageProps } = props
+
+  useEffect(() => {
+    // Set Language at start
+    changeLanguage(pageProps.language)
+  }, [])
 
   return pageProps.accessToken && pageProps.orderId ? (
     <CommerceLayer
@@ -60,6 +66,7 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     accessToken: data.accessToken,
     companyName: data.companyName,
     logoUrl: data.logoUrl,
+    language: data.language,
     endpoint: data.endpoint,
   }
 
