@@ -23,7 +23,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   orderId,
   accessToken,
 }) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [hasBillingAddress, setHasBillingAddress] = useState(false)
   const [hasShippingAddress, setHasShippingAddress] = useState(false)
   const [hasShippingMethod, setHasShippingMethod] = useState(false)

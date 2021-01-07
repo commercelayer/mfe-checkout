@@ -17,6 +17,10 @@ const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
   const isLoading = !ctx || (ctx && ctx.isLoading)
   const { t } = useTranslation()
 
+  if (isLoading) {
+    return null
+  }
+
   return (
     <div>
       <Head>
