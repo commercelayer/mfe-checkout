@@ -21,7 +21,9 @@
         "cartContains": "Il tuo carrello contiene {{count}} articolo",
         "cartContains_plural": "Il tuo carrello contiene {{count}} articoli",
         "quantity": "Quantità: {{count}}",
-        "quantity_plural": "Quantità: {{count}}"
+        "quantity_plural": "Quantità:",
+        "tax_amount": "Tasse:",
+        "total_amount": "Totale:"
     },
 
     "stepShipping": {

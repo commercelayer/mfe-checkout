@@ -4,6 +4,7 @@ import Head from "next/head"
 import { useContext, useState, useEffect } from "react"
 
 import { OrderRecap } from "components/composite/OrderRecap"
+import { OrderTotalAmount } from "components/composite/OrderTotalAmount"
 import { StepCustomer } from "components/composite/StepCustomer"
 import { StepNav } from "components/composite/StepNav"
 import { StepShipping } from "components/composite/StepShipping"
@@ -65,6 +66,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
           <div>
             <Logo logoUrl={logoUrl} companyName={companyName} />
             <OrderRecap />
+            <OrderTotalAmount />
             <button
               tw="bg-blue-600 mt-2 text-white block px-3 rounded mt-10"
               onClick={() => {

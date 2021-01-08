@@ -25,7 +25,7 @@ export const OrderRecap: React.FC = () => {
       <LineItem>
         <div tw="flex flex-row mb-4">
           <LineItemImage width={50} />
-          <div tw="pl-4">
+          <div tw="pl-4 flex-col flex-1">
             <LineItemName />
             <div tw="flex flex-row justify-between">
               <LineItemQuantity>
@@ -42,6 +42,7 @@ export const OrderRecap: React.FC = () => {
             </div>
           </div>
         </div>
+        <hr tw="pb-3" />
       </LineItem>
     </LineItemsContainer>
   )
