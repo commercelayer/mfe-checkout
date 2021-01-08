@@ -14,7 +14,7 @@ import { useTranslation } from "components/data/i18n"
 
 import "twin.macro"
 
-export const OrderRecap: React.FC = () => {
+export const OrderSummary: React.FC = () => {
   const { t } = useTranslation()
 
   return (

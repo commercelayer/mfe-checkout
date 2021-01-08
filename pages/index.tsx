@@ -3,7 +3,7 @@ import "twin.macro"
 import Head from "next/head"
 import { useContext, useState, useEffect } from "react"
 
-import { OrderRecap } from "components/composite/OrderRecap"
+import { OrderSummary } from "components/composite/OrderSummary"
 import { StepCustomer } from "components/composite/StepCustomer"
 import { StepNav } from "components/composite/StepNav"
 import { StepShipping } from "components/composite/StepShipping"
@@ -64,7 +64,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
         aside={
           <div>
             <Logo logoUrl={logoUrl} companyName={companyName} />
-            <OrderRecap />
+            <OrderSummary />
             <button
               tw="bg-blue-600 mt-2 text-white block px-3 rounded mt-10"
               onClick={() => {
