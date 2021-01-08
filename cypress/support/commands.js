@@ -25,7 +25,24 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 import '@commercelayer/cypress-vcr'
+import { apiRequestHeaders } from "./utils"
 
 Cypress.Commands.add('dataCy', (value) => {
   return cy.get(`[data-cy=${value}]`)
+})
+
+Cypress.Commands.add('createOrder', options => {
+  cy.request({
+    url: Cypress.env('apiEndpoint') + '/api/orders',
+    method: 'POST',
+    body: {
+      data: {
+        type: 'orders',
+        attributes: {
+          language_code: options.languageCode,
+        }
+      }
+    },
+    headers: apiRequestHeaders(Cypress.env('accessToken'))
+  }).its('body.data')
 })

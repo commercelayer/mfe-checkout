@@ -1,7 +1,5 @@
 import CLayer, { Order } from "@commercelayer/js-sdk"
 
-import { changeLanguage } from "components/data/i18n"
-
 interface FetchOrderByIdProps {
   orderId: string
   accessToken: string
@@ -31,8 +29,6 @@ export const fetchOrderById = async ({
       "shipments",
       "payment_method"
     ).find(orderId)
-
-    changeLanguage(order.languageCode)
 
     const hasEmailAddress = Boolean(order.customerEmail)
     const hasShippingAddress = Boolean(order.shippingAddress())

@@ -23,7 +23,7 @@ export const StepHeader: React.FC<Props> = ({
       <Badge>{status === "done" ? <CheckmarkIcon /> : stepNumber}</Badge>
       <Body>
         <Top>
-          <Title>{label}</Title>
+          <Title data-cy="step-header-customer">{label}</Title>
           {status === "done" ? (
             <Edit>
               &mdash; <EditButton onClick={onEditRequest}>Edit</EditButton>
