@@ -18,9 +18,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let order
 
   try {
-    const orderFetched = await Order.select("id", "status", "guest").find(
-      orderId
-    )
+    const orderFetched = await Order.select(
+      "id",
+      "status",
+      "guest",
+      "language_code"
+    ).find(orderId)
     order = await orderFetched?.update({ _refresh: true })
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
@@ -41,6 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     logoUrl:
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
     companyName: "Test company",
+    language: order.languageCode,
   }
   return res.json(appSettings)
 }

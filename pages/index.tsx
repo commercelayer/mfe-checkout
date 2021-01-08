@@ -50,7 +50,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
     }
   }, [ctx])
 
-  if (!ctx) {
+  if (!ctx || isLoading) {
     return null
   }
 
