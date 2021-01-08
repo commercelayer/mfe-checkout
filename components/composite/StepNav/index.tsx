@@ -6,21 +6,20 @@ interface Props {
   steps: string[]
   onStepChange: (stepIndex: number) => void
   activeStep: number
-  lastCompleted: number
+  lastActivable: number
 }
 
 export const StepNav: React.FC<Props> = ({
   steps,
   onStepChange,
   activeStep,
-  lastCompleted,
+  lastActivable,
 }) => {
-  console.log({ activeStep })
   return (
-    <div tw="flex flex-row">
+    <div tw="flex flex-row mb-4">
       {(steps || []).map((step, index) => {
         const isActive = index === activeStep
-        const isDisabled = index > lastCompleted
+        const isDisabled = index > lastActivable
         return (
           <Fragment key={index}>
             {index > 0 ? <div> / </div> : null}

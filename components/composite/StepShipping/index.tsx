@@ -8,9 +8,15 @@ import { StepHeader } from "components/ui/StepHeader"
 
 interface Props {
   className?: string
+  isActive?: boolean
+  onToggleActive: () => void
 }
 
-export const StepShipping: React.FC<Props> = ({ className }) => {
+export const StepShipping: React.FC<Props> = ({
+  className,
+  isActive,
+  onToggleActive,
+}) => {
   const appCtx = useContext(AppContext)
   const { t } = useTranslation()
 
@@ -24,15 +30,33 @@ export const StepShipping: React.FC<Props> = ({ className }) => {
     <div className={className}>
       <StepHeader
         stepNumber={2}
-        status={hasShippingMethod ? "done" : "add"}
+        status={isActive ? "edit" : "done"}
         label={t("stepShipping.delivery")}
-        info={t("stepShipping.summary")}
+        info={
+          isActive
+            ? t("stepShipping.summary")
+            : "Metodo di spedizione selezionato"
+        }
+        onEditRequest={() => {
+          onToggleActive()
+        }}
       />
       <StepContent>
-        {hasShippingMethod ? (
-          <div>{t("stepShipping.shippingMethod")}</div>
+        {isActive ? (
+          <div>
+            {/* {t("stepShipping.addShippingMethod")} */}
+            <div tw="p-3">
+              <div>Corriere Espresso</div>
+              <div>Spedizione Area</div>
+            </div>
+          </div>
+        ) : hasShippingMethod ? (
+          <div>
+            {/* {t("stepShipping.shippingMethod")} */}
+            Corriere espresso
+          </div>
         ) : (
-          <div>{t("stepShipping.addShippingMethod")}</div>
+          <div>-</div>
         )}
       </StepContent>
     </div>
