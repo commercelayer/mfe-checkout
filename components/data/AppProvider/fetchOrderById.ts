@@ -38,6 +38,12 @@ export const fetchOrderById = async ({
     const hasShippingMethod = Boolean(order.shipments())
     const hasPaymentMethod = Boolean(await order.paymentMethod())
 
+    // DEBUG
+    console.log("order.shippingAddress :>> ", order.shippingAddress())
+    console.log("order.billingAddress :>> ", await order.billingAddress())
+    console.log("order.shipments :>> ", order.shipments())
+    console.log("order.paymentMethod :>> ", await order.paymentMethod())
+
     return {
       isGuest,
       hasEmailAddress,

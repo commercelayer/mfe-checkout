@@ -1,8 +1,10 @@
-import { useContext } from "react"
+import { Fragment, useContext, useState } from "react"
+import styled from "styled-components"
+import tw from "twin.macro"
 
-import "twin.macro"
 import { AppContext } from "components/data/AppProvider"
 import { useTranslation } from "components/data/i18n"
+import { CardAddress } from "components/ui/CardAddress"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 
@@ -19,6 +21,12 @@ export const StepCustomer: React.FC<Props> = ({
   isActive,
   onToggleActive,
 }) => {
+  // MOCKED STATE
+  const hasSavedAddresses = true
+  const hasAddressInOrder = true // ma non in rubrica
+
+  // Component state
+  const [showForm, setShowForm] = useState(!hasSavedAddresses)
   const appCtx = useContext(AppContext)
   const { t } = useTranslation()
 
@@ -45,11 +53,76 @@ export const StepCustomer: React.FC<Props> = ({
       />
       <StepContent>
         {isActive ? (
-          <FormAddresses isGuest={isGuest} />
+          <div>
+            <div>
+              {showForm ? (
+                <Fragment>
+                  <FormAddresses isGuest={isGuest} />
+                  {!isGuest && hasSavedAddresses ? (
+                    <SampleButton onClick={() => setShowForm(false)}>
+                      Torna a lista indirizzi
+                    </SampleButton>
+                  ) : null}
+                </Fragment>
+              ) : (
+                <Fragment>
+                  {hasSavedAddresses ? (
+                    <section tw="mb-4">
+                      Lista degli indirizzi, se disponibile
+                      <CardAddress tw="">
+                        Via Bonozzo Gozzoli, 5/4
+                        <div>
+                          <SampleButton>usa come spedizione</SampleButton>
+                        </div>
+                      </CardAddress>
+                      <CardAddress tw="">
+                        Via di Firenze, 40
+                        <div>
+                          <SampleButton tw="mr-4">
+                            usa come fatturazione
+                          </SampleButton>
+                        </div>
+                      </CardAddress>
+                      <CardAddress>
+                        <div>Via Milano 40</div>
+                        <div>
+                          <SampleButton tw="mr-4">
+                            usa come fatturazione
+                          </SampleButton>
+                          <SampleButton>usa come spedizione</SampleButton>
+                        </div>
+                      </CardAddress>
+                    </section>
+                  ) : null}
+
+                  {hasAddressInOrder ? (
+                    <div>
+                      Indirizzo ordine (non ancora salvato)
+                      <CardAddress tw="border border-blue-500">
+                        <div>Fatturazione: Via Bonozzo Gozzoli, 5/4</div>
+                        <div>Spedizione: Via di Firenze, 40</div>
+                        <SampleButton onClick={() => setShowForm(true)}>
+                          Modifica indirizzo
+                        </SampleButton>
+                      </CardAddress>
+                    </div>
+                  ) : (
+                    <SampleButton onClick={() => setShowForm(true)}>
+                      Aggiungi indizzo
+                    </SampleButton>
+                  )}
+                </Fragment>
+              )}
+            </div>
+          </div>
         ) : (
           <div>
             {hasShippingAddress && hasBillingAddress ? (
-              <div>Hello, you have both shipping and billing address set</div>
+              <div>
+                Hello, you have both shipping and billing address set:
+                <div>Fatturazione: Via Bonozzo Gozzoli, 5/4</div>
+                <div>Spedizione: Via di Firenze, 40</div>
+              </div>
             ) : hasShippingAddress ? (
               <div>Hello, you have only shipping address set</div>
             ) : hasBillingAddress ? (
@@ -63,3 +136,7 @@ export const StepCustomer: React.FC<Props> = ({
     </div>
   )
 }
+
+const SampleButton = styled.button`
+  ${tw`bg-gray-300 p-3 text-xs`}
+`

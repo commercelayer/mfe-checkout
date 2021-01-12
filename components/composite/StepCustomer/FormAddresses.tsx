@@ -36,12 +36,54 @@ export const FormAddresses: React.FC<Props> = ({ isGuest }: Props) => {
       <AddressSectionTitle>
         {t(`addressForm.billing_address_title`)}
       </AddressSectionTitle>
-      <GridCardAddress>
-        <CardAddress
-          address={"Via duccio di ducci"}
-          user={"Duccio Giovanelli"}
+      <BillingAddress autoComplete="on" className="p-2">
+        <Grid>
+          <AddressInputGroup
+            fieldName="billing_address_first_name"
+            resource="billingAddress"
+            type="text"
+          />
+          <AddressInputGroup
+            fieldName="billing_address_last_name"
+            resource="billingAddress"
+            type="text"
+          />
+        </Grid>
+        <AddressInputGroup
+          fieldName="billing_address_line_1"
+          resource="billingAddress"
+          type="text"
         />
-      </GridCardAddress>
+        <Grid>
+          <AddressInputGroup
+            fieldName="billing_address_city"
+            resource="billingAddress"
+            type="text"
+          />
+          <AddressInputGroup
+            fieldName="billing_address_country_code"
+            resource="billingAddress"
+            type="text"
+          />
+        </Grid>
+        <Grid>
+          <AddressInputGroup
+            fieldName="billing_address_state_code"
+            resource="billingAddress"
+            type="text"
+          />
+          <AddressInputGroup
+            fieldName="billing_address_zip_code"
+            resource="billingAddress"
+            type="text"
+          />
+        </Grid>
+        <AddressInputGroup
+          fieldName="billing_address_phone"
+          resource="billingAddress"
+          type="tel"
+        />
+      </BillingAddress>
 
       <Toggle
         data-cy="button-ship-to-different-address"

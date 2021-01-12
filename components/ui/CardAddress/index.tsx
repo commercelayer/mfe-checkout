@@ -4,18 +4,16 @@ import tw from "twin.macro"
 interface Props {
   className?: string
   rounded?: boolean
-  address: string
-  user: string
+  // address: string
+  // user: string
 }
 
-export const CardAddress: React.FC<Props> = ({ className, address, user }) => (
-  <Wrapper className={className}>
-    <FullName>{user}</FullName>
-    <Address>{address}</Address>
-    <hr />
-    <Button>USE</Button>
-  </Wrapper>
-)
+export const CardAddress: React.FC<Props> = ({
+  className,
+  // address,
+  // user,
+  children,
+}) => <Wrapper className={className}>{children}</Wrapper>
 
 interface WrapperProps {
   rounded?: boolean
@@ -23,7 +21,7 @@ interface WrapperProps {
 }
 
 const Wrapper = styled.div<WrapperProps>`
-  ${tw`bg-white pb-10 px-4 shadow-md rounded-md`}
+  ${tw`bg-white pb-10 px-4 shadow-md rounded-md  p-5`}
 `
 const FullName = styled.h4`
   ${tw`mb-4 font-bold text-xl`}
