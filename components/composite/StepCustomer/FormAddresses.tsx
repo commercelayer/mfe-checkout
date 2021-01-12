@@ -9,75 +9,39 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 import { useTranslation } from "components/data/i18n"
+import { Card } from "components/ui/Card"
+import { CardAddress } from "components/ui/CardAddress"
 import { Toggle } from "components/ui/Toggle"
 
 import { AddressInputGroup } from "./AddressInputGroup"
 import { AddressSectionTitle } from "./AddressSectionTitle"
 
-export const FormAddresses: React.FC = () => {
+interface Props {
+  isGuest: boolean
+}
+
+export const FormAddresses: React.FC<Props> = ({ isGuest }: Props) => {
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(false)
   const { t } = useTranslation()
 
   return (
     <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
+      {isGuest && (
+        <AddressInputGroup
+          fieldName="email"
+          resource="billingAddress"
+          type="email"
+        />
+      )}
       <AddressSectionTitle>
         {t(`addressForm.billing_address_title`)}
       </AddressSectionTitle>
-
-      <BillingAddress autoComplete="on" className="p-2">
-        <Grid>
-          <AddressInputGroup
-            fieldName="billing_address_first_name"
-            resource="billingAddress"
-            type="text"
-          />
-
-          <AddressInputGroup
-            fieldName="billing_address_last_name"
-            resource="billingAddress"
-            type="text"
-          />
-        </Grid>
-
-        <AddressInputGroup
-          fieldName="billing_address_line_1"
-          resource="billingAddress"
-          type="text"
+      <GridCardAddress>
+        <CardAddress
+          address={"Via duccio di ducci"}
+          user={"Duccio Giovanelli"}
         />
-
-        <Grid>
-          <AddressInputGroup
-            fieldName="billing_address_city"
-            resource="billingAddress"
-            type="text"
-          />
-          <AddressInputGroup
-            fieldName="billing_address_country_code"
-            resource="billingAddress"
-            type="text"
-          />
-        </Grid>
-
-        <Grid>
-          <AddressInputGroup
-            fieldName="billing_address_state_code"
-            resource="billingAddress"
-            type="text"
-          />
-
-          <AddressInputGroup
-            fieldName="billing_address_zip_code"
-            resource="billingAddress"
-            type="text"
-          />
-        </Grid>
-
-        <AddressInputGroup
-          fieldName="billing_address_phone"
-          resource="billingAddress"
-          type="tel"
-        />
-      </BillingAddress>
+      </GridCardAddress>
 
       <Toggle
         data-cy="button-ship-to-different-address"
@@ -166,4 +130,7 @@ export const FormAddresses: React.FC = () => {
 
 const Grid = styled.div`
   ${tw`grid grid-cols-2 gap-4`}
+`
+const GridCardAddress = styled.div`
+  ${tw`grid grid-cols-3 gap-4`}
 `

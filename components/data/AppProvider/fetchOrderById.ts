@@ -6,6 +6,7 @@ interface FetchOrderByIdProps {
 }
 
 interface FetchOrderByIdResponse {
+  isGuest: boolean
   hasEmailAddress: boolean
   hasShippingAddress: boolean
   hasBillingAddress: boolean
@@ -30,6 +31,7 @@ export const fetchOrderById = async ({
       "payment_method"
     ).find(orderId)
 
+    const isGuest = Boolean(order.guest)
     const hasEmailAddress = Boolean(order.customerEmail)
     const hasShippingAddress = Boolean(order.shippingAddress())
     const hasBillingAddress = Boolean(await order.billingAddress())
@@ -37,6 +39,7 @@ export const fetchOrderById = async ({
     const hasPaymentMethod = Boolean(await order.paymentMethod())
 
     return {
+      isGuest,
       hasEmailAddress,
       hasShippingAddress,
       hasBillingAddress,
@@ -46,6 +49,7 @@ export const fetchOrderById = async ({
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
     return {
+      isGuest: false,
       hasEmailAddress: false,
       hasShippingAddress: false,
       hasBillingAddress: false,

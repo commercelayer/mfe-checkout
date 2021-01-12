@@ -30,7 +30,7 @@ const messages: any = [
 
 interface Props {
   type: BaseInputType
-  fieldName: AddressInputName | AddressCountrySelectName
+  fieldName: AddressInputName | AddressCountrySelectName | "email"
   resource: ResourceErrorType
 }
 

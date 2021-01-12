@@ -3,6 +3,7 @@ import { createContext, useState, useEffect } from "react"
 import { fetchOrderById } from "./fetchOrderById"
 
 interface AppProviderData {
+  isGuest: boolean
   hasEmailAddress: boolean
   hasBillingAddress: boolean
   hasShippingAddress: boolean
@@ -25,6 +26,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   accessToken,
 }) => {
   const [isLoading, setIsLoading] = useState(true)
+  const [isGuest, setIsGuest] = useState(false)
   const [hasEmailAddress, setHasEmailAddress] = useState(false)
   const [hasBillingAddress, setHasBillingAddress] = useState(false)
   const [hasShippingAddress, setHasShippingAddress] = useState(false)
@@ -38,12 +40,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     setIsLoading(true)
     fetchOrderById({ orderId, accessToken }).then(
       ({
+        isGuest,
         hasEmailAddress,
         hasBillingAddress,
         hasShippingAddress,
         hasPaymentMethod,
         hasShippingMethod,
       }) => {
+        setIsGuest(isGuest)
         setHasEmailAddress(hasEmailAddress)
         setHasBillingAddress(hasBillingAddress)
         setHasShippingAddress(hasShippingAddress)
@@ -61,6 +65,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   return (
     <AppContext.Provider
       value={{
+        isGuest,
         isLoading,
         hasEmailAddress,
         hasBillingAddress,

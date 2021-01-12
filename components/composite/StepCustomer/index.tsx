@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 
 import "twin.macro"
 import { AppContext } from "components/data/AppProvider"
@@ -25,7 +25,7 @@ export const StepCustomer: React.FC<Props> = ({
   if (!appCtx) {
     return null
   }
-  const { hasShippingAddress, hasBillingAddress } = appCtx
+  const { hasShippingAddress, hasBillingAddress, isGuest } = appCtx
 
   // todo: logica interna da implementare
   // se guest e' true: mostrare input email + form indirizzi
@@ -45,7 +45,7 @@ export const StepCustomer: React.FC<Props> = ({
       />
       <StepContent>
         {isActive ? (
-          <FormAddresses />
+          <FormAddresses isGuest={isGuest} />
         ) : (
           <div>
             {hasShippingAddress && hasBillingAddress ? (
