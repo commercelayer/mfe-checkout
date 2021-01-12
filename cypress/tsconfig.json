@@ -4,7 +4,9 @@
     "baseUrl": "../node_modules",
     "target": "es5",
     "lib": ["es5", "dom"],
-    "typeRoots": ["./support"]
+    "typeRoots": ["./support"],
+    "allowJs": true,
+    "importHelpers": true
   },
   "include": ["**/*.ts"]
 }
