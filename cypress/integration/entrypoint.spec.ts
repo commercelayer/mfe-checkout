@@ -1,6 +1,5 @@
 describe("Checkout entrypoint", () => {
   const redirectUrl = "https://www.extendi.it/"
-  const redirectUrlTitle = "Extendi - Rails + React web development"
 
   context("missing accessToken and orderId", () => {
     it("redirect to invalid", () => {
@@ -11,8 +10,8 @@ describe("Checkout entrypoint", () => {
       )
     })
     it("redirect to invalid with redirectUrl", () => {
-      cy.visit("/?redirectUrl=" + redirectUrl)
-      cy.title().should("eq", redirectUrlTitle)
+      cy.visit(`/?redirectUrl=${redirectUrl}`)
+      cy.url().should("eq", redirectUrl)
     })
   })
 
@@ -25,8 +24,8 @@ describe("Checkout entrypoint", () => {
       )
     })
     it("redirect to invalid with redirectUrl", () => {
-      cy.visit("/?accessToken=123123&redirectUrl=" + redirectUrl)
-      cy.title().should("eq", redirectUrlTitle)
+      cy.visit(`/?accessToken=123123&redirectUrl=${redirectUrl}`)
+      cy.url().should("eq", redirectUrl)
     })
   })
 
@@ -39,8 +38,8 @@ describe("Checkout entrypoint", () => {
       )
     })
     it("redirect to invalid with redirectUrl", () => {
-      cy.visit("/?orderId=123123&redirectUrl=" + redirectUrl)
-      cy.title().should("eq", redirectUrlTitle)
+      cy.visit(`/?orderId=123123&redirectUrl=${redirectUrl}`)
+      cy.url().should("eq", redirectUrl)
     })
   })
 
@@ -63,6 +62,9 @@ describe("Checkout entrypoint", () => {
 
   context("valid token and valid orderId", () => {
     const filename = "entrypoint"
+    const urlValid = `/?accessToken=${Cypress.env(
+      "accessToken"
+    )}&orderId=NbQLhWYXZO&redirectUrl=${redirectUrl}`
 
     beforeEach(() => {
       cy.setRoutes({
@@ -71,7 +73,7 @@ describe("Checkout entrypoint", () => {
         record: Cypress.env("record"), // @default false
         filename, // @default: 'requests' for reading the data from your cassette
       })
-      cy.visit(`/?accessToken=${Cypress.env("accessToken")}&orderId=NbQLhWYXZO`)
+      cy.visit(urlValid)
     })
 
     after(() => {
@@ -90,6 +92,10 @@ describe("Checkout entrypoint", () => {
         "have.text",
         "Your shopping cart contains 3 items"
       )
+    })
+
+    it("redirect to valid checkout with redirectUrl", () => {
+      cy.url().should("include", urlValid)
     })
   })
 })
