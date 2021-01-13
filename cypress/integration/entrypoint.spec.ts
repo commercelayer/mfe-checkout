@@ -1,4 +1,7 @@
 describe("Checkout entrypoint", () => {
+  const redirectUrl = "https://www.extendi.it/"
+  const redirectUrlTitle = "Extendi - Rails + React web development"
+
   context("missing accessToken and orderId", () => {
     it("redirect to invalid", () => {
       cy.visit("/")
@@ -6,6 +9,10 @@ describe("Checkout entrypoint", () => {
         "have.text",
         "This checkout is not valid"
       )
+    })
+    it("redirect to invalid with redirectUrl", () => {
+      cy.visit("/?redirectUrl=" + redirectUrl)
+      cy.title().should("eq", redirectUrlTitle)
     })
   })
 
@@ -17,6 +24,10 @@ describe("Checkout entrypoint", () => {
         "This checkout is not valid"
       )
     })
+    it("redirect to invalid with redirectUrl", () => {
+      cy.visit("/?accessToken=123123&redirectUrl=" + redirectUrl)
+      cy.title().should("eq", redirectUrlTitle)
+    })
   })
 
   context("missing accessToken", () => {
@@ -26,6 +37,10 @@ describe("Checkout entrypoint", () => {
         "have.text",
         "This checkout is not valid"
       )
+    })
+    it("redirect to invalid with redirectUrl", () => {
+      cy.visit("/?orderId=123123&redirectUrl=" + redirectUrl)
+      cy.title().should("eq", redirectUrlTitle)
     })
   })
 
