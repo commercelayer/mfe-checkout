@@ -96,11 +96,7 @@ describe("Checkout entrypoint", () => {
     })
 
     it("redirect to valid checkout without redirectUrl", () => {
-      cy.visit(
-        `/?accessToken=${Cypress.env(
-          "accessToken"
-        )}&orderId=NbQLhWYXZO&redirectUrl=${redirectUrl}`
-      )
+      cy.visit(`/?accessToken=${Cypress.env("accessToken")}&orderId=NbQLhWYXZO`)
       if (!Cypress.env("record")) {
         cy.newStubData("getOrders1", filename)
       }
