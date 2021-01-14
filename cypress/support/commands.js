@@ -32,7 +32,7 @@ Cypress.Commands.add('dataCy', (value) => {
 })
 
 Cypress.Commands.add('createOrder', options => {
-  cy.request({
+  return cy.request({
     url: Cypress.env('apiEndpoint') + '/api/orders',
     method: 'POST',
     body: {
