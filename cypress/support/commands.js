@@ -26,12 +26,18 @@
 
 import '@commercelayer/cypress-vcr'
 import { apiRequestHeaders } from "./utils"
+import { md5 } from 'pure-md5';
+
 
 Cypress.Commands.add('dataCy', (value) => {
   return cy.get(`[data-cy=${value}]`)
 })
 
-Cypress.Commands.add('createOrder', options => {
+
+Cypress.Commands.add('createOrder', (template, options) => {
+
+  const hash = md5(JSON.stringify(options))
+
   if (Cypress.env("record")) {
     cy.request({
       url: Cypress.env('apiEndpoint') + '/api/orders',
@@ -41,15 +47,15 @@ Cypress.Commands.add('createOrder', options => {
           type: 'orders',
           attributes: {
             language_code: options.languageCode,
+            customer_email: options.customerEmail
           }
         }
       },
       headers: apiRequestHeaders(Cypress.env('accessToken'))
     }).its('body.data').then((order) => {
-      cy.writeFile(`cypress/fixtures/language/order_${options.languageCode}.json`, order).then(() => { return order })
-
+      cy.writeFile(`cypress/fixtures/orders/${template}_${hash}.json`, order).then(() => { return order })
     })
   } else {
-    return cy.readFile(`cypress/fixtures/language/order_${options.languageCode}.json`)
+    return cy.readFile(`cypress/fixtures/orders/${template}_${hash}.json`)
   }
 })
