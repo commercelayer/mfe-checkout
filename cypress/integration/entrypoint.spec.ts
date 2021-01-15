@@ -82,29 +82,47 @@ describe("Checkout entrypoint", () => {
     })
 
     it("redirect to valid checkout with redirectUrl", () => {
-      cy.visit(
-        `/?accessToken=${Cypress.env(
-          "accessToken"
-        )}&orderId=NbQLhWYXZO&redirectUrl=${redirectUrl}`
-      )
-      if (!Cypress.env("record")) {
-        cy.newStubData("getOrders1", filename)
-      }
+      cy.createOrder("draft", {
+        languageCode: "en",
+        customerEmail: "alessani@gmail.it",
+      }).then((order) => {
+        if (!Cypress.env("record")) {
+          cy.newStubData("getOrders1", filename)
+        }
 
-      cy.wait(["@getOrders", "@retrieveLineItems"])
+        cy.visit(
+          `/?accessToken=${Cypress.env("accessToken")}&orderId=${
+            order.id
+          }&redirectUrl=${redirectUrl}`
+        )
+
+        cy.wait(["@getOrders", "@retrieveLineItems"])
+      })
       cy.url().should("include", `redirectUrl=${redirectUrl}`)
     })
 
     it("redirect to valid checkout without redirectUrl", () => {
-      cy.visit(`/?accessToken=${Cypress.env("accessToken")}&orderId=NbQLhWYXZO`)
-      if (!Cypress.env("record")) {
-        cy.newStubData("getOrders1", filename)
-      }
+      cy.createOrder("draft", {
+        languageCode: "en",
+        customerEmail: "alessani@gmail.en",
+      }).then((order) => {
+        if (!Cypress.env("record")) {
+          cy.newStubData(
+            ["getOrders2", "getOrders3", "retrieveLineItems1"],
+            filename
+          )
+        }
 
-      cy.wait(["@getOrders", "@retrieveLineItems"])
+        cy.visit(
+          `/?accessToken=${Cypress.env("accessToken")}&orderId=${order.id}`
+        )
+
+        cy.wait(["@getOrders", "@retrieveLineItems"])
+      })
+
       cy.dataCy("test-summary").should(
         "have.text",
-        "Your shopping cart contains 3 items"
+        "Your shopping cart contains 0 items"
       )
     })
   })

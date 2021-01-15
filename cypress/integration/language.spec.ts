@@ -18,7 +18,10 @@ describe("Checkout language", () => {
     })
 
     it("redirect to english checkout order", () => {
-      cy.createOrder({ languageCode: "en" }).then((order) => {
+      cy.createOrder("draft", {
+        languageCode: "en",
+        customerEmail: "alessani@gmail.com",
+      }).then((order) => {
         if (!Cypress.env("record")) {
           cy.newStubData("getOrders1", filename)
         }
@@ -52,7 +55,10 @@ describe("Checkout language", () => {
     })
 
     it("redirect to english checkout order", () => {
-      cy.createOrder({ languageCode: "it" }).then((order) => {
+      cy.createOrder("draft", {
+        languageCode: "it",
+        customerEmail: "alessani@gmail.com",
+      }).then((order) => {
         if (!Cypress.env("record")) {
           cy.newStubData("getOrders1", filename)
         }
