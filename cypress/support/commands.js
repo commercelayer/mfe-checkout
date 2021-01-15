@@ -45,11 +45,11 @@ Cypress.Commands.add('createOrder', options => {
         }
       },
       headers: apiRequestHeaders(Cypress.env('accessToken'))
-    }).its('body.data').then((orderID) => {
-      cy.writeFile(`cypress/fixtures/language/order_${options.languageCode}.txt`, orderID.id).then(() => { return orderID.id })
+    }).its('body.data').then((order) => {
+      cy.writeFile(`cypress/fixtures/language/order_${options.languageCode}.json`, order).then(() => { return order })
 
     })
   } else {
-    return cy.readFile(`cypress/fixtures/language/order_${options.languageCode}.txt`)
+    return cy.readFile(`cypress/fixtures/language/order_${options.languageCode}.json`)
   }
 })
