@@ -32,17 +32,24 @@ Cypress.Commands.add('dataCy', (value) => {
 })
 
 Cypress.Commands.add('createOrder', options => {
-  return cy.request({
-    url: Cypress.env('apiEndpoint') + '/api/orders',
-    method: 'POST',
-    body: {
-      data: {
-        type: 'orders',
-        attributes: {
-          language_code: options.languageCode,
+  if (Cypress.env("record")) {
+    cy.request({
+      url: Cypress.env('apiEndpoint') + '/api/orders',
+      method: 'POST',
+      body: {
+        data: {
+          type: 'orders',
+          attributes: {
+            language_code: options.languageCode,
+          }
         }
-      }
-    },
-    headers: apiRequestHeaders(Cypress.env('accessToken'))
-  }).its('body.data')
+      },
+      headers: apiRequestHeaders(Cypress.env('accessToken'))
+    }).its('body.data').then((orderID) => {
+      cy.writeFile(`cypress/fixtures/language/order_${options.languageCode}.txt`, orderID.id).then(() => { return orderID.id })
+
+    })
+  } else {
+    return cy.readFile(`cypress/fixtures/language/order_${options.languageCode}.txt`)
+  }
 })
