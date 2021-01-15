@@ -19,9 +19,14 @@ describe("Checkout language", () => {
 
     it("redirect to english checkout order", () => {
       cy.createOrder({ languageCode: "en" }).then((orderID) => {
+        if (!Cypress.env("record")) {
+          cy.newStubData("getOrders1", filename)
+        }
+
         cy.visit(
           `/?accessToken=${Cypress.env("accessToken")}&orderId=${orderID}`
         )
+
         cy.wait(["@getOrders", "@retrieveLineItems"])
       })
       cy.dataCy("step-header-customer").should("have.text", "Customer")
