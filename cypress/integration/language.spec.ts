@@ -18,13 +18,13 @@ describe("Checkout language", () => {
     })
 
     it("redirect to english checkout order", () => {
-      cy.createOrder({ languageCode: "en" }).then((orderID) => {
+      cy.createOrder({ languageCode: "en" }).then((order) => {
         if (!Cypress.env("record")) {
           cy.newStubData("getOrders1", filename)
         }
 
         cy.visit(
-          `/?accessToken=${Cypress.env("accessToken")}&orderId=${orderID}`
+          `/?accessToken=${Cypress.env("accessToken")}&orderId=${order.id}`
         )
 
         cy.wait(["@getOrders", "@retrieveLineItems"])
@@ -52,10 +52,15 @@ describe("Checkout language", () => {
     })
 
     it("redirect to english checkout order", () => {
-      cy.createOrder({ languageCode: "it" }).then((orderID) => {
+      cy.createOrder({ languageCode: "it" }).then((order) => {
+        if (!Cypress.env("record")) {
+          cy.newStubData("getOrders1", filename)
+        }
+
         cy.visit(
-          `/?accessToken=${Cypress.env("accessToken")}&orderId=${orderID}`
+          `/?accessToken=${Cypress.env("accessToken")}&orderId=${order.id}`
         )
+
         cy.wait(["@getOrders", "@retrieveLineItems"])
       })
       cy.dataCy("step-header-customer").should("have.text", "Cliente")
