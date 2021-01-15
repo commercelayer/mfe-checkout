@@ -9,12 +9,6 @@ describe("Checkout language", () => {
         record: Cypress.env("record"), // @default false
         filename, // @default: 'requests' for reading the data from your cassette
       })
-
-      cy.createOrder({ languageCode: "en" }).then((order) => {
-        cy.visit(
-          `/?accessToken=${Cypress.env("accessToken")}&orderId=${order.id}`
-        )
-      })
     })
 
     after(() => {
@@ -24,10 +18,12 @@ describe("Checkout language", () => {
     })
 
     it("redirect to english checkout order", () => {
-      if (!Cypress.env("record")) {
-        cy.newStubData("getOrders1", filename)
-      }
-      cy.wait(["@getOrders", "@orders", "@retrieveLineItems"])
+      cy.createOrder({ languageCode: "en" }).then((orderID) => {
+        cy.visit(
+          `/?accessToken=${Cypress.env("accessToken")}&orderId=${orderID}`
+        )
+        cy.wait(["@getOrders", "@retrieveLineItems"])
+      })
       cy.dataCy("step-header-customer").should("have.text", "Customer")
     })
   })
@@ -50,15 +46,12 @@ describe("Checkout language", () => {
       }
     })
 
-    it("redirect to italian checkout order", () => {
-      cy.createOrder({ languageCode: "it" }).then((order) => {
+    it("redirect to english checkout order", () => {
+      cy.createOrder({ languageCode: "it" }).then((orderID) => {
         cy.visit(
-          `/?accessToken=${Cypress.env("accessToken")}&orderId=${order.id}`
+          `/?accessToken=${Cypress.env("accessToken")}&orderId=${orderID}`
         )
-        if (!Cypress.env("record")) {
-          cy.newStubData("getOrders1", filename)
-        }
-        cy.wait(["@getOrders", "@orders", "@retrieveLineItems"])
+        cy.wait(["@getOrders", "@retrieveLineItems"])
       })
       cy.dataCy("step-header-customer").should("have.text", "Cliente")
     })
