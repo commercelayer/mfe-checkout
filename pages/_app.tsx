@@ -2,10 +2,9 @@ import "../styles/globals.css"
 import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import type { AppProps } from "next/app"
 import { AppContextType } from "next/dist/next-server/lib/utils"
-import { useEffect } from "react"
 
 import { AppProvider } from "components/data/AppProvider"
-import { appWithTranslation, changeLanguage } from "components/data/i18n"
+import { appWithTranslation } from "components/data/i18n"
 
 if (
   process.env.NEXT_PUBLIC_API_MOCKING === "enabled" &&
@@ -16,11 +15,6 @@ if (
 
 function CheckoutApp(props: AppProps) {
   const { Component, pageProps } = props
-
-  useEffect(() => {
-    // Set Language at start
-    changeLanguage(pageProps.language)
-  }, [])
 
   return pageProps.accessToken && pageProps.orderId ? (
     <CommerceLayer
@@ -58,7 +52,12 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     appContext.ctx.res &&
     appContext.ctx.pathname !== "/invalid"
   ) {
-    appContext.ctx.res.writeHead(302, { Location: "/invalid" }).end()
+    const redirectUrl = appContext.ctx.query?.redirectUrl
+    if (redirectUrl) {
+      appContext.ctx.res.writeHead(302, { Location: redirectUrl }).end()
+    } else if (redirectUrl === undefined) {
+      appContext.ctx.res.writeHead(302, { Location: "/invalid" }).end()
+    }
   }
 
   const checkoutContext: CheckoutPageContextProps = {
