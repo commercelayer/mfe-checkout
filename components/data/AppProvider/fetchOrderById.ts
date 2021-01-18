@@ -1,6 +1,6 @@
 import CLayer, { Order } from "@commercelayer/js-sdk"
 
-import { changeLanguage } from "../i18n"
+import { changeLanguage } from "components/data/i18n"
 
 interface FetchOrderByIdProps {
   orderId: string
