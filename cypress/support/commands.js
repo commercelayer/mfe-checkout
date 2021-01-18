@@ -37,6 +37,7 @@ Cypress.Commands.add('dataCy', (value) => {
 Cypress.Commands.add('createOrder', (template, options) => {
 
   const hash = md5(JSON.stringify(options))
+  const filename = `${template}_${hash}.json`
 
   if (Cypress.env("record")) {
     cy.request({
@@ -53,9 +54,9 @@ Cypress.Commands.add('createOrder', (template, options) => {
       },
       headers: apiRequestHeaders(Cypress.env('accessToken'))
     }).its('body.data').then((order) => {
-      cy.writeFile(`cypress/fixtures/orders/${template}_${hash}.json`, order).then(() => { return order })
+      cy.writeFile(`cypress/fixtures/orders/${filename}`, order).then(() => { return order })
     })
   } else {
-    return cy.readFile(`cypress/fixtures/orders/${template}_${hash}.json`)
+    return cy.readFile(`cypress/fixtures/orders/${filename}.json`)
   }
 })
