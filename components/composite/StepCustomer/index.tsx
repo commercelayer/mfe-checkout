@@ -1,3 +1,4 @@
+import { CustomerContainer } from "@commercelayer/react-components"
 import { Fragment, useContext, useState } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -68,6 +69,7 @@ export const StepCustomer: React.FC<Props> = ({
                 <Fragment>
                   {hasSavedAddresses ? (
                     <section tw="mb-4">
+                      <CustomerContainer>Test</CustomerContainer>
                       Lista degli indirizzi, se disponibile
                       <CardAddress tw="">
                         Via Bonozzo Gozzoli, 5/4
