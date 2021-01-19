@@ -32,12 +32,14 @@ interface Props {
   type: BaseInputType
   fieldName: AddressInputName | AddressCountrySelectName | "email"
   resource: ResourceErrorType
+  value?: string
 }
 
 export const AddressInputGroup: React.FC<Props> = ({
   fieldName,
   resource,
   type,
+  value,
 }) => {
   const { t } = useTranslation()
 
@@ -57,6 +59,7 @@ export const AddressInputGroup: React.FC<Props> = ({
           <AddressCountrySelector
             data-cy={`input_${fieldName}`}
             name={fieldName as AddressCountrySelectName}
+            value={value}
             placeholder={{
               value: "",
               label,
@@ -70,6 +73,7 @@ export const AddressInputGroup: React.FC<Props> = ({
             type={type}
             tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
             placeholder={label}
+            value={value}
           />
         )}
       </div>
