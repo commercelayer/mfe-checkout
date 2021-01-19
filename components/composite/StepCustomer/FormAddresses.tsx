@@ -1,69 +1,117 @@
+import { AddressCollection, Order } from "@commercelayer/js-sdk"
+import { SingleRelationship } from "@commercelayer/js-sdk/dist/resources/typings/Library"
 import {
   AddressesContainer,
-  BillingAddress,
-  ShippingAddress,
+  BillingAddressForm,
+  ShippingAddressForm,
   SaveAddressesButton,
+  CustomerContainer,
+  CustomerInput,
+  Errors,
+  AddressInput,
 } from "@commercelayer/react-components"
 import { useState } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
 import { useTranslation } from "components/data/i18n"
-import { Card } from "components/ui/Card"
-import { CardAddress } from "components/ui/CardAddress"
 import { Toggle } from "components/ui/Toggle"
 
 import { AddressInputGroup } from "./AddressInputGroup"
+import { AddressSectionEmail } from "./AddressSectionEmail"
+import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
+import { AddressSectionSaveOnBook } from "./AddressSectionSaveOnBook"
 import { AddressSectionTitle } from "./AddressSectionTitle"
 
 interface Props {
+  billingAddress: AddressCollection
+  shippingAddress: SingleRelationship<AddressCollection>
+  emailAddress: string
   isGuest: boolean
+  refetchOrder: () => void
 }
 
-export const FormAddresses: React.FC<Props> = ({ isGuest }: Props) => {
+export const FormAddresses: React.FC<Props> = ({
+  billingAddress,
+  shippingAddress,
+  emailAddress,
+  isGuest,
+  refetchOrder,
+}: Props) => {
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(false)
   const { t } = useTranslation()
+
+  const messages: any = [
+    {
+      code: "EMPTY_ERROR",
+      resource: "billingAddress",
+      field: "firstName",
+      message: `Can't be blank`,
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "billingAddress",
+      field: "email",
+      message: `Must be valid email`,
+    },
+  ]
 
   return (
     <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
       {isGuest && (
-        <AddressInputGroup
-          fieldName="email"
-          resource="billingAddress"
-          type="email"
-        />
+        <AddressSectionEmail>
+          <CustomerInput
+            data-cy="customer_email"
+            tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+            placeholder="E-mail"
+            saveOnBlur={true}
+            onBlur={true}
+            value={emailAddress}
+          />
+          <Errors
+            data-cy="customer_email_error"
+            resource="order"
+            field="customer_email"
+            messages={messages}
+          />
+        </AddressSectionEmail>
       )}
       <AddressSectionTitle>
         {t(`addressForm.billing_address_title`)}
       </AddressSectionTitle>
-      <BillingAddress autoComplete="on" className="p-2">
+      <BillingAddressForm autoComplete="on" className="p-2">
         <Grid>
           <AddressInputGroup
             fieldName="billing_address_first_name"
             resource="billingAddress"
             type="text"
+            value={billingAddress?.firstName}
           />
           <AddressInputGroup
             fieldName="billing_address_last_name"
             resource="billingAddress"
             type="text"
+            value={billingAddress?.lastName}
           />
         </Grid>
         <AddressInputGroup
           fieldName="billing_address_line_1"
           resource="billingAddress"
           type="text"
+          value={billingAddress?.line1}
         />
         <Grid>
           <AddressInputGroup
             fieldName="billing_address_city"
             resource="billingAddress"
             type="text"
+            value={billingAddress?.city}
           />
           <AddressInputGroup
             fieldName="billing_address_country_code"
             resource="billingAddress"
             type="text"
+            value={billingAddress?.countryCode}
           />
         </Grid>
         <Grid>
@@ -71,20 +119,34 @@ export const FormAddresses: React.FC<Props> = ({ isGuest }: Props) => {
             fieldName="billing_address_state_code"
             resource="billingAddress"
             type="text"
+            value={billingAddress?.stateCode}
           />
           <AddressInputGroup
             fieldName="billing_address_zip_code"
             resource="billingAddress"
             type="text"
+            value={billingAddress?.zipCode}
           />
         </Grid>
         <AddressInputGroup
           fieldName="billing_address_phone"
           resource="billingAddress"
           type="tel"
+          value={billingAddress?.phone}
         />
-      </BillingAddress>
-
+        {!isGuest && (
+          <AddressSectionSaveOnBook>
+            <AddressInput
+              data-cy="billing_address_save_to_customer_book"
+              name="billing_address_save_to_customer_book"
+              type="checkbox"
+              tw="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400"
+              required={false}
+            />{" "}
+            Save address on your book
+          </AddressSectionSaveOnBook>
+        )}
+      </BillingAddressForm>
       <Toggle
         data-cy="button-ship-to-different-address"
         data-status={shipToDifferentAddress}
@@ -93,7 +155,7 @@ export const FormAddresses: React.FC<Props> = ({ isGuest }: Props) => {
         onChange={() => setShipToDifferentAddress(!shipToDifferentAddress)}
       />
 
-      <ShippingAddress
+      <ShippingAddressForm
         autoComplete="on"
         hidden={!shipToDifferentAddress}
         tw={"p-2"}
@@ -107,12 +169,14 @@ export const FormAddresses: React.FC<Props> = ({ isGuest }: Props) => {
             fieldName="shipping_address_first_name"
             resource="shippingAddress"
             type="text"
+            value={shippingAddress?.firstName}
           />
 
           <AddressInputGroup
             fieldName="shipping_address_last_name"
             resource="shippingAddress"
             type="text"
+            value={shippingAddress?.lastName}
           />
         </Grid>
 
@@ -120,6 +184,7 @@ export const FormAddresses: React.FC<Props> = ({ isGuest }: Props) => {
           fieldName="shipping_address_line_1"
           resource="shippingAddress"
           type="text"
+          value={shippingAddress?.line1}
         />
 
         <Grid>
@@ -127,12 +192,14 @@ export const FormAddresses: React.FC<Props> = ({ isGuest }: Props) => {
             fieldName="shipping_address_city"
             resource="shippingAddress"
             type="text"
+            value={shippingAddress?.city}
           />
 
           <AddressInputGroup
             fieldName="shipping_address_country_code"
             resource="shippingAddress"
             type="text"
+            value={shippingAddress?.countryCode}
           />
         </Grid>
 
@@ -141,12 +208,14 @@ export const FormAddresses: React.FC<Props> = ({ isGuest }: Props) => {
             fieldName="shipping_address_state_code"
             resource="shippingAddress"
             type="text"
+            value={shippingAddress?.stateCode}
           />
 
           <AddressInputGroup
             fieldName="shipping_address_zip_code"
             resource="shippingAddress"
             type="text"
+            value={shippingAddress?.zipCode}
           />
         </Grid>
 
@@ -154,25 +223,20 @@ export const FormAddresses: React.FC<Props> = ({ isGuest }: Props) => {
           fieldName="shipping_address_phone"
           resource="shippingAddress"
           type="tel"
+          value={shippingAddress?.phone}
         />
-      </ShippingAddress>
-      <div className="p-2 mt-5">
+      </ShippingAddressForm>
+      <AddressSectionSaveForm>
         <SaveAddressesButton
           data-cy="save-addresses-button"
           tw="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent leading-4 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-          onClick={() => {
-            // TODO: handle callback
-            // https://github.com/commercelayer/commercelayer-react-components/blob/master/pages/checkout-addresses.tsx
-          }}
+          onClick={refetchOrder}
         />
-      </div>
+      </AddressSectionSaveForm>
     </AddressesContainer>
   )
 }
 
 const Grid = styled.div`
   ${tw`grid grid-cols-2 gap-4`}
-`
-const GridCardAddress = styled.div`
-  ${tw`grid grid-cols-3 gap-4`}
 `

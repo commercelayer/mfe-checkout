@@ -5,8 +5,11 @@ import { fetchOrderById } from "./fetchOrderById"
 interface AppProviderData {
   isGuest: boolean
   hasEmailAddress: boolean
+  emailAddress: string
   hasBillingAddress: boolean
+  billingAddress: any
   hasShippingAddress: boolean
+  shippingAddress: any
   hasShippingMethod: boolean
   hasPaymentMethod: boolean
   isLoading: boolean
@@ -28,8 +31,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const [isLoading, setIsLoading] = useState(true)
   const [isGuest, setIsGuest] = useState(false)
   const [hasEmailAddress, setHasEmailAddress] = useState(false)
+  const [emailAddress, setEmailAddress] = useState("")
   const [hasBillingAddress, setHasBillingAddress] = useState(false)
+  const [billingAddress, setBillingAddress] = useState({})
   const [hasShippingAddress, setHasShippingAddress] = useState(false)
+  const [shippingAddress, setShippingAddress] = useState({})
   const [hasShippingMethod, setHasShippingMethod] = useState(false)
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
 
@@ -42,15 +48,21 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       ({
         isGuest,
         hasEmailAddress,
+        emailAddress,
         hasBillingAddress,
+        billingAddress,
         hasShippingAddress,
+        shippingAddress,
         hasPaymentMethod,
         hasShippingMethod,
       }) => {
         setIsGuest(isGuest)
         setHasEmailAddress(hasEmailAddress)
+        setEmailAddress(emailAddress)
         setHasBillingAddress(hasBillingAddress)
+        setBillingAddress(billingAddress)
         setHasShippingAddress(hasShippingAddress)
+        setShippingAddress(shippingAddress)
         setHasShippingMethod(hasShippingMethod)
         setHasPaymentMethod(hasPaymentMethod)
         setIsLoading(false)
@@ -68,8 +80,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         isGuest,
         isLoading,
         hasEmailAddress,
+        emailAddress,
         hasBillingAddress,
+        billingAddress,
         hasShippingAddress,
+        shippingAddress,
         hasShippingMethod,
         hasPaymentMethod,
         refetchOrder: () => {

@@ -1,4 +1,8 @@
-import { CustomerContainer } from "@commercelayer/react-components"
+import {
+  BillingAddressContainer,
+  Address,
+  AddressField,
+} from "@commercelayer/react-components"
 import { Fragment, useContext, useState } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -22,25 +26,34 @@ export const StepCustomer: React.FC<Props> = ({
   isActive,
   onToggleActive,
 }) => {
-  // MOCKED STATE
-  const hasSavedAddresses = true
-  const hasAddressInOrder = true // ma non in rubrica
-
-  // Component state
-  const [showForm, setShowForm] = useState(!hasSavedAddresses)
   const appCtx = useContext(AppContext)
   const { t } = useTranslation()
 
   if (!appCtx) {
     return null
   }
-  const { hasShippingAddress, hasBillingAddress, isGuest } = appCtx
+  const {
+    hasShippingAddress,
+    hasBillingAddress,
+    isGuest,
+    billingAddress,
+    shippingAddress,
+    emailAddress,
+    refetchOrder,
+  } = appCtx
+
+  // MOCKED STATE
+  const hasSavedAddresses = true
+  const hasAddressInOrder = hasShippingAddress && hasBillingAddress // ma non in rubrica
+
+  // Component state
+  const [showForm, setShowForm] = useState(!hasSavedAddresses)
 
   // todo: logica interna da implementare
   // se guest e' true: mostrare input email + form indirizzi
   // altrimenti mostrare elenco indirizzi della rubrica + pulsante aggiungi nuovo indirizzo
   // se non ci sono indirizzi in rubrica, ma solo l'indirizzo dell'ordine (non ancora salvato in rubrica) si mostra il form con i valori in edit
-
+  console.log(billingAddress, "dsa")
   return (
     <div className={className}>
       <StepHeader
@@ -58,7 +71,13 @@ export const StepCustomer: React.FC<Props> = ({
             <div>
               {showForm ? (
                 <Fragment>
-                  <FormAddresses isGuest={isGuest} />
+                  <FormAddresses
+                    isGuest={isGuest}
+                    refetchOrder={refetchOrder}
+                    billingAddress={billingAddress}
+                    shippingAddress={shippingAddress}
+                    emailAddress={emailAddress}
+                  />
                   {!isGuest && hasSavedAddresses ? (
                     <SampleButton onClick={() => setShowForm(false)}>
                       Torna a lista indirizzi
@@ -66,54 +85,54 @@ export const StepCustomer: React.FC<Props> = ({
                   ) : null}
                 </Fragment>
               ) : (
-                <Fragment>
+                <>
                   {hasSavedAddresses ? (
                     <section tw="mb-4">
-                      <CustomerContainer>Test</CustomerContainer>
                       Lista degli indirizzi, se disponibile
-                      <CardAddress tw="">
-                        Via Bonozzo Gozzoli, 5/4
-                        <div>
-                          <SampleButton>usa come spedizione</SampleButton>
-                        </div>
-                      </CardAddress>
-                      <CardAddress tw="">
-                        Via di Firenze, 40
-                        <div>
-                          <SampleButton tw="mr-4">
-                            usa come fatturazione
-                          </SampleButton>
-                        </div>
-                      </CardAddress>
-                      <CardAddress>
-                        <div>Via Milano 40</div>
-                        <div>
-                          <SampleButton tw="mr-4">
-                            usa come fatturazione
-                          </SampleButton>
-                          <SampleButton>usa come spedizione</SampleButton>
-                        </div>
-                      </CardAddress>
+                      <BillingAddressContainer>
+                        <Address
+                          className="w-1/2 p-2 m-2 border rounded cursor-pointer hover:border-blue-500 shadow-sm"
+                          selectedClassName="border-blue-500"
+                          onSelect={refetchOrder}
+                          data-cy="customer-billing-address"
+                        >
+                          <div className="flex font-bold">
+                            <AddressField name="first_name" />
+                            <AddressField name="last_name" className="ml-1" />
+                          </div>
+                          <div>
+                            <AddressField name="full_address" />
+                          </div>
+                        </Address>
+                      </BillingAddressContainer>
                     </section>
                   ) : null}
 
-                  {hasAddressInOrder ? (
+                  {hasAddressInOrder && !isGuest ? (
                     <div>
                       Indirizzo ordine (non ancora salvato)
                       <CardAddress tw="border border-blue-500">
-                        <div>Fatturazione: Via Bonozzo Gozzoli, 5/4</div>
-                        <div>Spedizione: Via di Firenze, 40</div>
+                        <Address addresses={[billingAddress as any]}>
+                          <div tw="flex flex-row">
+                            <p>Fatturazione: </p>{" "}
+                            <AddressField name="full_address" />
+                          </div>
+                        </Address>
+                        <Address addresses={[shippingAddress as any]}>
+                          <div tw="flex flex-row">
+                            <p>Spedizione: </p>{" "}
+                            <AddressField name="full_address" />
+                          </div>
+                        </Address>
                         <SampleButton onClick={() => setShowForm(true)}>
                           Modifica indirizzo
                         </SampleButton>
                       </CardAddress>
                     </div>
                   ) : (
-                    <SampleButton onClick={() => setShowForm(true)}>
-                      Aggiungi indizzo
-                    </SampleButton>
+                    setShowForm(true)
                   )}
-                </Fragment>
+                </>
               )}
             </div>
           </div>
@@ -122,8 +141,16 @@ export const StepCustomer: React.FC<Props> = ({
             {hasShippingAddress && hasBillingAddress ? (
               <div>
                 Hello, you have both shipping and billing address set:
-                <div>Fatturazione: Via Bonozzo Gozzoli, 5/4</div>
-                <div>Spedizione: Via di Firenze, 40</div>
+                <Address addresses={[billingAddress as any]}>
+                  <div tw="flex flex-row">
+                    <p>Fatturazione: </p> <AddressField name="full_address" />
+                  </div>
+                </Address>
+                <Address addresses={[shippingAddress as any]}>
+                  <div tw="flex flex-row">
+                    <p>Spedizione: </p> <AddressField name="full_address" />
+                  </div>
+                </Address>
               </div>
             ) : hasShippingAddress ? (
               <div>Hello, you have only shipping address set</div>
@@ -140,5 +167,5 @@ export const StepCustomer: React.FC<Props> = ({
 }
 
 const SampleButton = styled.button`
-  ${tw`bg-gray-300 p-3 text-xs`}
+  ${tw`inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-500 border border-transparent shadow-sm rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
 `

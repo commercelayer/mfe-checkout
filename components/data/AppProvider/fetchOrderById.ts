@@ -1,4 +1,7 @@
-import CLayer, { Order } from "@commercelayer/js-sdk"
+import { AddressInfo } from "net"
+
+import CLayer, { AddressCollection, Order } from "@commercelayer/js-sdk"
+import { SingleRelationship } from "@commercelayer/js-sdk/dist/resources/typings/Library"
 
 interface FetchOrderByIdProps {
   orderId: string
@@ -8,8 +11,11 @@ interface FetchOrderByIdProps {
 interface FetchOrderByIdResponse {
   isGuest: boolean
   hasEmailAddress: boolean
+  emailAddress: string
   hasShippingAddress: boolean
+  shippingAddress: any
   hasBillingAddress: boolean
+  billingAddress: any
   hasShippingMethod: boolean
   hasPaymentMethod: boolean
 }
@@ -33,8 +39,11 @@ export const fetchOrderById = async ({
 
     const isGuest = Boolean(order.guest)
     const hasEmailAddress = Boolean(order.customerEmail)
+    const emailAddress = order.customerEmail
     const hasShippingAddress = Boolean(order.shippingAddress())
+    const shippingAddress = order.shippingAddress()
     const hasBillingAddress = Boolean(await order.billingAddress())
+    const billingAddress = await order.billingAddress()
     const hasShippingMethod = Boolean(order.shipments())
     const hasPaymentMethod = Boolean(await order.paymentMethod())
 
@@ -47,8 +56,11 @@ export const fetchOrderById = async ({
     return {
       isGuest,
       hasEmailAddress,
+      emailAddress,
       hasShippingAddress,
+      shippingAddress,
       hasBillingAddress,
+      billingAddress,
       hasShippingMethod,
       hasPaymentMethod,
     }
@@ -57,8 +69,11 @@ export const fetchOrderById = async ({
     return {
       isGuest: false,
       hasEmailAddress: false,
+      emailAddress: "",
       hasShippingAddress: false,
+      shippingAddress: {},
       hasBillingAddress: false,
+      billingAddress: {},
       hasShippingMethod: false,
       hasPaymentMethod: false,
     }
