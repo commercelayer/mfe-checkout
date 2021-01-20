@@ -60,6 +60,7 @@ export const AddressInputGroup: React.FC<Props> = ({
             data-cy={`input_${fieldName}`}
             name={fieldName as AddressCountrySelectName}
             value={value}
+            style={{ width: "100%" }}
             placeholder={{
               value: "",
               label,

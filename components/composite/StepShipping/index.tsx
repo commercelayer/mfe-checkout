@@ -1,14 +1,3 @@
-import {
-  AddToCartButton,
-  AvailabilityContainer,
-  AvailabilityTemplate,
-  ItemContainer,
-  Price,
-  PricesContainer,
-  QuantitySelector,
-  VariantsContainer,
-  VariantSelector,
-} from "@commercelayer/react-components"
 import { useContext } from "react"
 
 import "twin.macro"
@@ -54,53 +43,11 @@ export const StepShipping: React.FC<Props> = ({
       />
       <StepContent>
         {isActive ? (
-          <VariantSelector
-            className="block w-full px-4 py-3 pr-8 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500"
-            name="selector-us"
-            options={[
-              {
-                label: "6 months",
-                code: "BABYONBU000000E63E746MXX",
-              },
-              {
-                label: "12 months",
-                code: "BABYONBU000000E63E7412MX",
-              },
-              {
-                label: "24 months",
-                code: "BABYONBU000000E63E746MXXFAKE",
-              },
-            ]}
-          />
+          "Seleziona...."
         ) : hasShippingMethod ? (
           <div>
             {/* {t("stepShipping.shippingMethod")} */}
-            <ItemContainer>
-              <PricesContainer>
-                <Price skuCode="BABYONBU000000E63E746MXX" />
-              </PricesContainer>
-              <VariantsContainer>
-                <VariantSelector
-                  placeholder="Select a size"
-                  options={[
-                    {
-                      label: "6 months",
-                      code: "BABYONBU000000E63E746MXX",
-                      lineItem: {
-                        name: "your-item-name",
-                        imageUrl:
-                          "https://img.yourdomain.com/your-item-image.png",
-                      },
-                    },
-                  ]}
-                />
-              </VariantsContainer>
-              <QuantitySelector />
-              <AddToCartButton />
-              <AvailabilityContainer>
-                <AvailabilityTemplate />
-              </AvailabilityContainer>
-            </ItemContainer>
+            {"Selezionato"}
           </div>
         ) : (
           <div>-</div>
