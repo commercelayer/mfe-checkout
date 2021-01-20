@@ -3,6 +3,8 @@ import { AddressInfo } from "net"
 import CLayer, { AddressCollection, Order } from "@commercelayer/js-sdk"
 import { SingleRelationship } from "@commercelayer/js-sdk/dist/resources/typings/Library"
 
+import { changeLanguage } from "components/data/i18n"
+
 interface FetchOrderByIdProps {
   orderId: string
   accessToken: string
@@ -47,11 +49,12 @@ export const fetchOrderById = async ({
     const hasShippingMethod = Boolean(order.shipments())
     const hasPaymentMethod = Boolean(await order.paymentMethod())
 
-    // DEBUG
     console.log("order.shippingAddress :>> ", order.shippingAddress())
     console.log("order.billingAddress :>> ", await order.billingAddress())
     console.log("order.shipments :>> ", order.shipments())
     console.log("order.paymentMethod :>> ", await order.paymentMethod())
+
+    changeLanguage(order.languageCode)
 
     return {
       isGuest,

@@ -1,21 +1,19 @@
-/// <reference types="cypress" />
-// ***********************************************************
-// This example plugins/index.js can be used to load plugins
-//
-// You can change the location of this file or turn off loading
-// the plugins file with the 'pluginsFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/plugins-guide
-// ***********************************************************
-
-// This function is called when a project is opened or re-opened (e.g. due to
-// the project's config changing)
-
 /**
  * @type {Cypress.PluginConfig}
  */
-module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+
+import axios from "axios"
+
+export default async (on, config) => {
+  if (config.env.record) {
+    const {
+      data: { access_token },
+    } = await axios.post(
+      config.env.apiEndpoint + "/oauth/token?grant_type=client_credentials&client_id=" + config.env.clientId + "&scope=" + config.env.scope
+    )
+    config.env.accessToken = access_token
+  } else {
+    config.env.accessToken = "validToken"
+  }
+  return config
 }

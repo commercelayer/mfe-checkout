@@ -6070,6 +6070,11 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+pure-md5@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/pure-md5/-/pure-md5-0.1.13.tgz#d55c1cd80dd1e634d5092c4245658694a79a9fe2"
+  integrity sha512-9O3tvDHGdKtoGdzI4OFr7FBfR1X9Gp/D0CXu8lRjlV9bf2YiB/w6FR+3ndOmEFlfdU9pHPvqJPPaDvqMXykEZA==
+
 purgecss@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/purgecss/-/purgecss-3.0.0.tgz#039c191871bb999894222a00c4c8b179fccdb043"
