@@ -14,7 +14,10 @@
 
     "stepCustomer": {
         "customer": "Cliente",
-        "bill": "Informazioni di fatturazione e indirizzo di spedizione"
+        "bill": "Informazioni di fatturazione e indirizzo di spedizione",
+        "addNewAddress": "Aggiungi nuovo indirizzo",
+        "saveAddressBook": "Salva l'indirizzo sulla tua rubrica",
+        "continueToDelivery": "Continuare alla consegna"
     },
 
     "orderRecap": {

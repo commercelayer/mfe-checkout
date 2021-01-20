@@ -14,7 +14,10 @@
 
     "stepCustomer": {
         "customer": "Customer",
-        "bill": "Billing information and shipping address"
+        "bill": "Billing information and shipping address",
+        "addNewAddress": "Add new address",
+        "saveAddressBook": "Save address on your book",
+        "continueToDelivery": "Continue to delivery"
     },
 
     "orderRecap": {
