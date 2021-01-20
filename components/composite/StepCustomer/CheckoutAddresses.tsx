@@ -146,8 +146,8 @@ export const CheckoutAddresses: React.FC<Props> = ({
                 type="checkbox"
                 tw="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 align-middle"
                 required={false}
-              />{" "}
-              Save address on your book
+              />
+              {" " + t("stepCustomer.saveAddressBook")}
             </AddressSectionSaveOnBook>
           )}
         </BillingAddressForm>
@@ -229,6 +229,21 @@ export const CheckoutAddresses: React.FC<Props> = ({
             type="tel"
             value={shippingAddress?.phone}
           />
+
+          {!isGuest ? (
+            <AddressSectionSaveOnBook>
+              <AddressInput
+                data-cy="billing_address_save_to_customer_book"
+                name="billing_address_save_to_customer_book"
+                type="checkbox"
+                tw="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 align-middle"
+                required={false}
+              />
+              {" " + t("stepCustomer.saveAddressBook")}
+            </AddressSectionSaveOnBook>
+          ) : (
+            <Fragment />
+          )}
         </ShippingAddressForm>
         <AddressSectionSaveForm>
           <SaveAddressesButton
