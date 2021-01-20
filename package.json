@@ -15,6 +15,7 @@
     "@commercelayer/react-components": "^2.2.0",
     "next": "10.0.3",
     "next-i18next": "^7.0.1",
+    "pure-md5": "^0.1.13",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "styled-components": "^5.2.1",

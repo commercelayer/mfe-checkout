@@ -14,7 +14,15 @@ declare global {
       saveRequests: SaveRequests
       dataCy(attribute: string): Chainable<Subject>
       // typescript OrderCollection
-      createOrder(options: { languageCode: "it" | "en" }): Chainable<Subject>
+      createOrder(
+        template:
+          | "draft"
+          | "pending"
+          | "pending_with_billing_address"
+          | "pending_with_billing_and_shipping"
+          | "pending_with_customer",
+        options: { languageCode: "it" | "en"; customerEmail: string }
+      ): Chainable<Subject>
     }
   }
 }
