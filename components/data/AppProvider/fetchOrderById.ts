@@ -33,10 +33,13 @@ export const fetchOrderById = async ({
       "shipping_address",
       "billing_address",
       "shipments",
-      "payment_method"
+      "payment_method",
+      "customer.customer_addresses"
     ).find(orderId)
 
     const isGuest = Boolean(order.guest)
+    const isUsingNewBillingAddress = false
+    const isUsingNewShippingAddress = false
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
     const hasShippingAddress = Boolean(order.shippingAddress())
@@ -52,6 +55,20 @@ export const fetchOrderById = async ({
     console.log("order.paymentMethod :>> ", await order.paymentMethod())
 
     changeLanguage(order.languageCode)
+    isNewBillingAddress()
+
+    async function isNewBillingAddress() {
+      if (isGuest) {
+        return true
+      }
+      const customer = await order.customer()
+      const addresses = await customer
+        .customerAddresses()
+        .findBy({ id: billingAddress.id })
+
+      console.log(addresses)
+      console.log(billingAddress.id)
+    }
 
     return {
       isGuest,
