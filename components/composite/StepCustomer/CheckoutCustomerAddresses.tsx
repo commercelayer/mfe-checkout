@@ -20,11 +20,11 @@ import { useTranslation } from "components/data/i18n"
 import { Toggle } from "components/ui/Toggle"
 
 import { AddressButtonAddNew } from "./AddressButtonAddNew"
-import { AddressInputGroup } from "./AddressInputGroup"
 import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
 import { AddressSectionSaveOnBook } from "./AddressSectionSaveOnBook"
 import { AddressSectionTitle } from "./AddressSectionTitle"
 import { BillingAddressFormNew } from "./BillingAddressFormNew"
+import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
 
 interface Props {
   billingAddress: AddressCollection | null
@@ -137,59 +137,11 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               hidden={!shipToDifferentAddress}
               className="p-2"
             >
-              <Grid>
-                <AddressInputGroup
-                  fieldName="shipping_address_first_name"
-                  resource="shippingAddress"
-                  type="text"
-                />
-
-                <AddressInputGroup
-                  fieldName="shipping_address_last_name"
-                  resource="shippingAddress"
-                  type="text"
-                />
-              </Grid>
-
-              <AddressInputGroup
-                fieldName="shipping_address_line_1"
-                resource="shippingAddress"
-                type="text"
+              <ShippingAddressFormNew
+                shippingAddress={shippingAddress}
+                isGuest={false}
               />
 
-              <Grid>
-                <AddressInputGroup
-                  fieldName="shipping_address_city"
-                  resource="shippingAddress"
-                  type="text"
-                />
-
-                <AddressInputGroup
-                  fieldName="shipping_address_country_code"
-                  resource="shippingAddress"
-                  type="text"
-                />
-              </Grid>
-
-              <Grid>
-                <AddressInputGroup
-                  fieldName="shipping_address_state_code"
-                  resource="shippingAddress"
-                  type="text"
-                />
-
-                <AddressInputGroup
-                  fieldName="shipping_address_zip_code"
-                  resource="shippingAddress"
-                  type="text"
-                />
-              </Grid>
-
-              <AddressInputGroup
-                fieldName="shipping_address_phone"
-                resource="shippingAddress"
-                type="tel"
-              />
               <AddressSectionSaveOnBook>
                 <AddressInput
                   data-cy="billing_address_save_to_customer_book"

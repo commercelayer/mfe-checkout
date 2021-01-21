@@ -22,6 +22,7 @@ import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
 import { AddressSectionSaveOnBook } from "./AddressSectionSaveOnBook"
 import { AddressSectionTitle } from "./AddressSectionTitle"
 import { BillingAddressFormNew } from "./BillingAddressFormNew"
+import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
 
 interface Props {
   billingAddress: AddressCollection | null
@@ -103,68 +104,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
             {t(`addressForm.shipping_address_title`)}
           </AddressSectionTitle>
 
-          <Grid>
-            <AddressInputGroup
-              fieldName="shipping_address_first_name"
-              resource="shippingAddress"
-              type="text"
-              value={shippingAddress?.firstName}
-            />
-
-            <AddressInputGroup
-              fieldName="shipping_address_last_name"
-              resource="shippingAddress"
-              type="text"
-              value={shippingAddress?.lastName}
-            />
-          </Grid>
-
-          <AddressInputGroup
-            fieldName="shipping_address_line_1"
-            resource="shippingAddress"
-            type="text"
-            value={shippingAddress?.line1}
-          />
-
-          <Grid>
-            <AddressInputGroup
-              fieldName="shipping_address_city"
-              resource="shippingAddress"
-              type="text"
-              value={shippingAddress?.city}
-            />
-
-            <AddressInputGroup
-              fieldName="shipping_address_country_code"
-              resource="shippingAddress"
-              type="text"
-              value={shippingAddress?.countryCode}
-            />
-          </Grid>
-
-          <Grid>
-            <AddressInputGroup
-              fieldName="shipping_address_state_code"
-              resource="shippingAddress"
-              type="text"
-              value={shippingAddress?.stateCode}
-            />
-
-            <AddressInputGroup
-              fieldName="shipping_address_zip_code"
-              resource="shippingAddress"
-              type="text"
-              value={shippingAddress?.zipCode}
-            />
-          </Grid>
-
-          <AddressInputGroup
-            fieldName="shipping_address_phone"
-            resource="shippingAddress"
-            type="tel"
-            value={shippingAddress?.phone}
-          />
-
+          <ShippingAddressFormNew shippingAddress={shippingAddress} isGuest />
           {!isGuest ? (
             <AddressSectionSaveOnBook>
               <AddressInput
