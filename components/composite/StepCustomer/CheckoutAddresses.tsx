@@ -1,5 +1,4 @@
 import { AddressCollection } from "@commercelayer/js-sdk"
-import { SingleRelationship } from "@commercelayer/js-sdk/dist/resources/typings/Library"
 import {
   Errors,
   AddressesContainer,
@@ -22,10 +21,11 @@ import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
 import { AddressSectionSaveOnBook } from "./AddressSectionSaveOnBook"
 import { AddressSectionTitle } from "./AddressSectionTitle"
+import { BillingAddressFormNew } from "./BillingAddressFormNew"
 
 interface Props {
-  billingAddress: AddressCollection
-  shippingAddress: SingleRelationship<AddressCollection>
+  billingAddress: AddressCollection | null
+  shippingAddress: AddressCollection | null
   emailAddress: string
   isGuest: boolean
   refetchOrder: () => void
@@ -84,72 +84,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
           {t(`addressForm.billing_address_title`)}
         </AddressSectionTitle>
         <BillingAddressForm autoComplete="on" className="p-2">
-          <Grid>
-            <AddressInputGroup
-              fieldName="billing_address_first_name"
-              resource="billingAddress"
-              type="text"
-              value={billingAddress?.firstName}
-            />
-            <AddressInputGroup
-              fieldName="billing_address_last_name"
-              resource="billingAddress"
-              type="text"
-              value={billingAddress?.lastName}
-            />
-          </Grid>
-          <AddressInputGroup
-            fieldName="billing_address_line_1"
-            resource="billingAddress"
-            type="text"
-            value={billingAddress?.line1}
-          />
-          <Grid>
-            <AddressInputGroup
-              fieldName="billing_address_city"
-              resource="billingAddress"
-              type="text"
-              value={billingAddress?.city}
-            />
-            <AddressInputGroup
-              fieldName="billing_address_country_code"
-              resource="billingAddress"
-              type="text"
-              value={billingAddress?.countryCode}
-            />
-          </Grid>
-          <Grid>
-            <AddressInputGroup
-              fieldName="billing_address_state_code"
-              resource="billingAddress"
-              type="text"
-              value={billingAddress?.stateCode}
-            />
-            <AddressInputGroup
-              fieldName="billing_address_zip_code"
-              resource="billingAddress"
-              type="text"
-              value={billingAddress?.zipCode}
-            />
-          </Grid>
-          <AddressInputGroup
-            fieldName="billing_address_phone"
-            resource="billingAddress"
-            type="tel"
-            value={billingAddress?.phone}
-          />
-          {!isGuest && (
-            <AddressSectionSaveOnBook>
-              <AddressInput
-                data-cy="billing_address_save_to_customer_book"
-                name="billing_address_save_to_customer_book"
-                type="checkbox"
-                tw="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 align-middle"
-                required={false}
-              />
-              {" " + t("stepCustomer.saveAddressBook")}
-            </AddressSectionSaveOnBook>
-          )}
+          <BillingAddressFormNew billingAddress={billingAddress} isGuest />
         </BillingAddressForm>
         <Toggle
           data-cy="button-ship-to-different-address"

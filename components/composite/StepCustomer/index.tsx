@@ -58,7 +58,7 @@ export const StepCustomer: React.FC<Props> = ({
       <StepContent>
         {isActive ? (
           <Fragment>
-            {isGuest && (
+            {isGuest ? (
               <CheckoutAddresses
                 shippingAddress={shippingAddress}
                 billingAddress={billingAddress}
@@ -66,8 +66,7 @@ export const StepCustomer: React.FC<Props> = ({
                 isGuest={isGuest}
                 refetchOrder={refetchOrder}
               />
-            )}
-            {!isGuest && (
+            ) : (
               <CheckoutCustomerAddresses
                 shippingAddress={shippingAddress}
                 billingAddress={billingAddress}
@@ -80,13 +79,13 @@ export const StepCustomer: React.FC<Props> = ({
             {hasShippingAddress && hasBillingAddress ? (
               <div>
                 Hello, you have both shipping and billing address set:
-                <Address addresses={[billingAddress as any]}>
+                <Address addresses={[billingAddress]}>
                   <div tw="flex flex-row">
                     Fatturazione:
                     <AddressField tw="pl-1" name="full_address" />
                   </div>
                 </Address>
-                <Address addresses={[shippingAddress as any]}>
+                <Address addresses={[shippingAddress]}>
                   <div tw="flex flex-row">
                     Spedizione:
                     <AddressField tw="pl-1" name="full_address" />

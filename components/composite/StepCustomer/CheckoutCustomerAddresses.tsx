@@ -24,14 +24,17 @@ import { AddressInputGroup } from "./AddressInputGroup"
 import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
 import { AddressSectionSaveOnBook } from "./AddressSectionSaveOnBook"
 import { AddressSectionTitle } from "./AddressSectionTitle"
+import { BillingAddressFormNew } from "./BillingAddressFormNew"
 
 interface Props {
-  billingAddress: AddressCollection
-  shippingAddress: SingleRelationship<AddressCollection>
+  billingAddress: AddressCollection | null
+  shippingAddress: AddressCollection | null
   refetchOrder: () => void
 }
 
 export const CheckoutCustomerAddresses: React.FC<Props> = ({
+  billingAddress,
+  shippingAddress,
   refetchOrder,
 }: Props) => {
   const { t } = useTranslation()
@@ -73,51 +76,9 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           </AddressButtonAddNew>
           {showBillingAddressForm ? (
             <BillingAddressForm autoComplete="on" className="p-2">
-              <Grid>
-                <AddressInputGroup
-                  fieldName="billing_address_first_name"
-                  resource="billingAddress"
-                  type="text"
-                />
-                <AddressInputGroup
-                  fieldName="billing_address_last_name"
-                  resource="billingAddress"
-                  type="text"
-                />
-              </Grid>
-              <AddressInputGroup
-                fieldName="billing_address_line_1"
-                resource="billingAddress"
-                type="text"
-              />
-              <Grid>
-                <AddressInputGroup
-                  fieldName="billing_address_city"
-                  resource="billingAddress"
-                  type="text"
-                />
-                <AddressInputGroup
-                  fieldName="billing_address_country_code"
-                  resource="billingAddress"
-                  type="text"
-                />
-              </Grid>
-              <Grid>
-                <AddressInputGroup
-                  fieldName="billing_address_state_code"
-                  resource="billingAddress"
-                  type="text"
-                />
-                <AddressInputGroup
-                  fieldName="billing_address_zip_code"
-                  resource="billingAddress"
-                  type="text"
-                />
-              </Grid>
-              <AddressInputGroup
-                fieldName="billing_address_phone"
-                resource="billingAddress"
-                type="tel"
+              <BillingAddressFormNew
+                billingAddress={billingAddress}
+                isGuest={false}
               />
               <AddressSectionSaveOnBook>
                 <AddressInput

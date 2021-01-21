@@ -1,7 +1,4 @@
-import { AddressInfo } from "net"
-
 import CLayer, { AddressCollection, Order } from "@commercelayer/js-sdk"
-import { SingleRelationship } from "@commercelayer/js-sdk/dist/resources/typings/Library"
 
 import { changeLanguage } from "components/data/i18n"
 
@@ -10,14 +7,14 @@ interface FetchOrderByIdProps {
   accessToken: string
 }
 
-interface FetchOrderByIdResponse {
+export interface FetchOrderByIdResponse {
   isGuest: boolean
   hasEmailAddress: boolean
   emailAddress: string
   hasShippingAddress: boolean
-  shippingAddress: any
+  shippingAddress: AddressCollection | null
   hasBillingAddress: boolean
-  billingAddress: any
+  billingAddress: AddressCollection | null
   hasShippingMethod: boolean
   hasPaymentMethod: boolean
 }
@@ -74,9 +71,9 @@ export const fetchOrderById = async ({
       hasEmailAddress: false,
       emailAddress: "",
       hasShippingAddress: false,
-      shippingAddress: {},
+      shippingAddress: null,
       hasBillingAddress: false,
-      billingAddress: {},
+      billingAddress: null,
       hasShippingMethod: false,
       hasPaymentMethod: false,
     }
