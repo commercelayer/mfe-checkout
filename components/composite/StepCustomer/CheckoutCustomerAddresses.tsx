@@ -1,5 +1,4 @@
 import { AddressCollection } from "@commercelayer/js-sdk"
-import { SingleRelationship } from "@commercelayer/js-sdk/dist/resources/typings/Library"
 import {
   AddressesContainer,
   BillingAddressForm,
@@ -13,7 +12,6 @@ import {
   ShippingAddressContainer,
 } from "@commercelayer/react-components"
 import { useState, Fragment } from "react"
-import styled from "styled-components"
 import tw from "twin.macro"
 
 import { useTranslation } from "components/data/i18n"
@@ -29,19 +27,31 @@ import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
 interface Props {
   billingAddress: AddressCollection | null
   shippingAddress: AddressCollection | null
+  hasSameAddresses: boolean
+  isUsingNewBillingAddress: boolean
+  isUsingNewShippingAddress: boolean
   refetchOrder: () => void
 }
 
 export const CheckoutCustomerAddresses: React.FC<Props> = ({
   billingAddress,
   shippingAddress,
+  isUsingNewBillingAddress,
+  isUsingNewShippingAddress,
+  hasSameAddresses,
   refetchOrder,
 }: Props) => {
   const { t } = useTranslation()
 
-  const [shipToDifferentAddress, setShipToDifferentAddress] = useState(false)
-  const [showBillingAddressForm, setShowBillingAddressForm] = useState(false)
-  const [showShippingAddressForm, setShowShippingAddressForm] = useState(false)
+  const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
+    !hasSameAddresses
+  )
+  const [showBillingAddressForm, setShowBillingAddressForm] = useState(
+    isUsingNewBillingAddress
+  )
+  const [showShippingAddressForm, setShowShippingAddressForm] = useState(
+    isUsingNewShippingAddress
+  )
 
   const handleShowBillingForm = () =>
     setShowBillingAddressForm(!showBillingAddressForm)
@@ -78,7 +88,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             <BillingAddressForm autoComplete="on" className="p-2">
               <BillingAddressFormNew
                 billingAddress={billingAddress}
-                isGuest={false}
+                isUsingNewBillingAddress={isUsingNewBillingAddress}
               />
               <AddressSectionSaveOnBook>
                 <AddressInput
@@ -140,6 +150,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               <ShippingAddressFormNew
                 shippingAddress={shippingAddress}
                 isGuest={false}
+                isUsingNewShippingAddress={isUsingNewShippingAddress}
               />
 
               <AddressSectionSaveOnBook>
@@ -169,7 +180,3 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     </Fragment>
   )
 }
-
-const Grid = styled.div`
-  ${tw`grid grid-cols-2 gap-4`}
-`

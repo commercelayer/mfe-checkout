@@ -10,13 +10,10 @@ import {
   CustomerInput,
 } from "@commercelayer/react-components"
 import { useState, Fragment } from "react"
-import styled from "styled-components"
-import tw from "twin.macro"
 
 import { useTranslation } from "components/data/i18n"
 import { Toggle } from "components/ui/Toggle"
 
-import { AddressInputGroup } from "./AddressInputGroup"
 import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
 import { AddressSectionSaveOnBook } from "./AddressSectionSaveOnBook"
@@ -29,6 +26,7 @@ interface Props {
   shippingAddress: AddressCollection | null
   emailAddress: string
   isGuest: boolean
+  hasSameAddresses: boolean
   refetchOrder: () => void
 }
 
@@ -37,11 +35,14 @@ export const CheckoutAddresses: React.FC<Props> = ({
   shippingAddress,
   emailAddress,
   isGuest,
+  hasSameAddresses,
   refetchOrder,
 }: Props) => {
   const { t } = useTranslation()
 
-  const [shipToDifferentAddress, setShipToDifferentAddress] = useState(false)
+  const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
+    !hasSameAddresses
+  )
 
   const messages: any = [
     {
@@ -85,7 +86,10 @@ export const CheckoutAddresses: React.FC<Props> = ({
           {t(`addressForm.billing_address_title`)}
         </AddressSectionTitle>
         <BillingAddressForm autoComplete="on" className="p-2">
-          <BillingAddressFormNew billingAddress={billingAddress} isGuest />
+          <BillingAddressFormNew
+            billingAddress={billingAddress}
+            isUsingNewBillingAddress
+          />
         </BillingAddressForm>
         <Toggle
           data-cy="button-ship-to-different-address"
@@ -104,7 +108,11 @@ export const CheckoutAddresses: React.FC<Props> = ({
             {t(`addressForm.shipping_address_title`)}
           </AddressSectionTitle>
 
-          <ShippingAddressFormNew shippingAddress={shippingAddress} isGuest />
+          <ShippingAddressFormNew
+            shippingAddress={shippingAddress}
+            isGuest
+            isUsingNewShippingAddress
+          />
           {!isGuest ? (
             <AddressSectionSaveOnBook>
               <AddressInput
@@ -131,7 +139,3 @@ export const CheckoutAddresses: React.FC<Props> = ({
     </Fragment>
   )
 }
-
-const Grid = styled.div`
-  ${tw`grid grid-cols-2 gap-4`}
-`

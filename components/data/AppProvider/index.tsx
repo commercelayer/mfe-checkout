@@ -22,6 +22,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isGuest, setIsGuest] = useState(false)
+  const [isUsingNewBillingAddress, setIsUsingNewBillingAddress] = useState(true)
+  const [isUsingNewShippingAddress, setIsUsingNewShippingAddress] = useState(
+    true
+  )
+  const [hasSameAddresses, setHasSameAddresses] = useState(false)
+
   const [hasEmailAddress, setHasEmailAddress] = useState(false)
   const [emailAddress, setEmailAddress] = useState("")
   const [hasBillingAddress, setHasBillingAddress] = useState(false)
@@ -45,6 +51,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     fetchOrderById({ orderId, accessToken }).then(
       ({
         isGuest,
+        isUsingNewBillingAddress,
+        isUsingNewShippingAddress,
+        hasSameAddresses,
         hasEmailAddress,
         emailAddress,
         hasBillingAddress,
@@ -55,6 +64,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         hasShippingMethod,
       }) => {
         setIsGuest(isGuest)
+        setIsUsingNewBillingAddress(isUsingNewBillingAddress)
+        setIsUsingNewShippingAddress(isUsingNewShippingAddress)
+        setHasSameAddresses(hasSameAddresses)
         setHasEmailAddress(hasEmailAddress)
         setEmailAddress(emailAddress)
         setHasBillingAddress(hasBillingAddress)
@@ -76,6 +88,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     <AppContext.Provider
       value={{
         isGuest,
+        isUsingNewBillingAddress,
+        isUsingNewShippingAddress,
+        hasSameAddresses,
         isLoading,
         hasEmailAddress,
         emailAddress,

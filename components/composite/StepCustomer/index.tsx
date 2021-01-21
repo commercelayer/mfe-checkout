@@ -33,11 +33,11 @@ export const StepCustomer: React.FC<Props> = ({
     billingAddress,
     shippingAddress,
     emailAddress,
+    hasSameAddresses,
+    isUsingNewBillingAddress,
+    isUsingNewShippingAddress,
     refetchOrder,
   } = appCtx
-
-  // MOCKED STATE
-  const hasAddressInOrder = hasShippingAddress && hasBillingAddress // ma non in rubrica
 
   // todo: logica interna da implementare
   // se guest e' true: mostrare input email + form indirizzi
@@ -64,12 +64,16 @@ export const StepCustomer: React.FC<Props> = ({
                 billingAddress={billingAddress}
                 emailAddress={emailAddress}
                 isGuest={isGuest}
+                hasSameAddresses={hasSameAddresses}
                 refetchOrder={refetchOrder}
               />
             ) : (
               <CheckoutCustomerAddresses
                 shippingAddress={shippingAddress}
                 billingAddress={billingAddress}
+                isUsingNewShippingAddress={isUsingNewShippingAddress}
+                isUsingNewBillingAddress={isUsingNewBillingAddress}
+                hasSameAddresses={hasSameAddresses}
                 refetchOrder={refetchOrder}
               />
             )}
