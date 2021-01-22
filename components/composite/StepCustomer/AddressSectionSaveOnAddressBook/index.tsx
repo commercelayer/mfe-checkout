@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
-export const AddressSectionSaveOnBook: React.FC = ({ children }) => {
+export const AddressSectionSaveOnAddressBook: React.FC = ({ children }) => {
   return <Wrapper>{children}</Wrapper>
 }
 

@@ -20,7 +20,7 @@ import { Toggle } from "components/ui/Toggle"
 import { AddressButtonAddNew } from "./AddressButtonAddNew"
 import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
-import { AddressSectionSaveOnBook } from "./AddressSectionSaveOnBook"
+import { AddressSectionSaveOnAddressBook } from "./AddressSectionSaveOnAddressBook"
 import { AddressSectionTitle } from "./AddressSectionTitle"
 import { BillingAddressFormNew } from "./BillingAddressFormNew"
 import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
@@ -96,16 +96,16 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 billingAddress={billingAddress}
                 isUsingNewBillingAddress={isUsingNewBillingAddress}
               />
-              <AddressSectionSaveOnBook>
+              <AddressSectionSaveOnAddressBook>
                 <AddressInput
-                  data-cy="billing_address_save_to_customer_book"
-                  name="billing_address_save_to_customer_book"
+                  data-cy="billing_address_save_to_customer_address_book"
+                  name="billing_address_save_to_customer_address_book"
                   type="checkbox"
                   tw="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 align-middle"
                   required={false}
                 />
                 {" " + t("stepCustomer.saveAddressBook")}
-              </AddressSectionSaveOnBook>
+              </AddressSectionSaveOnAddressBook>
             </BillingAddressForm>
           ) : (
             <Fragment />
@@ -159,16 +159,16 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 isUsingNewShippingAddress={isUsingNewShippingAddress}
               />
 
-              <AddressSectionSaveOnBook>
+              <AddressSectionSaveOnAddressBook>
                 <AddressInput
-                  data-cy="billing_address_save_to_customer_book"
-                  name="billing_address_save_to_customer_book"
+                  data-cy="billing_address_save_to_customer_address_book"
+                  name="billing_address_save_to_customer_address_book"
                   type="checkbox"
                   tw="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 align-middle"
                   required={false}
                 />
                 {" " + t("stepCustomer.saveAddressBook")}
-              </AddressSectionSaveOnBook>
+              </AddressSectionSaveOnAddressBook>
             </ShippingAddressForm>
           ) : (
             <Fragment />

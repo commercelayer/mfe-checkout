@@ -27,11 +27,9 @@ export interface FetchOrderByIdResponse {
 }
 
 async function isNewAddress(
-  type: "shipping" | "billing",
+  address: AddressCollection | null,
   isGuest: boolean,
-  order: OrderCollection,
-  shippingAddress: AddressCollection | null,
-  billingAddress: AddressCollection | null
+  order: OrderCollection
 ) {
   if (isGuest) {
     return true
@@ -42,17 +40,11 @@ async function isNewAddress(
 
   const arrayAddresses = addresses.toArray()
 
-  if (type === "shipping") {
-    const hasShippingAddressIntoAddresses = arrayAddresses.some(
-      (o) => o.name !== shippingAddress?.name
-    )
-    return hasShippingAddressIntoAddresses
-  } else {
-    const hasBillingAddressIntoAddresses = arrayAddresses.some(
-      (o) => o.name !== billingAddress?.name
-    )
-    return hasBillingAddressIntoAddresses
-  }
+  const hasAddressIntoAddresses = arrayAddresses.some(
+    (o) => o.name !== address?.name
+  )
+
+  return hasAddressIntoAddresses
 }
 
 export const fetchOrderById = async ({
@@ -83,18 +75,14 @@ export const fetchOrderById = async ({
     const hasShippingMethod = Boolean(order.shipments())
     const hasPaymentMethod = Boolean(await order.paymentMethod())
     const isUsingNewBillingAddress = await isNewAddress(
-      "billing",
+      billingAddress,
       isGuest,
-      order,
-      shippingAddress,
-      billingAddress
+      order
     )
     const isUsingNewShippingAddress = await isNewAddress(
-      "shipping",
-      isGuest,
-      order,
       shippingAddress,
-      billingAddress
+      isGuest,
+      order
     )
     const hasSameAddresses = shippingAddress?.name === billingAddress?.name
 
