@@ -71,6 +71,8 @@ export const StepCustomer: React.FC<Props> = ({
               <CheckoutCustomerAddresses
                 shippingAddress={shippingAddress}
                 billingAddress={billingAddress}
+                emailAddress={emailAddress}
+                isGuest={isGuest}
                 isUsingNewShippingAddress={isUsingNewShippingAddress}
                 isUsingNewBillingAddress={isUsingNewBillingAddress}
                 hasSameAddresses={hasSameAddresses}

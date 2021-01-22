@@ -1,15 +1,13 @@
 import { AddressCollection } from "@commercelayer/js-sdk"
 import {
-  Errors,
   AddressesContainer,
   BillingAddressForm,
   AddressInput,
   SaveAddressesButton,
   ShippingAddressForm,
-  CustomerContainer,
-  CustomerInput,
 } from "@commercelayer/react-components"
 import { useState, Fragment } from "react"
+import tw from "twin.macro"
 
 import { useTranslation } from "components/data/i18n"
 import { Toggle } from "components/ui/Toggle"
@@ -44,43 +42,9 @@ export const CheckoutAddresses: React.FC<Props> = ({
     !hasSameAddresses
   )
 
-  const messages: any = [
-    {
-      code: "EMPTY_ERROR",
-      resource: "billingAddress",
-      field: "firstName",
-      message: `Can't be blank`,
-    },
-    {
-      code: "VALIDATION_ERROR",
-      resource: "billingAddress",
-      field: "email",
-      message: `Must be valid email`,
-    },
-  ]
-
   return (
     <Fragment>
-      {isGuest && (
-        <CustomerContainer>
-          <AddressSectionEmail>
-            <CustomerInput
-              data-cy="customer_email"
-              tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-              placeholder="E-mail"
-              saveOnBlur={true}
-              onBlur={true}
-              value={emailAddress}
-            />
-            <Errors
-              data-cy="customer_email_error"
-              resource="order"
-              field="customer_email"
-              messages={messages}
-            />
-          </AddressSectionEmail>
-        </CustomerContainer>
-      )}
+      <AddressSectionEmail isGuest={isGuest} emailAddress={emailAddress} />
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
         <AddressSectionTitle>
           {t(`addressForm.billing_address_title`)}
@@ -130,6 +94,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
         </ShippingAddressForm>
         <AddressSectionSaveForm>
           <SaveAddressesButton
+            label={t("stepCustomer.continueToDelivery")}
             data-cy="save-addresses-button"
             tw="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent leading-4 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
             onClick={refetchOrder}

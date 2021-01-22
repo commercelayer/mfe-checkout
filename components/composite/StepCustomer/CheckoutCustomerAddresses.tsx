@@ -18,6 +18,7 @@ import { useTranslation } from "components/data/i18n"
 import { Toggle } from "components/ui/Toggle"
 
 import { AddressButtonAddNew } from "./AddressButtonAddNew"
+import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
 import { AddressSectionSaveOnBook } from "./AddressSectionSaveOnBook"
 import { AddressSectionTitle } from "./AddressSectionTitle"
@@ -30,6 +31,8 @@ interface Props {
   hasSameAddresses: boolean
   isUsingNewBillingAddress: boolean
   isUsingNewShippingAddress: boolean
+  isGuest: boolean
+  emailAddress: string
   refetchOrder: () => void
 }
 
@@ -39,6 +42,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   isUsingNewBillingAddress,
   isUsingNewShippingAddress,
   hasSameAddresses,
+  isGuest,
+  emailAddress,
   refetchOrder,
 }: Props) => {
   const { t } = useTranslation()
@@ -60,6 +65,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
   return (
     <Fragment>
+      <AddressSectionEmail isGuest={isGuest} emailAddress={emailAddress} />
       <CustomerContainer>
         <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
           <AddressSectionTitle>
