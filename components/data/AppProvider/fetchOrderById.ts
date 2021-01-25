@@ -12,6 +12,19 @@ interface FetchOrderByIdProps {
   accessToken: string
 }
 
+interface IsNewAddressProps {
+  address: AddressCollection | null
+  customerAddresses: Array<CustomerAddressCollection>
+  isGuest: boolean
+}
+
+interface CheckAndSetDefaultAddressForOrderProps {
+  order: OrderCollection
+  customerAddresses: Array<CustomerAddressCollection>
+  hasShippingAddress: boolean
+  hasBillingAddress: boolean
+}
+
 export interface FetchOrderByIdResponse {
   isGuest: boolean
   isUsingNewBillingAddress: boolean
@@ -27,11 +40,11 @@ export interface FetchOrderByIdResponse {
   hasPaymentMethod: boolean
 }
 
-async function isNewAddress(
-  address: AddressCollection | null,
-  customerAddresses: Array<CustomerAddressCollection>,
-  isGuest: boolean
-) {
+async function isNewAddress({
+  address,
+  customerAddresses,
+  isGuest,
+}: IsNewAddressProps) {
   if (isGuest) {
     return true
   }
@@ -43,12 +56,12 @@ async function isNewAddress(
   return hasAddressIntoAddresses
 }
 
-async function checkAndSetDefaultAddressForOrder(
-  order: OrderCollection,
-  customerAddresses: Array<CustomerAddressCollection>,
-  hasShippingAddress: boolean,
-  hasBillingAddress: boolean
-) {
+async function checkAndSetDefaultAddressForOrder({
+  order,
+  customerAddresses,
+  hasShippingAddress,
+  hasBillingAddress,
+}: CheckAndSetDefaultAddressForOrderProps) {
   if (
     customerAddresses.length === 1 &&
     !hasShippingAddress &&
@@ -103,16 +116,16 @@ export const fetchOrderById = async ({
     const hasShippingMethod = Boolean(order.shipments())
     const hasPaymentMethod = Boolean(await order.paymentMethod())
 
-    const isUsingNewBillingAddress = await isNewAddress(
-      billingAddress,
-      arrayAddresses,
-      isGuest
-    )
-    const isUsingNewShippingAddress = await isNewAddress(
-      shippingAddress,
-      arrayAddresses,
-      isGuest
-    )
+    const isUsingNewBillingAddress = await isNewAddress({
+      address: billingAddress,
+      customerAddresses: arrayAddresses,
+      isGuest,
+    })
+    const isUsingNewShippingAddress = await isNewAddress({
+      address: shippingAddress,
+      customerAddresses: arrayAddresses,
+      isGuest,
+    })
 
     const hasSameAddresses = shippingAddress?.name === billingAddress?.name
 
@@ -122,12 +135,12 @@ export const fetchOrderById = async ({
     console.log("order.paymentMethod :>> ", await order.paymentMethod())
 
     if (!isGuest) {
-      await checkAndSetDefaultAddressForOrder(
-        order,
-        arrayAddresses,
-        hasShippingAddress,
-        hasBillingAddress
-      )
+      await checkAndSetDefaultAddressForOrder({
+        order: order,
+        customerAddresses: arrayAddresses,
+        hasShippingAddress: hasShippingAddress,
+        hasBillingAddress: hasBillingAddress,
+      })
     }
 
     changeLanguage(order.languageCode)
