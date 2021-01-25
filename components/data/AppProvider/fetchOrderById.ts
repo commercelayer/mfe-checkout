@@ -2,6 +2,7 @@ import CLayer, {
   AddressCollection,
   Order,
   OrderCollection,
+  CustomerAddressCollection,
 } from "@commercelayer/js-sdk"
 
 import { changeLanguage } from "components/data/i18n"
@@ -47,6 +48,30 @@ async function isNewAddress(
   return hasAddressIntoAddresses
 }
 
+async function setOrderAddressDefault(
+  order: OrderCollection,
+  arrayAddresses: Array<CustomerAddressCollection>,
+  hasShippingAddress: boolean,
+  hasBillingAddress: boolean
+) {
+  if (
+    arrayAddresses.length === 1 &&
+    !hasShippingAddress &&
+    !hasBillingAddress
+  ) {
+    const address = arrayAddresses[0].address().id
+    const updateObjet: Partial<Record<string, any>> = {
+      _billingAddressCloneId: address,
+      _shippingAddressCloneId: address,
+    }
+    try {
+      await order.update(updateObjet)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export const fetchOrderById = async ({
   orderId,
   accessToken,
@@ -62,18 +87,27 @@ export const fetchOrderById = async ({
       "billing_address",
       "shipments",
       "payment_method",
-      "customer.customer_addresses"
+      "customer",
+      "customer.customer_addresses",
+      "customer.customer_addresses.address"
     ).find(orderId)
+
+    const customer = order.customer()
+    const addresses = customer.customerAddresses()
+    const arrayAddresses = addresses.toArray()
+
+    const shippingAddress = order.shippingAddress()
+    const hasShippingAddress = Boolean(order.shippingAddress())
+
+    const billingAddress = await order.billingAddress()
+    const hasBillingAddress = Boolean(billingAddress)
 
     const isGuest = Boolean(order.guest)
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
-    const hasShippingAddress = Boolean(order.shippingAddress())
-    const shippingAddress = order.shippingAddress()
-    const hasBillingAddress = Boolean(await order.billingAddress())
-    const billingAddress = await order.billingAddress()
     const hasShippingMethod = Boolean(order.shipments())
     const hasPaymentMethod = Boolean(await order.paymentMethod())
+
     const isUsingNewBillingAddress = await isNewAddress(
       billingAddress,
       isGuest,
@@ -84,12 +118,20 @@ export const fetchOrderById = async ({
       isGuest,
       order
     )
+
     const hasSameAddresses = shippingAddress?.name === billingAddress?.name
 
     console.log("order.shippingAddress :>> ", order.shippingAddress())
     console.log("order.billingAddress :>> ", await order.billingAddress())
     console.log("order.shipments :>> ", order.shipments())
     console.log("order.paymentMethod :>> ", await order.paymentMethod())
+
+    await setOrderAddressDefault(
+      order,
+      arrayAddresses,
+      hasShippingAddress,
+      hasBillingAddress
+    )
 
     changeLanguage(order.languageCode)
 
