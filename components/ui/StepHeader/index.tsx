@@ -4,7 +4,7 @@ import tw from "twin.macro"
 import { CheckmarkIcon } from "./CheckmarkIcon"
 
 interface Props {
-  status: "add" | "done" | "disabled"
+  status: "edit" | "done" | "disabled"
   label: string
   info: string
   stepNumber?: number

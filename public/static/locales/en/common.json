@@ -14,14 +14,19 @@
 
     "stepCustomer": {
         "customer": "Customer",
-        "bill": "Billing information and shipping address"
+        "bill": "Billing information and shipping address",
+        "addNewAddress": "Add new address",
+        "saveAddressBook": "Save address on your book",
+        "continueToDelivery": "Continue to delivery"
     },
 
     "orderRecap": {
         "cartContains": "Your shopping cart contains {{count}} item",
         "cartContains_plural": "Your shopping cart contains {{count}} items",
         "quantity": "Quantity: {{count}}",
-        "quantity_plural": "Quantities: {{count}}"
+        "quantity_plural": "Quantities: {{count}}",
+        "tax_amount": "Tax:",
+        "total_amount": "Total:"
     },
 
     "stepShipping": {

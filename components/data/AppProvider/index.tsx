@@ -1,12 +1,9 @@
+import { AddressCollection } from "@commercelayer/js-sdk"
 import { createContext, useState, useEffect } from "react"
 
-import { fetchOrderById } from "./fetchOrderById"
+import { fetchOrderById, FetchOrderByIdResponse } from "./fetchOrderById"
 
-interface AppProviderData {
-  hasBillingAddress: boolean
-  hasShippingAddress: boolean
-  hasShippingMethod: boolean
-  hasPaymentMethod: boolean
+interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
   refetchOrder: () => void
 }
@@ -24,8 +21,25 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   accessToken,
 }) => {
   const [isLoading, setIsLoading] = useState(true)
+  const [isGuest, setIsGuest] = useState(false)
+  const [isUsingNewBillingAddress, setIsUsingNewBillingAddress] = useState(true)
+  const [isUsingNewShippingAddress, setIsUsingNewShippingAddress] = useState(
+    true
+  )
+  const [hasSameAddresses, setHasSameAddresses] = useState(false)
+
+  const [hasEmailAddress, setHasEmailAddress] = useState(false)
+  const [emailAddress, setEmailAddress] = useState("")
   const [hasBillingAddress, setHasBillingAddress] = useState(false)
+  const [
+    billingAddress,
+    setBillingAddress,
+  ] = useState<AddressCollection | null>(null)
   const [hasShippingAddress, setHasShippingAddress] = useState(false)
+  const [
+    shippingAddress,
+    setShippingAddress,
+  ] = useState<AddressCollection | null>(null)
   const [hasShippingMethod, setHasShippingMethod] = useState(false)
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
 
@@ -36,13 +50,29 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     setIsLoading(true)
     fetchOrderById({ orderId, accessToken }).then(
       ({
+        isGuest,
+        isUsingNewBillingAddress,
+        isUsingNewShippingAddress,
+        hasSameAddresses,
+        hasEmailAddress,
+        emailAddress,
         hasBillingAddress,
+        billingAddress,
         hasShippingAddress,
+        shippingAddress,
         hasPaymentMethod,
         hasShippingMethod,
       }) => {
+        setIsGuest(isGuest)
+        setIsUsingNewBillingAddress(isUsingNewBillingAddress)
+        setIsUsingNewShippingAddress(isUsingNewShippingAddress)
+        setHasSameAddresses(hasSameAddresses)
+        setHasEmailAddress(hasEmailAddress)
+        setEmailAddress(emailAddress)
         setHasBillingAddress(hasBillingAddress)
+        setBillingAddress(billingAddress)
         setHasShippingAddress(hasShippingAddress)
+        setShippingAddress(shippingAddress)
         setHasShippingMethod(hasShippingMethod)
         setHasPaymentMethod(hasPaymentMethod)
         setIsLoading(false)
@@ -57,9 +87,17 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   return (
     <AppContext.Provider
       value={{
+        isGuest,
+        isUsingNewBillingAddress,
+        isUsingNewShippingAddress,
+        hasSameAddresses,
         isLoading,
+        hasEmailAddress,
+        emailAddress,
         hasBillingAddress,
+        billingAddress,
         hasShippingAddress,
+        shippingAddress,
         hasShippingMethod,
         hasPaymentMethod,
         refetchOrder: () => {
