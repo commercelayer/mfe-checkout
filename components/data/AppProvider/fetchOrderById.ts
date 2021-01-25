@@ -29,40 +29,35 @@ export interface FetchOrderByIdResponse {
 
 async function isNewAddress(
   address: AddressCollection | null,
-  isGuest: boolean,
-  order: OrderCollection
+  customerAddresses: Array<CustomerAddressCollection>,
+  isGuest: boolean
 ) {
   if (isGuest) {
     return true
   }
 
-  const customer = await order.customer()
-  const addresses = customer.customerAddresses()
-
-  const arrayAddresses = addresses.toArray()
-
-  const hasAddressIntoAddresses = arrayAddresses.some(
+  const hasAddressIntoAddresses = customerAddresses.some(
     (o) => o.name !== address?.name
   )
 
   return hasAddressIntoAddresses
 }
 
-async function setOrderAddressDefault(
+async function checkAndSetDefaultAddressForOrder(
   order: OrderCollection,
-  arrayAddresses: Array<CustomerAddressCollection>,
+  customerAddresses: Array<CustomerAddressCollection>,
   hasShippingAddress: boolean,
   hasBillingAddress: boolean
 ) {
   if (
-    arrayAddresses.length === 1 &&
+    customerAddresses.length === 1 &&
     !hasShippingAddress &&
     !hasBillingAddress
   ) {
-    const address = arrayAddresses[0].address().id
+    const addressId = customerAddresses[0].address().id
     const updateObjet: Partial<Record<string, any>> = {
-      _billingAddressCloneId: address,
-      _shippingAddressCloneId: address,
+      _billingAddressCloneId: addressId,
+      _shippingAddressCloneId: addressId,
     }
     try {
       await order.update(updateObjet)
@@ -110,13 +105,13 @@ export const fetchOrderById = async ({
 
     const isUsingNewBillingAddress = await isNewAddress(
       billingAddress,
-      isGuest,
-      order
+      arrayAddresses,
+      isGuest
     )
     const isUsingNewShippingAddress = await isNewAddress(
       shippingAddress,
-      isGuest,
-      order
+      arrayAddresses,
+      isGuest
     )
 
     const hasSameAddresses = shippingAddress?.name === billingAddress?.name
@@ -126,12 +121,14 @@ export const fetchOrderById = async ({
     console.log("order.shipments :>> ", order.shipments())
     console.log("order.paymentMethod :>> ", await order.paymentMethod())
 
-    await setOrderAddressDefault(
-      order,
-      arrayAddresses,
-      hasShippingAddress,
-      hasBillingAddress
-    )
+    if (!isGuest) {
+      await checkAndSetDefaultAddressForOrder(
+        order,
+        arrayAddresses,
+        hasShippingAddress,
+        hasBillingAddress
+      )
+    }
 
     changeLanguage(order.languageCode)
 
