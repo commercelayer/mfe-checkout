@@ -1,8 +1,4 @@
-import {
-  CustomerContainer,
-  CustomerInput,
-  Errors,
-} from "@commercelayer/react-components"
+import { CustomerInput, Errors } from "@commercelayer/react-components"
 import { Fragment } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -17,7 +13,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
   emailAddress,
 }) => {
   if (!isGuest) {
-    return <Email>{emailAddress}</Email>
+    return <Email data-cy="current-customer-email">{emailAddress}</Email>
   }
 
   const messages: any = [
@@ -37,23 +33,21 @@ export const AddressSectionEmail: React.FC<Props> = ({
 
   return (
     <Fragment>
-      <CustomerContainer>
-        <Wrapper>
-          <CustomerInput
-            data-cy="customer_email"
-            tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-            placeholder="E-mail"
-            saveOnBlur={true}
-            value={emailAddress}
-          />
-          <Errors
-            data-cy="customer_email_error"
-            resource="order"
-            field="customer_email"
-            messages={messages}
-          />
-        </Wrapper>
-      </CustomerContainer>
+      <Wrapper>
+        <CustomerInput
+          data-cy="customer_email"
+          tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+          placeholder="E-mail"
+          saveOnBlur={true}
+          value={emailAddress}
+        />
+        <Errors
+          data-cy="customer_email_error"
+          resource="order"
+          field="customer_email"
+          messages={messages}
+        />
+      </Wrapper>
     </Fragment>
   )
 }
