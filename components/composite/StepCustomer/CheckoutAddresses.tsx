@@ -77,20 +77,6 @@ export const CheckoutAddresses: React.FC<Props> = ({
             isGuest
             isUsingNewShippingAddress
           />
-          {!isGuest ? (
-            <AddressSectionSaveOnAddressBook>
-              <AddressInput
-                data-cy="billing_address_save_to_customer_address_book"
-                name="billing_address_save_to_customer_book"
-                type="checkbox"
-                tw="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 align-middle"
-                required={false}
-              />
-              {" " + t("stepCustomer.saveAddressBook")}
-            </AddressSectionSaveOnAddressBook>
-          ) : (
-            <Fragment />
-          )}
         </ShippingAddressForm>
         <AddressSectionSaveForm>
           <SaveAddressesButton

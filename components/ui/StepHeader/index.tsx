@@ -26,7 +26,13 @@ export const StepHeader: React.FC<Props> = ({
           <Title data-cy="step-header-customer">{label}</Title>
           {status === "done" ? (
             <Edit>
-              &mdash; <EditButton onClick={onEditRequest}>Edit</EditButton>
+              &mdash;{" "}
+              <EditButton
+                data-cy={`edit-step-${stepNumber}-button`}
+                onClick={onEditRequest}
+              >
+                Edit
+              </EditButton>
             </Edit>
           ) : null}
         </Top>
