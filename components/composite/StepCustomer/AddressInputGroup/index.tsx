@@ -8,12 +8,16 @@ import {
   AddressInputName,
   BaseInputType,
 } from "@commercelayer/react-components/dist/typings"
-import { ResourceErrorType } from "@commercelayer/react-components/dist/typings/errors"
+import {
+  ResourceErrorType,
+  ErrorComponentProps,
+} from "@commercelayer/react-components/dist/typings/errors"
+import styled, { css } from "styled-components"
+import tw from "twin.macro"
 
 import { useTranslation } from "components/data/i18n"
-import "twin.macro"
 
-const messages: any = [
+const messages: ErrorComponentProps["messages"] = [
   {
     code: "EMPTY_ERROR",
     resource: "billingAddress",
@@ -50,34 +54,32 @@ export const AddressInputGroup: React.FC<Props> = ({
     fieldName === "billing_address_country_code"
 
   return (
-    <div tw="mb-4">
-      <label htmlFor={fieldName} tw="block text-sm font-medium text-gray-700">
-        {label}
-      </label>
-      <div className="mt-1">
-        {isCountry ? (
-          <AddressCountrySelector
-            data-cy={`input_${fieldName}`}
-            name={fieldName as AddressCountrySelectName}
-            value={value}
-            style={{ width: "100%" }}
-            placeholder={{
-              value: "",
-              label,
-              disabled: true,
-            }}
-          />
-        ) : (
-          <AddressInput
-            data-cy={`input_${fieldName}`}
-            name={fieldName as AddressInputName}
-            type={type}
-            tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-            placeholder={label}
-            value={value}
-          />
-        )}
-      </div>
+    <div className="mb-4">
+      <Wrapper>
+        <Label htmlFor={fieldName}>{label}</Label>
+        <div className="mt-1">
+          {isCountry ? (
+            <StyledAddressCountrySelector
+              data-cy={`input_${fieldName}`}
+              name={fieldName as AddressCountrySelectName}
+              value={value}
+              placeholder={{
+                value: "",
+                label: "Please select your country",
+                disabled: true,
+              }}
+            />
+          ) : (
+            <StyledAddressInput
+              id={fieldName}
+              data-cy={`input_${fieldName}`}
+              name={fieldName as AddressInputName}
+              type={type}
+              value={value}
+            />
+          )}
+        </div>
+      </Wrapper>
       <p tw="mt-2 text-sm text-red-600" id="email-error">
         <Errors
           data-cy={`error_${fieldName}`}
@@ -89,3 +91,23 @@ export const AddressInputGroup: React.FC<Props> = ({
     </div>
   )
 }
+
+const Wrapper = styled.div`
+  position: relative;
+`
+
+const Label = styled.label`
+  ${tw`block text-sm font-bold text-gray-700`}
+`
+
+const inputBaseCss = css`
+  ${tw`block w-full border-gray-300 border focus:ring-blue-400 focus:ring-2 focus:outline-none  sm:text-sm rounded-md py-2 px-2`}
+`
+
+const StyledAddressInput = styled(AddressInput)`
+  ${inputBaseCss}
+`
+
+const StyledAddressCountrySelector = styled(AddressCountrySelector)`
+  ${inputBaseCss}
+`
