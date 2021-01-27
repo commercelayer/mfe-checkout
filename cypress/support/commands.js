@@ -54,9 +54,32 @@ Cypress.Commands.add('createOrder', (template, options) => {
       },
       headers: apiRequestHeaders(Cypress.env('accessToken'))
     }).its('body.data').then((order) => {
-      cy.writeFile(`cypress/fixtures/orders/${filename}`, order).then(() => { return order })
+      cy.request({
+        url: Cypress.env('apiEndpoint') + '/api/line_items',
+        method: 'POST',
+        body: {
+          data: {
+            type: "line_items",
+            attributes: {
+              quantity: "2",
+              sku_code: "BABYONBU000000E63E7412MX"
+            },
+            relationships: {
+              order: {
+                data: {
+                  type: "orders",
+                  id: order.id
+                }
+              }
+            }
+          }
+        },
+        headers: apiRequestHeaders(Cypress.env('accessToken'))
+      }).then(() => {
+        cy.writeFile(`cypress/fixtures/orders/${filename}`, order).then(() => { return order })
+      })
     })
   } else {
-    return cy.readFile(`cypress/fixtures/orders/${filename}.json`)
+    return cy.readFile(`cypress/fixtures/orders/${filename}`)
   }
 })
