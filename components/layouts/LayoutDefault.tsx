@@ -34,5 +34,5 @@ const Main = styled.div`
 `
 
 const Aside = styled.div`
-  ${tw`pt-10`}
+  ${tw`pt-10 px-7 md:pl-0 md:pr-7`}
 `

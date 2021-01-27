@@ -63,7 +63,7 @@ describe("Checkout entrypoint", () => {
     })
   })
 
-  context.only("valid token and valid orderId", () => {
+  context("valid token and valid orderId", () => {
     const filename = "entrypoint"
 
     before(function () {

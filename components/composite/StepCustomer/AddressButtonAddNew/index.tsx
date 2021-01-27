@@ -18,6 +18,7 @@ export const AddressButtonAddNew: React.FC<Props> = ({ children, onClick }) => {
 const Wrapper = styled.h4`
   ${tw`flex p-2 my-2`}
 `
+
 const Button = styled.button`
-  ${tw`inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-500 border border-transparent shadow-sm rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+  ${tw`inline-flex items-center px-4 py-2 text-sm font-medium text-blue-500 border border-transparent rounded-md focus:outline-none focus:ring-2 hover:ring-2 ring-offset-2 ring-blue-500`}
 `

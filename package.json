@@ -13,6 +13,9 @@
   "dependencies": {
     "@commercelayer/js-sdk": "^3.0.3",
     "@commercelayer/react-components": "^2.2.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "next": "10.0.3",
     "next-i18next": "^7.0.1",
     "pure-md5": "^0.1.13",
@@ -29,7 +32,7 @@
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
     "autoprefixer": "^10.1.0",
-    "cypress": "^6.1.0",
+    "cypress": "6.3.0",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-config-standard": "^16.0.2",

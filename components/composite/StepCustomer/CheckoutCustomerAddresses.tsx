@@ -11,10 +11,14 @@ import {
   AddressField,
   ShippingAddressContainer,
 } from "@commercelayer/react-components"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, Fragment } from "react"
+import styled from "styled-components"
 import tw from "twin.macro"
 
 import { useTranslation } from "components/data/i18n"
+import { ButtonCss } from "components/ui/Button"
 import { Toggle } from "components/ui/Toggle"
 
 import { AddressButtonAddNew } from "./AddressButtonAddNew"
@@ -72,44 +76,31 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             {t(`addressForm.billing_address_title`)}
           </AddressSectionTitle>
           <BillingAddressContainer>
-            <Address
-              tw="w-1/2 p-2 mb-5 border rounded cursor-pointer hover:border-blue-500 shadow-sm"
-              selectedClassName="border-blue-500"
+            <AddressCardComponent
+              addressType="billing"
               onSelect={refetchOrder}
-              data-cy="customer-billing-address"
-            >
-              <div tw="flex font-bold">
-                <AddressField name="first_name" />
-                <AddressField name="last_name" tw="ml-1" />
-              </div>
-              <div>
-                <AddressField name="full_address" />
-              </div>
-            </Address>
+            />
           </BillingAddressContainer>
-          <AddressButtonAddNew onClick={handleShowBillingForm}>
-            {t("stepCustomer.addNewAddress")}
-          </AddressButtonAddNew>
+          {!showBillingAddressForm && (
+            <button
+              tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
+              onClick={handleShowBillingForm}
+            >
+              <FontAwesomeIcon icon={faPlus} tw="mr-3" />
+              {shipToDifferentAddress
+                ? "Add new billing address"
+                : "Add new address"}
+            </button>
+          )}
           {showBillingAddressForm ? (
             <BillingAddressForm autoComplete="on" className="p-2">
               <BillingAddressFormNew
                 billingAddress={billingAddress}
                 isUsingNewBillingAddress={isUsingNewBillingAddress}
               />
-              <AddressSectionSaveOnAddressBook>
-                <AddressInput
-                  data-cy="billing_address_save_to_customer_address_book"
-                  name="billing_address_save_to_customer_book"
-                  type="checkbox"
-                  tw="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 align-middle"
-                  required={false}
-                />
-                {" " + t("stepCustomer.saveAddressBook")}
-              </AddressSectionSaveOnAddressBook>
+              <AddressSectionSaveOnAddressBook addressType="billing" />
             </BillingAddressForm>
-          ) : (
-            <Fragment />
-          )}
+          ) : null}
           <Toggle
             data-cy="button-ship-to-different-address"
             data-status={shipToDifferentAddress}
@@ -125,24 +116,22 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                     {t(`addressForm.shipping_address_title`)}
                   </AddressSectionTitle>
                 </div>
-                <Address
-                  data-cy="customer-shipping-address"
-                  tw="w-1/2 p-2 m-2 border rounded cursor-pointer hover:border-blue-500 shadow-sm"
-                  selectedClassName="border-blue-500"
+
+                <AddressCardComponent
+                  addressType="shipping"
                   onSelect={refetchOrder}
-                >
-                  <div tw="flex font-bold">
-                    <AddressField name="first_name" />
-                    <AddressField name="last_name" tw="ml-1" />
-                  </div>
-                  <div>
-                    <AddressField name="full_address" />
-                  </div>
-                </Address>
+                />
               </ShippingAddressContainer>
-              <AddressButtonAddNew onClick={handleShowShippingForm}>
-                {t("stepCustomer.addNewAddress")}
-              </AddressButtonAddNew>
+
+              {!isUsingNewShippingAddress ? (
+                <button
+                  tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
+                  onClick={handleShowShippingForm}
+                >
+                  <FontAwesomeIcon icon={faPlus} tw="mr-3" />
+                  Add new shipping address
+                </button>
+              ) : null}
             </Fragment>
           ) : (
             <Fragment />
@@ -159,30 +148,72 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 isUsingNewShippingAddress={isUsingNewShippingAddress}
               />
 
-              <AddressSectionSaveOnAddressBook>
-                <AddressInput
-                  data-cy="billing_address_save_to_customer_address_book"
-                  name="billing_address_save_to_customer_book"
-                  type="checkbox"
-                  tw="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 align-middle"
-                  required={false}
-                />
-                {" " + t("stepCustomer.saveAddressBook")}
-              </AddressSectionSaveOnAddressBook>
+              <AddressSectionSaveOnAddressBook addressType="shipping" />
             </ShippingAddressForm>
-          ) : (
-            <Fragment />
-          )}
-          <AddressSectionSaveForm>
-            <SaveAddressesButton
-              label={t("stepCustomer.continueToDelivery")}
-              data-cy="save-addresses-button"
-              tw="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent leading-4 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-              onClick={refetchOrder}
-            />
-          </AddressSectionSaveForm>
+          ) : null}
+
+          <div tw="flex justify-between">
+            <div>
+              {(showBillingAddressForm && !isUsingNewBillingAddress) ||
+              (showShippingAddressForm && !isUsingNewShippingAddress) ? (
+                <AddressButtonAddNew
+                  onClick={() => {
+                    setShowBillingAddressForm(isUsingNewBillingAddress)
+                    setShowShippingAddressForm(isUsingNewShippingAddress)
+                  }}
+                >
+                  Discard changes
+                </AddressButtonAddNew>
+              ) : null}
+            </div>
+            <AddressSectionSaveForm>
+              <StyledSaveAddressesButton
+                label={t("stepCustomer.continueToDelivery")}
+                data-cy="save-addresses-button"
+                onClick={refetchOrder}
+              />
+            </AddressSectionSaveForm>
+          </div>
         </AddressesContainer>
       </CustomerContainer>
     </Fragment>
   )
 }
+
+interface AddressCardProps {
+  addressType: "shipping" | "billing"
+  onSelect: () => void
+}
+
+const AddressCardComponent: React.FC<AddressCardProps> = ({
+  addressType,
+  onSelect,
+}) => {
+  const dataCy =
+    addressType === "billing"
+      ? "customer-billing-address"
+      : "customer-shipping-address"
+  return (
+    <AddressCard
+      data-cy={dataCy}
+      selectedClassName="border-blue-500"
+      onSelect={onSelect}
+    >
+      <div tw="flex font-bold">
+        <AddressField name="first_name" />
+        <AddressField name="last_name" tw="ml-1" />
+      </div>
+      <div>
+        <AddressField name="full_address" />
+      </div>
+    </AddressCard>
+  )
+}
+
+const AddressCard = styled(Address)`
+  ${tw`w-1/2 p-2 mb-5 border rounded cursor-pointer hover:border-blue-500 shadow-sm`}
+`
+
+const StyledSaveAddressesButton = styled(SaveAddressesButton)`
+  ${ButtonCss}
+`
