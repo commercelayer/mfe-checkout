@@ -1,4 +1,5 @@
 import { CustomerInput, Errors } from "@commercelayer/react-components"
+import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
 import { Fragment } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -15,7 +16,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
   isGuest,
   emailAddress,
 }) => {
-  const messages: any = [
+  const messages: ErrorComponentProps["messages"] = [
     {
       code: "EMPTY_ERROR",
       resource: "billingAddress",
