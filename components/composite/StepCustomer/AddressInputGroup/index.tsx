@@ -12,10 +12,11 @@ import {
   ResourceErrorType,
   ErrorComponentProps,
 } from "@commercelayer/react-components/dist/typings/errors"
-import styled, { css } from "styled-components"
-import tw from "twin.macro"
+import styled from "styled-components"
 
 import { useTranslation } from "components/data/i18n"
+import { InputCss } from "components/ui/form/Input"
+import { Label } from "components/ui/form/Label"
 
 const messages: ErrorComponentProps["messages"] = [
   {
@@ -96,18 +97,10 @@ const Wrapper = styled.div`
   position: relative;
 `
 
-const Label = styled.label`
-  ${tw`block text-sm font-bold text-gray-700`}
-`
-
-const inputBaseCss = css`
-  ${tw`block w-full border-gray-300 border focus:ring-blue-400 focus:ring-2 focus:outline-none  sm:text-sm rounded-md py-2 px-2`}
-`
-
 const StyledAddressInput = styled(AddressInput)`
-  ${inputBaseCss}
+  ${InputCss}
 `
 
 const StyledAddressCountrySelector = styled(AddressCountrySelector)`
-  ${inputBaseCss}
+  ${InputCss}
 `

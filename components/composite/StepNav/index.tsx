@@ -43,5 +43,5 @@ export const StepNav: React.FC<Props> = ({
 }
 
 const Wrapper = styled.div`
-  ${tw`flex  flex-row mb-4`}
+  ${tw`flex flex-row mb-12`}
 `

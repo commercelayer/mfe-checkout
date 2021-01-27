@@ -13,6 +13,9 @@
   "dependencies": {
     "@commercelayer/js-sdk": "^3.0.3",
     "@commercelayer/react-components": "^2.2.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "next": "10.0.3",
     "next-i18next": "^7.0.1",
     "pure-md5": "^0.1.13",

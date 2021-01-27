@@ -1,5 +1,12 @@
 import { Address, AddressField } from "@commercelayer/react-components"
+import {
+  faShippingFast,
+  faAddressCard,
+} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Fragment, useContext } from "react"
+import styled from "styled-components"
+import tw from "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
 import { useTranslation } from "components/data/i18n"
@@ -50,7 +57,11 @@ export const StepCustomer: React.FC<Props> = ({
         stepNumber={1}
         status={isActive ? "edit" : "done"}
         label={t("stepCustomer.customer")}
-        info={isActive ? t("stepCustomer.bill") : ""}
+        info={
+          isActive
+            ? "Edit your billing and shipping address"
+            : t("stepCustomer.bill")
+        }
         onEditRequest={() => {
           onToggleActive()
         }}
@@ -82,32 +93,49 @@ export const StepCustomer: React.FC<Props> = ({
           </Fragment>
         ) : (
           <div>
-            {hasShippingAddress && hasBillingAddress ? (
-              <div>
-                Hello, you have both shipping and billing address set:
-                <Address addresses={[billingAddress]}>
-                  <div tw="flex flex-row">
-                    Fatturazione:
-                    <AddressField tw="pl-1" name="full_address" />
-                  </div>
-                </Address>
-                <Address addresses={[shippingAddress]}>
-                  <div tw="flex flex-row">
-                    Spedizione:
-                    <AddressField tw="pl-1" name="full_address" />
-                  </div>
-                </Address>
-              </div>
-            ) : hasShippingAddress ? (
-              <div>Hello, you have only shipping address set</div>
-            ) : hasBillingAddress ? (
-              <div>Hello, you have only billing address set</div>
+            {hasSameAddresses ? (
+              <Address
+                addresses={shippingAddress ? [shippingAddress] : undefined}
+              >
+                <div tw="flex flex-row">
+                  <AddressField tw="pl-1" name="full_address" />
+                </div>
+              </Address>
             ) : (
-              <div>No Billing / Shipping Address set</div>
+              <div>
+                {billingAddress && (
+                  <Address addresses={[billingAddress]}>
+                    <div tw="flex flex-row items-center">
+                      <Icon>
+                        <FontAwesomeIcon icon={faAddressCard} />
+                      </Icon>
+                      <AddressField tw="pl-1" name="full_address" />
+                    </div>
+                  </Address>
+                )}
+                {shippingAddress && (
+                  <Address addresses={[shippingAddress]}>
+                    <div tw="flex flex-row items-center ">
+                      <Icon>
+                        <FontAwesomeIcon icon={faShippingFast} />
+                      </Icon>
+                      <AddressField tw="pl-1" name="full_address" />
+                    </div>
+                  </Address>
+                )}
+              </div>
             )}
+
+            {!hasShippingAddress && !hasBillingAddress ? (
+              <div>No Billing / Shipping Address set</div>
+            ) : null}
           </div>
         )}
       </StepContent>
     </div>
   )
 }
+
+const Icon = styled.div`
+  ${tw`w-7 text-gray-600`}
+`
