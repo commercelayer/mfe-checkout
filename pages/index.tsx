@@ -14,7 +14,7 @@ import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
-const STEPS = ["Customer", "Shipping Method", "Payment"]
+const STEPS = ["Customer", "Delivery", "Payment"]
 
 const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
   const ctx = useContext(AppContext)
@@ -52,7 +52,8 @@ const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
           </div>
         }
         main={
-          <div>
+          <div tw="md:pl-7">
+            <h1 tw="font-bold mb-4 text-lg">Checkout</h1>
             <StepNav
               steps={STEPS}
               activeStep={activeStep}

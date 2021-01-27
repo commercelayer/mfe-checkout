@@ -1,6 +1,8 @@
 import { Fragment } from "react"
-import styled, { css } from "styled-components"
+import styled from "styled-components"
 import tw from "twin.macro"
+
+import { Step } from "./Step"
 
 interface Props {
   steps: string[]
@@ -16,48 +18,31 @@ export const StepNav: React.FC<Props> = ({
   lastActivable,
 }) => {
   return (
-    <div tw="flex flex-row mb-4">
+    <Wrapper>
       {(steps || []).map((step, index) => {
         const isActive = index === activeStep
-        const isDisabled = index > lastActivable
+        const isLocked = index > lastActivable
         return (
-          <Fragment key={index}>
-            {index > 0 ? <div> / </div> : null}
-            <Step
-              onClick={() => {
-                if (!isDisabled) {
-                  onStepChange(index)
-                }
-              }}
-              isActive={isActive}
-              isDisabled={isDisabled}
-            >
-              {step}
-            </Step>
-          </Fragment>
+          <Step
+            key={index}
+            onClick={() => {
+              if (!isLocked) {
+                onStepChange(index)
+              }
+            }}
+            isActive={isActive}
+            isLocked={isLocked}
+          >
+            {step}
+          </Step>
         )
       })}
-    </div>
+
+      <Step isLocked>Complete</Step>
+    </Wrapper>
   )
 }
 
-interface StepProps {
-  isActive: boolean
-  isDisabled: boolean
-}
-
-const Step = styled.div<StepProps>`
-  ${tw`px-3`}
-  ${({ isActive }) =>
-    isActive
-      ? css`
-          ${tw`font-bold text-blue-500`}
-        `
-      : null}
-  ${({ isDisabled }) =>
-    isDisabled
-      ? css`
-          ${tw`text-gray-300 pointer-events-none`}
-        `
-      : null}
+const Wrapper = styled.div`
+  ${tw`flex  flex-row mb-4`}
 `
