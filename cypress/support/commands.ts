@@ -24,39 +24,41 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-import '@commercelayer/cypress-vcr'
+import "@commercelayer/cypress-vcr"
+import { md5 } from "pure-md5"
+
 import { apiRequestHeaders } from "./utils"
-import { md5 } from 'pure-md5';
 
-
-Cypress.Commands.add('dataCy', (value) => {
+Cypress.Commands.add("dataCy", (value) => {
   return cy.get(`[data-cy=${value}]`)
 })
 
-
-Cypress.Commands.add('createOrder', (template, options) => {
-
+Cypress.Commands.add("createOrder", (template, options) => {
   const hash = md5(JSON.stringify(options))
   const filename = `${template}_${hash}.json`
 
   if (Cypress.env("record")) {
     cy.request({
-      url: Cypress.env('apiEndpoint') + '/api/orders',
-      method: 'POST',
+      url: Cypress.env("apiEndpoint") + "/api/orders",
+      method: "POST",
       body: {
         data: {
-          type: 'orders',
+          type: "orders",
           attributes: {
             language_code: options.languageCode,
-            customer_email: options.customerEmail
-          }
-        }
+            customer_email: options.customerEmail,
+          },
+        },
       },
-      headers: apiRequestHeaders(Cypress.env('accessToken'))
-    }).its('body.data').then((order) => {
-      cy.writeFile(`cypress/fixtures/orders/${filename}`, order).then(() => { return order })
+      headers: apiRequestHeaders(Cypress.env("accessToken")),
     })
+      .its("body.data")
+      .then((order) => {
+        cy.writeFile(`cypress/fixtures/orders/${filename}`, order).then(() => {
+          return order
+        })
+      })
   } else {
-    return cy.readFile(`cypress/fixtures/orders/${filename}.json`)
+    return cy.readFile(`cypress/fixtures/orders/${filename}`)
   }
 })
