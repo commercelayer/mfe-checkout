@@ -46,14 +46,6 @@ export const Step = styled.div<StepProps>`
     }
   }
 
-  &:last-of-type {
-    ${tw`pr-0`}
-
-    &::after {
-      content: none;
-    }
-  }
-
   ${({ isActive }) =>
     isActive
       ? css`
