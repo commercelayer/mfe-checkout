@@ -70,7 +70,13 @@ describe("Checkout entrypoint", () => {
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: "alessani@gmail.it",
-      }).as("newOrder")
+      })
+        .as("newOrder")
+        .then((order) => {
+          cy.createSkuLineItems({
+            orderId: order.id,
+          })
+        })
     })
 
     describe("with single order", function () {

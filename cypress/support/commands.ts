@@ -54,40 +54,49 @@ Cypress.Commands.add("createOrder", (template, options) => {
     })
       .its("body.data")
       .then((order) => {
-        cy.request({
-          url: Cypress.env("apiEndpoint") + "/api/line_items",
-          method: "POST",
-          body: {
-            data: {
-              type: "line_items",
-              attributes: {
-                quantity: "2",
-                sku_code: "BABYONBU000000E63E7412MX",
-              },
-              relationships: {
-                order: {
-                  data: {
-                    type: "orders",
-                    id: order.id,
-                  },
-                },
-              },
-            },
-          },
-          headers: apiRequestHeaders(Cypress.env("accessToken")),
-        }).then(() => {
-          cy.writeFile(`cypress/fixtures/orders/${filename}`, order).then(
-            () => {
-              return order
-            }
-          )
-        })
-      })
-      .its("body.data")
-      .then((order) => {
         cy.writeFile(`cypress/fixtures/orders/${filename}`, order).then(() => {
           return order
         })
+      })
+  } else {
+    return cy.readFile(`cypress/fixtures/orders/${filename}`)
+  }
+})
+
+Cypress.Commands.add("createSkuLineItems", (options) => {
+  const hash = md5(JSON.stringify(options))
+  const filename = `line_items_${hash}.json`
+
+  if (Cypress.env("record")) {
+    cy.request({
+      url: Cypress.env("apiEndpoint") + "/api/line_items",
+      method: "POST",
+      body: {
+        data: {
+          type: "line_items",
+          attributes: {
+            quantity: "2",
+            sku_code: "BABYONBU000000E63E7412MX",
+          },
+          relationships: {
+            order: {
+              data: {
+                type: "orders",
+                id: options.orderId,
+              },
+            },
+          },
+        },
+      },
+      headers: apiRequestHeaders(Cypress.env("accessToken")),
+    })
+      .its("body.data")
+      .then((lineItems) => {
+        cy.writeFile(`cypress/fixtures/orders/${filename}`, lineItems).then(
+          () => {
+            return lineItems
+          }
+        )
       })
   } else {
     return cy.readFile(`cypress/fixtures/orders/${filename}`)
