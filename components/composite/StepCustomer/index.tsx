@@ -98,7 +98,11 @@ export const StepCustomer: React.FC<Props> = ({
                 addresses={shippingAddress ? [shippingAddress] : undefined}
               >
                 <div tw="flex flex-row">
-                  <AddressField tw="pl-1" name="full_address" />
+                  <AddressField
+                    tw="pl-1"
+                    name="full_address"
+                    data-cy="full_address_same"
+                  />
                 </div>
               </Address>
             ) : (
@@ -109,7 +113,11 @@ export const StepCustomer: React.FC<Props> = ({
                       <Icon>
                         <FontAwesomeIcon icon={faAddressCard} />
                       </Icon>
-                      <AddressField tw="pl-1" name="full_address" />
+                      <AddressField
+                        tw="pl-1"
+                        name="full_address"
+                        data-cy="full_address_billing"
+                      />
                     </div>
                   </Address>
                 )}
@@ -119,7 +127,11 @@ export const StepCustomer: React.FC<Props> = ({
                       <Icon>
                         <FontAwesomeIcon icon={faShippingFast} />
                       </Icon>
-                      <AddressField tw="pl-1" name="full_address" />
+                      <AddressField
+                        tw="pl-1"
+                        name="full_address"
+                        data-cy="full_address_shipping"
+                      />
                     </div>
                   </Address>
                 )}
