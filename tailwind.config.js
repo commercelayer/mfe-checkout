@@ -7,9 +7,11 @@ module.exports = {
     fontFamily: {
       sans: ["Poppins", "ui-sans-serif", "sans-serif"],
     },
-    colors: {
-      ...colors,
-      primary: "var(--primary)",
+    extend: {
+      colors: {
+        primary: "var(--primary)",
+        contrast: "var(--contrast)",
+      },
     },
   },
   variants: {

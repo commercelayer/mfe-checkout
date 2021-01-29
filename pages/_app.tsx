@@ -7,9 +7,14 @@ import { createGlobalStyle, ThemeProvider } from "styled-components"
 import { AppProvider } from "components/data/AppProvider"
 import { appWithTranslation } from "components/data/i18n"
 
-const GlobalCssStyle = createGlobalStyle<{ primaryColor: string }>`
+interface GlobalStyleProps {
+  primaryColor: string
+  contrastColor: string
+}
+const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
   :root {
     --primary: ${({ primaryColor }) => primaryColor};
+    --contrast: ${({ contrastColor }) => contrastColor};
   }
 `
 
@@ -28,12 +33,16 @@ function CheckoutApp(props: AppProps) {
       accessToken={pageProps.accessToken}
       endpoint={pageProps.endpoint}
     >
-      <GlobalCssStyle primaryColor={pageProps.primaryColor} />
+      <GlobalCssStyle
+        primaryColor={pageProps.primaryColor}
+        contrastColor={pageProps.contrastColor}
+      />
       <OrderContainer orderId={pageProps.orderId}>
         <ThemeProvider
           theme={{
             colors: {
               primary: pageProps.primaryColor,
+              contrast: pageProps.contrastColor,
             },
           }}
         >
@@ -84,6 +93,7 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     language: data.language,
     endpoint: data.endpoint,
     primaryColor: data.primaryColor,
+    contrastColor: data.contrastColor,
     favicon: data.favicon,
   }
 

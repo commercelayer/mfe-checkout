@@ -49,7 +49,7 @@ export const Step = styled.div<StepProps>`
   ${({ isActive, theme }) =>
     isActive
       ? css`
-          ${tw`font-extrabold bg-primary text-white`}
+          ${tw`font-extrabold bg-primary text-contrast`}
 
           --bg-color: ${theme.colors.primary};
         `

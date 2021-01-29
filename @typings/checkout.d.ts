@@ -7,6 +7,7 @@ interface CheckoutSettings {
   companyName: string
   language: string
   primaryColor: string
+  contrastColor: string
   favicon: string
 }
 
@@ -19,5 +20,6 @@ type CheckoutPageContextProps = Pick<
   | "endpoint"
   | "language"
   | "primaryColor"
+  | "contrastColor"
   | "favicon"
 >

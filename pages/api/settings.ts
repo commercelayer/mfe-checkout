@@ -46,6 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     companyName: "Test company",
     language: order.languageCode,
     primaryColor: "#3b82f6",
+    contrastColor: "#ffffff",
     favicon:
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
   }

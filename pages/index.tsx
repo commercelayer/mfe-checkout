@@ -47,7 +47,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({
             <Logo logoUrl={logoUrl} companyName={companyName} />
             <OrderSummary />
             <button
-              tw="bg-blue-500 mt-2 text-white block px-3 rounded mt-10"
+              tw="bg-primary text-contrast mt-2 block px-3 rounded mt-10"
               onClick={() => {
                 ctx && ctx.refetchOrder()
               }}
