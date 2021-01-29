@@ -46,12 +46,12 @@ export const Step = styled.div<StepProps>`
     }
   }
 
-  ${({ isActive }) =>
+  ${({ isActive, theme }) =>
     isActive
       ? css`
-          ${tw`font-extrabold bg-blue-500 text-white`}
+          ${tw`font-extrabold bg-primary text-white`}
 
-          --bg-color: ${STEP_BG_ACTIVE};
+          --bg-color: ${theme.colors.primary};
         `
       : null}
   ${({ isLocked }) =>

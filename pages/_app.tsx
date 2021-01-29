@@ -2,9 +2,16 @@ import "../styles/globals.css"
 import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import type { AppProps } from "next/app"
 import { AppContextType } from "next/dist/next-server/lib/utils"
+import { createGlobalStyle, ThemeProvider } from "styled-components"
 
 import { AppProvider } from "components/data/AppProvider"
 import { appWithTranslation } from "components/data/i18n"
+
+const GlobalCssStyle = createGlobalStyle<{ primaryColor: string }>`
+  :root {
+    --primary: ${({ primaryColor }) => primaryColor};
+  }
+`
 
 if (
   process.env.NEXT_PUBLIC_API_MOCKING === "enabled" &&
@@ -21,13 +28,22 @@ function CheckoutApp(props: AppProps) {
       accessToken={pageProps.accessToken}
       endpoint={pageProps.endpoint}
     >
+      <GlobalCssStyle primaryColor={pageProps.primaryColor} />
       <OrderContainer orderId={pageProps.orderId}>
-        <AppProvider
-          orderId={pageProps.orderId}
-          accessToken={pageProps.accessToken}
+        <ThemeProvider
+          theme={{
+            colors: {
+              primary: pageProps.primaryColor,
+            },
+          }}
         >
-          <Component {...pageProps} />
-        </AppProvider>
+          <AppProvider
+            orderId={pageProps.orderId}
+            accessToken={pageProps.accessToken}
+          >
+            <Component {...pageProps} />
+          </AppProvider>
+        </ThemeProvider>
       </OrderContainer>
     </CommerceLayer>
   ) : (
@@ -67,6 +83,8 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     logoUrl: data.logoUrl,
     language: data.language,
     endpoint: data.endpoint,
+    primaryColor: data.primaryColor,
+    favicon: data.favicon,
   }
 
   return {

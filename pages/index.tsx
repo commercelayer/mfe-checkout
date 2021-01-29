@@ -16,7 +16,11 @@ import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
 const STEPS = ["Customer", "Delivery", "Payment"]
 
-const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
+const Home: NextPage<CheckoutPageContextProps> = ({
+  logoUrl,
+  companyName,
+  favicon,
+}) => {
   const ctx = useContext(AppContext)
   // const isLoading = !ctx || (ctx && ctx.isLoading)
   const { t } = useTranslation()
@@ -35,6 +39,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
     <div>
       <Head>
         <title>{t("general.title")}</title>
+        <link rel="icon" href={favicon} />
       </Head>
       <LayoutDefault
         aside={
@@ -42,7 +47,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({ logoUrl, companyName }) => {
             <Logo logoUrl={logoUrl} companyName={companyName} />
             <OrderSummary />
             <button
-              tw="bg-blue-600 mt-2 text-white block px-3 rounded mt-10"
+              tw="bg-blue-500 mt-2 text-white block px-3 rounded mt-10"
               onClick={() => {
                 ctx && ctx.refetchOrder()
               }}

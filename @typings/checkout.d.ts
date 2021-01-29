@@ -6,6 +6,8 @@ interface CheckoutSettings {
   logoUrl: string
   companyName: string
   language: string
+  primaryColor: string
+  favicon: string
 }
 
 type CheckoutPageContextProps = Pick<
@@ -16,4 +18,6 @@ type CheckoutPageContextProps = Pick<
   | "companyName"
   | "endpoint"
   | "language"
+  | "primaryColor"
+  | "favicon"
 >
