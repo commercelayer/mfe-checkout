@@ -2,9 +2,21 @@ import "../styles/globals.css"
 import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import type { AppProps } from "next/app"
 import { AppContextType } from "next/dist/next-server/lib/utils"
+import { createGlobalStyle, ThemeProvider } from "styled-components"
 
 import { AppProvider } from "components/data/AppProvider"
 import { appWithTranslation } from "components/data/i18n"
+
+interface GlobalStyleProps {
+  primaryColor: string
+  contrastColor: string
+}
+const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
+  :root {
+    --primary: ${({ primaryColor }) => primaryColor};
+    --contrast: ${({ contrastColor }) => contrastColor};
+  }
+`
 
 if (
   process.env.NEXT_PUBLIC_API_MOCKING === "enabled" &&
@@ -21,13 +33,26 @@ function CheckoutApp(props: AppProps) {
       accessToken={pageProps.accessToken}
       endpoint={pageProps.endpoint}
     >
+      <GlobalCssStyle
+        primaryColor={pageProps.primaryColor}
+        contrastColor={pageProps.contrastColor}
+      />
       <OrderContainer orderId={pageProps.orderId}>
-        <AppProvider
-          orderId={pageProps.orderId}
-          accessToken={pageProps.accessToken}
+        <ThemeProvider
+          theme={{
+            colors: {
+              primary: pageProps.primaryColor,
+              contrast: pageProps.contrastColor,
+            },
+          }}
         >
-          <Component {...pageProps} />
-        </AppProvider>
+          <AppProvider
+            orderId={pageProps.orderId}
+            accessToken={pageProps.accessToken}
+          >
+            <Component {...pageProps} />
+          </AppProvider>
+        </ThemeProvider>
       </OrderContainer>
     </CommerceLayer>
   ) : (
@@ -67,6 +92,9 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     logoUrl: data.logoUrl,
     language: data.language,
     endpoint: data.endpoint,
+    primaryColor: data.primaryColor,
+    contrastColor: data.contrastColor,
+    favicon: data.favicon,
   }
 
   return {
