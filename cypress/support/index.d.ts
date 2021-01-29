@@ -14,6 +14,7 @@ declare global {
       saveRequests: SaveRequests
       dataCy(attribute: string): Chainable<Subject>
       // typescript OrderCollection
+      createSkuLineItems(options: { orderId: string }): Chainable<Subject>
       createOrder(
         template:
           | "draft"

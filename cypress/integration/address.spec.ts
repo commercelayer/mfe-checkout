@@ -1,22 +1,12 @@
-import { internet, address, name, phone } from "faker"
+import { internet } from "faker"
 
-import { euAddress, usAddress } from "../support/utils"
+import { usAddress } from "../support/utils"
 
 describe("Checkout address", () => {
   const filename = "addresses"
 
   context.only("Checkout Guest Address", () => {
     const redirectUrl = internet.url()
-
-    const randomEmail = internet.email().toLowerCase()
-    const randomFirstName = name.firstName()
-    const randomLastName = name.lastName()
-    const randomStreetAddress = address.streetAddress()
-    const randomCity = address.city()
-    const randomCountryCode = address.countryCode()
-    const randomStateAbbr = address.stateAbbr()
-    const randomZipCode = address.zipCode()
-    const randomPhoneNumber = phone.phoneNumber()
 
     before(function () {
       cy.createOrder("draft", {
@@ -39,11 +29,6 @@ describe("Checkout address", () => {
           record: Cypress.env("record"), // @default false
           filename,
         })
-        cy.visit(
-          `/?accessToken=${Cypress.env("accessToken")}&orderId=${
-            this.newOrder.id
-          }&redirectUrl=${redirectUrl}`
-        )
       })
 
       after(() => {
@@ -52,7 +37,7 @@ describe("Checkout address", () => {
         }
       })
 
-      it.skip("check if exist customer email", () => {
+      /* it.skip("check if exist customer email", () => {
         if (!Cypress.env("record")) {
           cy.newStubData("getOrders1", filename)
         }
@@ -61,22 +46,29 @@ describe("Checkout address", () => {
       })
 
       it.skip("change customer email", () => {
+        const emailCustomer = "gigi@buffon.it"
+
         if (!Cypress.env("record")) {
           cy.newStubData(["getOrders1"], filename)
         }
         cy.wait(["@getOrders", "@retrieveLineItems"])
         cy.dataCy("customer_email")
-          .type(`{selectall}{backspace}${randomEmail}`)
+          .type(`{selectall}{backspace}${emailCustomer}`)
           .blur({ force: true })
         cy.reload()
-        cy.dataCy("customer_email").should("contain.value", randomEmail)
-      })
+        cy.dataCy("customer_email").should("contain.value", emailCustomer)
+      }) */
 
-      it("can submit a valid billing form", () => {
+      it("fill billing form", function () {
+        cy.visit(
+          `/?accessToken=${Cypress.env("accessToken")}&orderId=${
+            this.newOrder.id
+          }&redirectUrl=${redirectUrl}`
+        )
         if (!Cypress.env("record")) {
-          cy.newStubData(["getOrders1", "getOrders2", "getOrders3"], filename)
+          cy.newStubData(["getOrders1"], filename)
         }
-        cy.wait("@getOrders")
+        cy.wait(["@getOrders", "@retrieveLineItems"])
         cy.dataCy("input_billing_address_first_name").type(usAddress.first_name)
         cy.dataCy("input_billing_address_last_name").type(usAddress.last_name)
         cy.dataCy("input_billing_address_line_1").type(usAddress.line_1)
@@ -87,11 +79,16 @@ describe("Checkout address", () => {
         cy.dataCy("input_billing_address_state_code").type(usAddress.state_code)
         cy.dataCy("input_billing_address_zip_code").type(usAddress.zip_code)
         cy.dataCy("input_billing_address_phone").type(usAddress.phone)
+      })
+
+      it("save form", () => {
         cy.dataCy("save-addresses-button").click()
-        cy.wait("@updateOrder")
-        cy.wait("@getOrders")
-        cy.wait("@retrieveLineItems")
+        if (!Cypress.env("record")) {
+          cy.newStubData(["getOrders3"], filename)
+        }
+        cy.wait(["@createAddress", "@updateOrder", "@getOrders"])
         cy.dataCy("full_address_same").should("contain", usAddress.line_1)
+        cy.wait("@retrieveLineItems")
       })
     })
   })
