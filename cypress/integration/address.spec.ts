@@ -4,6 +4,7 @@ import { usAddress } from "../support/utils"
 
 describe("Checkout address", () => {
   const filename = "addresses"
+  let num = false
 
   context.only("Checkout Guest Address", () => {
     const redirectUrl = internet.url()
@@ -19,6 +20,15 @@ describe("Checkout address", () => {
             orderId: order.id,
           })
         })
+    })
+
+    beforeEach(function () {
+      if (!Cypress.env("record") && !num) {
+        cy.newStubData(["getOrders1"], filename)
+      }
+      if (!Cypress.env("record") && num) {
+        cy.newStubData(["getOrders2", "getOrders3"], filename)
+      }
     })
 
     describe("Empty order address", () => {
@@ -65,9 +75,6 @@ describe("Checkout address", () => {
             this.newOrder.id
           }&redirectUrl=${redirectUrl}`
         )
-        if (!Cypress.env("record")) {
-          cy.newStubData(["getOrders1"], filename)
-        }
         cy.wait(["@getOrders", "@retrieveLineItems"])
         cy.dataCy("input_billing_address_first_name").type(usAddress.first_name)
         cy.dataCy("input_billing_address_last_name").type(usAddress.last_name)
@@ -79,15 +86,17 @@ describe("Checkout address", () => {
         cy.dataCy("input_billing_address_state_code").type(usAddress.state_code)
         cy.dataCy("input_billing_address_zip_code").type(usAddress.zip_code)
         cy.dataCy("input_billing_address_phone").type(usAddress.phone)
+        num = true
       })
 
       it("save form", () => {
         cy.dataCy("save-addresses-button").click()
         if (!Cypress.env("record")) {
-          cy.newStubData(["getOrders3"], filename)
+          cy.newStubData(["getOrders2", "getOrders3"], filename)
         }
-        cy.wait(["@createAddress", "@updateOrder", "@getOrders"])
+        cy.wait(["@createAddress", "@updateOrder"])
         cy.dataCy("full_address_same").should("contain", usAddress.line_1)
+
         cy.wait("@retrieveLineItems")
       })
     })
