@@ -78,7 +78,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           <BillingAddressContainer>
             <AddressCardComponent
               addressType="billing"
-              onSelect={refetchOrder}
+              onSelect={() => setShowBillingAddressForm(false)}
             />
           </BillingAddressContainer>
           {!showBillingAddressForm && (
@@ -119,7 +119,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
                 <AddressCardComponent
                   addressType="shipping"
-                  onSelect={refetchOrder}
+                  onSelect={() => setShowShippingAddressForm(false)}
                 />
               </ShippingAddressContainer>
 
