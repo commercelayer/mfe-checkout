@@ -145,7 +145,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               <ShippingAddressFormNew
                 shippingAddress={shippingAddress}
                 isGuest={false}
-                isUsingNewShippingAddress={isUsingNewShippingAddress}
+                isUsingNewShippingAddress={hasSameAddresses}
               />
 
               <AddressSectionSaveOnAddressBook addressType="shipping" />
