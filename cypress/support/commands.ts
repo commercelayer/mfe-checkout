@@ -102,3 +102,94 @@ Cypress.Commands.add("createSkuLineItems", (options) => {
     return cy.readFile(`cypress/fixtures/orders/${filename}`)
   }
 })
+
+Cypress.Commands.add("createAddress", (options) => {
+  cy.request({
+    url: Cypress.env("apiEndpoint") + "/api/addresses",
+    method: "POST",
+    body: {
+      data: {
+        type: "addresses",
+        attributes: {
+          first_name: options.firstName,
+          last_name: options.lastName,
+          line_1: options.line1,
+          city: options.city,
+          zip_code: options.zipCode,
+          state_code: options.stateCode,
+          country_code: options.countryCode,
+          phone: options.phone,
+        },
+      },
+    },
+    headers: apiRequestHeaders(Cypress.env("accessToken")),
+  })
+    .its("body.data")
+    .then((address) => {
+      return address
+    })
+})
+
+Cypress.Commands.add("setSameAddress", (orderId, addressId) => {
+  cy.request({
+    url: Cypress.env("apiEndpoint") + `/api/orders/${orderId}`,
+    method: "PATCH",
+    body: {
+      data: {
+        type: "orders",
+        id: orderId,
+        attributes: {
+          _shipping_address_same_as_billing: true,
+        },
+        relationships: {
+          billing_address: {
+            data: {
+              type: "addresses",
+              id: addressId,
+            },
+          },
+        },
+      },
+    },
+    headers: apiRequestHeaders(Cypress.env("accessToken")),
+  })
+    .its("body.data")
+    .then((orderWithAddress) => {
+      return orderWithAddress
+    })
+})
+
+Cypress.Commands.add(
+  "setDifferentAddress",
+  (orderId, billingAddressId, shippingAddressId) => {
+    cy.request({
+      url: Cypress.env("apiEndpoint") + `/api/orders/${orderId}`,
+      method: "PATCH",
+      body: {
+        data: {
+          type: "orders",
+          id: orderId,
+          relationships: {
+            billing_address: {
+              data: {
+                type: "addresses",
+                id: billingAddressId,
+              },
+            },
+            shipping_address: {
+              data: {
+                type: "addresses",
+                id: shippingAddressId,
+              },
+            },
+          },
+        },
+      },
+      headers: apiRequestHeaders(Cypress.env("accessToken")),
+    })
+      .its("body.data")
+      .then((orderWithAddress) => {
+        return orderWithAddress
+      })
+  }
+)

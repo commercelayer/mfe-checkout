@@ -69,7 +69,7 @@ describe("Checkout entrypoint", () => {
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
-        customerEmail: "alessani@gmail.it",
+        customerEmail: "alessani@gmail.com",
       })
         .as("newOrder")
         .then((order) => {

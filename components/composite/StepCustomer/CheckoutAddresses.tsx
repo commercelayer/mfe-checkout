@@ -75,7 +75,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
           <ShippingAddressFormNew
             shippingAddress={shippingAddress}
             isGuest
-            isUsingNewShippingAddress
+            isUsingNewShippingAddress={hasSameAddresses}
           />
         </ShippingAddressForm>
         <AddressSectionSaveForm>

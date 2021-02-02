@@ -93,50 +93,36 @@ export const StepCustomer: React.FC<Props> = ({
           </Fragment>
         ) : (
           <div>
-            {hasSameAddresses ? (
-              <Address
-                addresses={shippingAddress ? [shippingAddress] : undefined}
-              >
-                <div tw="flex flex-row">
-                  <AddressField
-                    tw="pl-1"
-                    name="full_address"
-                    data-cy="full_address_same"
-                  />
-                </div>
-              </Address>
-            ) : (
-              <div>
-                {billingAddress && (
-                  <Address addresses={[billingAddress]}>
-                    <div tw="flex flex-row items-center">
-                      <Icon>
-                        <FontAwesomeIcon icon={faAddressCard} />
-                      </Icon>
-                      <AddressField
-                        tw="pl-1"
-                        name="full_address"
-                        data-cy="full_address_billing"
-                      />
-                    </div>
-                  </Address>
-                )}
-                {shippingAddress && (
-                  <Address addresses={[shippingAddress]}>
-                    <div tw="flex flex-row items-center ">
-                      <Icon>
-                        <FontAwesomeIcon icon={faShippingFast} />
-                      </Icon>
-                      <AddressField
-                        tw="pl-1"
-                        name="full_address"
-                        data-cy="full_address_shipping"
-                      />
-                    </div>
-                  </Address>
-                )}
-              </div>
-            )}
+            <div>
+              {billingAddress && (
+                <Address addresses={[billingAddress]}>
+                  <div tw="flex flex-row items-center">
+                    <Icon>
+                      <FontAwesomeIcon icon={faAddressCard} />
+                    </Icon>
+                    <AddressField
+                      tw="pl-1"
+                      name="full_address"
+                      data-cy="full_address_billing"
+                    />
+                  </div>
+                </Address>
+              )}
+              {shippingAddress && (
+                <Address addresses={[shippingAddress]}>
+                  <div tw="flex flex-row items-center ">
+                    <Icon>
+                      <FontAwesomeIcon icon={faShippingFast} />
+                    </Icon>
+                    <AddressField
+                      tw="pl-1"
+                      name="full_address"
+                      data-cy="full_address_shipping"
+                    />
+                  </div>
+                </Address>
+              )}
+            </div>
 
             {!hasShippingAddress && !hasBillingAddress ? (
               <div>No Billing / Shipping Address set</div>

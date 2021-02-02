@@ -24,6 +24,23 @@ declare global {
           | "pending_with_customer",
         options: { languageCode: "it" | "en"; customerEmail: string }
       ): Chainable<Subject>
+      setSameAddress(orderId: string, addressId: string): Chainable<Subject>
+      setDifferentAddress(
+        orderId: string,
+        billingAddressId: string,
+        shippingAddressId: string
+      ): Chainable<Subject>
+      createAddress(options: {
+        firstName: string
+        lastName: string
+        line1: string
+        city: string
+        zipCode: string
+        stateCode: string
+        countryCode: string
+        phone: string
+        orderId: string
+      }): Chainable<Subject>
     }
   }
 }
