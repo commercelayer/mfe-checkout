@@ -34,6 +34,7 @@ interface Props {
   hasSameAddresses: boolean
   isUsingNewBillingAddress: boolean
   isUsingNewShippingAddress: boolean
+  hasCustomerAddresses: boolean
   isGuest: boolean
   emailAddress: string
   refetchOrder: () => void
@@ -45,6 +46,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   isUsingNewBillingAddress,
   isUsingNewShippingAddress,
   hasSameAddresses,
+  hasCustomerAddresses,
   isGuest,
   emailAddress,
   refetchOrder,
@@ -72,23 +74,25 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     setShowShippingAddressForm,
   ] = useState<boolean>(isUsingNewShippingAddress)
 
-  useEffect(() => {
-    console.log(isUsingNewShippingAddress)
-  }, [isUsingNewShippingAddress])
+  const handleShowBillingForm = () => [
+    setShowBillingAddressForm(!showBillingAddressForm),
+    setShippingAddressFill(null),
+  ]
+  const handleShowShippingForm = () => [
+    setShowShippingAddressForm(!showShippingAddressForm),
+    setShippingAddressFill(null),
+  ]
 
-  const handleShowBillingForm = () =>
-    setShowBillingAddressForm(!showBillingAddressForm)
-  const handleShowShippingForm = () =>
-    setShowShippingAddressForm(!showShippingAddressForm)
-
   useEffect(() => {
-    if (showBillingAddressForm) {
+    if (showBillingAddressForm && hasCustomerAddresses) {
       setBillingAddressFill(null)
     }
-    if (showShippingAddressForm) {
+    if (showShippingAddressForm && hasCustomerAddresses) {
       setShippingAddressFill(null)
     }
   }, [showBillingAddressForm, showShippingAddressForm])
+
+  console.log(hasCustomerAddresses)
 
   return (
     <Fragment>
@@ -104,7 +108,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               onSelect={() => setShowBillingAddressForm(false)}
             />
           </BillingAddressContainer>
-          {!showBillingAddressForm && (
+          {!showBillingAddressForm && hasCustomerAddresses && (
             <button
               tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
               onClick={handleShowBillingForm}
@@ -115,12 +119,9 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 : "Add new address"}
             </button>
           )}
-          {showBillingAddressForm ? (
+          {showBillingAddressForm || !hasCustomerAddresses ? (
             <BillingAddressForm autoComplete="on" className="p-2">
-              <BillingAddressFormNew
-                billingAddress={billingAddressFill}
-                isUsingNewBillingAddress={isUsingNewBillingAddress}
-              />
+              <BillingAddressFormNew billingAddress={billingAddressFill} />
               <AddressSectionSaveOnAddressBook addressType="billing" />
             </BillingAddressForm>
           ) : null}
@@ -129,9 +130,12 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             data-status={shipToDifferentAddress}
             label={t(`addressForm.ship_to_different_address`)}
             checked={shipToDifferentAddress}
-            onChange={() => setShipToDifferentAddress(!shipToDifferentAddress)}
+            onChange={() => [
+              setShipToDifferentAddress(!shipToDifferentAddress),
+              setShippingAddressFill(null),
+            ]}
           />
-          {shipToDifferentAddress ? (
+          {shipToDifferentAddress && hasCustomerAddresses ? (
             <Fragment>
               <ShippingAddressContainer>
                 <div tw="pl-2 pt-4">
@@ -146,7 +150,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 />
               </ShippingAddressContainer>
 
-              {!showShippingAddressForm ? (
+              {!showShippingAddressForm && hasCustomerAddresses ? (
                 <button
                   tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
                   onClick={handleShowShippingForm}
@@ -159,19 +163,22 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           ) : (
             <Fragment />
           )}
-          {showShippingAddressForm ? (
-            <ShippingAddressForm
-              autoComplete="on"
-              hidden={!shipToDifferentAddress}
-              className="p-2"
-            >
-              <ShippingAddressFormNew
-                shippingAddress={shippingAddressFill}
-                isUsingNewShippingAddress={isUsingNewBillingAddress}
-              />
+          {showShippingAddressForm || !hasCustomerAddresses ? (
+            <>
+              {shipToDifferentAddress && (
+                <ShippingAddressForm
+                  autoComplete="on"
+                  hidden={!shipToDifferentAddress}
+                  className="p-2"
+                >
+                  <ShippingAddressFormNew
+                    shippingAddress={shippingAddressFill}
+                  />
 
-              <AddressSectionSaveOnAddressBook addressType="shipping" />
-            </ShippingAddressForm>
+                  <AddressSectionSaveOnAddressBook addressType="shipping" />
+                </ShippingAddressForm>
+              )}
+            </>
           ) : null}
 
           <div tw="flex justify-between">

@@ -38,6 +38,7 @@ export interface FetchOrderByIdResponse {
   billingAddress: AddressCollection | null
   hasShippingMethod: boolean
   hasPaymentMethod: boolean
+  hasCustomerAddresses: boolean
 }
 
 async function isNewAddress({
@@ -104,6 +105,8 @@ export const fetchOrderById = async ({
     const addresses = customer.customerAddresses()
     const arrayAddresses = addresses.toArray()
 
+    const hasCustomerAddresses = arrayAddresses.length >= 1
+
     const shippingAddress = order.shippingAddress()
     const hasShippingAddress = Boolean(order.shippingAddress())
 
@@ -147,6 +150,7 @@ export const fetchOrderById = async ({
 
     return {
       isGuest,
+      hasCustomerAddresses,
       isUsingNewBillingAddress,
       isUsingNewShippingAddress,
       hasSameAddresses,
@@ -163,6 +167,7 @@ export const fetchOrderById = async ({
     console.log(`error on retrieving order: ${e}`)
     return {
       isGuest: false,
+      hasCustomerAddresses: false,
       isUsingNewBillingAddress: true,
       isUsingNewShippingAddress: true,
       hasSameAddresses: false,

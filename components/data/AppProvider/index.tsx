@@ -22,6 +22,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isGuest, setIsGuest] = useState(false)
+  const [hasCustomerAddresses, setHasCustomerAddresses] = useState(false)
   const [isUsingNewBillingAddress, setIsUsingNewBillingAddress] = useState(true)
   const [isUsingNewShippingAddress, setIsUsingNewShippingAddress] = useState(
     true
@@ -51,6 +52,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     fetchOrderById({ orderId, accessToken }).then(
       ({
         isGuest,
+        hasCustomerAddresses,
         isUsingNewBillingAddress,
         isUsingNewShippingAddress,
         hasSameAddresses,
@@ -64,6 +66,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         hasShippingMethod,
       }) => {
         setIsGuest(isGuest)
+        setHasCustomerAddresses(hasCustomerAddresses)
+        setHasSameAddresses(hasCustomerAddresses)
         setIsUsingNewBillingAddress(isUsingNewBillingAddress)
         setIsUsingNewShippingAddress(isUsingNewShippingAddress)
         setHasSameAddresses(hasSameAddresses)
@@ -88,6 +92,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     <AppContext.Provider
       value={{
         isGuest,
+        hasCustomerAddresses,
         isUsingNewBillingAddress,
         isUsingNewShippingAddress,
         hasSameAddresses,

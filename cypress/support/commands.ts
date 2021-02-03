@@ -50,7 +50,8 @@ Cypress.Commands.add("createOrder", (template, options) => {
           },
         },
       },
-      headers: apiRequestHeaders(Cypress.env("accessToken")),
+      headers:
+        options.accessToken || apiRequestHeaders(Cypress.env("accessToken")),
     })
       .its("body.data")
       .then((order) => {
@@ -88,7 +89,8 @@ Cypress.Commands.add("createSkuLineItems", (options) => {
           },
         },
       },
-      headers: apiRequestHeaders(Cypress.env("accessToken")),
+      headers:
+        options.accessToken || apiRequestHeaders(Cypress.env("accessToken")),
     })
       .its("body.data")
       .then((lineItems) => {
@@ -122,7 +124,8 @@ Cypress.Commands.add("createAddress", (options) => {
         },
       },
     },
-    headers: apiRequestHeaders(Cypress.env("accessToken")),
+    headers:
+      options.accessToken || apiRequestHeaders(Cypress.env("accessToken")),
   })
     .its("body.data")
     .then((address) => {
@@ -130,7 +133,36 @@ Cypress.Commands.add("createAddress", (options) => {
     })
 })
 
-Cypress.Commands.add("setSameAddress", (orderId, addressId) => {
+Cypress.Commands.add("addAddressToBook", (idAddress, accessToken) => {
+  cy.request({
+    url: Cypress.env("apiEndpoint") + `/api/addresses`,
+    method: "POST",
+    body: {
+      data: {
+        type: "customer_addresses",
+        relationships: {
+          customer: {
+            data: {
+              type: "customers",
+              id: idAddress,
+            },
+          },
+          address: {
+            data: {
+              type: "addresses",
+              id: idAddress,
+            },
+          },
+        },
+      },
+    },
+    headers: accessToken || apiRequestHeaders(Cypress.env("accessToken")),
+  }).then((customer_addresses) => {
+    return customer_addresses
+  })
+})
+
+Cypress.Commands.add("setSameAddress", (orderId, addressId, accessToken) => {
   cy.request({
     url: Cypress.env("apiEndpoint") + `/api/orders/${orderId}`,
     method: "PATCH",
@@ -151,7 +183,7 @@ Cypress.Commands.add("setSameAddress", (orderId, addressId) => {
         },
       },
     },
-    headers: apiRequestHeaders(Cypress.env("accessToken")),
+    headers: accessToken || apiRequestHeaders(Cypress.env("accessToken")),
   })
     .its("body.data")
     .then((orderWithAddress) => {
@@ -161,7 +193,7 @@ Cypress.Commands.add("setSameAddress", (orderId, addressId) => {
 
 Cypress.Commands.add(
   "setDifferentAddress",
-  (orderId, billingAddressId, shippingAddressId) => {
+  (orderId, billingAddressId, shippingAddressId, accessToken) => {
     cy.request({
       url: Cypress.env("apiEndpoint") + `/api/orders/${orderId}`,
       method: "PATCH",
@@ -185,7 +217,7 @@ Cypress.Commands.add(
           },
         },
       },
-      headers: apiRequestHeaders(Cypress.env("accessToken")),
+      headers: accessToken || apiRequestHeaders(Cypress.env("accessToken")),
     })
       .its("body.data")
       .then((orderWithAddress) => {
@@ -193,3 +225,56 @@ Cypress.Commands.add(
       })
   }
 )
+
+Cypress.Commands.add("getTokenCustomer", (options) => {
+  cy.request({
+    url: Cypress.env("apiEndpoint") + `/oauth/token`,
+    method: "POST",
+    qs: {
+      grant_type: "password",
+      client_id: Cypress.env("clientId"),
+      scope: Cypress.env("scope"),
+      username: options.username,
+      password: options.password,
+    },
+  })
+    .its("body")
+    .then((tokenObj) => {
+      return tokenObj
+    })
+})
+
+/* Cypress.Commands.add("createCustomer", (options) => {
+  cy.request({
+    url: Cypress.env("apiEndpoint") + `/api/customers`,
+    method: "POST",
+    failOnStatusCode: false,
+    body: {
+      data: {
+        type: "customers",
+        attributes: {
+          email: options.email,
+          password: options.password,
+        },
+      },
+    },
+    headers: apiRequestHeaders(Cypress.env("accessToken")),
+  }).then((resp) => {
+    if (resp.status === 422) {
+      console.log(resp)
+      return false
+    } else if (resp.status === 200) {
+      console.log(resp)
+    }
+
+    // redirect status code is 302
+
+    return true
+    // expect(resp.redirectedToUrl).to.eq("http://localhost:8082/unauthorized")
+  })
+  // .its("body.data")
+  // .then((orderWithAddress) => {
+  // console.log(orderWithAddress)
+  // return orderWithAddress
+  // }) 
+}) */

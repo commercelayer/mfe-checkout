@@ -2,11 +2,10 @@ import { AddressCollection } from "@commercelayer/js-sdk"
 import {
   AddressesContainer,
   BillingAddressForm,
-  AddressInput,
   SaveAddressesButton,
   ShippingAddressForm,
 } from "@commercelayer/react-components"
-import { useState, Fragment } from "react"
+import { useState, Fragment, useEffect } from "react"
 import tw from "twin.macro"
 
 import { useTranslation } from "components/data/i18n"
@@ -14,7 +13,6 @@ import { Toggle } from "components/ui/Toggle"
 
 import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
-import { AddressSectionSaveOnAddressBook } from "./AddressSectionSaveOnAddressBook"
 import { AddressSectionTitle } from "./AddressSectionTitle"
 import { BillingAddressFormNew } from "./BillingAddressFormNew"
 import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
@@ -38,9 +36,25 @@ export const CheckoutAddresses: React.FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation()
 
+  const [
+    shippingAddressFill,
+    setShippingAddressFill,
+  ] = useState<AddressCollection | null>(shippingAddress)
+
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
     !hasSameAddresses
   )
+
+  const handleToggleDifferentAddress = () => [
+    setShipToDifferentAddress(!shipToDifferentAddress),
+    setShippingAddressFill(null),
+  ]
+
+  useEffect(() => {
+    if (shipToDifferentAddress) {
+      setShippingAddressFill(null)
+    }
+  }, [shipToDifferentAddress])
 
   return (
     <Fragment>
@@ -50,34 +64,29 @@ export const CheckoutAddresses: React.FC<Props> = ({
           {t(`addressForm.billing_address_title`)}
         </AddressSectionTitle>
         <BillingAddressForm autoComplete="on" className="p-2">
-          <BillingAddressFormNew
-            billingAddress={billingAddress}
-            isUsingNewBillingAddress
-          />
+          <BillingAddressFormNew billingAddress={billingAddress} />
         </BillingAddressForm>
         <Toggle
           data-cy="button-ship-to-different-address"
           data-status={shipToDifferentAddress}
           label={t(`addressForm.ship_to_different_address`)}
           checked={shipToDifferentAddress}
-          onChange={() => setShipToDifferentAddress(!shipToDifferentAddress)}
+          onChange={handleToggleDifferentAddress}
         />
 
-        <ShippingAddressForm
-          autoComplete="on"
-          hidden={!shipToDifferentAddress}
-          tw={"p-2"}
-        >
-          <AddressSectionTitle>
-            {t(`addressForm.shipping_address_title`)}
-          </AddressSectionTitle>
+        {shipToDifferentAddress && (
+          <ShippingAddressForm
+            autoComplete="on"
+            hidden={!shipToDifferentAddress}
+            tw={"p-2"}
+          >
+            <AddressSectionTitle>
+              {t(`addressForm.shipping_address_title`)}
+            </AddressSectionTitle>
 
-          <ShippingAddressFormNew
-            shippingAddress={shippingAddress}
-            isGuest
-            isUsingNewShippingAddress={hasSameAddresses}
-          />
-        </ShippingAddressForm>
+            <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
+          </ShippingAddressForm>
+        )}
         <AddressSectionSaveForm>
           <SaveAddressesButton
             label={t("stepCustomer.continueToDelivery")}

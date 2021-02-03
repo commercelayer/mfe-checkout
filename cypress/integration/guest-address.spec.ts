@@ -3,7 +3,7 @@ import { internet } from "faker"
 import { euAddress, euAddress2 } from "../support/utils"
 
 describe("Checkout guest address", () => {
-  const filename = "addresses"
+  const filename = "guest-addresses"
   const emailCustomer = "gigi@buffon.it"
 
   context("initial order empty", () => {

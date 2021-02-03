@@ -43,6 +43,7 @@ export const StepCustomer: React.FC<Props> = ({
     hasSameAddresses,
     isUsingNewBillingAddress,
     isUsingNewShippingAddress,
+    hasCustomerAddresses,
     refetchOrder,
   } = appCtx
 
@@ -84,6 +85,7 @@ export const StepCustomer: React.FC<Props> = ({
                 billingAddress={billingAddress}
                 emailAddress={emailAddress}
                 isGuest={isGuest}
+                hasCustomerAddresses={hasCustomerAddresses}
                 isUsingNewShippingAddress={isUsingNewShippingAddress}
                 isUsingNewBillingAddress={isUsingNewBillingAddress}
                 hasSameAddresses={hasSameAddresses}

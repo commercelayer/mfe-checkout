@@ -14,7 +14,10 @@ declare global {
       saveRequests: SaveRequests
       dataCy(attribute: string): Chainable<Subject>
       // typescript OrderCollection
-      createSkuLineItems(options: { orderId: string }): Chainable<Subject>
+      createSkuLineItems(options: {
+        orderId: string
+        accessToken?: string
+      }): Chainable<Subject>
       createOrder(
         template:
           | "draft"
@@ -22,13 +25,22 @@ declare global {
           | "pending_with_billing_address"
           | "pending_with_billing_and_shipping"
           | "pending_with_customer",
-        options: { languageCode: "it" | "en"; customerEmail: string }
+        options: {
+          languageCode: "it" | "en"
+          customerEmail: string
+          accessToken?: string
+        }
       ): Chainable<Subject>
-      setSameAddress(orderId: string, addressId: string): Chainable<Subject>
+      setSameAddress(
+        orderId: string,
+        addressId: string,
+        accessToken?: string
+      ): Chainable<Subject>
       setDifferentAddress(
         orderId: string,
         billingAddressId: string,
-        shippingAddressId: string
+        shippingAddressId: string,
+        accessToken?: string
       ): Chainable<Subject>
       createAddress(options: {
         firstName: string
@@ -39,8 +51,16 @@ declare global {
         stateCode: string
         countryCode: string
         phone: string
-        orderId: string
+        accessToken?: string
       }): Chainable<Subject>
+      getTokenCustomer(options: {
+        username: string
+        password: string
+      }): Chainable<Subject>
+      addAddressToBook(
+        idAddress: string,
+        accessToken: string
+      ): Chainable<Subject>
     }
   }
 }
