@@ -33,6 +33,27 @@ Cypress.Commands.add("dataCy", (value) => {
   return cy.get(`[data-cy=${value}]`)
 })
 
+Cypress.Commands.add("createCustomer", (options) => {
+  cy.request({
+    url: Cypress.env("apiEndpoint") + "/api/customers",
+    method: "POST",
+    body: {
+      data: {
+        type: "customers",
+        attributes: {
+          email: options.email,
+          password: options.password,
+        },
+      },
+    },
+    headers: apiRequestHeaders(Cypress.env("accessToken")),
+  })
+    .its("body.data")
+    .then((customer) => {
+      return customer
+    })
+})
+
 Cypress.Commands.add("createOrder", (template, options) => {
   const hash = md5(JSON.stringify(options))
   const filename = `${template}_${hash}.json`
@@ -51,7 +72,8 @@ Cypress.Commands.add("createOrder", (template, options) => {
         },
       },
       headers:
-        options.accessToken || apiRequestHeaders(Cypress.env("accessToken")),
+        apiRequestHeaders(options.accessToken) ||
+        apiRequestHeaders(Cypress.env("accessToken")),
     })
       .its("body.data")
       .then((order) => {
@@ -90,7 +112,8 @@ Cypress.Commands.add("createSkuLineItems", (options) => {
         },
       },
       headers:
-        options.accessToken || apiRequestHeaders(Cypress.env("accessToken")),
+        apiRequestHeaders(options.accessToken) ||
+        apiRequestHeaders(Cypress.env("accessToken")),
     })
       .its("body.data")
       .then((lineItems) => {
@@ -125,7 +148,8 @@ Cypress.Commands.add("createAddress", (options) => {
       },
     },
     headers:
-      options.accessToken || apiRequestHeaders(Cypress.env("accessToken")),
+      apiRequestHeaders(options.accessToken) ||
+      apiRequestHeaders(Cypress.env("accessToken")),
   })
     .its("body.data")
     .then((address) => {
@@ -135,7 +159,7 @@ Cypress.Commands.add("createAddress", (options) => {
 
 Cypress.Commands.add("addAddressToBook", (idAddress, accessToken) => {
   cy.request({
-    url: Cypress.env("apiEndpoint") + `/api/addresses`,
+    url: Cypress.env("apiEndpoint") + `/api/customer_addresses`,
     method: "POST",
     body: {
       data: {
@@ -156,7 +180,9 @@ Cypress.Commands.add("addAddressToBook", (idAddress, accessToken) => {
         },
       },
     },
-    headers: accessToken || apiRequestHeaders(Cypress.env("accessToken")),
+    headers:
+      apiRequestHeaders(accessToken) ||
+      apiRequestHeaders(Cypress.env("accessToken")),
   }).then((customer_addresses) => {
     return customer_addresses
   })
@@ -183,7 +209,9 @@ Cypress.Commands.add("setSameAddress", (orderId, addressId, accessToken) => {
         },
       },
     },
-    headers: accessToken || apiRequestHeaders(Cypress.env("accessToken")),
+    headers:
+      apiRequestHeaders(accessToken) ||
+      apiRequestHeaders(Cypress.env("accessToken")),
   })
     .its("body.data")
     .then((orderWithAddress) => {
@@ -217,7 +245,9 @@ Cypress.Commands.add(
           },
         },
       },
-      headers: accessToken || apiRequestHeaders(Cypress.env("accessToken")),
+      headers:
+        apiRequestHeaders(accessToken) ||
+        apiRequestHeaders(Cypress.env("accessToken")),
     })
       .its("body.data")
       .then((orderWithAddress) => {

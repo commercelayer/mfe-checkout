@@ -18,6 +18,10 @@ declare global {
         orderId: string
         accessToken?: string
       }): Chainable<Subject>
+      createCustomer(options: {
+        email: string
+        password: string
+      }): Chainable<Subject>
       createOrder(
         template:
           | "draft"
@@ -28,7 +32,7 @@ declare global {
         options: {
           languageCode: "it" | "en"
           customerEmail: string
-          accessToken?: string
+          accessToken?: any
         }
       ): Chainable<Subject>
       setSameAddress(
