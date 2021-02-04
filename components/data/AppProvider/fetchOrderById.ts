@@ -21,8 +21,6 @@ interface IsNewAddressProps {
 interface CheckAndSetDefaultAddressForOrderProps {
   order: OrderCollection
   customerAddresses: Array<CustomerAddressCollection>
-  hasShippingAddress: boolean
-  hasBillingAddress: boolean
 }
 
 export interface FetchOrderByIdResponse {
@@ -60,39 +58,31 @@ async function isNewAddress({
 async function checkAndSetDefaultAddressForOrder({
   order,
   customerAddresses,
-  hasShippingAddress,
-  hasBillingAddress,
 }: CheckAndSetDefaultAddressForOrderProps) {
-  if (
-    customerAddresses.length === 1 &&
-    !hasShippingAddress &&
-    !hasBillingAddress
-  ) {
-    const addressId = customerAddresses[0].address().id
-    const customerAddressId = customerAddresses[0].id
+  const addressId = customerAddresses[0].address().id
+  const customerAddressId = customerAddresses[0].id
 
-    const updateObjet: Partial<Record<string, any>> = {
-      _billingAddressCloneId: addressId,
-      _shippingAddressCloneId: addressId,
-    }
-    try {
-      await order
-        .update(updateObjet)
-        .then(async function (orderObj: OrderCollection) {
-          const billingAddressToUpdate = await orderObj.billingAddress()
-          const shippingAddressToUpdate = orderObj.shippingAddress()
-          billingAddressToUpdate.update({
+  const updateObjet: Partial<Record<string, any>> = {
+    _billingAddressCloneId: addressId,
+    _shippingAddressCloneId: addressId,
+  }
+  try {
+    await order
+      .update(updateObjet)
+      .then(async function (orderObj: OrderCollection) {
+        const billingAddressToUpdate = await orderObj.billingAddress()
+        const shippingAddressToUpdate = orderObj.shippingAddress()
+        billingAddressToUpdate.update({
+          reference: customerAddressId,
+        })
+        if (shippingAddressToUpdate) {
+          shippingAddressToUpdate.update({
             reference: customerAddressId,
           })
-          if (shippingAddressToUpdate) {
-            shippingAddressToUpdate.update({
-              reference: customerAddressId,
-            })
-          }
-        })
-    } catch (error) {
-      console.log(error)
-    }
+        }
+      })
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -120,6 +110,19 @@ export const fetchOrderById = async ({
     const addresses = customer.customerAddresses()
     const arrayAddresses = addresses.toArray()
 
+    if (
+      !order.guest &&
+      arrayAddresses.length === 1 &&
+      !order.shippingAddress() &&
+      !order.billingAddress()
+    ) {
+      await checkAndSetDefaultAddressForOrder({
+        order: order,
+        customerAddresses: arrayAddresses,
+      })
+      // order = await Order.
+    }
+
     const hasCustomerAddresses = arrayAddresses.length >= 1
 
     const shippingAddress = order.shippingAddress()
@@ -129,6 +132,7 @@ export const fetchOrderById = async ({
     const hasBillingAddress = Boolean(billingAddress)
 
     const isGuest = Boolean(order.guest)
+
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
     const hasShippingMethod = Boolean(order.shipments())
@@ -151,15 +155,6 @@ export const fetchOrderById = async ({
     console.log("order.billingAddress :>> ", await order.billingAddress())
     console.log("order.shipments :>> ", order.shipments())
     console.log("order.paymentMethod :>> ", await order.paymentMethod())
-
-    if (!isGuest) {
-      await checkAndSetDefaultAddressForOrder({
-        order: order,
-        customerAddresses: arrayAddresses,
-        hasShippingAddress: hasShippingAddress,
-        hasBillingAddress: hasBillingAddress,
-      })
-    }
 
     changeLanguage(order.languageCode)
 

@@ -68,6 +68,7 @@ Cypress.Commands.add("createOrder", (template, options) => {
           attributes: {
             language_code: options.languageCode,
             customer_email: options.customerEmail,
+            reference: options.reference || null,
           },
         },
       },
@@ -183,9 +184,12 @@ Cypress.Commands.add("addAddressToBook", (idAddress, accessToken) => {
     headers:
       apiRequestHeaders(accessToken) ||
       apiRequestHeaders(Cypress.env("accessToken")),
-  }).then((customer_addresses) => {
-    return customer_addresses
   })
+    .its("body.data")
+    .then((customer_addresses) => {
+      console.log(customer_addresses, "---------")
+      return customer_addresses
+    })
 })
 
 Cypress.Commands.add("setSameAddress", (orderId, addressId, accessToken) => {
@@ -270,6 +274,7 @@ Cypress.Commands.add("getTokenCustomer", (options) => {
   })
     .its("body")
     .then((tokenObj) => {
+      // cypress env
       return tokenObj
     })
 })

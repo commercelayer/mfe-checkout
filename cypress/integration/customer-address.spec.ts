@@ -96,6 +96,7 @@ describe("Checkout customer address", () => {
 
     it("click to customer tab", () => {
       cy.dataCy("step_customer").click()
+      cy.wait(["@getOrders", "@retrieveLineItems"])
       cy.dataCy("input_billing_address_first_name").should(
         "contain.value",
         euAddress.firstName
@@ -307,6 +308,7 @@ describe("Checkout customer address", () => {
             ...euAddress,
             accessToken: tokenObj.access_token,
           }).then((address) => {
+            // add customer address
             cy.addAddressToBook(address.id, tokenObj.access_token).then(() => {
               cy.createOrder("draft", {
                 languageCode: "en",
@@ -349,10 +351,6 @@ describe("Checkout customer address", () => {
     })
 
     it("check information", () => {
-      cy.wait(["@getOrders", "@retrieveLineItems"])
-      cy.reload()
-      cy.wait(["@getOrders", "@retrieveLineItems"])
-
       cy.dataCy("full_address_billing")
         .should("contain", euAddress.line1)
         .and("contain", euAddress.phone)
@@ -366,6 +364,56 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
         .and("contain", euAddress.stateCode)
+    })
+
+    it("click to customer tab", () => {
+      cy.dataCy("edit-step-1-button").click()
+      cy.dataCy("input_billing_address_first_name").should(
+        "contain.value",
+        euAddress.firstName
+      ) // da non usare ma usare .should("have.attr" subito dopo click()
+    })
+
+    it("ship to different address", () => {
+      cy.dataCy("button-ship-to-different-address")
+        .click()
+        .should("have.attr", "data-status", "true")
+    })
+
+    it("fill shipping form", () => {
+      cy.dataCy("input_shipping_address_first_name").type(euAddress2.firstName)
+      cy.dataCy("input_shipping_address_last_name").type(euAddress2.lastName)
+      cy.dataCy("input_shipping_address_line_1").type(euAddress2.line1)
+      cy.dataCy("input_shipping_address_city").type(euAddress2.city)
+      cy.dataCy("input_shipping_address_country_code").select(
+        euAddress2.countryCode
+      )
+      cy.dataCy("input_shipping_address_state_code").type(euAddress2.stateCode)
+      cy.dataCy("input_shipping_address_zip_code").type(euAddress2.zipCode)
+      cy.dataCy("input_shipping_address_phone").type(euAddress2.phone)
+    })
+
+    it("save form", () => {
+      cy.dataCy("save-addresses-button").click()
+      cy.wait([
+        "@createAddress",
+        "@updateOrder",
+        "@getOrders",
+        "@retrieveLineItems",
+      ])
+      cy.dataCy("full_address_billing")
+        .should("contain", euAddress.line1)
+        .and("contain", euAddress.phone)
+        .and("contain", euAddress.city)
+        .and("contain", euAddress.zipCode)
+        .and("contain", euAddress.stateCode)
+
+      cy.dataCy("full_address_shipping")
+        .should("contain", euAddress2.line1)
+        .and("contain", euAddress2.phone)
+        .and("contain", euAddress2.city)
+        .and("contain", euAddress2.zipCode)
+        .and("contain", euAddress2.stateCode)
     })
   })
 })

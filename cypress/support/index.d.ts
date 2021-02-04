@@ -32,6 +32,7 @@ declare global {
         options: {
           languageCode: "it" | "en"
           customerEmail: string
+          reference?: string
           accessToken?: any
         }
       ): Chainable<Subject>
