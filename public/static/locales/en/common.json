@@ -36,6 +36,13 @@
         "addShippingMethod": "Add customer data before shipping" 
     },
 
+    "stepPayment": {
+        "title": "Payment",
+        "summary": "Payment summary",
+        "paymentMethod": "You have a payment method set",
+        "addPaymentMethod": "Add shipping method before payment"        
+    },
+
     "addressForm" : {
         "billing_address_title": "Billing Address",
         "billing_address_first_name": "First name",
