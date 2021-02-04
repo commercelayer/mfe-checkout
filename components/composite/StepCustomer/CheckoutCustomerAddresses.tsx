@@ -117,14 +117,16 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 : "Add new address"}
             </button>
           )}
-          <BillingAddressForm
-            autoComplete="on"
-            className="p-2"
-            reset={!showBillingAddressForm}
-          >
-            <BillingAddressFormNew billingAddress={billingAddressFill} />
-            <AddressSectionSaveOnAddressBook addressType="billing" />
-          </BillingAddressForm>
+          {!showBillingAddressForm || !hasCustomerAddresses ? (
+            <BillingAddressForm
+              autoComplete="on"
+              className="p-2"
+              reset={!showBillingAddressForm}
+            >
+              <BillingAddressFormNew billingAddress={billingAddressFill} />
+              <AddressSectionSaveOnAddressBook addressType="billing" />
+            </BillingAddressForm>
+          ) : null}
           <Toggle
             data-cy="button-ship-to-different-address"
             data-status={shipToDifferentAddress}
