@@ -12,14 +12,6 @@
         "done": "Fatto"
     },
 
-    "stepCustomer": {
-        "customer": "Cliente",
-        "bill": "Informazioni di fatturazione e indirizzo di spedizione",
-        "addNewAddress": "Aggiungi nuovo indirizzo",
-        "saveAddressBook": "Salva l'indirizzo sulla tua rubrica",
-        "continueToDelivery": "Continuare alla consegna"
-    },
-
     "orderRecap": {
         "cartContains": "Il tuo carrello contiene {{count}} articolo",
         "cartContains_plural": "Il tuo carrello contiene {{count}} articoli",
@@ -29,11 +21,26 @@
         "total_amount": "Totale"
     },
 
+    "stepCustomer": {
+        "customer": "Cliente",
+        "bill": "Informazioni di fatturazione e indirizzo di spedizione",
+        "addNewAddress": "Aggiungi nuovo indirizzo",
+        "saveAddressBook": "Salva l'indirizzo sulla tua rubrica",
+        "continueToDelivery": "Continuare alla consegna"
+    },
+
     "stepShipping": {
         "delivery": "Consegna",
         "summary": "Riepilogo della spedizione e modalità di consegna",
         "shippingMethod": "Hai impostato un metodo di spedizione",
         "addShippingMethod": "Aggiungi i dati del cliente prima della spedizione"        
+    },
+
+    "stepPayment": {
+        "title": "Pagamento",
+        "summary": "Riepilogo del pagamento",
+        "paymentMethod": "Hai impostato un metodo di pagamento",
+        "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento"        
     },
 
     "addressForm" : {

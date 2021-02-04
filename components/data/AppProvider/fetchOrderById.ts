@@ -2,6 +2,7 @@ import CLayer, {
   AddressCollection,
   Order,
   OrderCollection,
+  ShipmentCollection,
   CustomerAddressCollection,
 } from "@commercelayer/js-sdk"
 
@@ -37,6 +38,7 @@ export interface FetchOrderByIdResponse {
   hasBillingAddress: boolean
   billingAddress: AddressCollection | null
   hasShippingMethod: boolean
+  shipments: Array<ShipmentCollection>
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
 }
@@ -110,6 +112,7 @@ export const fetchOrderById = async ({
       "shipping_address",
       "billing_address",
       "shipments",
+      "shipments.shipping_method",
       "payment_method",
       "customer",
       "customer.customer_addresses",
@@ -131,8 +134,14 @@ export const fetchOrderById = async ({
     const isGuest = Boolean(order.guest)
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
-    const hasShippingMethod = Boolean(order.shipments())
-    const hasPaymentMethod = Boolean(await order.paymentMethod())
+    const shipments = await order.shipments()?.includes("shippingMethod").load()
+
+    console.log("order.shipments :>> ", order.shipments())
+
+    const shippingMethods = shipments.map((a) => a.shippingMethod())
+    const hasShippingMethod = Boolean(!shippingMethods.toArray().includes(null))
+
+    const hasPaymentMethod = false // Boolean(await order.paymentMethod())
 
     const isUsingNewBillingAddress = await isNewAddress({
       address: billingAddress,
@@ -176,6 +185,7 @@ export const fetchOrderById = async ({
       hasBillingAddress,
       billingAddress,
       hasShippingMethod,
+      shipments,
       hasPaymentMethod,
     }
   } catch (e) {
@@ -193,6 +203,7 @@ export const fetchOrderById = async ({
       hasBillingAddress: false,
       billingAddress: null,
       hasShippingMethod: false,
+      shipments: [],
       hasPaymentMethod: false,
     }
   }
