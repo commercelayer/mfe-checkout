@@ -76,7 +76,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
   const handleShowBillingForm = () => [
     setShowBillingAddressForm(!showBillingAddressForm),
-    setShippingAddressFill(null),
+    setBillingAddressFill(null),
   ]
   const handleShowShippingForm = () => [
     setShowShippingAddressForm(!showShippingAddressForm),
@@ -103,7 +103,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           <BillingAddressContainer>
             <AddressCardComponent
               addressType="billing"
-              onSelect={() => setShowBillingAddressForm(false)}
+              onSelect={() => [
+                setShowBillingAddressForm(false),
+                console.log("ciaooo"),
+              ]}
             />
           </BillingAddressContainer>
           {!showBillingAddressForm && hasCustomerAddresses && (
@@ -117,16 +120,18 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 : "Add new address"}
             </button>
           )}
-          {!showBillingAddressForm || !hasCustomerAddresses ? (
-            <BillingAddressForm
-              autoComplete="on"
-              className="p-2"
-              reset={!showBillingAddressForm}
-            >
-              <BillingAddressFormNew billingAddress={billingAddressFill} />
-              <AddressSectionSaveOnAddressBook addressType="billing" />
-            </BillingAddressForm>
-          ) : null}
+          <BillingAddressForm
+            autoComplete="on"
+            className="p-2"
+            reset={!showBillingAddressForm}
+          >
+            {showBillingAddressForm || !hasCustomerAddresses ? (
+              <>
+                <BillingAddressFormNew billingAddress={billingAddressFill} />
+                <AddressSectionSaveOnAddressBook addressType="billing" />
+              </>
+            ) : null}
+          </BillingAddressForm>
           <Toggle
             data-cy="button-ship-to-different-address"
             data-status={shipToDifferentAddress}
@@ -165,24 +170,21 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           ) : (
             <Fragment />
           )}
-          {showShippingAddressForm || !hasCustomerAddresses ? (
-            <>
-              {shipToDifferentAddress && (
-                <ShippingAddressForm
-                  autoComplete="on"
-                  hidden={!shipToDifferentAddress}
-                  className="p-2"
-                  reset={!showShippingAddressForm}
-                >
-                  <ShippingAddressFormNew
-                    shippingAddress={shippingAddressFill}
-                  />
 
-                  <AddressSectionSaveOnAddressBook addressType="shipping" />
-                </ShippingAddressForm>
-              )}
-            </>
-          ) : null}
+          <ShippingAddressForm
+            autoComplete="on"
+            hidden={!shipToDifferentAddress}
+            className="p-2"
+            reset={!showShippingAddressForm}
+          >
+            {showShippingAddressForm || !hasCustomerAddresses ? (
+              <>
+                <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
+
+                <AddressSectionSaveOnAddressBook addressType="shipping" />
+              </>
+            ) : null}
+          </ShippingAddressForm>
 
           <div tw="flex justify-between">
             <div>
