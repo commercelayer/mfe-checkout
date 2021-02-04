@@ -59,15 +59,15 @@ describe("Checkout customer address", () => {
     })
 
     it("fill billing form", () => {
-      cy.dataCy("input_billing_address_first_name").type(euAddress.first_name)
-      cy.dataCy("input_billing_address_last_name").type(euAddress.last_name)
-      cy.dataCy("input_billing_address_line_1").type(euAddress.line_1)
+      cy.dataCy("input_billing_address_first_name").type(euAddress.firstName)
+      cy.dataCy("input_billing_address_last_name").type(euAddress.lastName)
+      cy.dataCy("input_billing_address_line_1").type(euAddress.line1)
       cy.dataCy("input_billing_address_city").type(euAddress.city)
       cy.dataCy("input_billing_address_country_code").select(
-        euAddress.country_code
+        euAddress.countryCode
       )
-      cy.dataCy("input_billing_address_state_code").type(euAddress.state_code)
-      cy.dataCy("input_billing_address_zip_code").type(euAddress.zip_code)
+      cy.dataCy("input_billing_address_state_code").type(euAddress.stateCode)
+      cy.dataCy("input_billing_address_zip_code").type(euAddress.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress.phone)
     })
 
@@ -80,25 +80,25 @@ describe("Checkout customer address", () => {
         "@retrieveLineItems",
       ])
       cy.dataCy("full_address_billing")
-        .should("contain", euAddress.line_1)
+        .should("contain", euAddress.line1)
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
-        .and("contain", euAddress.zip_code)
-        .and("contain", euAddress.state_code)
+        .and("contain", euAddress.zipCode)
+        .and("contain", euAddress.stateCode)
 
       cy.dataCy("full_address_shipping")
-        .should("contain", euAddress.line_1)
+        .should("contain", euAddress.line1)
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
-        .and("contain", euAddress.zip_code)
-        .and("contain", euAddress.state_code)
+        .and("contain", euAddress.zipCode)
+        .and("contain", euAddress.stateCode)
     })
 
     it("click to customer tab", () => {
       cy.dataCy("step_customer").click()
       cy.dataCy("input_billing_address_first_name").should(
         "contain.value",
-        euAddress.first_name
+        euAddress.firstName
       ) // da non usare ma usare .should("have.attr" subito dopo click()
     })
 
@@ -109,15 +109,15 @@ describe("Checkout customer address", () => {
     })
 
     it("fill shipping form", () => {
-      cy.dataCy("input_shipping_address_first_name").type(euAddress2.first_name)
-      cy.dataCy("input_shipping_address_last_name").type(euAddress2.last_name)
-      cy.dataCy("input_shipping_address_line_1").type(euAddress2.line_1)
+      cy.dataCy("input_shipping_address_first_name").type(euAddress2.firstName)
+      cy.dataCy("input_shipping_address_last_name").type(euAddress2.lastName)
+      cy.dataCy("input_shipping_address_line_1").type(euAddress2.line1)
       cy.dataCy("input_shipping_address_city").type(euAddress2.city)
       cy.dataCy("input_shipping_address_country_code").select(
-        euAddress2.country_code
+        euAddress2.countryCode
       )
-      cy.dataCy("input_shipping_address_state_code").type(euAddress2.state_code)
-      cy.dataCy("input_shipping_address_zip_code").type(euAddress2.zip_code)
+      cy.dataCy("input_shipping_address_state_code").type(euAddress2.stateCode)
+      cy.dataCy("input_shipping_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_shipping_address_phone").type(euAddress2.phone)
     })
 
@@ -130,18 +130,18 @@ describe("Checkout customer address", () => {
         "@retrieveLineItems",
       ])
       cy.dataCy("full_address_billing")
-        .should("contain", euAddress.line_1)
+        .should("contain", euAddress.line1)
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
-        .and("contain", euAddress.zip_code)
-        .and("contain", euAddress.state_code)
+        .and("contain", euAddress.zipCode)
+        .and("contain", euAddress.stateCode)
 
       cy.dataCy("full_address_shipping")
-        .should("contain", euAddress2.line_1)
+        .should("contain", euAddress2.line1)
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
-        .and("contain", euAddress2.zip_code)
-        .and("contain", euAddress2.state_code)
+        .and("contain", euAddress2.zipCode)
+        .and("contain", euAddress2.stateCode)
     })
   })
 
@@ -165,14 +165,7 @@ describe("Checkout customer address", () => {
                 accessToken: tokenObj.access_token,
               })
               cy.createAddress({
-                firstName: euAddress.first_name,
-                lastName: euAddress.last_name,
-                city: euAddress.city,
-                countryCode: euAddress.country_code,
-                line1: euAddress.line_1,
-                phone: euAddress.phone,
-                stateCode: euAddress.state_code,
-                zipCode: euAddress.zip_code,
+                ...euAddress,
                 accessToken: tokenObj.access_token,
               }).then((address) => {
                 cy.setSameAddress(order.id, address.id, tokenObj.access_token)
@@ -207,18 +200,18 @@ describe("Checkout customer address", () => {
 
     it("check information", function () {
       cy.dataCy("full_address_billing")
-        .should("contain", euAddress.line_1)
+        .should("contain", euAddress.line1)
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
-        .and("contain", euAddress.zip_code)
-        .and("contain", euAddress.state_code)
+        .and("contain", euAddress.zipCode)
+        .and("contain", euAddress.stateCode)
 
       cy.dataCy("full_address_shipping")
-        .should("contain", euAddress.line_1)
+        .should("contain", euAddress.line1)
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
-        .and("contain", euAddress.zip_code)
-        .and("contain", euAddress.state_code)
+        .and("contain", euAddress.zipCode)
+        .and("contain", euAddress.stateCode)
     })
   })
 
@@ -242,27 +235,11 @@ describe("Checkout customer address", () => {
                 accessToken: tokenObj.access_token,
               })
               cy.createAddress({
-                orderId: order.id,
-                firstName: euAddress.first_name,
-                lastName: euAddress.last_name,
-                city: euAddress.city,
-                countryCode: euAddress.country_code,
-                line1: euAddress.line_1,
-                phone: euAddress.phone,
-                stateCode: euAddress.state_code,
-                zipCode: euAddress.zip_code,
+                ...euAddress,
                 accessToken: tokenObj.access_token,
               }).then((billingAddress) => {
                 cy.createAddress({
-                  orderId: order.id,
-                  firstName: euAddress2.first_name,
-                  lastName: euAddress2.last_name,
-                  city: euAddress2.city,
-                  countryCode: euAddress2.country_code,
-                  line1: euAddress2.line_1,
-                  phone: euAddress2.phone,
-                  stateCode: euAddress2.state_code,
-                  zipCode: euAddress2.zip_code,
+                  ...euAddress2,
                   accessToken: tokenObj.access_token,
                 }).then((shippingAddress) => {
                   cy.setDifferentAddress(
@@ -303,18 +280,18 @@ describe("Checkout customer address", () => {
 
     it("check information", function () {
       cy.dataCy("full_address_billing")
-        .should("contain", euAddress.line_1)
+        .should("contain", euAddress.line1)
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
-        .and("contain", euAddress.zip_code)
-        .and("contain", euAddress.state_code)
+        .and("contain", euAddress.zipCode)
+        .and("contain", euAddress.stateCode)
 
       cy.dataCy("full_address_shipping")
-        .should("contain", euAddress2.line_1)
+        .should("contain", euAddress2.line1)
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
-        .and("contain", euAddress2.zip_code)
-        .and("contain", euAddress2.state_code)
+        .and("contain", euAddress2.zipCode)
+        .and("contain", euAddress2.stateCode)
     })
   })
 
@@ -327,14 +304,7 @@ describe("Checkout customer address", () => {
         .as("tokenObj")
         .then((tokenObj) => {
           cy.createAddress({
-            firstName: euAddress.first_name,
-            lastName: euAddress.last_name,
-            city: euAddress.city,
-            countryCode: euAddress.country_code,
-            line1: euAddress.line_1,
-            phone: euAddress.phone,
-            stateCode: euAddress.state_code,
-            zipCode: euAddress.zip_code,
+            ...euAddress,
             accessToken: tokenObj.access_token,
           }).then((address) => {
             cy.addAddressToBook(address.id, tokenObj.access_token).then(() => {
@@ -384,18 +354,18 @@ describe("Checkout customer address", () => {
       cy.wait(["@getOrders", "@retrieveLineItems"])
 
       cy.dataCy("full_address_billing")
-        .should("contain", euAddress.line_1)
+        .should("contain", euAddress.line1)
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
-        .and("contain", euAddress.zip_code)
-        .and("contain", euAddress.state_code)
+        .and("contain", euAddress.zipCode)
+        .and("contain", euAddress.stateCode)
 
       cy.dataCy("full_address_shipping")
-        .should("contain", euAddress.line_1)
+        .should("contain", euAddress.line1)
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
-        .and("contain", euAddress.zip_code)
-        .and("contain", euAddress.state_code)
+        .and("contain", euAddress.zipCode)
+        .and("contain", euAddress.stateCode)
     })
   })
 })

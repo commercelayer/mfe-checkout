@@ -92,8 +92,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     }
   }, [showBillingAddressForm, showShippingAddressForm])
 
-  console.log(hasCustomerAddresses)
-
   return (
     <Fragment>
       <AddressSectionEmail isGuest={isGuest} emailAddress={emailAddress} />
