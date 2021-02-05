@@ -265,10 +265,10 @@
     active-resource "^1.0.0-beta.7"
     lodash "^4.17.20"
 
-"@commercelayer/react-components@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.4.0.tgz#3219f2b1d6a313cbeba3c8e3307f83d6b678d3d3"
-  integrity sha512-DVtRWWbnu55x/sb1KTEHOp2cynxWDDZ75BpOhoz746N28/qgGUUd3GmMAxoblkGCv6DcFGM4S+Pp3XE5h7yACw==
+"@commercelayer/react-components@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.5.1.tgz#e20f8a3e0f172f82ed3e4157fd092ee9bf47487a"
+  integrity sha512-zRMgvV9A9BNavRjztGhy7/xIo2udr2sZYd4ANBQutQCxIuNQZAnmxkSgZm4BFtu2FbH64YazKUOCD4YM3Xwhyw==
   dependencies:
     "@commercelayer/js-sdk" "^3.2.2"
     lodash "^4.17.20"
