@@ -54,7 +54,9 @@ export const StepShipping: React.FC<Props> = ({
     )
   }, [shipmentsSelected])
 
-  const handleChange = (shippingMethod: ShippingMethodCollection) => {
+  const handleChange = (
+    shippingMethod: ShippingMethodCollection | Record<string, any>
+  ): void => {
     setShipmentsSelected(
       shipmentsSelected.map((shipment) => {
         return shipment.shipmentId === shippingMethod.shipmentId
@@ -66,6 +68,7 @@ export const StepShipping: React.FC<Props> = ({
       })
     )
   }
+  return null
   return (
     <div className={className}>
       <StepHeader
@@ -113,7 +116,11 @@ export const StepShipping: React.FC<Props> = ({
                 <div className="flex items-center justify-around w-2/3 p-5">
                   <ShippingMethodRadioButton
                     data-cy="shipping-method-button"
-                    onChange={handleChange}
+                    onChange={(
+                      shippingMethod:
+                        | ShippingMethodCollection
+                        | Record<string, any>
+                    ) => handleChange(shippingMethod)}
                   />
                   <ShippingMethodName data-cy="shipping-method-name" />
                   <ShippingMethodPrice data-cy="shipping-method-price" />

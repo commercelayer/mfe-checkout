@@ -130,14 +130,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               className="p-2"
               reset={!showBillingAddressForm}
             >
-              {showBillingAddressForm || !hasCustomerAddresses ? (
-                <>
-                  <BillingAddressFormNew billingAddress={billingAddressFill} />
-                  <AddressSectionSaveOnAddressBook addressType="billing" />
-                </>
-              ) : (
-                <></>
-              )}
+              <>
+                <BillingAddressFormNew billingAddress={billingAddressFill} />
+                <AddressSectionSaveOnAddressBook addressType="billing" />
+              </>
             </BillingAddressForm>
           </div>
           <Toggle
