@@ -113,6 +113,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             {!showBillingAddressForm && hasCustomerAddresses && (
               <button
                 tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
+                data-cy="add_new_billing_address"
                 onClick={handleShowBillingForm}
               >
                 {shipToDifferentAddress
@@ -176,6 +177,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               {!showShippingAddressForm && hasCustomerAddresses ? (
                 <button
                   tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
+                  data-cy="add_new_shipping_address"
                   onClick={handleShowShippingForm}
                 >
                   <FontAwesomeIcon icon={faPlus} tw="mr-3" />
