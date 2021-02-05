@@ -15,7 +15,7 @@ import {
   StockTransferField,
   DeliveryLeadTime,
 } from "@commercelayer/react-components"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 
 import "twin.macro"
 
@@ -46,10 +46,13 @@ export const StepShipping: React.FC<Props> = ({
   const { shipments, hasShippingMethod, refetchOrder } = appCtx
 
   const [shipmentsSelected, setShipmentsSelected] = useState(shipments)
+  const [canContinue, setCanContinue] = useState(false)
 
-  const canContinue = () => {
-    return !shipmentsSelected.map((s) => s.shippingMethodId).includes(undefined)
-  }
+  useEffect(() => {
+    setCanContinue(
+      !shipmentsSelected.map((s) => s.shippingMethodId).includes(undefined)
+    )
+  }, [shipmentsSelected])
 
   const handleChange = (shippingMethod: ShippingMethodCollection) => {
     setShipmentsSelected(
@@ -131,10 +134,12 @@ export const StepShipping: React.FC<Props> = ({
               </ShippingMethod>
             </Shipment>
             <div tw="flex justify-end">
-              <Button>
-                <a data-cy="save-shipments-button" onClick={refetchOrder}>
-                  Continue to Payment
-                </a>
+              <Button
+                disabled={!canContinue}
+                data-cy="save-shipments-button"
+                onClick={refetchOrder}
+              >
+                Continue to Payment
               </Button>
             </div>
           </ShipmentsContainer>
@@ -142,9 +147,28 @@ export const StepShipping: React.FC<Props> = ({
           <div>
             {t("stepShipping.shippingMethod")}
             {"Selezionato"}
+            <ShipmentsContainer>
+              <div className="mt-10">Shipments Recap</div>
+              <Shipment>
+                {/* remove [0] when id of ShippingMethod is an array of ids */}
+                <ShippingMethod
+                  id={shipmentsSelected.map((s) => s.shippingMethodId)[0]}
+                >
+                  <div className="flex items-center justify-around w-2/3 p-5">
+                    <ShippingMethodName data-cy="shipping-method-name-recap" />
+                    <ShippingMethodPrice />
+                    <div className="flex">
+                      <DeliveryLeadTime type="minDays" /> -{" "}
+                      <DeliveryLeadTime type="maxDays" className="mr-1" />
+                      days
+                    </div>
+                  </div>
+                </ShippingMethod>
+              </Shipment>
+            </ShipmentsContainer>
           </div>
         ) : (
-          <div>-</div>
+          <div>Metodo di spedizione da selezionare</div>
         )}
       </StepContent>
     </div>
