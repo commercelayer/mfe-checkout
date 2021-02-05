@@ -103,10 +103,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           <BillingAddressContainer>
             <AddressCardComponent
               addressType="billing"
-              onSelect={() => [
-                setShowBillingAddressForm(false),
-                console.log("ciaooo"),
-              ]}
+              deselect={showBillingAddressForm}
+              onSelect={() =>
+                showBillingAddressForm && setShowBillingAddressForm(false)
+              }
             />
           </BillingAddressContainer>
           {!showBillingAddressForm && hasCustomerAddresses && (
@@ -120,18 +120,26 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 : "Add new address"}
             </button>
           )}
-          <BillingAddressForm
-            autoComplete="on"
-            className="p-2"
-            reset={!showBillingAddressForm}
+          <div
+            className={`${
+              showBillingAddressForm || !hasCustomerAddresses ? "" : "hidden"
+            }`}
           >
-            {showBillingAddressForm || !hasCustomerAddresses ? (
-              <>
-                <BillingAddressFormNew billingAddress={billingAddressFill} />
-                <AddressSectionSaveOnAddressBook addressType="billing" />
-              </>
-            ) : null}
-          </BillingAddressForm>
+            <BillingAddressForm
+              autoComplete="on"
+              className="p-2"
+              reset={!showBillingAddressForm}
+            >
+              {showBillingAddressForm || !hasCustomerAddresses ? (
+                <>
+                  <BillingAddressFormNew billingAddress={billingAddressFill} />
+                  <AddressSectionSaveOnAddressBook addressType="billing" />
+                </>
+              ) : (
+                <></>
+              )}
+            </BillingAddressForm>
+          </div>
           <Toggle
             data-cy="button-ship-to-different-address"
             data-status={shipToDifferentAddress}
@@ -144,19 +152,30 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           />
           {shipToDifferentAddress && hasCustomerAddresses ? (
             <Fragment>
-              <ShippingAddressContainer>
-                <div tw="pl-2 pt-4">
-                  <AddressSectionTitle>
-                    {t(`addressForm.shipping_address_title`)}
-                  </AddressSectionTitle>
-                </div>
+              <div
+                className={`${
+                  !shipToDifferentAddress || !hasCustomerAddresses
+                    ? "hidden"
+                    : ""
+                }`}
+              >
+                <ShippingAddressContainer>
+                  <div tw="pl-2 pt-4">
+                    <AddressSectionTitle>
+                      {t(`addressForm.shipping_address_title`)}
+                    </AddressSectionTitle>
+                  </div>
 
-                <AddressCardComponent
-                  addressType="shipping"
-                  onSelect={() => setShowShippingAddressForm(false)}
-                />
-              </ShippingAddressContainer>
-
+                  <AddressCardComponent
+                    addressType="shipping"
+                    deselect={showShippingAddressForm}
+                    onSelect={() =>
+                      showShippingAddressForm &&
+                      setShowShippingAddressForm(false)
+                    }
+                  />
+                </ShippingAddressContainer>
+              </div>
               {!showShippingAddressForm && hasCustomerAddresses ? (
                 <button
                   tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
@@ -180,12 +199,12 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             {showShippingAddressForm || !hasCustomerAddresses ? (
               <>
                 <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
-
                 <AddressSectionSaveOnAddressBook addressType="shipping" />
               </>
-            ) : null}
+            ) : (
+              <></>
+            )}
           </ShippingAddressForm>
-
           <div tw="flex justify-between">
             <div>
               {(showBillingAddressForm && !isUsingNewBillingAddress) ||
@@ -216,11 +235,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
 interface AddressCardProps {
   addressType: "shipping" | "billing"
+  deselect: boolean
   onSelect: () => void
 }
 
 const AddressCardComponent: React.FC<AddressCardProps> = ({
   addressType,
+  deselect,
   onSelect,
 }) => {
   const dataCy =
@@ -231,6 +252,7 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
     <AddressCard
       data-cy={dataCy}
       selectedClassName="border-blue-500"
+      deselect={deselect}
       onSelect={onSelect}
     >
       <div tw="flex font-bold">
