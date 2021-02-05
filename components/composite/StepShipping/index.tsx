@@ -68,7 +68,6 @@ export const StepShipping: React.FC<Props> = ({
       })
     )
   }
-  return null
   return (
     <div className={className}>
       <StepHeader
@@ -158,9 +157,7 @@ export const StepShipping: React.FC<Props> = ({
               <div className="mt-10">Shipments Recap</div>
               <Shipment>
                 {/* remove [0] when id of ShippingMethod is an array of ids */}
-                <ShippingMethod
-                  id={shipmentsSelected.map((s) => s.shippingMethodId)[0]}
-                >
+                <ShippingMethod readonly>
                   <div className="flex items-center justify-around w-2/3 p-5">
                     <ShippingMethodName data-cy="shipping-method-name-recap" />
                     <ShippingMethodPrice />

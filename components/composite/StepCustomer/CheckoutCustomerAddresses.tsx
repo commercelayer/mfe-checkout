@@ -189,21 +189,23 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             <Fragment />
           )}
 
-          <ShippingAddressForm
-            autoComplete="on"
-            hidden={!shipToDifferentAddress}
-            className="p-2"
-            reset={!showShippingAddressForm}
+          <div
+            className={
+              showShippingAddressForm || !hasCustomerAddresses ? "" : "hidden"
+            }
           >
-            {showShippingAddressForm || !hasCustomerAddresses ? (
+            <ShippingAddressForm
+              autoComplete="on"
+              hidden={!shipToDifferentAddress}
+              className="p-2"
+              reset={!showShippingAddressForm}
+            >
               <>
                 <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
                 <AddressSectionSaveOnAddressBook addressType="shipping" />
               </>
-            ) : (
-              <></>
-            )}
-          </ShippingAddressForm>
+            </ShippingAddressForm>
+          </div>
           <div tw="flex justify-between">
             <div>
               {(showBillingAddressForm && !isUsingNewBillingAddress) ||
