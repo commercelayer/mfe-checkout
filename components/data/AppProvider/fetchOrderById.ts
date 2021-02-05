@@ -65,10 +65,10 @@ async function checkAndSetDefaultAddressForOrder({
   order,
   customerAddresses,
 }: CheckAndSetDefaultAddressForOrderProps) {
-  const addressId = customerAddresses[0].address().id
+  const addressId = customerAddresses[0].address()?.id
   const customerAddressId = customerAddresses[0].id
 
-  const updateObjet: Partial<Record<string, any>> = {
+  const updateObjet: Partial<Record<string, string>> = {
     _billingAddressCloneId: addressId,
     _shippingAddressCloneId: addressId,
   }
@@ -78,9 +78,11 @@ async function checkAndSetDefaultAddressForOrder({
       .then(async function (orderObj: OrderCollection) {
         const billingAddressToUpdate = await orderObj.billingAddress()
         const shippingAddressToUpdate = orderObj.shippingAddress()
-        billingAddressToUpdate.update({
-          reference: customerAddressId,
-        })
+        if (billingAddressToUpdate) {
+          billingAddressToUpdate.update({
+            reference: customerAddressId,
+          })
+        }
         if (shippingAddressToUpdate) {
           shippingAddressToUpdate.update({
             reference: customerAddressId,
