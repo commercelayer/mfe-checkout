@@ -1,4 +1,4 @@
-import { AddressCollection, ShipmentCollection } from "@commercelayer/js-sdk"
+import { AddressCollection } from "@commercelayer/js-sdk"
 import { createContext, useState, useEffect } from "react"
 
 import { fetchOrderById, FetchOrderByIdResponse } from "./fetchOrderById"
@@ -13,6 +13,11 @@ export const AppContext = createContext<AppProviderData | null>(null)
 interface AppProviderProps {
   orderId?: string
   accessToken?: string
+}
+
+interface ShipmentSelectedProps {
+  shipmentId: string
+  shippingMethodId: string | undefined
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({
@@ -42,7 +47,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     setShippingAddress,
   ] = useState<AddressCollection | null>(null)
   const [hasShippingMethod, setHasShippingMethod] = useState(false)
-  const [shipments, setShipments] = useState<ShipmentCollection[]>([])
+  const [shipments, setShipments] = useState<ShipmentSelectedProps[]>([])
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
 
   const fetchOrderHandle = (orderId?: string, accessToken?: string) => {
