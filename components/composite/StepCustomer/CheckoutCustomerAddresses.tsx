@@ -144,6 +144,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             checked={shipToDifferentAddress}
             onChange={() => [
               setShipToDifferentAddress(!shipToDifferentAddress),
+              setShowShippingAddressForm(!shipToDifferentAddress),
               setShippingAddressFill(null),
             ]}
           />
