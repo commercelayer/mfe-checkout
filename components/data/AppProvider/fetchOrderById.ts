@@ -14,7 +14,7 @@ interface FetchOrderByIdProps {
 
 interface IsNewAddressProps {
   address: AddressCollection | null
-  customerAddresses: Array<CustomerAddressCollection>
+  customerAddresses: Array<CustomerAddressCollection> | undefined
   isGuest: boolean
 }
 
@@ -114,11 +114,12 @@ export const fetchOrderById = async ({
     ).find(orderId)
 
     const customer = order.customer()
-    const addresses = customer.customerAddresses()
-    const arrayAddresses = addresses.toArray()
+    const addresses = customer && customer.customerAddresses()
+    const arrayAddresses = addresses?.toArray()
 
     if (
       !order.guest &&
+      arrayAddresses &&
       arrayAddresses.length === 1 &&
       !order.shippingAddress() &&
       !order.billingAddress()
@@ -130,7 +131,8 @@ export const fetchOrderById = async ({
       // order = await Order.
     }
 
-    const hasCustomerAddresses = arrayAddresses.length >= 1
+    const hasCustomerAddresses =
+      (arrayAddresses && arrayAddresses.length >= 1) || false
 
     const shippingAddress = order.shippingAddress()
     const hasShippingAddress = Boolean(order.shippingAddress())
@@ -143,23 +145,19 @@ export const fetchOrderById = async ({
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
     const shipments = await order.shipments()?.includes("shippingMethod").load()
-    const shipmentsSelected = shipments.map(
-      (a): ShipmentSelectedProps => {
-        return {
-          shipmentId: a.id,
-          shippingMethodId: a.shippingMethod()?.id,
-        }
+    const shipmentsSelected = shipments?.toArray().map((a) => {
+      return {
+        shipmentId: a.id,
+        shippingMethodId: a.shippingMethod()?.id,
       }
-    )
+    })
 
     console.log("order.shipmentsSelected :>> ", shipmentsSelected)
 
-    const shippingMethods = shipmentsSelected.map(
+    const shippingMethods = shipmentsSelected?.map(
       (a: ShipmentSelectedProps) => a.shippingMethodId
     )
-    const hasShippingMethod = Boolean(
-      !shippingMethods.toArray().includes(undefined)
-    )
+    const hasShippingMethod = Boolean(!shippingMethods?.includes(undefined))
 
     const hasPaymentMethod = false // Boolean(await order.paymentMethod())
 
