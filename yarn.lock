@@ -257,15 +257,7 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-sdk@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.0.3.tgz#78dfb80cdebbacc7ce2d5816dd30165b9c024f2f"
-  integrity sha512-c+RBRXKFCbqn1a17s+fvqbOGheQRO5EiQa9Kk8d8KG2lZKEJHW5ue40aPM7blJvF5BN6z2eb4vrcKHszS+m+cA==
-  dependencies:
-    active-resource "^1.0.0-beta.7"
-    lodash "^4.17.20"
-
-"@commercelayer/js-sdk@^3.2.2":
+"@commercelayer/js-sdk@^3.1.4", "@commercelayer/js-sdk@^3.2.2":
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.2.2.tgz#9b3ee4173b029dc29b8def99b31854e10c7332f1"
   integrity sha512-wNFm/bmf7NANkE1Y1h44NWCCjkSneSnNGl0yRtdlgO7Mfn/iLodfExC/Oul9ejYU7dpdTmMlX0GqwgGFX0pfqA==
@@ -3421,9 +3413,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.2.3:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
-  integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.2.tgz#dd73c8effc12728ba5cf4259d760ea5fb83e3147"
+  integrity sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -6131,9 +6123,9 @@ purgecss@^3.0.0:
     postcss-selector-parser "^6.0.2"
 
 qs@^6.5.0:
-  version "6.9.4"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
-  integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
+  version "6.9.6"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.6.tgz#26ed3c8243a431b2924aca84cc90471f35d5a0ee"
+  integrity sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==
 
 qs@~6.5.2:
   version "6.5.2"

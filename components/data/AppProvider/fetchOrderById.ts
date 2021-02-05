@@ -2,7 +2,6 @@ import CLayer, {
   AddressCollection,
   Order,
   OrderCollection,
-  ShipmentCollection,
   CustomerAddressCollection,
 } from "@commercelayer/js-sdk"
 
@@ -24,6 +23,11 @@ interface CheckAndSetDefaultAddressForOrderProps {
   customerAddresses: Array<CustomerAddressCollection>
 }
 
+interface ShipmentSelectedProps {
+  shipmentId: string
+  shippingMethodId: string | undefined
+}
+
 export interface FetchOrderByIdResponse {
   isGuest: boolean
   isUsingNewBillingAddress: boolean
@@ -36,7 +40,7 @@ export interface FetchOrderByIdResponse {
   hasBillingAddress: boolean
   billingAddress: AddressCollection | null
   hasShippingMethod: boolean
-  shipments: Array<ShipmentCollection>
+  shipments: Array<ShipmentSelectedProps>
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
 }
@@ -139,11 +143,23 @@ export const fetchOrderById = async ({
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
     const shipments = await order.shipments()?.includes("shippingMethod").load()
+    const shipmentsSelected = shipments.map(
+      (a): ShipmentSelectedProps => {
+        return {
+          shipmentId: a.id,
+          shippingMethodId: a.shippingMethod()?.id,
+        }
+      }
+    )
 
-    console.log("order.shipments :>> ", order.shipments())
+    console.log("order.shipmentsSelected :>> ", shipmentsSelected)
 
-    const shippingMethods = shipments.map((a) => a.shippingMethod())
-    const hasShippingMethod = Boolean(!shippingMethods.toArray().includes(null))
+    const shippingMethods = shipmentsSelected.map(
+      (a: ShipmentSelectedProps) => a.shippingMethodId
+    )
+    const hasShippingMethod = Boolean(
+      !shippingMethods.toArray().includes(undefined)
+    )
 
     const hasPaymentMethod = false // Boolean(await order.paymentMethod())
 
@@ -180,7 +196,7 @@ export const fetchOrderById = async ({
       hasBillingAddress,
       billingAddress,
       hasShippingMethod,
-      shipments,
+      shipments: (shipmentsSelected as unknown) as ShipmentSelectedProps[],
       hasPaymentMethod,
     }
   } catch (e) {

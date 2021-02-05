@@ -1,3 +1,4 @@
+import { ShippingMethodCollection } from "@commercelayer/js-sdk"
 import {
   LineItem,
   Shipment,
@@ -14,7 +15,7 @@ import {
   StockTransferField,
   DeliveryLeadTime,
 } from "@commercelayer/react-components"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 
 import "twin.macro"
 
@@ -42,10 +43,25 @@ export const StepShipping: React.FC<Props> = ({
     return null
   }
 
-  const { hasShippingMethod, refetchOrder } = appCtx
+  const { shipments, hasShippingMethod, refetchOrder } = appCtx
 
-  const handleChange = () => {
-    console.log("click")
+  const [shipmentsSelected, setShipmentsSelected] = useState(shipments)
+
+  const canContinue = () => {
+    return !shipmentsSelected.map((s) => s.shippingMethodId).includes(undefined)
+  }
+
+  const handleChange = (shippingMethod: ShippingMethodCollection) => {
+    setShipmentsSelected(
+      shipmentsSelected.map((shipment) => {
+        return shipment.shipmentId === shippingMethod.shipmentId
+          ? {
+              shipmentId: shipment.shipmentId,
+              shippingMethodId: shippingMethod.id,
+            }
+          : shipment
+      })
+    )
   }
   return (
     <div className={className}>
