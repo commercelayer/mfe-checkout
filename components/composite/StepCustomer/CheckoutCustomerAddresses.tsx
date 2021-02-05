@@ -109,16 +109,17 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               }
             />
           </BillingAddressContainer>
-          {!showBillingAddressForm && hasCustomerAddresses && (
+          {!showBillingAddressForm && hasCustomerAddresses ? (
             <button
               tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
               onClick={handleShowBillingForm}
             >
-              <FontAwesomeIcon icon={faPlus} tw="mr-3" />
               {shipToDifferentAddress
                 ? "Add new billing address"
                 : "Add new address"}
             </button>
+          ) : (
+            <></>
           )}
           <div
             className={`${

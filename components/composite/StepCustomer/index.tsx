@@ -98,29 +98,47 @@ export const StepCustomer: React.FC<Props> = ({
             <div>
               {billingAddress && (
                 <Address addresses={[billingAddress]}>
-                  <div tw="flex flex-row items-center">
+                  <div tw="flex flex-row">
                     <Icon>
                       <FontAwesomeIcon icon={faAddressCard} />
                     </Icon>
-                    <AddressField
-                      tw="pl-1"
-                      name="full_address"
-                      data-cy="full_address_billing"
-                    />
+                    <div>
+                      <AddressField
+                        tw="pl-1 font-bold"
+                        name="full_name"
+                        data-cy="fullname_billing"
+                      />
+                      <div>
+                        <AddressField
+                          tw="pl-1"
+                          name="full_address"
+                          data-cy="full_address_billing"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </Address>
               )}
               {shippingAddress && (
                 <Address addresses={[shippingAddress]}>
-                  <div tw="flex flex-row items-center ">
+                  <div tw="flex flex-row">
                     <Icon>
                       <FontAwesomeIcon icon={faShippingFast} />
                     </Icon>
-                    <AddressField
-                      tw="pl-1"
-                      name="full_address"
-                      data-cy="full_address_shipping"
-                    />
+                    <div>
+                      <AddressField
+                        tw="pl-1 font-bold"
+                        name="full_name"
+                        data-cy="fullname_billing"
+                      />
+                      <div>
+                        <AddressField
+                          tw="pl-1"
+                          name="full_address"
+                          data-cy="full_address_shipping"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </Address>
               )}
