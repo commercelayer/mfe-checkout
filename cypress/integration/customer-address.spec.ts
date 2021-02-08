@@ -58,7 +58,7 @@ describe("Checkout customer address", () => {
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
-    it("fill billing form", () => {
+    it("fill billing form and save", () => {
       cy.dataCy("input_billing_address_first_name").type(euAddress.firstName)
       cy.dataCy("input_billing_address_last_name").type(euAddress.lastName)
       cy.dataCy("input_billing_address_line_1").type(euAddress.line1)
@@ -69,9 +69,6 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_state_code").type(euAddress.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress.phone)
-    })
-
-    it("save form", () => {
       cy.dataCy("save-addresses-button").click()
       cy.wait([
         "@createAddress",
@@ -96,7 +93,6 @@ describe("Checkout customer address", () => {
 
     it("click to customer tab", () => {
       cy.dataCy("step_customer").click()
-      cy.wait(["@getOrders", "@retrieveLineItems"])
       cy.dataCy("input_billing_address_first_name").should(
         "contain.value",
         euAddress.firstName
@@ -472,7 +468,7 @@ describe("Checkout customer address", () => {
       cy.setRoutes({
         endpoint: Cypress.env("apiEndpoint"),
         routes: Cypress.env("requests"),
-        record: Cypress.env("record"), // @default false
+        record: Cypress.env("record"),
         filename,
       })
     })
@@ -512,24 +508,18 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.stateCode)
     })
 
-    it("click tab customer address ship to different address and select first address book", () => {
+    it("ship to different address, select first address to book and save", () => {
       cy.dataCy("step_customer").click()
+      cy.wait("@getCustomerAddresses")
       cy.dataCy("button-ship-to-different-address")
         .click()
         .should("have.attr", "data-status", "true")
       cy.dataCy("customer-shipping-address")
         .contains("p", euAddress.firstName)
         .click()
-    })
-
-    it("save form", () => {
+      cy.wait("@getAddress")
       cy.dataCy("save-addresses-button").click()
-      cy.wait([
-        "@createAddress",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-      ])
+      cy.wait(["@updateOrder", "@getOrders", "@retrieveLineItems"])
       cy.dataCy("full_address_billing")
         .should("contain", euAddress2.line1)
         .and("contain", euAddress2.phone)

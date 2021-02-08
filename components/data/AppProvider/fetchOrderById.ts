@@ -54,11 +54,27 @@ async function isNewAddress({
     return true
   }
 
-  const hasAddressIntoAddresses = customerAddresses.some(
-    (o) => o.name !== address?.name
+  const hasAddressIntoAddresses = Boolean(
+    customerAddresses?.find(({ name }) => name === address?.name)
   )
 
-  return hasAddressIntoAddresses
+  if (
+    !hasAddressIntoAddresses &&
+    customerAddresses &&
+    customerAddresses?.length > 1 &&
+    Boolean(address)
+  ) {
+    return true
+  }
+  if (
+    !hasAddressIntoAddresses &&
+    customerAddresses &&
+    customerAddresses?.length > 1 &&
+    Boolean(!address)
+  ) {
+    return false
+  }
+  return !hasAddressIntoAddresses
 }
 
 async function checkAndSetDefaultAddressForOrder({
