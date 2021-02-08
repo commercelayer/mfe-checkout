@@ -90,11 +90,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     if (showShippingAddressForm) {
       setShippingAddressFill(null)
     }
-    console.log(
-      showBillingAddressForm,
-      showShippingAddressForm,
-      isUsingNewBillingAddress
-    )
   }, [showBillingAddressForm, showShippingAddressForm])
 
   return (
