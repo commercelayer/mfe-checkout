@@ -75,12 +75,12 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   ] = useState<boolean>(isUsingNewShippingAddress)
 
   const handleShowBillingForm = () => {
-    setShowBillingAddressForm(!showBillingAddressForm)
     setBillingAddressFill(null)
+    setShowBillingAddressForm(!showBillingAddressForm)
   }
   const handleShowShippingForm = () => {
-    setShowShippingAddressForm(!showShippingAddressForm)
     setShippingAddressFill(null)
+    setShowShippingAddressForm(!showShippingAddressForm)
   }
 
   return (
@@ -158,14 +158,16 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 }
               />
             </ShippingAddressContainer>
-            <button
-              tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
-              data-cy="add_new_shipping_address"
-              onClick={handleShowShippingForm}
-            >
-              <FontAwesomeIcon icon={faPlus} tw="mr-3" />
-              Add new shipping address
-            </button>
+            {!showShippingAddressForm && hasCustomerAddresses && (
+              <button
+                tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
+                data-cy="add_new_shipping_address"
+                onClick={handleShowShippingForm}
+              >
+                <FontAwesomeIcon icon={faPlus} tw="mr-3" />
+                Add new shipping address
+              </button>
+            )}
           </div>
           <div className={showShippingAddressForm ? "" : "hidden"}>
             <ShippingAddressForm
@@ -192,14 +194,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 </AddressButtonAddNew>
               ) : null}
             </div>
-            <AddressSectionSaveForm>
-              <StyledSaveAddressesButton
-                label={t("stepCustomer.continueToDelivery")}
-                data-cy="save-addresses-button"
-                onClick={refetchOrder}
-              />
-            </AddressSectionSaveForm>
           </div>
+          <AddressSectionSaveForm>
+            <StyledSaveAddressesButton
+              label={t("stepCustomer.continueToDelivery")}
+              data-cy="save-addresses-button"
+              onClick={refetchOrder}
+            />
+          </AddressSectionSaveForm>
         </AddressesContainer>
       </CustomerContainer>
     </Fragment>
