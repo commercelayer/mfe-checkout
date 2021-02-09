@@ -12,6 +12,7 @@ import {
   ResourceErrorType,
   ErrorComponentProps,
 } from "@commercelayer/react-components/dist/typings/errors"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
 
 import { useTranslation } from "components/data/i18n"
@@ -50,9 +51,17 @@ export const AddressInputGroup: React.FC<Props> = ({
 
   const label = t(`addressForm.${fieldName}`)
 
+  const [valueStatus, setValueStatus] = useState<string>("")
+
   const isCountry =
     fieldName === "shipping_address_country_code" ||
     fieldName === "billing_address_country_code"
+
+  useEffect(() => {
+    if (value) {
+      setValueStatus(value)
+    }
+  }, [value])
 
   return (
     <div className="mb-4">
@@ -63,7 +72,7 @@ export const AddressInputGroup: React.FC<Props> = ({
             <StyledAddressCountrySelector
               data-cy={`input_${fieldName}`}
               name={fieldName as AddressCountrySelectName}
-              value={value}
+              value={valueStatus}
               placeholder={{
                 value: "",
                 label: "Please select your country",
@@ -76,7 +85,7 @@ export const AddressInputGroup: React.FC<Props> = ({
               data-cy={`input_${fieldName}`}
               name={fieldName as AddressInputName}
               type={type}
-              value={value}
+              value={valueStatus}
             />
           )}
         </div>

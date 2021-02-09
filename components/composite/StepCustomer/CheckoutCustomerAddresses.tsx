@@ -74,14 +74,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     setShowShippingAddressForm,
   ] = useState<boolean>(isUsingNewShippingAddress)
 
-  const handleShowBillingForm = () => [
-    setShowBillingAddressForm(!showBillingAddressForm),
-    setBillingAddressFill(null),
-  ]
-  const handleShowShippingForm = () => [
-    setShowShippingAddressForm(!showShippingAddressForm),
-    setShippingAddressFill(null),
-  ]
+  const handleShowBillingForm = () => {
+    setShowBillingAddressForm(!showBillingAddressForm)
+    setBillingAddressFill(null)
+  }
+  const handleShowShippingForm = () => {
+    setShowShippingAddressForm(!showShippingAddressForm)
+    setShippingAddressFill(null)
+  }
 
   return (
     <Fragment>

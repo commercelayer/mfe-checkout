@@ -19,14 +19,14 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_first_name"
           resource="shippingAddress"
           type="text"
-          value={shippingAddress?.firstName}
+          value={shippingAddress?.firstName || ""}
         />
 
         <AddressInputGroup
           fieldName="shipping_address_last_name"
           resource="shippingAddress"
           type="text"
-          value={shippingAddress?.lastName}
+          value={shippingAddress?.lastName || ""}
         />
       </Grid>
 
@@ -34,7 +34,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
         fieldName="shipping_address_line_1"
         resource="shippingAddress"
         type="text"
-        value={shippingAddress?.line1}
+        value={shippingAddress?.line1 || ""}
       />
 
       <Grid>
@@ -42,14 +42,14 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_city"
           resource="shippingAddress"
           type="text"
-          value={shippingAddress?.city}
+          value={shippingAddress?.city || ""}
         />
 
         <AddressInputGroup
           fieldName="shipping_address_country_code"
           resource="shippingAddress"
           type="text"
-          value={shippingAddress?.countryCode}
+          value={shippingAddress?.countryCode || ""}
         />
       </Grid>
 
@@ -58,14 +58,14 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_state_code"
           resource="shippingAddress"
           type="text"
-          value={shippingAddress?.stateCode}
+          value={shippingAddress?.stateCode || ""}
         />
 
         <AddressInputGroup
           fieldName="shipping_address_zip_code"
           resource="shippingAddress"
           type="text"
-          value={shippingAddress?.zipCode}
+          value={shippingAddress?.zipCode || ""}
         />
       </Grid>
 
@@ -73,7 +73,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
         fieldName="shipping_address_phone"
         resource="shippingAddress"
         type="tel"
-        value={shippingAddress?.phone}
+        value={shippingAddress?.phone || ""}
       />
     </Fragment>
   )
