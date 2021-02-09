@@ -12,7 +12,7 @@ import {
 } from "@commercelayer/react-components"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState, Fragment, useEffect } from "react"
+import { useState, Fragment } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
@@ -82,15 +82,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     setShowShippingAddressForm(!showShippingAddressForm),
     setShippingAddressFill(null),
   ]
-
-  useEffect(() => {
-    if (showBillingAddressForm) {
-      setBillingAddressFill(null)
-    }
-    if (showShippingAddressForm) {
-      setShippingAddressFill(null)
-    }
-  }, [showBillingAddressForm, showShippingAddressForm])
 
   return (
     <Fragment>
@@ -176,11 +167,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               Add new shipping address
             </button>
           </div>
-          <div
-            className={
-              showShippingAddressForm || !hasCustomerAddresses ? "" : "hidden"
-            }
-          >
+          <div className={showShippingAddressForm ? "" : "hidden"}>
             <ShippingAddressForm
               autoComplete="on"
               hidden={!shipToDifferentAddress}
