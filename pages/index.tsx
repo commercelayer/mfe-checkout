@@ -23,7 +23,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({
   favicon,
 }) => {
   const ctx = useContext(AppContext)
-  // const isLoading = !ctx || (ctx && ctx.isLoading)
+
   const { t } = useTranslation()
   const {
     activeStep,

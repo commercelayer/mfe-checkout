@@ -57,17 +57,18 @@ export const StepShipping: React.FC<Props> = ({
   const handleChange = (
     shippingMethod: ShippingMethodCollection | Record<string, any>
   ): void => {
-    setShipmentsSelected(
+    setShipmentsSelected((shipmentsSelected) =>
       shipmentsSelected.map((shipment) => {
         return shipment.shipmentId === shippingMethod.shipmentId
           ? {
-              shipmentId: shipment.shipmentId,
+              ...shipment,
               shippingMethodId: shippingMethod.id,
             }
           : shipment
       })
     )
   }
+
   return (
     <div className={className}>
       <StepHeader
