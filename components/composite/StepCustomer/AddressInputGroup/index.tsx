@@ -58,7 +58,12 @@ export const AddressInputGroup: React.FC<Props> = ({
     fieldName === "billing_address_country_code"
 
   useEffect(() => {
-    setValueStatus(value)
+    if (value === "") {
+      setValueStatus("")
+    }
+    if (value) {
+      setValueStatus(value)
+    }
   }, [value])
 
   return (
@@ -71,11 +76,6 @@ export const AddressInputGroup: React.FC<Props> = ({
               data-cy={`input_${fieldName}`}
               name={fieldName as AddressCountrySelectName}
               value={valueStatus}
-              placeholder={{
-                value: "",
-                label: "Please select your country",
-                disabled: true,
-              }}
             />
           ) : (
             <StyledAddressInput

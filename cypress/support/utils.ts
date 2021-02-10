@@ -29,3 +29,15 @@ export const euAddress2 = {
   stateCode: "RN",
   zipCode: "32100",
 }
+
+export const euAddress3 = {
+  city: "Besciamella",
+  country: "Italy",
+  countryCode: "IT",
+  firstName: "Sponge",
+  lastName: "Bob",
+  line1: "Sott'acqua, 1",
+  phone: "+39 123 321123123",
+  stateCode: "TO",
+  zipCode: "010101",
+}

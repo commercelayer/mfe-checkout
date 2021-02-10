@@ -129,7 +129,7 @@ export const StepCustomer: React.FC<Props> = ({
                       <AddressField
                         tw="pl-1 font-bold"
                         name="full_name"
-                        data-cy="fullname_billing"
+                        data-cy="fullname_shipping"
                       />
                       <div>
                         <AddressField

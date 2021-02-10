@@ -56,7 +56,7 @@ async function isNewAddress({
   }
 
   const hasAddressIntoAddresses = Boolean(
-    customerAddresses?.find(({ name }) => name === address?.name)
+    customerAddresses?.find(({ id }) => id === address?.reference)
   )
 
   if (

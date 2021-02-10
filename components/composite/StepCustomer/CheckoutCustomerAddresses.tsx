@@ -77,6 +77,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   useEffect(() => {
     if (shipToDifferentAddress && !hasCustomerAddresses) {
       setShippingAddressFill(null)
+      setShowShippingAddressForm(true)
     }
   }, [shipToDifferentAddress])
 
@@ -91,11 +92,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   }
 
   const handleToggle = () => {
-    setShippingAddressFill(null)
-    setShipToDifferentAddress(!shipToDifferentAddress)
+    if (!hasCustomerAddresses) {
+      handleShowShippingForm()
+    }
     if (hasCustomerAddresses) {
       setShowShippingAddressForm(false)
     }
+    setShipToDifferentAddress(!shipToDifferentAddress)
   }
 
   return (
@@ -139,11 +142,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               className="p-2"
               reset={!showBillingAddressForm}
             >
-              {showBillingAddressForm && (
+              {showBillingAddressForm ? (
                 <>
                   <BillingAddressFormNew billingAddress={billingAddressFill} />
                   <AddressSectionSaveOnAddressBook addressType="billing" />
                 </>
+              ) : (
+                <Fragment />
               )}
             </BillingAddressForm>
           </div>
@@ -174,7 +179,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 }
               />
             </ShippingAddressContainer>
-            {!showShippingAddressForm && hasCustomerAddresses && (
+            {!showShippingAddressForm && (
               <button
                 tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
                 data-cy="add_new_shipping_address"
@@ -192,13 +197,15 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               className="p-2"
               reset={!showShippingAddressForm}
             >
-              {showShippingAddressForm && (
+              {showShippingAddressForm ? (
                 <>
                   <ShippingAddressFormNew
                     shippingAddress={shippingAddressFill}
                   />
                   <AddressSectionSaveOnAddressBook addressType="shipping" />
                 </>
+              ) : (
+                <Fragment />
               )}
             </ShippingAddressForm>
           </div>
