@@ -12,7 +12,7 @@ import {
 } from "@commercelayer/react-components"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState, Fragment } from "react"
+import { useState, Fragment, useEffect } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
@@ -74,13 +74,28 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     setShowShippingAddressForm,
   ] = useState<boolean>(isUsingNewShippingAddress)
 
+  useEffect(() => {
+    if (shipToDifferentAddress && hasCustomerAddresses) {
+      setShowShippingAddressForm(false)
+    }
+    if (shipToDifferentAddress && !hasCustomerAddresses) {
+      setShippingAddressFill(null)
+    }
+  }, [shipToDifferentAddress])
+
   const handleShowBillingForm = () => {
     setBillingAddressFill(null)
     setShowBillingAddressForm(!showBillingAddressForm)
   }
+
   const handleShowShippingForm = () => {
     setShippingAddressFill(null)
     setShowShippingAddressForm(!showShippingAddressForm)
+  }
+
+  const handleToggle = () => {
+    setShippingAddressFill(null)
+    setShipToDifferentAddress(!shipToDifferentAddress)
   }
 
   return (
@@ -124,8 +139,12 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               className="p-2"
               reset={!showBillingAddressForm}
             >
-              <BillingAddressFormNew billingAddress={billingAddressFill} />
-              <AddressSectionSaveOnAddressBook addressType="billing" />
+              {showBillingAddressForm && (
+                <>
+                  <BillingAddressFormNew billingAddress={billingAddressFill} />
+                  <AddressSectionSaveOnAddressBook addressType="billing" />
+                </>
+              )}
             </BillingAddressForm>
           </div>
           <Toggle
@@ -133,10 +152,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             data-status={shipToDifferentAddress}
             label={t(`addressForm.ship_to_different_address`)}
             checked={shipToDifferentAddress}
-            onChange={() => [
-              setShippingAddressFill(null),
-              setShipToDifferentAddress(!shipToDifferentAddress),
-            ]}
+            onChange={handleToggle}
           />
           <div
             className={`${
@@ -176,8 +192,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               className="p-2"
               reset={!showShippingAddressForm}
             >
-              <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
-              <AddressSectionSaveOnAddressBook addressType="shipping" />
+              {showShippingAddressForm && (
+                <>
+                  <ShippingAddressFormNew
+                    shippingAddress={shippingAddressFill}
+                  />
+                  <AddressSectionSaveOnAddressBook addressType="shipping" />
+                </>
+              )}
             </ShippingAddressForm>
           </div>
           <div tw="flex justify-between">
