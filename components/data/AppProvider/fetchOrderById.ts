@@ -3,6 +3,7 @@ import CLayer, {
   Order,
   OrderCollection,
   CustomerAddressCollection,
+  ShippingMethod,
 } from "@commercelayer/js-sdk"
 
 import { changeLanguage } from "components/data/i18n"
@@ -162,6 +163,8 @@ export const fetchOrderById = async ({
 
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
+
+    const shippingMethodsAvailable = await ShippingMethod.all()
     const shipments = await order.shipments()?.includes("shippingMethod").load()
     const shipmentsSelected = shipments?.toArray().map((a) => {
       return {
@@ -170,12 +173,35 @@ export const fetchOrderById = async ({
       }
     })
 
-    console.log("order.shipmentsSelected :>> ", shipmentsSelected)
-
     const shippingMethods = shipmentsSelected?.map(
       (a: ShipmentSelectedProps) => a.shippingMethodId
     )
-    const hasShippingMethod = Boolean(!shippingMethods?.includes(undefined))
+
+    let hasShippingMethod = Boolean(!shippingMethods?.includes(undefined))
+
+    // If we billing and shipping address are set, we have only
+    // a shipping method, we set it to all shipments. If all promises are successful
+    // we set hasShippingMethod to true to skip the shipping step
+    if (
+      hasBillingAddress &&
+      hasShippingAddress &&
+      shippingMethods?.includes(undefined) &&
+      shippingMethodsAvailable.toArray().length === 1 &&
+      shipments &&
+      shipments.toArray().length > 0
+    ) {
+      const shippingMethod = shippingMethodsAvailable.toArray()[0]
+      try {
+        await Promise.all(
+          shipments?.toArray().map(async (shipment) => {
+            return shipment.update({ shippingMethod })
+          })
+        )
+        hasShippingMethod = true
+      } catch {
+        console.log("error updating shipments")
+      }
+    }
 
     const hasPaymentMethod = false // Boolean(await order.paymentMethod())
 
