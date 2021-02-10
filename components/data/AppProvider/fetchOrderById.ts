@@ -132,34 +132,46 @@ export const fetchOrderById = async ({
       "customer.customer_addresses.address"
     ).find(orderId)
 
-    const customer = order.customer()
+    const isGuest = Boolean(order.guest)
+
+    const customer = isGuest ? undefined : order.customer()
     const addresses = customer && customer.customerAddresses()
     const arrayAddresses = addresses?.toArray()
 
+    let shippingAddress = order.shippingAddress()
+    let billingAddress = await order.billingAddress()
+
+    // If we have a customer with a single customer address and
+    // the order has no billing or shipping address, we are going
+    // to assume the customer address as the default one
     if (
-      !order.guest &&
+      !isGuest &&
       arrayAddresses &&
       arrayAddresses.length === 1 &&
-      !order.shippingAddress() &&
-      !order.billingAddress()
+      !shippingAddress &&
+      !billingAddress
     ) {
-      await checkAndSetDefaultAddressForOrder({
-        order: order,
-        customerAddresses: arrayAddresses,
-      })
-      // order = await Order.
+      try {
+        await checkAndSetDefaultAddressForOrder({
+          order: order,
+          customerAddresses: arrayAddresses,
+        })
+        const orderUpdated = await Order.includes(
+          "shipping_address",
+          "billing_address"
+        ).find(orderId)
+        shippingAddress = orderUpdated.shippingAddress()
+        billingAddress = await orderUpdated.billingAddress()
+      } catch {
+        console.log("error updating customer address as default for order")
+      }
     }
+
+    const hasShippingAddress = Boolean(shippingAddress)
+    const hasBillingAddress = Boolean(billingAddress)
 
     const hasCustomerAddresses =
       (arrayAddresses && arrayAddresses.length >= 1) || false
-
-    const shippingAddress = order.shippingAddress()
-    const hasShippingAddress = Boolean(order.shippingAddress())
-
-    const billingAddress = await order.billingAddress()
-    const hasBillingAddress = Boolean(billingAddress)
-
-    const isGuest = Boolean(order.guest)
 
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
@@ -216,7 +228,28 @@ export const fetchOrderById = async ({
       isGuest,
     })
 
-    const hasSameAddresses = shippingAddress?.name === billingAddress?.name
+    let hasSameAddresses = true
+
+    if (shippingAddress && billingAddress) {
+      if (
+        (shippingAddress.reference === billingAddress.reference &&
+          shippingAddress.reference !== null) ||
+        shippingAddress.name === billingAddress.name
+      ) {
+        hasSameAddresses = true
+      } else if (
+        shippingAddress.reference !== billingAddress.reference ||
+        shippingAddress.name !== billingAddress.name
+      ) {
+        hasSameAddresses = false
+      }
+    } else if (shippingAddress === undefined && billingAddress) {
+      hasSameAddresses = true
+    } else if (billingAddress === undefined && shippingAddress) {
+      hasSameAddresses = false
+    } else {
+      hasSameAddresses = true
+    }
 
     console.log("order.shippingAddress :>> ", order.shippingAddress())
     console.log("order.billingAddress :>> ", await order.billingAddress())
