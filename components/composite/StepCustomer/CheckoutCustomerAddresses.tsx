@@ -75,9 +75,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   ] = useState<boolean>(isUsingNewShippingAddress)
 
   useEffect(() => {
-    if (shipToDifferentAddress && hasCustomerAddresses) {
-      setShowShippingAddressForm(false)
-    }
     if (shipToDifferentAddress && !hasCustomerAddresses) {
       setShippingAddressFill(null)
     }
@@ -96,6 +93,9 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   const handleToggle = () => {
     setShippingAddressFill(null)
     setShipToDifferentAddress(!shipToDifferentAddress)
+    if (hasCustomerAddresses) {
+      setShowShippingAddressForm(false)
+    }
   }
 
   return (
@@ -190,7 +190,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               autoComplete="on"
               hidden={!shipToDifferentAddress}
               className="p-2"
-              reset={!showShippingAddressForm}
             >
               {showShippingAddressForm && (
                 <>
