@@ -190,6 +190,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               autoComplete="on"
               hidden={!shipToDifferentAddress}
               className="p-2"
+              reset={!showShippingAddressForm}
             >
               {showShippingAddressForm && (
                 <>
