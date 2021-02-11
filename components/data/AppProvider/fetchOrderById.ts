@@ -111,6 +111,38 @@ async function checkAndSetDefaultAddressForOrder({
   }
 }
 
+interface IsBillingAddresSameAsShippingAddressProps {
+  billingAddress: AddressCollection | null
+  shippingAddress: AddressCollection | null
+}
+
+function isBillingAddresSameAsShippingAddress({
+  billingAddress,
+  shippingAddress,
+}: IsBillingAddresSameAsShippingAddressProps) {
+  if (shippingAddress && billingAddress) {
+    if (
+      (shippingAddress.reference === billingAddress.reference &&
+        shippingAddress.reference !== null) ||
+      shippingAddress.name === billingAddress.name
+    ) {
+      return true
+    } else if (
+      shippingAddress.reference !== billingAddress.reference ||
+      shippingAddress.name !== billingAddress.name
+    ) {
+      return false
+    }
+  } else if (shippingAddress === undefined && billingAddress) {
+    return true
+  } else if (billingAddress === undefined && shippingAddress) {
+    return false
+  } else {
+    return true
+  }
+  return true
+}
+
 export const fetchOrderById = async ({
   orderId,
   accessToken,
@@ -231,28 +263,10 @@ export const fetchOrderById = async ({
       isGuest,
     })
 
-    let hasSameAddresses = true
-
-    if (shippingAddress && billingAddress) {
-      if (
-        (shippingAddress.reference === billingAddress.reference &&
-          shippingAddress.reference !== null) ||
-        shippingAddress.name === billingAddress.name
-      ) {
-        hasSameAddresses = true
-      } else if (
-        shippingAddress.reference !== billingAddress.reference ||
-        shippingAddress.name !== billingAddress.name
-      ) {
-        hasSameAddresses = false
-      }
-    } else if (shippingAddress === undefined && billingAddress) {
-      hasSameAddresses = true
-    } else if (billingAddress === undefined && shippingAddress) {
-      hasSameAddresses = false
-    } else {
-      hasSameAddresses = true
-    }
+    const hasSameAddresses = isBillingAddresSameAsShippingAddress({
+      billingAddress,
+      shippingAddress,
+    })
 
     console.log("order.shippingAddress :>> ", order.shippingAddress())
     console.log("order.billingAddress :>> ", await order.billingAddress())
