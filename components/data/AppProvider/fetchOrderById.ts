@@ -176,7 +176,7 @@ export const fetchOrderById = async ({
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
 
-    const shippingMethodsAvailable = await ShippingMethod.all()
+    const shippingMethodsAvailable = (await ShippingMethod.all()).toArray()
     const shipments = await order.shipments()?.includes("shippingMethod").load()
     const shipmentsSelected = shipments?.toArray().map((a) => {
       return {
@@ -199,11 +199,11 @@ export const fetchOrderById = async ({
       hasBillingAddress &&
       hasShippingAddress &&
       !hasShippingMethod &&
-      shippingMethodsAvailable.toArray().length === 1 &&
+      shippingMethodsAvailable.length === 1 &&
       shipments &&
       shipments.toArray().length > 0
     ) {
-      const shippingMethod = shippingMethodsAvailable.toArray()[0]
+      const shippingMethod = shippingMethodsAvailable[0]
       try {
         await Promise.all(
           shipments?.toArray().map(async (shipment) => {
