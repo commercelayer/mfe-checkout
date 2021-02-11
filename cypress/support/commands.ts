@@ -72,9 +72,9 @@ Cypress.Commands.add("createOrder", (template, options) => {
           },
         },
       },
-      headers:
-        apiRequestHeaders(options.accessToken) ||
-        apiRequestHeaders(Cypress.env("accessToken")),
+      headers: options.accessToken
+        ? apiRequestHeaders(options.accessToken)
+        : apiRequestHeaders(Cypress.env("accessToken")),
     })
       .its("body.data")
       .then((order) => {
@@ -112,9 +112,9 @@ Cypress.Commands.add("createSkuLineItems", (options) => {
           },
         },
       },
-      headers:
-        apiRequestHeaders(options.accessToken) ||
-        apiRequestHeaders(Cypress.env("accessToken")),
+      headers: options.accessToken
+        ? apiRequestHeaders(options.accessToken)
+        : apiRequestHeaders(Cypress.env("accessToken")),
     })
       .its("body.data")
       .then((lineItems) => {
@@ -148,9 +148,9 @@ Cypress.Commands.add("createAddress", (options) => {
         },
       },
     },
-    headers:
-      apiRequestHeaders(options.accessToken) ||
-      apiRequestHeaders(Cypress.env("accessToken")),
+    headers: options.accessToken
+      ? apiRequestHeaders(options.accessToken)
+      : apiRequestHeaders(Cypress.env("accessToken")),
   })
     .its("body.data")
     .then((address) => {
@@ -181,9 +181,9 @@ Cypress.Commands.add("addAddressToBook", (idAddress, accessToken) => {
         },
       },
     },
-    headers:
-      apiRequestHeaders(accessToken) ||
-      apiRequestHeaders(Cypress.env("accessToken")),
+    headers: accessToken
+      ? apiRequestHeaders(accessToken)
+      : apiRequestHeaders(Cypress.env("accessToken")),
   })
     .its("body.data")
     .then((customer_addresses) => {
@@ -213,9 +213,9 @@ Cypress.Commands.add("setSameAddress", (orderId, addressId, accessToken) => {
         },
       },
     },
-    headers:
-      apiRequestHeaders(accessToken) ||
-      apiRequestHeaders(Cypress.env("accessToken")),
+    headers: accessToken
+      ? apiRequestHeaders(accessToken)
+      : apiRequestHeaders(Cypress.env("accessToken")),
   })
     .its("body.data")
     .then((orderWithAddress) => {
@@ -249,9 +249,9 @@ Cypress.Commands.add(
           },
         },
       },
-      headers:
-        apiRequestHeaders(accessToken) ||
-        apiRequestHeaders(Cypress.env("accessToken")),
+      headers: accessToken
+        ? apiRequestHeaders(accessToken)
+        : apiRequestHeaders(Cypress.env("accessToken")),
     })
       .its("body.data")
       .then((orderWithAddress) => {
