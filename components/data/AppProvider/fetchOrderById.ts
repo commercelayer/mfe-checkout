@@ -177,8 +177,10 @@ export const fetchOrderById = async ({
     const emailAddress = order.customerEmail
 
     const shippingMethodsAvailable = (await ShippingMethod.all()).toArray()
-    const shipments = await order.shipments()?.includes("shippingMethod").load()
-    const shipmentsSelected = shipments?.toArray().map((a) => {
+    const shipments = (
+      await order.shipments()?.includes("shippingMethod").load()
+    )?.toArray()
+    const shipmentsSelected = shipments?.map((a) => {
       return {
         shipmentId: a.id,
         shippingMethodId: a.shippingMethod()?.id,
@@ -201,12 +203,12 @@ export const fetchOrderById = async ({
       !hasShippingMethod &&
       shippingMethodsAvailable.length === 1 &&
       shipments &&
-      shipments.toArray().length > 0
+      shipments.length > 0
     ) {
       const shippingMethod = shippingMethodsAvailable[0]
       try {
         await Promise.all(
-          shipments?.toArray().map(async (shipment) => {
+          shipments?.map(async (shipment) => {
             return shipment.update({ shippingMethod })
           })
         )
@@ -254,7 +256,7 @@ export const fetchOrderById = async ({
 
     console.log("order.shippingAddress :>> ", order.shippingAddress())
     console.log("order.billingAddress :>> ", await order.billingAddress())
-    console.log("order.shipments :>> ", order.shipments())
+    console.log("order.shipments :>> ", shipments)
     console.log("order.paymentMethod :>> ", await order.paymentMethod())
 
     changeLanguage(order.languageCode)
