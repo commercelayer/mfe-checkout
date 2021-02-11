@@ -51,19 +51,14 @@ export const AddressInputGroup: React.FC<Props> = ({
 
   const label = t(`addressForm.${fieldName}`)
 
-  const [valueStatus, setValueStatus] = useState<string>(value)
+  const [valueStatus, setValueStatus] = useState(value)
 
   const isCountry =
     fieldName === "shipping_address_country_code" ||
     fieldName === "billing_address_country_code"
 
   useEffect(() => {
-    if (value === "") {
-      setValueStatus("")
-    }
-    if (value) {
-      setValueStatus(value)
-    }
+    setValueStatus(value || "")
   }, [value])
 
   return (
