@@ -191,9 +191,10 @@ export const fetchOrderById = async ({
 
     let hasShippingMethod = Boolean(!shippingMethods?.includes(undefined))
 
-    // If we billing and shipping address are set, we have only
-    // a shipping method, we set it to all shipments. If all promises are successful
-    // we set hasShippingMethod to true to skip the shipping step
+    // If billing and shipping addresses are set, we have only
+    // a shipping method per shipment, we set it to all shipments.
+    // If all promises are successful, we set hasShippingMethod
+    // to true to skip the shipping step
     if (
       hasBillingAddress &&
       hasShippingAddress &&
