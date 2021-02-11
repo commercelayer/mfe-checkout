@@ -198,7 +198,7 @@ export const fetchOrderById = async ({
     if (
       hasBillingAddress &&
       hasShippingAddress &&
-      shippingMethods?.includes(undefined) &&
+      !hasShippingMethod &&
       shippingMethodsAvailable.toArray().length === 1 &&
       shipments &&
       shipments.toArray().length > 0
