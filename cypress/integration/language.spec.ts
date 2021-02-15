@@ -17,7 +17,7 @@ describe("Checkout language", () => {
       }
     })
 
-    it("redirect to english checkout order", function () {
+    it("redirect to english checkout order", () => {
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: "alessani@gmail.com",
