@@ -7,6 +7,7 @@ import {
   LineItemAmount,
   LineItemsCount,
   TaxesAmount,
+  ShippingAmount,
   TotalAmount,
 } from "@commercelayer/react-components"
 import styled from "styled-components"
@@ -51,6 +52,10 @@ export const OrderSummary: React.FC = () => {
         <h2 tw="text-sm font-bold flex flex-row justify-between pb-2">
           {t("orderRecap.tax_amount")}
           <TaxesAmount />
+        </h2>
+        <h2 tw="text-sm font-bold flex flex-row justify-between pb-2">
+          {t("orderRecap.shipping_amount")}
+          <ShippingAmount />
         </h2>
         <h4 tw="text-lg font-bold flex flex-row justify-between">
           {t("orderRecap.total_amount")}

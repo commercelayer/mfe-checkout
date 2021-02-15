@@ -8,6 +8,7 @@ import { Fragment } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import { useTranslation } from "components/data/i18n"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
 
@@ -20,6 +21,8 @@ export const AddressSectionEmail: React.FC<Props> = ({
   isGuest,
   emailAddress,
 }) => {
+  const { t } = useTranslation()
+
   const messages: ErrorComponentProps["messages"] = [
     {
       code: "EMPTY_ERROR",
@@ -37,7 +40,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      <Label htmlFor="customer_email">Your email address</Label>
+      <Label htmlFor="customer_email">{t("addressForm.customer_email")}</Label>
       {!isGuest ? (
         <ReadOnlyEmail data-cy="current-customer-email">
           {emailAddress}

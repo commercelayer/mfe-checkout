@@ -17,6 +17,10 @@ declare global {
       createSkuLineItems(options: {
         orderId: string
         accessToken?: string
+        attributes?: {
+          quantity: string
+          sku_code: string
+        }
       }): Chainable<Subject>
       createCustomer(options: {
         email: string
@@ -32,6 +36,7 @@ declare global {
         options: {
           languageCode: "it" | "en"
           customerEmail: string
+          shipping_country_code_lock?: string
           reference?: string
           accessToken?: any
         }
@@ -47,6 +52,14 @@ declare global {
         shippingAddressId: string,
         accessToken?: string
       ): Chainable<Subject>
+      setShipmentMethod(options: {
+        id: string
+        accessToken?: string
+        type:
+          | "Express Delivery EU"
+          | "Express Delivery US"
+          | "Standard Shipping"
+      }): Chainable<Subject>
       createAddress(options: {
         firstName: string
         lastName: string
@@ -61,6 +74,10 @@ declare global {
       getTokenCustomer(options: {
         username: string
         password: string
+      }): Chainable<Subject>
+      getShipments(options: {
+        orderId: string
+        accessToken?: string
       }): Chainable<Subject>
       addAddressToBook(
         idAddress: string,

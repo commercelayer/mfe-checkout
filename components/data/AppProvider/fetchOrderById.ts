@@ -44,6 +44,7 @@ export interface FetchOrderByIdResponse {
   shipments: Array<ShipmentSelectedProps>
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
+  shippingCountryCodeLock: string
 }
 
 async function isNewAddress({
@@ -82,6 +83,14 @@ async function checkAndSetDefaultAddressForOrder({
   order,
   customerAddresses,
 }: CheckAndSetDefaultAddressForOrderProps) {
+  if (
+    !!order.shippingCountryCodeLock &&
+    order.shippingCountryCodeLock !==
+      customerAddresses[0].address()?.countryCode
+  ) {
+    return
+  }
+
   const addressId = customerAddresses[0].address()?.id
   const customerAddressId = customerAddresses[0].id
 
@@ -172,6 +181,8 @@ export const fetchOrderById = async ({
 
     let shippingAddress = order.shippingAddress()
     let billingAddress = await order.billingAddress()
+
+    const shippingCountryCodeLock = order.shippingCountryCodeLock
 
     // If we have a customer with a single customer address and
     // the order has no billing or shipping address, we are going
@@ -290,6 +301,7 @@ export const fetchOrderById = async ({
       hasShippingMethod,
       shipments: (shipmentsSelected as unknown) as ShipmentSelectedProps[],
       hasPaymentMethod,
+      shippingCountryCodeLock,
     }
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
@@ -308,6 +320,7 @@ export const fetchOrderById = async ({
       hasShippingMethod: false,
       shipments: [],
       hasPaymentMethod: false,
+      shippingCountryCodeLock: "",
     }
   }
 }

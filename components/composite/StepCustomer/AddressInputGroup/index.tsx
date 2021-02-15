@@ -12,9 +12,10 @@ import {
   ResourceErrorType,
   ErrorComponentProps,
 } from "@commercelayer/react-components/dist/typings/errors"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 
+import { AppContext } from "components/data/AppProvider"
 import { useTranslation } from "components/data/i18n"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
@@ -39,6 +40,7 @@ interface Props {
   fieldName: AddressInputName | AddressCountrySelectName | "email"
   resource: ResourceErrorType
   value?: string
+  isShipping?: boolean
 }
 
 export const AddressInputGroup: React.FC<Props> = ({
@@ -46,8 +48,17 @@ export const AddressInputGroup: React.FC<Props> = ({
   resource,
   type,
   value,
+  isShipping = false,
 }) => {
   const { t } = useTranslation()
+
+  const appCtx = useContext(AppContext)
+
+  let shippingCountryCodeLock = ""
+
+  if (appCtx) {
+    shippingCountryCodeLock = appCtx.shippingCountryCodeLock
+  }
 
   const label = t(`addressForm.${fieldName}`)
 
@@ -58,8 +69,12 @@ export const AddressInputGroup: React.FC<Props> = ({
     fieldName === "billing_address_country_code"
 
   useEffect(() => {
-    setValueStatus(value || "")
-  }, [value])
+    if (!!shippingCountryCodeLock && !!isCountry && isShipping) {
+      setValueStatus(shippingCountryCodeLock)
+    } else {
+      setValueStatus(value || "")
+    }
+  }, [value, shippingCountryCodeLock])
 
   return (
     <div className="mb-4">
@@ -71,6 +86,11 @@ export const AddressInputGroup: React.FC<Props> = ({
               data-cy={`input_${fieldName}`}
               name={fieldName as AddressCountrySelectName}
               value={valueStatus}
+              /* placeholder={{
+                label: valueStatus || "",
+                value: valueStatus || "",
+                disabled: true,
+              }} */
             />
           ) : (
             <StyledAddressInput

@@ -18,6 +18,7 @@
         "quantity": "Quantità: {{count}}",
         "quantity_plural": "Quantità:",
         "tax_amount": "Tasse",
+        "shipping_amount": "Spedizione",
         "total_amount": "Totale"
     },
 
@@ -32,8 +33,10 @@
     "stepShipping": {
         "delivery": "Consegna",
         "summary": "Riepilogo della spedizione e modalità di consegna",
-        "shippingMethod": "Hai impostato un metodo di spedizione",
-        "addShippingMethod": "Aggiungi i dati del cliente prima della spedizione"        
+        "shippingMethodSelected": "Metodo di spedizione selezionato",
+        "addShippingMethod": "Aggiungi i dati del cliente prima della spedizione",
+        "deliveryLeadTime" : "<0/> - <1/> giorni",
+        "continueToPayment": "Continuare al pagamento"
     },
 
     "stepPayment": {
@@ -44,6 +47,7 @@
     },
 
     "addressForm" : {
+        "customer_email" : "La tua email",
         "billing_address_title": "Indirizzo di fatturazione",
         "billing_address_first_name": "Nome",
         "billing_address_last_name": "Cognome",

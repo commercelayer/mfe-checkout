@@ -49,6 +49,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const [hasShippingMethod, setHasShippingMethod] = useState(false)
   const [shipments, setShipments] = useState<ShipmentSelectedProps[]>([])
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
+  const [
+    shippingCountryCodeLock,
+    setShippingCountryCodeLock,
+  ] = useState<string>("")
 
   const fetchOrderHandle = (orderId?: string, accessToken?: string) => {
     if (!orderId || !accessToken) {
@@ -71,6 +75,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         hasPaymentMethod,
         hasShippingMethod,
         shipments,
+        shippingCountryCodeLock,
       }) => {
         setIsGuest(isGuest)
         setHasCustomerAddresses(hasCustomerAddresses)
@@ -88,6 +93,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setShipments(shipments)
         setHasPaymentMethod(hasPaymentMethod)
         setIsLoading(false)
+        setShippingCountryCodeLock(shippingCountryCodeLock)
       }
     )
   }
@@ -114,6 +120,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         hasShippingMethod,
         shipments,
         hasPaymentMethod,
+        shippingCountryCodeLock,
         refetchOrder: () => {
           fetchOrderHandle(orderId, accessToken)
         },

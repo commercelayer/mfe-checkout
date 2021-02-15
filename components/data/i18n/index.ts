@@ -14,7 +14,7 @@ const NextI18NextInstance = new NextI18Next({
   debug: true,
 })
 
-export const { appWithTranslation, useTranslation } = NextI18NextInstance
+export const { appWithTranslation, useTranslation, Trans } = NextI18NextInstance
 
 export function changeLanguage(languageCode: string) {
   return NextI18NextInstance.i18n.changeLanguage(

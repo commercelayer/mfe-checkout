@@ -17,11 +17,14 @@ describe("Checkout language", () => {
       }
     })
 
-    it("redirect to english checkout order", () => {
+    it("redirect to english checkout order", function () {
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: "alessani@gmail.com",
       }).then((order) => {
+        cy.createSkuLineItems({
+          orderId: order.id,
+        })
         if (!Cypress.env("record")) {
           cy.newStubData("getOrders1", filename)
         }
@@ -32,7 +35,7 @@ describe("Checkout language", () => {
 
         cy.wait(["@getOrders", "@retrieveLineItems"])
       })
-      cy.dataCy("step-header-customer").should("have.text", "Customer")
+      cy.dataCy("step-header-customer").should("contain.text", "Customer")
     })
   })
 
@@ -59,6 +62,9 @@ describe("Checkout language", () => {
         languageCode: "it",
         customerEmail: "alessani@gmail.com",
       }).then((order) => {
+        cy.createSkuLineItems({
+          orderId: order.id,
+        })
         if (!Cypress.env("record")) {
           cy.newStubData("getOrders1", filename)
         }
@@ -69,7 +75,7 @@ describe("Checkout language", () => {
 
         cy.wait(["@getOrders", "@retrieveLineItems"])
       })
-      cy.dataCy("step-header-customer").should("have.text", "Cliente")
+      cy.dataCy("step-header-customer").should("contain.text", "Cliente")
     })
   })
 })

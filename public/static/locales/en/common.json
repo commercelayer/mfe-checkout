@@ -26,14 +26,17 @@
         "quantity": "Quantity: {{count}}",
         "quantity_plural": "Quantities: {{count}}",
         "tax_amount": "Tax",
+        "shipping_amount": "Shipping",
         "total_amount": "Total"
     },
 
     "stepShipping": {
         "delivery": "Delivery",
         "summary": "Shipment summary and delivery methods",
-        "shippingMethod": "You have a shipping method set",
-        "addShippingMethod": "Add customer data before shipping" 
+        "shippingMethodSelected": "You have a shipping method set",
+        "addShippingMethod": "Add customer data before shipping",
+        "deliveryLeadTime" : "<0/> - <1/> days",
+        "continueToPayment": "Continue to payment"
     },
 
     "stepPayment": {
@@ -44,6 +47,7 @@
     },
 
     "addressForm" : {
+        "customer_email" : "Your email address",
         "billing_address_title": "Billing Address",
         "billing_address_first_name": "First name",
         "billing_address_last_name": "Last name",

@@ -50,6 +50,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           resource="shippingAddress"
           type="text"
           value={shippingAddress?.countryCode || ""}
+          isShipping
         />
       </Grid>
 

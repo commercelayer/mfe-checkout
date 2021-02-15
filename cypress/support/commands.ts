@@ -68,6 +68,7 @@ Cypress.Commands.add("createOrder", (template, options) => {
           attributes: {
             language_code: options.languageCode,
             customer_email: options.customerEmail,
+            shipping_country_code_lock: options.shipping_country_code_lock,
             reference: options.reference || null,
           },
         },
@@ -98,7 +99,7 @@ Cypress.Commands.add("createSkuLineItems", (options) => {
       body: {
         data: {
           type: "line_items",
-          attributes: {
+          attributes: options.attributes || {
             quantity: "2",
             sku_code: "BABYONBU000000E63E7412MX",
           },
@@ -260,6 +261,65 @@ Cypress.Commands.add(
   }
 )
 
+Cypress.Commands.add("getShipments", (options) => {
+  cy.request({
+    url:
+      Cypress.env("apiEndpoint") +
+      `/api/orders/${options.orderId}/shipments?include=available_shipping_methods`,
+    method: "GET",
+    headers: options.accessToken
+      ? apiRequestHeaders(options.accessToken)
+      : apiRequestHeaders(Cypress.env("accessToken")),
+  })
+    .its("body.data")
+    .then((idShipment) => {
+      return idShipment
+    })
+})
+
+Cypress.Commands.add("setShipmentMethod", (options) => {
+  let type
+  switch (options.type) {
+    case "Express Delivery EU":
+      type = "dVbgQFBDjE"
+      break
+    case "Express Delivery US":
+      type = "LEnKgFndXO"
+      break
+    case "Standard Shipping":
+      type = "mVGpzFqjyE"
+      break
+    default:
+      break
+  }
+
+  cy.request({
+    url: Cypress.env("apiEndpoint") + `/api/shipments/${options.id}`,
+    method: "PATCH",
+    body: {
+      data: {
+        type: "shipments",
+        id: options.id,
+        relationships: {
+          shipping_method: {
+            data: {
+              type: "shipping_methods",
+              id: type,
+            },
+          },
+        },
+      },
+    },
+    headers: options.accessToken
+      ? apiRequestHeaders(options.accessToken)
+      : apiRequestHeaders(Cypress.env("accessToken")),
+  })
+    .its("body.data")
+    .then((idShipment) => {
+      return idShipment
+    })
+})
+
 Cypress.Commands.add("getTokenCustomer", (options) => {
   cy.request({
     url: Cypress.env("apiEndpoint") + `/oauth/token`,
@@ -278,38 +338,3 @@ Cypress.Commands.add("getTokenCustomer", (options) => {
       return tokenObj
     })
 })
-
-/* Cypress.Commands.add("createCustomer", (options) => {
-  cy.request({
-    url: Cypress.env("apiEndpoint") + `/api/customers`,
-    method: "POST",
-    failOnStatusCode: false,
-    body: {
-      data: {
-        type: "customers",
-        attributes: {
-          email: options.email,
-          password: options.password,
-        },
-      },
-    },
-    headers: apiRequestHeaders(Cypress.env("accessToken")),
-  }).then((resp) => {
-    if (resp.status === 422) {
-      console.log(resp)
-      return false
-    } else if (resp.status === 200) {
-      console.log(resp)
-    }
-
-    // redirect status code is 302
-
-    return true
-    // expect(resp.redirectedToUrl).to.eq("http://localhost:8082/unauthorized")
-  })
-  // .its("body.data")
-  // .then((orderWithAddress) => {
-  // console.log(orderWithAddress)
-  // return orderWithAddress
-  // }) 
-}) */

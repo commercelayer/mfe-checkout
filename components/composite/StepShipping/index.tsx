@@ -15,12 +15,14 @@ import {
   StockTransferField,
   DeliveryLeadTime,
 } from "@commercelayer/react-components"
+import { faTruckLoading } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState, useEffect } from "react"
-
-import "twin.macro"
+import styled from "styled-components"
+import tw from "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
-import { useTranslation } from "components/data/i18n"
+import { useTranslation, Trans } from "components/data/i18n"
 import { Button } from "components/ui/Button"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
@@ -78,7 +80,7 @@ export const StepShipping: React.FC<Props> = ({
         info={
           isActive
             ? t("stepShipping.summary")
-            : "Metodo di spedizione selezionato"
+            : t("stepShipping.shippingMethodSelected")
         }
         onEditRequest={() => {
           onToggleActive()
@@ -88,7 +90,6 @@ export const StepShipping: React.FC<Props> = ({
         {isActive ? (
           <ShipmentsContainer>
             <Shipment>
-              <div>Shipments</div>
               <LineItemsContainer>
                 <LineItem>
                   <div className="flex items-center justify-between p-5 border-b">
@@ -113,29 +114,34 @@ export const StepShipping: React.FC<Props> = ({
                 </LineItem>
               </LineItemsContainer>
               <ShippingMethod>
-                <div className="flex items-center justify-around w-2/3 p-5">
+                <div className="flex flex-row items-center justify-around px-3 py-5">
                   <ShippingMethodRadioButton
                     data-cy="shipping-method-button"
+                    className="flex-1"
                     onChange={(
                       shippingMethod:
                         | ShippingMethodCollection
                         | Record<string, any>
                     ) => handleChange(shippingMethod)}
                   />
-                  <ShippingMethodName data-cy="shipping-method-name" />
-                  <ShippingMethodPrice data-cy="shipping-method-price" />
-                  <div className="flex">
-                    <DeliveryLeadTime
-                      type="minDays"
-                      data-cy="delivery-lead-time-min-days"
-                    />{" "}
-                    -{" "}
-                    <DeliveryLeadTime
-                      type="maxDays"
-                      data-cy="delivery-lead-time-max-days"
-                      className="mr-1"
-                    />
-                    days
+                  <div className="flex-1">
+                    <ShippingMethodName data-cy="shipping-method-name" />
+                  </div>
+                  <div className="flex-1">
+                    <ShippingMethodPrice data-cy="shipping-method-price" />
+                  </div>
+                  <div className="flex-1">
+                    <Trans t={t} i18nKey="stepShipping.deliveryLeadTime">
+                      <DeliveryLeadTime
+                        type="minDays"
+                        data-cy="delivery-lead-time-min-days"
+                      />
+                      <DeliveryLeadTime
+                        type="maxDays"
+                        data-cy="delivery-lead-time-max-days"
+                        className="mr-1"
+                      />
+                    </Trans>
                   </div>
                 </div>
               </ShippingMethod>
@@ -146,31 +152,37 @@ export const StepShipping: React.FC<Props> = ({
                 data-cy="save-shipments-button"
                 onClick={refetchOrder}
               >
-                Continue to Payment
+                {t("stepShipping.continueToPayment")}
               </Button>
             </div>
           </ShipmentsContainer>
         ) : hasShippingMethod ? (
-          <div>
-            {t("stepShipping.shippingMethod")}
-            {"Selezionato"}
-            <ShipmentsContainer>
-              <div className="mt-10">Shipments Recap</div>
-              <Shipment>
-                <ShippingMethod readonly>
-                  <div className="flex items-center justify-around w-2/3 p-5">
-                    <ShippingMethodName data-cy="shipping-method-name-recap" />
-                    <ShippingMethodPrice />
-                    <div className="flex">
-                      <DeliveryLeadTime type="minDays" /> -{" "}
-                      <DeliveryLeadTime type="maxDays" className="mr-1" />
-                      days
-                    </div>
+          <ShipmentsContainer>
+            <Shipment>
+              <ShippingMethod readonly>
+                <div className="flex flex-row justify-around">
+                  <Icon>
+                    <FontAwesomeIcon icon={faTruckLoading} />
+                  </Icon>
+                  <div className="flex-1 pl-1">
+                    <ShippingMethodName
+                      className="font-bold"
+                      data-cy="shipping-method-name-recap"
+                    />
                   </div>
-                </ShippingMethod>
-              </Shipment>
-            </ShipmentsContainer>
-          </div>
+                  <div className="flex-1">
+                    <ShippingMethodPrice />
+                  </div>
+                  <div className="flex-1">
+                    <Trans t={t} i18nKey="stepShipping.deliveryLeadTime">
+                      <DeliveryLeadTime type="minDays" />
+                      <DeliveryLeadTime type="maxDays" className="mr-1" />
+                    </Trans>
+                  </div>
+                </div>
+              </ShippingMethod>
+            </Shipment>
+          </ShipmentsContainer>
         ) : (
           <div>Metodo di spedizione da selezionare</div>
         )}
@@ -178,3 +190,7 @@ export const StepShipping: React.FC<Props> = ({
     </div>
   )
 }
+
+const Icon = styled.div`
+  ${tw`w-7 text-gray-600 pt-0.5`}
+`
