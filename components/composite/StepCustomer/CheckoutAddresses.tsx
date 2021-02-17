@@ -91,7 +91,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
           <SaveAddressesButton
             label={t("stepCustomer.continueToDelivery")}
             data-cy="save-addresses-button"
-            tw="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent leading-4 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+            tw="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-primary border border-transparent leading-4 rounded-md shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
             onClick={refetchOrder}
           />
         </AddressSectionSaveForm>

@@ -28,7 +28,7 @@ export const AddressSectionSaveOnAddressBook: React.FC<Props> = ({
         data-cy={dataCy}
         name={fieldName}
         type="checkbox"
-        tw="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 align-middle mr-3"
+        tw="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary align-middle mr-3"
         required={false}
       />
       {t("stepCustomer.saveAddressBook")}

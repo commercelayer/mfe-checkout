@@ -25,8 +25,11 @@
     "stepCustomer": {
         "customer": "Cliente",
         "bill": "Informazioni di fatturazione e indirizzo di spedizione",
+        "editBillingAndShippingAddress" : "Modifica il tuo indirizzo di fatturazione e spedizione",
         "addNewAddress": "Aggiungi nuovo indirizzo",
         "saveAddressBook": "Salva l'indirizzo sulla tua rubrica",
+        "addNewBillingAddress": "Aggiungi nuovo indirizzo di fatturazione",
+        "addNewShippingAddress": "Aggiungi un nuovo indirizzo di spedizione",
         "continueToDelivery": "Continuare alla consegna"
     },
 
@@ -64,7 +67,7 @@
         "shipping_address_line_1": "Indirizzo",
         "shipping_address_city": "Città",
         "shipping_address_country_code": "Paese",
-        "shipping_address_state_code": "State",
+        "shipping_address_state_code": "Stato",
         "shipping_address_zip_code": "CAP",
         "shipping_address_phone": "Telefono"
     }

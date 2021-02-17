@@ -15,8 +15,11 @@
     "stepCustomer": {
         "customer": "Customer",
         "bill": "Your billing information and shipping address",
+        "editBillingAndShippingAddress" : "Edit your billing and shipping address",
         "addNewAddress": "Add new address",
         "saveAddressBook": "Save this address in your account",
+        "addNewBillingAddress": "Add new billing address",
+        "addNewShippingAddress": "Add new shipping address",
         "continueToDelivery": "Continue to delivery"
     },
 

@@ -121,14 +121,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           <>
             {!showBillingAddressForm && hasCustomerAddresses && (
               <button
-                tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
+                tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-primary shadow-sm"
                 data-cy="add_new_billing_address"
                 onClick={handleShowBillingForm}
               >
                 <FontAwesomeIcon icon={faPlus} tw="mr-3" />
                 {shipToDifferentAddress
-                  ? "Add new billing address"
-                  : "Add new address"}
+                  ? t("stepCustomer.addNewBillingAddress")
+                  : t("stepCustomer.addNewAddress")}
               </button>
             )}
           </>
@@ -181,12 +181,12 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             </ShippingAddressContainer>
             {!showShippingAddressForm && (
               <button
-                tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
+                tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-primary shadow-sm"
                 data-cy="add_new_shipping_address"
                 onClick={handleShowShippingForm}
               >
                 <FontAwesomeIcon icon={faPlus} tw="mr-3" />
-                Add new shipping address
+                {t("stepCustomer.addNewShippingAddress")}
               </button>
             )}
           </div>
@@ -209,7 +209,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               )}
             </ShippingAddressForm>
           </div>
-          <div tw="flex justify-between">
+          <div tw="flex justify-between items-center">
             <div>
               {(showBillingAddressForm && !isUsingNewBillingAddress) ||
               (showShippingAddressForm && !isUsingNewShippingAddress) ? (
@@ -223,14 +223,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 </AddressButtonAddNew>
               ) : null}
             </div>
+            <AddressSectionSaveForm>
+              <StyledSaveAddressesButton
+                label={t("stepCustomer.continueToDelivery")}
+                data-cy="save-addresses-button"
+                onClick={refetchOrder}
+              />
+            </AddressSectionSaveForm>
           </div>
-          <AddressSectionSaveForm>
-            <StyledSaveAddressesButton
-              label={t("stepCustomer.continueToDelivery")}
-              data-cy="save-addresses-button"
-              onClick={refetchOrder}
-            />
-          </AddressSectionSaveForm>
         </AddressesContainer>
       </CustomerContainer>
     </Fragment>
@@ -255,7 +255,7 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
   return (
     <AddressCard
       data-cy={dataCy}
-      selectedClassName="border-blue-500"
+      selectedClassName="border-primary"
       deselect={deselect}
       onSelect={onSelect}
     >
@@ -271,7 +271,7 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
 }
 
 const AddressCard = styled(Address)`
-  ${tw`w-1/2 p-2 mb-5 border rounded cursor-pointer hover:border-blue-500 shadow-sm`}
+  ${tw`w-1/2 p-2 mb-5 border rounded cursor-pointer hover:border-primary shadow-sm`}
 `
 
 const StyledSaveAddressesButton = styled(SaveAddressesButton)`

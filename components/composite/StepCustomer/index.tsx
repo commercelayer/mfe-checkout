@@ -60,7 +60,7 @@ export const StepCustomer: React.FC<Props> = ({
         label={t("stepCustomer.customer")}
         info={
           isActive
-            ? "Edit your billing and shipping address"
+            ? t("stepCustomer.editBillingAndShippingAddress")
             : t("stepCustomer.bill")
         }
         onEditRequest={() => {

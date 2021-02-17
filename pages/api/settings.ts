@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import CLayer, { Order } from "@commercelayer/js-sdk"
+import CLayer, { Order, Organization } from "@commercelayer/js-sdk"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -29,6 +29,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(`error on retrieving order: ${e}`)
   }
 
+  let organization
+  try {
+    organization = await Organization.all()
+    console.log(organization)
+  } catch (e) {
+    console.log(`error on retrieving organization: ${e}`)
+  }
+
   if (!order?.id || order.status === "placed") {
     res.statusCode = 200
     return res.json({ validCheckout: false })
@@ -42,12 +50,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     validCheckout: true,
     endpoint: process.env.CLAYER_DOMAIN as string,
     logoUrl:
+      organization?.logoUrl ||
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
-    companyName: "Test company",
+    companyName: organization?.name || "Test company",
     language: order.languageCode,
-    primaryColor: "#3b82f6",
-    contrastColor: "#ffffff",
+    primaryColor: organization?.primaryColor || "#3b82f6",
+    contrastColor: organization?.contrastColor || "#ffffff",
     favicon:
+      organization?.faviconUrl ||
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
   }
   return res.json(appSettings)

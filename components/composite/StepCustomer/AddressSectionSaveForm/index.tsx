@@ -5,5 +5,5 @@ export const AddressSectionSaveForm: React.FC = ({ children }) => {
   return <Wrapper>{children}</Wrapper>
 }
 const Wrapper = styled.p`
-  ${tw`p-2 mt-5`}
+  ${tw`p-2`}
 `
