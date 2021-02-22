@@ -1107,7 +1107,7 @@ describe("Checkout customer address", () => {
     })
   })
 
-  context.only("initial order empty with country lock", () => {
+  context("initial order empty with country lock", () => {
     const emailTemp = internet.email().toLocaleLowerCase()
     const passwordTemp = internet.password()
     const countryCode = "IT"
