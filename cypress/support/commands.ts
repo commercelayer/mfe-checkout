@@ -188,7 +188,6 @@ Cypress.Commands.add("addAddressToBook", (idAddress, accessToken) => {
   })
     .its("body.data")
     .then((customer_addresses) => {
-      console.log(customer_addresses, "---------")
       return customer_addresses
     })
 })

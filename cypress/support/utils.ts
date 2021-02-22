@@ -20,8 +20,8 @@ export const euAddress = {
 
 export const euAddress2 = {
   city: "Canguro",
-  country: "Italy",
-  countryCode: "IT",
+  country: "France",
+  countryCode: "FR",
   firstName: "Spider",
   lastName: "Man",
   line1: "Ragnatela, 99",
