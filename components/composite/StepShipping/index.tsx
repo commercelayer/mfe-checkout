@@ -128,7 +128,10 @@ export const StepShipping: React.FC<Props> = ({
                     <ShippingMethodName data-cy="shipping-method-name" />
                   </div>
                   <div className="flex-1">
-                    <ShippingMethodPrice data-cy="shipping-method-price" />
+                    <ShippingMethodPrice
+                      data-cy="shipping-method-price"
+                      labelFreeOver={t("general.free")}
+                    />
                   </div>
                   <div className="flex-1">
                     <Trans t={t} i18nKey="stepShipping.deliveryLeadTime">
@@ -171,7 +174,7 @@ export const StepShipping: React.FC<Props> = ({
                     />
                   </div>
                   <div className="flex-1">
-                    <ShippingMethodPrice />
+                    <ShippingMethodPrice labelFreeOver={t("general.free")} />
                   </div>
                   <div className="flex-1">
                     <Trans t={t} i18nKey="stepShipping.deliveryLeadTime">

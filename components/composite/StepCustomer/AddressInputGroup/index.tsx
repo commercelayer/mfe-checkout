@@ -20,27 +20,11 @@ import { useTranslation } from "components/data/i18n"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
 
-const messages: ErrorComponentProps["messages"] = [
-  {
-    code: "EMPTY_ERROR",
-    resource: "billingAddress",
-    field: "firstName",
-    message: `Can't be blank`,
-  },
-  {
-    code: "VALIDATION_ERROR",
-    resource: "billingAddress",
-    field: "email",
-    message: `Must be valid email`,
-  },
-]
-
 interface Props {
   type: BaseInputType
   fieldName: AddressInputName | AddressCountrySelectName | "email"
   resource: ResourceErrorType
   value?: string
-  isShipping?: boolean
 }
 
 export const AddressInputGroup: React.FC<Props> = ({
@@ -48,9 +32,23 @@ export const AddressInputGroup: React.FC<Props> = ({
   resource,
   type,
   value,
-  isShipping = false,
 }) => {
   const { t } = useTranslation()
+
+  const messages: ErrorComponentProps["messages"] = [
+    {
+      code: "EMPTY_ERROR",
+      resource: "billingAddress",
+      field: "firstName",
+      message: t("input.cantBlank"),
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "billingAddress",
+      field: "email",
+      message: t("input.mustBeValid"),
+    },
+  ]
 
   const appCtx = useContext(AppContext)
 
@@ -69,12 +67,8 @@ export const AddressInputGroup: React.FC<Props> = ({
     fieldName === "billing_address_country_code"
 
   useEffect(() => {
-    if (!!shippingCountryCodeLock && !!isCountry && isShipping) {
-      setValueStatus(shippingCountryCodeLock)
-    } else {
-      setValueStatus(value || "")
-    }
-  }, [value, shippingCountryCodeLock])
+    setValueStatus(value || "")
+  }, [value])
 
   return (
     <div className="mb-4">
@@ -85,12 +79,16 @@ export const AddressInputGroup: React.FC<Props> = ({
             <StyledAddressCountrySelector
               data-cy={`input_${fieldName}`}
               name={fieldName as AddressCountrySelectName}
-              value={valueStatus}
-              /* placeholder={{
-                label: valueStatus || "",
-                value: valueStatus || "",
-                disabled: true,
-              }} */
+              value={
+                shippingCountryCodeLock &&
+                fieldName === "shipping_address_country_code"
+                  ? shippingCountryCodeLock
+                  : value
+              }
+              disabled={
+                shippingCountryCodeLock &&
+                fieldName === "shipping_address_country_code"
+              }
             />
           ) : (
             <StyledAddressInput

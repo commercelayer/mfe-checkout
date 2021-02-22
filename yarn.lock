@@ -257,14 +257,6 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-sdk@^3.2.2":
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.2.2.tgz#9b3ee4173b029dc29b8def99b31854e10c7332f1"
-  integrity sha512-wNFm/bmf7NANkE1Y1h44NWCCjkSneSnNGl0yRtdlgO7Mfn/iLodfExC/Oul9ejYU7dpdTmMlX0GqwgGFX0pfqA==
-  dependencies:
-    active-resource "^1.0.0-beta.7"
-    lodash "^4.17.20"
-
 "@commercelayer/js-sdk@^3.3.2":
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.3.2.tgz#b38adc816fd1f03dd01c92e6dfcb2657a86d6ed7"
@@ -273,12 +265,12 @@
     active-resource "^1.0.0-beta.7"
     lodash "^4.17.20"
 
-"@commercelayer/react-components@^2.5.1":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.5.1.tgz#e20f8a3e0f172f82ed3e4157fd092ee9bf47487a"
-  integrity sha512-zRMgvV9A9BNavRjztGhy7/xIo2udr2sZYd4ANBQutQCxIuNQZAnmxkSgZm4BFtu2FbH64YazKUOCD4YM3Xwhyw==
+"@commercelayer/react-components@^2.5.2":
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.5.2.tgz#56bc79644549c4f60fef093f1ae3175ccef0697a"
+  integrity sha512-0lIsYhHyVUywd/um+EvW6lqlXz+ykgD1OV6v3HusR5ajBmf7Qe3I9h3ctWOCHJRYwbD8t2lcFUPiGJUw8pbpZw==
   dependencies:
-    "@commercelayer/js-sdk" "^3.2.2"
+    "@commercelayer/js-sdk" "^3.3.2"
     lodash "^4.17.20"
     rapid-form "^1.4.1"
 

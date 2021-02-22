@@ -9,7 +9,13 @@
         "save": "Salva",
         "edit": "Modifica",
         "delete": "Elimina",
-        "done": "Fatto"
+        "done": "Fatto",
+        "free" : "Gratis"
+    },
+
+    "input":{
+        "cantBlank" : "Non può essere vuoto",
+        "mustBeValid":"Deve essere un indirizzo email valido"
     },
 
     "orderRecap": {

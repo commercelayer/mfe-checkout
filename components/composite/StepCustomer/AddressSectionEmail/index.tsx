@@ -28,13 +28,13 @@ export const AddressSectionEmail: React.FC<Props> = ({
       code: "EMPTY_ERROR",
       resource: "billingAddress",
       field: "firstName",
-      message: `Can't be blank`,
+      message: t("input.cantBlank"),
     },
     {
       code: "VALIDATION_ERROR",
       resource: "billingAddress",
       field: "email",
-      message: `Must be valid email`,
+      message: t("input.mustBeValid"),
     },
   ]
 

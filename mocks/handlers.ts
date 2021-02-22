@@ -17,6 +17,11 @@ export const handlers = [
         logoUrl:
           "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
         companyName: "Test company",
+        language: "en",
+        primaryColor: "#3b82f6",
+        contrastColor: "#ffffff",
+        favicon:
+          "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
       })
     )
   }),

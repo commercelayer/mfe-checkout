@@ -9,7 +9,13 @@
         "save": "Save",
         "edit": "Edit",
         "delete": "Delete",
-        "done": "Done"
+        "done": "Done",
+        "free" : "Free"
+    },
+
+    "input":{
+        "cantBlank" : "Can't be blank",
+        "mustBeValid":"Must be valid email"
     },
 
     "stepCustomer": {

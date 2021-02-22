@@ -253,11 +253,13 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
       ? "customer-billing-address"
       : "customer-shipping-address"
   return (
-    <AddressCard
+    <Address
       data-cy={dataCy}
+      className="w-1/2 p-2 mb-5 border rounded cursor-pointer hover:border-primary shadow-sm"
       selectedClassName="border-primary"
       deselect={deselect}
       onSelect={onSelect}
+      disabledClassName="opacity-50 cursor-not-allowed"
     >
       <div tw="flex font-bold">
         <AddressField name="first_name" />
@@ -266,13 +268,9 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
       <div>
         <AddressField name="full_address" />
       </div>
-    </AddressCard>
+    </Address>
   )
 }
-
-const AddressCard = styled(Address)`
-  ${tw`w-1/2 p-2 mb-5 border rounded cursor-pointer hover:border-primary shadow-sm`}
-`
 
 const StyledSaveAddressesButton = styled(SaveAddressesButton)`
   ${ButtonCss}
