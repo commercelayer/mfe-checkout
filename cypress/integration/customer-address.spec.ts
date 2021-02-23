@@ -172,7 +172,13 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(["@updateOrder", "@getOrders", "@retrieveLineItems"])
+      cy.wait([
+        "@updateOrder",
+        "@getOrders",
+        "@retrieveLineItems",
+        "@getShippingMethods",
+        "@getOrderShipments",
+      ])
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress3.firstName)
@@ -574,7 +580,12 @@ describe("Checkout customer address", () => {
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
 
-      cy.wait(["@getOrders", "@retrieveLineItems", "@updateAddress"])
+      cy.wait([
+        "@getOrders",
+        "@retrieveLineItems",
+        "@updateAddress",
+        "@getOrderShipments",
+      ])
     })
 
     it("check information", () => {
@@ -600,11 +611,7 @@ describe("Checkout customer address", () => {
     })
 
     it("add custom billing address and save", () => {
-      cy.dataCy("step_customer")
-        .click()
-        .should("have.attr", "data-status", "true")
-
-      cy.wait("@getCustomerAddresses")
+      cy.dataCy("step_customer").click()
 
       cy.dataCy("add_new_billing_address").click()
 
@@ -649,8 +656,6 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait("@getCustomerAddresses")
-
       cy.dataCy("button-ship-to-different-address")
         .click()
         .should("have.attr", "data-status", "true")
@@ -675,6 +680,8 @@ describe("Checkout customer address", () => {
         "@updateOrder",
         "@getOrders",
         "@retrieveLineItems",
+        "@getShippingMethods",
+        "@getOrderShipments",
       ])
 
       cy.dataCy("fullname_billing")
@@ -702,8 +709,6 @@ describe("Checkout customer address", () => {
       cy.dataCy("step_customer")
         .click()
         .should("have.attr", "data-status", "true")
-
-      cy.wait("@getCustomerAddresses")
 
       cy.dataCy("customer-shipping-address")
         .contains("p", euAddress.firstName)
@@ -741,8 +746,6 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait("@getCustomerAddresses")
-
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress.firstName)
         .click()
@@ -778,6 +781,8 @@ describe("Checkout customer address", () => {
       cy.dataCy("step_customer")
         .click()
         .should("have.attr", "data-status", "true")
+
+      cy.wait("@getCustomerAddresses")
 
       cy.dataCy("button-ship-to-different-address").should(
         "have.attr",
@@ -1390,7 +1395,13 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(["@updateOrder", "@getOrders", "@retrieveLineItems"])
+      cy.wait([
+        "@updateOrder",
+        "@getOrders",
+        "@retrieveLineItems",
+        "@getShippingMethods",
+        "@getOrderShipments",
+      ])
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress.firstName)

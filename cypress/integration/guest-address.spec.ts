@@ -138,6 +138,8 @@ describe("Checkout guest address", () => {
         "@updateOrder",
         "@getOrders",
         "@retrieveLineItems",
+        "@getShippingMethods",
+        "@getOrderShipments"
       ])
 
       cy.dataCy("fullname_billing")
