@@ -6,6 +6,7 @@ import { useContext } from "react"
 import { OrderSummary } from "components/composite/OrderSummary"
 import { StepCustomer } from "components/composite/StepCustomer"
 import { StepNav } from "components/composite/StepNav"
+import { StepPayment } from "components/composite/StepPayment"
 import { StepShipping } from "components/composite/StepShipping"
 import { AppContext } from "components/data/AppProvider"
 import { useTranslation } from "components/data/i18n"
@@ -22,7 +23,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({
   favicon,
 }) => {
   const ctx = useContext(AppContext)
-  // const isLoading = !ctx || (ctx && ctx.isLoading)
+
   const { t } = useTranslation()
   const {
     activeStep,
@@ -75,7 +76,11 @@ const Home: NextPage<CheckoutPageContextProps> = ({
               isActive={activeStep === 1}
               onToggleActive={() => setActiveStep(1)}
             />
-            {activeStep === 2 && <div>Payment methods</div>}
+            <StepPayment
+              tw="mb-6"
+              isActive={activeStep === 2}
+              onToggleActive={() => setActiveStep(2)}
+            />
           </div>
         }
       />

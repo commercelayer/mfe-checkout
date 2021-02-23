@@ -15,6 +15,11 @@ interface AppProviderProps {
   accessToken?: string
 }
 
+interface ShipmentSelectedProps {
+  shipmentId: string
+  shippingMethodId: string | undefined
+}
+
 export const AppProvider: React.FC<AppProviderProps> = ({
   children,
   orderId,
@@ -22,6 +27,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isGuest, setIsGuest] = useState(false)
+  const [hasCustomerAddresses, setHasCustomerAddresses] = useState(false)
   const [isUsingNewBillingAddress, setIsUsingNewBillingAddress] = useState(true)
   const [isUsingNewShippingAddress, setIsUsingNewShippingAddress] = useState(
     true
@@ -41,7 +47,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     setShippingAddress,
   ] = useState<AddressCollection | null>(null)
   const [hasShippingMethod, setHasShippingMethod] = useState(false)
+  const [shipments, setShipments] = useState<ShipmentSelectedProps[]>([])
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
+  const [
+    shippingCountryCodeLock,
+    setShippingCountryCodeLock,
+  ] = useState<string>("")
 
   const fetchOrderHandle = (orderId?: string, accessToken?: string) => {
     if (!orderId || !accessToken) {
@@ -51,6 +62,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     fetchOrderById({ orderId, accessToken }).then(
       ({
         isGuest,
+        hasCustomerAddresses,
         isUsingNewBillingAddress,
         isUsingNewShippingAddress,
         hasSameAddresses,
@@ -62,8 +74,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         shippingAddress,
         hasPaymentMethod,
         hasShippingMethod,
+        shipments,
+        shippingCountryCodeLock,
       }) => {
         setIsGuest(isGuest)
+        setHasCustomerAddresses(hasCustomerAddresses)
+        setHasSameAddresses(hasCustomerAddresses)
         setIsUsingNewBillingAddress(isUsingNewBillingAddress)
         setIsUsingNewShippingAddress(isUsingNewShippingAddress)
         setHasSameAddresses(hasSameAddresses)
@@ -74,8 +90,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setHasShippingAddress(hasShippingAddress)
         setShippingAddress(shippingAddress)
         setHasShippingMethod(hasShippingMethod)
+        setShipments(shipments)
         setHasPaymentMethod(hasPaymentMethod)
         setIsLoading(false)
+        setShippingCountryCodeLock(shippingCountryCodeLock)
       }
     )
   }
@@ -88,6 +106,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     <AppContext.Provider
       value={{
         isGuest,
+        hasCustomerAddresses,
         isUsingNewBillingAddress,
         isUsingNewShippingAddress,
         hasSameAddresses,
@@ -99,7 +118,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         hasShippingAddress,
         shippingAddress,
         hasShippingMethod,
+        shipments,
         hasPaymentMethod,
+        shippingCountryCodeLock,
         refetchOrder: () => {
           fetchOrderHandle(orderId, accessToken)
         },

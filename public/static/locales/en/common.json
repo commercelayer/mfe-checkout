@@ -9,14 +9,23 @@
         "save": "Save",
         "edit": "Edit",
         "delete": "Delete",
-        "done": "Done"
+        "done": "Done",
+        "free" : "Free"
+    },
+
+    "input":{
+        "cantBlank" : "Can't be blank",
+        "mustBeValid":"Must be valid email"
     },
 
     "stepCustomer": {
         "customer": "Customer",
         "bill": "Your billing information and shipping address",
+        "editBillingAndShippingAddress" : "Edit your billing and shipping address",
         "addNewAddress": "Add new address",
         "saveAddressBook": "Save this address in your account",
+        "addNewBillingAddress": "Add new billing address",
+        "addNewShippingAddress": "Add new shipping address",
         "continueToDelivery": "Continue to delivery"
     },
 
@@ -26,17 +35,28 @@
         "quantity": "Quantity: {{count}}",
         "quantity_plural": "Quantities: {{count}}",
         "tax_amount": "Tax",
+        "shipping_amount": "Shipping",
         "total_amount": "Total"
     },
 
     "stepShipping": {
         "delivery": "Delivery",
         "summary": "Shipment summary and delivery methods",
-        "shippingMethod": "You have a shipping method set",
-        "addShippingMethod": "Add customer data before shipping" 
+        "shippingMethodSelected": "You have a shipping method set",
+        "addShippingMethod": "Add customer data before shipping",
+        "deliveryLeadTime" : "<0/> - <1/> days",
+        "continueToPayment": "Continue to payment"
+    },
+
+    "stepPayment": {
+        "title": "Payment",
+        "summary": "Payment summary",
+        "paymentMethod": "You have a payment method set",
+        "addPaymentMethod": "Add shipping method before payment"        
     },
 
     "addressForm" : {
+        "customer_email" : "Your email address",
         "billing_address_title": "Billing Address",
         "billing_address_first_name": "First name",
         "billing_address_last_name": "Last name",

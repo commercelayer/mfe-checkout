@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components"
 import tw from "twin.macro"
 
+import { useTranslation } from "components/data/i18n"
+
 import { CheckmarkIcon } from "./CheckmarkIcon"
 
 interface Props {
@@ -18,6 +20,8 @@ export const StepHeader: React.FC<Props> = ({
   stepNumber,
   onEditRequest,
 }) => {
+  const { t } = useTranslation()
+
   return (
     <Wrapper disabled={status === "disabled"}>
       <Badge>{status === "done" ? <CheckmarkIcon /> : stepNumber}</Badge>
@@ -31,7 +35,7 @@ export const StepHeader: React.FC<Props> = ({
                 data-cy={`edit-step-${stepNumber}-button`}
                 onClick={onEditRequest}
               >
-                Edit
+                {t("general.edit")}
               </EditButton>
             </Edit>
           ) : null}
@@ -69,11 +73,11 @@ const Edit = styled.div`
 `
 
 const EditButton = styled.button`
-  ${tw` text-sm text-blue-500 hover:underline hover:text-blue-700`}
+  ${tw` text-sm text-primary hover:underline hover:opacity-50 focus:outline-none`}
 `
 
 const Badge = styled.div`
-  ${tw`mt-1 rounded-full bg-blue-400 text-white flex justify-center items-center w-6 h-6 text-xs font-bold`}
+  ${tw`mt-1 rounded-full bg-primary text-white flex justify-center items-center w-6 h-6 text-xs font-bold`}
 `
 
 const Title = styled.div`

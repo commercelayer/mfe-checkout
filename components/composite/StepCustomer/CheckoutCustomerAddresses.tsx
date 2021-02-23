@@ -2,7 +2,6 @@ import { AddressCollection } from "@commercelayer/js-sdk"
 import {
   AddressesContainer,
   BillingAddressForm,
-  AddressInput,
   SaveAddressesButton,
   ShippingAddressForm,
   CustomerContainer,
@@ -13,7 +12,7 @@ import {
 } from "@commercelayer/react-components"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState, Fragment } from "react"
+import { useState, Fragment, useEffect } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
@@ -35,6 +34,7 @@ interface Props {
   hasSameAddresses: boolean
   isUsingNewBillingAddress: boolean
   isUsingNewShippingAddress: boolean
+  hasCustomerAddresses: boolean
   isGuest: boolean
   emailAddress: string
   refetchOrder: () => void
@@ -46,26 +46,60 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   isUsingNewBillingAddress,
   isUsingNewShippingAddress,
   hasSameAddresses,
+  hasCustomerAddresses,
   isGuest,
   emailAddress,
   refetchOrder,
 }: Props) => {
   const { t } = useTranslation()
 
-  const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
+  const [
+    billingAddressFill,
+    setBillingAddressFill,
+  ] = useState<AddressCollection | null>(billingAddress)
+  const [
+    shippingAddressFill,
+    setShippingAddressFill,
+  ] = useState<AddressCollection | null>(shippingAddress)
+
+  const [shipToDifferentAddress, setShipToDifferentAddress] = useState<boolean>(
     !hasSameAddresses
   )
-  const [showBillingAddressForm, setShowBillingAddressForm] = useState(
+
+  const [showBillingAddressForm, setShowBillingAddressForm] = useState<boolean>(
     isUsingNewBillingAddress
   )
-  const [showShippingAddressForm, setShowShippingAddressForm] = useState(
-    isUsingNewShippingAddress
-  )
+  const [
+    showShippingAddressForm,
+    setShowShippingAddressForm,
+  ] = useState<boolean>(isUsingNewShippingAddress)
 
-  const handleShowBillingForm = () =>
+  useEffect(() => {
+    if (shipToDifferentAddress && !hasCustomerAddresses) {
+      setShippingAddressFill(null)
+      setShowShippingAddressForm(true)
+    }
+  }, [shipToDifferentAddress])
+
+  const handleShowBillingForm = () => {
+    setBillingAddressFill(null)
     setShowBillingAddressForm(!showBillingAddressForm)
-  const handleShowShippingForm = () =>
+  }
+
+  const handleShowShippingForm = () => {
+    setShippingAddressFill(null)
     setShowShippingAddressForm(!showShippingAddressForm)
+  }
+
+  const handleToggle = () => {
+    if (!hasCustomerAddresses) {
+      handleShowShippingForm()
+    }
+    if (hasCustomerAddresses) {
+      setShowShippingAddressForm(false)
+    }
+    setShipToDifferentAddress(!shipToDifferentAddress)
+  }
 
   return (
     <Fragment>
@@ -78,81 +112,104 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           <BillingAddressContainer>
             <AddressCardComponent
               addressType="billing"
-              onSelect={refetchOrder}
+              deselect={showBillingAddressForm}
+              onSelect={() =>
+                showBillingAddressForm && setShowBillingAddressForm(false)
+              }
             />
           </BillingAddressContainer>
-          {!showBillingAddressForm && (
-            <button
-              tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
-              onClick={handleShowBillingForm}
+          <>
+            {!showBillingAddressForm && hasCustomerAddresses && (
+              <button
+                tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-primary shadow-sm"
+                data-cy="add_new_billing_address"
+                onClick={handleShowBillingForm}
+              >
+                <FontAwesomeIcon icon={faPlus} tw="mr-3" />
+                {shipToDifferentAddress
+                  ? t("stepCustomer.addNewBillingAddress")
+                  : t("stepCustomer.addNewAddress")}
+              </button>
+            )}
+          </>
+          <div
+            className={
+              showBillingAddressForm || !hasCustomerAddresses ? "" : "hidden"
+            }
+          >
+            <BillingAddressForm
+              autoComplete="on"
+              className="p-2"
+              reset={!showBillingAddressForm}
             >
-              <FontAwesomeIcon icon={faPlus} tw="mr-3" />
-              {shipToDifferentAddress
-                ? "Add new billing address"
-                : "Add new address"}
-            </button>
-          )}
-          {showBillingAddressForm ? (
-            <BillingAddressForm autoComplete="on" className="p-2">
-              <BillingAddressFormNew
-                billingAddress={billingAddress}
-                isUsingNewBillingAddress={isUsingNewBillingAddress}
-              />
-              <AddressSectionSaveOnAddressBook addressType="billing" />
+              {showBillingAddressForm ? (
+                <>
+                  <BillingAddressFormNew billingAddress={billingAddressFill} />
+                  <AddressSectionSaveOnAddressBook addressType="billing" />
+                </>
+              ) : (
+                <Fragment />
+              )}
             </BillingAddressForm>
-          ) : null}
+          </div>
           <Toggle
             data-cy="button-ship-to-different-address"
             data-status={shipToDifferentAddress}
             label={t(`addressForm.ship_to_different_address`)}
             checked={shipToDifferentAddress}
-            onChange={() => setShipToDifferentAddress(!shipToDifferentAddress)}
+            onChange={handleToggle}
           />
-          {shipToDifferentAddress ? (
-            <Fragment>
-              <ShippingAddressContainer>
-                <div tw="pl-2 pt-4">
-                  <AddressSectionTitle>
-                    {t(`addressForm.shipping_address_title`)}
-                  </AddressSectionTitle>
-                </div>
+          <div
+            className={`${
+              shipToDifferentAddress && hasCustomerAddresses ? "" : "hidden"
+            }`}
+          >
+            <ShippingAddressContainer>
+              <div tw="pl-2 pt-4">
+                <AddressSectionTitle>
+                  {t(`addressForm.shipping_address_title`)}
+                </AddressSectionTitle>
+              </div>
 
-                <AddressCardComponent
-                  addressType="shipping"
-                  onSelect={refetchOrder}
-                />
-              </ShippingAddressContainer>
-
-              {!isUsingNewShippingAddress ? (
-                <button
-                  tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-blue-500 shadow-sm"
-                  onClick={handleShowShippingForm}
-                >
-                  <FontAwesomeIcon icon={faPlus} tw="mr-3" />
-                  Add new shipping address
-                </button>
-              ) : null}
-            </Fragment>
-          ) : (
-            <Fragment />
-          )}
-          {showShippingAddressForm ? (
+              <AddressCardComponent
+                addressType="shipping"
+                deselect={showShippingAddressForm}
+                onSelect={() =>
+                  showShippingAddressForm && setShowShippingAddressForm(false)
+                }
+              />
+            </ShippingAddressContainer>
+            {!showShippingAddressForm && (
+              <button
+                tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-primary shadow-sm"
+                data-cy="add_new_shipping_address"
+                onClick={handleShowShippingForm}
+              >
+                <FontAwesomeIcon icon={faPlus} tw="mr-3" />
+                {t("stepCustomer.addNewShippingAddress")}
+              </button>
+            )}
+          </div>
+          <div className={showShippingAddressForm ? "" : "hidden"}>
             <ShippingAddressForm
               autoComplete="on"
               hidden={!shipToDifferentAddress}
               className="p-2"
+              reset={!showShippingAddressForm}
             >
-              <ShippingAddressFormNew
-                shippingAddress={shippingAddress}
-                isGuest={false}
-                isUsingNewShippingAddress={isUsingNewShippingAddress}
-              />
-
-              <AddressSectionSaveOnAddressBook addressType="shipping" />
+              {showShippingAddressForm ? (
+                <>
+                  <ShippingAddressFormNew
+                    shippingAddress={shippingAddressFill}
+                  />
+                  <AddressSectionSaveOnAddressBook addressType="shipping" />
+                </>
+              ) : (
+                <Fragment />
+              )}
             </ShippingAddressForm>
-          ) : null}
-
-          <div tw="flex justify-between">
+          </div>
+          <div tw="flex justify-between items-center">
             <div>
               {(showBillingAddressForm && !isUsingNewBillingAddress) ||
               (showShippingAddressForm && !isUsingNewShippingAddress) ? (
@@ -182,11 +239,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
 interface AddressCardProps {
   addressType: "shipping" | "billing"
+  deselect: boolean
   onSelect: () => void
 }
 
 const AddressCardComponent: React.FC<AddressCardProps> = ({
   addressType,
+  deselect,
   onSelect,
 }) => {
   const dataCy =
@@ -194,10 +253,13 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
       ? "customer-billing-address"
       : "customer-shipping-address"
   return (
-    <AddressCard
+    <Address
       data-cy={dataCy}
-      selectedClassName="border-blue-500"
+      className="w-1/2 p-2 mb-5 border rounded cursor-pointer hover:border-primary shadow-sm"
+      selectedClassName="border-primary"
+      deselect={deselect}
       onSelect={onSelect}
+      disabledClassName="opacity-50 cursor-not-allowed"
     >
       <div tw="flex font-bold">
         <AddressField name="first_name" />
@@ -206,13 +268,9 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
       <div>
         <AddressField name="full_address" />
       </div>
-    </AddressCard>
+    </Address>
   )
 }
-
-const AddressCard = styled(Address)`
-  ${tw`w-1/2 p-2 mb-5 border rounded cursor-pointer hover:border-blue-500 shadow-sm`}
-`
 
 const StyledSaveAddressesButton = styled(SaveAddressesButton)`
   ${ButtonCss}

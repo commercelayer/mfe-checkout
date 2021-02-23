@@ -12,26 +12,13 @@ import {
   ResourceErrorType,
   ErrorComponentProps,
 } from "@commercelayer/react-components/dist/typings/errors"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 
+import { AppContext } from "components/data/AppProvider"
 import { useTranslation } from "components/data/i18n"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
-
-const messages: ErrorComponentProps["messages"] = [
-  {
-    code: "EMPTY_ERROR",
-    resource: "billingAddress",
-    field: "firstName",
-    message: `Can't be blank`,
-  },
-  {
-    code: "VALIDATION_ERROR",
-    resource: "billingAddress",
-    field: "email",
-    message: `Must be valid email`,
-  },
-]
 
 interface Props {
   type: BaseInputType
@@ -48,11 +35,40 @@ export const AddressInputGroup: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
 
+  const messages: ErrorComponentProps["messages"] = [
+    {
+      code: "EMPTY_ERROR",
+      resource: "billingAddress",
+      field: "firstName",
+      message: t("input.cantBlank"),
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "billingAddress",
+      field: "email",
+      message: t("input.mustBeValid"),
+    },
+  ]
+
+  const appCtx = useContext(AppContext)
+
+  let shippingCountryCodeLock = ""
+
+  if (appCtx) {
+    shippingCountryCodeLock = appCtx.shippingCountryCodeLock
+  }
+
   const label = t(`addressForm.${fieldName}`)
+
+  const [valueStatus, setValueStatus] = useState(value)
 
   const isCountry =
     fieldName === "shipping_address_country_code" ||
     fieldName === "billing_address_country_code"
+
+  useEffect(() => {
+    setValueStatus(value || "")
+  }, [value])
 
   return (
     <div className="mb-4">
@@ -63,12 +79,16 @@ export const AddressInputGroup: React.FC<Props> = ({
             <StyledAddressCountrySelector
               data-cy={`input_${fieldName}`}
               name={fieldName as AddressCountrySelectName}
-              value={value}
-              placeholder={{
-                value: "",
-                label: "Please select your country",
-                disabled: true,
-              }}
+              value={
+                shippingCountryCodeLock &&
+                fieldName === "shipping_address_country_code"
+                  ? shippingCountryCodeLock
+                  : value
+              }
+              disabled={
+                shippingCountryCodeLock &&
+                fieldName === "shipping_address_country_code"
+              }
             />
           ) : (
             <StyledAddressInput
@@ -76,7 +96,7 @@ export const AddressInputGroup: React.FC<Props> = ({
               data-cy={`input_${fieldName}`}
               name={fieldName as AddressInputName}
               type={type}
-              value={value}
+              value={valueStatus}
             />
           )}
         </div>

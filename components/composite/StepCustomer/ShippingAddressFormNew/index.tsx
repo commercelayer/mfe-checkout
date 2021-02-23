@@ -7,13 +7,10 @@ import { AddressInputGroup } from "components/composite/StepCustomer/AddressInpu
 
 interface Props {
   shippingAddress: AddressCollection | null
-  isGuest: boolean
-  isUsingNewShippingAddress: boolean
 }
 
 export const ShippingAddressFormNew: React.FC<Props> = ({
   shippingAddress,
-  isUsingNewShippingAddress,
 }: Props) => {
   return (
     <Fragment>
@@ -22,14 +19,14 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_first_name"
           resource="shippingAddress"
           type="text"
-          value={isUsingNewShippingAddress ? shippingAddress?.firstName : ""}
+          value={shippingAddress?.firstName || ""}
         />
 
         <AddressInputGroup
           fieldName="shipping_address_last_name"
           resource="shippingAddress"
           type="text"
-          value={isUsingNewShippingAddress ? shippingAddress?.lastName : ""}
+          value={shippingAddress?.lastName || ""}
         />
       </Grid>
 
@@ -37,7 +34,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
         fieldName="shipping_address_line_1"
         resource="shippingAddress"
         type="text"
-        value={isUsingNewShippingAddress ? shippingAddress?.line1 : ""}
+        value={shippingAddress?.line1 || ""}
       />
 
       <Grid>
@@ -45,14 +42,14 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_city"
           resource="shippingAddress"
           type="text"
-          value={isUsingNewShippingAddress ? shippingAddress?.city : ""}
+          value={shippingAddress?.city || ""}
         />
 
         <AddressInputGroup
           fieldName="shipping_address_country_code"
           resource="shippingAddress"
           type="text"
-          value={isUsingNewShippingAddress ? shippingAddress?.countryCode : ""}
+          value={shippingAddress?.countryCode || ""}
         />
       </Grid>
 
@@ -61,14 +58,14 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_state_code"
           resource="shippingAddress"
           type="text"
-          value={isUsingNewShippingAddress ? shippingAddress?.stateCode : ""}
+          value={shippingAddress?.stateCode || ""}
         />
 
         <AddressInputGroup
           fieldName="shipping_address_zip_code"
           resource="shippingAddress"
           type="text"
-          value={isUsingNewShippingAddress ? shippingAddress?.zipCode : ""}
+          value={shippingAddress?.zipCode || ""}
         />
       </Grid>
 
@@ -76,7 +73,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
         fieldName="shipping_address_phone"
         resource="shippingAddress"
         type="tel"
-        value={isUsingNewShippingAddress ? shippingAddress?.phone : ""}
+        value={shippingAddress?.phone || ""}
       />
     </Fragment>
   )

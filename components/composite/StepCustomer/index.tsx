@@ -43,6 +43,7 @@ export const StepCustomer: React.FC<Props> = ({
     hasSameAddresses,
     isUsingNewBillingAddress,
     isUsingNewShippingAddress,
+    hasCustomerAddresses,
     refetchOrder,
   } = appCtx
 
@@ -59,7 +60,7 @@ export const StepCustomer: React.FC<Props> = ({
         label={t("stepCustomer.customer")}
         info={
           isActive
-            ? "Edit your billing and shipping address"
+            ? t("stepCustomer.editBillingAndShippingAddress")
             : t("stepCustomer.bill")
         }
         onEditRequest={() => {
@@ -84,6 +85,7 @@ export const StepCustomer: React.FC<Props> = ({
                 billingAddress={billingAddress}
                 emailAddress={emailAddress}
                 isGuest={isGuest}
+                hasCustomerAddresses={hasCustomerAddresses}
                 isUsingNewShippingAddress={isUsingNewShippingAddress}
                 isUsingNewBillingAddress={isUsingNewBillingAddress}
                 hasSameAddresses={hasSameAddresses}
@@ -93,38 +95,54 @@ export const StepCustomer: React.FC<Props> = ({
           </Fragment>
         ) : (
           <div>
-            {hasSameAddresses ? (
-              <Address
-                addresses={shippingAddress ? [shippingAddress] : undefined}
-              >
-                <div tw="flex flex-row">
-                  <AddressField tw="pl-1" name="full_address" />
-                </div>
-              </Address>
-            ) : (
-              <div>
-                {billingAddress && (
-                  <Address addresses={[billingAddress]}>
-                    <div tw="flex flex-row items-center">
-                      <Icon>
-                        <FontAwesomeIcon icon={faAddressCard} />
-                      </Icon>
-                      <AddressField tw="pl-1" name="full_address" />
+            <div>
+              {billingAddress && (
+                <Address addresses={[billingAddress]}>
+                  <div tw="flex flex-row">
+                    <Icon>
+                      <FontAwesomeIcon icon={faAddressCard} />
+                    </Icon>
+                    <div>
+                      <AddressField
+                        tw="pl-1 font-bold"
+                        name="full_name"
+                        data-cy="fullname_billing"
+                      />
+                      <div>
+                        <AddressField
+                          tw="pl-1"
+                          name="full_address"
+                          data-cy="full_address_billing"
+                        />
+                      </div>
                     </div>
-                  </Address>
-                )}
-                {shippingAddress && (
-                  <Address addresses={[shippingAddress]}>
-                    <div tw="flex flex-row items-center ">
-                      <Icon>
-                        <FontAwesomeIcon icon={faShippingFast} />
-                      </Icon>
-                      <AddressField tw="pl-1" name="full_address" />
+                  </div>
+                </Address>
+              )}
+              {shippingAddress && (
+                <Address addresses={[shippingAddress]}>
+                  <div tw="flex flex-row">
+                    <Icon>
+                      <FontAwesomeIcon icon={faShippingFast} />
+                    </Icon>
+                    <div>
+                      <AddressField
+                        tw="pl-1 font-bold"
+                        name="full_name"
+                        data-cy="fullname_shipping"
+                      />
+                      <div>
+                        <AddressField
+                          tw="pl-1"
+                          name="full_address"
+                          data-cy="full_address_shipping"
+                        />
+                      </div>
                     </div>
-                  </Address>
-                )}
-              </div>
-            )}
+                  </div>
+                </Address>
+              )}
+            </div>
 
             {!hasShippingAddress && !hasBillingAddress ? (
               <div>No Billing / Shipping Address set</div>

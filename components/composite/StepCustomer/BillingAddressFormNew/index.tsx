@@ -7,12 +7,10 @@ import { AddressInputGroup } from "components/composite/StepCustomer/AddressInpu
 
 interface Props {
   billingAddress: AddressCollection | null
-  isUsingNewBillingAddress: boolean
 }
 
 export const BillingAddressFormNew: React.FC<Props> = ({
   billingAddress,
-  isUsingNewBillingAddress,
 }: Props) => {
   return (
     <Fragment>
@@ -21,33 +19,33 @@ export const BillingAddressFormNew: React.FC<Props> = ({
           fieldName="billing_address_first_name"
           resource="billingAddress"
           type="text"
-          value={isUsingNewBillingAddress ? billingAddress?.firstName : ""}
+          value={billingAddress?.firstName || ""}
         />
         <AddressInputGroup
           fieldName="billing_address_last_name"
           resource="billingAddress"
           type="text"
-          value={isUsingNewBillingAddress ? billingAddress?.lastName : ""}
+          value={billingAddress?.lastName || ""}
         />
       </Grid>
       <AddressInputGroup
         fieldName="billing_address_line_1"
         resource="billingAddress"
         type="text"
-        value={isUsingNewBillingAddress ? billingAddress?.line1 : ""}
+        value={billingAddress?.line1 || ""}
       />
       <Grid>
         <AddressInputGroup
           fieldName="billing_address_city"
           resource="billingAddress"
           type="text"
-          value={isUsingNewBillingAddress ? billingAddress?.city : ""}
+          value={billingAddress?.city || ""}
         />
         <AddressInputGroup
           fieldName="billing_address_country_code"
           resource="billingAddress"
           type="text"
-          value={isUsingNewBillingAddress ? billingAddress?.countryCode : ""}
+          value={billingAddress?.countryCode || ""}
         />
       </Grid>
       <Grid>
@@ -55,20 +53,20 @@ export const BillingAddressFormNew: React.FC<Props> = ({
           fieldName="billing_address_state_code"
           resource="billingAddress"
           type="text"
-          value={isUsingNewBillingAddress ? billingAddress?.stateCode : ""}
+          value={billingAddress?.stateCode || ""}
         />
         <AddressInputGroup
           fieldName="billing_address_zip_code"
           resource="billingAddress"
           type="text"
-          value={isUsingNewBillingAddress ? billingAddress?.zipCode : ""}
+          value={billingAddress?.zipCode || ""}
         />
       </Grid>
       <AddressInputGroup
         fieldName="billing_address_phone"
         resource="billingAddress"
         type="tel"
-        value={isUsingNewBillingAddress ? billingAddress?.phone : ""}
+        value={billingAddress?.phone || ""}
       />
     </Fragment>
   )
