@@ -6,6 +6,7 @@ import CLayer, {
   ShippingMethod,
 } from "@commercelayer/js-sdk"
 
+import * as gtag from "lib/gtag"
 import { changeLanguage } from "components/data/i18n"
 
 interface FetchOrderByIdProps {
@@ -29,6 +30,14 @@ interface ShipmentSelectedProps {
   shippingMethodId: string | undefined
 }
 
+interface DataLayer {
+  action:
+    | "begin_checkout"
+    | "add_shipping_info"
+    | "add_payment_info"
+    | "purchase"
+}
+
 export interface FetchOrderByIdResponse {
   isGuest: boolean
   isUsingNewBillingAddress: boolean
@@ -45,6 +54,10 @@ export interface FetchOrderByIdResponse {
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
   shippingCountryCodeLock: string
+  eventBeginCheckout: (() => void) | null
+  eventAddShippingInfo: (() => void) | null
+  eventAddPaymentInfo: (() => void) | null
+  eventPurchase: (() => void) | null
 }
 
 async function isNewAddress({
@@ -279,6 +292,47 @@ export const fetchOrderById = async ({
       shippingAddress,
     })
 
+    const listItems = await order.lineItems()?.all()
+    const lineItemsGTM = listItems
+      ?.all()
+      .map(({ name, currencyCode, id, quantity, totalAmountFloat }) => ({
+        item_id: id,
+        item_name: name,
+        price: totalAmountFloat,
+        currency: currencyCode,
+        quantity: quantity,
+      }))
+
+    const pushDataLayer = async ({ action }: DataLayer) => {
+      gtag.event({
+        action: action,
+        params: {
+          coupon: !!order.couponCode,
+          currency: order.currencyCode,
+          items: lineItemsGTM,
+          value: order.totalAmountWithTaxesFloat,
+          // shipping_tier: shipments[0].shippingMethod().name,
+          // payment_type: order.paymentMethod,
+        },
+      })
+    }
+
+    const eventBeginCheckout = async () => {
+      pushDataLayer({ action: "begin_checkout" })
+    }
+
+    const eventAddShippingInfo = async () => {
+      pushDataLayer({ action: "add_shipping_info" })
+    }
+
+    const eventAddPaymentInfo = async () => {
+      pushDataLayer({ action: "add_payment_info" })
+    }
+
+    const eventPurchase = async () => {
+      pushDataLayer({ action: "purchase" })
+    }
+
     console.log("order.shippingAddress :>> ", order.shippingAddress())
     console.log("order.billingAddress :>> ", await order.billingAddress())
     console.log("order.shipments :>> ", shipments)
@@ -287,6 +341,10 @@ export const fetchOrderById = async ({
     changeLanguage(order.languageCode)
 
     return {
+      eventBeginCheckout,
+      eventAddShippingInfo,
+      eventAddPaymentInfo,
+      eventPurchase,
       isGuest,
       hasCustomerAddresses,
       isUsingNewBillingAddress,
@@ -306,6 +364,10 @@ export const fetchOrderById = async ({
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
     return {
+      eventBeginCheckout: null,
+      eventAddShippingInfo: null,
+      eventAddPaymentInfo: null,
+      eventPurchase: null,
       isGuest: false,
       hasCustomerAddresses: false,
       isUsingNewBillingAddress: true,

@@ -47,7 +47,7 @@
         "groups": ["builtin", "external", "parent", "sibling", "index"],
         "pathGroups": [
           {
-            "pattern": "components/**",
+            "pattern": "**",
             "group": "parent",
             "position": "before"
           }

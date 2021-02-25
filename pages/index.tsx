@@ -36,6 +36,10 @@ const Home: NextPage<CheckoutPageContextProps> = ({
     return <SpinnerLoader />
   }
 
+  if (ctx.eventBeginCheckout) {
+    ctx.eventBeginCheckout()
+  }
+
   return (
     <div>
       <Head>

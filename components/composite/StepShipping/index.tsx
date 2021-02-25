@@ -45,7 +45,12 @@ export const StepShipping: React.FC<Props> = ({
     return null
   }
 
-  const { shipments, hasShippingMethod, refetchOrder } = appCtx
+  const {
+    shipments,
+    hasShippingMethod,
+    eventAddShippingInfo,
+    refetchOrder,
+  } = appCtx
 
   const [shipmentsSelected, setShipmentsSelected] = useState(shipments)
   const [canContinue, setCanContinue] = useState(false)
@@ -69,6 +74,9 @@ export const StepShipping: React.FC<Props> = ({
           : shipment
       })
     )
+    if (eventAddShippingInfo) {
+      eventAddShippingInfo()
+    }
   }
 
   return (
