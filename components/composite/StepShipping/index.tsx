@@ -74,9 +74,13 @@ export const StepShipping: React.FC<Props> = ({
           : shipment
       })
     )
+  }
+
+  const handleSave = () => {
     if (eventAddShippingInfo) {
       eventAddShippingInfo()
     }
+    refetchOrder()
   }
 
   return (
@@ -161,7 +165,7 @@ export const StepShipping: React.FC<Props> = ({
               <Button
                 disabled={!canContinue}
                 data-cy="save-shipments-button"
-                onClick={refetchOrder}
+                onClick={handleSave}
               >
                 {t("stepShipping.continueToPayment")}
               </Button>

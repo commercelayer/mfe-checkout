@@ -32,7 +32,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let organization
   try {
     organization = await Organization.all()
-    console.log(organization)
   } catch (e) {
     console.log(`error on retrieving organization: ${e}`)
   }
@@ -59,6 +58,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     favicon:
       organization?.faviconUrl ||
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
+    gtmId: organization?.gtmId?.toString() || "GTM-TGCQ5BM",
   }
   return res.json(appSettings)
 }

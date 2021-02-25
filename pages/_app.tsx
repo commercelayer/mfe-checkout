@@ -95,6 +95,7 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     primaryColor: data.primaryColor,
     contrastColor: data.contrastColor,
     favicon: data.favicon,
+    gtmId: data.gtmId,
   }
 
   return {

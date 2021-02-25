@@ -6,7 +6,8 @@ import CLayer, {
   ShippingMethod,
 } from "@commercelayer/js-sdk"
 
-import * as gtag from "lib/gtag"
+import TagManager from "react-gtm-module"
+
 import { changeLanguage } from "components/data/i18n"
 
 interface FetchOrderByIdProps {
@@ -30,12 +31,13 @@ interface ShipmentSelectedProps {
   shippingMethodId: string | undefined
 }
 
-interface DataLayer {
-  action:
+interface PushDataLayerProps {
+  eventName:
     | "begin_checkout"
     | "add_shipping_info"
     | "add_payment_info"
     | "purchase"
+  dataLayer: object
 }
 
 export interface FetchOrderByIdResponse {
@@ -295,42 +297,66 @@ export const fetchOrderById = async ({
     const listItems = await order.lineItems()?.all()
     const lineItemsGTM = listItems
       ?.all()
-      .map(({ name, currencyCode, id, quantity, totalAmountFloat }) => ({
-        item_id: id,
+      .map(({ name, currencyCode, skuCode, quantity, totalAmountFloat }) => ({
+        item_id: skuCode,
         item_name: name,
         price: totalAmountFloat,
         currency: currencyCode,
         quantity: quantity,
       }))
 
-    const pushDataLayer = async ({ action }: DataLayer) => {
-      gtag.event({
-        action: action,
-        params: {
+    const pushDataLayer = async ({
+      eventName,
+      dataLayer,
+    }: PushDataLayerProps) => {
+      try {
+        TagManager.dataLayer({
+          dataLayer: {
+            event: eventName,
+            ecommerce: dataLayer,
+          },
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const eventBeginCheckout = async () => {
+      pushDataLayer({
+        eventName: "begin_checkout",
+        dataLayer: {
           coupon: !!order.couponCode,
           currency: order.currencyCode,
           items: lineItemsGTM,
           value: order.totalAmountWithTaxesFloat,
-          // shipping_tier: shipments[0].shippingMethod().name,
-          // payment_type: order.paymentMethod,
         },
       })
     }
 
-    const eventBeginCheckout = async () => {
-      pushDataLayer({ action: "begin_checkout" })
-    }
-
     const eventAddShippingInfo = async () => {
-      pushDataLayer({ action: "add_shipping_info" })
+      if (shipments) {
+        shipments.forEach(async (shipment) => {
+          const shippingMethod = await shipment.shippingMethod()
+          pushDataLayer({
+            eventName: "add_shipping_info",
+            dataLayer: {
+              coupon: !!order.couponCode,
+              currency: order.currencyCode,
+              items: lineItemsGTM,
+              value: shippingMethod?.priceAmountForShipmentFloat,
+              shipping_tier: shippingMethod?.name,
+            },
+          })
+        })
+      }
     }
 
     const eventAddPaymentInfo = async () => {
-      pushDataLayer({ action: "add_payment_info" })
+      pushDataLayer({ eventName: "add_payment_info", dataLayer: {} })
     }
 
     const eventPurchase = async () => {
-      pushDataLayer({ action: "purchase" })
+      pushDataLayer({ eventName: "purchase", dataLayer: {} })
     }
 
     console.log("order.shippingAddress :>> ", order.shippingAddress())

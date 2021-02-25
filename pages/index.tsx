@@ -1,7 +1,7 @@
 import { NextPage } from "next"
 import "twin.macro"
 import Head from "next/head"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 
 import { OrderSummary } from "components/composite/OrderSummary"
 import { StepCustomer } from "components/composite/StepCustomer"
@@ -14,6 +14,7 @@ import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
+import TagManager from "react-gtm-module"
 
 const STEPS = ["Customer", "Delivery", "Payment"]
 
@@ -21,9 +22,10 @@ const Home: NextPage<CheckoutPageContextProps> = ({
   logoUrl,
   companyName,
   favicon,
+  gtmId,
 }) => {
   const ctx = useContext(AppContext)
-
+  let num = 0
   const { t } = useTranslation()
   const {
     activeStep,
@@ -32,12 +34,19 @@ const Home: NextPage<CheckoutPageContextProps> = ({
     isLoading,
   } = useActiveStep()
 
+  useEffect(() => {
+    if (gtmId) {
+      TagManager.initialize({
+        gtmId: gtmId,
+      })
+    }
+    if (ctx?.eventBeginCheckout) {
+      ctx?.eventBeginCheckout()
+    }
+  }, [ctx])
+
   if (!ctx || isLoading) {
     return <SpinnerLoader />
-  }
-
-  if (ctx.eventBeginCheckout) {
-    ctx.eventBeginCheckout()
   }
 
   return (
@@ -91,5 +100,4 @@ const Home: NextPage<CheckoutPageContextProps> = ({
     </div>
   )
 }
-
 export default Home

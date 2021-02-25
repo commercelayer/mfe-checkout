@@ -22,6 +22,7 @@ export const handlers = [
         contrastColor: "#ffffff",
         favicon:
           "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
+        gtmId: "GTM-TGCQ5BM",
       })
     )
   }),
