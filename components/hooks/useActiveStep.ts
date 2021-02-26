@@ -14,10 +14,16 @@ export const useActiveStep = (): UseActiveStep => {
   const [activeStep, setActiveStep] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const [lastActivableStep, setLastActivableStep] = useState(0)
+  const [beginCheckout, setBeginCheckout] = useState(true)
 
   useEffect(() => {
     if (ctx) {
       setIsLoading(ctx.isLoading)
+
+      if (beginCheckout && ctx.fireBeginCheckout) {
+        ctx.fireBeginCheckout()
+        setBeginCheckout(false)
+      }
 
       // const canSelectShippingAddress = ctx.hasEmailAddress
       const canSelectShippingMethod = ctx.hasShippingAddress

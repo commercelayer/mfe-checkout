@@ -1,4 +1,5 @@
 import "../styles/globals.css"
+import { useEffect } from "react"
 import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import type { AppProps } from "next/app"
 import { AppContextType } from "next/dist/next-server/lib/utils"
@@ -6,6 +7,8 @@ import { createGlobalStyle, ThemeProvider } from "styled-components"
 
 import { AppProvider } from "components/data/AppProvider"
 import { appWithTranslation } from "components/data/i18n"
+
+import TagManager from "react-gtm-module"
 
 interface GlobalStyleProps {
   primaryColor: string
@@ -27,6 +30,13 @@ if (
 
 function CheckoutApp(props: AppProps) {
   const { Component, pageProps } = props
+
+  useEffect(() => {
+    if (pageProps.gtmId) {
+      console.log("mount gtm")
+      TagManager.initialize({ gtmId: pageProps.gtmId })
+    }
+  }, [])
 
   return pageProps.accessToken && pageProps.orderId ? (
     <CommerceLayer

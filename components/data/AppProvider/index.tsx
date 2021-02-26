@@ -54,16 +54,16 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     setShippingCountryCodeLock,
   ] = useState<string>("")
 
-  const [eventBeginCheckout, setEventBeginCheckout] = useState<
+  const [fireBeginCheckout, setFireBeginCheckout] = useState<
     null | (() => void)
   >(null)
-  const [eventAddShippingInfo, setEventAddShippingInfo] = useState<
+  const [fireAddShippingInfo, setFireAddShippingInfo] = useState<
     null | (() => void)
   >(null)
-  const [eventAddPaymentInfo, setEventAddPaymentInfo] = useState<
+  const [fireAddPaymentInfo, setFireAddPaymentInfo] = useState<
     null | (() => void)
   >(null)
-  const [eventPurchase, setEventPurchase] = useState<null | (() => void)>(null)
+  const [firePurchase, setFirePurchase] = useState<null | (() => void)>(null)
 
   const fetchOrderHandle = (orderId?: string, accessToken?: string) => {
     if (!orderId || !accessToken) {
@@ -87,10 +87,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         hasShippingMethod,
         shipments,
         shippingCountryCodeLock,
-        eventBeginCheckout,
-        eventAddShippingInfo,
-        eventAddPaymentInfo,
-        eventPurchase,
+        fireBeginCheckout,
+        fireAddShippingInfo,
+        fireAddPaymentInfo,
+        firePurchase,
       }) => {
         setIsGuest(isGuest)
         setHasCustomerAddresses(hasCustomerAddresses)
@@ -109,10 +109,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setHasPaymentMethod(hasPaymentMethod)
         setIsLoading(false)
         setShippingCountryCodeLock(shippingCountryCodeLock)
-        setEventBeginCheckout(() => eventBeginCheckout)
-        setEventAddShippingInfo(() => eventAddShippingInfo)
-        setEventAddPaymentInfo(() => eventAddPaymentInfo)
-        setEventPurchase(() => eventPurchase)
+        setFireBeginCheckout(() => fireBeginCheckout)
+        setFireAddShippingInfo(() => fireAddShippingInfo)
+        setFireAddPaymentInfo(() => fireAddPaymentInfo)
+        setFirePurchase(() => firePurchase)
       }
     )
   }
@@ -143,10 +143,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         refetchOrder: () => {
           fetchOrderHandle(orderId, accessToken)
         },
-        eventBeginCheckout,
-        eventAddShippingInfo,
-        eventAddPaymentInfo,
-        eventPurchase,
+        fireBeginCheckout,
+        fireAddShippingInfo,
+        fireAddPaymentInfo,
+        firePurchase,
       }}
     >
       {children}

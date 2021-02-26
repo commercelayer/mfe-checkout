@@ -48,7 +48,7 @@ export const StepShipping: React.FC<Props> = ({
   const {
     shipments,
     hasShippingMethod,
-    eventAddShippingInfo,
+    fireAddShippingInfo,
     refetchOrder,
   } = appCtx
 
@@ -77,8 +77,8 @@ export const StepShipping: React.FC<Props> = ({
   }
 
   const handleSave = () => {
-    if (eventAddShippingInfo) {
-      eventAddShippingInfo()
+    if (fireAddShippingInfo) {
+      fireAddShippingInfo()
     }
     refetchOrder()
   }
