@@ -76,11 +76,9 @@ export const StepShipping: React.FC<Props> = ({
     )
   }
 
-  const handleSave = () => {
-    if (fireAddShippingInfo) {
-      fireAddShippingInfo()
-    }
+  const handleSave = async () => {
     refetchOrder()
+    fireAddShippingInfo && fireAddShippingInfo()
   }
 
   return (

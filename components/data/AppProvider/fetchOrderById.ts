@@ -177,18 +177,35 @@ export const fetchOrderById = async ({
   })
 
   try {
-    const order = await Order.includes(
-      "shipping_address",
-      "billing_address",
-      "shipments",
-      "shipments.shipping_method",
-      "shipments.shipment_line_items",
-      "shipments.shipment_line_items.line_item",
-      "payment_method",
-      "customer",
-      "customer.customer_addresses",
-      "customer.customer_addresses.address"
-    ).find(orderId)
+    const fetchOrder = async () => {
+      return Order.includes(
+        "shipping_address",
+        "billing_address",
+        "shipments",
+        "shipments.shipping_method",
+        "shipments.shipment_line_items",
+        "shipments.shipment_line_items.line_item",
+        "payment_method",
+        "customer",
+        "customer.customer_addresses",
+        "customer.customer_addresses.address"
+      ).find(orderId)
+    }
+
+    let order: OrderCollection = await fetchOrder()
+
+    const fetchShipments = async () => {
+      return (
+        await order
+          .shipments()
+          ?.includes(
+            "shippingMethod",
+            "shipmentLineItems",
+            "shipmentLineItems.lineItem"
+          )
+          .load()
+      )?.toArray()
+    }
 
     const isGuest = Boolean(order.guest)
 
@@ -237,16 +254,7 @@ export const fetchOrderById = async ({
     const emailAddress = order.customerEmail
 
     const shippingMethodsAvailable = (await ShippingMethod.all()).toArray()
-    const shipments = (
-      await order
-        .shipments()
-        ?.includes(
-          "shippingMethod",
-          "shipmentLineItems",
-          "shipmentLineItems.lineItem"
-        )
-        .load()
-    )?.toArray()
+    let shipments = await fetchShipments()
     const shipmentsSelected = shipments?.map((a) => {
       return {
         shipmentId: a.id,
@@ -331,15 +339,15 @@ export const fetchOrderById = async ({
       const lineItemsSkusGTM = listItems
         ?.all()
         .filter((i) => i.itemType === "skus")
-        .map(({ name, currencyCode, id, quantity, totalAmountFloat }) => ({
-          item_id: id,
+        .map(({ name, currencyCode, skuCode, quantity, totalAmountFloat }) => ({
+          item_id: skuCode,
           item_name: name,
           price: totalAmountFloat,
           currency: currencyCode,
           quantity: quantity,
         }))
 
-      /*pushDataLayer({
+      return pushDataLayer({
         eventName: "begin_checkout",
         dataLayer: {
           coupon: !!order.couponCode,
@@ -347,10 +355,14 @@ export const fetchOrderById = async ({
           items: lineItemsSkusGTM,
           value: order.totalAmountWithTaxesFloat,
         },
-      })*/
+      })
     }
 
-    const fireAddShippingInfo = () => {
+    const fireAddShippingInfo = async () => {
+      order = await fetchOrder()
+
+      shipments = await fetchShipments()
+
       if (shipments) {
         shipments.forEach((shipment) => {
           const shipmentLineItems = shipment
@@ -360,7 +372,7 @@ export const fetchOrderById = async ({
               const lineItem = a.lineItem()
               if (lineItem) {
                 return {
-                  item_id: lineItem.id,
+                  item_id: lineItem.skuCode,
                   item_name: lineItem.name,
                   price: lineItem.totalAmountFloat,
                   currency: lineItem.currencyCode,
@@ -369,13 +381,13 @@ export const fetchOrderById = async ({
               }
             })
 
-          pushDataLayer({
+          return pushDataLayer({
             eventName: "add_shipping_info",
             dataLayer: {
               coupon: !!order.couponCode,
               currency: order.currencyCode,
-              items: shipmentLineItems,
-              value: shipment.costAmountFloat,
+              items: { ...shipmentLineItems },
+              value: shipment.shippingMethod()?.priceAmountFloat,
               shipping_tier: shipment.shippingMethod()?.name,
             },
           })
@@ -384,11 +396,11 @@ export const fetchOrderById = async ({
     }
 
     const fireAddPaymentInfo = async () => {
-      pushDataLayer({ eventName: "add_payment_info", dataLayer: {} })
+      return pushDataLayer({ eventName: "add_payment_info", dataLayer: {} })
     }
 
     const firePurchase = async () => {
-      pushDataLayer({ eventName: "purchase", dataLayer: {} })
+      return pushDataLayer({ eventName: "purchase", dataLayer: {} })
     }
 
     console.log("order.shippingAddress :>> ", order.shippingAddress())
