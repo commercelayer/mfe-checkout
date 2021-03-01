@@ -6,9 +6,8 @@ import { AppContextType } from "next/dist/next-server/lib/utils"
 import { createGlobalStyle, ThemeProvider } from "styled-components"
 
 import { AppProvider } from "components/data/AppProvider"
+import { GTMProvider } from "components/data/GTMProvider"
 import { appWithTranslation } from "components/data/i18n"
-
-import TagManager from "react-gtm-module"
 
 interface GlobalStyleProps {
   primaryColor: string
@@ -30,13 +29,6 @@ if (
 
 function CheckoutApp(props: AppProps) {
   const { Component, pageProps } = props
-
-  useEffect(() => {
-    if (pageProps.gtmId) {
-      console.log("mount gtm")
-      TagManager.initialize({ gtmId: pageProps.gtmId })
-    }
-  }, [])
 
   return pageProps.accessToken && pageProps.orderId ? (
     <CommerceLayer
@@ -60,7 +52,9 @@ function CheckoutApp(props: AppProps) {
             orderId={pageProps.orderId}
             accessToken={pageProps.accessToken}
           >
-            <Component {...pageProps} />
+            <GTMProvider gtmId={pageProps.gtmId}>
+              <Component {...pageProps} />
+            </GTMProvider>
           </AppProvider>
         </ThemeProvider>
       </OrderContainer>
