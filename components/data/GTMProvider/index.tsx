@@ -39,6 +39,15 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     return <>{children}</>
   }
 
+  // pick accessToken and orderId from AppProvider
+
+  useEffect(() => {
+    if (gtmId) {
+      console.log("mount gtm")
+      TagManager.initialize({ gtmId: gtmId })
+    }
+  }, [])
+
   // 
   
   const fetchOrder = async () => {
