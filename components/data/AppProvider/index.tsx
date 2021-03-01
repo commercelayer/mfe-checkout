@@ -1,11 +1,22 @@
-import { AddressCollection } from "@commercelayer/js-sdk"
+import {
+  AddressCollection,
+  OrderCollection,
+  ShipmentCollection,
+} from "@commercelayer/js-sdk"
 import { createContext, useState, useEffect } from "react"
 
-import { fetchOrderById, FetchOrderByIdResponse } from "./fetchOrderById"
+import {
+  fetchOrderById,
+  FetchOrderByIdResponse,
+  LineItemsDataLayerProps,
+  ShipmentSelectedProps,
+} from "./fetchOrderById"
 
-interface AppProviderData extends FetchOrderByIdResponse {
+import { fireGTM, GTMFireResponse } from "./fireGTM"
+
+interface AppProviderData extends FetchOrderByIdResponse, GTMFireResponse {
   isLoading: boolean
-  refetchOrder: () => void
+  refetchOrder: () => Promise<void>
 }
 
 export const AppContext = createContext<AppProviderData | null>(null)
@@ -13,11 +24,6 @@ export const AppContext = createContext<AppProviderData | null>(null)
 interface AppProviderProps {
   orderId?: string
   accessToken?: string
-}
-
-interface ShipmentSelectedProps {
-  shipmentId: string
-  shippingMethodId: string | undefined
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({
@@ -47,30 +53,34 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     setShippingAddress,
   ] = useState<AddressCollection | null>(null)
   const [hasShippingMethod, setHasShippingMethod] = useState(false)
-  const [shipments, setShipments] = useState<ShipmentSelectedProps[]>([])
+  const [shipments, setShipments] = useState<ShipmentCollection[] | undefined>(
+    []
+  )
+  const [shipmentsSelected, setShipmentsSelected] = useState<
+    ShipmentSelectedProps[] | undefined
+  >([])
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
   const [
     shippingCountryCodeLock,
     setShippingCountryCodeLock,
   ] = useState<string>("")
+  const [lineItems, setLineItems] = useState<
+    LineItemsDataLayerProps[] | undefined
+  >([])
+  const [order, setOrder] = useState<OrderCollection | undefined>(undefined)
 
-  const [fireBeginCheckout, setFireBeginCheckout] = useState<
-    null | (() => void)
-  >(null)
-  const [fireAddShippingInfo, setFireAddShippingInfo] = useState<
-    null | (() => void)
-  >(null)
-  const [fireAddPaymentInfo, setFireAddPaymentInfo] = useState<
-    null | (() => void)
-  >(null)
-  const [firePurchase, setFirePurchase] = useState<null | (() => void)>(null)
+  let GTM = fireGTM({
+    lineItems,
+    shipments,
+    order,
+  })
 
-  const fetchOrderHandle = (orderId?: string, accessToken?: string) => {
+  const fetchOrderHandle = async (orderId?: string, accessToken?: string) => {
     if (!orderId || !accessToken) {
       return
     }
     setIsLoading(true)
-    fetchOrderById({ orderId, accessToken }).then(
+    return await fetchOrderById({ orderId, accessToken }).then(
       ({
         isGuest,
         hasCustomerAddresses,
@@ -86,11 +96,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         hasPaymentMethod,
         hasShippingMethod,
         shipments,
+        shipmentsSelected,
         shippingCountryCodeLock,
-        fireBeginCheckout,
-        fireAddShippingInfo,
-        fireAddPaymentInfo,
-        firePurchase,
+        lineItems,
+        order,
       }) => {
         setIsGuest(isGuest)
         setHasCustomerAddresses(hasCustomerAddresses)
@@ -106,13 +115,18 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setShippingAddress(shippingAddress)
         setHasShippingMethod(hasShippingMethod)
         setShipments(shipments)
+        setShipmentsSelected(shipmentsSelected)
         setHasPaymentMethod(hasPaymentMethod)
         setIsLoading(false)
         setShippingCountryCodeLock(shippingCountryCodeLock)
-        setFireBeginCheckout(() => fireBeginCheckout)
-        setFireAddShippingInfo(() => fireAddShippingInfo)
-        setFireAddPaymentInfo(() => fireAddPaymentInfo)
-        setFirePurchase(() => firePurchase)
+        setLineItems(lineItems)
+        setOrder(order)
+        GTM = fireGTM({
+          lineItems,
+          shipments,
+          order,
+        })
+        return
       }
     )
   }
@@ -138,15 +152,18 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         shippingAddress,
         hasShippingMethod,
         shipments,
+        shipmentsSelected,
         hasPaymentMethod,
         shippingCountryCodeLock,
-        refetchOrder: () => {
-          fetchOrderHandle(orderId, accessToken)
+        lineItems,
+        order,
+        fireBeginCheckout: () => GTM.fireBeginCheckout(),
+        fireAddShippingInfo: () => GTM.fireAddShippingInfo(),
+        fireAddPaymentInfo: () => GTM.fireAddPaymentInfo(),
+        firePurchase: () => GTM.firePurchase(),
+        refetchOrder: async () => {
+          return await fetchOrderHandle(orderId, accessToken)
         },
-        fireBeginCheckout,
-        fireAddShippingInfo,
-        fireAddPaymentInfo,
-        firePurchase,
       }}
     >
       {children}

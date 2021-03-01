@@ -4,9 +4,8 @@ import CLayer, {
   OrderCollection,
   CustomerAddressCollection,
   ShippingMethod,
+  ShipmentCollection,
 } from "@commercelayer/js-sdk"
-
-import TagManager from "react-gtm-module"
 
 import { changeLanguage } from "components/data/i18n"
 
@@ -26,18 +25,17 @@ interface CheckAndSetDefaultAddressForOrderProps {
   customerAddresses: Array<CustomerAddressCollection>
 }
 
-interface ShipmentSelectedProps {
+export interface ShipmentSelectedProps {
   shipmentId: string
   shippingMethodId: string | undefined
 }
 
-interface PushDataLayerProps {
-  eventName:
-    | "begin_checkout"
-    | "add_shipping_info"
-    | "add_payment_info"
-    | "purchase"
-  dataLayer: object
+export interface LineItemsDataLayerProps {
+  item_id: string
+  item_name: string
+  price: number
+  currency: string
+  quantity: number
 }
 
 export interface FetchOrderByIdResponse {
@@ -52,14 +50,13 @@ export interface FetchOrderByIdResponse {
   hasBillingAddress: boolean
   billingAddress: AddressCollection | null
   hasShippingMethod: boolean
-  shipments: Array<ShipmentSelectedProps>
+  shipments: ShipmentCollection[] | undefined
+  shipmentsSelected?: Array<ShipmentSelectedProps> | undefined
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
   shippingCountryCodeLock: string
-  fireBeginCheckout: (() => void) | null
-  fireAddShippingInfo: (() => void) | null
-  fireAddPaymentInfo: (() => void) | null
-  firePurchase: (() => void) | null
+  lineItems?: Array<LineItemsDataLayerProps>
+  order?: OrderCollection | undefined
 }
 
 async function isNewAddress({
@@ -183,8 +180,6 @@ export const fetchOrderById = async ({
         "billing_address",
         "shipments",
         "shipments.shipping_method",
-        "shipments.shipment_line_items",
-        "shipments.shipment_line_items.line_item",
         "payment_method",
         "customer",
         "customer.customer_addresses",
@@ -199,9 +194,9 @@ export const fetchOrderById = async ({
         await order
           .shipments()
           ?.includes(
-            "shippingMethod",
-            "shipmentLineItems",
-            "shipmentLineItems.lineItem"
+            "shipping_method",
+            "shipment_line_items",
+            "shipment_line_items.line_item"
           )
           .load()
       )?.toArray()
@@ -311,110 +306,26 @@ export const fetchOrderById = async ({
       shippingAddress,
     })
 
-    const listItems = await order.lineItems()?.all()
-
-    const pushDataLayer = async ({
-      eventName,
-      dataLayer,
-    }: PushDataLayerProps) => {
-      try {
-        TagManager.dataLayer({
-          dataLayer: {
-            event: eventName,
-            ecommerce: dataLayer,
-          },
-        })
-        console.log({
-          dataLayer: {
-            event: eventName,
-            ecommerce: dataLayer,
-          },
-        })
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    const fireBeginCheckout = async () => {
-      const lineItemsSkusGTM = listItems
-        ?.all()
-        .filter((i) => i.itemType === "skus")
-        .map(({ name, currencyCode, skuCode, quantity, totalAmountFloat }) => ({
-          item_id: skuCode,
-          item_name: name,
-          price: totalAmountFloat,
-          currency: currencyCode,
-          quantity: quantity,
-        }))
-
-      return pushDataLayer({
-        eventName: "begin_checkout",
-        dataLayer: {
-          coupon: !!order.couponCode,
-          currency: order.currencyCode,
-          items: lineItemsSkusGTM,
-          value: order.totalAmountWithTaxesFloat,
-        },
-      })
-    }
-
-    const fireAddShippingInfo = async () => {
-      order = await fetchOrder()
-
-      shipments = await fetchShipments()
-
-      if (shipments) {
-        shipments.forEach((shipment) => {
-          const shipmentLineItems = shipment
-            .shipmentLineItems()
-            ?.toArray()
-            .map((a) => {
-              const lineItem = a.lineItem()
-              if (lineItem) {
-                return {
-                  item_id: lineItem.skuCode,
-                  item_name: lineItem.name,
-                  price: lineItem.totalAmountFloat,
-                  currency: lineItem.currencyCode,
-                  quantity: lineItem.quantity,
-                }
-              }
-            })
-
-          return pushDataLayer({
-            eventName: "add_shipping_info",
-            dataLayer: {
-              coupon: !!order.couponCode,
-              currency: order.currencyCode,
-              items: { ...shipmentLineItems },
-              value: shipment.shippingMethod()?.priceAmountFloat,
-              shipping_tier: shipment.shippingMethod()?.name,
-            },
-          })
-        })
-      }
-    }
-
-    const fireAddPaymentInfo = async () => {
-      return pushDataLayer({ eventName: "add_payment_info", dataLayer: {} })
-    }
-
-    const firePurchase = async () => {
-      return pushDataLayer({ eventName: "purchase", dataLayer: {} })
-    }
+    const lineItemsAll = await order.lineItems()?.all()
+    const lineItems = lineItemsAll
+      ?.all()
+      .filter((i) => i.itemType === "skus")
+      .map(({ name, currencyCode, skuCode, quantity, totalAmountFloat }) => ({
+        item_id: skuCode,
+        item_name: name,
+        price: totalAmountFloat,
+        currency: currencyCode,
+        quantity: quantity,
+      }))
 
     console.log("order.shippingAddress :>> ", order.shippingAddress())
     console.log("order.billingAddress :>> ", await order.billingAddress())
     console.log("order.shipments :>> ", shipments)
     console.log("order.paymentMethod :>> ", await order.paymentMethod())
 
-    changeLanguage(order.languageCode)
+    await changeLanguage(order.languageCode)
 
     return {
-      fireBeginCheckout,
-      fireAddShippingInfo,
-      fireAddPaymentInfo,
-      firePurchase,
       isGuest,
       hasCustomerAddresses,
       isUsingNewBillingAddress,
@@ -427,17 +338,16 @@ export const fetchOrderById = async ({
       hasBillingAddress,
       billingAddress,
       hasShippingMethod,
-      shipments: (shipmentsSelected as unknown) as ShipmentSelectedProps[],
+      shipments,
+      shipmentsSelected,
       hasPaymentMethod,
       shippingCountryCodeLock,
+      lineItems,
+      order,
     }
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
     return {
-      fireBeginCheckout: null,
-      fireAddShippingInfo: null,
-      fireAddPaymentInfo: null,
-      firePurchase: null,
       isGuest: false,
       hasCustomerAddresses: false,
       isUsingNewBillingAddress: true,
@@ -451,8 +361,11 @@ export const fetchOrderById = async ({
       billingAddress: null,
       hasShippingMethod: false,
       shipments: [],
+      shipmentsSelected: [],
       hasPaymentMethod: false,
       shippingCountryCodeLock: "",
+      lineItems: [],
+      order: undefined,
     }
   }
 }

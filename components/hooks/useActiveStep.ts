@@ -20,7 +20,13 @@ export const useActiveStep = (): UseActiveStep => {
     if (ctx) {
       setIsLoading(ctx.isLoading)
 
-      if (beginCheckout && ctx.fireBeginCheckout) {
+      if (
+        beginCheckout &&
+        ctx?.lineItems &&
+        ctx.lineItems.length > 0 &&
+        ctx.fireBeginCheckout &&
+        ctx.order
+      ) {
         ctx.fireBeginCheckout()
         setBeginCheckout(false)
       }

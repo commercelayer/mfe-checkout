@@ -46,26 +46,28 @@ export const StepShipping: React.FC<Props> = ({
   }
 
   const {
-    shipments,
+    shipmentsSelected,
     hasShippingMethod,
     fireAddShippingInfo,
     refetchOrder,
   } = appCtx
 
-  const [shipmentsSelected, setShipmentsSelected] = useState(shipments)
+  const [shipmentsSelectedNow, setShipmentsSelectedNow] = useState(
+    shipmentsSelected
+  )
   const [canContinue, setCanContinue] = useState(false)
 
   useEffect(() => {
     setCanContinue(
-      !shipmentsSelected.map((s) => s.shippingMethodId).includes(undefined)
+      !shipmentsSelectedNow?.map((s) => s.shippingMethodId).includes(undefined)
     )
   }, [shipmentsSelected])
 
   const handleChange = (
     shippingMethod: ShippingMethodCollection | Record<string, any>
   ): void => {
-    setShipmentsSelected((shipmentsSelected) =>
-      shipmentsSelected.map((shipment) => {
+    setShipmentsSelectedNow((shipmentsSelectedNow) =>
+      shipmentsSelectedNow?.map((shipment) => {
         return shipment.shipmentId === shippingMethod.shipmentId
           ? {
               ...shipment,
@@ -77,8 +79,10 @@ export const StepShipping: React.FC<Props> = ({
   }
 
   const handleSave = async () => {
-    refetchOrder()
-    fireAddShippingInfo && fireAddShippingInfo()
+    await refetchOrder()
+    if (fireAddShippingInfo) {
+      fireAddShippingInfo()
+    }
   }
 
   return (
