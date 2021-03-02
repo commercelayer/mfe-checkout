@@ -57,13 +57,13 @@ export const StepShipping: React.FC<Props> = ({
     setCanContinue(
       !shipmentsSelected?.map((s) => s.shippingMethodId).includes(undefined)
     )
-  }, [shipments])
+  }, [shipmentsSelected])
 
   const handleChange = (
     shippingMethod: ShippingMethodCollection | Record<string, any>
   ): void => {
-    setShipmentsSelected((shipmentsSelectedNow) =>
-      shipmentsSelectedNow?.map((shipment) => {
+    setShipmentsSelected((shipmentsSelected) =>
+      shipmentsSelected?.map((shipment) => {
         return shipment.shipmentId === shippingMethod.shipmentId
           ? {
               ...shipment,
