@@ -4,7 +4,6 @@ import CLayer, {
   OrderCollection,
   CustomerAddressCollection,
   ShippingMethod,
-  ShipmentCollection,
 } from "@commercelayer/js-sdk"
 
 import { changeLanguage } from "components/data/i18n"
@@ -50,13 +49,10 @@ export interface FetchOrderByIdResponse {
   hasBillingAddress: boolean
   billingAddress: AddressCollection | null
   hasShippingMethod: boolean
-  shipments: ShipmentCollection[] | undefined
-  shipmentsSelected?: Array<ShipmentSelectedProps> | undefined
+  shipments: Array<ShipmentSelectedProps>
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
   shippingCountryCodeLock: string
-  lineItems?: Array<LineItemsDataLayerProps>
-  order?: OrderCollection | undefined
 }
 
 async function isNewAddress({
@@ -191,14 +187,7 @@ export const fetchOrderById = async ({
 
     const fetchShipments = async () => {
       return (
-        await order
-          .shipments()
-          ?.includes(
-            "shipping_method",
-            "shipment_line_items",
-            "shipment_line_items.line_item"
-          )
-          .load()
+        await order.shipments()?.includes("shipping_method").load()
       )?.toArray()
     }
 
@@ -306,18 +295,6 @@ export const fetchOrderById = async ({
       shippingAddress,
     })
 
-    const lineItemsAll = await order.lineItems()?.all()
-    const lineItems = lineItemsAll
-      ?.all()
-      .filter((i) => i.itemType === "skus")
-      .map(({ name, currencyCode, skuCode, quantity, totalAmountFloat }) => ({
-        item_id: skuCode,
-        item_name: name,
-        price: totalAmountFloat,
-        currency: currencyCode,
-        quantity: quantity,
-      }))
-
     console.log("order.shippingAddress :>> ", order.shippingAddress())
     console.log("order.billingAddress :>> ", await order.billingAddress())
     console.log("order.shipments :>> ", shipments)
@@ -338,12 +315,9 @@ export const fetchOrderById = async ({
       hasBillingAddress,
       billingAddress,
       hasShippingMethod,
-      shipments,
-      shipmentsSelected,
+      shipments: (shipmentsSelected as unknown) as ShipmentSelectedProps[],
       hasPaymentMethod,
       shippingCountryCodeLock,
-      lineItems,
-      order,
     }
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
@@ -361,11 +335,8 @@ export const fetchOrderById = async ({
       billingAddress: null,
       hasShippingMethod: false,
       shipments: [],
-      shipmentsSelected: [],
       hasPaymentMethod: false,
       shippingCountryCodeLock: "",
-      lineItems: [],
-      order: undefined,
     }
   }
 }
