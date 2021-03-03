@@ -76,7 +76,7 @@ export const StepShipping: React.FC<Props> = ({
 
   const handleSave = async () => {
     await refetchOrder()
-    if (gtmCtx && gtmCtx?.fireAddShippingInfo) {
+    if (gtmCtx?.fireAddShippingInfo) {
       gtmCtx.fireAddShippingInfo()
     }
   }
