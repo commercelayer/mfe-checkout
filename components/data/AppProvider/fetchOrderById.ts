@@ -4,6 +4,7 @@ import CLayer, {
   OrderCollection,
   CustomerAddressCollection,
   ShippingMethod,
+  PaymentMethodCollection,
 } from "@commercelayer/js-sdk"
 
 import { changeLanguage } from "components/data/i18n"
@@ -50,6 +51,7 @@ export interface FetchOrderByIdResponse {
   billingAddress: AddressCollection | null
   hasShippingMethod: boolean
   shipments: Array<ShipmentSelectedProps>
+  paymentMethod: PaymentMethodCollection | null
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
   shippingCountryCodeLock: string
@@ -177,6 +179,7 @@ export const fetchOrderById = async ({
         "shipments",
         "shipments.shipping_method",
         "payment_method",
+        "payment_source",
         "customer",
         "customer.customer_addresses",
         "customer.customer_addresses.address"
@@ -277,7 +280,8 @@ export const fetchOrderById = async ({
       }
     }
 
-    const hasPaymentMethod = false // Boolean(await order.paymentMethod())
+    const paymentMethod = order.paymentMethod()
+    const hasPaymentMethod = Boolean(paymentMethod)
 
     const isUsingNewBillingAddress = await isNewAddress({
       address: billingAddress,
@@ -316,6 +320,7 @@ export const fetchOrderById = async ({
       billingAddress,
       hasShippingMethod,
       shipments: (shipmentsSelected as unknown) as ShipmentSelectedProps[],
+      paymentMethod,
       hasPaymentMethod,
       shippingCountryCodeLock,
     }
@@ -335,6 +340,7 @@ export const fetchOrderById = async ({
       billingAddress: null,
       hasShippingMethod: false,
       shipments: [],
+      paymentMethod: null,
       hasPaymentMethod: false,
       shippingCountryCodeLock: "",
     }

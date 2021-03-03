@@ -15,8 +15,6 @@ import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
-const STEPS = ["Customer", "Delivery", "Payment"]
-
 const Home: NextPage<CheckoutPageContextProps> = ({
   logoUrl,
   companyName,
@@ -25,6 +23,12 @@ const Home: NextPage<CheckoutPageContextProps> = ({
   const ctx = useContext(AppContext)
 
   const { t } = useTranslation()
+
+  const STEPS = [
+    t("stepCustomer.customer"),
+    t("stepShipping.delivery"),
+    t("stepPayment.payment"),
+  ]
 
   const {
     activeStep,

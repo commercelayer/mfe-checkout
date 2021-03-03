@@ -227,14 +227,6 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-sdk@^3.3.2":
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.3.2.tgz#b38adc816fd1f03dd01c92e6dfcb2657a86d6ed7"
-  integrity sha512-/egbtpB/FHejjvARzHQoeJDqG+fJVkUazmWQMfFgKQr/nUMRUsxto1gQddN8xpyvNbWRbXROz6aq86jpuAGiFw==
-  dependencies:
-    active-resource "^1.0.0-beta.7"
-    lodash "^4.17.20"
-
 "@commercelayer/js-sdk@^3.3.4":
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.3.4.tgz#a5bf797582ac7b1fbb05668d3d10ee1c496da356"
@@ -244,13 +236,15 @@
     axios "^0.19.0"
     lodash "^4.17.20"
 
-"@commercelayer/react-components@^2.5.2":
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.5.2.tgz#56bc79644549c4f60fef093f1ae3175ccef0697a"
-  integrity sha512-0lIsYhHyVUywd/um+EvW6lqlXz+ykgD1OV6v3HusR5ajBmf7Qe3I9h3ctWOCHJRYwbD8t2lcFUPiGJUw8pbpZw==
+"@commercelayer/react-components@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.6.0.tgz#168cb1d69ad8877f82bedf6d38bfb88b23989c9c"
+  integrity sha512-sjl/TGrPJSefho+vAH8+CrN6MY4rFPFIM1IgPSvHJhLQtj7Pl/82d9nqXSO/6hGsRj6ukmAh3omzr5zwShGkkA==
   dependencies:
-    "@commercelayer/js-sdk" "^3.3.2"
-    lodash "^4.17.20"
+    "@commercelayer/js-sdk" "^3.3.4"
+    "@stripe/react-stripe-js" "^1.3.0"
+    "@stripe/stripe-js" "^1.13.1"
+    lodash "^4.17.21"
     rapid-form "^1.4.1"
 
 "@cypress/listr-verbose-renderer@^0.4.1":
@@ -464,6 +458,18 @@
   integrity sha512-c/qwwcHyafOQuVQJj0IlBjf5yYgBI7YPJ77k4fOJYesb41jio65eaJODRUmfYKhTOFBrIZ66kgvGPlNbjuoRdQ==
   dependencies:
     any-observable "^0.3.0"
+
+"@stripe/react-stripe-js@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.3.0.tgz#98089ba2556f74ed9ca10197b3145cf5c6134d44"
+  integrity sha512-880MjCEEcU4sQNNJxawjFhLrGUbnV/jHbfZsrL7nAUpKZRBtoSPw7DFlEYRt1v0NimtxCkMmCFUSGxRynn990A==
+  dependencies:
+    prop-types "^15.7.2"
+
+"@stripe/stripe-js@^1.13.1":
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.13.1.tgz#71384666dbd575f154bcdf923f5aa0f7be22d31c"
+  integrity sha512-mmW+38/RJiWP0B7jmekL+MTDpkDMi34ygZ3j0NIoGa/h6eAXlGDA4lOqqg6aMH9Jd2RzDUndKxvSPPQnFnpdqw==
 
 "@stylelint/postcss-css-in-js@^0.37.2":
   version "0.37.2"
@@ -3749,7 +3755,7 @@ lodash.toarray@^4.4.0:
   resolved "https://registry.yarnpkg.com/lodash.toarray/-/lodash.toarray-4.4.0.tgz#24c4bfcd6b2fba38bfd0594db1179d8e9b656561"
   integrity sha1-JMS/zWsvuji/0FlNsRedjptlZWE=
 
-lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20:
+lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==

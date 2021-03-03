@@ -10,7 +10,8 @@
         "edit": "Modifica",
         "delete": "Elimina",
         "done": "Fatto",
-        "free" : "Gratis"
+        "free" : "Gratis",
+        "complete": "Completo"
     },
 
     "input":{
@@ -49,10 +50,11 @@
     },
 
     "stepPayment": {
-        "title": "Pagamento",
+        "payment": "Pagamento",
         "summary": "Riepilogo del pagamento",
         "paymentMethod": "Hai impostato un metodo di pagamento",
-        "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento"        
+        "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento",
+        "setPaymentMethod": "Imposta il metodo di pagamento"
     },
 
     "addressForm" : {

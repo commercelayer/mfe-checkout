@@ -10,7 +10,8 @@
         "edit": "Edit",
         "delete": "Delete",
         "done": "Done",
-        "free" : "Free"
+        "free" : "Free",
+        "complete": "Complete"
     },
 
     "input":{
@@ -49,10 +50,11 @@
     },
 
     "stepPayment": {
-        "title": "Payment",
+        "payment": "Payment",
         "summary": "Payment summary",
         "paymentMethod": "You have a payment method set",
-        "addPaymentMethod": "Add shipping method before payment"        
+        "addPaymentMethod": "Add shipping method before payment",
+        "setPaymentMethod": "Set payment method"
     },
 
     "addressForm" : {

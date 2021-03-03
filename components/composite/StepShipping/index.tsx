@@ -18,8 +18,7 @@ import {
 import { faTruckLoading } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState, useEffect } from "react"
-import styled from "styled-components"
-import tw from "twin.macro"
+import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
 import { useTranslation, Trans } from "components/data/i18n"
@@ -27,6 +26,7 @@ import { Button } from "components/ui/Button"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { GTMContext } from "components/data/GTMProvider"
+import { Icon } from "components/ui/Icon"
 
 interface Props {
   className?: string
@@ -203,7 +203,3 @@ export const StepShipping: React.FC<Props> = ({
     </div>
   )
 }
-
-const Icon = styled.div`
-  ${tw`w-7 text-gray-600 pt-0.5`}
-`
