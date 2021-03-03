@@ -1,5 +1,4 @@
 import CLayer, { LineItemCollection, Order } from "@commercelayer/js-sdk"
-import { SingleRelationship } from "@commercelayer/js-sdk/dist/typings/Library"
 import { createContext, useEffect } from "react"
 
 import TagManager from "react-gtm-module"
