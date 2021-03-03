@@ -81,26 +81,20 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     }
   }
 
-  const mapItems = (
-    items:
-      | LineItemCollection[]
-      | SingleRelationship<LineItemCollection>[]
-      | undefined
-  ) => {
-    if (!items) {
-      return
+  const mapItemsToGTM = ({
+    name,
+    currencyCode,
+    skuCode,
+    quantity,
+    totalAmountFloat,
+  }: LineItemCollection) => {
+    return {
+      item_id: skuCode,
+      item_name: name,
+      price: totalAmountFloat,
+      currency: currencyCode,
+      quantity: quantity,
     }
-
-    const lineItems = items as LineItemsDataLayerProps[]
-    return lineItems.map(
-      ({ name, currencyCode, skuCode, quantity, totalAmountFloat }) => ({
-        item_id: skuCode,
-        item_name: name,
-        price: totalAmountFloat,
-        currency: currencyCode,
-        quantity: quantity,
-      })
-    )
   }
 
   const fireBeginCheckout = async () => {
@@ -122,7 +116,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       dataLayer: {
         coupon: order?.couponCode,
         currency: order?.currencyCode,
-        items: lineItems && mapItems(lineItems?.toArray()),
+        items: lineItems?.toArray().map(mapItemsToGTM),
         value: order?.totalAmountWithTaxesFloat,
       },
     })
@@ -142,12 +136,12 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
           .load()
       )?.toArray() || []
 
-    shipments.forEach((shipment) => {
-      const shipmentLineItems = shipment.shipmentLineItems()?.toArray()
-
-      const lineItems = mapItems(
-        shipmentLineItems?.map((item) => item.lineItem())
-      )
+    shipments.forEach(async (shipment) => {
+      const lineItems = shipment
+        .shipmentLineItems()
+        ?.toArray()
+        ?.map((item) => item?.lineItem())
+        .map((e) => e && mapItemsToGTM)
 
       return pushDataLayer({
         eventName: "add_shipping_info",
@@ -169,7 +163,6 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   return (
     <GTMContext.Provider
       value={{
-        fireBeginCheckout,
         fireAddShippingInfo,
         fireAddPaymentInfo,
         firePurchase,

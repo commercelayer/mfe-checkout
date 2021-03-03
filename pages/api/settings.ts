@@ -53,7 +53,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
     companyName: organization?.name || "Test company",
     language: order.languageCode,
-    primaryColor: organization?.primaryColor || "#3b82f6",
+    primaryColor: organization?.primaryColor || "#000000",
     contrastColor: organization?.contrastColor || "#ffffff",
     favicon:
       organization?.faviconUrl ||
