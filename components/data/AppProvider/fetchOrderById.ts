@@ -25,19 +25,6 @@ interface CheckAndSetDefaultAddressForOrderProps {
   customerAddresses: Array<CustomerAddressCollection>
 }
 
-export interface ShipmentSelectedProps {
-  shipmentId: string
-  shippingMethodId: string | undefined
-}
-
-export interface LineItemsDataLayerProps {
-  item_id: string
-  item_name: string
-  price: number
-  currency: string
-  quantity: number
-}
-
 export interface FetchOrderByIdResponse {
   isGuest: boolean
   isUsingNewBillingAddress: boolean
@@ -50,8 +37,8 @@ export interface FetchOrderByIdResponse {
   hasBillingAddress: boolean
   billingAddress: AddressCollection | null
   hasShippingMethod: boolean
-  shipments: Array<ShipmentSelectedProps>
   paymentMethod: PaymentMethodCollection | null
+  shipments: Array<ShipmentSelected>
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
   shippingCountryCodeLock: string
@@ -250,7 +237,7 @@ export const fetchOrderById = async ({
     })
 
     const shippingMethods = shipmentsSelected?.map(
-      (a: ShipmentSelectedProps) => a.shippingMethodId
+      (a: ShipmentSelected) => a.shippingMethodId
     )
 
     let hasShippingMethod = Boolean(!shippingMethods?.includes(undefined))
@@ -319,8 +306,8 @@ export const fetchOrderById = async ({
       hasBillingAddress,
       billingAddress,
       hasShippingMethod,
-      shipments: (shipmentsSelected as unknown) as ShipmentSelectedProps[],
       paymentMethod,
+      shipments: (shipmentsSelected as unknown) as ShipmentSelected[],
       hasPaymentMethod,
       shippingCountryCodeLock,
     }

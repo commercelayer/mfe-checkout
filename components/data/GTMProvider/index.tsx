@@ -25,15 +25,6 @@ interface PushDataLayerProps {
   dataLayer: object
 }
 
-export interface LineItemsDataLayerProps {
-  skuCode: string
-  name: string
-  totalAmountFloat: number
-  currencyCode: string
-  quantity: number
-  id: string
-}
-
 export const GTMProvider: React.FC<GTMProviderProps> = ({
   children,
   gtmId,
@@ -46,7 +37,6 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
 
   useEffect(() => {
     if (gtmId) {
-      console.log("mount gtm")
       TagManager.initialize({ gtmId: gtmId })
       fireBeginCheckout()
     }

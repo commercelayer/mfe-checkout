@@ -1,5 +1,4 @@
 import "../styles/globals.css"
-import { useEffect } from "react"
 import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import type { AppProps } from "next/app"
 import { AppContextType } from "next/dist/next-server/lib/utils"
