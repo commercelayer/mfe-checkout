@@ -4,10 +4,9 @@ import { createContext, useEffect } from "react"
 import TagManager from "react-gtm-module"
 
 interface GTMProviderData {
-  fireBeginCheckout?: () => void
-  fireAddShippingInfo?: () => void
-  fireAddPaymentInfo?: () => void
-  firePurchase?: () => void
+  fireAddShippingInfo: () => void
+  fireAddPaymentInfo: () => void
+  firePurchase: () => void
 }
 
 export const GTMContext = createContext<GTMProviderData | null>(null)
