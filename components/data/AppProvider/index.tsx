@@ -1,11 +1,7 @@
 import { AddressCollection } from "@commercelayer/js-sdk"
 import { createContext, useState, useEffect } from "react"
 
-import {
-  fetchOrderById,
-  FetchOrderByIdResponse,
-  ShipmentSelectedProps,
-} from "./fetchOrderById"
+import { fetchOrderById, FetchOrderByIdResponse } from "./fetchOrderById"
 
 interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
@@ -46,7 +42,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     setShippingAddress,
   ] = useState<AddressCollection | null>(null)
   const [hasShippingMethod, setHasShippingMethod] = useState(false)
-  const [shipments, setShipments] = useState<ShipmentSelectedProps[]>([])
+  const [shipments, setShipments] = useState<ShipmentSelected[]>([])
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
   const [
     shippingCountryCodeLock,
