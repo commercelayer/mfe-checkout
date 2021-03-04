@@ -53,6 +53,7 @@
         "payment": "Pagamento",
         "summary": "Riepilogo del pagamento",
         "paymentMethod": "Hai impostato un metodo di pagamento",
+        "creditCard": "Carta di credito",
         "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento",
         "setPaymentMethod": "Imposta il metodo di pagamento"
     },

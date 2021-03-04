@@ -44,6 +44,7 @@
         "delivery": "Delivery",
         "summary": "Shipment summary and delivery methods",
         "shippingMethodSelected": "You have a shipping method set",
+        "creditCard": "Credit card",
         "addShippingMethod": "Add customer data before shipping",
         "deliveryLeadTime" : "<0/> - <1/> days",
         "continueToPayment": "Continue to payment"
