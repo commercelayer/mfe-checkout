@@ -153,7 +153,7 @@ export const fetchOrderById = async ({
 }: FetchOrderByIdProps): Promise<FetchOrderByIdResponse> => {
   CLayer.init({
     accessToken: accessToken,
-    endpoint: `${process.env.NEXT_PUBLIC_API_DOMAIN}`,
+    endpoint: `${process.env.NEXT_CLAYER_DOMAIN}`,
   })
 
   try {
