@@ -44,7 +44,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   const fetchOrder = async () => {
     CLayer.init({
       accessToken: accessToken,
-      endpoint: `${process.env.NEXT_CLAYER_DOMAIN}`,
+      endpoint: `${process.env.NEXT_PUBLIC_CLAYER_DOMAIN}`,
     })
 
     return Order.select(

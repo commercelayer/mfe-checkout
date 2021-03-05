@@ -339,7 +339,7 @@ Cypress.Commands.add("getTokenCustomer", (options) => {
 })
 
 Cypress.Commands.add("getDataLayer", (options) => {
-  cy.wait(2000)
+  cy.wait(3000)
   return cy.window().then(({ dataLayer }) => {
     return dataLayer.filter(({ event }) => options.gtm === event)
   })
