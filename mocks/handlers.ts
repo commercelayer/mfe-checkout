@@ -13,7 +13,7 @@ export const handlers = [
         accessToken: req.body.accessToken,
         orderId: req.body.orderId,
         validCheckout: true,
-        endpoint: process.env.NEXT_CLAYER_DOMAIN,
+        endpoint: process.env.NEXT_PUBLIC_CLAYER_DOMAIN,
         logoUrl:
           "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
         companyName: "Test company",

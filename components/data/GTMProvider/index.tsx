@@ -4,10 +4,9 @@ import { createContext, useEffect } from "react"
 import TagManager from "react-gtm-module"
 
 interface GTMProviderData {
-  fireBeginCheckout?: () => void
-  fireAddShippingInfo?: () => void
-  fireAddPaymentInfo?: () => void
-  firePurchase?: () => void
+  fireAddShippingInfo: () => void
+  fireAddPaymentInfo: () => void
+  firePurchase: () => void
 }
 
 export const GTMContext = createContext<GTMProviderData | null>(null)
@@ -45,7 +44,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   const fetchOrder = async () => {
     CLayer.init({
       accessToken: accessToken,
-      endpoint: `${process.env.NEXT_PUBLIC_API_DOMAIN}`,
+      endpoint: `${process.env.NEXT_PUBLIC_CLAYER_DOMAIN}`,
     })
 
     return Order.select(

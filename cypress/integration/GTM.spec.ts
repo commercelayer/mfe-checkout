@@ -92,11 +92,11 @@ describe("check Data Layers GTM", () => {
     })
 
     it("check begin_checkout GTM", () => {
-      cy.window().then((win) => {
-        assert.equal(win.dataLayer[3].event, "begin_checkout")
-        assert.equal(win.dataLayer[3].ecommerce.currency, "EUR")
-        assert.equal(win.dataLayer[3].ecommerce.value, 244)
-        assert.equal(win.dataLayer[3].ecommerce.items.length, 2)
+      cy.getDataLayer({ gtm: "begin_checkout" }).then((dataLayer) => {
+        assert.equal(dataLayer.length, 1)
+        assert.equal(dataLayer[0].ecommerce.currency, "EUR")
+        assert.equal(dataLayer[0].ecommerce.value, 244)
+        assert.equal(dataLayer[0].ecommerce.items.length, 2)
       })
     })
 
@@ -138,24 +138,19 @@ describe("check Data Layers GTM", () => {
         "contain.text",
         "Standard Shipping"
       )
-      cy.wait(5000)
-      cy.window().then((win) => {
-        assert.equal(win.dataLayer[4].event, "add_shipping_info")
-        assert.equal(win.dataLayer[4].ecommerce.currency, "EUR")
-        assert.equal(
-          win.dataLayer[4].ecommerce.shipping_tier,
-          "Standard Shipping"
-        )
-        assert.equal(win.dataLayer[4].ecommerce.value, 0)
-        assert.equal(win.dataLayer[4].ecommerce.items.length, 2)
-        assert.equal(win.dataLayer[5].event, "add_shipping_info")
-        assert.equal(win.dataLayer[5].ecommerce.currency, "EUR")
-        assert.equal(
-          win.dataLayer[5].ecommerce.shipping_tier,
-          "Standard Shipping"
-        )
-        assert.equal(win.dataLayer[5].ecommerce.value, 0)
-        assert.equal(win.dataLayer[5].ecommerce.items.length, 1)
+
+      cy.getDataLayer({ gtm: "add_shipping_info" }).then((dataLayer) => {
+        assert.equal(dataLayer.length, 2)
+        assert.equal(dataLayer[0].event, "add_shipping_info")
+        assert.equal(dataLayer[0].ecommerce.currency, "EUR")
+        assert.equal(dataLayer[0].ecommerce.shipping_tier, "Standard Shipping")
+        assert.equal(dataLayer[0].ecommerce.value, 0)
+        assert.equal(dataLayer[0].ecommerce.items.length, 2)
+        assert.equal(dataLayer[1].event, "add_shipping_info")
+        assert.equal(dataLayer[1].ecommerce.currency, "EUR")
+        assert.equal(dataLayer[1].ecommerce.shipping_tier, "Standard Shipping")
+        assert.equal(dataLayer[1].ecommerce.value, 0)
+        assert.equal(dataLayer[1].ecommerce.items.length, 1)
       })
     })
 
@@ -201,24 +196,19 @@ describe("check Data Layers GTM", () => {
         "contain.text",
         "Express Delivery"
       )
-      cy.wait(5000)
-      cy.window().then((win) => {
-        assert.equal(win.dataLayer[6].event, "add_shipping_info")
-        assert.equal(win.dataLayer[6].ecommerce.currency, "EUR")
-        assert.equal(
-          win.dataLayer[6].ecommerce.shipping_tier,
-          "Express Delivery"
-        )
-        assert.equal(win.dataLayer[6].ecommerce.value, 12)
-        assert.equal(win.dataLayer[6].ecommerce.items.length, 2)
-        assert.equal(win.dataLayer[7].event, "add_shipping_info")
-        assert.equal(win.dataLayer[7].ecommerce.currency, "EUR")
-        assert.equal(
-          win.dataLayer[7].ecommerce.shipping_tier,
-          "Express Delivery"
-        )
-        assert.equal(win.dataLayer[7].ecommerce.value, 12)
-        assert.equal(win.dataLayer[7].ecommerce.items.length, 1)
+
+      cy.getDataLayer({ gtm: "add_shipping_info" }).then((dataLayer) => {
+        assert.equal(dataLayer.length, 4)
+        assert.equal(dataLayer[2].event, "add_shipping_info")
+        assert.equal(dataLayer[2].ecommerce.currency, "EUR")
+        assert.equal(dataLayer[2].ecommerce.shipping_tier, "Express Delivery")
+        assert.equal(dataLayer[2].ecommerce.value, 12)
+        assert.equal(dataLayer[2].ecommerce.items.length, 2)
+        assert.equal(dataLayer[3].event, "add_shipping_info")
+        assert.equal(dataLayer[3].ecommerce.currency, "EUR")
+        assert.equal(dataLayer[3].ecommerce.shipping_tier, "Express Delivery")
+        assert.equal(dataLayer[3].ecommerce.value, 12)
+        assert.equal(dataLayer[3].ecommerce.items.length, 1)
       })
     })
 
@@ -259,24 +249,19 @@ describe("check Data Layers GTM", () => {
         "contain.text",
         "Standard Shipping"
       )
-      cy.wait(5000)
-      cy.window().then((win) => {
-        assert.equal(win.dataLayer[8].event, "add_shipping_info")
-        assert.equal(win.dataLayer[8].ecommerce.currency, "EUR")
-        assert.equal(
-          win.dataLayer[8].ecommerce.shipping_tier,
-          "Express Delivery"
-        )
-        assert.equal(win.dataLayer[8].ecommerce.value, 12)
-        assert.equal(win.dataLayer[8].ecommerce.items.length, 2)
-        assert.equal(win.dataLayer[9].event, "add_shipping_info")
-        assert.equal(win.dataLayer[9].ecommerce.currency, "EUR")
-        assert.equal(
-          win.dataLayer[9].ecommerce.shipping_tier,
-          "Standard Shipping"
-        )
-        assert.equal(win.dataLayer[9].ecommerce.value, 0)
-        assert.equal(win.dataLayer[9].ecommerce.items.length, 1)
+
+      cy.getDataLayer({ gtm: "add_shipping_info" }).then((dataLayer) => {
+        assert.equal(dataLayer.length, 6)
+        assert.equal(dataLayer[4].event, "add_shipping_info")
+        assert.equal(dataLayer[4].ecommerce.currency, "EUR")
+        assert.equal(dataLayer[4].ecommerce.shipping_tier, "Express Delivery")
+        assert.equal(dataLayer[4].ecommerce.value, 12)
+        assert.equal(dataLayer[4].ecommerce.items.length, 2)
+        assert.equal(dataLayer[5].event, "add_shipping_info")
+        assert.equal(dataLayer[5].ecommerce.currency, "EUR")
+        assert.equal(dataLayer[5].ecommerce.shipping_tier, "Standard Shipping")
+        assert.equal(dataLayer[5].ecommerce.value, 0)
+        assert.equal(dataLayer[5].ecommerce.items.length, 1)
       })
     })
 
@@ -317,24 +302,19 @@ describe("check Data Layers GTM", () => {
         "contain.text",
         "Express Delivery"
       )
-      cy.wait(5000)
-      cy.window().then((win) => {
-        assert.equal(win.dataLayer[10].event, "add_shipping_info")
-        assert.equal(win.dataLayer[10].ecommerce.currency, "EUR")
-        assert.equal(
-          win.dataLayer[10].ecommerce.shipping_tier,
-          "Standard Shipping"
-        )
-        assert.equal(win.dataLayer[10].ecommerce.value, 0)
-        assert.equal(win.dataLayer[10].ecommerce.items.length, 2)
-        assert.equal(win.dataLayer[11].event, "add_shipping_info")
-        assert.equal(win.dataLayer[11].ecommerce.currency, "EUR")
-        assert.equal(
-          win.dataLayer[11].ecommerce.shipping_tier,
-          "Express Delivery"
-        )
-        assert.equal(win.dataLayer[11].ecommerce.value, 12)
-        assert.equal(win.dataLayer[11].ecommerce.items.length, 1)
+
+      cy.getDataLayer({ gtm: "add_shipping_info" }).then((dataLayer) => {
+        assert.equal(dataLayer.length, 8)
+        assert.equal(dataLayer[6].event, "add_shipping_info")
+        assert.equal(dataLayer[6].ecommerce.currency, "EUR")
+        assert.equal(dataLayer[6].ecommerce.shipping_tier, "Standard Shipping")
+        assert.equal(dataLayer[6].ecommerce.value, 0)
+        assert.equal(dataLayer[6].ecommerce.items.length, 2)
+        assert.equal(dataLayer[7].event, "add_shipping_info")
+        assert.equal(dataLayer[7].ecommerce.currency, "EUR")
+        assert.equal(dataLayer[7].ecommerce.shipping_tier, "Express Delivery")
+        assert.equal(dataLayer[7].ecommerce.value, 12)
+        assert.equal(dataLayer[7].ecommerce.items.length, 1)
       })
     })
   })
@@ -424,15 +404,12 @@ describe("check Data Layers GTM", () => {
     })
 
     it("check begin_checkout GTM without add_shipping_info GTM", () => {
-      cy.window().then((win) => {
-        assert.equal(win.dataLayer[3].event, "begin_checkout")
-        assert.equal(win.dataLayer[3].ecommerce.currency, "EUR")
-        assert.equal(win.dataLayer[3].ecommerce.value, 256)
-        assert.equal(win.dataLayer[3].ecommerce.items.length, 2)
-        assert.lengthOf(
-          win.dataLayer.filter(({ event }) => event === "add_shipping_info"),
-          0
-        )
+      cy.getDataLayer({ gtm: "begin_checkout" }).then((dataLayer) => {
+        assert.equal(dataLayer.length, 1)
+        assert.equal(dataLayer[0].event, "begin_checkout")
+        assert.equal(dataLayer[0].ecommerce.currency, "EUR")
+        assert.equal(dataLayer[0].ecommerce.value, 256)
+        assert.equal(dataLayer[0].ecommerce.items.length, 2)
       })
     })
   })

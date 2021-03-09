@@ -83,6 +83,13 @@ declare global {
         idAddress: string,
         accessToken: string
       ): Chainable<Subject>
+      getDataLayer(options: {
+        gtm:
+          | "begin_checkout"
+          | "add_shipping_info"
+          | "add_payment_info"
+          | "purchase"
+      }): Chainable<Subject>
     }
   }
 }
