@@ -11,7 +11,10 @@ const NextI18NextInstance = new NextI18Next({
   fallbackLng: allLanguages,
   localePath: "public/static/locales",
   strictMode: false,
-  debug: true,
+  debug: false,
+  react: {
+    useSuspense: false,
+  }
 })
 
 export const { appWithTranslation, useTranslation, Trans } = NextI18NextInstance
