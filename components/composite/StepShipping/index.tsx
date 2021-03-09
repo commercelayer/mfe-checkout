@@ -86,7 +86,7 @@ export const StepShipping: React.FC<Props> = ({
       <StepHeader
         stepNumber={2}
         status={isActive ? "edit" : "done"}
-        label={t("stepShipping.delivery")}
+        label={t("stepShipping.title")}
         info={
           isActive
             ? t("stepShipping.summary")

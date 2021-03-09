@@ -43,7 +43,7 @@ export const StepPayment: React.FC<Props> = ({
       <StepHeader
         stepNumber={2}
         status={isActive ? "edit" : "done"}
-        label={t("stepPayment.payment")}
+        label={t("stepPayment.title")}
         info={
           isActive
             ? t("stepPayment.summary")

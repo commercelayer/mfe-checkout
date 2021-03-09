@@ -20,9 +20,9 @@
     },
 
     "stepCustomer": {
-        "customer": "Customer",
-        "bill": "Your billing information and shipping address",
-        "editBillingAndShippingAddress" : "Edit your billing and shipping address",
+        "title": "Customer",
+        "summary" : "Customer billing and shipping information summary",
+        "information": "Your billing information and shipping address",
         "addNewAddress": "Add new address",
         "saveAddressBook": "Save this address in your account",
         "addNewBillingAddress": "Add new billing address",
@@ -41,7 +41,7 @@
     },
 
     "stepShipping": {
-        "delivery": "Delivery",
+        "title": "Delivery",
         "summary": "Shipment summary and delivery methods",
         "shippingMethodSelected": "You have a shipping method set",
         "creditCard": "Credit card",

@@ -57,11 +57,9 @@ export const StepCustomer: React.FC<Props> = ({
       <StepHeader
         stepNumber={1}
         status={isActive ? "edit" : "done"}
-        label={t("stepCustomer.customer")}
+        label={t("stepCustomer.title")}
         info={
-          isActive
-            ? t("stepCustomer.editBillingAndShippingAddress")
-            : t("stepCustomer.bill")
+          isActive ? t("stepCustomer.summary") : t("stepCustomer.information")
         }
         onEditRequest={() => {
           onToggleActive()

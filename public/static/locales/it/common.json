@@ -30,9 +30,9 @@
     },
 
     "stepCustomer": {
-        "customer": "Cliente",
-        "bill": "Informazioni di fatturazione e indirizzo di spedizione",
-        "editBillingAndShippingAddress" : "Modifica il tuo indirizzo di fatturazione e spedizione",
+        "title": "Cliente",
+        "summary" : "Riepilogo delle informazioni di fatturazione e spedizione del cliente",
+        "information": "Informazioni di fatturazione e indirizzo di spedizione",
         "addNewAddress": "Aggiungi nuovo indirizzo",
         "saveAddressBook": "Salva l'indirizzo sulla tua rubrica",
         "addNewBillingAddress": "Aggiungi nuovo indirizzo di fatturazione",
@@ -41,7 +41,7 @@
     },
 
     "stepShipping": {
-        "delivery": "Consegna",
+        "title": "Consegna",
         "summary": "Riepilogo della spedizione e modalità di consegna",
         "shippingMethodSelected": "Metodo di spedizione selezionato",
         "addShippingMethod": "Aggiungi i dati del cliente prima della spedizione",
@@ -50,7 +50,7 @@
     },
 
     "stepPayment": {
-        "payment": "Pagamento",
+        "title": "Pagamento",
         "summary": "Riepilogo del pagamento",
         "paymentMethod": "Hai impostato un metodo di pagamento",
         "creditCard": "Carta di credito",
