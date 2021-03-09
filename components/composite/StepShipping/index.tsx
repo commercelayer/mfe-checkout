@@ -26,6 +26,7 @@ import { useTranslation, Trans } from "components/data/i18n"
 import { Button } from "components/ui/Button"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
+import { GTMContext } from "components/data/GTMProvider"
 
 interface Props {
   className?: string
@@ -39,6 +40,8 @@ export const StepShipping: React.FC<Props> = ({
   onToggleActive,
 }) => {
   const appCtx = useContext(AppContext)
+  const gtmCtx = useContext(GTMContext)
+
   const { t } = useTranslation()
 
   if (!appCtx || !appCtx.hasShippingAddress) {
@@ -52,7 +55,7 @@ export const StepShipping: React.FC<Props> = ({
 
   useEffect(() => {
     setCanContinue(
-      !shipmentsSelected.map((s) => s.shippingMethodId).includes(undefined)
+      !shipmentsSelected?.map((s) => s.shippingMethodId).includes(undefined)
     )
   }, [shipmentsSelected])
 
@@ -60,7 +63,7 @@ export const StepShipping: React.FC<Props> = ({
     shippingMethod: ShippingMethodCollection | Record<string, any>
   ): void => {
     setShipmentsSelected((shipmentsSelected) =>
-      shipmentsSelected.map((shipment) => {
+      shipmentsSelected?.map((shipment) => {
         return shipment.shipmentId === shippingMethod.shipmentId
           ? {
               ...shipment,
@@ -69,6 +72,13 @@ export const StepShipping: React.FC<Props> = ({
           : shipment
       })
     )
+  }
+
+  const handleSave = async () => {
+    await refetchOrder()
+    if (gtmCtx?.fireAddShippingInfo) {
+      gtmCtx.fireAddShippingInfo()
+    }
   }
 
   return (
@@ -153,7 +163,7 @@ export const StepShipping: React.FC<Props> = ({
               <Button
                 disabled={!canContinue}
                 data-cy="save-shipments-button"
-                onClick={refetchOrder}
+                onClick={handleSave}
               >
                 {t("stepShipping.continueToPayment")}
               </Button>

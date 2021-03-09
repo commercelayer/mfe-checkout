@@ -24,11 +24,6 @@ interface CheckAndSetDefaultAddressForOrderProps {
   customerAddresses: Array<CustomerAddressCollection>
 }
 
-interface ShipmentSelectedProps {
-  shipmentId: string
-  shippingMethodId: string | undefined
-}
-
 export interface FetchOrderByIdResponse {
   isGuest: boolean
   isUsingNewBillingAddress: boolean
@@ -41,7 +36,7 @@ export interface FetchOrderByIdResponse {
   hasBillingAddress: boolean
   billingAddress: AddressCollection | null
   hasShippingMethod: boolean
-  shipments: Array<ShipmentSelectedProps>
+  shipments: Array<ShipmentSelected>
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
   shippingCountryCodeLock: string
@@ -158,20 +153,30 @@ export const fetchOrderById = async ({
 }: FetchOrderByIdProps): Promise<FetchOrderByIdResponse> => {
   CLayer.init({
     accessToken: accessToken,
-    endpoint: `${process.env.NEXT_PUBLIC_API_DOMAIN}`,
+    endpoint: `${process.env.NEXT_PUBLIC_CLAYER_DOMAIN}`,
   })
 
   try {
-    const order = await Order.includes(
-      "shipping_address",
-      "billing_address",
-      "shipments",
-      "shipments.shipping_method",
-      "payment_method",
-      "customer",
-      "customer.customer_addresses",
-      "customer.customer_addresses.address"
-    ).find(orderId)
+    const fetchOrder = async () => {
+      return Order.includes(
+        "shipping_address",
+        "billing_address",
+        "shipments",
+        "shipments.shipping_method",
+        "payment_method",
+        "customer",
+        "customer.customer_addresses",
+        "customer.customer_addresses.address"
+      ).find(orderId)
+    }
+
+    let order: OrderCollection = await fetchOrder()
+
+    const fetchShipments = async () => {
+      return (
+        await order.shipments()?.includes("shipping_method").load()
+      )?.toArray()
+    }
 
     const isGuest = Boolean(order.guest)
 
@@ -220,9 +225,7 @@ export const fetchOrderById = async ({
     const emailAddress = order.customerEmail
 
     const shippingMethodsAvailable = (await ShippingMethod.all()).toArray()
-    const shipments = (
-      await order.shipments()?.includes("shippingMethod").load()
-    )?.toArray()
+    let shipments = await fetchShipments()
     const shipmentsSelected = shipments?.map((a) => {
       return {
         shipmentId: a.id,
@@ -231,7 +234,7 @@ export const fetchOrderById = async ({
     })
 
     const shippingMethods = shipmentsSelected?.map(
-      (a: ShipmentSelectedProps) => a.shippingMethodId
+      (a: ShipmentSelected) => a.shippingMethodId
     )
 
     let hasShippingMethod = Boolean(!shippingMethods?.includes(undefined))
@@ -284,7 +287,7 @@ export const fetchOrderById = async ({
     console.log("order.shipments :>> ", shipments)
     console.log("order.paymentMethod :>> ", await order.paymentMethod())
 
-    changeLanguage(order.languageCode)
+    await changeLanguage(order.languageCode)
 
     return {
       isGuest,
@@ -299,7 +302,7 @@ export const fetchOrderById = async ({
       hasBillingAddress,
       billingAddress,
       hasShippingMethod,
-      shipments: (shipmentsSelected as unknown) as ShipmentSelectedProps[],
+      shipments: (shipmentsSelected as unknown) as ShipmentSelected[],
       hasPaymentMethod,
       shippingCountryCodeLock,
     }

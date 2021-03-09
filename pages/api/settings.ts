@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   CLayer.init({
     accessToken: accessToken,
-    endpoint: process.env.CLAYER_DOMAIN as string,
+    endpoint: process.env.NEXT_PUBLIC_CLAYER_DOMAIN as string,
   })
 
   let order
@@ -32,7 +32,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let organization
   try {
     organization = await Organization.all()
-    console.log(organization)
   } catch (e) {
     console.log(`error on retrieving organization: ${e}`)
   }
@@ -48,17 +47,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     accessToken,
     orderId: order.id,
     validCheckout: true,
-    endpoint: process.env.CLAYER_DOMAIN as string,
+    endpoint: process.env.NEXT_PUBLIC_CLAYER_DOMAIN as string,
     logoUrl:
       organization?.logoUrl ||
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
     companyName: organization?.name || "Test company",
     language: order.languageCode,
-    primaryColor: organization?.primaryColor || "#3b82f6",
+    primaryColor: organization?.primaryColor || "#000000",
     contrastColor: organization?.contrastColor || "#ffffff",
     favicon:
       organization?.faviconUrl ||
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
+    gtmId: organization?.gtmId || "GTM-TGCQ5BM",
   }
   return res.json(appSettings)
 }

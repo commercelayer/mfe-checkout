@@ -13,15 +13,16 @@ export const handlers = [
         accessToken: req.body.accessToken,
         orderId: req.body.orderId,
         validCheckout: true,
-        endpoint: process.env.CLAYER_DOMAIN,
+        endpoint: process.env.NEXT_PUBLIC_CLAYER_DOMAIN,
         logoUrl:
           "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
         companyName: "Test company",
         language: "en",
-        primaryColor: "#3b82f6",
+        primaryColor: "#000000",
         contrastColor: "#ffffff",
         favicon:
           "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
+        gtmId: "GTM-TGCQ5BM",
       })
     )
   }),

@@ -5,7 +5,7 @@ import { fetchOrderById, FetchOrderByIdResponse } from "./fetchOrderById"
 
 interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
-  refetchOrder: () => void
+  refetchOrder: () => Promise<void>
 }
 
 export const AppContext = createContext<AppProviderData | null>(null)
@@ -13,11 +13,6 @@ export const AppContext = createContext<AppProviderData | null>(null)
 interface AppProviderProps {
   orderId?: string
   accessToken?: string
-}
-
-interface ShipmentSelectedProps {
-  shipmentId: string
-  shippingMethodId: string | undefined
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({
@@ -47,19 +42,19 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     setShippingAddress,
   ] = useState<AddressCollection | null>(null)
   const [hasShippingMethod, setHasShippingMethod] = useState(false)
-  const [shipments, setShipments] = useState<ShipmentSelectedProps[]>([])
+  const [shipments, setShipments] = useState<ShipmentSelected[]>([])
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
   const [
     shippingCountryCodeLock,
     setShippingCountryCodeLock,
   ] = useState<string>("")
 
-  const fetchOrderHandle = (orderId?: string, accessToken?: string) => {
+  const fetchOrderHandle = async (orderId?: string, accessToken?: string) => {
     if (!orderId || !accessToken) {
       return
     }
     setIsLoading(true)
-    fetchOrderById({ orderId, accessToken }).then(
+    return await fetchOrderById({ orderId, accessToken }).then(
       ({
         isGuest,
         hasCustomerAddresses,
@@ -92,8 +87,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setHasShippingMethod(hasShippingMethod)
         setShipments(shipments)
         setHasPaymentMethod(hasPaymentMethod)
-        setIsLoading(false)
         setShippingCountryCodeLock(shippingCountryCodeLock)
+        setIsLoading(false)
+        return
       }
     )
   }
@@ -121,8 +117,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         shipments,
         hasPaymentMethod,
         shippingCountryCodeLock,
-        refetchOrder: () => {
-          fetchOrderHandle(orderId, accessToken)
+        refetchOrder: async () => {
+          return await fetchOrderHandle(orderId, accessToken)
         },
       }}
     >

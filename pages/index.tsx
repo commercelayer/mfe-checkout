@@ -25,6 +25,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({
   const ctx = useContext(AppContext)
 
   const { t } = useTranslation()
+
   const {
     activeStep,
     lastActivableStep,
