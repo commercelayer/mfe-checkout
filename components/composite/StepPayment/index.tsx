@@ -13,7 +13,6 @@ import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
 import { useTranslation } from "components/data/i18n"
-import { Button } from "components/ui/Button"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { Icon } from "components/ui/Icon"
