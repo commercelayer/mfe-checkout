@@ -5,6 +5,7 @@ import CLayer, {
   CustomerAddressCollection,
   ShippingMethod,
   PaymentMethodCollection,
+  PaymentMethod,
 } from "@commercelayer/js-sdk"
 
 import { changeLanguage } from "components/data/i18n"
@@ -268,7 +269,33 @@ export const fetchOrderById = async ({
     }
 
     const paymentMethod = order.paymentMethod()
-    const hasPaymentMethod = Boolean(paymentMethod)
+    const paymentSource = order.paymentSource()
+    const hasPaymentMethod = Boolean(paymentMethod && paymentSource)
+
+    const allAvailablePaymentMethods = (await PaymentMethod.all()).toArray()
+
+    // If we have a customer with a single payment method
+    // the payment method is automatically selected
+    // to assume the payment method as the default one
+    if (
+      !isGuest &&
+      !hasPaymentMethod &&
+      allAvailablePaymentMethods.length === 1
+    ) {
+      try {
+        const paymentMethod = PaymentMethod.build({
+          id: allAvailablePaymentMethods[0].id,
+        })
+
+        await (await Order.find(order.id)).update({
+          paymentMethod,
+        })
+
+        //order.available_Customer_payment_sources
+      } catch (error) {
+        console.log(error)
+      }
+    }
 
     const isUsingNewBillingAddress = await isNewAddress({
       address: billingAddress,

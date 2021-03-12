@@ -227,6 +227,16 @@
   dependencies:
     lodash "^4.17.20"
 
+"@commercelayer/js-sdk@^3.3.2":
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.4.1.tgz#62a9b555f2115a2ea8d29f019ba3a6706b047256"
+  integrity sha512-B6jGZBIqsP7OR9CAZDUVOUSrk1GVQlKW81ntJ4h88crp05G4o+8RVLEmio/YioeGtSR5lhqdPTYdwTby7Jj7CQ==
+  dependencies:
+    active-resource "^1.0.0-beta.7"
+    axios "^0.19.0"
+    lodash "^4.17.20"
+    lodash-es "^4.17.21"
+
 "@commercelayer/js-sdk@^3.3.4":
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.3.4.tgz#a5bf797582ac7b1fbb05668d3d10ee1c496da356"
@@ -236,15 +246,16 @@
     axios "^0.19.0"
     lodash "^4.17.20"
 
-"@commercelayer/react-components@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.6.0.tgz#168cb1d69ad8877f82bedf6d38bfb88b23989c9c"
-  integrity sha512-sjl/TGrPJSefho+vAH8+CrN6MY4rFPFIM1IgPSvHJhLQtj7Pl/82d9nqXSO/6hGsRj6ukmAh3omzr5zwShGkkA==
+"@commercelayer/react-components@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.7.0.tgz#176af58d66d9133d67fa6996c8a6a838e534eefb"
+  integrity sha512-OPm0+iqWb0pR2ccIg7B7OtrF7mM6syfuGIwmpwKC1JN05N7jdbF002KklDLZAnlKEThZGDPgz2fUQw2dLhvqWQ==
   dependencies:
-    "@commercelayer/js-sdk" "^3.3.4"
-    "@stripe/react-stripe-js" "^1.3.0"
+    "@commercelayer/js-sdk" "^3.3.2"
+    "@stripe/react-stripe-js" "^1.4.0"
     "@stripe/stripe-js" "^1.13.1"
     lodash "^4.17.21"
+    lodash-es "^4.17.21"
     rapid-form "^1.4.1"
 
 "@cypress/listr-verbose-renderer@^0.4.1":
@@ -459,10 +470,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@stripe/react-stripe-js@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.3.0.tgz#98089ba2556f74ed9ca10197b3145cf5c6134d44"
-  integrity sha512-880MjCEEcU4sQNNJxawjFhLrGUbnV/jHbfZsrL7nAUpKZRBtoSPw7DFlEYRt1v0NimtxCkMmCFUSGxRynn990A==
+"@stripe/react-stripe-js@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.4.0.tgz#a67e72202297fc409dc2c8c4f3fb98e0b61fa06d"
+  integrity sha512-Pz5QmG8PgJ3pi8gOWxlngk+ns63p2L1Ds192fn55ykZNRKfGz3G6sfssUVThHn/NAt2Hp1eCEsy/hvlKnXJI6g==
   dependencies:
     prop-types "^15.7.2"
 
@@ -3729,6 +3740,11 @@ locate-path@^5.0.0:
   integrity sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g==
   dependencies:
     p-locate "^4.1.0"
+
+lodash-es@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
 lodash.flatmap@^4.5.0:
   version "4.5.0"

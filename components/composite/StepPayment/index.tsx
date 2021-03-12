@@ -38,6 +38,8 @@ export const StepPayment: React.FC<Props> = ({
 
   const { hasPaymentMethod, paymentMethod, refetchOrder } = appCtx
 
+  const stripeKey = "pk_test_TYooMQauvdEDq54NiTphI7jx"
+
   return (
     <div className={className}>
       <StepHeader
@@ -58,10 +60,11 @@ export const StepPayment: React.FC<Props> = ({
           <PaymentMethodsContainer
             config={{
               stripePayment: {
-                publishableKey: "pk_test_UArgJuzBMSppFkvAkATXTNT5",
+                publishableKey: stripeKey,
                 submitLabel: t("stepPayment.setPaymentMethod"),
                 submitClassName:
                   "mt-5 inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent shadow-sm rounded-md hover:opacity-80 disabled:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50",
+                handleSubmit: refetchOrder,
               },
             }}
           >
@@ -75,7 +78,10 @@ export const StepPayment: React.FC<Props> = ({
                 </div>
                 <PaymentMethodPrice labelFree={t("general.free")} />
               </div>
-              <PaymentSource className="p-5 my-2 bg-gray-50" />
+              <PaymentSource
+                data-cy="payment-source"
+                className="p-5 my-2 bg-gray-50"
+              />
             </PaymentMethod>
           </PaymentMethodsContainer>
         ) : hasPaymentMethod ? (
@@ -84,9 +90,13 @@ export const StepPayment: React.FC<Props> = ({
               <Icon>
                 <FontAwesomeIcon icon={faWallet} />
               </Icon>
-              <p className="font-bold">{paymentMethod?.name}</p>
+              <p data-cy="payment-method-selected" className="font-bold">
+                {paymentMethod?.name}
+              </p>
             </div>
-            <p>{paymentMethod?.formattedPriceAmount}</p>
+            <p data-cy="payment-method-price-selected">
+              {paymentMethod?.formattedPriceAmount}
+            </p>
           </div>
         ) : (
           <div>Metodo di pagamento da selezionare</div>
