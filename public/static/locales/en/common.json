@@ -10,7 +10,8 @@
         "edit": "Edit",
         "delete": "Delete",
         "done": "Done",
-        "free" : "Free"
+        "free" : "Free",
+        "complete": "Complete"
     },
 
     "input":{
@@ -19,9 +20,9 @@
     },
 
     "stepCustomer": {
-        "customer": "Customer",
-        "bill": "Your billing information and shipping address",
-        "editBillingAndShippingAddress" : "Edit your billing and shipping address",
+        "title": "Customer",
+        "summary" : "Customer billing and shipping information summary",
+        "information": "Your billing information and shipping address",
         "addNewAddress": "Add new address",
         "saveAddressBook": "Save this address in your account",
         "addNewBillingAddress": "Add new billing address",
@@ -40,19 +41,21 @@
     },
 
     "stepShipping": {
-        "delivery": "Delivery",
+        "title": "Delivery",
         "summary": "Shipment summary and delivery methods",
         "shippingMethodSelected": "You have a shipping method set",
+        "creditCard": "Credit card",
         "addShippingMethod": "Add customer data before shipping",
         "deliveryLeadTime" : "<0/> - <1/> days",
         "continueToPayment": "Continue to payment"
     },
 
     "stepPayment": {
-        "title": "Payment",
+        "payment": "Payment",
         "summary": "Payment summary",
         "paymentMethod": "You have a payment method set",
-        "addPaymentMethod": "Add shipping method before payment"        
+        "addPaymentMethod": "Add shipping method before payment",
+        "setPaymentMethod": "Set payment method"
     },
 
     "addressForm" : {

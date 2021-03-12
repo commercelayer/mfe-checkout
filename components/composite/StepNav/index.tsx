@@ -1,3 +1,4 @@
+import { useTranslation } from "components/data/i18n"
 import styled from "styled-components"
 import tw from "twin.macro"
 
@@ -16,6 +17,8 @@ export const StepNav: React.FC<Props> = ({
   activeStep,
   lastActivable,
 }) => {
+  const { t } = useTranslation()
+
   return (
     <Wrapper>
       {(steps || []).map((step, index) => {
@@ -39,7 +42,9 @@ export const StepNav: React.FC<Props> = ({
         )
       })}
 
-      <Step isLocked>Complete</Step>
+      <Step isLocked={activeStep != 3} isActive={activeStep == 3}>
+        {t("general.complete")}
+      </Step>
     </Wrapper>
   )
 }

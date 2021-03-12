@@ -5,13 +5,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Fragment, useContext } from "react"
-import styled from "styled-components"
-import tw from "twin.macro"
+import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
 import { useTranslation } from "components/data/i18n"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
+import { Icon } from "components/ui/Icon"
 
 import { CheckoutAddresses } from "./CheckoutAddresses"
 import { CheckoutCustomerAddresses } from "./CheckoutCustomerAddresses"
@@ -57,11 +57,9 @@ export const StepCustomer: React.FC<Props> = ({
       <StepHeader
         stepNumber={1}
         status={isActive ? "edit" : "done"}
-        label={t("stepCustomer.customer")}
+        label={t("stepCustomer.title")}
         info={
-          isActive
-            ? t("stepCustomer.editBillingAndShippingAddress")
-            : t("stepCustomer.bill")
+          isActive ? t("stepCustomer.summary") : t("stepCustomer.information")
         }
         onEditRequest={() => {
           onToggleActive()
@@ -153,7 +151,3 @@ export const StepCustomer: React.FC<Props> = ({
     </div>
   )
 }
-
-const Icon = styled.div`
-  ${tw`w-7 text-gray-600`}
-`

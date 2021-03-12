@@ -6,7 +6,7 @@ import {
   ShippingAddressForm,
 } from "@commercelayer/react-components"
 import { useState, Fragment, useEffect } from "react"
-import tw from "twin.macro"
+import "twin.macro"
 
 import { useTranslation } from "components/data/i18n"
 import { Toggle } from "components/ui/Toggle"

@@ -228,12 +228,14 @@
     lodash "^4.17.20"
 
 "@commercelayer/js-sdk@^3.3.2":
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.3.2.tgz#b38adc816fd1f03dd01c92e6dfcb2657a86d6ed7"
-  integrity sha512-/egbtpB/FHejjvARzHQoeJDqG+fJVkUazmWQMfFgKQr/nUMRUsxto1gQddN8xpyvNbWRbXROz6aq86jpuAGiFw==
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.4.1.tgz#62a9b555f2115a2ea8d29f019ba3a6706b047256"
+  integrity sha512-B6jGZBIqsP7OR9CAZDUVOUSrk1GVQlKW81ntJ4h88crp05G4o+8RVLEmio/YioeGtSR5lhqdPTYdwTby7Jj7CQ==
   dependencies:
     active-resource "^1.0.0-beta.7"
+    axios "^0.19.0"
     lodash "^4.17.20"
+    lodash-es "^4.17.21"
 
 "@commercelayer/js-sdk@^3.3.4":
   version "3.3.4"
@@ -244,13 +246,16 @@
     axios "^0.19.0"
     lodash "^4.17.20"
 
-"@commercelayer/react-components@^2.5.2":
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.5.2.tgz#56bc79644549c4f60fef093f1ae3175ccef0697a"
-  integrity sha512-0lIsYhHyVUywd/um+EvW6lqlXz+ykgD1OV6v3HusR5ajBmf7Qe3I9h3ctWOCHJRYwbD8t2lcFUPiGJUw8pbpZw==
+"@commercelayer/react-components@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.7.0.tgz#176af58d66d9133d67fa6996c8a6a838e534eefb"
+  integrity sha512-OPm0+iqWb0pR2ccIg7B7OtrF7mM6syfuGIwmpwKC1JN05N7jdbF002KklDLZAnlKEThZGDPgz2fUQw2dLhvqWQ==
   dependencies:
     "@commercelayer/js-sdk" "^3.3.2"
-    lodash "^4.17.20"
+    "@stripe/react-stripe-js" "^1.4.0"
+    "@stripe/stripe-js" "^1.13.1"
+    lodash "^4.17.21"
+    lodash-es "^4.17.21"
     rapid-form "^1.4.1"
 
 "@cypress/listr-verbose-renderer@^0.4.1":
@@ -464,6 +469,18 @@
   integrity sha512-c/qwwcHyafOQuVQJj0IlBjf5yYgBI7YPJ77k4fOJYesb41jio65eaJODRUmfYKhTOFBrIZ66kgvGPlNbjuoRdQ==
   dependencies:
     any-observable "^0.3.0"
+
+"@stripe/react-stripe-js@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.4.0.tgz#a67e72202297fc409dc2c8c4f3fb98e0b61fa06d"
+  integrity sha512-Pz5QmG8PgJ3pi8gOWxlngk+ns63p2L1Ds192fn55ykZNRKfGz3G6sfssUVThHn/NAt2Hp1eCEsy/hvlKnXJI6g==
+  dependencies:
+    prop-types "^15.7.2"
+
+"@stripe/stripe-js@^1.13.1":
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.13.1.tgz#71384666dbd575f154bcdf923f5aa0f7be22d31c"
+  integrity sha512-mmW+38/RJiWP0B7jmekL+MTDpkDMi34ygZ3j0NIoGa/h6eAXlGDA4lOqqg6aMH9Jd2RzDUndKxvSPPQnFnpdqw==
 
 "@stylelint/postcss-css-in-js@^0.37.2":
   version "0.37.2"
@@ -3724,6 +3741,11 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
+lodash-es@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
+
 lodash.flatmap@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.flatmap/-/lodash.flatmap-4.5.0.tgz#ef8cbf408f6e48268663345305c6acc0b778702e"
@@ -3749,7 +3771,7 @@ lodash.toarray@^4.4.0:
   resolved "https://registry.yarnpkg.com/lodash.toarray/-/lodash.toarray-4.4.0.tgz#24c4bfcd6b2fba38bfd0594db1179d8e9b656561"
   integrity sha1-JMS/zWsvuji/0FlNsRedjptlZWE=
 
-lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20:
+lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==

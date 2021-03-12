@@ -10,7 +10,8 @@
         "edit": "Modifica",
         "delete": "Elimina",
         "done": "Fatto",
-        "free" : "Gratis"
+        "free" : "Gratis",
+        "complete": "Completo"
     },
 
     "input":{
@@ -29,9 +30,9 @@
     },
 
     "stepCustomer": {
-        "customer": "Cliente",
-        "bill": "Informazioni di fatturazione e indirizzo di spedizione",
-        "editBillingAndShippingAddress" : "Modifica il tuo indirizzo di fatturazione e spedizione",
+        "title": "Cliente",
+        "summary" : "Riepilogo delle informazioni di fatturazione e spedizione del cliente",
+        "information": "Informazioni di fatturazione e indirizzo di spedizione",
         "addNewAddress": "Aggiungi nuovo indirizzo",
         "saveAddressBook": "Salva l'indirizzo sulla tua rubrica",
         "addNewBillingAddress": "Aggiungi nuovo indirizzo di fatturazione",
@@ -40,7 +41,7 @@
     },
 
     "stepShipping": {
-        "delivery": "Consegna",
+        "title": "Consegna",
         "summary": "Riepilogo della spedizione e modalità di consegna",
         "shippingMethodSelected": "Metodo di spedizione selezionato",
         "addShippingMethod": "Aggiungi i dati del cliente prima della spedizione",
@@ -52,7 +53,9 @@
         "title": "Pagamento",
         "summary": "Riepilogo del pagamento",
         "paymentMethod": "Hai impostato un metodo di pagamento",
-        "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento"        
+        "creditCard": "Carta di credito",
+        "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento",
+        "setPaymentMethod": "Imposta il metodo di pagamento"
     },
 
     "addressForm" : {

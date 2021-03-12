@@ -14,7 +14,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, Fragment, useEffect } from "react"
 import styled from "styled-components"
-import tw from "twin.macro"
+import "twin.macro"
 
 import { useTranslation } from "components/data/i18n"
 import { ButtonCss } from "components/ui/Button"

@@ -15,8 +15,6 @@ import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
-const STEPS = ["Customer", "Delivery", "Payment"]
-
 const Home: NextPage<CheckoutPageContextProps> = ({
   logoUrl,
   companyName,
@@ -25,6 +23,12 @@ const Home: NextPage<CheckoutPageContextProps> = ({
   const ctx = useContext(AppContext)
 
   const { t } = useTranslation()
+
+  const STEPS = [
+    t("stepCustomer.title"),
+    t("stepShipping.title"),
+    t("stepPayment.title"),
+  ]
 
   const {
     activeStep,
@@ -48,14 +52,6 @@ const Home: NextPage<CheckoutPageContextProps> = ({
           <div>
             <Logo logoUrl={logoUrl} companyName={companyName} />
             <OrderSummary />
-            <button
-              tw="bg-primary text-contrast mt-2 block px-3 rounded mt-10"
-              onClick={() => {
-                ctx && ctx.refetchOrder()
-              }}
-            >
-              click to refetch order
-            </button>
           </div>
         }
         main={

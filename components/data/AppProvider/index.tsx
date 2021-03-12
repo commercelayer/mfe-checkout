@@ -1,4 +1,7 @@
-import { AddressCollection } from "@commercelayer/js-sdk"
+import {
+  AddressCollection,
+  PaymentMethodCollection,
+} from "@commercelayer/js-sdk"
 import { createContext, useState, useEffect } from "react"
 
 import { fetchOrderById, FetchOrderByIdResponse } from "./fetchOrderById"
@@ -43,6 +46,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   ] = useState<AddressCollection | null>(null)
   const [hasShippingMethod, setHasShippingMethod] = useState(false)
   const [shipments, setShipments] = useState<ShipmentSelected[]>([])
+  const [
+    paymentMethod,
+    setPaymentMethod,
+  ] = useState<PaymentMethodCollection | null>(null)
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
   const [
     shippingCountryCodeLock,
@@ -67,6 +74,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         billingAddress,
         hasShippingAddress,
         shippingAddress,
+        paymentMethod,
         hasPaymentMethod,
         hasShippingMethod,
         shipments,
@@ -86,6 +94,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setShippingAddress(shippingAddress)
         setHasShippingMethod(hasShippingMethod)
         setShipments(shipments)
+        setPaymentMethod(paymentMethod)
         setHasPaymentMethod(hasPaymentMethod)
         setShippingCountryCodeLock(shippingCountryCodeLock)
         setIsLoading(false)
@@ -115,6 +124,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         shippingAddress,
         hasShippingMethod,
         shipments,
+        paymentMethod,
         hasPaymentMethod,
         shippingCountryCodeLock,
         refetchOrder: async () => {

@@ -4,6 +4,8 @@ import CLayer, {
   OrderCollection,
   CustomerAddressCollection,
   ShippingMethod,
+  PaymentMethodCollection,
+  PaymentMethod,
 } from "@commercelayer/js-sdk"
 
 import { changeLanguage } from "components/data/i18n"
@@ -36,6 +38,7 @@ export interface FetchOrderByIdResponse {
   hasBillingAddress: boolean
   billingAddress: AddressCollection | null
   hasShippingMethod: boolean
+  paymentMethod: PaymentMethodCollection | null
   shipments: Array<ShipmentSelected>
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
@@ -164,6 +167,7 @@ export const fetchOrderById = async ({
         "shipments",
         "shipments.shipping_method",
         "payment_method",
+        "payment_source",
         "customer",
         "customer.customer_addresses",
         "customer.customer_addresses.address"
@@ -264,7 +268,34 @@ export const fetchOrderById = async ({
       }
     }
 
-    const hasPaymentMethod = false // Boolean(await order.paymentMethod())
+    const paymentMethod = order.paymentMethod()
+    const paymentSource = order.paymentSource()
+    const hasPaymentMethod = Boolean(paymentMethod && paymentSource)
+
+    const allAvailablePaymentMethods = (await PaymentMethod.all()).toArray()
+
+    // If we have a customer with a single payment method
+    // the payment method is automatically selected
+    // to assume the payment method as the default one
+    if (
+      !isGuest &&
+      !hasPaymentMethod &&
+      allAvailablePaymentMethods.length === 1
+    ) {
+      try {
+        const paymentMethod = PaymentMethod.build({
+          id: allAvailablePaymentMethods[0].id,
+        })
+
+        await (await Order.find(order.id)).update({
+          paymentMethod,
+        })
+
+        //order.available_Customer_payment_sources
+      } catch (error) {
+        console.log(error)
+      }
+    }
 
     const isUsingNewBillingAddress = await isNewAddress({
       address: billingAddress,
@@ -302,6 +333,7 @@ export const fetchOrderById = async ({
       hasBillingAddress,
       billingAddress,
       hasShippingMethod,
+      paymentMethod,
       shipments: (shipmentsSelected as unknown) as ShipmentSelected[],
       hasPaymentMethod,
       shippingCountryCodeLock,
@@ -322,6 +354,7 @@ export const fetchOrderById = async ({
       billingAddress: null,
       hasShippingMethod: false,
       shipments: [],
+      paymentMethod: null,
       hasPaymentMethod: false,
       shippingCountryCodeLock: "",
     }

@@ -90,6 +90,10 @@ declare global {
           | "add_payment_info"
           | "purchase"
       }): Chainable<Subject>
+      fillElementsInput(
+        field: "cardCvc" | "cardNumber" | "cardExpiry",
+        value: string
+      ): Chainable<Subject>
     }
   }
 }
