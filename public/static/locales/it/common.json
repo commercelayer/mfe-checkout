@@ -52,6 +52,7 @@
     "stepPayment": {
         "title": "Pagamento",
         "summary": "Riepilogo del pagamento",
+        "methodSelected": "Metodo di pagamento selezionato",
         "paymentMethod": "Hai impostato un metodo di pagamento",
         "creditCard": "Carta di credito",
         "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento",

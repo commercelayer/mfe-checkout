@@ -18,7 +18,7 @@ describe("check Data Layers GTM", () => {
     })
   })
 
-  context("initial order without shipments", () => {
+  context("starting from the delivery step", () => {
     before(function () {
       console.log(email, password)
       cy.createOrder("draft", {
@@ -290,6 +290,7 @@ describe("check Data Layers GTM", () => {
         "@getOrderShipments",
         "@retrieveLineItems",
         "@getOrderShipments",
+        "@availablePaymentMethods",
       ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
@@ -319,7 +320,7 @@ describe("check Data Layers GTM", () => {
     })
   })
 
-  context("initial order with shipments", () => {
+  context("starting from the payment step", () => {
     before(function () {
       console.log(email, password)
       cy.createOrder("draft", {
@@ -409,6 +410,36 @@ describe("check Data Layers GTM", () => {
         assert.equal(dataLayer[0].event, "begin_checkout")
         assert.equal(dataLayer[0].ecommerce.currency, "EUR")
         assert.equal(dataLayer[0].ecommerce.value, 256)
+        assert.equal(dataLayer[0].ecommerce.items.length, 2)
+      })
+    })
+
+    it("insert data card, save and check add_shipping_info", () => {
+      cy.dataCy("payment-source").each((e, i) => {
+        cy.wrap(e).as(`paymentSource${i}`)
+      })
+      cy.get("@paymentSource0").within(() => {
+        cy.fillElementsInput("cardNumber", "4242424242424242")
+        cy.fillElementsInput("cardExpiry", "1025")
+        cy.fillElementsInput("cardCvc", "123")
+      })
+      cy.get("@paymentSource0")
+        .get("button")
+        .each((e, i) => {
+          cy.wrap(e).as(`paymentSourceButton${i}`)
+        })
+      cy.get("@paymentSourceButton2").click()
+      cy.wait(["@getOrders", "@retrieveLineItems", "@getOrderShipments"])
+      cy.dataCy("payment-method-selected").should(
+        "contain.text",
+        "Stripe Payment"
+      )
+      cy.dataCy("payment-method-price-selected").should("contain.text", "0,00")
+      cy.getDataLayer({ gtm: "add_payment_info" }).then((dataLayer) => {
+        assert.equal(dataLayer.length, 1)
+        assert.equal(dataLayer[0].ecommerce.currency, "EUR")
+        assert.equal(dataLayer[0].ecommerce.value, 0)
+        assert.equal(dataLayer[0].ecommerce.payment_type, "Stripe Payment")
         assert.equal(dataLayer[0].ecommerce.items.length, 2)
       })
     })

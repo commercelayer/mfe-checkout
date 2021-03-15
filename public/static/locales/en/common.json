@@ -19,6 +19,16 @@
         "mustBeValid":"Must be valid email"
     },
 
+    "orderRecap": {
+        "cartContains": "Your shopping cart contains {{count}} item",
+        "cartContains_plural": "Your shopping cart contains {{count}} items",
+        "quantity": "Quantity: {{count}}",
+        "quantity_plural": "Quantities: {{count}}",
+        "tax_amount": "Tax",
+        "shipping_amount": "Shipping",
+        "total_amount": "Total"
+    },
+
     "stepCustomer": {
         "title": "Customer",
         "summary" : "Customer billing and shipping information summary",
@@ -30,30 +40,21 @@
         "continueToDelivery": "Continue to delivery"
     },
 
-    "orderRecap": {
-        "cartContains": "Your shopping cart contains {{count}} item",
-        "cartContains_plural": "Your shopping cart contains {{count}} items",
-        "quantity": "Quantity: {{count}}",
-        "quantity_plural": "Quantities: {{count}}",
-        "tax_amount": "Tax",
-        "shipping_amount": "Shipping",
-        "total_amount": "Total"
-    },
-
     "stepShipping": {
         "title": "Delivery",
         "summary": "Shipment summary and delivery methods",
         "shippingMethodSelected": "You have a shipping method set",
-        "creditCard": "Credit card",
         "addShippingMethod": "Add customer data before shipping",
         "deliveryLeadTime" : "<0/> - <1/> days",
         "continueToPayment": "Continue to payment"
     },
 
     "stepPayment": {
-        "payment": "Payment",
+        "title": "Payment",
         "summary": "Payment summary",
+        "methodSelected": "Payment method selected",
         "paymentMethod": "You have a payment method set",
+        "creditCard": "Credit card",
         "addPaymentMethod": "Add shipping method before payment",
         "setPaymentMethod": "Set payment method"
     },

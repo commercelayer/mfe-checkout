@@ -50,9 +50,16 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     return Order.select(
       "coupon_code",
       "currency_code",
-      "total_amount_with_taxes_float"
+      "total_amount_with_taxes_float",
+      "shipping_amount_float",
+      "total_tax_amount_float"
     )
-      .includes("line_items", "shipments", "shipments.shipping_method")
+      .includes(
+        "line_items",
+        "shipments",
+        "shipments.shipping_method",
+        "payment_method"
+      )
       .find(orderId)
   }
 
@@ -129,7 +136,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         .shipmentLineItems()
         ?.toArray()
         ?.map((item) => item?.lineItem())
-        .map((e) => e && mapItemsToGTM)
+        .map((e) => e && mapItemsToGTM(e))
 
       return pushDataLayer({
         eventName: "add_shipping_info",
@@ -144,9 +151,61 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const fireAddPaymentInfo = () => {}
+  const fireAddPaymentInfo = async () => {
+    const order = await fetchOrder()
+    const lineItems = await order
+      .lineItems()
+      ?.where({ itemTypeCont: "skus" })
+      .select(
+        "sku_code",
+        "name",
+        "total_amount_float",
+        "currency_code",
+        "quantity"
+      )
+      .all()
 
-  const firePurchase = () => {}
+    const paymentMethod = order.paymentMethod()
+
+    return pushDataLayer({
+      eventName: "add_payment_info",
+      dataLayer: {
+        coupon: order?.couponCode,
+        currency: order?.currencyCode,
+        items: lineItems?.toArray().map(mapItemsToGTM),
+        value: paymentMethod?.priceAmountFloat,
+        payment_type: paymentMethod?.name,
+      },
+    })
+  }
+
+  const firePurchase = async () => {
+    const order = await fetchOrder()
+    const lineItems = await order
+      .lineItems()
+      ?.where({ itemTypeCont: "skus" })
+      .select(
+        "sku_code",
+        "name",
+        "total_amount_float",
+        "currency_code",
+        "quantity"
+      )
+      .all()
+
+    return pushDataLayer({
+      eventName: "purchase",
+      dataLayer: {
+        coupon: order?.couponCode,
+        currency: order?.currencyCode,
+        items: lineItems?.toArray().map(mapItemsToGTM),
+        transaction_id: null, //es. "T_12345",
+        shipping: order?.shippingAmountFloat,
+        value: order?.totalAmountWithTaxesFloat,
+        tax: order?.totalTaxAmountFloat,
+      },
+    })
+  }
 
   return (
     <GTMContext.Provider
