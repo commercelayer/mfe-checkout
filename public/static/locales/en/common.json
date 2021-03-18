@@ -56,7 +56,8 @@
         "paymentMethod": "You have a payment method set",
         "creditCard": "Credit card",
         "addPaymentMethod": "Add shipping method before payment",
-        "setPaymentMethod": "Set payment method"
+        "setPaymentMethod": "Set payment method",
+        "submit": "Place order"
     },
 
     "addressForm" : {

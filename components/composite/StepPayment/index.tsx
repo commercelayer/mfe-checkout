@@ -6,6 +6,9 @@ import {
   PaymentMethodRadioButton,
   PaymentMethodsContainer,
   PaymentSource,
+  PaymentSourceBrandIcon,
+  PaymentSourceBrandName,
+  PaymentSourceDetail,
   PlaceOrderButton,
   PlaceOrderContainer,
 } from "@commercelayer/react-components"
@@ -50,13 +53,14 @@ export const StepPayment: React.FC<Props> = ({
     if (gtmCtx?.fireAddPaymentInfo) {
       gtmCtx.fireAddPaymentInfo()
     }
+    await refetchOrder()
   }
 
   const handlePlaceOrder = async () => {
-    await refetchOrder()
     if (gtmCtx?.firePurchase) {
       gtmCtx.firePurchase()
     }
+    await refetchOrder()
   }
 
   return (
@@ -102,34 +106,56 @@ export const StepPayment: React.FC<Props> = ({
                 />
               </PaymentMethod>
             </PaymentMethodsContainer>
+          </>
+        ) : hasPaymentMethod ? (
+          <>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="flex">
+                <Icon>
+                  <FontAwesomeIcon icon={faWallet} />
+                </Icon>
+                <p data-cy="payment-method-selected" className="font-bold">
+                  {paymentMethod?.name}
+                </p>
+              </div>
+              <p data-cy="payment-method-price-selected">
+                {paymentMethod?.formattedPriceAmount}
+              </p>
+            </div>
+            <PaymentMethodsContainer>
+              <PaymentSource readonly>
+                <div className="flex flex-row items-center bg-gray-100 p-5 my-5">
+                  <div className="flex flex-row items-center w-1/2">
+                    <PaymentSourceBrandIcon className="mr-3" />
+                    <PaymentSourceBrandName className="mr-1" />
+                    ending in
+                    <PaymentSourceDetail className="ml-1" type="last4" />
+                  </div>
+                  <div className="text-gray-500">
+                    <PaymentSourceDetail type="expMonth" />/
+                    <PaymentSourceDetail type="expYear" />
+                  </div>
+                </div>
+              </PaymentSource>
+            </PaymentMethodsContainer>
             <PlaceOrderContainer
               options={{
                 stripePayment: {
-                  publishableKey: "pk_test_UArgJuzBMSppFkvAkATXTNT5",
+                  publishableKey: stripeKey,
                 },
                 saveShippingAddressToCustomerBook: true,
                 saveBillingAddressToCustomerBook: true,
               }}
             >
               <div>
-                <PlaceOrderSaveButton onClick={handlePlaceOrder} />
+                <PlaceOrderSaveButton
+                  data-cy="place-order-button"
+                  onClick={handlePlaceOrder}
+                  label={t("stepPayment.submit")}
+                />
               </div>
             </PlaceOrderContainer>
           </>
-        ) : hasPaymentMethod ? (
-          <div className="grid grid-cols-3 gap-2">
-            <div className="flex">
-              <Icon>
-                <FontAwesomeIcon icon={faWallet} />
-              </Icon>
-              <p data-cy="payment-method-selected" className="font-bold">
-                {paymentMethod?.name}
-              </p>
-            </div>
-            <p data-cy="payment-method-price-selected">
-              {paymentMethod?.formattedPriceAmount}
-            </p>
-          </div>
         ) : (
           <div>Metodo di pagamento da selezionare</div>
         )}

@@ -56,7 +56,8 @@
         "paymentMethod": "Hai impostato un metodo di pagamento",
         "creditCard": "Carta di credito",
         "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento",
-        "setPaymentMethod": "Imposta il metodo di pagamento"
+        "setPaymentMethod": "Imposta il metodo di pagamento",
+        "submit": "Invia l'ordine"
     },
 
     "addressForm" : {
