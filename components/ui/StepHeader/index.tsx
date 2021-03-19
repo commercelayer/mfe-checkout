@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components"
 import tw from "twin.macro"
 
-import { useTranslation } from "components/data/i18n"
+import { useTranslation } from "react-i18next"
 
 import { CheckmarkIcon } from "./CheckmarkIcon"
 

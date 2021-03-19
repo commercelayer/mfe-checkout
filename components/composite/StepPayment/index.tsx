@@ -12,12 +12,12 @@ import {
   PlaceOrderButton,
   PlaceOrderContainer,
 } from "@commercelayer/react-components"
+import { useTranslation } from "react-i18next"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faWallet } from "@fortawesome/free-solid-svg-icons"
 import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
-import { useTranslation } from "components/data/i18n"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { Icon } from "components/ui/Icon"

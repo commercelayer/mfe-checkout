@@ -12,11 +12,11 @@ import {
 } from "@commercelayer/react-components"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useTranslation } from "react-i18next"
 import { useState, Fragment, useEffect } from "react"
 import styled from "styled-components"
 import "twin.macro"
 
-import { useTranslation } from "components/data/i18n"
 import { ButtonCss } from "components/ui/Button"
 import { Toggle } from "components/ui/Toggle"
 

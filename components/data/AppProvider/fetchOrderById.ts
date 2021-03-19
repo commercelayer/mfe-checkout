@@ -7,8 +7,7 @@ import CLayer, {
   PaymentMethodCollection,
   PaymentMethod,
 } from "@commercelayer/js-sdk"
-
-import { changeLanguage } from "components/data/i18n"
+import i18n from "i18next"
 
 interface FetchOrderByIdProps {
   orderId: string
@@ -318,7 +317,7 @@ export const fetchOrderById = async ({
     console.log("order.shipments :>> ", shipments)
     console.log("order.paymentMethod :>> ", await order.paymentMethod())
 
-    await changeLanguage(order.languageCode)
+    await i18n.changeLanguage(order.languageCode)
 
     return {
       isGuest,
