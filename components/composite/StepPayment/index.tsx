@@ -6,6 +6,11 @@ import {
   PaymentMethodRadioButton,
   PaymentMethodsContainer,
   PaymentSource,
+  PaymentSourceBrandIcon,
+  PaymentSourceBrandName,
+  PaymentSourceDetail,
+  PlaceOrderButton,
+  PlaceOrderContainer,
 } from "@commercelayer/react-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faWallet } from "@fortawesome/free-solid-svg-icons"
@@ -16,6 +21,9 @@ import { useTranslation } from "components/data/i18n"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { Icon } from "components/ui/Icon"
+import { ButtonCss } from "components/ui/Button"
+import { GTMContext } from "components/data/GTMProvider"
+import styled from "styled-components"
 
 interface Props {
   className?: string
@@ -29,6 +37,8 @@ export const StepPayment: React.FC<Props> = ({
   onToggleActive,
 }) => {
   const appCtx = useContext(AppContext)
+  const gtmCtx = useContext(GTMContext)
+
   const { t } = useTranslation()
 
   if (!appCtx || !appCtx.hasShippingMethod) {
@@ -39,6 +49,20 @@ export const StepPayment: React.FC<Props> = ({
 
   const stripeKey = "pk_test_TYooMQauvdEDq54NiTphI7jx"
 
+  const handleSave = async () => {
+    if (gtmCtx?.fireAddPaymentInfo) {
+      gtmCtx.fireAddPaymentInfo()
+    }
+    await refetchOrder()
+  }
+
+  const handlePlaceOrder = async () => {
+    if (gtmCtx?.firePurchase) {
+      gtmCtx.firePurchase()
+    }
+    await refetchOrder()
+  }
+
   return (
     <div className={className}>
       <StepHeader
@@ -46,9 +70,7 @@ export const StepPayment: React.FC<Props> = ({
         status={isActive ? "edit" : "done"}
         label={t("stepPayment.title")}
         info={
-          isActive
-            ? t("stepPayment.summary")
-            : "Metodo di pagamento selezionato"
+          isActive ? t("stepPayment.summary") : t("stepPayment.methodSelected")
         }
         onEditRequest={() => {
           onToggleActive()
@@ -56,47 +78,84 @@ export const StepPayment: React.FC<Props> = ({
       />
       <StepContent>
         {isActive ? (
-          <PaymentMethodsContainer
-            config={{
-              stripePayment: {
-                publishableKey: stripeKey,
-                submitLabel: t("stepPayment.setPaymentMethod"),
-                submitClassName:
-                  "mt-5 inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent shadow-sm rounded-md hover:opacity-80 disabled:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50",
-                handleSubmit: refetchOrder,
-              },
-            }}
-          >
-            <PaymentMethod>
-              <div className="grid grid-cols-3 gap-2">
-                <div className="flex items-center">
-                  <div className="px-2">
-                    <PaymentMethodRadioButton />
+          <>
+            <PaymentMethodsContainer
+              config={{
+                stripePayment: {
+                  publishableKey: stripeKey,
+                  submitLabel: t("stepPayment.setPaymentMethod"),
+                  submitClassName:
+                    "mt-5 inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent shadow-sm rounded-md hover:opacity-80 disabled:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50",
+                  handleSubmit: handleSave,
+                },
+              }}
+            >
+              <PaymentMethod>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="flex items-center">
+                    <div className="px-2">
+                      <PaymentMethodRadioButton />
+                    </div>
+                    <PaymentMethodName />
                   </div>
-                  <PaymentMethodName />
+                  <PaymentMethodPrice labelFree={t("general.free")} />
                 </div>
-                <PaymentMethodPrice labelFree={t("general.free")} />
-              </div>
-              <PaymentSource
-                data-cy="payment-source"
-                className="p-5 my-2 bg-gray-50"
-              />
-            </PaymentMethod>
-          </PaymentMethodsContainer>
+                <PaymentSource
+                  data-cy="payment-source"
+                  className="p-5 my-2 bg-gray-50"
+                />
+              </PaymentMethod>
+            </PaymentMethodsContainer>
+          </>
         ) : hasPaymentMethod ? (
-          <div className="grid grid-cols-3 gap-2">
-            <div className="flex">
-              <Icon>
-                <FontAwesomeIcon icon={faWallet} />
-              </Icon>
-              <p data-cy="payment-method-selected" className="font-bold">
-                {paymentMethod?.name}
+          <>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="flex">
+                <Icon>
+                  <FontAwesomeIcon icon={faWallet} />
+                </Icon>
+                <p data-cy="payment-method-selected" className="font-bold">
+                  {paymentMethod?.name}
+                </p>
+              </div>
+              <p data-cy="payment-method-price-selected">
+                {paymentMethod?.formattedPriceAmount}
               </p>
             </div>
-            <p data-cy="payment-method-price-selected">
-              {paymentMethod?.formattedPriceAmount}
-            </p>
-          </div>
+            <PaymentMethodsContainer>
+              <PaymentSource readonly>
+                <div className="flex flex-row items-center bg-gray-100 p-5 my-5">
+                  <div className="flex flex-row items-center w-1/2">
+                    <PaymentSourceBrandIcon className="mr-3" />
+                    <PaymentSourceBrandName className="mr-1" />
+                    ending in
+                    <PaymentSourceDetail className="ml-1" type="last4" />
+                  </div>
+                  <div className="text-gray-500">
+                    <PaymentSourceDetail type="expMonth" />/
+                    <PaymentSourceDetail type="expYear" />
+                  </div>
+                </div>
+              </PaymentSource>
+            </PaymentMethodsContainer>
+            <PlaceOrderContainer
+              options={{
+                stripePayment: {
+                  publishableKey: stripeKey,
+                },
+                saveShippingAddressToCustomerBook: true,
+                saveBillingAddressToCustomerBook: true,
+              }}
+            >
+              <div>
+                <PlaceOrderSaveButton
+                  data-cy="place-order-button"
+                  onClick={handlePlaceOrder}
+                  label={t("stepPayment.submit")}
+                />
+              </div>
+            </PlaceOrderContainer>
+          </>
         ) : (
           <div>Metodo di pagamento da selezionare</div>
         )}
@@ -104,3 +163,7 @@ export const StepPayment: React.FC<Props> = ({
     </div>
   )
 }
+
+const PlaceOrderSaveButton = styled(PlaceOrderButton)`
+  ${ButtonCss}
+`
