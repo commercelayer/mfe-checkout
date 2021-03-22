@@ -1,8 +1,7 @@
 import { AddressInput } from "@commercelayer/react-components"
+import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
-
-import { useTranslation } from "components/data/i18n"
 
 interface Props {
   addressType: "billing" | "shipping"

@@ -4,11 +4,11 @@ import {
   faAddressCard,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useTranslation } from "react-i18next"
 import { Fragment, useContext } from "react"
 import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
-import { useTranslation } from "components/data/i18n"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { Icon } from "components/ui/Icon"

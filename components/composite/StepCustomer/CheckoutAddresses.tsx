@@ -5,10 +5,10 @@ import {
   SaveAddressesButton,
   ShippingAddressForm,
 } from "@commercelayer/react-components"
+import { useTranslation } from "react-i18next"
 import { useState, Fragment, useEffect } from "react"
 import "twin.macro"
 
-import { useTranslation } from "components/data/i18n"
 import { Toggle } from "components/ui/Toggle"
 
 import { AddressSectionEmail } from "./AddressSectionEmail"

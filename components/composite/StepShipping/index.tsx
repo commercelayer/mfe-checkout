@@ -15,13 +15,13 @@ import {
   StockTransferField,
   DeliveryLeadTime,
 } from "@commercelayer/react-components"
+import { useTranslation, Trans } from "next-i18next"
 import { faTruckLoading } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState, useEffect } from "react"
 import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
-import { useTranslation, Trans } from "components/data/i18n"
 import { Button } from "components/ui/Button"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"

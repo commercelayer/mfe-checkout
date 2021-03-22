@@ -1,4 +1,4 @@
-import { useTranslation } from "components/data/i18n"
+import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
 

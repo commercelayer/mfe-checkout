@@ -1,12 +1,16 @@
 import "../styles/globals.css"
+import translationIT from "public/static/locales/it/common.json"
+import translationEN from "public/static/locales/en/common.json"
 import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
+import { appWithTranslation } from "next-i18next"
+import { initReactI18next } from "react-i18next"
+import i18n from "i18next"
 import type { AppProps } from "next/app"
 import { AppContextType } from "next/dist/next-server/lib/utils"
 import { createGlobalStyle, ThemeProvider } from "styled-components"
 
 import { AppProvider } from "components/data/AppProvider"
 import { GTMProvider } from "components/data/GTMProvider"
-import { appWithTranslation } from "components/data/i18n"
 
 interface GlobalStyleProps {
   primaryColor: string
@@ -28,6 +32,23 @@ if (
 
 function CheckoutApp(props: AppProps) {
   const { Component, pageProps } = props
+
+  const languages = ["en", "it"]
+
+  const resources = {
+    en: {
+      translation: translationEN,
+    },
+    it: {
+      translation: translationIT,
+    },
+  }
+
+  i18n.use(initReactI18next).init({
+    resources,
+    lng: languages[0],
+    fallbackLng: languages,
+  })
 
   return pageProps.accessToken && pageProps.orderId ? (
     <CommerceLayer
