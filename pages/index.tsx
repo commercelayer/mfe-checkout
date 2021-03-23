@@ -24,11 +24,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({
 
   const { t } = useTranslation()
 
-  const STEPS = [
-    t("stepCustomer.title"),
-    t("stepShipping.title"),
-    t("stepPayment.title"),
-  ]
+  const STEPS = ["Customer", "Shipping", "Payment"]
 
   const {
     activeStep,

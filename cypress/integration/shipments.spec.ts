@@ -96,7 +96,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("edit Delivery, select Express Delivery and save", () => {
-      cy.dataCy("step_delivery")
+      cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
       cy.wait("@retrieveLineItems")
@@ -212,6 +212,7 @@ describe("Checkout Shipments", () => {
         "@getOrderShipments",
         "@retrieveLineItems",
         "@getOrderShipments",
+        "@updateOrder",
       ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
@@ -227,7 +228,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("edit Delivery, select Express Delivery to both shipments and save", () => {
-      cy.dataCy("step_delivery")
+      cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
       cy.wait("@retrieveLineItems")
@@ -256,6 +257,7 @@ describe("Checkout Shipments", () => {
         "@getOrderShipments",
         "@retrieveLineItems",
         "@getOrderShipments",
+        "@updateOrder",
       ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
@@ -271,7 +273,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("edit Delivery, select Express Delivery to first shipment and select Standard Shipping to second shipment and save", () => {
-      cy.dataCy("step_delivery")
+      cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
       cy.wait("@retrieveLineItems")
@@ -295,6 +297,7 @@ describe("Checkout Shipments", () => {
         "@getOrderShipments",
         "@retrieveLineItems",
         "@getOrderShipments",
+        "@updateOrder",
       ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
@@ -310,7 +313,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("edit Delivery, select Standard Shipping to first shipment and select Express Delivery to second shipment and save", () => {
-      cy.dataCy("step_delivery")
+      cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
       cy.wait("@retrieveLineItems")
@@ -329,6 +332,8 @@ describe("Checkout Shipments", () => {
       cy.dataCy("save-shipments-button").click()
       cy.wait([
         "@getOrders",
+        "@updateOrder",
+        "@availablePaymentMethods",
         "@retrieveLineItems",
         "@getShippingMethods",
         "@getOrderShipments",

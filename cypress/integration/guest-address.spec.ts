@@ -81,10 +81,11 @@ describe("Checkout guest address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait([
-        "@createAddress",
         "@updateOrder",
         "@getOrders",
         "@retrieveLineItems",
+        "@getShippingMethods",
+        "@getOrderShipments",
       ])
 
       cy.dataCy("fullname_billing")
@@ -139,7 +140,7 @@ describe("Checkout guest address", () => {
         "@getOrders",
         "@retrieveLineItems",
         "@getShippingMethods",
-        "@getOrderShipments"
+        "@getOrderShipments",
       ])
 
       cy.dataCy("fullname_billing")
@@ -213,7 +214,12 @@ describe("Checkout guest address", () => {
           this.newOrder.id
         }&redirectUrl=${redirectUrl}`
       )
-      cy.wait(["@getOrders", "@retrieveLineItems"])
+      cy.wait([
+        "@getOrders",
+        "@retrieveLineItems",
+        "@getShippingMethods",
+        "@getOrderShipments",
+      ])
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress.firstName)
@@ -301,7 +307,12 @@ describe("Checkout guest address", () => {
           this.newOrder.id
         }&redirectUrl=${redirectUrl}`
       )
-      cy.wait(["@getOrders", "@retrieveLineItems"])
+      cy.wait([
+        "@getOrders",
+        "@retrieveLineItems",
+        "@getShippingMethods",
+        "@getOrderShipments",
+      ])
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress.firstName)

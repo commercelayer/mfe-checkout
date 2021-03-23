@@ -26,6 +26,7 @@
         "quantity_plural": "Quantità:",
         "tax_amount": "Tasse",
         "shipping_amount": "Spedizione",
+        "payment_method_amount": "Metodo di pagamento",
         "total_amount": "Totale"
     },
 
@@ -57,6 +58,7 @@
         "creditCard": "Carta di credito",
         "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento",
         "setPaymentMethod": "Imposta il metodo di pagamento",
+        "endingIn": "<0/> finisce con <1/>",
         "submit": "Invia l'ordine"
     },
 
