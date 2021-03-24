@@ -37,6 +37,7 @@ export const StepCustomer: React.FC<Props> = ({
     hasShippingAddress,
     hasBillingAddress,
     isGuest,
+    isShipmentRequired,
     billingAddress,
     shippingAddress,
     emailAddress,
@@ -75,6 +76,7 @@ export const StepCustomer: React.FC<Props> = ({
                 emailAddress={emailAddress}
                 isGuest={isGuest}
                 hasSameAddresses={hasSameAddresses}
+                isShipmentRequired={isShipmentRequired}
                 refetchOrder={refetchOrder}
               />
             ) : (
@@ -84,6 +86,7 @@ export const StepCustomer: React.FC<Props> = ({
                 emailAddress={emailAddress}
                 isGuest={isGuest}
                 hasCustomerAddresses={hasCustomerAddresses}
+                isShipmentRequired={isShipmentRequired}
                 isUsingNewShippingAddress={isUsingNewShippingAddress}
                 isUsingNewBillingAddress={isUsingNewBillingAddress}
                 hasSameAddresses={hasSameAddresses}
@@ -117,7 +120,7 @@ export const StepCustomer: React.FC<Props> = ({
                   </div>
                 </Address>
               )}
-              {shippingAddress && (
+              {isShipmentRequired && shippingAddress && (
                 <Address addresses={[shippingAddress]}>
                   <div tw="flex flex-row">
                     <Icon>

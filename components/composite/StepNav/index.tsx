@@ -5,10 +5,10 @@ import tw from "twin.macro"
 import { Step } from "./Step"
 
 interface Props {
-  steps: string[]
-  onStepChange: (stepIndex: number) => void
-  activeStep: number
-  lastActivable: number
+  steps: Array<SingleStepEnum>
+  onStepChange: (stepIndex: SingleStepEnum) => void
+  activeStep: SingleStepEnum
+  lastActivable: SingleStepEnum
 }
 
 export const StepNav: React.FC<Props> = ({
@@ -22,8 +22,8 @@ export const StepNav: React.FC<Props> = ({
   return (
     <Wrapper>
       {(steps || []).map((step, index) => {
-        const isActive = index === activeStep
-        const isLocked = index > lastActivable
+        const isActive = step === activeStep
+        const isLocked = steps.indexOf(step) > steps.indexOf(lastActivable)
         return (
           <Step
             key={index}
@@ -31,18 +31,18 @@ export const StepNav: React.FC<Props> = ({
             data-status={isActive}
             onClick={() => {
               if (!isLocked) {
-                onStepChange(index)
+                onStepChange(step)
               }
             }}
             isActive={isActive}
             isLocked={isLocked}
           >
-            {step}
+            {t(`step${step}.title`)}
           </Step>
         )
       })}
 
-      <Step isLocked={activeStep != 3} isActive={activeStep == 3}>
+      <Step isLocked={activeStep != 'Complete'} isActive={activeStep == 'Complete'}>
         {t("general.complete")}
       </Step>
     </Wrapper>

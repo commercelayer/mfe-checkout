@@ -3,40 +3,47 @@ import { useState, useEffect, useContext } from "react"
 import { AppContext } from "components/data/AppProvider"
 
 interface UseActiveStep {
-  activeStep: number
-  setActiveStep: (step: number) => void
-  lastActivableStep: number
+  activeStep: SingleStepEnum
+  setActiveStep: (step: SingleStepEnum) => void
+  lastActivableStep: SingleStepEnum
   isLoading: boolean
+  steps: SingleStepEnum[]
 }
 
 export const useActiveStep = (): UseActiveStep => {
   const ctx = useContext(AppContext)
-  const [activeStep, setActiveStep] = useState(0)
+  const [activeStep, setActiveStep] = useState<SingleStepEnum>('Customer')
   const [isLoading, setIsLoading] = useState(true)
-  const [lastActivableStep, setLastActivableStep] = useState(0)
+  const [lastActivableStep, setLastActivableStep] = useState<SingleStepEnum>('Customer')
+  const [steps, setSteps] = useState<SingleStepEnum[]>(['Customer', 'Shipping', 'Payment'])
 
   useEffect(() => {
     if (ctx) {
       setIsLoading(ctx.isLoading)
 
-      // const canSelectShippingAddress = ctx.hasEmailAddress
-      const canSelectShippingMethod = ctx.hasShippingAddress
+      if (ctx.isShipmentRequired) {
+        setSteps(['Customer', 'Shipping', 'Payment'])
+      } else {
+        setSteps(['Customer', 'Payment'])
+      }
+
+      const canSelectShippingMethod = ctx.hasShippingAddress || !ctx.isShipmentRequired
       const canSelectPayment = ctx.hasShippingAddress && ctx.hasShippingMethod
       const canPlaceOrder =
         ctx.hasShippingAddress && ctx.hasShippingMethod && ctx.hasPaymentMethod
 
       if (canPlaceOrder) {
-        setActiveStep(3)
-        setLastActivableStep(3)
+        setActiveStep('Complete')
+        setLastActivableStep('Complete')
       } else if (canSelectPayment) {
-        setActiveStep(2)
-        setLastActivableStep(2)
+        setActiveStep('Payment')
+        setLastActivableStep('Payment')
       } else if (canSelectShippingMethod) {
-        setActiveStep(1)
-        setLastActivableStep(1)
+        setActiveStep('Shipping')
+        setLastActivableStep('Shipping')
       } else {
-        setActiveStep(0)
-        setLastActivableStep(0)
+        setActiveStep('Customer')
+        setLastActivableStep('Customer')
       }
     }
   }, [ctx])
@@ -46,5 +53,6 @@ export const useActiveStep = (): UseActiveStep => {
     lastActivableStep,
     setActiveStep,
     isLoading,
+    steps,
   }
 }

@@ -141,7 +141,7 @@ describe("check Data Layers GTM", () => {
     })
 
     it("edit Delivery, select Express Delivery to both shipments and save", () => {
-      cy.dataCy("step_delivery")
+      cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
       cy.wait("@retrieveLineItems")
@@ -186,8 +186,8 @@ describe("check Data Layers GTM", () => {
       })
     })
 
-    it("edit Delivery, select Express Delivery to first shipment and select Standard Shipping to second shipment and save", () => {
-      cy.dataCy("step_delivery")
+    it("edit Shipping, select Express Delivery to first shipment and select Standard Shipping to second shipment and save", () => {
+      cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
       cy.wait("@retrieveLineItems")

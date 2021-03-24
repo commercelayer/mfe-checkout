@@ -24,17 +24,12 @@ const Home: NextPage<CheckoutPageContextProps> = ({
 
   const { t } = useTranslation()
 
-  const STEPS = [
-    t("stepCustomer.title"),
-    t("stepShipping.title"),
-    t("stepPayment.title"),
-  ]
-
   const {
     activeStep,
     lastActivableStep,
     setActiveStep,
     isLoading,
+    steps
   } = useActiveStep()
 
   if (!ctx || isLoading) {
@@ -58,25 +53,27 @@ const Home: NextPage<CheckoutPageContextProps> = ({
           <div tw="md:pl-7">
             <h1 tw="font-bold mb-4 text-lg">Checkout</h1>
             <StepNav
-              steps={STEPS}
+              steps={steps}
               activeStep={activeStep}
               onStepChange={setActiveStep}
               lastActivable={lastActivableStep}
             />
             <StepCustomer
               tw="mb-6"
-              isActive={activeStep === 0}
-              onToggleActive={() => setActiveStep(0)}
+              isActive={activeStep === 'Customer'}
+              onToggleActive={() => setActiveStep('Customer')}
             />
-            <StepShipping
-              tw="mb-6"
-              isActive={activeStep === 1}
-              onToggleActive={() => setActiveStep(1)}
-            />
+            {steps.includes("Shipping") &&
+              <StepShipping
+                tw="mb-6"
+                isActive={activeStep === 'Shipping'}
+                onToggleActive={() => setActiveStep('Shipping')}
+              />
+            }
             <StepPayment
               tw="mb-6"
-              isActive={activeStep === 2}
-              onToggleActive={() => setActiveStep(2)}
+              isActive={activeStep === 'Payment'}
+              onToggleActive={() => setActiveStep('Payment')}
             />
           </div>
         }

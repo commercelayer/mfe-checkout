@@ -96,7 +96,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("edit Delivery, select Express Delivery and save", () => {
-      cy.dataCy("step_delivery")
+      cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
       cy.wait("@retrieveLineItems")
@@ -227,7 +227,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("edit Delivery, select Express Delivery to both shipments and save", () => {
-      cy.dataCy("step_delivery")
+      cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
       cy.wait("@retrieveLineItems")
@@ -271,7 +271,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("edit Delivery, select Express Delivery to first shipment and select Standard Shipping to second shipment and save", () => {
-      cy.dataCy("step_delivery")
+      cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
       cy.wait("@retrieveLineItems")
@@ -310,7 +310,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("edit Delivery, select Standard Shipping to first shipment and select Express Delivery to second shipment and save", () => {
-      cy.dataCy("step_delivery")
+      cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
       cy.wait("@retrieveLineItems")

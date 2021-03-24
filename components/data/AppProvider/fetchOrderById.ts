@@ -42,6 +42,7 @@ export interface FetchOrderByIdResponse {
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
   shippingCountryCodeLock: string
+  isShipmentRequired: boolean
 }
 
 async function isNewAddress({
@@ -149,6 +150,14 @@ function isBillingAddresSameAsShippingAddress({
   return true
 }
 
+async function checkIfShipmentRequired(order: OrderCollection): Promise<boolean> {
+  const lineItems = await order.lineItems()?.where({itemType: 'skus'}).select('item_type').last(1)
+  if (lineItems === undefined) {
+    return false
+  }
+  return lineItems.length > 0
+}
+
 export const fetchOrderById = async ({
   orderId,
   accessToken,
@@ -173,7 +182,10 @@ export const fetchOrderById = async ({
       ).find(orderId)
     }
 
+    
     let order: OrderCollection = await fetchOrder()
+    
+    const isShipmentRequired = await checkIfShipmentRequired(order)
 
     const fetchShipments = async () => {
       return (
@@ -187,8 +199,8 @@ export const fetchOrderById = async ({
     const addresses = customer && customer.customerAddresses()
     const arrayAddresses = addresses?.toArray()
 
-    let shippingAddress = order.shippingAddress()
     let billingAddress = await order.billingAddress()
+    let shippingAddress = order.shippingAddress()
 
     const shippingCountryCodeLock = order.shippingCountryCodeLock
 
@@ -227,8 +239,8 @@ export const fetchOrderById = async ({
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
 
-    const shippingMethodsAvailable = (await ShippingMethod.all()).toArray()
-    let shipments = await fetchShipments()
+    const shippingMethodsAvailable = isShipmentRequired ? (await ShippingMethod.all()).toArray() : []
+    let shipments = isShipmentRequired ? await fetchShipments() : []
     const shipmentsSelected = shipments?.map((a) => {
       return {
         shipmentId: a.id,
@@ -247,6 +259,7 @@ export const fetchOrderById = async ({
     // If all promises are successful, we set hasShippingMethod
     // to true to skip the shipping step
     if (
+      isShipmentRequired &&
       hasBillingAddress &&
       hasShippingAddress &&
       !hasShippingMethod &&
@@ -336,6 +349,7 @@ export const fetchOrderById = async ({
       shipments: (shipmentsSelected as unknown) as ShipmentSelected[],
       hasPaymentMethod,
       shippingCountryCodeLock,
+      isShipmentRequired,
     }
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
@@ -356,6 +370,7 @@ export const fetchOrderById = async ({
       paymentMethod: null,
       hasPaymentMethod: false,
       shippingCountryCodeLock: "",
+      isShipmentRequired: true,
     }
   }
 }
