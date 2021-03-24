@@ -9,6 +9,7 @@ import {
   TaxesAmount,
   ShippingAmount,
   TotalAmount,
+  PaymentMethodAmount,
 } from "@commercelayer/react-components"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -56,6 +57,10 @@ export const OrderSummary: React.FC = () => {
         <h2 tw="text-sm font-bold flex flex-row justify-between pb-2">
           {t("orderRecap.shipping_amount")}
           <ShippingAmount />
+        </h2>
+        <h2 tw="text-sm font-bold flex flex-row justify-between pb-2">
+          {t("orderRecap.payment_method_amount")}
+          <PaymentMethodAmount />
         </h2>
         <h4 tw="text-lg font-bold flex flex-row justify-between">
           {t("orderRecap.total_amount")}

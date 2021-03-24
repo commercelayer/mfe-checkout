@@ -26,6 +26,7 @@
         "quantity_plural": "Quantities: {{count}}",
         "tax_amount": "Tax",
         "shipping_amount": "Shipping",
+        "payment_method_amount": "Payment method",
         "total_amount": "Total"
     },
 
@@ -57,6 +58,7 @@
         "creditCard": "Credit card",
         "addPaymentMethod": "Add shipping method before payment",
         "setPaymentMethod": "Set payment method",
+        "endingIn": "<0/> ending in <1/>",
         "submit": "Place order"
     },
 

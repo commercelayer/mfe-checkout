@@ -157,7 +157,9 @@ describe("check Data Layers GTM", () => {
         "@getOrders",
         "@retrieveLineItems",
         "@getOrderShipments",
+        "@getShippingMethods",
         "@updateOrder",
+        "@availablePaymentMethods",
       ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
@@ -186,7 +188,7 @@ describe("check Data Layers GTM", () => {
       })
     })
 
-    it("edit Shipping, select Express Delivery to first shipment and select Standard Shipping to second shipment and save", () => {
+    it("edit Delivery, select Express Delivery to first shipment and select Standard Shipping to second shipment and save", () => {
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
@@ -231,7 +233,7 @@ describe("check Data Layers GTM", () => {
     })
 
     it("edit Delivery, select Standard Shipping to first shipment and select Express Delivery to second shipment and save", () => {
-      cy.dataCy("step_delivery")
+      cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
       cy.wait("@retrieveLineItems")
@@ -241,7 +243,14 @@ describe("check Data Layers GTM", () => {
       cy.get("@shippingMethodButton0").click()
       cy.get("@shippingMethodButton3").click()
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@retrieveLineItems", "@getOrderShipments"])
+      cy.wait([
+        "@getOrders",
+        "@retrieveLineItems",
+        "@getOrderShipments",
+        "@getShippingMethods",
+        "@updateOrder",
+        "@availablePaymentMethods",
+      ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
       })

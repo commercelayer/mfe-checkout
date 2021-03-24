@@ -212,6 +212,7 @@ describe("Checkout Shipments", () => {
         "@getOrderShipments",
         "@retrieveLineItems",
         "@getOrderShipments",
+        "@updateOrder",
       ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
@@ -256,6 +257,7 @@ describe("Checkout Shipments", () => {
         "@getOrderShipments",
         "@retrieveLineItems",
         "@getOrderShipments",
+        "@updateOrder",
       ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
@@ -295,6 +297,7 @@ describe("Checkout Shipments", () => {
         "@getOrderShipments",
         "@retrieveLineItems",
         "@getOrderShipments",
+        "@updateOrder",
       ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
@@ -329,6 +332,8 @@ describe("Checkout Shipments", () => {
       cy.dataCy("save-shipments-button").click()
       cy.wait([
         "@getOrders",
+        "@updateOrder",
+        "@availablePaymentMethods",
         "@retrieveLineItems",
         "@getShippingMethods",
         "@getOrderShipments",
