@@ -37,7 +37,7 @@ export const StepNav: React.FC<Props> = ({
             isActive={isActive}
             isLocked={isLocked}
           >
-            {step}
+            {t("step" + step + ".title")}
           </Step>
         )
       })}

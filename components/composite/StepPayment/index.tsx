@@ -9,10 +9,11 @@ import {
   PaymentSourceBrandIcon,
   PaymentSourceBrandName,
   PaymentSourceDetail,
+  PaymentSourceEditButton,
   PlaceOrderButton,
   PlaceOrderContainer,
 } from "@commercelayer/react-components"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faWallet } from "@fortawesome/free-solid-svg-icons"
 import "twin.macro"
@@ -103,7 +104,27 @@ export const StepPayment: React.FC<Props> = ({
                 <PaymentSource
                   data-cy="payment-source"
                   className="p-5 my-2 bg-gray-50"
-                />
+                >
+                  <div className="flex flex-row items-center justify-start bg-gray-100 p-5 my-2">
+                    <div className="flex flex-row items-center">
+                      <PaymentSourceBrandIcon className="mr-3" />
+                      <Trans t={t} i18nKey="stepPayment.endingIn">
+                        <PaymentSourceBrandName className="mr-1" />
+                        <PaymentSourceDetail className="ml-1" type="last4" />
+                      </Trans>
+                    </div>
+                    <div className="text-gray-500 ml-5">
+                      <PaymentSourceDetail type="expMonth" />/
+                      <PaymentSourceDetail type="expYear" />
+                    </div>
+                    <div className="ml-5">
+                      <PaymentSourceEditButton
+                        label={t("general.edit")}
+                        className="text-primary hover:underline hover:opacity-80 font-bold"
+                      />
+                    </div>
+                  </div>
+                </PaymentSource>
               </PaymentMethod>
             </PaymentMethodsContainer>
           </>
@@ -127,9 +148,10 @@ export const StepPayment: React.FC<Props> = ({
                 <div className="flex flex-row items-center bg-gray-100 p-5 my-5">
                   <div className="flex flex-row items-center w-1/2">
                     <PaymentSourceBrandIcon className="mr-3" />
-                    <PaymentSourceBrandName className="mr-1" />
-                    ending in
-                    <PaymentSourceDetail className="ml-1" type="last4" />
+                    <Trans t={t} i18nKey="stepPayment.endingIn">
+                      <PaymentSourceBrandName className="mr-1" />
+                      <PaymentSourceDetail className="ml-1" type="last4" />
+                    </Trans>
                   </div>
                   <div className="text-gray-500">
                     <PaymentSourceDetail type="expMonth" />/

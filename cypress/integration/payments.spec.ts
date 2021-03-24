@@ -107,6 +107,7 @@ describe("Checkout Payments", () => {
         "@updateOrder",
         "@retrieveLineItems",
         "@getOrderShipments",
+        "@availablePaymentMethods",
       ])
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
