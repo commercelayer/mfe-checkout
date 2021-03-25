@@ -1,9 +1,3 @@
-import { NextPage } from "next"
-import "twin.macro"
-import Head from "next/head"
-import { useContext } from "react"
-import { useTranslation } from "react-i18next"
-
 import { OrderSummary } from "components/composite/OrderSummary"
 import { StepCustomer } from "components/composite/StepCustomer"
 import { StepNav } from "components/composite/StepNav"
@@ -14,6 +8,11 @@ import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
+import { NextPage } from "next"
+import Head from "next/head"
+import "twin.macro"
+import { useContext } from "react"
+import { useTranslation } from "react-i18next"
 
 const Home: NextPage<CheckoutPageContextProps> = ({
   logoUrl,
@@ -29,7 +28,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({
     lastActivableStep,
     setActiveStep,
     isLoading,
-    steps
+    steps,
   } = useActiveStep()
 
   if (!ctx || isLoading) {
@@ -60,20 +59,18 @@ const Home: NextPage<CheckoutPageContextProps> = ({
             />
             <StepCustomer
               tw="mb-6"
-              isActive={activeStep === 'Customer'}
-              onToggleActive={() => setActiveStep('Customer')}
+              isActive={activeStep === "Customer"}
+              onToggleActive={() => setActiveStep("Customer")}
             />
-            {steps.includes("Shipping") &&
-              <StepShipping
-                tw="mb-6"
-                isActive={activeStep === 'Shipping'}
-                onToggleActive={() => setActiveStep('Shipping')}
-              />
-            }
+            <StepShipping
+              tw="mb-6"
+              isActive={activeStep === "Shipping"}
+              onToggleActive={() => setActiveStep("Shipping")}
+            />
             <StepPayment
               tw="mb-6"
-              isActive={activeStep === 'Payment'}
-              onToggleActive={() => setActiveStep('Payment')}
+              isActive={activeStep === "Payment"}
+              onToggleActive={() => setActiveStep("Payment")}
             />
           </div>
         }

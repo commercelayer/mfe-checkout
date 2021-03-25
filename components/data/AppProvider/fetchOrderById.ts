@@ -150,8 +150,15 @@ function isBillingAddresSameAsShippingAddress({
   return true
 }
 
-async function checkIfShipmentRequired(order: OrderCollection): Promise<boolean> {
-  const lineItems = await order.lineItems()?.where({itemType: 'skus'}).select('item_type').last(1)
+async function checkIfShipmentRequired(
+  order: OrderCollection
+): Promise<boolean> {
+  return false
+  const lineItems = await order
+    .lineItems()
+    ?.where({ itemType: "skus" })
+    .select("item_type")
+    .last(1)
   if (lineItems === undefined) {
     return false
   }
@@ -182,9 +189,8 @@ export const fetchOrderById = async ({
       ).find(orderId)
     }
 
-    
-    let order: OrderCollection = await fetchOrder()
-    
+    const order: OrderCollection = await fetchOrder()
+
     const isShipmentRequired = await checkIfShipmentRequired(order)
 
     const fetchShipments = async () => {
@@ -239,8 +245,10 @@ export const fetchOrderById = async ({
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
 
-    const shippingMethodsAvailable = isShipmentRequired ? (await ShippingMethod.all()).toArray() : []
-    let shipments = isShipmentRequired ? await fetchShipments() : []
+    const shippingMethodsAvailable = isShipmentRequired
+      ? (await ShippingMethod.all()).toArray()
+      : []
+    const shipments = isShipmentRequired ? await fetchShipments() : []
     const shipmentsSelected = shipments?.map((a) => {
       return {
         shipmentId: a.id,
@@ -303,7 +311,7 @@ export const fetchOrderById = async ({
           paymentMethod,
         })
 
-        //order.available_Customer_payment_sources
+        // order.available_Customer_payment_sources
       } catch (error) {
         console.log(error)
       }

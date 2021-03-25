@@ -23,7 +23,9 @@ export const StepNav: React.FC<Props> = ({
     <Wrapper>
       {(steps || []).map((step, index) => {
         const isActive = step === activeStep
-        const isLocked = steps.indexOf(step) > steps.indexOf(lastActivable)
+        const isLocked =
+          steps.indexOf(step) > steps.indexOf(lastActivable) &&
+          lastActivable !== "Complete"
         return (
           <Step
             key={index}
@@ -42,7 +44,10 @@ export const StepNav: React.FC<Props> = ({
         )
       })}
 
-      <Step isLocked={activeStep != 'Complete'} isActive={activeStep == 'Complete'}>
+      <Step
+        isLocked={activeStep != "Complete"}
+        isActive={activeStep == "Complete"}
+      >
         {t("general.complete")}
       </Step>
     </Wrapper>
