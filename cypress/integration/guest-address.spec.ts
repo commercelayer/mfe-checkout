@@ -47,7 +47,15 @@ describe("Checkout guest address", () => {
         cy.newStubData("getOrders1", filename)
       }
 
-      cy.wait(["@getOrders", "@retrieveLineItems"])
+      cy.wait([
+        "@getOrders",
+        "@getOrders",
+        "@getOrders",
+        "@retrieveLineItems",
+        "@retrieveLineItems",
+        "@getShippingMethods",
+        "@retrieveLineItems",
+      ])
 
       cy.dataCy("customer_email").should("contain.value", "alessani@gmail.tk")
     })
@@ -61,7 +69,16 @@ describe("Checkout guest address", () => {
 
       cy.reload()
 
-      cy.wait(["@getOrders", "@retrieveLineItems"])
+      cy.wait([
+        "@getOrders",
+        "@getOrders",
+        "@getOrders",
+        "@retrieveLineItems",
+        "@retrieveLineItems",
+        "@getShippingMethods",
+        "@getOrderShipments",
+        "@retrieveLineItems",
+      ])
 
       cy.dataCy("customer_email").should("contain.value", emailCustomer)
     })
@@ -81,8 +98,12 @@ describe("Checkout guest address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait([
+        "@createAddress",
+        "@getOrders",
         "@updateOrder",
         "@getOrders",
+        "@getOrders",
+        "@retrieveLineItems",
         "@retrieveLineItems",
         "@getShippingMethods",
         "@getOrderShipments",
@@ -136,8 +157,12 @@ describe("Checkout guest address", () => {
 
       cy.wait([
         "@createAddress",
+        "@createAddress",
+        "@getOrders",
         "@updateOrder",
         "@getOrders",
+        "@getOrders",
+        "@retrieveLineItems",
         "@retrieveLineItems",
         "@getShippingMethods",
         "@getOrderShipments",
@@ -216,6 +241,9 @@ describe("Checkout guest address", () => {
       )
       cy.wait([
         "@getOrders",
+        "@getOrders",
+        "@getOrders",
+        "@retrieveLineItems",
         "@retrieveLineItems",
         "@getShippingMethods",
         "@getOrderShipments",
@@ -309,6 +337,9 @@ describe("Checkout guest address", () => {
       )
       cy.wait([
         "@getOrders",
+        "@getOrders",
+        "@getOrders",
+        "@retrieveLineItems",
         "@retrieveLineItems",
         "@getShippingMethods",
         "@getOrderShipments",

@@ -61,6 +61,9 @@ describe("Checkout Shipments", () => {
       )
       cy.wait([
         "@getOrders",
+        "@getOrders",
+        "@getOrders",
+        "@retrieveLineItems",
         "@retrieveLineItems",
         "@getShippingMethods",
         "@getOrderShipments",
@@ -74,20 +77,15 @@ describe("Checkout Shipments", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click()
-      cy.wait([
-        "@retrieveLineItems",
-        "@getOrders",
-        "@getShipments",
-        "@getOrderShipments",
-      ])
+      cy.wait(["@retrieveLineItems", "@getOrders", "@getShipments"])
       cy.dataCy("save-shipments-button").click()
       cy.wait([
+        "@getOrders",
         "@getOrders",
         "@retrieveLineItems",
         "@getShippingMethods",
         "@getOrderShipments",
-        "@retrieveLineItems",
-        "@getOrderShipments",
+        "@updateOrder",
       ])
       cy.dataCy("shipping-method-name-recap").should(
         "contain.text",
@@ -99,7 +97,6 @@ describe("Checkout Shipments", () => {
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait("@retrieveLineItems")
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -116,7 +113,12 @@ describe("Checkout Shipments", () => {
         "@retrieveLineItems",
         "@getShippingMethods",
         "@getOrderShipments",
+        "@getOrders",
+        "@updateOrder",
+        "@getOrders",
         "@retrieveLineItems",
+        "@getOrderShipments",
+        "@availablePaymentMethods",
         "@getOrderShipments",
       ])
       cy.dataCy("shipping-method-name-recap").should(
@@ -187,6 +189,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("select Standard Shipping to both shipments and save", () => {
+      cy.wait(["@updateOrder", "@retrieveLineItems", "@getOrderShipments"])
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -206,13 +209,18 @@ describe("Checkout Shipments", () => {
       ])
       cy.dataCy("save-shipments-button").click()
       cy.wait([
+        "@retrieveLineItems",
         "@getOrders",
         "@retrieveLineItems",
         "@getShippingMethods",
         "@getOrderShipments",
+        "@getOrders",
+        "@updateOrder",
+        "@getOrders",
         "@retrieveLineItems",
         "@getOrderShipments",
-        "@updateOrder",
+        "@availablePaymentMethods",
+        "@getOrderShipments",
       ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
@@ -331,12 +339,17 @@ describe("Checkout Shipments", () => {
       ])
       cy.dataCy("save-shipments-button").click()
       cy.wait([
+        "@getOrderShipments",
+        "@retrieveLineItems",
         "@getOrders",
-        "@updateOrder",
-        "@availablePaymentMethods",
+        "@retrieveLineItems",
+        "@retrieveLineItems",
         "@retrieveLineItems",
         "@getShippingMethods",
-        "@getOrderShipments",
+        "@retrieveLineItems",
+        "@getOrders",
+        "@updateOrder",
+        "@getOrders",
         "@retrieveLineItems",
         "@getOrderShipments",
       ])
@@ -423,6 +436,14 @@ describe("Checkout Shipments", () => {
     })
 
     it("check both Standard Shipping", () => {
+      cy.wait([
+        "@getOrders",
+        "@updateOrder",
+        "@retrieveLineItems",
+        "@getOrderShipments",
+        "@availablePaymentMethods",
+        "@getOrders",
+      ])
       cy.dataCy("shipping-method-name-recap").should(
         "contain.text",
         "Standard Shipping"
@@ -502,6 +523,14 @@ describe("Checkout Shipments", () => {
     })
 
     it("check both Express Delivery", () => {
+      cy.wait([
+        "@getOrders",
+        "@updateOrder",
+        "@retrieveLineItems",
+        "@getOrderShipments",
+        "@availablePaymentMethods",
+        "@getOrders",
+      ])
       cy.dataCy("shipping-method-name-recap").should(
         "contain.text",
         "Express Delivery"
@@ -591,6 +620,13 @@ describe("Checkout Shipments", () => {
     })
 
     it("check both Standard Shipping", () => {
+      cy.wait([
+        "@updateOrder",
+        "@retrieveLineItems",
+        "@getOrderShipments",
+        "@availablePaymentMethods",
+        "@getOrders",
+      ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
       })
@@ -687,6 +723,13 @@ describe("Checkout Shipments", () => {
     })
 
     it("check both Express Delivery", () => {
+      cy.wait([
+        "@updateOrder",
+        "@retrieveLineItems",
+        "@getOrderShipments",
+        "@availablePaymentMethods",
+        "@getOrders",
+      ])
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
       })
@@ -788,6 +831,13 @@ describe("Checkout Shipments", () => {
       })
 
       it("check shipments: Standard Shipping and Express Delivery", () => {
+        cy.wait([
+          "@updateOrder",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@getOrders",
+        ])
         cy.dataCy("shipping-method-name-recap").each((e, i) => {
           cy.wrap(e).as(`shippingMethodNameRecap${i}`)
         })

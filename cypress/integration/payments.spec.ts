@@ -93,6 +93,9 @@ describe("Checkout Payments", () => {
       )
       cy.wait([
         "@getOrders",
+        "@getOrders",
+        "@getOrders",
+        "@retrieveLineItems",
         "@retrieveLineItems",
         "@getShippingMethods",
         "@getOrderShipments",
@@ -108,6 +111,7 @@ describe("Checkout Payments", () => {
         "@retrieveLineItems",
         "@getOrderShipments",
         "@availablePaymentMethods",
+        "@getOrders",
       ])
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
@@ -123,7 +127,15 @@ describe("Checkout Payments", () => {
           cy.wrap(e).as(`paymentSourceButton${i}`)
         })
       cy.get("@paymentSourceButton2").click()
-      cy.wait(["@getOrders", "@retrieveLineItems", "@getOrderShipments"])
+      cy.wait([
+        "@getOrders",
+        "@getOrders",
+        "@retrieveLineItems",
+        "@getOrderShipments",
+        "@getOrders",
+        "@getOrders",
+        "@getOrders",
+      ])
       cy.dataCy("payment-method-selected").should(
         "contain.text",
         "Stripe Payment"
