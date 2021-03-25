@@ -155,7 +155,7 @@ async function checkIfShipmentRequired(
 ): Promise<boolean> {
   const lineItems = await order
     .lineItems()
-    ?.where({ itemType: "skus" })
+    ?.where({ itemTypeCont: "skus" })
     .select("item_type")
     .last(1)
   if (lineItems === undefined) {
