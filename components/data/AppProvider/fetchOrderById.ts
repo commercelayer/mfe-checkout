@@ -153,7 +153,6 @@ function isBillingAddresSameAsShippingAddress({
 async function checkIfShipmentRequired(
   order: OrderCollection
 ): Promise<boolean> {
-  return false
   const lineItems = await order
     .lineItems()
     ?.where({ itemType: "skus" })
