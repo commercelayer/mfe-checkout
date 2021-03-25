@@ -233,7 +233,11 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             </div>
             <AddressSectionSaveForm>
               <StyledSaveAddressesButton
-                label={t("stepCustomer.continueToDelivery")}
+                label={
+                  isShipmentRequired
+                    ? t("stepCustomer.continueToDelivery")
+                    : t("stepShipping.continueToPayment")
+                }
                 data-cy="save-addresses-button"
                 onClick={refetchOrder}
               />
