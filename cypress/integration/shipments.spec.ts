@@ -59,34 +59,61 @@ describe("Checkout Shipments", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-      cy.wait([
-        "@getOrders",
-        "@getOrders",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+        ],
+        { timeout: 100000 }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
     it("select Standard Shipping and save", () => {
+      cy.wait(
+        [
+          "@retrieveLineItems",
+          "@updateOrder",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click()
-      cy.wait(["@retrieveLineItems", "@getOrders", "@getShipments"])
+      cy.wait(["@retrieveLineItems", "@getShipments"], {
+        timeout: 100000,
+      })
       cy.dataCy("save-shipments-button").click()
-      cy.wait([
-        "@getOrders",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+        ],
+        { timeout: 100000 }
+      )
       cy.dataCy("shipping-method-name-recap").should(
         "contain.text",
         "Standard Shipping"
@@ -101,26 +128,35 @@ describe("Checkout Shipments", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton1").click()
-      cy.wait([
-        "@retrieveLineItems",
-        "@getOrders",
-        "@getShipments",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getShipments",
+          "@getOrderShipments",
+        ],
+        { timeout: 100000 }
+      )
       cy.dataCy("save-shipments-button").click()
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@getOrders",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getOrderShipments",
-        "@availablePaymentMethods",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@updateOrder",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@getOrderShipments",
+        ],
+        { timeout: 100000 }
+      )
       cy.dataCy("shipping-method-name-recap").should(
         "contain.text",
         "Express Delivery"
@@ -178,50 +214,75 @@ describe("Checkout Shipments", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
     it("select Standard Shipping to both shipments and save", () => {
-      cy.wait(["@updateOrder", "@retrieveLineItems", "@getOrderShipments"])
+      cy.wait(["@updateOrder", "@retrieveLineItems", "@getOrderShipments"], {
+        timeout: 100000,
+      })
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click()
-      cy.wait([
-        "@retrieveLineItems",
-        "@getOrders",
-        "@getShipments",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getShipments",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.get("@shippingMethodButton2").click()
-      cy.wait([
-        "@retrieveLineItems",
-        "@getOrders",
-        "@getShipments",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getShipments",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("save-shipments-button").click()
-      cy.wait([
-        "@retrieveLineItems",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@getOrders",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getOrderShipments",
-        "@availablePaymentMethods",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@retrieveLineItems",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrders",
+          "@updateOrder",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
       })
@@ -239,34 +300,61 @@ describe("Checkout Shipments", () => {
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait("@retrieveLineItems")
+      cy.wait("@retrieveLineItems", {
+        timeout: 100000,
+      })
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton1").click()
-      cy.wait([
-        "@retrieveLineItems",
-        "@getOrders",
-        "@getShipments",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getShipments",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.get("@shippingMethodButton3").click()
-      cy.wait([
-        "@retrieveLineItems",
-        "@getOrders",
-        "@getShipments",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getShipments",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("save-shipments-button").click()
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@retrieveLineItems",
-        "@getOrderShipments",
-        "@updateOrder",
-      ])
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@updateOrder",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
       })
@@ -284,29 +372,50 @@ describe("Checkout Shipments", () => {
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait("@retrieveLineItems")
+      cy.wait("@retrieveLineItems", {
+        timeout: 100000,
+      })
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton1").click()
-      cy.wait("@retrieveLineItems")
+      cy.wait("@retrieveLineItems", {
+        timeout: 100000,
+      })
       cy.get("@shippingMethodButton2").click()
-      cy.wait([
-        "@retrieveLineItems",
-        "@getOrders",
-        "@getShipments",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getShipments",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("save-shipments-button").click()
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@retrieveLineItems",
-        "@getOrderShipments",
-        "@updateOrder",
-      ])
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@updateOrder",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
       })
@@ -324,35 +433,55 @@ describe("Checkout Shipments", () => {
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait("@retrieveLineItems")
+      cy.wait("@retrieveLineItems", {
+        timeout: 100000,
+      })
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click()
-      cy.wait("@retrieveLineItems")
+      cy.wait(["@retrieveLineItems", "@getShipments"], {
+        timeout: 100000,
+      })
       cy.get("@shippingMethodButton3").click()
-      cy.wait([
-        "@retrieveLineItems",
-        "@getOrders",
-        "@getShipments",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getShipments",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("save-shipments-button").click()
-      cy.wait([
-        "@getOrderShipments",
-        "@retrieveLineItems",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@retrieveLineItems",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@retrieveLineItems",
-        "@getOrders",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getShippingMethods",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@updateOrder",
+          "@availablePaymentMethods",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
       })
@@ -425,25 +554,34 @@ describe("Checkout Shipments", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getShippingMethods",
+          "@getOrderShipments",
+        ],
+        { timeout: 100000 }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
     it("check both Standard Shipping", () => {
-      cy.wait([
-        "@getOrders",
-        "@updateOrder",
-        "@retrieveLineItems",
-        "@getOrderShipments",
-        "@availablePaymentMethods",
-        "@getOrders",
-      ])
+      cy.wait(
+        [
+          "@getOrders",
+          "@updateOrder",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@getOrders",
+        ],
+        { timeout: 100000 }
+      )
       cy.dataCy("shipping-method-name-recap").should(
         "contain.text",
         "Standard Shipping"
@@ -512,25 +650,34 @@ describe("Checkout Shipments", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getShippingMethods",
+          "@getOrderShipments",
+        ],
+        { timeout: 100000 }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
     it("check both Express Delivery", () => {
-      cy.wait([
-        "@getOrders",
-        "@updateOrder",
-        "@retrieveLineItems",
-        "@getOrderShipments",
-        "@availablePaymentMethods",
-        "@getOrders",
-      ])
+      cy.wait(
+        [
+          "@getOrders",
+          "@updateOrder",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@getOrders",
+        ],
+        { timeout: 100000 }
+      )
       cy.dataCy("shipping-method-name-recap").should(
         "contain.text",
         "Express Delivery"
@@ -609,24 +756,34 @@ describe("Checkout Shipments", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getShippingMethods",
+          "@getOrderShipments",
+        ],
+        { timeout: 1000000 }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
     it("check both Standard Shipping", () => {
-      cy.wait([
-        "@updateOrder",
-        "@retrieveLineItems",
-        "@getOrderShipments",
-        "@availablePaymentMethods",
-        "@getOrders",
-      ])
+      cy.wait(
+        [
+          "@updateOrder",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@getOrders",
+          "@getOrders",
+        ],
+        { timeout: 1000000 }
+      )
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
       })
@@ -712,24 +869,34 @@ describe("Checkout Shipments", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getShippingMethods",
+          "@getOrderShipments",
+        ],
+        { timeout: 100000 }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
     it("check both Express Delivery", () => {
-      cy.wait([
-        "@updateOrder",
-        "@retrieveLineItems",
-        "@getOrderShipments",
-        "@availablePaymentMethods",
-        "@getOrders",
-      ])
+      cy.wait(
+        [
+          "@updateOrder",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@getOrders",
+          "@getOrders",
+        ],
+        { timeout: 100000 }
+      )
       cy.dataCy("shipping-method-name-recap").each((e, i) => {
         cy.wrap(e).as(`shippingMethodNameRecap${i}`)
       })
@@ -820,24 +987,34 @@ describe("Checkout Shipments", () => {
         cy.visit(
           `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
         )
-        cy.wait([
-          "@getOrders",
-          "@retrieveLineItems",
-          "@getShippingMethods",
-          "@getOrderShipments",
-        ])
+        cy.wait(
+          [
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@getShippingMethods",
+            "@getOrderShipments",
+          ],
+          { timeout: 100000 }
+        )
         cy.url().should("contain", this.tokenObj.access_token)
         cy.url().should("not.contain", Cypress.env("accessToken"))
       })
 
       it("check shipments: Standard Shipping and Express Delivery", () => {
-        cy.wait([
-          "@updateOrder",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-          "@availablePaymentMethods",
-          "@getOrders",
-        ])
+        cy.wait(
+          [
+            "@updateOrder",
+            "@retrieveLineItems",
+            "@getOrderShipments",
+            "@availablePaymentMethods",
+            "@getOrders",
+            "@getOrders",
+          ],
+          { timeout: 100000 }
+        )
         cy.dataCy("shipping-method-name-recap").each((e, i) => {
           cy.wrap(e).as(`shippingMethodNameRecap${i}`)
         })

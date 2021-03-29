@@ -105,7 +105,7 @@ describe("Checkout entrypoint", () => {
         if (!Cypress.env("record")) {
           cy.newStubData("getOrders1", filename)
         }
-        cy.wait(["@getOrders", "@retrieveLineItems"])
+        cy.wait(["@getOrders", "@retrieveLineItems"], { timeout: 100000 })
         cy.url().should("include", `redirectUrl=${redirectUrl}`)
       })
 
@@ -120,7 +120,7 @@ describe("Checkout entrypoint", () => {
           cy.newStubData(["getOrders1"], filename)
         }
 
-        cy.wait(["@getOrders", "@retrieveLineItems"])
+        cy.wait(["@getOrders", "@retrieveLineItems"], { timeout: 100000 })
 
         cy.dataCy("test-summary").should(
           "have.text",

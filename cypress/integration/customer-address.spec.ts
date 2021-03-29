@@ -53,14 +53,23 @@ describe("Checkout customer address", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-        "@getCustomerAddresses",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+        ],
+        { timeout: 100000 }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
@@ -79,16 +88,26 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@createAddress",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+        ],
+        { timeout: 100000 }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress.firstName)
@@ -116,7 +135,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@getOrders"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -135,16 +156,26 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@createAddress",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+          "@createAddress",
+        ],
+        { timeout: 100000 }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress.firstName)
@@ -172,7 +203,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@getOrders"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("input_billing_address_first_name").type(
         `{selectall}{backspace}${euAddress3.firstName}`
@@ -201,16 +234,26 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@createAddress",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+          "@createAddress",
+        ],
+        { timeout: 100000 }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress3.firstName)
@@ -238,21 +281,39 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
+
       cy.dataCy("button-ship-to-different-address")
         .click()
         .should("have.attr", "data-status", "false")
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress3.firstName)
@@ -324,13 +385,20 @@ describe("Checkout customer address", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+        ],
+        { timeout: 100000 }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
@@ -362,7 +430,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("input_billing_address_first_name").type(
         `{selectall}{backspace}${euAddress3.firstName}`
@@ -391,16 +461,25 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@createAddress",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+        ],
+        { timeout: 100000 }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress3.firstName)
@@ -428,7 +507,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -447,16 +528,25 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@createAddress",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+          "@createAddress",
+        ],
+        { timeout: 100000 }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress3.firstName)
@@ -484,7 +574,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -492,15 +584,27 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+        ],
+        { timeout: 100000 }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress3.firstName)
@@ -582,13 +686,20 @@ describe("Checkout customer address", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+        ],
+        { timeout: 100000 }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
@@ -660,15 +771,22 @@ describe("Checkout customer address", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-      ])
-
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateAddress",
+          "@updateAddress",
+        ],
+        { timeout: 100000 }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
@@ -698,7 +816,9 @@ describe("Checkout customer address", () => {
     it("add custom billing address and save", () => {
       cy.dataCy("step_customer").click()
 
-      cy.wait(["@getCustomerAddresses", "@getOrders"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("add_new_billing_address").click()
 
@@ -715,16 +835,26 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@createAddress",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress2.firstName)
@@ -752,7 +882,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -773,16 +905,29 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@createAddress",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+          "@createAddress",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress2.firstName)
@@ -810,25 +955,40 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-shipping-address")
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait(["@getAddress", "@updateAddress"])
+      cy.wait(["@getAddress", "@updateAddress"], { timeout: 100000 })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress2.firstName)
@@ -856,25 +1016,39 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait("@getAddress")
+      cy.wait("@getAddress", {
+        timeout: 100000,
+      })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress.firstName)
@@ -902,7 +1076,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address").should(
         "have.attr",
@@ -981,14 +1157,26 @@ describe("Checkout customer address", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-        "@getCustomerAddresses",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@getCustomerAddresses",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
@@ -998,17 +1186,33 @@ describe("Checkout customer address", () => {
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait(["@getAddress", "@updateAddress"])
+      cy.wait(["@getAddress", "@updateAddress"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress.firstName)
@@ -1036,23 +1240,39 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress2.firstName)
         .click()
 
-      cy.wait(["@getAddress", "@updateAddress"])
+      cy.wait(["@getAddress", "@updateAddress"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress2.firstName)
@@ -1080,7 +1300,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("add_new_billing_address").click()
 
@@ -1097,14 +1319,26 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@createAddress",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress2.firstName)
@@ -1132,7 +1366,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -1153,14 +1389,27 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@createAddress",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+          "@createAddress",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress2.firstName)
@@ -1188,23 +1437,40 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-shipping-address")
         .contains("p", euAddress2.firstName)
         .click()
 
-      cy.wait(["@getAddress"])
+      cy.wait(["@getAddress"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress2.firstName)
@@ -1232,25 +1498,42 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait("@getAddress")
+      cy.wait(["@getAddress"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@retrieveLineItems", "@getOrderShipments"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress.firstName)
@@ -1345,14 +1628,27 @@ describe("Checkout customer address", () => {
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
 
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-        "@getCustomerAddresses",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@getCustomerAddresses",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
@@ -1362,19 +1658,31 @@ describe("Checkout customer address", () => {
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait(["@getAddress", "@updateAddress"])
+      cy.wait(["@getAddress", "@updateAddress"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress.firstName)
@@ -1402,13 +1710,17 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress2.firstName)
         .click()
 
-      cy.wait(["@getAddress", "@updateAddress"])
+      cy.wait(["@getAddress", "@updateAddress"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("save-addresses-button").should("be.disabled")
     })
@@ -1435,16 +1747,26 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@createAddress",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress2.firstName)
@@ -1474,7 +1796,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -1493,16 +1817,28 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@createAddress",
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+          "@createAddress",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress2.firstName)
@@ -1530,7 +1866,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-shipping-address")
         .contains("p", euAddress2.firstName)
@@ -1544,20 +1882,32 @@ describe("Checkout customer address", () => {
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait("@getAddress")
+      cy.wait(["@getAddress"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@createAddress",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-        "@updateOrder",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+          "@createAddress",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress2.firstName)
@@ -1585,13 +1935,17 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getOrders", "@getCustomerAddresses"])
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait("@getAddress")
+      cy.wait(["@getAddress"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -1599,15 +1953,28 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait([
-        "@updateOrder",
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
-
-      cy.wait(["@getOrders", "@updateOrder"])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@updateOrder",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("fullname_billing")
         .should("contain", euAddress.firstName)
