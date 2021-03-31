@@ -109,8 +109,6 @@ describe("Checkout Coupon", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@updateOrder",
         ],
         {
           timeout: 100000,
@@ -213,8 +211,6 @@ describe("Checkout Coupon", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@updateOrder",
         ],
         {
           timeout: 100000,
@@ -225,7 +221,6 @@ describe("Checkout Coupon", () => {
     })
 
     it("check amount", () => {
-      cy.dataCy("discount-amount").should("contain", "0,00")
       cy.dataCy("total-amount").should("contain", "256,00")
     })
 
