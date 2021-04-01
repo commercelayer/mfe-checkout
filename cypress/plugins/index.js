@@ -9,7 +9,7 @@ export default async (on, config) => {
     const {
       data: { access_token },
     } = await axios.post(
-      config.env.apiEndpoint + "/oauth/token?grant_type=client_credentials&client_id=" + config.env.clientId + "&scope=" + config.env.scope
+      config.env.apiEndpoint + "/oauth/token?grant_type=client_credentials&client_id=" + config.env.clientId + "&client_secret=" + config.env.clientSecret + "&scope=" + config.env.scope
     )
     config.env.accessToken = access_token
   } else {

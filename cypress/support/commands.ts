@@ -326,6 +326,7 @@ Cypress.Commands.add("getTokenCustomer", (options) => {
     qs: {
       grant_type: "password",
       client_id: Cypress.env("clientId"),
+      client_secret: Cypress.env("clientSecret"),
       scope: Cypress.env("scope"),
       username: options.username,
       password: options.password,
@@ -367,5 +368,111 @@ Cypress.Commands.add("fillElementsInput", (field, value): void => {
     .then((iframe) => cy.wrap(iframe.contents().find(selector)))
     .within((input) => {
       cy.wrap(input).type(value)
+    })
+})
+
+Cypress.Commands.add("createGiftCard", (options) => {
+  cy.request({
+    url: Cypress.env("apiEndpoint") + `/api/gift_cards`,
+    method: "POST",
+    body: {
+      data: {
+        type: "gift_cards",
+        attributes: {
+          currency_code: options.currencyCode ? options.currencyCode : "EUR",
+          balance_cents: String(options.balanceCents),
+          recipient_email: String(options.recipientEmail),
+        },
+      },
+    },
+    headers: apiRequestHeaders(Cypress.env("accessToken")),
+  })
+    .its("body.data")
+    .then((giftCard) => {
+      return giftCard
+    })
+})
+
+Cypress.Commands.add("activeGiftCard", (options) => {
+  cy.request({
+    url: Cypress.env("apiEndpoint") + `/api/gift_cards/${options.giftcardId}`,
+    method: "PATCH",
+    body: {
+      data: {
+        type: "gift_cards",
+        id: options.giftcardId,
+        attributes: {
+          _purchase: true,
+        },
+      },
+    },
+    headers: apiRequestHeaders(Cypress.env("accessToken")),
+  })
+    .then(() =>
+      cy.request({
+        url:
+          Cypress.env("apiEndpoint") + `/api/gift_cards/${options.giftcardId}`,
+        method: "PATCH",
+        body: {
+          data: {
+            type: "gift_cards",
+            id: options.giftcardId,
+            attributes: {
+              _activate: true,
+            },
+          },
+        },
+        headers: apiRequestHeaders(Cypress.env("accessToken")),
+      })
+    )
+    .its("body.data")
+    .then((giftCard) => {
+      return giftCard
+    })
+})
+
+Cypress.Commands.add("setGiftCard", (options) => {
+  cy.request({
+    url: Cypress.env("apiEndpoint") + `/api/orders/${options.orderId}`,
+    method: "PATCH",
+    body: {
+      data: {
+        type: "orders",
+        id: options.orderId,
+        attributes: {
+          gift_card_code: options.giftCardCode,
+        },
+      },
+    },
+    headers: options.accessToken
+      ? apiRequestHeaders(options.accessToken)
+      : apiRequestHeaders(Cypress.env("accessToken")),
+  })
+    .its("body.data")
+    .then((order) => {
+      return order
+    })
+})
+
+Cypress.Commands.add("setCoupon", (options) => {
+  cy.request({
+    url: Cypress.env("apiEndpoint") + `/api/orders/${options.orderId}`,
+    method: "PATCH",
+    body: {
+      data: {
+        type: "orders",
+        id: options.orderId,
+        attributes: {
+          coupon_code: options.couponCode,
+        },
+      },
+    },
+    headers: options.accessToken
+      ? apiRequestHeaders(options.accessToken)
+      : apiRequestHeaders(Cypress.env("accessToken")),
+  })
+    .its("body.data")
+    .then((order) => {
+      return order
     })
 })
