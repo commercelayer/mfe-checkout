@@ -24,6 +24,8 @@
         "cartContains_plural": "Your shopping cart contains {{count}} items",
         "quantity": "Quantity: {{count}}",
         "quantity_plural": "Quantities: {{count}}",
+        "discount_amount": "Discount",
+        "giftcard_amount": "Gift card",
         "tax_amount": "Tax",
         "shipping_amount": "Shipping",
         "payment_method_amount": "Payment method",

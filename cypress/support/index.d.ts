@@ -94,6 +94,26 @@ declare global {
         field: "cardCvc" | "cardNumber" | "cardExpiry",
         value: string
       ): Chainable<Subject>
+      setCoupon(options: {
+        orderId: string
+        couponCode: string
+        accessToken?: string
+      }): Chainable<Subject>
+      createGiftCard(options: {
+        currencyCode?: string
+        balanceCents: number
+        recipientEmail: string
+        accessToken?: string
+      }): Chainable<Subject>
+      setGiftCard(options: {
+        orderId: string
+        giftCardCode: string
+        accessToken?: string
+      }): Chainable<Subject>
+      activeGiftCard(options: {
+        giftcardId: string
+        accessToken?: string
+      }): Chainable<Subject>
     }
   }
 }
