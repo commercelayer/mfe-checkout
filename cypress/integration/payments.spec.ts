@@ -91,39 +91,73 @@ describe("Checkout Payments", () => {
       cy.visit(
         `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
       )
-      cy.wait([
-        "@getOrders",
-        "@retrieveLineItems",
-        "@getShippingMethods",
-        "@getOrderShipments",
-      ])
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+        ],
+        { timeout: 100000 }
+      )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
     it("insert data credit card and check data", () => {
-      cy.wait([
-        "@getOrders",
-        "@updateOrder",
-        "@retrieveLineItems",
-        "@getOrderShipments",
-        "@availablePaymentMethods",
-      ])
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
       })
       cy.get("@paymentSource0").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
-        cy.fillElementsInput("cardExpiry", "1025")
-        cy.fillElementsInput("cardCvc", "123")
+        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardCvc", "333")
       })
       cy.get("@paymentSource0")
         .get("button")
         .each((e, i) => {
           cy.wrap(e).as(`paymentSourceButton${i}`)
         })
-      cy.get("@paymentSourceButton2").click()
-      cy.wait(["@getOrders", "@retrieveLineItems", "@getOrderShipments"])
+
+      cy.get("@paymentSourceButton3").click()
+
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getShipments",
+          "@getShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+        ],
+        { timeout: 100000 }
+      )
+
       cy.dataCy("payment-method-selected").should(
         "contain.text",
         "Stripe Payment"

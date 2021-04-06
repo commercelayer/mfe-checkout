@@ -30,7 +30,7 @@ import { md5 } from "pure-md5"
 import { apiRequestHeaders } from "./utils"
 
 Cypress.Commands.add("dataCy", (value) => {
-  return cy.get(`[data-cy=${value}]`)
+  return cy.get(`[data-cy=${value}]`, { timeout: 100000 })
 })
 
 Cypress.Commands.add("createCustomer", (options) => {
@@ -110,6 +110,7 @@ Cypress.Commands.add("createSkuLineItems", (options) => {
                 id: options.orderId,
               },
             },
+            ...options.relationships,
           },
         },
       },

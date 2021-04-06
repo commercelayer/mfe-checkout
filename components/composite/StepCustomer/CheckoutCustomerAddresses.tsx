@@ -12,11 +12,10 @@ import {
 } from "@commercelayer/react-components"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useTranslation } from "react-i18next"
 import { useState, Fragment, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import "twin.macro"
-
 import { ButtonCss } from "components/ui/Button"
 import { Toggle } from "components/ui/Toggle"
 
@@ -32,6 +31,7 @@ interface Props {
   billingAddress: AddressCollection | null
   shippingAddress: AddressCollection | null
   hasSameAddresses: boolean
+  isShipmentRequired: boolean
   isUsingNewBillingAddress: boolean
   isUsingNewShippingAddress: boolean
   hasCustomerAddresses: boolean
@@ -45,6 +45,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   shippingAddress,
   isUsingNewBillingAddress,
   isUsingNewShippingAddress,
+  isShipmentRequired,
   hasSameAddresses,
   hasCustomerAddresses,
   isGuest,
@@ -152,63 +153,70 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               )}
             </BillingAddressForm>
           </div>
-          <Toggle
-            data-cy="button-ship-to-different-address"
-            data-status={shipToDifferentAddress}
-            label={t(`addressForm.ship_to_different_address`)}
-            checked={shipToDifferentAddress}
-            onChange={handleToggle}
-          />
-          <div
-            className={`${
-              shipToDifferentAddress && hasCustomerAddresses ? "" : "hidden"
-            }`}
-          >
-            <ShippingAddressContainer>
-              <div tw="pl-2 pt-4">
-                <AddressSectionTitle>
-                  {t(`addressForm.shipping_address_title`)}
-                </AddressSectionTitle>
+          {isShipmentRequired && (
+            <>
+              <Toggle
+                data-cy="button-ship-to-different-address"
+                data-status={shipToDifferentAddress}
+                label={t(`addressForm.ship_to_different_address`)}
+                checked={shipToDifferentAddress}
+                onChange={handleToggle}
+              />
+
+              <div
+                className={`${
+                  shipToDifferentAddress && hasCustomerAddresses ? "" : "hidden"
+                }`}
+              >
+                <ShippingAddressContainer>
+                  <div tw="pl-2 pt-4">
+                    <AddressSectionTitle>
+                      {t(`addressForm.shipping_address_title`)}
+                    </AddressSectionTitle>
+                  </div>
+
+                  <AddressCardComponent
+                    addressType="shipping"
+                    deselect={showShippingAddressForm}
+                    onSelect={() =>
+                      showShippingAddressForm &&
+                      setShowShippingAddressForm(false)
+                    }
+                  />
+                </ShippingAddressContainer>
+                {!showShippingAddressForm && (
+                  <button
+                    tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-primary shadow-sm"
+                    data-cy="add_new_shipping_address"
+                    onClick={handleShowShippingForm}
+                  >
+                    <FontAwesomeIcon icon={faPlus} tw="mr-3" />
+                    {t("stepCustomer.addNewShippingAddress")}
+                  </button>
+                )}
               </div>
 
-              <AddressCardComponent
-                addressType="shipping"
-                deselect={showShippingAddressForm}
-                onSelect={() =>
-                  showShippingAddressForm && setShowShippingAddressForm(false)
-                }
-              />
-            </ShippingAddressContainer>
-            {!showShippingAddressForm && (
-              <button
-                tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-primary shadow-sm"
-                data-cy="add_new_shipping_address"
-                onClick={handleShowShippingForm}
-              >
-                <FontAwesomeIcon icon={faPlus} tw="mr-3" />
-                {t("stepCustomer.addNewShippingAddress")}
-              </button>
-            )}
-          </div>
-          <div className={showShippingAddressForm ? "" : "hidden"}>
-            <ShippingAddressForm
-              autoComplete="on"
-              hidden={!shipToDifferentAddress}
-              className="p-2"
-              reset={!showShippingAddressForm}
-            >
-              {showShippingAddressForm ? (
-                <>
-                  <ShippingAddressFormNew
-                    shippingAddress={shippingAddressFill}
-                  />
-                  <AddressSectionSaveOnAddressBook addressType="shipping" />
-                </>
-              ) : (
-                <Fragment />
-              )}
-            </ShippingAddressForm>
-          </div>
+              <div className={showShippingAddressForm ? "" : "hidden"}>
+                <ShippingAddressForm
+                  autoComplete="on"
+                  hidden={!shipToDifferentAddress}
+                  className="p-2"
+                  reset={!showShippingAddressForm}
+                >
+                  {showShippingAddressForm ? (
+                    <>
+                      <ShippingAddressFormNew
+                        shippingAddress={shippingAddressFill}
+                      />
+                      <AddressSectionSaveOnAddressBook addressType="shipping" />
+                    </>
+                  ) : (
+                    <Fragment />
+                  )}
+                </ShippingAddressForm>
+              </div>
+            </>
+          )}
           <div tw="flex justify-between items-center">
             <div>
               {(showBillingAddressForm && !isUsingNewBillingAddress) ||
@@ -225,7 +233,11 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             </div>
             <AddressSectionSaveForm>
               <StyledSaveAddressesButton
-                label={t("stepCustomer.continueToDelivery")}
+                label={
+                  isShipmentRequired
+                    ? t("stepCustomer.continueToDelivery")
+                    : t("stepShipping.continueToPayment")
+                }
                 data-cy="save-addresses-button"
                 onClick={refetchOrder}
               />

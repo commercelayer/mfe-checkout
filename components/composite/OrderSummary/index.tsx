@@ -1,10 +1,5 @@
 import {
   LineItemsContainer,
-  LineItem,
-  LineItemImage,
-  LineItemName,
-  LineItemQuantity,
-  LineItemAmount,
   LineItemsCount,
   TaxesAmount,
   ShippingAmount,
@@ -12,10 +7,10 @@ import {
   PaymentMethodAmount,
 } from "@commercelayer/react-components"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
-import tw from "twin.macro"
+import "twin.macro"
 
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
+import { LineItemTypes } from "./LineItemTypes"
 
 export const OrderSummary: React.FC = () => {
   const { t } = useTranslation()
@@ -28,27 +23,8 @@ export const OrderSummary: React.FC = () => {
             {(props) => t("orderRecap.cartContains", { count: props.quantity })}
           </LineItemsCount>
         </h4>
-
-        <LineItem>
-          <LineItemWrapper>
-            <LineItemImage width={80} />
-            <div tw="pl-4 flex flex-col flex-1 justify-between">
-              <LineItemName />
-              <div tw="flex flex-row justify-between pb-1 text-sm">
-                <LineItemQuantity>
-                  {(props) => (
-                    <p tw="text-gray-400">
-                      {!!props.quantity &&
-                        t("orderRecap.quantity", { count: props.quantity })}
-                    </p>
-                  )}
-                </LineItemQuantity>
-                <LineItemAmount />
-              </div>
-            </div>
-          </LineItemWrapper>
-          <hr tw="pb-3" />
-        </LineItem>
+        <LineItemTypes type="skus" />
+        <LineItemTypes type="gift_cards" />
       </LineItemsContainer>
       <div tw="pt-3 pb-3 w-1/2 flex flex-col ml-auto">
         <CouponOrGiftCard />
@@ -72,7 +48,3 @@ export const OrderSummary: React.FC = () => {
     </>
   )
 }
-
-const LineItemWrapper = styled.div`
-  ${tw`flex flex-row mb-4`}
-`

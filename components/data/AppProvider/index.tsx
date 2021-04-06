@@ -39,6 +39,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     billingAddress,
     setBillingAddress,
   ] = useState<AddressCollection | null>(null)
+  const [isShipmentRequired, setIsShipmentRequired] = useState(true)
   const [hasShippingAddress, setHasShippingAddress] = useState(false)
   const [
     shippingAddress,
@@ -78,6 +79,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         hasPaymentMethod,
         hasShippingMethod,
         shipments,
+        isShipmentRequired,
         shippingCountryCodeLock,
       }) => {
         setIsGuest(isGuest)
@@ -96,9 +98,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setShipments(shipments)
         setPaymentMethod(paymentMethod)
         setHasPaymentMethod(hasPaymentMethod)
+        setIsShipmentRequired(isShipmentRequired)
         setShippingCountryCodeLock(shippingCountryCodeLock)
         setIsLoading(false)
-        return
       }
     )
   }
@@ -127,6 +129,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         paymentMethod,
         hasPaymentMethod,
         shippingCountryCodeLock,
+        isShipmentRequired,
         refetchOrder: async () => {
           return await fetchOrderHandle(orderId, accessToken)
         },

@@ -5,10 +5,9 @@ import {
   SaveAddressesButton,
   ShippingAddressForm,
 } from "@commercelayer/react-components"
-import { useTranslation } from "react-i18next"
 import { useState, Fragment, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import "twin.macro"
-
 import { Toggle } from "components/ui/Toggle"
 
 import { AddressSectionEmail } from "./AddressSectionEmail"
@@ -23,6 +22,7 @@ interface Props {
   emailAddress: string
   isGuest: boolean
   hasSameAddresses: boolean
+  isShipmentRequired: boolean
   refetchOrder: () => void
 }
 
@@ -32,6 +32,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
   emailAddress,
   isGuest,
   hasSameAddresses,
+  isShipmentRequired,
   refetchOrder,
 }: Props) => {
   const { t } = useTranslation()
@@ -66,15 +67,17 @@ export const CheckoutAddresses: React.FC<Props> = ({
         <BillingAddressForm autoComplete="on" className="p-2">
           <BillingAddressFormNew billingAddress={billingAddress} />
         </BillingAddressForm>
-        <Toggle
-          data-cy="button-ship-to-different-address"
-          data-status={shipToDifferentAddress}
-          label={t(`addressForm.ship_to_different_address`)}
-          checked={shipToDifferentAddress}
-          onChange={handleToggleDifferentAddress}
-        />
+        {isShipmentRequired && (
+          <Toggle
+            data-cy="button-ship-to-different-address"
+            data-status={shipToDifferentAddress}
+            label={t(`addressForm.ship_to_different_address`)}
+            checked={shipToDifferentAddress}
+            onChange={handleToggleDifferentAddress}
+          />
+        )}
 
-        {shipToDifferentAddress && (
+        {isShipmentRequired && shipToDifferentAddress && (
           <ShippingAddressForm
             autoComplete="on"
             hidden={!shipToDifferentAddress}
@@ -89,7 +92,11 @@ export const CheckoutAddresses: React.FC<Props> = ({
         )}
         <AddressSectionSaveForm>
           <SaveAddressesButton
-            label={t("stepCustomer.continueToDelivery")}
+            label={
+              isShipmentRequired
+                ? t("stepCustomer.continueToDelivery")
+                : t("stepShipping.continueToPayment")
+            }
             data-cy="save-addresses-button"
             tw="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-primary border border-transparent leading-4 rounded-md shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
             onClick={refetchOrder}

@@ -19,8 +19,9 @@ declare global {
         accessToken?: string
         attributes?: {
           quantity: string
-          sku_code: string
+          sku_code?: string
         }
+        relationships?: any
       }): Chainable<Subject>
       createCustomer(options: {
         email: string
