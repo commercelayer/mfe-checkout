@@ -110,6 +110,7 @@ Cypress.Commands.add("createSkuLineItems", (options) => {
                 id: options.orderId,
               },
             },
+            ...options.relationships,
           },
         },
       },

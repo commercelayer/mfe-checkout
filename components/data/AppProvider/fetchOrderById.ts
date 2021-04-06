@@ -291,7 +291,9 @@ export const fetchOrderById = async ({
     const paymentSource = order.paymentSource()
     const hasPaymentMethod = Boolean(paymentMethod && paymentSource)
 
-    const allAvailablePaymentMethods = (await PaymentMethod.all()).toArray()
+    const allAvailablePaymentMethods = (await PaymentMethod.all())
+      .toArray()
+      .filter(({ disabledAt }) => disabledAt === null)
 
     // If we have a customer with a single payment method
     // the payment method is automatically selected

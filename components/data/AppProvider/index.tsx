@@ -101,7 +101,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setIsShipmentRequired(isShipmentRequired)
         setShippingCountryCodeLock(shippingCountryCodeLock)
         setIsLoading(false)
-        return
       }
     )
   }

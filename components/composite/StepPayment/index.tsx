@@ -13,17 +13,17 @@ import {
   PlaceOrderButton,
   PlaceOrderContainer,
 } from "@commercelayer/react-components"
-import { Trans, useTranslation } from "react-i18next"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faWallet } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
+import { GTMContext } from "components/data/GTMProvider"
+import { ButtonCss } from "components/ui/Button"
+import { Icon } from "components/ui/Icon"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { Icon } from "components/ui/Icon"
-import { ButtonCss } from "components/ui/Button"
-import { GTMContext } from "components/data/GTMProvider"
+import { Trans, useTranslation } from "react-i18next"
 import styled from "styled-components"
 
 interface Props {
@@ -105,7 +105,7 @@ export const StepPayment: React.FC<Props> = ({
                   data-cy="payment-source"
                   className="p-5 my-2 bg-gray-50"
                 >
-                  <div className="flex flex-row items-center justify-start bg-gray-100 p-5 my-2">
+                  <div className="flex flex-row items-center justify-start p-5 my-2 bg-gray-100">
                     <div className="flex flex-row items-center">
                       <PaymentSourceBrandIcon className="mr-3" />
                       <Trans t={t} i18nKey="stepPayment.endingIn">
@@ -113,14 +113,14 @@ export const StepPayment: React.FC<Props> = ({
                         <PaymentSourceDetail className="ml-1" type="last4" />
                       </Trans>
                     </div>
-                    <div className="text-gray-500 ml-5">
+                    <div className="ml-5 text-gray-500">
                       <PaymentSourceDetail type="expMonth" />/
                       <PaymentSourceDetail type="expYear" />
                     </div>
                     <div className="ml-5">
                       <PaymentSourceEditButton
                         label={t("general.edit")}
-                        className="text-primary hover:underline hover:opacity-80 font-bold"
+                        className="font-bold text-primary hover:underline hover:opacity-80"
                       />
                     </div>
                   </div>
@@ -145,7 +145,7 @@ export const StepPayment: React.FC<Props> = ({
             </div>
             <PaymentMethodsContainer>
               <PaymentSource readonly>
-                <div className="flex flex-row items-center bg-gray-100 p-5 my-5">
+                <div className="flex flex-row items-center p-5 my-5 bg-gray-100">
                   <div className="flex flex-row items-center w-1/2">
                     <PaymentSourceBrandIcon className="mr-3" />
                     <Trans t={t} i18nKey="stepPayment.endingIn">

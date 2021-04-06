@@ -93,9 +93,11 @@ export const StepShipping: React.FC<Props> = ({
         status={isActive ? "edit" : "done"}
         label={t("stepShipping.title")}
         info={
-          isActive
-            ? t("stepShipping.summary")
-            : t("stepShipping.shippingMethodSelected")
+          isShipmentRequired
+            ? isActive
+              ? t("stepShipping.summary")
+              : t("stepShipping.shippingMethodSelected")
+            : t("stepShipping.notRequired")
         }
         onEditRequest={() => {
           onToggleActive()

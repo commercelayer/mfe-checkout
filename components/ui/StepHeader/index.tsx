@@ -1,7 +1,6 @@
+import { useTranslation } from "react-i18next"
 import styled, { css } from "styled-components"
 import tw from "twin.macro"
-
-import { useTranslation } from "react-i18next"
 
 import { CheckmarkIcon } from "./CheckmarkIcon"
 
@@ -40,7 +39,7 @@ export const StepHeader: React.FC<Props> = ({
             </Edit>
           ) : null}
         </Top>
-        <Info>{info}</Info>
+        <Info data-cy="step-header-info">{info}</Info>
       </Body>
     </Wrapper>
   )

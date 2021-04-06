@@ -105,8 +105,6 @@ describe("Checkout Payments", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@updateOrder",
         ],
         { timeout: 100000 }
       )
@@ -120,8 +118,8 @@ describe("Checkout Payments", () => {
       })
       cy.get("@paymentSource0").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
-        cy.fillElementsInput("cardExpiry", "1025")
-        cy.fillElementsInput("cardCvc", "123")
+        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardCvc", "333")
       })
       cy.get("@paymentSource0")
         .get("button")
@@ -129,7 +127,7 @@ describe("Checkout Payments", () => {
           cy.wrap(e).as(`paymentSourceButton${i}`)
         })
 
-      cy.get("@paymentSourceButton2").click()
+      cy.get("@paymentSourceButton3").click()
 
       cy.wait(
         [

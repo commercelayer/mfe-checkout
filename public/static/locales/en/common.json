@@ -49,7 +49,8 @@
         "shippingMethodSelected": "You have a shipping method set",
         "addShippingMethod": "Add customer data before shipping",
         "deliveryLeadTime" : "<0/> - <1/> days",
-        "continueToPayment": "Continue to payment"
+        "continueToPayment": "Continue to payment",
+        "notRequired": "This order does not require shipping"
     },
 
     "stepPayment": {
@@ -61,7 +62,8 @@
         "addPaymentMethod": "Add shipping method before payment",
         "setPaymentMethod": "Set payment method",
         "endingIn": "<0/> ending in <1/>",
-        "submit": "Place order"
+        "submit": "Place order",
+        "notRequired": "This order does not require payment"
     },
 
     "addressForm" : {

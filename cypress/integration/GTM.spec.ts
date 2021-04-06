@@ -502,7 +502,7 @@ describe("check Data Layers GTM", () => {
         .each((e, i) => {
           cy.wrap(e).as(`paymentSourceButton${i}`)
         })
-      cy.get("@paymentSourceButton2").click()
+      cy.get("@paymentSourceButton3").click()
       cy.wait(
         [
           "@getOrders",
