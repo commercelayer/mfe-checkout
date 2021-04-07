@@ -103,12 +103,12 @@ async function checkAndSetDefaultAddressForOrder({
         const billingAddressToUpdate = await orderObj.billingAddress()
         const shippingAddressToUpdate = orderObj.shippingAddress()
         if (billingAddressToUpdate) {
-          billingAddressToUpdate.update({
+          await billingAddressToUpdate.update({
             reference: customerAddressId,
           })
         }
         if (shippingAddressToUpdate) {
-          shippingAddressToUpdate.update({
+          await shippingAddressToUpdate.update({
             reference: customerAddressId,
           })
         }
@@ -188,7 +188,7 @@ export const fetchOrderById = async ({
       ).find(orderId)
     }
 
-    const order: OrderCollection = await fetchOrder()
+    let order: OrderCollection = await fetchOrder()
 
     const isShipmentRequired = await checkIfShipmentRequired(order)
 
@@ -230,6 +230,7 @@ export const fetchOrderById = async ({
         ).find(orderId)
         shippingAddress = orderUpdated.shippingAddress()
         billingAddress = await orderUpdated.billingAddress()
+        order = await fetchOrder()
       } catch {
         console.log("error updating customer address as default for order")
       }

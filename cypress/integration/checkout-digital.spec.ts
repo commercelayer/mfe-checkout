@@ -11,10 +11,7 @@ describe("Checkout Checkout-Digital", () => {
 
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
-      cy.getTokenCustomer({
-        username: email,
-        password: password,
-      }).as("tokenObj")
+      cy.getTokenSuperuser().as("tokenObj")
     })
   })
 
@@ -35,6 +32,7 @@ describe("Checkout Checkout-Digital", () => {
             cy
               .activeGiftCard({
                 giftcardId: e.id,
+                accessToken: this.tokenObj.access_token,
               })
               .as("newGiftCardCode")
               .then(() => {
@@ -102,8 +100,6 @@ describe("Checkout Checkout-Digital", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@updateOrder",
         ],
         {
           timeout: 100000,
