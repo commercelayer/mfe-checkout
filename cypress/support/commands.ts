@@ -327,10 +327,27 @@ Cypress.Commands.add("getTokenCustomer", (options) => {
     qs: {
       grant_type: "password",
       client_id: Cypress.env("clientId"),
-      client_secret: Cypress.env("clientSecret"),
       scope: Cypress.env("scope"),
       username: options.username,
       password: options.password,
+    },
+  })
+    .its("body")
+    .then((tokenObj) => {
+      // cypress env
+      return tokenObj
+    })
+})
+
+Cypress.Commands.add("getTokenSuperuser", () => {
+  cy.request({
+    url: Cypress.env("apiEndpoint") + `/oauth/token`,
+    method: "POST",
+    qs: {
+      grant_type: "client_credentials",
+      client_id: Cypress.env("clienrIdGod"),
+      client_secret: Cypress.env("clientSecret"),
+      scope: Cypress.env("scope"),
     },
   })
     .its("body")
@@ -386,7 +403,9 @@ Cypress.Commands.add("createGiftCard", (options) => {
         },
       },
     },
-    headers: apiRequestHeaders(Cypress.env("accessToken")),
+    headers: options.accessToken
+      ? apiRequestHeaders(options.accessToken)
+      : apiRequestHeaders(Cypress.env("accessToken")),
   })
     .its("body.data")
     .then((giftCard) => {
@@ -407,7 +426,9 @@ Cypress.Commands.add("activeGiftCard", (options) => {
         },
       },
     },
-    headers: apiRequestHeaders(Cypress.env("accessToken")),
+    headers: options.accessToken
+      ? apiRequestHeaders(options.accessToken)
+      : apiRequestHeaders(Cypress.env("accessToken")),
   })
     .then(() =>
       cy.request({
@@ -423,7 +444,9 @@ Cypress.Commands.add("activeGiftCard", (options) => {
             },
           },
         },
-        headers: apiRequestHeaders(Cypress.env("accessToken")),
+        headers: options.accessToken
+          ? apiRequestHeaders(options.accessToken)
+          : apiRequestHeaders(Cypress.env("accessToken")),
       })
     )
     .its("body.data")

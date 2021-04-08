@@ -11,10 +11,7 @@ describe("Checkout GiftCard", () => {
 
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
-      cy.getTokenCustomer({
-        username: email,
-        password: password,
-      }).as("tokenObj")
+      cy.getTokenSuperuser().as("tokenObj")
     })
   })
 
@@ -74,6 +71,7 @@ describe("Checkout GiftCard", () => {
                   cy
                     .activeGiftCard({
                       giftcardId: e.id,
+                      accessToken: this.tokenObj.access_token,
                     })
                     .as("newGiftCardCode")
                     .then(() => {
@@ -194,6 +192,7 @@ describe("Checkout GiftCard", () => {
                   cy
                     .activeGiftCard({
                       giftcardId: e.id,
+                      accessToken: this.tokenObj.access_token,
                     })
                     .as("newGiftCardCode")
                 )

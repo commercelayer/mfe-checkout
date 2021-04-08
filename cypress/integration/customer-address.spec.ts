@@ -1751,8 +1751,6 @@ describe("Checkout customer address", () => {
         [
           "@getShippingMethods",
           "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",

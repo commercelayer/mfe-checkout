@@ -76,6 +76,7 @@ declare global {
         username: string
         password: string
       }): Chainable<Subject>
+      getTokenSuperuser(): Chainable<Subject>
       getShipments(options: {
         orderId: string
         accessToken?: string
