@@ -1,16 +1,15 @@
 import "../styles/globals.css"
-import translationIT from "public/static/locales/it/common.json"
-import translationEN from "public/static/locales/en/common.json"
 import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
-import { appWithTranslation } from "next-i18next"
-import { initReactI18next } from "react-i18next"
-import i18n from "i18next"
-import type { AppProps } from "next/app"
-import { AppContextType } from "next/dist/next-server/lib/utils"
-import { createGlobalStyle, ThemeProvider } from "styled-components"
-
 import { AppProvider } from "components/data/AppProvider"
 import { GTMProvider } from "components/data/GTMProvider"
+import i18n from "i18next"
+import { appWithTranslation } from "next-i18next"
+import type { AppProps } from "next/app"
+import { AppContextType } from "next/dist/next-server/lib/utils"
+import translationEN from "public/static/locales/en/common.json"
+import translationIT from "public/static/locales/it/common.json"
+import { initReactI18next } from "react-i18next"
+import { createGlobalStyle, ThemeProvider } from "styled-components"
 
 interface GlobalStyleProps {
   primaryColor: string
@@ -120,6 +119,7 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     contrastColor: data.contrastColor,
     favicon: data.favicon,
     gtmId: data.gtmId,
+    redirectUrl: String(appContext.ctx.query?.redirectUrl) || "/invalid",
   }
 
   return {

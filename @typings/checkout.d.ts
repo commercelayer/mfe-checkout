@@ -10,6 +10,7 @@ interface CheckoutSettings {
   contrastColor: string
   favicon: string
   gtmId: string
+  redirectUrl: string
 }
 
 type CheckoutPageContextProps = Pick<
@@ -24,4 +25,5 @@ type CheckoutPageContextProps = Pick<
   | "contrastColor"
   | "favicon"
   | "gtmId"
+  | "redirectUrl"
 >
