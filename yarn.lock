@@ -227,16 +227,6 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-sdk@^3.6.1":
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.6.1.tgz#e57c45c03e93b743ad8b7842922fcc3e7cf74401"
-  integrity sha512-YNxEWCC8t/GKQes4CXhKF+cTy0nVMtL0hGIV4fgmGg/Cw9NntXVmjd8FoGZPyZIed0xrdEe+n89xTgZ8b7Iomg==
-  dependencies:
-    active-resource "^1.0.0-beta.7"
-    axios "^0.21.1"
-    lodash "^4.17.21"
-    lodash-es "^4.17.21"
-
 "@commercelayer/js-sdk@^3.7.0":
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.7.0.tgz#b4ae94dae664e5b220ed71ddc492d708d04a0a2d"
@@ -247,12 +237,12 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@commercelayer/react-components@^2.10.1":
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.10.1.tgz#f8d818cc7f9ef35a563506c2b290dca00a80ffc3"
-  integrity sha512-OR1NYOdLPg+hBLCrzW1jQZ/l1jyXESTb57GrDpABG3rMNGtIkOrhrjV/md85jAXS/YcjP6FF+wjLUxzoW8Sz4Q==
+"@commercelayer/react-components@^2.11.0":
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.11.0.tgz#06430dbe77cc83d0dea997811588fa1b5d5ad0b4"
+  integrity sha512-7eg5g+NjLBLWL2x8gzthgdlC9bcqnRU4mlKPQl/vY27XfJhjX4a+nnCLz2af0OQLjf8/jJVCyYZjcHMRQS+Jfg==
   dependencies:
-    "@commercelayer/js-sdk" "^3.6.1"
+    "@commercelayer/js-sdk" "^3.7.0"
     "@stripe/react-stripe-js" "^1.4.0"
     "@stripe/stripe-js" "^1.13.2"
     lodash "^4.17.21"
