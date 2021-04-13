@@ -12,13 +12,12 @@ import {
   ResourceErrorType,
   ErrorComponentProps,
 } from "@commercelayer/react-components/dist/typings/errors"
-import { useTranslation } from "react-i18next"
-import { useContext, useEffect, useState } from "react"
-import styled from "styled-components"
-
 import { AppContext } from "components/data/AppProvider"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
+import { useContext, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import styled from "styled-components"
 
 interface Props {
   type: BaseInputType

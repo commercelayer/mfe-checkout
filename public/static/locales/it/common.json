@@ -46,7 +46,8 @@
     "stepShipping": {
         "title": "Consegna",
         "summary": "Riepilogo della spedizione e modalità di consegna",
-        "shippingMethodSelected": "Metodo di spedizione selezionato",
+        "methodSelected": "Metodo di spedizione selezionato",
+        "methodUnselected": "Metodo di spedizione da selezionare",
         "addShippingMethod": "Aggiungi i dati del cliente prima della spedizione",
         "deliveryLeadTime" : "<0/> - <1/> giorni",
         "continueToPayment": "Continuare al pagamento",
@@ -57,13 +58,15 @@
         "title": "Pagamento",
         "summary": "Riepilogo del pagamento",
         "methodSelected": "Metodo di pagamento selezionato",
+        "methodUnselected": "Metodo di pagamento da selezionare",
         "paymentMethod": "Hai impostato un metodo di pagamento",
         "creditCard": "Carta di credito",
         "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento",
         "setPaymentMethod": "Imposta il metodo di pagamento",
         "endingIn": "<0/> finisce con <1/>",
         "submit": "Invia l'ordine",
-        "notRequired": "Questo ordine non necessita di pagamento"
+        "notRequired": "Questo ordine non necessita di pagamento",
+        "saveToWallet": "Salva la nuova carta sul tuo portafoglio"
     },
 
     "addressForm" : {
