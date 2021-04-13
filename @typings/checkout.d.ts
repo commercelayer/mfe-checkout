@@ -11,6 +11,8 @@ interface CheckoutSettings {
   favicon: string
   gtmId: string
   redirectUrl: string
+  supportEmail: string
+  supportPhone: string
 }
 
 type CheckoutPageContextProps = Pick<
@@ -26,4 +28,6 @@ type CheckoutPageContextProps = Pick<
   | "favicon"
   | "gtmId"
   | "redirectUrl"
+  | "supportEmail"
+  | "supportPhone"
 >

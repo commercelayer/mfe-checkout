@@ -120,6 +120,8 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     favicon: data.favicon,
     gtmId: data.gtmId,
     redirectUrl: String(appContext.ctx.query?.redirectUrl) || "/invalid",
+    supportEmail: data.supportEmail,
+    supportPhone: data.supportPhone,
   }
 
   return {

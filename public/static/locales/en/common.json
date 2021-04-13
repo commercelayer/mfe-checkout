@@ -94,8 +94,8 @@
         "title": "Order successfully placed!",
         "summary": "Your order No: <WrapperOrderId>#{{orderId}}</WrapperOrderId>",
         "continue": "Continue shopping",
-        "emailSupport": "If you have any questions about your order, you can email us at <WrapperEmail>{{email}}</WrapperEmail>",
-        "phoneSupport": "If you have any questions about your order, you can call us at <WrapperPhone>{{phone}}</WrapperPhone>",
+        "supportEmail": "If you have any questions about your order, you can email us at <WrapperEmail>{{email}}</WrapperEmail>",
+        "supportPhone": "If you have any questions about your order, you can call us at <WrapperPhone>{{phone}}</WrapperPhone>",
         "fullSupport": "If you have any questions about your order, you can email us at <WrapperEmail>{{email}}</WrapperEmail> or call us at <WrapperPhone>{{phone}}</WrapperPhone>"
     }
 

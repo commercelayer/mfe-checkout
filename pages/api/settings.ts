@@ -59,6 +59,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       organization?.faviconUrl ||
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
     gtmId: organization?.gtmId || "GTM-TGCQ5BM",
+    supportEmail: "test@extendi.it",
+    supportPhone: "+39 111 222 3333",
   }
   return res.json(appSettings)
 }

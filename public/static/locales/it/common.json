@@ -94,8 +94,8 @@
         "title": "Ordine effettuato con successo!",
         "summary": "Il tuo ordine No: <WrapperOrderId>#{{orderId}}</WrapperOrderId>",
         "continue": "Continua lo shopping",
-        "emailSupport": "Se hai domande sul tuo ordine, puoi inviarci un'e-mail a <WrapperEmail>{{email}}</WrapperEmail>",
-        "phoneSupport": "Se hai domande sul tuo ordine, puoi chiamarci al numero <WrapperPhone>{{phone}}</WrapperPhone>",
+        "supportEmail": "Se hai domande sul tuo ordine, puoi inviarci un'e-mail a <WrapperEmail>{{email}}</WrapperEmail>",
+        "supportPhone": "Se hai domande sul tuo ordine, puoi chiamarci al numero <WrapperPhone>{{phone}}</WrapperPhone>",
         "fullSupport": "Se hai domande sul tuo ordine, puoi inviarci un'email a <WrapperEmail>{{email}}</WrapperEmail> o chiamarci al <WrapperPhone>{{phone}}</WrapperPhone>"
     }
 

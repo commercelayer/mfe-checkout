@@ -20,6 +20,8 @@ const Home: NextPage<CheckoutPageContextProps> = ({
   companyName,
   favicon,
   redirectUrl,
+  supportEmail,
+  supportPhone,
 }) => {
   const ctx = useContext(AppContext)
 
@@ -43,6 +45,8 @@ const Home: NextPage<CheckoutPageContextProps> = ({
         logoUrl={logoUrl}
         companyName={companyName}
         redirectUrl={redirectUrl}
+        supportEmail={supportEmail}
+        supportPhone={supportPhone}
       />
     )
   }

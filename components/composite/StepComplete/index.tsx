@@ -8,34 +8,29 @@ import { useTranslation, Trans } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import { SupportMessage } from "./SupportMessage"
+
 interface Props {
   logoUrl: string
   companyName: string
   redirectUrl: string
+  supportEmail: string
+  supportPhone: string
 }
 
 export const StepComplete: React.FC<Props> = ({
   logoUrl,
   companyName,
   redirectUrl,
+  supportEmail,
+  supportPhone,
 }) => {
   const { t } = useTranslation()
 
   const ctx = useContext(AppContext)
 
-  const emailSupport = "test@extendi.it"
-  const phoneSupport = "+39 111 222 3333"
-
   const handleClick = () => {
     return (document.location.href = redirectUrl) || window.history.back()
-  }
-
-  const handleEmail = () => {
-    return window.open(`mailto:${emailSupport}`)
-  }
-
-  const handlePhone = () => {
-    return window.open(`tel:${emailSupport}`)
   }
 
   return (
@@ -62,42 +57,10 @@ export const StepComplete: React.FC<Props> = ({
               />
             </Text>
             <Text>
-              {phoneSupport && emailSupport && (
-                <Trans
-                  i18nKey={"stepComplete.fullSupport"}
-                  values={{ email: emailSupport, phone: phoneSupport }}
-                  components={{
-                    WrapperEmail: (
-                      <strong tw="cursor-pointer" onClick={handleEmail} />
-                    ),
-                    WrapperPhone: (
-                      <strong tw="cursor-pointer" onClick={handlePhone} />
-                    ),
-                  }}
-                />
-              )}
-              {!phoneSupport && emailSupport && (
-                <Trans
-                  i18nKey={"stepComplete.emailSupport"}
-                  values={{ email: emailSupport }}
-                  components={{
-                    WrapperEmail: (
-                      <strong tw="cursor-pointer" onClick={handleEmail} />
-                    ),
-                  }}
-                />
-              )}
-              {phoneSupport && !emailSupport && (
-                <Trans
-                  i18nKey={"stepComplete.phoneSupport"}
-                  values={{ phone: phoneSupport }}
-                  components={{
-                    WrapperPhone: (
-                      <strong tw="cursor-pointer" onClick={handlePhone} />
-                    ),
-                  }}
-                />
-              )}
+              <SupportMessage
+                supportEmail={supportEmail}
+                supportPhone={supportPhone}
+              />
             </Text>
             <WrapperButton>
               <Button data-cy="button-continue-to-shop" onClick={handleClick}>
