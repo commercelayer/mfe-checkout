@@ -43,6 +43,8 @@ export interface FetchOrderByIdResponse {
   hasCustomerAddresses: boolean
   shippingCountryCodeLock: string
   isShipmentRequired: boolean
+  isComplete: boolean
+  orderId?: string
 }
 
 async function isNewAddress({
@@ -335,6 +337,8 @@ export const fetchOrderById = async ({
       shippingAddress,
     })
 
+    const isComplete = Boolean(!order.placeable)
+
     console.log("order.shippingAddress :>> ", order.shippingAddress())
     console.log("order.billingAddress :>> ", await order.billingAddress())
     console.log("order.shipments :>> ", shipments)
@@ -360,6 +364,7 @@ export const fetchOrderById = async ({
       hasPaymentMethod,
       shippingCountryCodeLock,
       isShipmentRequired,
+      isComplete,
     }
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
@@ -381,6 +386,7 @@ export const fetchOrderById = async ({
       hasPaymentMethod: false,
       shippingCountryCodeLock: "",
       isShipmentRequired: true,
+      isComplete: false,
     }
   }
 }

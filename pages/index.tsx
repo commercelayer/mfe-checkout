@@ -1,4 +1,5 @@
 import { OrderSummary } from "components/composite/OrderSummary"
+import { StepComplete } from "components/composite/StepComplete"
 import { StepCustomer } from "components/composite/StepCustomer"
 import { StepNav } from "components/composite/StepNav"
 import { StepPayment } from "components/composite/StepPayment"
@@ -18,6 +19,9 @@ const Home: NextPage<CheckoutPageContextProps> = ({
   logoUrl,
   companyName,
   favicon,
+  redirectUrl,
+  supportEmail,
+  supportPhone,
 }) => {
   const ctx = useContext(AppContext)
 
@@ -33,6 +37,18 @@ const Home: NextPage<CheckoutPageContextProps> = ({
 
   if (!ctx || isLoading) {
     return <SpinnerLoader />
+  }
+
+  if (ctx.isComplete) {
+    return (
+      <StepComplete
+        logoUrl={logoUrl}
+        companyName={companyName}
+        redirectUrl={redirectUrl}
+        supportEmail={supportEmail}
+        supportPhone={supportPhone}
+      />
+    )
   }
 
   return (

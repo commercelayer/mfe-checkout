@@ -6,6 +6,7 @@
         "no": "No",
         "cancel": "Cancel",
         "systemError": "We're sorry but something went wrong!",
+        "invalid": "This checkout is not valid",
         "save": "Save",
         "edit": "Edit",
         "delete": "Delete",
@@ -90,6 +91,15 @@
         "shipping_address_state_code": "State",
         "shipping_address_zip_code": "Zip Code",
         "shipping_address_phone": "Phone"
+    },
+
+    "stepComplete": {
+        "title": "Order successfully placed!",
+        "summary": "Your order No: <WrapperOrderId>#{{orderId}}</WrapperOrderId>",
+        "continue": "Continue shopping",
+        "supportEmail": "If you have any questions about your order, you can email us at <WrapperEmail>{{email}}</WrapperEmail>",
+        "supportPhone": "If you have any questions about your order, you can call us at <WrapperPhone>{{phone}}</WrapperPhone>",
+        "fullSupport": "If you have any questions about your order, you can email us at <WrapperEmail>{{email}}</WrapperEmail> or call us at <WrapperPhone>{{phone}}</WrapperPhone>"
     }
 
 }

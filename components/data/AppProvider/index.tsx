@@ -57,6 +57,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     setShippingCountryCodeLock,
   ] = useState<string>("")
 
+  const [isComplete, setIsComplete] = useState(false)
+
   const fetchOrderHandle = async (orderId?: string, accessToken?: string) => {
     if (!orderId || !accessToken) {
       return
@@ -81,6 +83,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         shipments,
         isShipmentRequired,
         shippingCountryCodeLock,
+        isComplete,
       }) => {
         setIsGuest(isGuest)
         setHasCustomerAddresses(hasCustomerAddresses)
@@ -100,6 +103,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setHasPaymentMethod(hasPaymentMethod)
         setIsShipmentRequired(isShipmentRequired)
         setShippingCountryCodeLock(shippingCountryCodeLock)
+        setIsComplete(isComplete)
         setIsLoading(false)
       }
     )
@@ -130,6 +134,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         hasPaymentMethod,
         shippingCountryCodeLock,
         isShipmentRequired,
+        isComplete,
+        orderId,
         refetchOrder: async () => {
           return await fetchOrderHandle(orderId, accessToken)
         },
