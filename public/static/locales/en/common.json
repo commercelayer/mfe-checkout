@@ -47,7 +47,8 @@
     "stepShipping": {
         "title": "Delivery",
         "summary": "Shipment summary and delivery methods",
-        "shippingMethodSelected": "You have a shipping method set",
+        "methodSelected": "You have a shipping method set",
+        "methodUnselected": "Shipping method to select",
         "addShippingMethod": "Add customer data before shipping",
         "deliveryLeadTime" : "<0/> - <1/> days",
         "continueToPayment": "Continue to payment",
@@ -58,13 +59,15 @@
         "title": "Payment",
         "summary": "Payment summary",
         "methodSelected": "Payment method selected",
+        "methodUnselected": "Payment method to select",
         "paymentMethod": "You have a payment method set",
         "creditCard": "Credit card",
         "addPaymentMethod": "Add shipping method before payment",
         "setPaymentMethod": "Set payment method",
         "endingIn": "<0/> ending in <1/>",
         "submit": "Place order",
-        "notRequired": "This order does not require payment"
+        "notRequired": "This order does not require payment",
+        "saveToWallet": "Save new card on your wallet"
     },
 
     "addressForm" : {

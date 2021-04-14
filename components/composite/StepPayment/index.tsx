@@ -1,15 +1,4 @@
-import { useContext } from "react"
 import {
-  PaymentMethod,
-  PaymentMethodName,
-  PaymentMethodPrice,
-  PaymentMethodRadioButton,
-  PaymentMethodsContainer,
-  PaymentSource,
-  PaymentSourceBrandIcon,
-  PaymentSourceBrandName,
-  PaymentSourceDetail,
-  PaymentSourceEditButton,
   PlaceOrderButton,
   PlaceOrderContainer,
 } from "@commercelayer/react-components"
@@ -19,12 +8,14 @@ import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
-import { ButtonCss } from "components/ui/Button"
 import { Icon } from "components/ui/Icon"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { Trans, useTranslation } from "react-i18next"
-import styled from "styled-components"
+import { useContext } from "react"
+import { useTranslation } from "react-i18next"
+
+import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
+import { CheckoutPayment } from "./CheckoutPayment"
 
 interface Props {
   className?: string
@@ -46,7 +37,7 @@ export const StepPayment: React.FC<Props> = ({
     return null
   }
 
-  const { hasPaymentMethod, paymentMethod, refetchOrder } = appCtx
+  const { hasPaymentMethod, paymentMethod, refetchOrder, isGuest } = appCtx
 
   const stripeKey = "pk_test_TYooMQauvdEDq54NiTphI7jx"
 
@@ -79,55 +70,14 @@ export const StepPayment: React.FC<Props> = ({
       />
       <StepContent>
         {isActive ? (
-          <>
-            <PaymentMethodsContainer
-              config={{
-                stripePayment: {
-                  publishableKey: stripeKey,
-                  submitLabel: t("stepPayment.setPaymentMethod"),
-                  submitClassName:
-                    "mt-5 inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent shadow-sm rounded-md hover:opacity-80 disabled:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50",
-                  handleSubmit: handleSave,
-                },
-              }}
-            >
-              <PaymentMethod>
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="flex items-center">
-                    <div className="px-2">
-                      <PaymentMethodRadioButton />
-                    </div>
-                    <PaymentMethodName />
-                  </div>
-                  <PaymentMethodPrice labelFree={t("general.free")} />
-                </div>
-                <PaymentSource
-                  data-cy="payment-source"
-                  className="p-5 my-2 bg-gray-50"
-                >
-                  <div className="flex flex-row items-center justify-start p-5 my-2 bg-gray-100">
-                    <div className="flex flex-row items-center">
-                      <PaymentSourceBrandIcon className="mr-3" />
-                      <Trans t={t} i18nKey="stepPayment.endingIn">
-                        <PaymentSourceBrandName className="mr-1" />
-                        <PaymentSourceDetail className="ml-1" type="last4" />
-                      </Trans>
-                    </div>
-                    <div className="ml-5 text-gray-500">
-                      <PaymentSourceDetail type="expMonth" />/
-                      <PaymentSourceDetail type="expYear" />
-                    </div>
-                    <div className="ml-5">
-                      <PaymentSourceEditButton
-                        label={t("general.edit")}
-                        className="font-bold text-primary hover:underline hover:opacity-80"
-                      />
-                    </div>
-                  </div>
-                </PaymentSource>
-              </PaymentMethod>
-            </PaymentMethodsContainer>
-          </>
+          isGuest ? (
+            <CheckoutPayment handleSave={handleSave} stripeKey={stripeKey} />
+          ) : (
+            <CheckoutCustomerPayment
+              handleSave={handleSave}
+              stripeKey={stripeKey}
+            />
+          )
         ) : hasPaymentMethod ? (
           <>
             <div className="grid grid-cols-3 gap-2">
@@ -143,49 +93,28 @@ export const StepPayment: React.FC<Props> = ({
                 {paymentMethod?.formattedPriceAmount}
               </p>
             </div>
-            <PaymentMethodsContainer>
-              <PaymentSource readonly>
-                <div className="flex flex-row items-center p-5 my-5 bg-gray-100">
-                  <div className="flex flex-row items-center w-1/2">
-                    <PaymentSourceBrandIcon className="mr-3" />
-                    <Trans t={t} i18nKey="stepPayment.endingIn">
-                      <PaymentSourceBrandName className="mr-1" />
-                      <PaymentSourceDetail className="ml-1" type="last4" />
-                    </Trans>
-                  </div>
-                  <div className="text-gray-500">
-                    <PaymentSourceDetail type="expMonth" />/
-                    <PaymentSourceDetail type="expYear" />
-                  </div>
-                </div>
-              </PaymentSource>
-            </PaymentMethodsContainer>
             <PlaceOrderContainer
               options={{
                 stripePayment: {
                   publishableKey: stripeKey,
                 },
-                saveShippingAddressToCustomerBook: true,
-                saveBillingAddressToCustomerBook: true,
+                savePaymentSourceToCustomerWallet: !isGuest,
               }}
             >
               <div>
-                <PlaceOrderSaveButton
+                <PlaceOrderButton
                   data-cy="place-order-button"
                   onClick={handlePlaceOrder}
+                  className="inline-flex items-center px-3 py-2 mt-5 text-sm font-medium text-white border border-transparent bg-primary leading-4 rounded-md shadow-sm hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
                   label={t("stepPayment.submit")}
                 />
               </div>
             </PlaceOrderContainer>
           </>
         ) : (
-          <div>Metodo di pagamento da selezionare</div>
+          <div>{t("stepPayment.methodUnselected")}</div>
         )}
       </StepContent>
     </div>
   )
 }
-
-const PlaceOrderSaveButton = styled(PlaceOrderButton)`
-  ${ButtonCss}
-`

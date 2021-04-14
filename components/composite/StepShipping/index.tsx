@@ -96,7 +96,7 @@ export const StepShipping: React.FC<Props> = ({
           isShipmentRequired
             ? isActive
               ? t("stepShipping.summary")
-              : t("stepShipping.shippingMethodSelected")
+              : t("stepShipping.methodSelected")
             : t("stepShipping.notRequired")
         }
         onEditRequest={() => {
@@ -208,7 +208,7 @@ export const StepShipping: React.FC<Props> = ({
               </Shipment>
             </ShipmentsContainer>
           ) : (
-            <div>Metodo di spedizione da selezionare</div>
+            <div>{t("stepShipping.methodUnselected")}</div>
           )}
         </StepContent>
       )}
