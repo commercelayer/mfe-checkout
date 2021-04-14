@@ -18,42 +18,30 @@ export const SupportMessage: React.FC<Props> = ({
     return window.open(`tel:${supportEmail}`)
   }
 
-  if (supportPhone && supportEmail) {
-    return (
-      <Trans
-        i18nKey={"stepComplete.fullSupport"}
-        values={{ email: supportEmail, phone: supportPhone }}
-        components={{
-          WrapperEmail: <strong tw="cursor-pointer" onClick={handleEmail} />,
-          WrapperPhone: <strong tw="cursor-pointer" onClick={handlePhone} />,
-        }}
-      />
-    )
+  const setI18nKey = () => {
+    if (supportPhone && supportEmail) {
+      return "stepComplete.fullSupport"
+    }
+    if (!supportPhone && supportEmail) {
+      return "stepComplete.supportEmail"
+    }
+    if (supportPhone && !supportEmail) {
+      return "stepComplete.supportPhone"
+    }
   }
 
-  if (!supportPhone && supportEmail) {
-    return (
-      <Trans
-        i18nKey={"stepComplete.supportEmail"}
-        values={{ email: supportEmail }}
-        components={{
-          WrapperEmail: <strong tw="cursor-pointer" onClick={handleEmail} />,
-        }}
-      />
-    )
+  if (!supportPhone && !supportEmail) {
+    return <></>
   }
 
-  if (supportPhone && !supportEmail) {
-    return (
-      <Trans
-        i18nKey={"stepComplete.supportPhone"}
-        values={{ phone: supportPhone }}
-        components={{
-          WrapperPhone: <strong tw="cursor-pointer" onClick={handlePhone} />,
-        }}
-      />
-    )
-  }
-
-  return <></>
+  return (
+    <Trans
+      i18nKey={setI18nKey()}
+      values={{ email: supportEmail, phone: supportPhone }}
+      components={{
+        WrapperEmail: <strong tw="cursor-pointer" onClick={handleEmail} />,
+        WrapperPhone: <strong tw="cursor-pointer" onClick={handlePhone} />,
+      }}
+    />
+  )
 }
