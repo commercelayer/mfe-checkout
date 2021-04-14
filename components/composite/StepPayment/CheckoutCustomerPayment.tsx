@@ -37,6 +37,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
       <label
         htmlFor="billing_address_save_to_customer_book"
         className="self-end block ml-3 text-sm font-medium text-primary"
+        data-cy="payment-save-wallet"
       >
         {t("stepPayment.saveToWallet")}
       </label>

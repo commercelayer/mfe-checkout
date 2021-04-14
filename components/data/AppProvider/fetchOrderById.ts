@@ -300,7 +300,7 @@ export const fetchOrderById = async ({
     // the payment method is automatically selected
     // to assume the payment method as the default one
     if (
-      !isGuest &&
+      //! isGuest &&
       !hasPaymentMethod &&
       allAvailablePaymentMethods.length === 1
     ) {
