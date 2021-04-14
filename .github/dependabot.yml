@@ -1,12 +1,12 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
-  target-branch: develop
-  reviewers:
-  - alessani
-  - giacomosardo
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "04:00"
+    open-pull-requests-limit: 30
+    target-branch: develop
+    reviewers:
+      - alessani
+      - giacomosardo
