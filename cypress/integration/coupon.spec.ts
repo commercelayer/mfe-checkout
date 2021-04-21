@@ -4,7 +4,6 @@ import { euAddress } from "../support/utils"
 
 describe("Checkout Coupon", () => {
   const filename = "coupon"
-  const redirectUrl = internet.url()
 
   const email = internet.email().toLocaleLowerCase()
   const password = internet.password()
@@ -94,7 +93,7 @@ describe("Checkout Coupon", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [
@@ -196,7 +195,7 @@ describe("Checkout Coupon", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [
@@ -246,7 +245,7 @@ describe("Checkout Coupon", () => {
       cy.dataCy("total-amount").should("contain", "182,80")
     })
     it("remove coupon and check amount", () => {
-      cy.dataCy("remove_coupon").click()
+      cy.dataCy("remove_coupon").click({ force: true })
       cy.wait(
         [
           "@getOrderShipments",

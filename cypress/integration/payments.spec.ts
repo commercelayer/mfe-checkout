@@ -4,7 +4,6 @@ import { euAddress } from "../support/utils"
 
 describe("Checkout Payments", () => {
   const filename = "payments"
-  const redirectUrl = internet.url()
 
   const email = internet.email().toLocaleLowerCase()
   const password = internet.password()
@@ -89,7 +88,7 @@ describe("Checkout Payments", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [
@@ -234,7 +233,7 @@ describe("Checkout Payments", () => {
       cy.visit(
         `/?accessToken=${Cypress.env("accessToken")}&orderId=${
           this.newOrder.id
-        }&redirectUrl=${redirectUrl}`
+        }`
       )
       cy.wait(
         [

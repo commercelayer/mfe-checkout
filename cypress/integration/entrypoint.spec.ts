@@ -1,47 +1,30 @@
 describe("Checkout entrypoint", () => {
-  const redirectUrl = "https://www.extendi.it/"
-
   context("missing accessToken and orderId", () => {
-    it("redirect to invalid with redirectUrl", () => {
-      cy.visit(`/?redirectUrl=${redirectUrl}`)
-      cy.url().should("eq", redirectUrl)
-    })
-
-    it("redirect to invalid without redirectUrl", () => {
+    it("redirect to invalid page", () => {
       cy.visit(`/`)
       cy.dataCy("invalid-checkout").should(
         "have.text",
-        "This checkout is not valid"
+        "This order is no longer accessible."
       )
     })
   })
 
   context("missing orderId", () => {
-    it("redirect to invalid with redirectUrl", () => {
-      cy.visit(`/?accessToken=123123&redirectUrl=${redirectUrl}`)
-      cy.url().should("eq", redirectUrl)
-    })
-
-    it("redirect to invalid without redirectUrl", () => {
+    it("redirect to invalid page", () => {
       cy.visit(`/?accessToken=123123`)
       cy.dataCy("invalid-checkout").should(
         "have.text",
-        "This checkout is not valid"
+        "This order is no longer accessible."
       )
     })
   })
 
   context("missing accessToken", () => {
-    it("redirect to invalid with redirectUrl", () => {
-      cy.visit(`/?orderId=123123&redirectUrl=${redirectUrl}`)
-      cy.url().should("eq", redirectUrl)
-    })
-
-    it("redirect to invalid without redirectUrl", () => {
+    it("redirect to invalid page", () => {
       cy.visit(`/?orderId=123123`)
       cy.dataCy("invalid-checkout").should(
         "have.text",
-        "This checkout is not valid"
+        "This order is no longer accessible."
       )
     })
   })
@@ -58,7 +41,7 @@ describe("Checkout entrypoint", () => {
     it("redirect to invalid", () => {
       cy.dataCy("invalid-checkout").should(
         "have.text",
-        "This checkout is not valid"
+        "This order is no longer accessible."
       )
     })
   })
@@ -95,21 +78,7 @@ describe("Checkout entrypoint", () => {
         }
       })
 
-      it("redirect to valid checkout with redirectUrl", function () {
-        cy.visit(
-          `/?accessToken=${Cypress.env("accessToken")}&orderId=${
-            this.newOrder.id
-          }&redirectUrl=${redirectUrl}`
-        )
-
-        if (!Cypress.env("record")) {
-          cy.newStubData("getOrders1", filename)
-        }
-        cy.wait(["@getOrders", "@retrieveLineItems"], { timeout: 100000 })
-        cy.url().should("include", `redirectUrl=${redirectUrl}`)
-      })
-
-      it("redirect to valid checkout without redirectUrl", function () {
+      it("redirect to valid checkout", function () {
         cy.visit(
           `/?accessToken=${Cypress.env("accessToken")}&orderId=${
             this.newOrder.id

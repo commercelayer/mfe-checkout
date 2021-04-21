@@ -69,6 +69,7 @@ Cypress.Commands.add("createOrder", (template, options) => {
             language_code: options.languageCode,
             customer_email: options.customerEmail,
             shipping_country_code_lock: options.shipping_country_code_lock,
+            return_url: options.return_url,
             reference: options.reference || null,
           },
         },
