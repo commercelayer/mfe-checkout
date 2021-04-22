@@ -11,7 +11,7 @@
     "test": "cypress open"
   },
   "dependencies": {
-    "@commercelayer/js-sdk": "^3.8.0",
+    "@commercelayer/js-sdk": "^3.9.2",
     "@commercelayer/react-components": "^2.11.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
