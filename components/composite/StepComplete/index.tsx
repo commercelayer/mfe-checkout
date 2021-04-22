@@ -13,7 +13,6 @@ import { SupportMessage } from "./SupportMessage"
 interface Props {
   logoUrl: string
   companyName: string
-  redirectUrl: string
   supportEmail: string
   supportPhone: string
 }
@@ -21,7 +20,6 @@ interface Props {
 export const StepComplete: React.FC<Props> = ({
   logoUrl,
   companyName,
-  redirectUrl,
   supportEmail,
   supportPhone,
 }) => {
@@ -30,7 +28,7 @@ export const StepComplete: React.FC<Props> = ({
   const ctx = useContext(AppContext)
 
   const handleClick = () => {
-    return (document.location.href = redirectUrl) || window.history.back()
+    return ctx?.returnUrl && (document.location.href = ctx?.returnUrl)
   }
 
   return (
@@ -62,11 +60,13 @@ export const StepComplete: React.FC<Props> = ({
                 supportPhone={supportPhone}
               />
             </Text>
-            <WrapperButton>
-              <Button data-cy="button-continue-to-shop" onClick={handleClick}>
-                {t("stepComplete.continue")}
-              </Button>
-            </WrapperButton>
+            {ctx?.returnUrl && (
+              <WrapperButton>
+                <Button data-cy="button-continue-to-shop" onClick={handleClick}>
+                  {t("stepComplete.continue")}
+                </Button>
+              </WrapperButton>
+            )}
           </Card>
         </Wrapper>
       </Container>

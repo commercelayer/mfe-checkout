@@ -10,7 +10,6 @@ interface CheckoutSettings {
   contrastColor: string
   favicon: string
   gtmId: string
-  redirectUrl: string
   supportEmail: string
   supportPhone: string
 }
@@ -27,7 +26,6 @@ type CheckoutPageContextProps = Pick<
   | "contrastColor"
   | "favicon"
   | "gtmId"
-  | "redirectUrl"
   | "supportEmail"
   | "supportPhone"
 >

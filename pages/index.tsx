@@ -19,7 +19,6 @@ const Home: NextPage<CheckoutPageContextProps> = ({
   logoUrl,
   companyName,
   favicon,
-  redirectUrl,
   supportEmail,
   supportPhone,
 }) => {
@@ -44,7 +43,6 @@ const Home: NextPage<CheckoutPageContextProps> = ({
       <StepComplete
         logoUrl={logoUrl}
         companyName={companyName}
-        redirectUrl={redirectUrl}
         supportEmail={supportEmail}
         supportPhone={supportPhone}
       />

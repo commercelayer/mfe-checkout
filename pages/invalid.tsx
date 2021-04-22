@@ -1,22 +1,32 @@
 import { Card } from "components/ui/Card"
-import { Logo } from "components/ui/Logo"
+import humanizeString from "humanize-string"
 import { NextPage } from "next"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
+import titleize from "titleize"
 import tw from "twin.macro"
 
 const Invalid: NextPage = () => {
   const { t } = useTranslation()
+  const [title, setTitle] = useState("")
+
+  useEffect(() => {
+    if (window) {
+      const humanizeHostname = titleize(
+        humanizeString(window.location.hostname)
+      )
+      setTitle(humanizeHostname)
+    }
+  }, [])
 
   return (
     <Base>
       <Container>
         <Wrapper>
-          <Logo
-            logoUrl="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
-            companyName="Test company"
-            tw="pt-10 mb-10 pl-4"
-          />
+          <Text tw="text-center text-lg font-bold pt-10 mb-10 pl-4">
+            {title}
+          </Text>
           <Card>
             <Text data-cy="invalid-checkout" tw="py-5 h-44 text-center">
               {t("general.invalid")}

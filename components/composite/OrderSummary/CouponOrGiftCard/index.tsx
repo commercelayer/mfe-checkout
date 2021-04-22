@@ -8,18 +8,32 @@ import {
   Errors,
   GiftCardOrCouponForm,
 } from "@commercelayer/react-components"
-import { useState } from "react"
+import { AppContext } from "components/data/AppProvider"
+import { useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import "twin.macro"
 
 export const CouponOrGiftCard: React.FC = () => {
   const { t } = useTranslation()
 
+  const appCtx = useContext(AppContext)
+
+  if (!appCtx) {
+    return null
+  }
+
+  const { refetchOrder } = appCtx
+
   const [codeError, setCodeError] = useState(false)
 
-  const handleSubmit = ({ success }: { success: boolean }) => {
-    console.log(`success`, success)
+  const handleSubmit = async ({ success }: { success: boolean }) => {
     if (!success) return setCodeError(true)
+    if (success) {
+      // soluzione momentanea in vista di una risoluzione di @commercelayer/react-components
+      setTimeout(() => {
+        refetchOrder()
+      }, 2000)
+    }
     return setCodeError(false)
   }
 
@@ -122,6 +136,7 @@ export const CouponOrGiftCard: React.FC = () => {
                   type="coupon"
                   className="inline-flex items-center justify-center flex-shrink-0 w-4 h-4 text-indigo-400 rounded-full ml-0.5 hover:bg-indigo-200 hover:text-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-white"
                   label={removeIcon}
+                  onClick={refetchOrder}
                 />
               </span>
             </>
@@ -143,6 +158,7 @@ export const CouponOrGiftCard: React.FC = () => {
                   type="giftCard"
                   className="inline-flex items-center justify-center flex-shrink-0 w-4 h-4 text-indigo-400 rounded-full ml-0.5 hover:bg-indigo-200 hover:text-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-white"
                   label={removeIcon}
+                  onClick={refetchOrder}
                 />
               </span>
             </>

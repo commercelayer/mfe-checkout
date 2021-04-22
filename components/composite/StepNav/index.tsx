@@ -45,8 +45,8 @@ export const StepNav: React.FC<Props> = ({
       })}
 
       <Step
-        isLocked={activeStep != "Complete"}
-        isActive={activeStep == "Complete"}
+        isLocked={activeStep !== "Complete"}
+        isActive={activeStep === "Complete"}
       >
         {t("general.complete")}
       </Step>

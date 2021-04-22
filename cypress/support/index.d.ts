@@ -38,6 +38,7 @@ declare global {
           languageCode: "it" | "en"
           customerEmail: string
           shipping_country_code_lock?: string
+          return_url?: string
           reference?: string
           accessToken?: any
         }

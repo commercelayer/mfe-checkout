@@ -100,12 +100,7 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     appContext.ctx.res &&
     appContext.ctx.pathname !== "/invalid"
   ) {
-    const redirectUrl = appContext.ctx.query?.redirectUrl
-    if (redirectUrl) {
-      appContext.ctx.res.writeHead(302, { Location: redirectUrl }).end()
-    } else if (redirectUrl === undefined) {
-      appContext.ctx.res.writeHead(302, { Location: "/invalid" }).end()
-    }
+    appContext.ctx.res.writeHead(302, { Location: "/invalid" }).end()
   }
 
   const checkoutContext: CheckoutPageContextProps = {
@@ -119,7 +114,6 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
     contrastColor: data.contrastColor,
     favicon: data.favicon,
     gtmId: data.gtmId,
-    redirectUrl: String(appContext.ctx.query?.redirectUrl) || "/invalid",
     supportEmail: data.supportEmail,
     supportPhone: data.supportPhone,
   }

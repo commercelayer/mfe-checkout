@@ -8,13 +8,14 @@ import { fetchOrderById, FetchOrderByIdResponse } from "./fetchOrderById"
 
 interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
+  orderId: string
   refetchOrder: () => Promise<void>
 }
 
 export const AppContext = createContext<AppProviderData | null>(null)
 
 interface AppProviderProps {
-  orderId?: string
+  orderId: string
   accessToken?: string
 }
 
@@ -52,12 +53,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     setPaymentMethod,
   ] = useState<PaymentMethodCollection | null>(null)
   const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
+  const [isPaymentRequired, setIsPaymentRequired] = useState(true)
   const [
     shippingCountryCodeLock,
     setShippingCountryCodeLock,
   ] = useState<string>("")
 
   const [isComplete, setIsComplete] = useState(false)
+
+  const [returnUrl, setReturnUrl] = useState("")
 
   const fetchOrderHandle = async (orderId?: string, accessToken?: string) => {
     if (!orderId || !accessToken) {
@@ -82,8 +86,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         hasShippingMethod,
         shipments,
         isShipmentRequired,
+        isPaymentRequired,
         shippingCountryCodeLock,
         isComplete,
+        returnUrl,
       }) => {
         setIsGuest(isGuest)
         setHasCustomerAddresses(hasCustomerAddresses)
@@ -102,9 +108,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setPaymentMethod(paymentMethod)
         setHasPaymentMethod(hasPaymentMethod)
         setIsShipmentRequired(isShipmentRequired)
+        setIsPaymentRequired(isPaymentRequired)
         setShippingCountryCodeLock(shippingCountryCodeLock)
         setIsComplete(isComplete)
         setIsLoading(false)
+        setReturnUrl(returnUrl)
       }
     )
   }
@@ -134,8 +142,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         hasPaymentMethod,
         shippingCountryCodeLock,
         isShipmentRequired,
+        isPaymentRequired,
         isComplete,
         orderId,
+        returnUrl,
         refetchOrder: async () => {
           return await fetchOrderHandle(orderId, accessToken)
         },

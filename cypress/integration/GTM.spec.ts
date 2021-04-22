@@ -4,7 +4,6 @@ import { euAddress } from "../support/utils"
 
 describe("check Data Layers GTM", () => {
   const filename = "GTM"
-  const redirectUrl = internet.url()
 
   const email = internet.email().toLocaleLowerCase()
   const password = internet.password()
@@ -78,7 +77,7 @@ describe("check Data Layers GTM", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [
@@ -160,12 +159,12 @@ describe("check Data Layers GTM", () => {
         assert.equal(dataLayer[0].ecommerce.currency, "EUR")
         assert.equal(dataLayer[0].ecommerce.shipping_tier, "Standard Shipping")
         assert.equal(dataLayer[0].ecommerce.value, 0)
-        assert.equal(dataLayer[0].ecommerce.items.length, 1)
+        assert.equal(dataLayer[0].ecommerce.items.length, 2)
         assert.equal(dataLayer[1].event, "add_shipping_info")
         assert.equal(dataLayer[1].ecommerce.currency, "EUR")
         assert.equal(dataLayer[1].ecommerce.shipping_tier, "Standard Shipping")
         assert.equal(dataLayer[1].ecommerce.value, 0)
-        assert.equal(dataLayer[1].ecommerce.items.length, 2)
+        assert.equal(dataLayer[1].ecommerce.items.length, 1)
       })
     })
 
@@ -245,12 +244,12 @@ describe("check Data Layers GTM", () => {
         assert.equal(dataLayer[2].ecommerce.currency, "EUR")
         assert.equal(dataLayer[2].ecommerce.shipping_tier, "Express Delivery")
         assert.equal(dataLayer[2].ecommerce.value, 12)
-        assert.equal(dataLayer[2].ecommerce.items.length, 1)
+        assert.equal(dataLayer[2].ecommerce.items.length, 2)
         assert.equal(dataLayer[3].event, "add_shipping_info")
         assert.equal(dataLayer[3].ecommerce.currency, "EUR")
         assert.equal(dataLayer[3].ecommerce.shipping_tier, "Express Delivery")
         assert.equal(dataLayer[3].ecommerce.value, 12)
-        assert.equal(dataLayer[3].ecommerce.items.length, 2)
+        assert.equal(dataLayer[3].ecommerce.items.length, 1)
       })
     })
 
@@ -305,12 +304,12 @@ describe("check Data Layers GTM", () => {
         assert.equal(dataLayer[4].ecommerce.currency, "EUR")
         assert.equal(dataLayer[4].ecommerce.shipping_tier, "Express Delivery")
         assert.equal(dataLayer[4].ecommerce.value, 12)
-        assert.equal(dataLayer[4].ecommerce.items.length, 1)
+        assert.equal(dataLayer[4].ecommerce.items.length, 2)
         assert.equal(dataLayer[5].event, "add_shipping_info")
         assert.equal(dataLayer[5].ecommerce.currency, "EUR")
         assert.equal(dataLayer[5].ecommerce.shipping_tier, "Standard Shipping")
         assert.equal(dataLayer[5].ecommerce.value, 0)
-        assert.equal(dataLayer[5].ecommerce.items.length, 2)
+        assert.equal(dataLayer[5].ecommerce.items.length, 1)
       })
     })
 
@@ -380,12 +379,12 @@ describe("check Data Layers GTM", () => {
         assert.equal(dataLayer[6].ecommerce.currency, "EUR")
         assert.equal(dataLayer[6].ecommerce.shipping_tier, "Standard Shipping")
         assert.equal(dataLayer[6].ecommerce.value, 0)
-        assert.equal(dataLayer[6].ecommerce.items.length, 1)
+        assert.equal(dataLayer[6].ecommerce.items.length, 2)
         assert.equal(dataLayer[7].event, "add_shipping_info")
         assert.equal(dataLayer[7].ecommerce.currency, "EUR")
         assert.equal(dataLayer[7].ecommerce.shipping_tier, "Express Delivery")
         assert.equal(dataLayer[7].ecommerce.value, 12)
-        assert.equal(dataLayer[7].ecommerce.items.length, 2)
+        assert.equal(dataLayer[7].ecommerce.items.length, 1)
       })
     })
   })
@@ -456,21 +455,25 @@ describe("check Data Layers GTM", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [
-          "@getOrders",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getShippingMethods",
-          "@getOrders",
-          "@updateOrder",
-          "@retrieveLineItems",
+          "@getOrderShipments",
           "@getOrderShipments",
           "@availablePaymentMethods",
-          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@updateOrder",
         ],
         { timeout: 100000 }
       )
@@ -505,6 +508,12 @@ describe("check Data Layers GTM", () => {
       cy.get("@paymentSourceButton3").click()
       cy.wait(
         [
+          "@getShippingMethods",
+          "@getShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
           "@getOrders",
           "@getOrders",
           "@retrieveLineItems",

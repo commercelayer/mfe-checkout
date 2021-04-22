@@ -4,10 +4,11 @@ import { euAddress } from "../support/utils"
 
 describe("Checkout Checkout Complete", () => {
   const filename = "checkout-complete"
-  const redirectUrl = "https://www.extendi.it/"
 
   const email = internet.email().toLocaleLowerCase()
   const password = internet.password()
+
+  const returnUrl = "https://www.extendi.it/"
 
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
@@ -23,6 +24,7 @@ describe("Checkout Checkout Complete", () => {
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: email,
+        return_url: returnUrl,
         accessToken: this.tokenObj.access_token,
       })
         .as("newOrder")
@@ -32,15 +34,7 @@ describe("Checkout Checkout Complete", () => {
             accessToken: this.tokenObj.access_token,
             attributes: {
               quantity: "1",
-              sku_code: "CANVASAU000000FFFFFF1824",
-            },
-          })
-          cy.createSkuLineItems({
-            orderId: order.id,
-            accessToken: this.tokenObj.access_token,
-            attributes: {
-              quantity: "5",
-              sku_code: "TSHIRTMMFFFFFFE63E74MXXX",
+              sku_code: "TESLA5",
             },
           })
           cy.createAddress({
@@ -84,7 +78,7 @@ describe("Checkout Checkout Complete", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [
@@ -157,7 +151,7 @@ describe("Checkout Checkout Complete", () => {
       )
       cy.dataCy("button-continue-to-shop").click()
       cy.wait(200)
-      cy.url().should("eq", redirectUrl)
+      cy.url().should("eq", returnUrl)
     })
   })
 })

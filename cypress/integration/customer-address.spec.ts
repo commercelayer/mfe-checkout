@@ -4,7 +4,6 @@ import { euAddress, euAddress2, euAddress3 } from "../support/utils"
 
 describe("Checkout customer address", () => {
   const filename = "customer-addresses"
-  const redirectUrl = internet.url()
 
   const email = internet.email().toLocaleLowerCase()
   const password = internet.password()
@@ -51,7 +50,7 @@ describe("Checkout customer address", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [
@@ -278,7 +277,7 @@ describe("Checkout customer address", () => {
 
     it("ship to different address disable and save", () => {
       cy.dataCy("step_customer")
-        .click()
+        .click({ force: true })
         .should("have.attr", "data-status", "true")
 
       cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
@@ -383,7 +382,7 @@ describe("Checkout customer address", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [
@@ -684,7 +683,7 @@ describe("Checkout customer address", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [
@@ -769,7 +768,7 @@ describe("Checkout customer address", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [
@@ -1155,7 +1154,7 @@ describe("Checkout customer address", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [
@@ -1625,7 +1624,7 @@ describe("Checkout customer address", () => {
 
     it("valid customer token", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
 
       cy.wait(

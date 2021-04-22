@@ -4,7 +4,6 @@ import { euAddress } from "../support/utils"
 
 describe("Checkout Checkout-Digital", () => {
   const filename = "checkout-digital"
-  const redirectUrl = internet.url()
 
   const email = internet.email().toLocaleLowerCase()
   const password = internet.password()
@@ -87,7 +86,7 @@ describe("Checkout Checkout-Digital", () => {
 
     it("valid customer token and check if digital", function () {
       cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}&redirectUrl=${redirectUrl}`
+        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
       )
       cy.wait(
         [

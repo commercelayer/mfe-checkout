@@ -43,8 +43,9 @@ export interface FetchOrderByIdResponse {
   hasCustomerAddresses: boolean
   shippingCountryCodeLock: string
   isShipmentRequired: boolean
+  isPaymentRequired: boolean
   isComplete: boolean
-  orderId?: string
+  returnUrl: string
 }
 
 async function isNewAddress({
@@ -200,6 +201,8 @@ export const fetchOrderById = async ({
       )?.toArray()
     }
 
+    const isPaymentRequired = !(order.totalAmountWithTaxesFloat === 0)
+
     const isGuest = Boolean(order.guest)
 
     const customer = isGuest ? undefined : order.customer()
@@ -292,7 +295,11 @@ export const fetchOrderById = async ({
 
     const paymentMethod = order.paymentMethod()
     const paymentSource = order.paymentSource()
-    const hasPaymentMethod = Boolean(paymentMethod && paymentSource)
+    let hasPaymentMethod = Boolean(paymentMethod && paymentSource)
+
+    if (!hasPaymentMethod && !isPaymentRequired) {
+      hasPaymentMethod = true
+    }
 
     const allAvailablePaymentMethods = (await PaymentMethod.all())
       .toArray()
@@ -303,6 +310,7 @@ export const fetchOrderById = async ({
     // to assume the payment method as the default one
     if (
       //! isGuest &&
+      isPaymentRequired &&
       !hasPaymentMethod &&
       allAvailablePaymentMethods.length === 1
     ) {
@@ -339,6 +347,8 @@ export const fetchOrderById = async ({
 
     const isComplete = Boolean(!order.placeable)
 
+    const returnUrl = order.returnUrl
+
     console.log("order.shippingAddress :>> ", order.shippingAddress())
     console.log("order.billingAddress :>> ", await order.billingAddress())
     console.log("order.shipments :>> ", shipments)
@@ -364,7 +374,9 @@ export const fetchOrderById = async ({
       hasPaymentMethod,
       shippingCountryCodeLock,
       isShipmentRequired,
+      isPaymentRequired,
       isComplete,
+      returnUrl,
     }
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
@@ -386,7 +398,9 @@ export const fetchOrderById = async ({
       hasPaymentMethod: false,
       shippingCountryCodeLock: "",
       isShipmentRequired: true,
+      isPaymentRequired: true,
       isComplete: false,
+      returnUrl: "",
     }
   }
 }

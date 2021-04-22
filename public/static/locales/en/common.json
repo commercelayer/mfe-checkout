@@ -6,7 +6,7 @@
         "no": "No",
         "cancel": "Cancel",
         "systemError": "We're sorry but something went wrong!",
-        "invalid": "This checkout is not valid",
+        "invalid": "This order is no longer accessible.",
         "save": "Save",
         "edit": "Edit",
         "delete": "Delete",

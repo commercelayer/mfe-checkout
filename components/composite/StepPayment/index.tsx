@@ -8,10 +8,11 @@ import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
+import { Button } from "components/ui/Button"
 import { Icon } from "components/ui/Icon"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
@@ -28,6 +29,8 @@ export const StepPayment: React.FC<Props> = ({
   isActive,
   onToggleActive,
 }) => {
+  const [canContinue, setCanContinue] = useState(false)
+
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
 
@@ -37,7 +40,13 @@ export const StepPayment: React.FC<Props> = ({
     return null
   }
 
-  const { hasPaymentMethod, paymentMethod, refetchOrder, isGuest } = appCtx
+  const {
+    hasPaymentMethod,
+    paymentMethod,
+    refetchOrder,
+    isGuest,
+    isPaymentRequired,
+  } = appCtx
 
   const stripeKey = "pk_test_TYooMQauvdEDq54NiTphI7jx"
 
@@ -55,6 +64,10 @@ export const StepPayment: React.FC<Props> = ({
     await refetchOrder()
   }
 
+  useEffect(() => {
+    setCanContinue(hasPaymentMethod)
+  }, [])
+
   return (
     <div className={className}>
       <StepHeader
@@ -62,59 +75,99 @@ export const StepPayment: React.FC<Props> = ({
         status={isActive ? "edit" : "done"}
         label={t("stepPayment.title")}
         info={
-          isActive ? t("stepPayment.summary") : t("stepPayment.methodSelected")
+          isPaymentRequired
+            ? isActive
+              ? t("stepPayment.summary")
+              : t("stepPayment.methodSelected")
+            : t("stepPayment.notRequired")
         }
         onEditRequest={() => {
           onToggleActive()
         }}
       />
-      <StepContent>
-        {isActive ? (
-          isGuest ? (
-            <CheckoutPayment handleSave={handleSave} stripeKey={stripeKey} />
-          ) : (
-            <CheckoutCustomerPayment
-              handleSave={handleSave}
-              stripeKey={stripeKey}
-            />
-          )
-        ) : hasPaymentMethod ? (
-          <>
-            <div className="grid grid-cols-3 gap-2">
-              <div className="flex">
-                <Icon>
-                  <FontAwesomeIcon icon={faWallet} />
-                </Icon>
-                <p data-cy="payment-method-selected" className="font-bold">
-                  {paymentMethod?.name}
+      {isPaymentRequired ? (
+        <StepContent>
+          {isActive ? (
+            <>
+              {isGuest ? (
+                <CheckoutPayment
+                  handleSave={handleSave}
+                  stripeKey={stripeKey}
+                />
+              ) : (
+                <CheckoutCustomerPayment
+                  handleSave={handleSave}
+                  stripeKey={stripeKey}
+                />
+              )}
+              {hasPaymentMethod && (
+                <div tw="flex justify-end pt-3">
+                  <Button
+                    disabled={!canContinue}
+                    data-cy="save-shipments-button"
+                    onClick={handleSave}
+                  >
+                    {t("general.save")}
+                  </Button>
+                </div>
+              )}
+            </>
+          ) : hasPaymentMethod ? (
+            <>
+              <div className="grid grid-cols-3 gap-2">
+                <div className="flex">
+                  <Icon>
+                    <FontAwesomeIcon icon={faWallet} />
+                  </Icon>
+                  <p data-cy="payment-method-selected" className="font-bold">
+                    {paymentMethod?.name}
+                  </p>
+                </div>
+                <p data-cy="payment-method-price-selected">
+                  {paymentMethod?.formattedPriceAmount}
                 </p>
               </div>
-              <p data-cy="payment-method-price-selected">
-                {paymentMethod?.formattedPriceAmount}
-              </p>
-            </div>
-            <PlaceOrderContainer
-              options={{
-                stripePayment: {
-                  publishableKey: stripeKey,
-                },
-                savePaymentSourceToCustomerWallet: !isGuest,
-              }}
-            >
-              <div>
-                <PlaceOrderButton
-                  data-cy="place-order-button"
-                  onClick={handlePlaceOrder}
-                  className="inline-flex items-center px-3 py-2 mt-5 text-sm font-medium text-white border border-transparent bg-primary leading-4 rounded-md shadow-sm hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
-                  label={t("stepPayment.submit")}
-                />
-              </div>
-            </PlaceOrderContainer>
-          </>
-        ) : (
-          <div>{t("stepPayment.methodUnselected")}</div>
-        )}
-      </StepContent>
+              <PlaceOrderContainer
+                options={{
+                  stripePayment: {
+                    publishableKey: stripeKey,
+                  },
+                  savePaymentSourceToCustomerWallet: !isGuest,
+                }}
+              >
+                <div tw="flex justify-end">
+                  <PlaceOrderButton
+                    data-cy="place-order-button"
+                    onClick={handlePlaceOrder}
+                    className="inline-flex items-center px-3 py-2 mt-5 text-sm font-medium text-white border border-transparent bg-primary leading-4 rounded-md shadow-sm hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
+                    label={t("stepPayment.submit")}
+                  />
+                </div>
+              </PlaceOrderContainer>
+            </>
+          ) : (
+            <div>{t("stepPayment.methodUnselected")}</div>
+          )}
+        </StepContent>
+      ) : (
+        <PlaceOrderContainer
+          options={{
+            stripePayment: {
+              publishableKey: stripeKey,
+            },
+            savePaymentSourceToCustomerWallet: !isGuest,
+          }}
+        >
+          <div tw="flex justify-end">
+            <PlaceOrderButton
+              data-cy="place-order-button"
+              onClick={handlePlaceOrder}
+              className="inline-flex items-center px-3 py-2 mt-5 text-sm font-medium text-white border border-transparent bg-primary leading-4 rounded-md shadow-sm hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
+              label={t("stepPayment.submit")}
+            />
+          </div>
+        </PlaceOrderContainer>
+      )}
     </div>
   )
 }

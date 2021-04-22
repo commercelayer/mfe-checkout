@@ -7,8 +7,6 @@ describe("Checkout guest address", () => {
   const emailCustomer = "gigi@buffon.it"
 
   context("initial order empty", () => {
-    const redirectUrl = internet.url()
-
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
@@ -41,7 +39,7 @@ describe("Checkout guest address", () => {
       cy.visit(
         `/?accessToken=${Cypress.env("accessToken")}&orderId=${
           this.newOrder.id
-        }&redirectUrl=${redirectUrl}`
+        }`
       )
       if (!Cypress.env("record")) {
         cy.newStubData("getOrders1", filename)
@@ -210,8 +208,6 @@ describe("Checkout guest address", () => {
   })
 
   context("initial order with same address", () => {
-    const redirectUrl = internet.url()
-
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
@@ -256,7 +252,7 @@ describe("Checkout guest address", () => {
       cy.visit(
         `/?accessToken=${Cypress.env("accessToken")}&orderId=${
           this.newOrder.id
-        }&redirectUrl=${redirectUrl}`
+        }`
       )
 
       cy.wait(
@@ -297,8 +293,6 @@ describe("Checkout guest address", () => {
   })
 
   context("initial order with differend address", () => {
-    const redirectUrl = internet.url()
-
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
@@ -358,7 +352,7 @@ describe("Checkout guest address", () => {
       cy.visit(
         `/?accessToken=${Cypress.env("accessToken")}&orderId=${
           this.newOrder.id
-        }&redirectUrl=${redirectUrl}`
+        }`
       )
 
       cy.wait(
