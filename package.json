@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@commercelayer/js-sdk": "^3.9.2",
-    "@commercelayer/react-components": "^2.12.3",
+    "@commercelayer/react-components": "^2.12.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
@@ -49,7 +49,7 @@
     "eslint-plugin-tailwind": "^0.2.1",
     "faker": "^5.5.3",
     "msw": "^0.28.2",
-    "postcss": "^8.2.10",
+    "postcss": "^8.2.11",
     "prettier": "^2.2.1",
     "stylelint": "^13.12.0",
     "stylelint-config-standard": "^21.0.0",

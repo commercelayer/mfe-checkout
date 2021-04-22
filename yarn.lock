@@ -247,10 +247,10 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@commercelayer/react-components@^2.12.3":
-  version "2.12.3"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.12.3.tgz#e18b4d196cb081587839b44ca88efa09cdcab0e1"
-  integrity sha512-VCZTuzIWVT9BU3BZITRUvQw1DVlTsoJkR87w1G5nai1iC1Iev+K4EjVGHuS6GCGd8pcMcr0/K0ZxokMyqwfGkg==
+"@commercelayer/react-components@^2.12.4":
+  version "2.12.4"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.12.4.tgz#6fb45670a0619771295453f9f89ac2cbf82f48d4"
+  integrity sha512-GrYSWBor1mgvQlIF1+dhpRcOyNAe3UZHYcc45lt0gxxeWaL0WG04HlMWUX+bKxsaLheZSZ8WxZihOFlWuFPPdQ==
   dependencies:
     "@commercelayer/js-sdk" "^3.9.2"
     "@stripe/react-stripe-js" "^1.4.0"
@@ -4766,10 +4766,19 @@ postcss@^7.0.14, postcss@^7.0.2, postcss@^7.0.21, postcss@^7.0.26, postcss@^7.0.
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postcss@^8.1.6, postcss@^8.1.8, postcss@^8.2.1, postcss@^8.2.10:
+postcss@^8.1.6, postcss@^8.1.8, postcss@^8.2.1:
   version "8.2.10"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.2.10.tgz#ca7a042aa8aff494b334d0ff3e9e77079f6f702b"
   integrity sha512-b/h7CPV7QEdrqIxtAf2j31U5ef05uBDuvoXv6L51Q4rcS1jdlXAVKJv+atCFdUXYl9dyTHGyoMzIepwowRJjFw==
+  dependencies:
+    colorette "^1.2.2"
+    nanoid "^3.1.22"
+    source-map "^0.6.1"
+
+postcss@^8.2.11:
+  version "8.2.11"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.2.11.tgz#22c80ececdb6f263d1144399afeb9ed8fcb52701"
+  integrity sha512-8nXGYWAEzBGsGtPkwpbh576KY6Ya5aSi19VZcYiaomCBqkjvLG/bJx2UjULrH4dNKv540pq/qGvSFu0Yfuf6ZA==
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.22"
