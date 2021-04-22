@@ -227,32 +227,22 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-sdk@^3.7.0":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.7.0.tgz#b4ae94dae664e5b220ed71ddc492d708d04a0a2d"
-  integrity sha512-cub99joxQ2SnxBcsBCRk8qfwly99v6qCSowRV175r8gQN7Kq3CNQUTSAcEk+jG+9OEgZu0hZw6s55HhqU30NaQ==
+"@commercelayer/js-sdk@^3.8.0", "@commercelayer/js-sdk@^3.9.2":
+  version "3.9.2"
+  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.9.2.tgz#e293489056f0e9cd4ab05e7b0e40cd90bd444ee7"
+  integrity sha512-+2GXKsD11hKMN9VBdhmv6Crdki5JdSYohdr4Xmgt1pXGzARlzcPFMalU9WI3P6VnVD9C41m1nL3rseSJcy5Lmg==
   dependencies:
     active-resource "^1.0.0-beta.7"
     axios "^0.21.1"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@commercelayer/js-sdk@^3.8.0":
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.8.0.tgz#8a4a6285ffa3983d9a4bf67f80eb72bd65e1844c"
-  integrity sha512-5fkGr2lINvLK04nfiYZUeDKaeYEExu/YZRlKLhGsLPolwnF5KjhZjDXkhm6z/A0wh0uuFnWoBAcADXkeVqQHTg==
+"@commercelayer/react-components@^2.12.2":
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.12.2.tgz#711b3a76e61c3a8ba5e70e167a59da75f36bff5e"
+  integrity sha512-l3hxOqP5fdbHe2YVzjiUxwVIuwcSD1tved1qz1lkCevk0A5Emr8ayWjiyZLJSNYKSmdS4yzm+5xzcZrWFj87Ag==
   dependencies:
-    active-resource "^1.0.0-beta.7"
-    axios "^0.21.1"
-    lodash "^4.17.21"
-    lodash-es "^4.17.21"
-
-"@commercelayer/react-components@^2.11.1":
-  version "2.11.1"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.11.1.tgz#25193ab26d21280245224409c806c8ce8cb53e40"
-  integrity sha512-4Gt74q4PE5aHg8Z7KhK6dZGhOoM1pCKoz+GgnOC2ks7kIjhvr2Cr30Yy2oST1+72Xo4MTt/IlbOAfqxDWQgR+g==
-  dependencies:
-    "@commercelayer/js-sdk" "^3.7.0"
+    "@commercelayer/js-sdk" "^3.9.2"
     "@stripe/react-stripe-js" "^1.4.0"
     "@stripe/stripe-js" "^1.13.2"
     lodash "^4.17.21"
