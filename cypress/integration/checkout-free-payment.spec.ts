@@ -141,31 +141,19 @@ describe("Checkout Free Payment", () => {
     })
 
     it("place order and redirect", () => {
-      cy.dataCy("place-order-button").click()
-      cy.wait(
-        [
-          "@updateOrder",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getShippingMethods",
-          "@getOrderShipments",
-        ],
-        { timeout: 100000 }
-      )
+      cy.dataCy("place-order-button").click({ force: true })
       cy.dataCy("button-continue-to-shop").click()
       cy.wait(200)
       cy.url().should("eq", returnUrl)
     })
   })
 
-  context.skip("order without shipment and free payment", () => {
+  context("order without shipment and free payment", () => {
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: email,
+        return_url: returnUrl,
         accessToken: this.tokenObj.access_token,
       })
         .as("newOrder")
@@ -264,13 +252,15 @@ describe("Checkout Free Payment", () => {
     })
 
     it("place order and redirect", () => {
-      cy.dataCy("place-order-button").click()
+      cy.dataCy("place-order-button").click({ force: true })
       cy.wait(
         [
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@retrieveLineItems",
-          "@getShippingMethods",
-          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@updateOrder",
         ],
         { timeout: 100000 }
       )

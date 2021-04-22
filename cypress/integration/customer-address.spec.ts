@@ -277,7 +277,7 @@ describe("Checkout customer address", () => {
 
     it("ship to different address disable and save", () => {
       cy.dataCy("step_customer")
-        .click()
+        .click({ force: true })
         .should("have.attr", "data-status", "true")
 
       cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
