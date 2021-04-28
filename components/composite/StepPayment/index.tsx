@@ -8,7 +8,7 @@ import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
-import { Button } from "components/ui/Button"
+import { Button } from "components/ui"
 import { Icon } from "components/ui/Icon"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"

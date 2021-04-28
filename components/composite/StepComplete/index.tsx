@@ -1,6 +1,6 @@
 import { AppContext } from "components/data/AppProvider"
+import { Button } from "components/ui"
 import { Base } from "components/ui/Base"
-import { Button } from "components/ui/Button"
 import { Card } from "components/ui/Card"
 import { Logo } from "components/ui/Logo"
 import { useContext } from "react"
