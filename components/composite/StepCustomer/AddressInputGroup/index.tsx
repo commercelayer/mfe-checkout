@@ -84,10 +84,10 @@ export const AddressInputGroup: React.FC<Props> = ({
                   ? shippingCountryCodeLock
                   : value
               }
-              disabled={
+              disabled={Boolean(
                 shippingCountryCodeLock &&
-                fieldName === "shipping_address_country_code"
-              }
+                  fieldName === "shipping_address_country_code"
+              )}
             />
           ) : (
             <StyledAddressInput

@@ -98,7 +98,8 @@ CheckoutApp.getInitialProps = async (appContext: AppContextType) => {
   if (
     !data.validCheckout &&
     appContext.ctx.res &&
-    appContext.ctx.pathname !== "/invalid"
+    appContext.ctx.pathname !== "/invalid" &&
+    appContext.ctx.res.writeHead
   ) {
     appContext.ctx.res.writeHead(302, { Location: "/invalid" }).end()
   }
