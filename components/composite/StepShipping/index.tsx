@@ -21,8 +21,7 @@ import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
-import { Button } from "components/ui"
-import { Icon } from "components/ui/Icon"
+import * as S from "components/ui"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { useTranslation, Trans } from "next-i18next"
@@ -171,13 +170,13 @@ export const StepShipping: React.FC<Props> = ({
                 </ShippingMethod>
               </Shipment>
               <div tw="flex justify-end">
-                <Button
+                <S.Button
                   disabled={!canContinue}
                   data-cy="save-shipments-button"
                   onClick={handleSave}
                 >
                   {t("stepShipping.continueToPayment")}
-                </Button>
+                </S.Button>
               </div>
             </ShipmentsContainer>
           ) : hasShippingMethod ? (
@@ -185,9 +184,9 @@ export const StepShipping: React.FC<Props> = ({
               <Shipment>
                 <ShippingMethod readonly>
                   <div className="flex flex-row justify-around">
-                    <Icon>
+                    <S.Icon>
                       <FontAwesomeIcon icon={faTruckLoading} />
-                    </Icon>
+                    </S.Icon>
                     <div className="flex-1 pl-1">
                       <ShippingMethodName
                         className="font-bold"

@@ -8,7 +8,7 @@ import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
-import { Button } from "components/ui"
+import * as S from "components/ui"
 import { Icon } from "components/ui/Icon"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
@@ -102,13 +102,13 @@ export const StepPayment: React.FC<Props> = ({
               )}
               {hasPaymentMethod && (
                 <div tw="flex justify-end pt-3">
-                  <Button
+                  <S.Button
                     disabled={!canContinue}
                     data-cy="save-shipments-button"
                     onClick={handleSave}
                   >
                     {t("general.save")}
-                  </Button>
+                  </S.Button>
                 </div>
               )}
             </>
@@ -116,9 +116,9 @@ export const StepPayment: React.FC<Props> = ({
             <>
               <div className="grid grid-cols-3 gap-2">
                 <div className="flex">
-                  <Icon>
+                  <S.Icon>
                     <FontAwesomeIcon icon={faWallet} />
-                  </Icon>
+                  </S.Icon>
                   <p data-cy="payment-method-selected" className="font-bold">
                     {paymentMethod?.name}
                   </p>

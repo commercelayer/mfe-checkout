@@ -1,27 +1,24 @@
+import * as S from "components/ui"
 import styled from "styled-components"
 import tw from "twin.macro"
-
-import { Base } from "components/ui/Base"
-import { Card } from "components/ui/Card"
-import { Container } from "components/ui/Container"
 
 interface Props {
   aside: React.ReactNode
   main: React.ReactNode
 }
 
-export const LayoutDefault: React.FC<Props> = ({ main, aside }) => {
+export const Layout: React.FC<Props> = ({ main, aside }) => {
   return (
-    <Base>
-      <Container>
+    <S.Base>
+      <S.Container>
         <Wrapper>
           <Aside>{aside}</Aside>
           <Main>
-            <Card fullHeight>{main}</Card>
+            <S.Card fullHeight>{main}</S.Card>
           </Main>
         </Wrapper>
-      </Container>
-    </Base>
+      </S.Container>
+    </S.Base>
   )
 }
 

@@ -1,4 +1,4 @@
-import { Card } from "components/ui/Card"
+import * as S from "components/ui"
 import humanizeString from "humanize-string"
 import { NextPage } from "next"
 import { useEffect, useState } from "react"
@@ -21,26 +21,23 @@ const Invalid: NextPage = () => {
   }, [])
 
   return (
-    <Base>
+    <S.Base>
       <Container>
         <Wrapper>
           <Text tw="text-center text-lg font-bold pt-10 mb-10 pl-4">
             {title}
           </Text>
-          <Card>
+          <S.Card>
             <Text data-cy="invalid-checkout" tw="py-5 h-44 text-center">
               {t("general.invalid")}
             </Text>
-          </Card>
+          </S.Card>
         </Wrapper>
       </Container>
-    </Base>
+    </S.Base>
   )
 }
 
-const Base = styled.div`
-  ${tw`bg-gray-100 min-h-screen`}
-`
 const Container = styled.div`
   ${tw`flex items-center justify-center`}
 `

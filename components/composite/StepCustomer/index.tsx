@@ -9,9 +9,9 @@ import { Fragment, useContext } from "react"
 import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
+import * as S from "components/ui"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { Icon } from "components/ui/Icon"
 
 import { CheckoutAddresses } from "./CheckoutAddresses"
 import { CheckoutCustomerAddresses } from "./CheckoutCustomerAddresses"
@@ -100,9 +100,9 @@ export const StepCustomer: React.FC<Props> = ({
               {billingAddress && (
                 <Address addresses={[billingAddress]}>
                   <div tw="flex flex-row">
-                    <Icon>
+                    <S.Icon>
                       <FontAwesomeIcon icon={faAddressCard} />
-                    </Icon>
+                    </S.Icon>
                     <div>
                       <AddressField
                         tw="pl-1 font-bold"
@@ -123,9 +123,9 @@ export const StepCustomer: React.FC<Props> = ({
               {isShipmentRequired && shippingAddress && (
                 <Address addresses={[shippingAddress]}>
                   <div tw="flex flex-row">
-                    <Icon>
+                    <S.Icon>
                       <FontAwesomeIcon icon={faShippingFast} />
-                    </Icon>
+                    </S.Icon>
                     <div>
                       <AddressField
                         tw="pl-1 font-bold"

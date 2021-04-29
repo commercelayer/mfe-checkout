@@ -6,9 +6,8 @@ import { StepPayment } from "components/composite/StepPayment"
 import { StepShipping } from "components/composite/StepShipping"
 import { AppContext } from "components/data/AppProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
-import { LayoutDefault } from "components/layouts/LayoutDefault"
+import * as S from "components/ui"
 import { Logo } from "components/ui/Logo"
-import { SpinnerLoader } from "components/ui/SpinnerLoader"
 import { NextPage } from "next"
 import Head from "next/head"
 import "twin.macro"
@@ -35,7 +34,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({
   } = useActiveStep()
 
   if (!ctx || isLoading) {
-    return <SpinnerLoader />
+    return <S.SpinnerLoader />
   }
 
   if (ctx.isComplete) {
@@ -55,7 +54,7 @@ const Home: NextPage<CheckoutPageContextProps> = ({
         <title>{t("general.title")}</title>
         <link rel="icon" href={favicon} />
       </Head>
-      <LayoutDefault
+      <S.Layout
         aside={
           <div>
             <Logo logoUrl={logoUrl} companyName={companyName} />

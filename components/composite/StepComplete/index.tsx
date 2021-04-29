@@ -1,7 +1,5 @@
 import { AppContext } from "components/data/AppProvider"
-import { Button } from "components/ui"
-import { Base } from "components/ui/Base"
-import { Card } from "components/ui/Card"
+import * as S from "components/ui"
 import { Logo } from "components/ui/Logo"
 import { useContext } from "react"
 import { useTranslation, Trans } from "react-i18next"
@@ -32,7 +30,7 @@ export const StepComplete: React.FC<Props> = ({
   }
 
   return (
-    <Base>
+    <S.Base>
       <Container>
         <Wrapper>
           <Logo
@@ -40,7 +38,7 @@ export const StepComplete: React.FC<Props> = ({
             companyName={companyName}
             tw="pt-10 mb-10 pl-4"
           />
-          <Card>
+          <S.Card>
             <Text>{t("stepComplete.title")}</Text>
             <Text
               data-cy="complete-checkout-summary"
@@ -62,15 +60,18 @@ export const StepComplete: React.FC<Props> = ({
             </Text>
             {ctx?.returnUrl && (
               <WrapperButton>
-                <Button data-cy="button-continue-to-shop" onClick={handleClick}>
+                <S.Button
+                  data-cy="button-continue-to-shop"
+                  onClick={handleClick}
+                >
                   {t("stepComplete.continue")}
-                </Button>
+                </S.Button>
               </WrapperButton>
             )}
-          </Card>
+          </S.Card>
         </Wrapper>
       </Container>
-    </Base>
+    </S.Base>
   )
 }
 
