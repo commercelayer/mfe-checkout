@@ -1,6 +1,5 @@
 import CLayer, { LineItemCollection, Order } from "@commercelayer/js-sdk"
 import { createContext, useEffect } from "react"
-
 import TagManager from "react-gtm-module"
 
 interface GTMProviderData {
@@ -12,6 +11,12 @@ interface GTMProviderData {
 export const GTMContext = createContext<GTMProviderData | null>(null)
 
 interface GTMProviderProps {
+  children: {
+    props: {
+      accessToken: string
+      orderId: string
+    }
+  }
   gtmId?: string
 }
 
@@ -32,7 +37,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     return <>{children}</>
   }
 
-  const { accessToken, orderId } = children?.props
+  const { accessToken, orderId } = children.props
 
   useEffect(() => {
     if (gtmId) {
@@ -199,7 +204,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         coupon: order?.couponCode,
         currency: order?.currencyCode,
         items: lineItems?.toArray().map(mapItemsToGTM),
-        transaction_id: null, //es. "T_12345",
+        transaction_id: null, // es. "T_12345",
         shipping: order?.shippingAmountFloat,
         value: order?.totalAmountWithTaxesFloat,
         tax: order?.totalTaxAmountFloat,

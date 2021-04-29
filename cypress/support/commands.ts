@@ -360,8 +360,8 @@ Cypress.Commands.add("getTokenSuperuser", () => {
 
 Cypress.Commands.add("getDataLayer", (options) => {
   cy.wait(5000)
-  return cy.window().then(({ dataLayer }) => {
-    return dataLayer.filter(({ event }) => options.gtm === event)
+  return cy.window().then(({ dataLayer }: any) => {
+    return dataLayer.filter(({ event }: any) => options.gtm === event)
   })
 })
 
