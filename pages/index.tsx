@@ -1,14 +1,15 @@
+import "twin.macro"
 import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
+import { NextPage } from "next"
+import Head from "next/head"
+import { useTranslation } from "react-i18next"
+import { createGlobalStyle, ThemeProvider } from "styled-components"
+
 import { Checkout } from "components/composite/Checkout"
 import { AppProvider } from "components/data/AppProvider"
 import { GTMProvider } from "components/data/GTMProvider"
 import { useOrderOrInvalid } from "components/hooks/useOrderOrInvalid"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
-import { NextPage } from "next"
-import Head from "next/head"
-import "twin.macro"
-import { useTranslation } from "react-i18next"
-import { createGlobalStyle, ThemeProvider } from "styled-components"
 
 interface GlobalStyleProps {
   primaryColor: string

@@ -43,12 +43,12 @@
       "error",
       {
         "newlines-between": "always",
-        "groups": ["builtin", "external", "parent", "sibling", "index"],
+        "groups": ["external", "builtin", "parent", "sibling", "index"],
         "pathGroups": [
           {
-            "pattern": "**",
+            "pattern": "components/**",
             "group": "parent",
-            "position": "before"
+            "position": "after"
           }
         ],
         "pathGroupsExcludedImportTypes": ["parent"],
