@@ -3,7 +3,8 @@ import CLayer, { Order, Organization } from "@commercelayer/js-sdk"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { accessToken, orderId } = req.body
+  const accessToken = req.query.accessToken as string
+  const orderId = req.query.orderId as string
 
   if (!accessToken || !orderId) {
     res.statusCode = 200
@@ -41,8 +42,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.json({ validCheckout: false })
   }
 
-  res.statusCode = 200
-
   const appSettings: CheckoutSettings = {
     accessToken,
     orderId: order.id,
@@ -62,22 +61,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     supportEmail: "test@extendi.it",
     supportPhone: "+39 111 222 3333",
   }
+  res.statusCode = 200
+
   return res.json(appSettings)
 }
-
-// const checkToken = await fetch(
-//   `https://${process.env.CLAYER_DOMAIN}.commercelayer.io/api/token`,
-//   {
-//     method: "POST",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       grant_type: "client_credentials",
-//       client_id: process.env.CLAYER_CLIENT_ID,
-//       scope: process.env.CLAYER_SCOPE,
-//     }),
-//   }
-// )
-// const json = await checkToken.json()
