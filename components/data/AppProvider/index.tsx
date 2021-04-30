@@ -9,6 +9,7 @@ import { fetchOrderById, FetchOrderByIdResponse } from "./fetchOrderById"
 interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
   orderId: string
+  accessToken: string
   refetchOrder: () => Promise<void>
 }
 
@@ -16,7 +17,7 @@ export const AppContext = createContext<AppProviderData | null>(null)
 
 interface AppProviderProps {
   orderId: string
-  accessToken?: string
+  accessToken: string
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({
@@ -145,6 +146,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         isPaymentRequired,
         isComplete,
         orderId,
+        accessToken,
         returnUrl,
         refetchOrder: async () => {
           return await fetchOrderHandle(orderId, accessToken)

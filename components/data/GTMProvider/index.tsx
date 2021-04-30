@@ -1,5 +1,6 @@
 import CLayer, { LineItemCollection, Order } from "@commercelayer/js-sdk"
-import { createContext, useEffect } from "react"
+import { AppContext } from "components/data/AppProvider"
+import { createContext, useEffect, useContext } from "react"
 import TagManager from "react-gtm-module"
 
 interface GTMProviderData {
@@ -11,12 +12,7 @@ interface GTMProviderData {
 export const GTMContext = createContext<GTMProviderData | null>(null)
 
 interface GTMProviderProps {
-  children: {
-    props: {
-      accessToken: string
-      orderId: string
-    }
-  }
+  children: React.ReactNode
   gtmId?: string
 }
 
@@ -36,8 +32,13 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   if (!gtmId) {
     return <>{children}</>
   }
+  const ctx = useContext(AppContext)
 
-  const { accessToken, orderId } = children.props
+  if (!ctx) {
+    return <>{children}</>
+  }
+
+  const { accessToken, orderId } = ctx
 
   useEffect(() => {
     if (gtmId) {

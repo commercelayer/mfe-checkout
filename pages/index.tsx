@@ -2,16 +2,13 @@ import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import { Checkout } from "components/composite/Checkout"
 import { AppProvider } from "components/data/AppProvider"
 import { GTMProvider } from "components/data/GTMProvider"
+import { useOrderOrInvalid } from "components/hooks/useOrderOrInvalid"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
 import { NextPage } from "next"
 import Head from "next/head"
 import "twin.macro"
-import { useRouter } from "next/router"
 import { useTranslation } from "react-i18next"
 import { createGlobalStyle, ThemeProvider } from "styled-components"
-import useSWR from "swr"
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 interface GlobalStyleProps {
   primaryColor: string
@@ -25,26 +22,12 @@ const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
 `
 
 const Home: NextPage = () => {
-  const router = useRouter()
-
   const { t } = useTranslation()
 
-  const { data, error } = useSWR(
-    router.isReady ? `/api/settings${router.asPath}` : null,
-    fetcher
-  )
+  const { data, isLoading } = useOrderOrInvalid()
 
-  if (!data && !error) {
-    return <SpinnerLoader />
-  }
-
-  if (error) {
-    router.push("/invalid")
-  }
-
-  if (data && !data.validCheckout) {
-    router.push("/invalid")
-  }
+  if (isLoading) return <SpinnerLoader />
+  if (!data) return <></>
 
   return (
     <div>
@@ -68,7 +51,12 @@ const Home: NextPage = () => {
           >
             <AppProvider orderId={data.orderId} accessToken={data.accessToken}>
               <GTMProvider gtmId={data.gtmId}>
-                <Checkout {...(data as CheckoutSettings)} />
+                <Checkout
+                  logoUrl={data.logoUrl}
+                  companyName={data.companyName}
+                  supportEmail={data.supportEmail}
+                  supportPhone={data.supportPhone}
+                />
               </GTMProvider>
             </AppProvider>
           </ThemeProvider>

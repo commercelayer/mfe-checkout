@@ -20,12 +20,9 @@ export const useOrderOrInvalid = (): UseOrderOrInvalid => {
     return { isLoading: true, data: undefined }
   }
 
-  if (error) {
+  if (error || (data && !data.validCheckout)) {
     router.push("/invalid")
-  }
-
-  if (data && !data.validCheckout) {
-    router.push("/invalid")
+    return { data: undefined, isLoading: false }
   }
 
   return {

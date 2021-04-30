@@ -11,7 +11,14 @@ import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
 import { useContext } from "react"
 
-export const Checkout: React.FC<CheckoutPageContextProps> = ({
+interface Props {
+  logoUrl: string
+  companyName: string
+  supportEmail: string
+  supportPhone: string
+}
+
+export const Checkout: React.FC<Props> = ({
   logoUrl,
   companyName,
   supportEmail,
