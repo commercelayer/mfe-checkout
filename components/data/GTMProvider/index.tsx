@@ -1,7 +1,8 @@
 import CLayer, { LineItemCollection, Order } from "@commercelayer/js-sdk"
-import { AppContext } from "components/data/AppProvider"
 import { createContext, useEffect, useContext } from "react"
 import TagManager from "react-gtm-module"
+
+import { AppContext } from "components/data/AppProvider"
 
 interface GTMProviderData {
   fireAddShippingInfo: () => void
@@ -55,7 +56,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     return <>{children}</>
   }
 
-  const { accessToken, orderId } = ctx
+  const { accessToken, orderId, endpoint } = ctx
 
   useEffect(() => {
     if (gtmId) {
@@ -66,8 +67,8 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
 
   const fetchOrder = async () => {
     CLayer.init({
-      accessToken: accessToken,
-      endpoint: `${process.env.NEXT_PUBLIC_CLAYER_DOMAIN}`,
+      accessToken,
+      endpoint,
     })
 
     return Order.select(

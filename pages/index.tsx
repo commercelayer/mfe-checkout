@@ -8,7 +8,7 @@ import { createGlobalStyle, ThemeProvider } from "styled-components"
 import { Checkout } from "components/composite/Checkout"
 import { AppProvider } from "components/data/AppProvider"
 import { GTMProvider } from "components/data/GTMProvider"
-import { useOrderOrInvalid } from "components/hooks/useOrderOrInvalid"
+import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
 interface GlobalStyleProps {
@@ -25,38 +25,45 @@ const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
 const Home: NextPage = () => {
   const { t } = useTranslation()
 
-  const { data, isLoading } = useOrderOrInvalid()
+  const { settings, isLoading } = useSettingsOrInvalid()
 
   if (isLoading) return <SpinnerLoader />
-  if (!data) return <></>
+  if (!settings) return <></>
 
   return (
     <div>
       <Head>
         <title>{t("general.title")}</title>
-        <link rel="icon" href={data.favicon} />
+        <link rel="icon" href={settings.favicon} />
       </Head>
-      <CommerceLayer accessToken={data.accessToken} endpoint={data.endpoint}>
+      <CommerceLayer
+        accessToken={settings.accessToken}
+        endpoint={settings.endpoint}
+      >
         <GlobalCssStyle
-          primaryColor={data.primaryColor}
-          contrastColor={data.contrastColor}
+          primaryColor={settings.primaryColor}
+          contrastColor={settings.contrastColor}
         />
-        <OrderContainer orderId={data.orderId}>
+        <OrderContainer orderId={settings.orderId}>
           <ThemeProvider
             theme={{
               colors: {
-                primary: data.primaryColor,
-                contrast: data.contrastColor,
+                primary: settings.primaryColor,
+                contrast: settings.contrastColor,
               },
             }}
           >
-            <AppProvider orderId={data.orderId} accessToken={data.accessToken}>
-              <GTMProvider gtmId={data.gtmId}>
+            <AppProvider
+              orderId={settings.orderId}
+              accessToken={settings.accessToken}
+              endpoint={settings.endpoint}
+            >
+              <GTMProvider gtmId={settings.gtmId}>
                 <Checkout
-                  logoUrl={data.logoUrl}
-                  companyName={data.companyName}
-                  supportEmail={data.supportEmail}
-                  supportPhone={data.supportPhone}
+                  logoUrl={settings.logoUrl}
+                  companyName={settings.companyName}
+                  supportEmail={settings.supportEmail}
+                  supportPhone={settings.supportPhone}
                 />
               </GTMProvider>
             </AppProvider>

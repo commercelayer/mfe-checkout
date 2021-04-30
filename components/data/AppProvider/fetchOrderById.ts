@@ -12,6 +12,7 @@ import i18n from "i18next"
 interface FetchOrderByIdProps {
   orderId: string
   accessToken: string
+  endpoint: string
 }
 
 interface IsNewAddressProps {
@@ -171,10 +172,11 @@ async function checkIfShipmentRequired(
 export const fetchOrderById = async ({
   orderId,
   accessToken,
+  endpoint,
 }: FetchOrderByIdProps): Promise<FetchOrderByIdResponse> => {
   CLayer.init({
-    accessToken: accessToken,
-    endpoint: `${process.env.NEXT_PUBLIC_CLAYER_DOMAIN}`,
+    accessToken,
+    endpoint,
   })
 
   try {

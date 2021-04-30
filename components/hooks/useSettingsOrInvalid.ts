@@ -3,12 +3,12 @@ import useSWR from "swr"
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
-interface UseOrderOrInvalid {
-  data: CheckoutSettings | undefined
+interface UseSettingsOrInvalid {
+  settings: CheckoutSettings | undefined
   isLoading: boolean
 }
 
-export const useOrderOrInvalid = (): UseOrderOrInvalid => {
+export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const router = useRouter()
 
   const { data, error } = useSWR(
@@ -17,16 +17,16 @@ export const useOrderOrInvalid = (): UseOrderOrInvalid => {
   )
 
   if (!data && !error) {
-    return { isLoading: true, data: undefined }
+    return { isLoading: true, settings: undefined }
   }
 
   if (error || (data && !data.validCheckout)) {
     router.push("/invalid")
-    return { data: undefined, isLoading: false }
+    return { settings: undefined, isLoading: false }
   }
 
   return {
-    data,
+    settings: data,
     isLoading: false,
   }
 }

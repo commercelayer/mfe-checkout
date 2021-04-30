@@ -10,12 +10,14 @@ interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
   orderId: string
   accessToken: string
+  endpoint: string
   refetchOrder: () => Promise<void>
 }
 
 export const AppContext = createContext<AppProviderData | null>(null)
 
 interface AppProviderProps {
+  endpoint: string
   orderId: string
   accessToken: string
 }
@@ -24,6 +26,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   children,
   orderId,
   accessToken,
+  endpoint,
 }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isGuest, setIsGuest] = useState(false)
@@ -69,7 +72,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       return
     }
     setIsLoading(true)
-    return await fetchOrderById({ orderId, accessToken }).then(
+    return await fetchOrderById({ orderId, accessToken, endpoint }).then(
       ({
         isGuest,
         hasCustomerAddresses,
@@ -147,6 +150,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         isComplete,
         orderId,
         accessToken,
+        endpoint,
         returnUrl,
         refetchOrder: async () => {
           return await fetchOrderHandle(orderId, accessToken)
