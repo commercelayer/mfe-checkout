@@ -15,6 +15,13 @@ interface GTMProviderProps {
   children: React.ReactNode
   gtmId?: string
 }
+interface ItemProps {
+  item_id: string
+  item_name: string
+  price: number | undefined
+  currency: string
+  quantity: number
+}
 
 interface PushDataLayerProps {
   eventName:
@@ -22,7 +29,17 @@ interface PushDataLayerProps {
     | "add_shipping_info"
     | "add_payment_info"
     | "purchase"
-  dataLayer: object
+  dataLayer: {
+    coupon?: string
+    currency: string
+    shipping?: number
+    items?: (ItemProps | null)[]
+    value?: number
+    shipping_tier?: string
+    transaction_id?: null
+    payment_type?: string
+    tax?: number
+  }
 }
 
 export const GTMProvider: React.FC<GTMProviderProps> = ({
