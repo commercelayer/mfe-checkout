@@ -1,3 +1,5 @@
+import { useContext } from "react"
+
 import { OrderSummary } from "components/composite/OrderSummary"
 import { StepComplete } from "components/composite/StepComplete"
 import { StepCustomer } from "components/composite/StepCustomer"
@@ -6,10 +8,9 @@ import { StepPayment } from "components/composite/StepPayment"
 import { StepShipping } from "components/composite/StepShipping"
 import { AppContext } from "components/data/AppProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
-import { LayoutDefault } from "components/layouts/LayoutDefault"
+import * as S from "components/ui"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
-import { useContext } from "react"
 
 interface Props {
   logoUrl: string
@@ -51,7 +52,7 @@ export const Checkout: React.FC<Props> = ({
 
   const renderSteps = () => {
     return (
-      <LayoutDefault
+      <S.Layout
         aside={
           <div>
             <Logo logoUrl={logoUrl} companyName={companyName} />
