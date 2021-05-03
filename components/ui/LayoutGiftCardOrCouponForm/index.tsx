@@ -9,12 +9,17 @@ interface SubmitProps {
   className: string
 }
 
+interface ErrorProps {
+  className: string
+}
+
 interface Props {
   title?: string
   leftIcon?: React.ReactNode
   codeError: boolean
   input: (props: InputProps) => React.ReactNode
   submit: (props: SubmitProps) => React.ReactNode
+  error: (props: ErrorProps) => React.ReactNode
 }
 
 const defaultLeftIcon = (
@@ -40,6 +45,7 @@ export const LayoutGiftCardOrCouponForm: React.FC<Props> = ({
   codeError,
   input,
   submit,
+  error,
 }) => {
   const classError = codeError
     ? "border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500"
@@ -61,6 +67,9 @@ export const LayoutGiftCardOrCouponForm: React.FC<Props> = ({
           className: `${classError} -ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500`,
         })}
       </WrapperForm>
+      {error({
+        className: classError,
+      })}
     </Wrapper>
   )
 }
