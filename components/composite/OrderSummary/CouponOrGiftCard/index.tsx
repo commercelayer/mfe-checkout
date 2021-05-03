@@ -107,8 +107,16 @@ export const CouponOrGiftCard: React.FC = () => {
       </GiftCardOrCouponForm>
       <S.LayoutGiftCardOrCouponView>
         {(props) => {
+          const {
+            giftCardOrCouponCodeClass,
+            giftCardOrCouponRemoveButtonClass,
+          } = props
+
           return (
-            <GiftCardOrCouponCode type="coupon" {...props}>
+            <GiftCardOrCouponCode
+              type="coupon"
+              className={giftCardOrCouponCodeClass}
+            >
               {(props) => {
                 const { hide, code, ...p } = props
                 return hide ? null : (
@@ -118,7 +126,7 @@ export const CouponOrGiftCard: React.FC = () => {
                       <GiftCardOrCouponRemoveButton
                         data-cy="remove_coupon"
                         type="coupon"
-                        className="inline-flex items-center justify-center flex-shrink-0 w-4 h-4 text-indigo-400 rounded-full ml-0.5 hover:bg-indigo-200 hover:text-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-white"
+                        className={giftCardOrCouponRemoveButtonClass}
                         label={removeIcon}
                         onClick={refetchOrder}
                       />
@@ -132,8 +140,16 @@ export const CouponOrGiftCard: React.FC = () => {
       </S.LayoutGiftCardOrCouponView>
       <S.LayoutGiftCardOrCouponView>
         {(props) => {
+          const {
+            giftCardOrCouponCodeClass,
+            giftCardOrCouponRemoveButtonClass,
+          } = props
+
           return (
-            <GiftCardOrCouponCode type="giftCard" {...props}>
+            <GiftCardOrCouponCode
+              type="giftCard"
+              className={giftCardOrCouponCodeClass}
+            >
               {(props) => {
                 const { hide, code, ...p } = props
                 return hide ? null : (
@@ -143,7 +159,7 @@ export const CouponOrGiftCard: React.FC = () => {
                       <GiftCardOrCouponRemoveButton
                         data-cy="remove_giftcard"
                         type="giftCard"
-                        className="inline-flex items-center justify-center flex-shrink-0 w-4 h-4 text-indigo-400 rounded-full ml-0.5 hover:bg-indigo-200 hover:text-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-white"
+                        className={giftCardOrCouponRemoveButtonClass}
                         label={removeIcon}
                         onClick={refetchOrder}
                       />
