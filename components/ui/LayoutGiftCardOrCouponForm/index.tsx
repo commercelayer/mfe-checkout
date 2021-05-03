@@ -1,11 +1,20 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
+interface InputProps {
+  className: string
+}
+
+interface SubmitProps {
+  className: string
+}
+
 interface Props {
   title?: string
   leftIcon?: React.ReactNode
-  input: React.ReactNode
-  submit: React.ReactNode
+  codeError: boolean
+  input: (props: InputProps) => React.ReactNode
+  submit: (props: SubmitProps) => React.ReactNode
 }
 
 const defaultLeftIcon = (
@@ -28,9 +37,14 @@ const defaultLeftIcon = (
 export const LayoutGiftCardOrCouponForm: React.FC<Props> = ({
   title,
   leftIcon,
+  codeError,
   input,
   submit,
 }) => {
+  const classError = codeError
+    ? "border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500"
+    : ""
+
   return (
     <Wrapper>
       <WrapperLable htmlFor="email">
@@ -39,9 +53,13 @@ export const LayoutGiftCardOrCouponForm: React.FC<Props> = ({
       <WrapperForm>
         <WrapperInput>
           <WrapperLeftIcon>{leftIcon || defaultLeftIcon}</WrapperLeftIcon>
-          {input}
+          {input({
+            className: `${classError} focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-gray-300`,
+          })}
         </WrapperInput>
-        {submit}
+        {submit({
+          className: `${classError} -ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500`,
+        })}
       </WrapperForm>
     </Wrapper>
   )

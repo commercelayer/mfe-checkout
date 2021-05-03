@@ -80,19 +80,24 @@ export const CouponOrGiftCard: React.FC = () => {
     <>
       <GiftCardOrCouponForm onSubmit={handleSubmit}>
         <S.LayoutGiftCardOrCouponForm
-          input={
-            <GiftCardOrCouponInput
-              data-cy="input_giftcard_coupon"
-              className={`${classError} focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-gray-300`}
-            />
-          }
-          submit={
-            <GiftCardOrCouponSubmit
-              data-cy="submit_giftcard_coupon"
-              label={labelButton}
-              className={`${classError} -ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500`}
-            />
-          }
+          codeError={codeError}
+          input={(props) => {
+            return (
+              <GiftCardOrCouponInput
+                data-cy="input_giftcard_coupon"
+                {...props}
+              />
+            )
+          }}
+          submit={(props) => {
+            return (
+              <GiftCardOrCouponSubmit
+                data-cy="submit_giftcard_coupon"
+                label={labelButton}
+                {...props}
+              />
+            )
+          }}
         />
       </GiftCardOrCouponForm>
       <Errors
