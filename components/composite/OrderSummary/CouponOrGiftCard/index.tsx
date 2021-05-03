@@ -9,6 +9,7 @@ import {
   GiftCardOrCouponForm,
 } from "@commercelayer/react-components"
 import { AppContext } from "components/data/AppProvider"
+import * as S from "components/ui"
 import { useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import "twin.macro"
@@ -78,43 +79,21 @@ export const CouponOrGiftCard: React.FC = () => {
   return (
     <>
       <GiftCardOrCouponForm onSubmit={handleSubmit}>
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Coupon / Gift Card
-          </label>
-          <div className={`mt-1 flex rounded-md shadow-sm`}>
-            <div className="relative flex items-stretch flex-grow focus-within:z-10">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg
-                  className="w-5 h-5 text-gray-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
-                  />
-                </svg>
-              </div>
-              <GiftCardOrCouponInput
-                data-cy="input_giftcard_coupon"
-                className={`${classError} focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-gray-300`}
-              />
-            </div>
+        <S.LayoutGiftCardOrCouponForm
+          input={
+            <GiftCardOrCouponInput
+              data-cy="input_giftcard_coupon"
+              className={`${classError} focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-gray-300`}
+            />
+          }
+          submit={
             <GiftCardOrCouponSubmit
               data-cy="submit_giftcard_coupon"
               label={labelButton}
               className={`${classError} -ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500`}
             />
-          </div>
-        </div>
+          }
+        />
       </GiftCardOrCouponForm>
       <Errors
         className={classError}
@@ -169,10 +148,14 @@ export const CouponOrGiftCard: React.FC = () => {
         {(props) => {
           const { hide } = props
           return hide ? null : (
-            <h2 tw="text-sm font-bold flex flex-row justify-between pb-2">
-              {t("orderRecap.discount_amount")}
-              <DiscountAmount data-cy="discount-amount" />
-            </h2>
+            <S.LayoutBaseAmount
+              main={
+                <>
+                  {t("orderRecap.discount_amount")}
+                  <DiscountAmount data-cy="discount-amount" />
+                </>
+              }
+            />
           )
         }}
       </GiftCardOrCouponCode>
@@ -180,10 +163,14 @@ export const CouponOrGiftCard: React.FC = () => {
         {(props) => {
           const { hide } = props
           return hide ? null : (
-            <h2 tw="text-sm font-bold flex flex-row justify-between pb-2">
-              {t("orderRecap.giftcard_amount")}
-              <GiftCardAmount data-cy="giftcard-amount" />
-            </h2>
+            <S.LayoutBaseAmount
+              main={
+                <>
+                  {t("orderRecap.giftcard_amount")}
+                  <GiftCardAmount data-cy="giftcard-amount" />
+                </>
+              }
+            />
           )
         }}
       </GiftCardOrCouponCode>
