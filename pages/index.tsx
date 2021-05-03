@@ -1,93 +1,75 @@
-import { OrderSummary } from "components/composite/OrderSummary"
-import { StepComplete } from "components/composite/StepComplete"
-import { StepCustomer } from "components/composite/StepCustomer"
-import { StepNav } from "components/composite/StepNav"
-import { StepPayment } from "components/composite/StepPayment"
-import { StepShipping } from "components/composite/StepShipping"
-import { AppContext } from "components/data/AppProvider"
-import { useActiveStep } from "components/hooks/useActiveStep"
-import * as S from "components/ui"
-import { Logo } from "components/ui/Logo"
+import "twin.macro"
+import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import { NextPage } from "next"
 import Head from "next/head"
-import "twin.macro"
-import { useContext } from "react"
 import { useTranslation } from "react-i18next"
+import { createGlobalStyle, ThemeProvider } from "styled-components"
 
-const Home: NextPage<CheckoutPageContextProps> = ({
-  logoUrl,
-  companyName,
-  favicon,
-  supportEmail,
-  supportPhone,
-}) => {
-  const ctx = useContext(AppContext)
+import { Checkout } from "components/composite/Checkout"
+import { AppProvider } from "components/data/AppProvider"
+import { GTMProvider } from "components/data/GTMProvider"
+import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
+import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
+interface GlobalStyleProps {
+  primaryColor: string
+  contrastColor: string
+}
+const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
+  :root {
+    --primary: ${({ primaryColor }) => primaryColor};
+    --contrast: ${({ contrastColor }) => contrastColor};
+  }
+`
+
+const Home: NextPage = () => {
   const { t } = useTranslation()
 
-  const {
-    activeStep,
-    lastActivableStep,
-    setActiveStep,
-    isLoading,
-    steps,
-  } = useActiveStep()
+  const { settings, isLoading } = useSettingsOrInvalid()
 
-  if (!ctx || isLoading) {
-    return <S.SpinnerLoader />
-  }
-
-  if (ctx.isComplete) {
-    return (
-      <StepComplete
-        logoUrl={logoUrl}
-        companyName={companyName}
-        supportEmail={supportEmail}
-        supportPhone={supportPhone}
-      />
-    )
-  }
+  if (isLoading) return <SpinnerLoader />
+  if (!settings) return <></>
 
   return (
     <div>
       <Head>
         <title>{t("general.title")}</title>
-        <link rel="icon" href={favicon} />
+        <link rel="icon" href={settings.favicon} />
       </Head>
-      <S.Layout
-        aside={
-          <div>
-            <Logo logoUrl={logoUrl} companyName={companyName} />
-            <OrderSummary />
-          </div>
-        }
-        main={
-          <div tw="md:pl-7">
-            <h1 tw="font-bold mb-4 text-lg">Checkout</h1>
-            <StepNav
-              steps={steps}
-              activeStep={activeStep}
-              onStepChange={setActiveStep}
-              lastActivable={lastActivableStep}
-            />
-            <StepCustomer
-              tw="mb-6"
-              isActive={activeStep === "Customer"}
-              onToggleActive={() => setActiveStep("Customer")}
-            />
-            <StepShipping
-              tw="mb-6"
-              isActive={activeStep === "Shipping"}
-              onToggleActive={() => setActiveStep("Shipping")}
-            />
-            <StepPayment
-              tw="mb-6"
-              isActive={activeStep === "Payment"}
-              onToggleActive={() => setActiveStep("Payment")}
-            />
-          </div>
-        }
-      />
+      <CommerceLayer
+        accessToken={settings.accessToken}
+        endpoint={settings.endpoint}
+      >
+        <GlobalCssStyle
+          primaryColor={settings.primaryColor}
+          contrastColor={settings.contrastColor}
+        />
+        <OrderContainer orderId={settings.orderId}>
+          <ThemeProvider
+            theme={{
+              colors: {
+                primary: settings.primaryColor,
+                contrast: settings.contrastColor,
+              },
+            }}
+          >
+            <AppProvider
+              orderId={settings.orderId}
+              accessToken={settings.accessToken}
+              endpoint={settings.endpoint}
+            >
+              <GTMProvider gtmId={settings.gtmId}>
+                <Checkout
+                  logoUrl={settings.logoUrl}
+                  companyName={settings.companyName}
+                  supportEmail={settings.supportEmail}
+                  supportPhone={settings.supportPhone}
+                />
+              </GTMProvider>
+            </AppProvider>
+          </ThemeProvider>
+        </OrderContainer>
+      </CommerceLayer>
     </div>
   )
 }

@@ -1,7 +1,8 @@
 import CLayer, { LineItemCollection, Order } from "@commercelayer/js-sdk"
-import { createContext, useEffect } from "react"
-
+import { createContext, useEffect, useContext } from "react"
 import TagManager from "react-gtm-module"
+
+import { AppContext } from "components/data/AppProvider"
 
 interface GTMProviderData {
   fireAddShippingInfo: () => void
@@ -12,7 +13,15 @@ interface GTMProviderData {
 export const GTMContext = createContext<GTMProviderData | null>(null)
 
 interface GTMProviderProps {
+  children: React.ReactNode
   gtmId?: string
+}
+interface ItemProps {
+  item_id: string
+  item_name: string
+  price: number | undefined
+  currency: string
+  quantity: number
 }
 
 interface PushDataLayerProps {
@@ -21,7 +30,17 @@ interface PushDataLayerProps {
     | "add_shipping_info"
     | "add_payment_info"
     | "purchase"
-  dataLayer: object
+  dataLayer: {
+    coupon?: string
+    currency: string
+    shipping?: number
+    items?: (ItemProps | null)[]
+    value?: number
+    shipping_tier?: string
+    transaction_id?: null
+    payment_type?: string
+    tax?: number
+  }
 }
 
 export const GTMProvider: React.FC<GTMProviderProps> = ({
@@ -31,8 +50,13 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   if (!gtmId) {
     return <>{children}</>
   }
+  const ctx = useContext(AppContext)
 
-  const { accessToken, orderId } = children?.props
+  if (!ctx) {
+    return <>{children}</>
+  }
+
+  const { accessToken, orderId, endpoint } = ctx
 
   useEffect(() => {
     if (gtmId) {
@@ -43,8 +67,8 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
 
   const fetchOrder = async () => {
     CLayer.init({
-      accessToken: accessToken,
-      endpoint: `${process.env.NEXT_PUBLIC_CLAYER_DOMAIN}`,
+      accessToken,
+      endpoint,
     })
 
     return Order.select(
@@ -199,7 +223,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         coupon: order?.couponCode,
         currency: order?.currencyCode,
         items: lineItems?.toArray().map(mapItemsToGTM),
-        transaction_id: null, //es. "T_12345",
+        transaction_id: null, // es. "T_12345",
         shipping: order?.shippingAmountFloat,
         value: order?.totalAmountWithTaxesFloat,
         tax: order?.totalTaxAmountFloat,
