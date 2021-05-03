@@ -1,8 +1,8 @@
 import { rest } from "msw"
 
 export const handlers = [
-  rest.post("http://localhost:3000/api/settings", (req, res, ctx) => {
-    if (!req.body.orderId || req.body.orderId === "wrongOrderId") {
+  rest.post<any, any>("http://localhost:3000/api/settings", (req, res, ctx) => {
+    if (!req?.body?.orderId || req.body.orderId === "wrongOrderId") {
       return res(ctx.json({ validCheckout: false }))
     }
     if (!req.body.accessToken || req.body.accessToken === "wrongAccessToken") {
