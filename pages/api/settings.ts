@@ -1,6 +1,14 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import CLayer, { Order, Organization } from "@commercelayer/js-sdk"
+import jwt_decode from "jwt-decode"
 import type { NextApiRequest, NextApiResponse } from "next"
+
+interface JWTProps {
+  organization: {
+    slug: string
+    id: string
+  }
+}
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const accessToken = req.query.accessToken as string
@@ -11,9 +19,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.json({ validCheckout: false })
   }
 
+  let endpoint: string
+  try {
+    const slug = (jwt_decode(accessToken) as JWTProps).organization.slug
+    if (slug) {
+      endpoint = `https://${slug}.${
+        process.env.NEXT_PUBLIC_CLAYER_HOSTNAME as string
+      }`
+    } else {
+      endpoint = process.env.NEXT_PUBLIC_CLAYER_DOMAIN as string
+    }
+  } catch (e) {
+    console.log(`error decoding access token: ${e}`)
+    res.statusCode = 200
+    return res.json({ validCheckout: false })
+  }
+
   CLayer.init({
-    accessToken: accessToken,
-    endpoint: process.env.NEXT_PUBLIC_CLAYER_DOMAIN as string,
+    accessToken,
+    endpoint,
   })
 
   let order
@@ -44,9 +68,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const appSettings: CheckoutSettings = {
     accessToken,
+    endpoint,
     orderId: order.id,
     validCheckout: true,
-    endpoint: process.env.NEXT_PUBLIC_CLAYER_DOMAIN as string,
     logoUrl:
       organization?.logoUrl ||
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
