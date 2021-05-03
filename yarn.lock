@@ -237,10 +237,10 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-sdk@^3.9.2":
-  version "3.9.2"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.9.2.tgz#e293489056f0e9cd4ab05e7b0e40cd90bd444ee7"
-  integrity sha512-+2GXKsD11hKMN9VBdhmv6Crdki5JdSYohdr4Xmgt1pXGzARlzcPFMalU9WI3P6VnVD9C41m1nL3rseSJcy5Lmg==
+"@commercelayer/js-sdk@^3.10.0", "@commercelayer/js-sdk@^3.9.2":
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.10.0.tgz#a9d04da56d833b2f60f861a5d007db832360b97e"
+  integrity sha512-LAQ0Y74Ao6gKJj5PwEW7Iwpxtm+8+HXG1EszQJ9aPJL7euMkEJfHkywV43ypnhUFXfueQaK8UmErSRQBVWTCVQ==
   dependencies:
     active-resource "^1.0.0-beta.7"
     axios "^0.21.1"
