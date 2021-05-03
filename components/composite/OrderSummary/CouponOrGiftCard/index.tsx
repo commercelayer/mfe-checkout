@@ -8,10 +8,11 @@ import {
   Errors,
   GiftCardOrCouponForm,
 } from "@commercelayer/react-components"
-import { AppContext } from "components/data/AppProvider"
-import * as S from "components/ui"
 import { useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
+
+import { AppContext } from "components/data/AppProvider"
+import * as S from "components/ui"
 import "twin.macro"
 
 export const CouponOrGiftCard: React.FC = () => {
@@ -118,10 +119,10 @@ export const CouponOrGiftCard: React.FC = () => {
               className={giftCardOrCouponCodeClass}
             >
               {(props) => {
-                const { hide, code, ...p } = props
+                const { hide, code, ...rest } = props
                 return hide ? null : (
                   <>
-                    <span data-cy="code-coupon" {...p}>
+                    <span data-cy="code-coupon" {...rest}>
                       {code}
                       <GiftCardOrCouponRemoveButton
                         data-cy="remove_coupon"
@@ -151,10 +152,10 @@ export const CouponOrGiftCard: React.FC = () => {
               className={giftCardOrCouponCodeClass}
             >
               {(props) => {
-                const { hide, code, ...p } = props
+                const { hide, code, ...rest } = props
                 return hide ? null : (
                   <>
-                    <span data-cy="code-giftcard" {...p}>
+                    <span data-cy="code-giftcard" {...rest}>
                       {code}
                       <GiftCardOrCouponRemoveButton
                         data-cy="remove_giftcard"
