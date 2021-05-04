@@ -6,7 +6,12 @@ import CLayer, {
   ShippingMethod,
   PaymentMethodCollection,
   PaymentMethod,
+  LineItemCollection,
 } from "@commercelayer/js-sdk"
+import {
+  CollectionResponse,
+  JSONAPIResponse,
+} from "@commercelayer/js-sdk/dist/typings/Library"
 import i18n from "i18next"
 
 interface FetchOrderByIdProps {
@@ -157,16 +162,22 @@ function isBillingAddresSameAsShippingAddress({
 async function checkIfShipmentRequired(
   order: OrderCollection
 ): Promise<boolean> {
-  const lineItems = await order
+  const lineItems:
+    | Partial<
+        LineItemCollection &
+          CollectionResponse<LineItemCollection> &
+          JSONAPIResponse & { length: number }
+      >
+    | undefined = await order
     .lineItems()
     ?.where({ itemTypeCont: "skus" })
     .select("item_type")
     .last(1)
-  if (lineItems === undefined) {
+  if (lineItems?.length === undefined) {
     return false
   }
   // riguardare
-  return Array(lineItems).length > 0
+  return lineItems.length > 0
 }
 
 export const fetchOrderById = async ({
