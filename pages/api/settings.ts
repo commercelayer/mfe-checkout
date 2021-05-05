@@ -46,6 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const orderFetched = await Order.select(
       "id",
       "status",
+      "number",
       "guest",
       "language_code"
     ).find(orderId)
@@ -69,6 +70,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const appSettings: CheckoutSettings = {
     accessToken,
     endpoint,
+    orderNumber: order.number,
     orderId: order.id,
     validCheckout: true,
     logoUrl:

@@ -1,6 +1,7 @@
 interface CheckoutSettings {
   accessToken: string
   orderId: string
+  orderNumber: number
   validCheckout: boolean
   endpoint: string
   logoUrl: string

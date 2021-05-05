@@ -3,16 +3,16 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 interface Props {
-  order: number
+  orderNumber: number
 }
 
-export const MainHeader: React.FC<Props> = ({ order }) => {
+export const MainHeader: React.FC<Props> = ({ orderNumber }) => {
   const { t } = useTranslation()
 
   return (
     <Wrapper>
       <Title>Checkout</Title>
-      <Order>#{order}</Order>
+      <Order>#{orderNumber}</Order>
     </Wrapper>
   )
 }

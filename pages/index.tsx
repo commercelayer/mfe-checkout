@@ -61,6 +61,7 @@ const Home: NextPage = () => {
               <GTMProvider gtmId={settings.gtmId}>
                 <Checkout
                   logoUrl={settings.logoUrl}
+                  orderNumber={settings.orderNumber}
                   companyName={settings.companyName}
                   supportEmail={settings.supportEmail}
                   supportPhone={settings.supportPhone}

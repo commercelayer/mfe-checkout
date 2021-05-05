@@ -17,6 +17,7 @@ import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
 interface Props {
   logoUrl: string
+  orderNumber: number
   companyName: string
   supportEmail: string
   supportPhone: string
@@ -24,6 +25,7 @@ interface Props {
 
 export const Checkout: React.FC<Props> = ({
   logoUrl,
+  orderNumber,
   companyName,
   supportEmail,
   supportPhone,
@@ -64,7 +66,7 @@ export const Checkout: React.FC<Props> = ({
         }
         main={
           <div>
-            <MainHeader order={123456} />
+            <MainHeader orderNumber={orderNumber} />
             <StepNav
               steps={steps}
               activeStep={activeStep}
