@@ -8,9 +8,9 @@ interface StepProps {
   isLocked?: boolean
 }
 
-export const Step = styled.div<StepProps>`
+export const Step = styled.li<StepProps>`
   position: relative;
-  ${tw`pr-5 text-sm flex flex-col text-center items-center py-3 text-gray-600`}
+  ${tw`flex items-center`}
 
   ${({ isActive }) =>
     isActive

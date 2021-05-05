@@ -20,40 +20,58 @@ export const StepNav: React.FC<Props> = ({
   const { t } = useTranslation()
 
   return (
-    <Wrapper>
-      {(steps || []).map((step, index) => {
-        const isActive = step === activeStep
-        const isLocked =
-          steps.indexOf(step) > steps.indexOf(lastActivable) &&
-          lastActivable !== "Complete"
-        return (
-          <Step
-            key={index}
-            data-cy={`step_${step.toLocaleLowerCase()}`}
-            data-status={isActive}
-            onClick={() => {
-              if (!isLocked) {
-                onStepChange(step)
-              }
-            }}
-            isActive={isActive}
-            isLocked={isLocked}
-          >
-            {t(`step${step}.title`)}
-          </Step>
-        )
-      })}
+    <Wrapper aria-label="Breadcrumb">
+      <StepList>
+        {(steps || []).map((step, index) => {
+          const isActive = step === activeStep
+          const isLocked =
+            steps.indexOf(step) > steps.indexOf(lastActivable) &&
+            lastActivable !== "Complete"
+          return (
+            <Step
+              key={index}
+              data-cy={`step_${step.toLocaleLowerCase()}`}
+              data-status={isActive}
+              onClick={() => {
+                if (!isLocked) {
+                  onStepChange(step)
+                }
+              }}
+              isActive={isActive}
+              isLocked={isLocked}
+            >
+              {t(`step${step}.title`)}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-3 h-3 mx-3 fill-current"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Step>
+          )
+        })}
 
-      <Step
-        isLocked={activeStep !== "Complete"}
-        isActive={activeStep === "Complete"}
-      >
-        {t("general.complete")}
-      </Step>
+        <Step
+          isLocked={activeStep !== "Complete"}
+          isActive={activeStep === "Complete"}
+        >
+          {t("general.complete")}
+        </Step>
+      </StepList>
     </Wrapper>
   )
 }
 
-const Wrapper = styled.div`
-  ${tw`flex flex-row mb-12`}
+const Wrapper = styled.nav`
+  ${tw`mb-12 pt-2`}
+`
+
+const StepList = styled.ol`
+  ${tw`list-none p-0 inline-flex text-gray-600 text-sm text-opacity-70`}
 `
