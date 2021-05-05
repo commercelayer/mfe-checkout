@@ -1,3 +1,7 @@
+import { useContext } from "react"
+import styled from "styled-components"
+import tw from "twin.macro"
+
 import { OrderSummary } from "components/composite/OrderSummary"
 import { StepComplete } from "components/composite/StepComplete"
 import { StepCustomer } from "components/composite/StepCustomer"
@@ -9,7 +13,6 @@ import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
-import { useContext } from "react"
 
 interface Props {
   logoUrl: string
@@ -53,14 +56,14 @@ export const Checkout: React.FC<Props> = ({
     return (
       <LayoutDefault
         aside={
-          <div>
+          <Sidebar>
             <Logo logoUrl={logoUrl} companyName={companyName} />
             <OrderSummary />
-          </div>
+          </Sidebar>
         }
         main={
-          <div tw="md:pl-7">
-            <h1 tw="font-bold mb-4 text-lg">Checkout</h1>
+          <div>
+            <h1 tw="font-semibold mb-4 text-3xl">Checkout</h1>
             <StepNav
               steps={steps}
               activeStep={activeStep}
@@ -90,3 +93,7 @@ export const Checkout: React.FC<Props> = ({
 
   return ctx.isComplete ? renderComplete() : renderSteps()
 }
+
+const Sidebar = styled.div`
+  ${tw`pl-20`}
+`

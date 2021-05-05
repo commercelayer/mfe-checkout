@@ -2,8 +2,8 @@ import styled, { css } from "styled-components"
 import tw from "twin.macro"
 
 const STEP_HEIGHT = 48
-const STEP_ARROW_WIDTH = 16
-const STEP_BG = "rgba(243, 244, 246, 1)"
+// const STEP_ARROW_WIDTH = 16
+// const STEP_BG = "rgba(243, 244, 246, 1)"
 const STEP_BG_ACTIVE = "#3b82f6"
 
 interface StepProps {
@@ -16,9 +16,9 @@ export const Step = styled.div<StepProps>`
   height: ${STEP_HEIGHT}px;
   ${tw`pl-3 pr-5 text-sm flex flex-col text-center items-center flex-1 bg-gray-100 py-3`}
 
-  --bg-color: ${STEP_BG};
+  //--bg-color: ${STEP_BG};
 
-  &::before {
+  /* &::before {
     content: "";
     position: absolute;
     top: 0;
@@ -44,14 +44,13 @@ export const Step = styled.div<StepProps>`
     &::before {
       content: none;
     }
-  }
+  } */
 
   ${({ isActive, theme }) =>
     isActive
       ? css`
-          ${tw`font-extrabold bg-primary text-contrast`}
-
-          --bg-color: ${theme.colors.primary};
+          ${tw`font-extrabold bg-primary text-contrast`}//--bg-color: ${theme
+            .colors.primary};
         `
       : null}
   ${({ isLocked }) =>

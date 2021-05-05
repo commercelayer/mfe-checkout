@@ -26,13 +26,13 @@ export const LayoutDefault: React.FC<Props> = ({ main, aside }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`grid md:grid-cols-3 gap-4`}
+  ${tw`flex flex-wrap justify-end items-stretch space-x-10`}
 `
 
 const Main = styled.div`
-  ${tw`md:col-span-2`}
+  ${tw`flex-none md:flex-1 justify-center`}
 `
 
 const Aside = styled.div`
-  ${tw`pt-10 px-7 md:pl-0 md:pr-7`}
+  ${tw`flex-none md:flex-1`}
 `

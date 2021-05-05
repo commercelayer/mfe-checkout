@@ -29,7 +29,7 @@ export const StepHeader: React.FC<Props> = ({
           <Title data-cy="step-header-customer">{label}</Title>
           {status === "done" ? (
             <Edit>
-              &mdash;{" "}
+              {" "}
               <EditButton
                 data-cy={`edit-step-${stepNumber}-button`}
                 onClick={onEditRequest}
@@ -50,7 +50,7 @@ interface WrapperProps {
 }
 
 const Wrapper = styled.div<WrapperProps>`
-  ${tw`flex items-start px-4`}
+  ${tw`flex items-start`}
   ${({ disabled }) =>
     disabled
       ? css`
@@ -72,17 +72,17 @@ const Edit = styled.div`
 `
 
 const EditButton = styled.button`
-  ${tw` text-sm text-primary hover:underline hover:opacity-50 focus:outline-none`}
+  ${tw` text-sm font-bold text-primary border-b border-primary leading-none hover:opacity-50 focus:outline-none`}
 `
 
 const Badge = styled.div`
   ${tw`mt-1 rounded-full bg-primary text-white flex justify-center items-center w-6 h-6 text-xs font-bold`}
 `
 
-const Title = styled.div`
-  ${tw`text-lg font-bold`}
+const Title = styled.h2`
+  ${tw`text-lg font-semibold`}
 `
 
-const Info = styled.div`
-  ${tw`text-gray-400 text-sm italic`}
+const Info = styled.p`
+  ${tw`text-gray-500 text-sm`}
 `
