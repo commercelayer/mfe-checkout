@@ -50,7 +50,7 @@ interface WrapperProps {
 }
 
 const Wrapper = styled.div<WrapperProps>`
-  ${tw`flex items-start`}
+  ${tw`flex items-start mb-6`}
   ${({ disabled }) =>
     disabled
       ? css`
@@ -60,7 +60,7 @@ const Wrapper = styled.div<WrapperProps>`
 `
 
 const Body = styled.div`
-  ${tw`pl-3`}
+  ${tw``}
 `
 
 const Top = styled.div`
@@ -76,7 +76,7 @@ const EditButton = styled.button`
 `
 
 const Badge = styled.div`
-  ${tw`mt-1 rounded-full bg-primary text-white flex justify-center items-center w-6 h-6 text-xs font-bold`}
+  ${tw`rounded-full bg-primary text-white flex justify-center items-center w-6 h-6 text-xs font-bold absolute -left-3`}
 `
 
 const Title = styled.h2`

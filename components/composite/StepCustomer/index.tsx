@@ -4,14 +4,16 @@ import {
   faAddressCard,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useTranslation } from "react-i18next"
 import { Fragment, useContext } from "react"
+import { useTranslation } from "react-i18next"
 import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
+import { Icon } from "components/ui/Icon"
+import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { Icon } from "components/ui/Icon"
+import { StepLine } from "components/ui/StepLine"
 
 import { CheckoutAddresses } from "./CheckoutAddresses"
 import { CheckoutCustomerAddresses } from "./CheckoutCustomerAddresses"
@@ -54,19 +56,20 @@ export const StepCustomer: React.FC<Props> = ({
   // se non ci sono indirizzi in rubrica, ma solo l'indirizzo dell'ordine (non ancora salvato in rubrica) si mostra il form con i valori in edit
 
   return (
-    <div className={className}>
-      <StepHeader
-        stepNumber={1}
-        status={isActive ? "edit" : "done"}
-        label={t("stepCustomer.title")}
-        info={
-          isActive ? t("stepCustomer.summary") : t("stepCustomer.information")
-        }
-        onEditRequest={() => {
-          onToggleActive()
-        }}
-      />
+    <StepContainer>
+      <StepLine />
       <StepContent>
+        <StepHeader
+          stepNumber={1}
+          status={isActive ? "edit" : "done"}
+          label={t("stepCustomer.title")}
+          info={
+            isActive ? t("stepCustomer.summary") : t("stepCustomer.information")
+          }
+          onEditRequest={() => {
+            onToggleActive()
+          }}
+        />
         {isActive ? (
           <Fragment>
             {isGuest ? (
@@ -151,6 +154,6 @@ export const StepCustomer: React.FC<Props> = ({
           </div>
         )}
       </StepContent>
-    </div>
+    </StepContainer>
   )
 }
