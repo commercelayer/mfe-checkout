@@ -8,6 +8,8 @@ First, run the development server:
 yarn dev
 ```
 
+You can set your environment with .env.local starting from .env.local.sample
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can use the following format to open the checkout:
