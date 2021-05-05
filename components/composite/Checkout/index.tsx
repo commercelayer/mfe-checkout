@@ -2,6 +2,7 @@ import { useContext } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import { MainHeader } from "components/composite/MainHeader"
 import { OrderSummary } from "components/composite/OrderSummary"
 import { StepComplete } from "components/composite/StepComplete"
 import { StepCustomer } from "components/composite/StepCustomer"
@@ -63,7 +64,7 @@ export const Checkout: React.FC<Props> = ({
         }
         main={
           <div>
-            <h1 tw="font-semibold mb-4 text-3xl">Checkout</h1>
+            <MainHeader order={123456} />
             <StepNav
               steps={steps}
               activeStep={activeStep}
@@ -95,5 +96,5 @@ export const Checkout: React.FC<Props> = ({
 }
 
 const Sidebar = styled.div`
-  ${tw`pl-20`}
+  ${tw`pl-20 pr-10`}
 `
