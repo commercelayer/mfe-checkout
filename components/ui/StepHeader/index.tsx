@@ -64,7 +64,7 @@ const Body = styled.div`
 `
 
 const Top = styled.div`
-  ${tw`flex items-center`}
+  ${tw`flex items-center mb-1.5`}
 `
 
 const Edit = styled.div`
@@ -80,7 +80,7 @@ const Badge = styled.div`
 `
 
 const Title = styled.h2`
-  ${tw`text-lg font-semibold`}
+  ${tw`text-lg font-semibold leading-none`}
 `
 
 const Info = styled.p`

@@ -6,5 +6,5 @@ export const StepContent: React.FC = ({ children }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`relative pl-6`}
+  ${tw`relative pl-6 w-full`}
 `
