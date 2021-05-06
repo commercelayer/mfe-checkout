@@ -262,7 +262,7 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
   return (
     <Address
       data-cy={dataCy}
-      className="w-2/4 p-4 mr-4 border rounded cursor-pointer hover:border-primary shadow-sm"
+      className="w-1/3 p-4 mr-4 border rounded cursor-pointer hover:border-primary shadow-sm"
       selectedClassName="border-primary"
       deselect={deselect}
       onSelect={onSelect}
