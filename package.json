@@ -62,5 +62,6 @@
     "twin": {
       "preset": "styled-components"
     }
-  }
+  },
+  "cacheDirectories": [".next/cache"]
 }
