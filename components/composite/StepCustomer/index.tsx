@@ -1,20 +1,16 @@
 import { Address, AddressField } from "@commercelayer/react-components"
-import {
-  faShippingFast,
-  faAddressCard,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Fragment, useContext } from "react"
 import { useTranslation } from "react-i18next"
 import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
-import { Icon } from "components/ui/Icon"
+import { FlexContainer } from "components/ui/FlexContainer"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { StepLine } from "components/ui/StepLine"
 
+import { AddressSectionTitle } from "./AddressSectionTitle"
 import { CheckoutAddresses } from "./CheckoutAddresses"
 import { CheckoutCustomerAddresses } from "./CheckoutCustomerAddresses"
 
@@ -99,54 +95,58 @@ export const StepCustomer: React.FC<Props> = ({
           </Fragment>
         ) : (
           <div>
-            <div>
+            <FlexContainer>
               {billingAddress && (
-                <Address addresses={[billingAddress]}>
-                  <div tw="flex flex-row">
-                    <Icon>
-                      <FontAwesomeIcon icon={faAddressCard} />
-                    </Icon>
-                    <div>
-                      <AddressField
-                        tw="pl-1 font-bold"
-                        name="full_name"
-                        data-cy="fullname_billing"
-                      />
-                      <div>
-                        <AddressField
-                          tw="pl-1"
-                          name="full_address"
-                          data-cy="full_address_billing"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Address>
+                <div>
+                  <AddressSectionTitle>
+                    {t(`addressForm.billed_to`)}
+                  </AddressSectionTitle>
+                  <Address
+                    addresses={[billingAddress]}
+                    className="p-3 mr-4 border rounded cursor-pointer hover:border-primary shadow-sm"
+                  >
+                    <AddressField
+                      tw="pl-1 font-bold"
+                      name="full_name"
+                      data-cy="fullname_billing"
+                      className="flex font-bold text-md"
+                    />
+
+                    <AddressField
+                      tw="pl-1"
+                      name="full_address"
+                      data-cy="full_address_billing"
+                      className="text-sm text-gray-600"
+                    />
+                  </Address>
+                </div>
               )}
               {isShipmentRequired && shippingAddress && (
-                <Address addresses={[shippingAddress]}>
-                  <div tw="flex flex-row">
-                    <Icon>
-                      <FontAwesomeIcon icon={faShippingFast} />
-                    </Icon>
-                    <div>
-                      <AddressField
-                        tw="pl-1 font-bold"
-                        name="full_name"
-                        data-cy="fullname_shipping"
-                      />
-                      <div>
-                        <AddressField
-                          tw="pl-1"
-                          name="full_address"
-                          data-cy="full_address_shipping"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Address>
+                <div>
+                  <AddressSectionTitle>
+                    {t(`addressForm.shipped_to`)}
+                  </AddressSectionTitle>
+                  <Address
+                    addresses={[shippingAddress]}
+                    className="p-3 border rounded cursor-pointer hover:border-primary shadow-sm"
+                  >
+                    <AddressField
+                      tw="pl-1 font-bold"
+                      name="full_name"
+                      data-cy="fullname_shipping"
+                      className="flex font-bold text-md"
+                    />
+
+                    <AddressField
+                      tw="pl-1"
+                      name="full_address"
+                      data-cy="full_address_shipping"
+                      className="text-sm text-gray-600"
+                    />
+                  </Address>
+                </div>
               )}
-            </div>
+            </FlexContainer>
 
             {!hasShippingAddress && !hasBillingAddress ? (
               <div>No Billing / Shipping Address set</div>

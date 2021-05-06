@@ -226,7 +226,7 @@ export const StepShipping: React.FC<Props> = ({
 }
 
 const StepSummary = styled.div`
-  ${tw`flex flex-row justify-around text-sm py-2 border-b`}
+  ${tw`flex flex-row justify-around text-sm py-1 border-b items-center`}
 `
 const StepSummaryItem = styled.div`
   ${tw`flex flex-1`}
@@ -235,5 +235,5 @@ const StepSummaryItemDescription = styled.p`
   ${tw`text-gray-600 ml-3`}
 `
 const StepSummaryItemValue = styled.p`
-  ${tw`font-bold uppercase text-xs`}
+  ${tw`flex font-bold uppercase text-ss leading-8`}
 `

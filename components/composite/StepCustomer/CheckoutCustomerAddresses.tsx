@@ -10,8 +10,6 @@ import {
   AddressField,
   ShippingAddressContainer,
 } from "@commercelayer/react-components"
-import { faPlus } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, Fragment, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
@@ -262,7 +260,7 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
   return (
     <Address
       data-cy={dataCy}
-      className="w-1/3 p-4 mr-4 border rounded cursor-pointer hover:border-primary shadow-sm"
+      className="w-1/3 p-3 mr-4 border rounded cursor-pointer hover:border-primary shadow-sm"
       selectedClassName="border-primary"
       deselect={deselect}
       onSelect={onSelect}
@@ -273,7 +271,7 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
         <AddressField name="last_name" tw="ml-1" />
       </div>
       <div tw="text-sm text-gray-600">
-        <AddressField name="city" />
+        <AddressField name="full_address" />
       </div>
     </Address>
   )

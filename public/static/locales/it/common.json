@@ -83,6 +83,8 @@
         "billing_address_phone": "Telefono",
         "ship_to_different_address": "Spedisci ad un altro indirizzo",
         "shipping_address_title": "Indirizzo di spedizione",
+        "shipped_to": "Spedito a:",
+        "billed_to": "Fatturato a:",
         "shipping_address_first_name": "Nome",
         "shipping_address_last_name": "Cognome",
         "shipping_address_line_1": "Indirizzo",
