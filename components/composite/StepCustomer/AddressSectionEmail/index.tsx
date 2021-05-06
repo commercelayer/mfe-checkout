@@ -4,8 +4,8 @@ import {
   Errors,
 } from "@commercelayer/react-components"
 import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
-import { useTranslation } from "react-i18next"
 import { Fragment } from "react"
+import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
 
@@ -69,15 +69,15 @@ export const AddressSectionEmail: React.FC<Props> = ({
   )
 }
 
-const Wrapper = styled.h4`
-  ${tw`mb-4`}
+const Wrapper = styled.div`
+  ${tw`mb-2`}
 `
 const ReadOnlyEmail = styled.div`
   ${InputCss}
-  ${tw`w-auto inline-block mb-8 bg-gray-100`}
+  ${tw`w-auto inline-block bg-gray-100`}
 `
 
 const StyledCustomInput = styled(CustomerInput)`
   ${InputCss}
-  ${tw`w-1/2 inline-block mb-8`}
+  ${tw`w-1/2 inline-block`}
 `

@@ -56,7 +56,7 @@ interface BadgeProps {
 }
 
 const Wrapper = styled.div<WrapperProps>`
-  ${tw`flex items-start mb-6`}
+  ${tw`flex items-start mb-4`}
   ${({ disabled }) =>
     disabled
       ? css`

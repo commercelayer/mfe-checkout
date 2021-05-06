@@ -5,6 +5,6 @@ export const AddressSectionTitle: React.FC = ({ children }) => {
   return <Wrapper>{children}</Wrapper>
 }
 
-const Wrapper = styled.h4`
-  ${tw`mb-4 font-bold text-gray-900 leading-6`}
+const Wrapper = styled.h3`
+  ${tw`mt-4 mb-2 font-normal text-sm leading-6`}
 `

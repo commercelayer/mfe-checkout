@@ -27,6 +27,9 @@ module.exports = {
           600: "#666666",
         },
       },
+      fontSize: {
+        md: "0.938rem",
+      },
     },
   },
   variants: {

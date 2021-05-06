@@ -15,8 +15,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState, Fragment, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
+
 import "twin.macro"
+import { AddButton } from "components/ui/AddButton"
 import { ButtonCss } from "components/ui/Button"
+import { FlexContainer } from "components/ui/FlexContainer"
 import { Toggle } from "components/ui/Toggle"
 
 import { AddressButtonAddNew } from "./AddressButtonAddNew"
@@ -110,29 +113,25 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           <AddressSectionTitle>
             {t(`addressForm.billing_address_title`)}
           </AddressSectionTitle>
-          <BillingAddressContainer>
-            <AddressCardComponent
-              addressType="billing"
-              deselect={showBillingAddressForm}
-              onSelect={() =>
-                showBillingAddressForm && setShowBillingAddressForm(false)
-              }
-            />
-          </BillingAddressContainer>
-          <>
-            {!showBillingAddressForm && hasCustomerAddresses && (
-              <button
-                tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-primary shadow-sm"
-                data-cy="add_new_billing_address"
-                onClick={handleShowBillingForm}
-              >
-                <FontAwesomeIcon icon={faPlus} tw="mr-3" />
-                {shipToDifferentAddress
-                  ? t("stepCustomer.addNewBillingAddress")
-                  : t("stepCustomer.addNewAddress")}
-              </button>
-            )}
-          </>
+          <FlexContainer>
+            <BillingAddressContainer>
+              <AddressCardComponent
+                addressType="billing"
+                deselect={showBillingAddressForm}
+                onSelect={() =>
+                  showBillingAddressForm && setShowBillingAddressForm(false)
+                }
+              />
+            </BillingAddressContainer>
+            <>
+              {!showBillingAddressForm && hasCustomerAddresses && (
+                <AddButton
+                  dataCy="add_new_billing_address"
+                  action={handleShowBillingForm}
+                />
+              )}
+            </>
+          </FlexContainer>
           <div
             className={
               showBillingAddressForm || !hasCustomerAddresses ? "" : "hidden"
@@ -169,31 +168,27 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 }`}
               >
                 <ShippingAddressContainer>
-                  <div tw="pl-2 pt-4">
-                    <AddressSectionTitle>
-                      {t(`addressForm.shipping_address_title`)}
-                    </AddressSectionTitle>
-                  </div>
+                  <AddressSectionTitle>
+                    {t(`addressForm.shipping_address_title`)}
+                  </AddressSectionTitle>
+                  <FlexContainer>
+                    <AddressCardComponent
+                      addressType="shipping"
+                      deselect={showShippingAddressForm}
+                      onSelect={() =>
+                        showShippingAddressForm &&
+                        setShowShippingAddressForm(false)
+                      }
+                    />
 
-                  <AddressCardComponent
-                    addressType="shipping"
-                    deselect={showShippingAddressForm}
-                    onSelect={() =>
-                      showShippingAddressForm &&
-                      setShowShippingAddressForm(false)
-                    }
-                  />
+                    {!showShippingAddressForm && (
+                      <AddButton
+                        dataCy="add_new_shipping_address"
+                        action={handleShowShippingForm}
+                      />
+                    )}
+                  </FlexContainer>
                 </ShippingAddressContainer>
-                {!showShippingAddressForm && (
-                  <button
-                    tw="w-1/2 p-2 mb-5 text-left border rounded cursor-pointer hover:border-primary shadow-sm"
-                    data-cy="add_new_shipping_address"
-                    onClick={handleShowShippingForm}
-                  >
-                    <FontAwesomeIcon icon={faPlus} tw="mr-3" />
-                    {t("stepCustomer.addNewShippingAddress")}
-                  </button>
-                )}
               </div>
 
               <div className={showShippingAddressForm ? "" : "hidden"}>
@@ -267,17 +262,17 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
   return (
     <Address
       data-cy={dataCy}
-      className="w-1/2 p-2 mb-5 border rounded cursor-pointer hover:border-primary shadow-sm"
+      className="w-2/4 p-4 mr-4 border rounded cursor-pointer hover:border-primary shadow-sm"
       selectedClassName="border-primary"
       deselect={deselect}
       onSelect={onSelect}
       disabledClassName="opacity-50 cursor-not-allowed"
     >
-      <div tw="flex font-bold">
+      <div tw="flex font-bold text-md">
         <AddressField name="first_name" />
         <AddressField name="last_name" tw="ml-1" />
       </div>
-      <div>
+      <div tw="text-sm text-gray-600">
         <AddressField name="full_address" />
       </div>
     </Address>

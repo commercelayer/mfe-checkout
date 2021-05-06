@@ -16,37 +16,43 @@ export const Toggle: React.FC<Props> = ({
   ...rest
 }) => {
   return (
-    <Wrapper className={className} checked={checked}>
-      <ButtonTrack {...rest} type="button" onClick={onChange}>
-        <span tw="sr-only">Use setting</span>
-        <Dot aria-hidden="true" />
-      </ButtonTrack>
-      <Label>{label}</Label>
+    <Wrapper>
+      <ButtonToggle className={className} checked={checked}>
+        <ButtonTrack {...rest} type="button" onClick={onChange}>
+          <span tw="sr-only">Use setting</span>
+          <Dot aria-hidden="true" />
+        </ButtonTrack>
+        <Label>{label}</Label>
+      </ButtonToggle>
     </Wrapper>
   )
 }
 
+const Wrapper = styled.div`
+  ${tw`mt-6 py-4 border-t`}
+`
+
 const ButtonTrack = styled.button`
-  ${tw`relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none`}
+  ${tw`mt-0.5 relative inline-flex flex-shrink-0 h-4 w-7 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none`}
 `
 
 const Dot = styled.span`
-  ${tw` inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200`}
+  ${tw` inline-block h-3 w-3 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200`}
 `
 
 const Label = styled.span`
-  ${tw`ml-5 cursor-pointer `}
+  ${tw`ml-2 cursor-pointer text-sm text-gray-600`}
 `
 
 interface WrapperProps {
   checked: boolean
 }
-const Wrapper = styled.label<WrapperProps>`
-  ${tw`flex p-2`}
+const ButtonToggle = styled.label<WrapperProps>`
+  ${tw`flex`}
   ${ButtonTrack} {
     ${({ checked }) => (checked ? tw`bg-primary` : tw`bg-gray-200`)}
   }
   ${Dot} {
-    ${({ checked }) => (checked ? tw`translate-x-5` : tw`translate-x-0`)}
+    ${({ checked }) => (checked ? tw`translate-x-3` : tw`translate-x-0`)}
   }
 `

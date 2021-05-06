@@ -37,7 +37,7 @@
         "title": "Cliente",
         "summary" : "Riepilogo delle informazioni di fatturazione e spedizione del cliente",
         "information": "Informazioni di fatturazione e indirizzo di spedizione",
-        "addNewAddress": "Aggiungi nuovo indirizzo",
+        "addNewAddress": "Nuovo indirizzo",
         "saveAddressBook": "Salva l'indirizzo sulla tua rubrica",
         "addNewBillingAddress": "Aggiungi nuovo indirizzo di fatturazione",
         "addNewShippingAddress": "Aggiungi un nuovo indirizzo di spedizione",
