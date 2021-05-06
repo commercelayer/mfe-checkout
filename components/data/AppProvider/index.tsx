@@ -1,7 +1,3 @@
-import {
-  AddressCollection,
-  PaymentMethodCollection,
-} from "@commercelayer/js-sdk"
 import { createContext, useState, useEffect } from "react"
 
 import { fetchOrderById, FetchOrderByIdResponse } from "./fetchOrderById"
@@ -11,7 +7,38 @@ interface AppProviderData extends FetchOrderByIdResponse {
   orderId: string
   accessToken: string
   endpoint: string
+  isFirstLoading: boolean
   refetchOrder: () => Promise<void>
+}
+
+interface AppStateData extends FetchOrderByIdResponse {
+  isLoading: boolean
+  isFirstLoading: boolean
+}
+
+const initialState: AppStateData = {
+  isLoading: true,
+  isFirstLoading: true,
+  isGuest: false,
+  hasCustomerAddresses: false,
+  isUsingNewBillingAddress: true,
+  isUsingNewShippingAddress: true,
+  hasSameAddresses: false,
+  hasEmailAddress: false,
+  emailAddress: "",
+  hasBillingAddress: false,
+  billingAddress: null,
+  isShipmentRequired: true,
+  shippingAddress: null,
+  hasShippingMethod: false,
+  hasShippingAddress: false,
+  shipments: [],
+  paymentMethod: null,
+  hasPaymentMethod: false,
+  isPaymentRequired: true,
+  shippingCountryCodeLock: "",
+  isComplete: false,
+  returnUrl: "",
 }
 
 export const AppContext = createContext<AppProviderData | null>(null)
@@ -28,95 +55,19 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   accessToken,
   endpoint,
 }) => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [isGuest, setIsGuest] = useState(false)
-  const [hasCustomerAddresses, setHasCustomerAddresses] = useState(false)
-  const [isUsingNewBillingAddress, setIsUsingNewBillingAddress] = useState(true)
-  const [isUsingNewShippingAddress, setIsUsingNewShippingAddress] = useState(
-    true
-  )
-  const [hasSameAddresses, setHasSameAddresses] = useState(false)
-
-  const [hasEmailAddress, setHasEmailAddress] = useState(false)
-  const [emailAddress, setEmailAddress] = useState("")
-  const [hasBillingAddress, setHasBillingAddress] = useState(false)
-  const [
-    billingAddress,
-    setBillingAddress,
-  ] = useState<AddressCollection | null>(null)
-  const [isShipmentRequired, setIsShipmentRequired] = useState(true)
-  const [hasShippingAddress, setHasShippingAddress] = useState(false)
-  const [
-    shippingAddress,
-    setShippingAddress,
-  ] = useState<AddressCollection | null>(null)
-  const [hasShippingMethod, setHasShippingMethod] = useState(false)
-  const [shipments, setShipments] = useState<ShipmentSelected[]>([])
-  const [
-    paymentMethod,
-    setPaymentMethod,
-  ] = useState<PaymentMethodCollection | null>(null)
-  const [hasPaymentMethod, setHasPaymentMethod] = useState(false)
-  const [isPaymentRequired, setIsPaymentRequired] = useState(true)
-  const [
-    shippingCountryCodeLock,
-    setShippingCountryCodeLock,
-  ] = useState<string>("")
-
-  const [isComplete, setIsComplete] = useState(false)
-
-  const [returnUrl, setReturnUrl] = useState("")
+  const [state, setState] = useState(initialState)
 
   const fetchOrderHandle = async (orderId?: string, accessToken?: string) => {
     if (!orderId || !accessToken) {
       return
     }
-    setIsLoading(true)
+    setState({ ...state, isLoading: true })
+
     return await fetchOrderById({ orderId, accessToken, endpoint }).then(
-      ({
-        isGuest,
-        hasCustomerAddresses,
-        isUsingNewBillingAddress,
-        isUsingNewShippingAddress,
-        hasSameAddresses,
-        hasEmailAddress,
-        emailAddress,
-        hasBillingAddress,
-        billingAddress,
-        hasShippingAddress,
-        shippingAddress,
-        paymentMethod,
-        hasPaymentMethod,
-        hasShippingMethod,
-        shipments,
-        isShipmentRequired,
-        isPaymentRequired,
-        shippingCountryCodeLock,
-        isComplete,
-        returnUrl,
-      }) => {
-        setIsGuest(isGuest)
-        setHasCustomerAddresses(hasCustomerAddresses)
-        setHasSameAddresses(hasCustomerAddresses)
-        setIsUsingNewBillingAddress(isUsingNewBillingAddress)
-        setIsUsingNewShippingAddress(isUsingNewShippingAddress)
-        setHasSameAddresses(hasSameAddresses)
-        setHasEmailAddress(hasEmailAddress)
-        setEmailAddress(emailAddress)
-        setHasBillingAddress(hasBillingAddress)
-        setBillingAddress(billingAddress)
-        setHasShippingAddress(hasShippingAddress)
-        setShippingAddress(shippingAddress)
-        setHasShippingMethod(hasShippingMethod)
-        setShipments(shipments)
-        setPaymentMethod(paymentMethod)
-        setHasPaymentMethod(hasPaymentMethod)
-        setIsShipmentRequired(isShipmentRequired)
-        setIsPaymentRequired(isPaymentRequired)
-        setShippingCountryCodeLock(shippingCountryCodeLock)
-        setIsComplete(isComplete)
-        setIsLoading(false)
-        setReturnUrl(returnUrl)
+      (newState) => {
+        console.log("newState")
+        console.log(newState)
+        setState({ ...newState, isLoading: false, isFirstLoading: false })
       }
     )
   }
@@ -128,30 +79,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   return (
     <AppContext.Provider
       value={{
-        isGuest,
-        hasCustomerAddresses,
-        isUsingNewBillingAddress,
-        isUsingNewShippingAddress,
-        hasSameAddresses,
-        isLoading,
-        hasEmailAddress,
-        emailAddress,
-        hasBillingAddress,
-        billingAddress,
-        hasShippingAddress,
-        shippingAddress,
-        hasShippingMethod,
-        shipments,
-        paymentMethod,
-        hasPaymentMethod,
-        shippingCountryCodeLock,
-        isShipmentRequired,
-        isPaymentRequired,
-        isComplete,
+        ...state,
         orderId,
         accessToken,
         endpoint,
-        returnUrl,
         refetchOrder: async () => {
           return await fetchOrderHandle(orderId, accessToken)
         },
