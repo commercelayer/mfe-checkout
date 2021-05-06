@@ -273,7 +273,7 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
         <AddressField name="last_name" tw="ml-1" />
       </div>
       <div tw="text-sm text-gray-600">
-        <AddressField name="full_address" />
+        <AddressField name="city" />
       </div>
     </Address>
   )

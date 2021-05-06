@@ -15,12 +15,10 @@ import {
   StockTransferField,
   DeliveryLeadTime,
 } from "@commercelayer/react-components"
-import { faTruckLoading } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import "twin.macro"
-
 import { useTranslation, Trans } from "next-i18next"
 import { useContext, useState, useEffect } from "react"
+import styled from "styled-components"
+import tw from "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
@@ -195,28 +193,25 @@ export const StepShipping: React.FC<Props> = ({
               <ShipmentsContainer>
                 <Shipment>
                   <ShippingMethod readonly>
-                    <div className="flex flex-row justify-around">
-                      <Icon>
-                        <FontAwesomeIcon icon={faTruckLoading} />
-                      </Icon>
-                      <div className="flex-1 pl-1">
+                    <StepSummary>
+                      <StepSummaryItem>
                         <ShippingMethodName
                           className="font-bold"
                           data-cy="shipping-method-name-recap"
                         />
-                      </div>
-                      <div className="flex-1">
+                        <StepSummaryItemDescription>
+                          <Trans t={t} i18nKey="stepShipping.deliveryLeadTime">
+                            <DeliveryLeadTime type="minDays" />
+                            <DeliveryLeadTime type="maxDays" className="mr-1" />
+                          </Trans>
+                        </StepSummaryItemDescription>
+                      </StepSummaryItem>
+                      <StepSummaryItemValue>
                         <ShippingMethodPrice
                           labelFreeOver={t("general.free")}
                         />
-                      </div>
-                      <div className="flex-1">
-                        <Trans t={t} i18nKey="stepShipping.deliveryLeadTime">
-                          <DeliveryLeadTime type="minDays" />
-                          <DeliveryLeadTime type="maxDays" className="mr-1" />
-                        </Trans>
-                      </div>
-                    </div>
+                      </StepSummaryItemValue>
+                    </StepSummary>
                   </ShippingMethod>
                 </Shipment>
               </ShipmentsContainer>
@@ -229,3 +224,16 @@ export const StepShipping: React.FC<Props> = ({
     </StepContainer>
   )
 }
+
+const StepSummary = styled.div`
+  ${tw`flex flex-row justify-around text-sm py-2 border-b`}
+`
+const StepSummaryItem = styled.div`
+  ${tw`flex flex-1`}
+`
+const StepSummaryItemDescription = styled.p`
+  ${tw`text-gray-600 ml-3`}
+`
+const StepSummaryItemValue = styled.p`
+  ${tw`font-bold uppercase text-xs`}
+`
