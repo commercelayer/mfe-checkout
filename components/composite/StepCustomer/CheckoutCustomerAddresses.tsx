@@ -38,7 +38,8 @@ interface Props {
   hasCustomerAddresses: boolean
   isGuest: boolean
   emailAddress: string
-  refetchOrder: () => void
+  isLocalLoader: boolean
+  handleSave: () => void
 }
 
 export const CheckoutCustomerAddresses: React.FC<Props> = ({
@@ -51,7 +52,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   hasCustomerAddresses,
   isGuest,
   emailAddress,
-  refetchOrder,
+  isLocalLoader,
+  handleSave,
 }: Props) => {
   const { t } = useTranslation()
 
@@ -63,8 +65,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     shippingAddressFill,
     setShippingAddressFill,
   ] = useState<AddressCollection | null>(shippingAddress)
-
-  const [isLocalLoader, setIsLocalLoader] = useState(false)
 
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState<boolean>(
     !hasSameAddresses
@@ -103,12 +103,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
       setShowShippingAddressForm(false)
     }
     setShipToDifferentAddress(!shipToDifferentAddress)
-  }
-
-  const handleSave = async () => {
-    setIsLocalLoader(true)
-    await refetchOrder()
-    setIsLocalLoader(false)
   }
 
   return (

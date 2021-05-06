@@ -7,6 +7,7 @@ import {
 } from "@commercelayer/react-components"
 import { useState, Fragment, useEffect } from "react"
 import { useTranslation } from "react-i18next"
+
 import "twin.macro"
 import { Toggle } from "components/ui/Toggle"
 
@@ -23,7 +24,8 @@ interface Props {
   isGuest: boolean
   hasSameAddresses: boolean
   isShipmentRequired: boolean
-  refetchOrder: () => void
+  isLocalLoader: boolean
+  handleSave: () => void
 }
 
 export const CheckoutAddresses: React.FC<Props> = ({
@@ -33,7 +35,8 @@ export const CheckoutAddresses: React.FC<Props> = ({
   isGuest,
   hasSameAddresses,
   isShipmentRequired,
-  refetchOrder,
+  isLocalLoader,
+  handleSave,
 }: Props) => {
   const { t } = useTranslation()
 
@@ -92,14 +95,14 @@ export const CheckoutAddresses: React.FC<Props> = ({
         )}
         <AddressSectionSaveForm>
           <SaveAddressesButton
-            label={
+            label={`${isLocalLoader ? "spinner " : ""}${
               isShipmentRequired
                 ? t("stepCustomer.continueToDelivery")
                 : t("stepShipping.continueToPayment")
-            }
+            }`}
             data-cy="save-addresses-button"
             tw="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-primary border border-transparent leading-4 rounded-md shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
-            onClick={refetchOrder}
+            onClick={handleSave}
           />
         </AddressSectionSaveForm>
       </AddressesContainer>

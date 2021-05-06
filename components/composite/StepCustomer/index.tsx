@@ -1,5 +1,5 @@
 import { Address, AddressField } from "@commercelayer/react-components"
-import { Fragment, useContext } from "react"
+import { Fragment, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import "twin.macro"
 
@@ -28,6 +28,8 @@ export const StepCustomer: React.FC<Props> = ({
   const appCtx = useContext(AppContext)
   const { t } = useTranslation()
 
+  const [isLocalLoader, setIsLocalLoader] = useState(false)
+
   if (!appCtx) {
     return null
   }
@@ -45,6 +47,12 @@ export const StepCustomer: React.FC<Props> = ({
     hasCustomerAddresses,
     refetchOrder,
   } = appCtx
+
+  const handleSave = async () => {
+    setIsLocalLoader(true)
+    await refetchOrder()
+    setIsLocalLoader(false)
+  }
 
   // todo: logica interna da implementare
   // se guest e' true: mostrare input email + form indirizzi
@@ -76,7 +84,8 @@ export const StepCustomer: React.FC<Props> = ({
                 isGuest={isGuest}
                 hasSameAddresses={hasSameAddresses}
                 isShipmentRequired={isShipmentRequired}
-                refetchOrder={refetchOrder}
+                isLocalLoader={isLocalLoader}
+                handleSave={handleSave}
               />
             ) : (
               <CheckoutCustomerAddresses
@@ -89,7 +98,8 @@ export const StepCustomer: React.FC<Props> = ({
                 isUsingNewShippingAddress={isUsingNewShippingAddress}
                 isUsingNewBillingAddress={isUsingNewBillingAddress}
                 hasSameAddresses={hasSameAddresses}
-                refetchOrder={refetchOrder}
+                isLocalLoader={isLocalLoader}
+                handleSave={handleSave}
               />
             )}
           </Fragment>
