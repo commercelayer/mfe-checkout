@@ -40,9 +40,13 @@ export const Checkout: React.FC<Props> = ({
     steps,
   } = useActiveStep()
 
-  if (!ctx || isLoading) {
+  if (!ctx || ctx.isFirstLoading) {
     return <SpinnerLoader />
   }
+  // console.log(ctx)
+  // if (isLoading) {
+  //   return <SpinnerLoader />
+  // }
 
   const renderComplete = () => {
     return (

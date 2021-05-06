@@ -1,5 +1,6 @@
-import { AppContext } from "components/data/AppProvider"
 import { useState, useEffect, useContext } from "react"
+
+import { AppContext } from "components/data/AppProvider"
 
 interface UseActiveStep {
   activeStep: SingleStepEnum
@@ -10,9 +11,7 @@ interface UseActiveStep {
 }
 
 export const useActiveStep = (): UseActiveStep => {
-  const ctx = useContext(AppContext)
   const [activeStep, setActiveStep] = useState<SingleStepEnum>("Customer")
-  const [isLoading, setIsLoading] = useState(true)
   const [lastActivableStep, setLastActivableStep] = useState<SingleStepEnum>(
     "Customer"
   )
@@ -22,10 +21,21 @@ export const useActiveStep = (): UseActiveStep => {
     "Payment",
   ])
 
-  useEffect(() => {
-    if (ctx) {
-      setIsLoading(ctx.isLoading)
+  const ctx = useContext(AppContext)
 
+  if (!ctx)
+    return {
+      activeStep,
+      lastActivableStep,
+      setActiveStep,
+      isLoading: true,
+      steps,
+    }
+
+  const { isFirstLoading, isLoading } = ctx
+
+  useEffect(() => {
+    if (ctx && (isFirstLoading || !ctx.isLoading)) {
       // Use it to alter steps of checkout
       // if (ctx.isShipmentRequired) {
       //   setSteps(['Customer', 'Shipping', 'Payment'])
@@ -53,7 +63,7 @@ export const useActiveStep = (): UseActiveStep => {
         setLastActivableStep("Customer")
       }
     }
-  }, [ctx])
+  }, [isFirstLoading, isLoading])
 
   return {
     activeStep,

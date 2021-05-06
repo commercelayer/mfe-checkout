@@ -58,12 +58,17 @@ export const StepShipping: React.FC<Props> = ({
 
   const [shipmentsSelected, setShipmentsSelected] = useState(shipments)
   const [canContinue, setCanContinue] = useState(false)
+  const [isLocalLoader, setIsLocalLoader] = useState(false)
 
   useEffect(() => {
     setCanContinue(
       !shipmentsSelected?.map((s) => s.shippingMethodId).includes(undefined)
     )
   }, [shipmentsSelected])
+
+  useEffect(() => {
+    setShipmentsSelected(shipments)
+  }, [shipments])
 
   const handleChange = (
     shippingMethod: ShippingMethodCollection | Record<string, any>
@@ -81,7 +86,9 @@ export const StepShipping: React.FC<Props> = ({
   }
 
   const handleSave = async () => {
+    setIsLocalLoader(true)
     await refetchOrder()
+    setIsLocalLoader(false)
     if (gtmCtx?.fireAddShippingInfo) {
       gtmCtx.fireAddShippingInfo()
     }
@@ -185,6 +192,7 @@ export const StepShipping: React.FC<Props> = ({
                     data-cy="save-shipments-button"
                     onClick={handleSave}
                   >
+                    {isLocalLoader && "spinner "}
                     {t("stepShipping.continueToPayment")}
                   </Button>
                 </div>

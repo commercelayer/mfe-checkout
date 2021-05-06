@@ -39,7 +39,9 @@ export const StepPayment: React.FC<Props> = ({
 
   const { t } = useTranslation()
 
-  if (!appCtx || !appCtx.hasShippingMethod) {
+  // if (!appCtx || !appCtx.hasShippingMethod) {
+  // this exit on shippingMethod is causing an error in useEffect to enable button
+  if (!appCtx) {
     return null
   }
 
@@ -68,8 +70,8 @@ export const StepPayment: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    setCanContinue(hasPaymentMethod)
-  }, [])
+    setCanContinue(!!hasPaymentMethod)
+  }, [hasPaymentMethod])
 
   return (
     <StepContainer>

@@ -64,6 +64,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     setShippingAddressFill,
   ] = useState<AddressCollection | null>(shippingAddress)
 
+  const [isLocalLoader, setIsLocalLoader] = useState(false)
+
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState<boolean>(
     !hasSameAddresses
   )
@@ -101,6 +103,12 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
       setShowShippingAddressForm(false)
     }
     setShipToDifferentAddress(!shipToDifferentAddress)
+  }
+
+  const handleSave = async () => {
+    setIsLocalLoader(true)
+    await refetchOrder()
+    setIsLocalLoader(false)
   }
 
   return (
@@ -226,13 +234,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             </div>
             <AddressSectionSaveForm>
               <StyledSaveAddressesButton
-                label={
+                label={`${isLocalLoader ? "spinner " : ""}${
                   isShipmentRequired
                     ? t("stepCustomer.continueToDelivery")
                     : t("stepShipping.continueToPayment")
-                }
+                }`}
                 data-cy="save-addresses-button"
-                onClick={refetchOrder}
+                onClick={handleSave}
               />
             </AddressSectionSaveForm>
           </div>
