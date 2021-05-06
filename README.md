@@ -19,5 +19,7 @@ http://localhost:3000/?accessToken=...&orderId=...
 ## Deploy on Heroku
 
 ```bash
-git push heroku [branch]:master
+git push [environment] [branch]:master
 ```
+
+where `environment` is staging. Deploy on production will be made by promoting a staging deploy.
