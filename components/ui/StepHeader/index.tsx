@@ -23,7 +23,9 @@ export const StepHeader: React.FC<Props> = ({
 
   return (
     <Wrapper disabled={status === "disabled"}>
-      <Badge>{status === "done" ? <CheckmarkIcon /> : stepNumber}</Badge>
+      <Badge active={status === "edit"}>
+        {status === "done" ? <CheckmarkIcon /> : stepNumber}
+      </Badge>
       <Body>
         <Top>
           <Title data-cy="step-header-customer">{label}</Title>
@@ -47,6 +49,10 @@ export const StepHeader: React.FC<Props> = ({
 
 interface WrapperProps {
   disabled?: boolean
+}
+
+interface BadgeProps {
+  active: boolean
 }
 
 const Wrapper = styled.div<WrapperProps>`
@@ -75,9 +81,11 @@ const EditButton = styled.button`
   ${tw` text-sm font-bold text-primary border-b border-primary leading-none hover:opacity-50 focus:outline-none`}
 `
 
-const Badge = styled.div`
-  ${tw`rounded-full bg-primary text-white flex justify-center items-center w-6 h-6 text-xs font-bold absolute -left-3`}
-`
+const Badge = styled.div<BadgeProps>(({ active }) => [
+  tw`rounded-full text-white flex justify-center items-center w-6 h-6 text-xs font-bold absolute -left-3`,
+  active && tw`bg-primary`,
+  !active && tw`bg-gray-400`,
+])
 
 const Title = styled.h2`
   ${tw`text-lg font-semibold leading-none`}
