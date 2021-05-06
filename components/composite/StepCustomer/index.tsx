@@ -97,7 +97,7 @@ export const StepCustomer: React.FC<Props> = ({
           <div>
             <FlexContainer>
               {billingAddress && (
-                <div>
+                <div className="w-2/4">
                   <AddressSectionTitle>
                     {t(`addressForm.billed_to`)}
                   </AddressSectionTitle>
@@ -122,7 +122,7 @@ export const StepCustomer: React.FC<Props> = ({
                 </div>
               )}
               {isShipmentRequired && shippingAddress && (
-                <div>
+                <div className="w-2/4">
                   <AddressSectionTitle>
                     {t(`addressForm.shipped_to`)}
                   </AddressSectionTitle>
