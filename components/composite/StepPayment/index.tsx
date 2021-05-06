@@ -76,7 +76,7 @@ export const StepPayment: React.FC<Props> = ({
       <StepLine />
       <StepContent>
         <StepHeader
-          stepNumber={2}
+          stepNumber={3}
           status={isActive ? "edit" : "done"}
           label={t("stepPayment.title")}
           info={
