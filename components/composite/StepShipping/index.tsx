@@ -192,7 +192,7 @@ export const StepShipping: React.FC<Props> = ({
                 </Shipment>
                 <div tw="flex justify-end">
                   <Button
-                    disabled={!canContinue}
+                    disabled={!canContinue || isLocalLoader}
                     data-cy="save-shipments-button"
                     onClick={handleSave}
                   >
