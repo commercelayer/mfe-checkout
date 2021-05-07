@@ -17,7 +17,7 @@ import {
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
-import { Button } from "components/ui/Button"
+import { Button, ButtonWrapper } from "components/ui/Button"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
@@ -113,7 +113,7 @@ export const StepPayment: React.FC<Props> = ({
                   />
                 )}
                 {hasPaymentMethod && (
-                  <div tw="flex justify-end pt-3">
+                  <ButtonWrapper>
                     <Button
                       disabled={!canContinue}
                       data-cy="save-shipments-button"
@@ -121,7 +121,7 @@ export const StepPayment: React.FC<Props> = ({
                     >
                       {t("general.save")}
                     </Button>
-                  </div>
+                  </ButtonWrapper>
                 )}
               </>
             ) : hasPaymentMethod ? (
@@ -142,14 +142,14 @@ export const StepPayment: React.FC<Props> = ({
                     savePaymentSourceToCustomerWallet: !isGuest,
                   }}
                 >
-                  <div tw="flex justify-end">
+                  <ButtonWrapper>
                     <PlaceOrderButton
                       data-cy="place-order-button"
                       onClick={handlePlaceOrder}
                       className="inline-flex items-center px-3 py-2 mt-5 text-sm font-medium text-white border border-transparent bg-primary leading-4 rounded-md shadow-sm hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
                       label={t("stepPayment.submit")}
                     />
-                  </div>
+                  </ButtonWrapper>
                 </PlaceOrderContainer>
               </>
             ) : (
@@ -165,14 +165,14 @@ export const StepPayment: React.FC<Props> = ({
               savePaymentSourceToCustomerWallet: !isGuest,
             }}
           >
-            <div tw="flex justify-end">
+            <ButtonWrapper>
               <PlaceOrderButton
                 data-cy="place-order-button"
                 onClick={handlePlaceOrder}
                 className="inline-flex items-center px-3 py-2 mt-5 text-sm font-medium text-white border border-transparent bg-primary leading-4 rounded-md shadow-sm hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
                 label={t("stepPayment.submit")}
               />
-            </div>
+            </ButtonWrapper>
           </PlaceOrderContainer>
         )}
       </StepContent>
