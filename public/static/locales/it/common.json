@@ -21,6 +21,7 @@
     },
 
     "orderRecap": {
+        "order_summary": "Riepilogo ordine",
         "cartContains": "Il tuo carrello contiene {{count}} articolo",
         "cartContains_plural": "Il tuo carrello contiene {{count}} articoli",
         "quantity": "Quantità: {{count}}",

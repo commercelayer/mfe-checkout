@@ -31,6 +31,9 @@ module.exports = {
         md: "0.938rem",
         ss: "0.813rem",
       },
+      flex: {
+        '75': '0 0 75px',
+      }
     },
   },
   variants: {

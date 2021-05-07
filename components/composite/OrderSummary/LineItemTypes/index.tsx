@@ -20,27 +20,35 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
   return (
     <LineItem type={type}>
       <LineItemWrapper>
-        <LineItemImage width={80} />
-        <div tw="pl-4 flex flex-col flex-1 justify-between">
-          <LineItemName />
-          <div tw="flex flex-row justify-between pb-1 text-sm">
+        <LineItemImage width={75} className="p-1 bg-white border rounded" />
+        <LineItemDescription>
+          <LineItemTitle>
+            <LineItemName className="font-bold" />
+            <LineItemAmount className="text-lg font-extrabold" />
+          </LineItemTitle>
+          <LineItemQty>
             <LineItemQuantity>
-              {(props) => (
-                <p tw="text-gray-400">
-                  {!!props.quantity &&
-                    t("orderRecap.quantity", { count: props.quantity })}
-                </p>
-              )}
+              {(props) =>
+                !!props.quantity &&
+                t("orderRecap.quantity", { count: props.quantity })
+              }
             </LineItemQuantity>
-            <LineItemAmount />
-          </div>
-        </div>
+          </LineItemQty>
+        </LineItemDescription>
       </LineItemWrapper>
-      <hr tw="pb-3" />
     </LineItem>
   )
 }
 
 const LineItemWrapper = styled.div`
-  ${tw`flex flex-row mb-4`}
+  ${tw`flex flex-row mb-7 pb-6 border-b`}
+`
+const LineItemDescription = styled.div`
+  ${tw`pl-4 flex flex-col flex-1`}
+`
+const LineItemTitle = styled.div`
+  ${tw`flex justify-between`}
+`
+const LineItemQty = styled.div`
+  ${tw`text-xs uppercase mt-1 text-gray-400`}
 `

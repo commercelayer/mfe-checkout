@@ -8,9 +8,10 @@ import {
   Errors,
   GiftCardOrCouponForm,
 } from "@commercelayer/react-components"
-import { AppContext } from "components/data/AppProvider"
 import { useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
+
+import { AppContext } from "components/data/AppProvider"
 import "twin.macro"
 
 export const CouponOrGiftCard: React.FC = () => {
@@ -78,13 +79,7 @@ export const CouponOrGiftCard: React.FC = () => {
   return (
     <>
       <GiftCardOrCouponForm onSubmit={handleSubmit}>
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Coupon / Gift Card
-          </label>
+        <div className="pb-8 mb-8 border-b">
           <div className={`mt-1 flex rounded-md shadow-sm`}>
             <div className="relative flex items-stretch flex-grow focus-within:z-10">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -106,6 +101,7 @@ export const CouponOrGiftCard: React.FC = () => {
               <GiftCardOrCouponInput
                 data-cy="input_giftcard_coupon"
                 className={`${classError} focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-gray-300`}
+                placeholder="Coupon code"
               />
             </div>
             <GiftCardOrCouponSubmit

@@ -21,6 +21,7 @@
     },
 
     "orderRecap": {
+        "order_summary": "Order summary",
         "cartContains": "Your shopping cart contains {{count}} item",
         "cartContains_plural": "Your shopping cart contains {{count}} items",
         "quantity": "Quantity: {{count}}",
