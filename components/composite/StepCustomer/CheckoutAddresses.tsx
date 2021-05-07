@@ -95,7 +95,8 @@ export const CheckoutAddresses: React.FC<Props> = ({
         )}
         <AddressSectionSaveForm>
           <SaveAddressesButton
-            label={`${isLocalLoader ? "spinner " : ""}${
+            disabled={isLocalLoader}
+            label={`${isLocalLoader ? "... " : ""}${
               isShipmentRequired
                 ? t("stepCustomer.continueToDelivery")
                 : t("stepShipping.continueToPayment")

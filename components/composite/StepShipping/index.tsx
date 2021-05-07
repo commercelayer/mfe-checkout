@@ -14,6 +14,7 @@ import {
   StockTransfer,
   StockTransferField,
   DeliveryLeadTime,
+  ShipmentField,
 } from "@commercelayer/react-components"
 import { useTranslation, Trans } from "next-i18next"
 import { useContext, useState, useEffect } from "react"
@@ -136,7 +137,10 @@ export const StepShipping: React.FC<Props> = ({
               <ShipmentsContainer>
                 <Shipment>
                   <ShippingWrapper>
-                    <ShippingTitle>Shipment #1</ShippingTitle>
+                    <ShippingTitle>
+                      Shipment #
+                      <ShipmentField name="keyNumber" />
+                    </ShippingTitle>
                     <ShippingMethod>
                       <ShippingSummary>
                         <ShippingMethodRadioButton
@@ -220,7 +224,7 @@ export const StepShipping: React.FC<Props> = ({
                     data-cy="save-shipments-button"
                     onClick={handleSave}
                   >
-                    {isLocalLoader && "spinner "}
+                    {isLocalLoader && "... "}
                     {t("stepShipping.continueToPayment")}
                   </Button>
                 </ButtonWrapper>
