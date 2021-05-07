@@ -113,7 +113,7 @@ export const StepCustomer: React.FC<Props> = ({
                   </AddressSectionTitle>
                   <Address
                     addresses={[billingAddress]}
-                    className="p-3 mr-4 border rounded cursor-pointer hover:border-primary shadow-sm"
+                    className="p-3 mr-4 border rounded cursor-pointer shadow-sm"
                   >
                     <AddressField
                       tw="pl-1 font-bold"
@@ -138,7 +138,7 @@ export const StepCustomer: React.FC<Props> = ({
                   </AddressSectionTitle>
                   <Address
                     addresses={[shippingAddress]}
-                    className="p-3 border rounded cursor-pointer hover:border-primary shadow-sm"
+                    className="p-3 border rounded cursor-pointer shadow-sm"
                   >
                     <AddressField
                       tw="pl-1 font-bold"
