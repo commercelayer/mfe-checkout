@@ -138,8 +138,7 @@ export const StepShipping: React.FC<Props> = ({
                 <Shipment>
                   <ShippingWrapper>
                     <ShippingTitle>
-                      Shipment #
-                      <ShipmentField name="keyNumber" />
+                      Shipment #<ShipmentField name="keyNumber" />
                     </ShippingTitle>
                     <ShippingMethod>
                       <ShippingSummary>

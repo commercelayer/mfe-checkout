@@ -275,10 +275,59 @@ const AddressCardComponent: React.FC<AddressCardProps> = ({
       </div>
       <div tw="text-sm text-gray-600">
         <AddressField name="full_address" />
+        {/* <AddressField>
+          {({ address }) => (
+            <CustomAddress
+              firstName={address.firstName}
+              lastName={address.lastName}
+              city={address.city}
+              line1={address.line1}
+              line2={address.line2}
+              zipCode={address.zipCode}
+              stateCode={address.stateCode}
+              countryCode={address.countryCode}
+              phone={address.phone}
+            />
+          )}
+        </AddressField> */}
       </div>
     </Address>
   )
 }
+
+interface AddressProps {
+  firstName: string
+  lastName: string
+  city: string
+  line1: string
+  line2: string
+  zipCode: string
+  stateCode: string
+  countryCode: string
+  phone: string
+}
+
+const CustomAddress = ({
+  firstName,
+  lastName,
+  city,
+  line1,
+  line2,
+  zipCode,
+  stateCode,
+  countryCode,
+  phone,
+}: AddressProps) => (
+  <div>
+    {firstName} {lastName}
+    <br />
+    {[line1, line2].join(", ")} {zipCode}
+    <br />
+    {city}, {stateCode} ({countryCode})
+    <br />
+    {phone}
+  </div>
+)
 
 const StyledSaveAddressesButton = styled(SaveAddressesButton)`
   ${ButtonCss}
