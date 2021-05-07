@@ -2,17 +2,22 @@ import {
   PlaceOrderButton,
   PlaceOrderContainer,
 } from "@commercelayer/react-components"
-import { faWallet } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 import "twin.macro"
 
 import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import {
+  StepSummary,
+  StepSummaryItem,
+  StepSummaryItemDescription,
+  StepSummaryItemValue,
+} from "../styled/StepSummary"
+
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { Button } from "components/ui/Button"
-import { Icon } from "components/ui/Icon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
@@ -121,19 +126,14 @@ export const StepPayment: React.FC<Props> = ({
               </>
             ) : hasPaymentMethod ? (
               <>
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="flex">
-                    <Icon>
-                      <FontAwesomeIcon icon={faWallet} />
-                    </Icon>
-                    <p data-cy="payment-method-selected" className="font-bold">
-                      {paymentMethod?.name}
-                    </p>
-                  </div>
-                  <p data-cy="payment-method-price-selected">
+                <StepSummary>
+                  <StepSummaryItem data-cy="payment-method-selected">
+                    {paymentMethod?.name}
+                  </StepSummaryItem>
+                  <StepSummaryItemValue data-cy="payment-method-price-selected">
                     {paymentMethod?.formattedPriceAmount}
-                  </p>
-                </div>
+                  </StepSummaryItemValue>
+                </StepSummary>
                 <PlaceOrderContainer
                   options={{
                     stripePayment: {

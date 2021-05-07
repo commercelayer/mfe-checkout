@@ -17,13 +17,17 @@ import {
 } from "@commercelayer/react-components"
 import { useTranslation, Trans } from "next-i18next"
 import { useContext, useState, useEffect } from "react"
-import styled from "styled-components"
-import tw from "twin.macro"
+
+import {
+  StepSummary,
+  StepSummaryItem,
+  StepSummaryItemDescription,
+  StepSummaryItemValue,
+} from "../styled/StepSummary"
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { Button } from "components/ui/Button"
-import { Icon } from "components/ui/Icon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
@@ -203,10 +207,7 @@ export const StepShipping: React.FC<Props> = ({
                   <ShippingMethod readonly>
                     <StepSummary>
                       <StepSummaryItem>
-                        <ShippingMethodName
-                          className="font-bold"
-                          data-cy="shipping-method-name-recap"
-                        />
+                        <ShippingMethodName data-cy="shipping-method-name-recap" />
                         <StepSummaryItemDescription>
                           <Trans t={t} i18nKey="stepShipping.deliveryLeadTime">
                             <DeliveryLeadTime type="minDays" />
@@ -232,16 +233,3 @@ export const StepShipping: React.FC<Props> = ({
     </StepContainer>
   )
 }
-
-const StepSummary = styled.div`
-  ${tw`flex flex-row justify-around text-sm py-1 border-b items-center`}
-`
-const StepSummaryItem = styled.div`
-  ${tw`flex flex-1`}
-`
-const StepSummaryItemDescription = styled.p`
-  ${tw`text-gray-600 ml-3`}
-`
-const StepSummaryItemValue = styled.p`
-  ${tw`flex font-bold uppercase text-ss leading-8`}
-`
