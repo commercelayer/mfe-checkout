@@ -27,11 +27,24 @@ import {
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
-import { Button } from "components/ui/Button"
+import { Button, ButtonWrapper } from "components/ui/Button"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { StepLine } from "components/ui/StepLine"
+
+import {
+  ShippingWrapper,
+  ShippingTitle,
+  ShippingSummary,
+  ShippingSummaryItem,
+  ShippingSummaryItemDescription,
+  ShippingSummaryValue,
+  ShippingLineItem,
+  ShippingLineItemDescription,
+  ShippingLineItemTitle,
+  ShippingLineItemQty,
+} from "./styled"
 
 interface Props {
   className?: string
@@ -122,75 +135,86 @@ export const StepShipping: React.FC<Props> = ({
             {isActive ? (
               <ShipmentsContainer>
                 <Shipment>
-                  <LineItemsContainer>
-                    <LineItem>
-                      <div className="flex items-center justify-between p-5 border-b">
-                        <LineItemImage className="p-2" width={80} />
-                        <LineItemName
-                          data-cy="line-item-name"
-                          className="p-2"
+                  <ShippingWrapper>
+                    <ShippingTitle>Shipment #1</ShippingTitle>
+                    <ShippingMethod>
+                      <ShippingSummary>
+                        <ShippingMethodRadioButton
+                          data-cy="shipping-method-button"
+                          onChange={(
+                            shippingMethod:
+                              | ShippingMethodCollection
+                              | Record<string, any>
+                          ) => handleChange(shippingMethod)}
                         />
-                        <LineItemQuantity
-                          readonly
-                          data-cy="line-item-quantity"
-                          max={100}
-                          className="p-2"
-                        />
-                      </div>
-                      <div>
-                        <StockTransfer>
-                          <div
-                            className="flex flex-row"
-                            data-cy="stock-transfer"
-                          >
-                            <StockTransferField
-                              className="px-1"
-                              type="quantity"
-                            />{" "}
-                            of <LineItemQuantity readonly className="px-1" />
-                            items will undergo a transfer
-                          </div>
-                        </StockTransfer>
-                      </div>
-                    </LineItem>
-                  </LineItemsContainer>
-                  <ShippingMethod>
-                    <div className="flex flex-row items-center justify-around px-3 py-5">
-                      <ShippingMethodRadioButton
-                        data-cy="shipping-method-button"
-                        className="flex-1"
-                        onChange={(
-                          shippingMethod:
-                            | ShippingMethodCollection
-                            | Record<string, any>
-                        ) => handleChange(shippingMethod)}
-                      />
-                      <div className="flex-1">
-                        <ShippingMethodName data-cy="shipping-method-name" />
-                      </div>
-                      <div className="flex-1">
-                        <ShippingMethodPrice
-                          data-cy="shipping-method-price"
-                          labelFreeOver={t("general.free")}
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <Trans t={t} i18nKey="stepShipping.deliveryLeadTime">
-                          <DeliveryLeadTime
-                            type="minDays"
-                            data-cy="delivery-lead-time-min-days"
+                        <ShippingSummaryItem>
+                          <ShippingMethodName data-cy="shipping-method-name" />
+                          <ShippingSummaryItemDescription>
+                            <Trans
+                              t={t}
+                              i18nKey="stepShipping.deliveryLeadTime"
+                            >
+                              <DeliveryLeadTime
+                                type="minDays"
+                                data-cy="delivery-lead-time-min-days"
+                              />
+                              <DeliveryLeadTime
+                                type="maxDays"
+                                data-cy="delivery-lead-time-max-days"
+                                className="mr-1"
+                              />
+                            </Trans>
+                          </ShippingSummaryItemDescription>
+                        </ShippingSummaryItem>
+                        <ShippingSummaryValue>
+                          <ShippingMethodPrice
+                            data-cy="shipping-method-price"
+                            labelFreeOver={t("general.free")}
                           />
-                          <DeliveryLeadTime
-                            type="maxDays"
-                            data-cy="delivery-lead-time-max-days"
-                            className="mr-1"
+                        </ShippingSummaryValue>
+                      </ShippingSummary>
+                    </ShippingMethod>
+                    <LineItemsContainer>
+                      <LineItem>
+                        <ShippingLineItem>
+                          <LineItemImage
+                            className="p-1 border rounded"
+                            width={50}
                           />
-                        </Trans>
-                      </div>
-                    </div>
-                  </ShippingMethod>
+                          <ShippingLineItemDescription>
+                            <ShippingLineItemTitle>
+                              <LineItemName data-cy="line-item-name" />
+                            </ShippingLineItemTitle>
+                            <ShippingLineItemQty>
+                              Quantity:{" "}
+                              <LineItemQuantity
+                                readonly
+                                data-cy="line-item-quantity"
+                                max={100}
+                              />
+                            </ShippingLineItemQty>
+                          </ShippingLineItemDescription>
+                        </ShippingLineItem>
+                        <div>
+                          <StockTransfer>
+                            <div
+                              className="flex flex-row"
+                              data-cy="stock-transfer"
+                            >
+                              <StockTransferField
+                                className="px-1"
+                                type="quantity"
+                              />{" "}
+                              of <LineItemQuantity readonly className="px-1" />
+                              items will undergo a transfer
+                            </div>
+                          </StockTransfer>
+                        </div>
+                      </LineItem>
+                    </LineItemsContainer>
+                  </ShippingWrapper>
                 </Shipment>
-                <div tw="flex justify-end">
+                <ButtonWrapper>
                   <Button
                     disabled={!canContinue}
                     data-cy="save-shipments-button"
@@ -199,7 +223,7 @@ export const StepShipping: React.FC<Props> = ({
                     {isLocalLoader && "spinner "}
                     {t("stepShipping.continueToPayment")}
                   </Button>
-                </div>
+                </ButtonWrapper>
               </ShipmentsContainer>
             ) : hasShippingMethod ? (
               <ShipmentsContainer>
