@@ -78,7 +78,7 @@ const Edit = styled.div`
 `
 
 const EditButton = styled.button`
-  ${tw` text-sm font-bold text-primary border-b border-primary leading-none hover:opacity-50 focus:outline-none`}
+  ${tw`text-sm font-bold text-primary border-b leading-none border-black border-opacity-10 md: transition ease-in duration-200 hover:border-opacity-50 hover:text-primary-dark focus:outline-none`}
 `
 
 const Badge = styled.div<BadgeProps>(({ active }) => [

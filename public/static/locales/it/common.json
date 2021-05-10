@@ -68,7 +68,8 @@
         "endingIn": "<0/> finisce con <1/>",
         "submit": "Invia l'ordine",
         "notRequired": "Questo ordine non necessita di pagamento",
-        "saveToWallet": "Salva la nuova carta sul tuo portafoglio"
+        "saveToWallet": "Salva la nuova carta sul tuo portafoglio",
+        "expires": "Scadenza"
     },
 
     "addressForm" : {

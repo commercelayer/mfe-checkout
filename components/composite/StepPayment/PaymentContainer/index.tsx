@@ -19,7 +19,7 @@ export const PaymentContainer: React.FC<Props> = ({
       config={{
         stripePayment: {
           options: {
-            classes: { base: "bg-primary", focus: "" },
+            classes: { base: "font-sans font-bold text-primary", focus: "" },
             hideIcon: false,
           },
           publishableKey: stripeKey,

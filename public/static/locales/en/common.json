@@ -68,7 +68,8 @@
         "endingIn": "<0/> ending in <1/>",
         "submit": "Place order",
         "notRequired": "This order does not require payment",
-        "saveToWallet": "Save new card on your wallet"
+        "saveToWallet": "Save new card on your wallet",
+        "expires": "Expires"
     },
 
     "addressForm" : {

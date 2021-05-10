@@ -18,6 +18,10 @@ module.exports = {
     extend: {
       colors: {
         primary: "var(--primary)",
+        primary: {
+          DEFAULT: "var(--primary)",
+          dark: "#245225",
+        },
         contrast: "var(--contrast)",
         gray: {
           100: "#f8f8f8",
