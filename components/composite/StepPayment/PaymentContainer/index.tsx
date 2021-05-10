@@ -18,6 +18,10 @@ export const PaymentContainer: React.FC<Props> = ({
     <PaymentMethodsContainer
       config={{
         stripePayment: {
+          options: {
+            classes: { base: "bg-primary", focus: "" },
+            hideIcon: false,
+          },
           publishableKey: stripeKey,
           handleSubmit: handleSave,
           submitLabel: t("stepPayment.setPaymentMethod"),
