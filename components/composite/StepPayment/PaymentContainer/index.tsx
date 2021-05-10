@@ -19,8 +19,29 @@ export const PaymentContainer: React.FC<Props> = ({
       config={{
         stripePayment: {
           options: {
-            classes: { base: "font-sans font-bold text-primary", focus: "" },
+            // classes: { base: "font-sans font-bold text-primary", focus: "" },
+            style: {
+              base: {
+                iconColor: "#c4f0ff",
+                color: "#fff",
+                fontWeight: "500",
+                fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
+                fontSize: "16px",
+                fontSmoothing: "antialiased",
+                ":-webkit-autofill": {
+                  color: "#fce883",
+                },
+                "::placeholder": {
+                  color: "#87BBFD",
+                },
+              },
+              invalid: {
+                iconColor: "#FFC7EE",
+                color: "#FFC7EE",
+              },
+            },
             hideIcon: false,
+            hidePostalCode: true,
           },
           publishableKey: stripeKey,
           handleSubmit: handleSave,
