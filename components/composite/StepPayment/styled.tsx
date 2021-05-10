@@ -2,7 +2,10 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 export const PaymentWrapper = styled.div`
-  ${tw`border border-gray-300 mb-5 p-3 rounded`}
+  ${tw`border border-gray-300 mb-5 p-3 rounded bg-gray-50`}
+  .active & {
+    ${tw`bg-white`}
+  }
 `
 export const PaymentSummary = styled.div`
   ${tw`flex flex-row justify-around text-sm items-center`}

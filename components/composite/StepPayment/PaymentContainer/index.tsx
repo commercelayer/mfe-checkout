@@ -23,7 +23,7 @@ export const PaymentContainer: React.FC<Props> = ({
           submitLabel: t("stepPayment.setPaymentMethod"),
           submitClassName:
             "mt-5 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary",
-          containerClassName: "p-5 my-2",
+          containerClassName: "pt-1",
         },
       }}
     >
