@@ -76,6 +76,7 @@ export const AddressInputGroup: React.FC<Props> = ({
         <div className="relative h-10">
           {isCountry ? (
             <StyledAddressCountrySelector
+              className="form-select"
               data-cy={`input_${fieldName}`}
               name={fieldName as AddressCountrySelectName}
               value={
@@ -97,6 +98,7 @@ export const AddressInputGroup: React.FC<Props> = ({
                 name={fieldName as AddressInputName}
                 type={type}
                 value={valueStatus}
+                className="form-input"
               />
               <Label htmlFor={fieldName}>{label}</Label>
             </>

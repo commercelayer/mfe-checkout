@@ -19,6 +19,7 @@ module.exports = {
       colors: {
         primary: "var(--primary)",
         primary: {
+          light: "#b7dfb9",
           DEFAULT: "var(--primary)",
           dark: "#245225",
         },
@@ -44,6 +45,8 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    require('@tailwindcss/forms')({
+      strategy: 'class',
+    }),
   ],
 }

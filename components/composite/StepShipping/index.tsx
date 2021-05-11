@@ -45,6 +45,7 @@ import {
   ShippingLineItemDescription,
   ShippingLineItemTitle,
   ShippingLineItemQty,
+  StyledShippingMethodRadioButton,
 } from "./styled"
 
 interface Props {
@@ -142,7 +143,8 @@ export const StepShipping: React.FC<Props> = ({
                     </ShippingTitle>
                     <ShippingMethod>
                       <ShippingSummary>
-                        <ShippingMethodRadioButton
+                        <StyledShippingMethodRadioButton
+                          className="form-radio"
                           data-cy="shipping-method-button"
                           onChange={(
                             shippingMethod:
