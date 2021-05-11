@@ -64,7 +64,7 @@ export const StepShipping: React.FC<Props> = ({
 
   const { t } = useTranslation()
 
-  if (!appCtx || !appCtx.hasShippingAddress) {
+  if (!appCtx) {
     return null
   }
 
