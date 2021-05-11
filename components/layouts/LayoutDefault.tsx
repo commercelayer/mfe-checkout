@@ -26,7 +26,7 @@ export const LayoutDefault: React.FC<Props> = ({ main, aside }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`flex flex-wrap justify-end items-stretch`}
+  ${tw`flex-none md:flex flex-wrap justify-end items-stretch`}
 `
 
 const Main = styled.div`
