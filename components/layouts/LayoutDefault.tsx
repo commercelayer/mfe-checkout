@@ -26,11 +26,11 @@ export const LayoutDefault: React.FC<Props> = ({ main, aside }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`flex-none md:flex flex-wrap justify-end items-stretch`}
+  ${tw`flex flex-wrap justify-end items-stretch flex-col md:flex-row`}
 `
 
 const Main = styled.div`
-  ${tw`flex-none md:flex-1 justify-center`}
+  ${tw`flex-none md:flex-1 justify-center order-first md:order-last`}
 `
 
 const Aside = styled.div`

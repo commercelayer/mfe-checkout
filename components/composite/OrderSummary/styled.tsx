@@ -14,10 +14,10 @@ export const TotalWrapper = styled.div`
   ${tw`flex flex-row`}
 `
 export const AmountWrapper = styled.div`
-  ${tw`flex flex-col flex-1 pl-4`}
+  ${tw`flex flex-col flex-1 md:pl-4`}
 `
 export const AmountSpacer = styled.div`
-  ${tw`flex flex-75`}
+  ${tw`hidden md:flex md:flex-75`}
 `
 export const RecapLine = styled.div`
   ${tw`flex flex-row justify-between py-0.5`}
