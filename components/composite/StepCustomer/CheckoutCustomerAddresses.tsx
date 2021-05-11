@@ -139,7 +139,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           >
             <BillingAddressForm
               autoComplete="on"
-              className="p-2"
               reset={!showBillingAddressForm}
             >
               {showBillingAddressForm ? (

@@ -40,31 +40,35 @@ export const AddressSectionEmail: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      <Label htmlFor="customer_email">{t("addressForm.customer_email")}</Label>
-      {!isGuest ? (
-        <ReadOnlyEmail data-cy="current-customer-email">
-          {emailAddress}
-        </ReadOnlyEmail>
-      ) : (
-        <Fragment>
-          <CustomerContainer isGuest>
-            <StyledCustomInput
-              data-cy="customer_email"
-              id="customer_email"
-              // tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-              placeholder="E-mail"
-              saveOnBlur={true}
-              value={emailAddress}
-            />
-            <Errors
-              data-cy="customer_email_error"
-              resource="order"
-              field="customer_email"
-              messages={messages}
-            />
-          </CustomerContainer>
-        </Fragment>
-      )}
+      <div className="relative h-10">
+        {!isGuest ? (
+          <ReadOnlyEmail data-cy="current-customer-email">
+            {emailAddress}
+          </ReadOnlyEmail>
+        ) : (
+          <Fragment>
+            <CustomerContainer isGuest>
+              <StyledCustomInput
+                data-cy="customer_email"
+                id="customer_email"
+                // tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                placeholder="E-mail"
+                saveOnBlur={true}
+                value={emailAddress}
+              />
+              <Errors
+                data-cy="customer_email_error"
+                resource="order"
+                field="customer_email"
+                messages={messages}
+              />
+            </CustomerContainer>
+          </Fragment>
+        )}
+        <Label htmlFor="customer_email">
+          {t("addressForm.customer_email")}
+        </Label>
+      </div>
     </Wrapper>
   )
 }
@@ -74,7 +78,7 @@ const Wrapper = styled.div`
 `
 const ReadOnlyEmail = styled.div`
   ${InputCss}
-  ${tw`w-auto inline-block bg-gray-100`}
+  ${tw`w-auto inline-block bg-gray-50`}
 `
 
 const StyledCustomInput = styled(CustomerInput)`

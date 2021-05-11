@@ -13,7 +13,7 @@ export const BillingAddressFormNew: React.FC<Props> = ({
   billingAddress,
 }: Props) => {
   return (
-    <Fragment>
+    <Wrapper>
       <Grid>
         <AddressInputGroup
           fieldName="billing_address_first_name"
@@ -68,9 +68,13 @@ export const BillingAddressFormNew: React.FC<Props> = ({
         type="tel"
         value={billingAddress?.phone || ""}
       />
-    </Fragment>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  ${tw`mt-8`}
+`
 
 const Grid = styled.div`
   ${tw`grid grid-cols-2 gap-4`}

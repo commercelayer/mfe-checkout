@@ -12,12 +12,13 @@ import {
   ResourceErrorType,
   ErrorComponentProps,
 } from "@commercelayer/react-components/dist/typings/errors"
-import { AppContext } from "components/data/AppProvider"
-import { InputCss } from "components/ui/form/Input"
-import { Label } from "components/ui/form/Label"
 import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
+
+import { AppContext } from "components/data/AppProvider"
+import { InputCss } from "components/ui/form/Input"
+import { Label } from "components/ui/form/Label"
 
 interface Props {
   type: BaseInputType
@@ -70,10 +71,9 @@ export const AddressInputGroup: React.FC<Props> = ({
   }, [value])
 
   return (
-    <div className="mb-4">
+    <div className="mb-8">
       <Wrapper>
-        <Label htmlFor={fieldName}>{label}</Label>
-        <div className="mt-1">
+        <div className="relative h-10">
           {isCountry ? (
             <StyledAddressCountrySelector
               data-cy={`input_${fieldName}`}
@@ -90,13 +90,16 @@ export const AddressInputGroup: React.FC<Props> = ({
               )}
             />
           ) : (
-            <StyledAddressInput
-              id={fieldName}
-              data-cy={`input_${fieldName}`}
-              name={fieldName as AddressInputName}
-              type={type}
-              value={valueStatus}
-            />
+            <>
+              <StyledAddressInput
+                id={fieldName}
+                data-cy={`input_${fieldName}`}
+                name={fieldName as AddressInputName}
+                type={type}
+                value={valueStatus}
+              />
+              <Label htmlFor={fieldName}>{label}</Label>
+            </>
           )}
         </div>
       </Wrapper>
