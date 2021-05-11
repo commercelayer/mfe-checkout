@@ -5,5 +5,5 @@ export const AddressSectionSaveForm: React.FC = ({ children }) => {
   return <Wrapper>{children}</Wrapper>
 }
 const Wrapper = styled.div`
-  ${tw`mt-2`}
+  ${tw``}
 `

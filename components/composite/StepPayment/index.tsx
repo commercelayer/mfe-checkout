@@ -11,7 +11,6 @@ import { useTranslation } from "react-i18next"
 import {
   StepSummary,
   StepSummaryItem,
-  StepSummaryItemDescription,
   StepSummaryItemValue,
 } from "../styled/StepSummary"
 
@@ -25,6 +24,7 @@ import { StepLine } from "components/ui/StepLine"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
+import { StyledPlaceOrderButton, StyledPlaceOrderContainer } from "./styled"
 
 interface Props {
   className?: string
@@ -143,11 +143,11 @@ export const StepPayment: React.FC<Props> = ({
                   }}
                 >
                   <ButtonWrapper>
-                    <PlaceOrderButton
+                    <StyledPlaceOrderButton
                       data-cy="place-order-button"
                       onClick={handlePlaceOrder}
-                      className="inline-flex items-center px-3 py-2 mt-5 text-sm font-medium text-white border border-transparent bg-primary leading-4 rounded-md shadow-sm hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
                       label={t("stepPayment.submit")}
+                      className="mt-8"
                     />
                   </ButtonWrapper>
                 </PlaceOrderContainer>
@@ -166,11 +166,11 @@ export const StepPayment: React.FC<Props> = ({
             }}
           >
             <ButtonWrapper>
-              <PlaceOrderButton
+              <StyledPlaceOrderButton
                 data-cy="place-order-button"
                 onClick={handlePlaceOrder}
-                className="inline-flex items-center px-3 py-2 mt-5 text-sm font-medium text-white border border-transparent bg-primary leading-4 rounded-md shadow-sm hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
                 label={t("stepPayment.submit")}
+                className="mt-8"
               />
             </ButtonWrapper>
           </PlaceOrderContainer>

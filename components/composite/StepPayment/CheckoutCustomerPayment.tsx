@@ -21,6 +21,7 @@ import {
   PaymentRadioContainer,
   PaymentSourceContainer,
   PaymentDetailsWrapper,
+  WalletCheckbox,
 } from "./styled"
 
 interface Props {
@@ -37,7 +38,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   const TemplateCustomerCards = ({ handleClick }: any) => (
     <div
       onClick={handleClick}
-      className="flex flex-row items-center justify-start w-1/2 p-3 ml-2 text-sm bg-gray-100 border cursor-pointer hover:border-blue-500"
+      className="flex p-3 mr-4 text-sm border rounded shadow-sm"
     >
       <PaymentDetails />
     </div>
@@ -45,12 +46,12 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
 
   const TemplateSaveToWalletCheckbox = ({ name }: any) => (
     <div className="flex mt-4 flex-center">
-      <input
+      <WalletCheckbox
         name={name}
         id={name}
         data-cy="save-to-wallet"
         type="checkbox"
-        className="self-center w-4 h-4 border-gray-300 rounded text-primary focus:ring-primary"
+        className="form-checkbox"
       />
       <Label
         htmlFor={name}
