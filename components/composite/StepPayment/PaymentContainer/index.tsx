@@ -19,20 +19,16 @@ export const PaymentContainer: React.FC<Props> = ({
       config={{
         stripePayment: {
           options: {
-            // classes: { base: "font-sans font-bold text-primary", focus: "" },
             style: {
               base: {
-                iconColor: "#c4f0ff",
-                color: "#fff",
-                fontWeight: "500",
-                fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
-                fontSize: "16px",
-                fontSmoothing: "antialiased",
+                color: "#000",
+                fontWeight: "400",
+                fontFamily: "Manrope, sans-serif",
                 ":-webkit-autofill": {
                   color: "#fce883",
                 },
                 "::placeholder": {
-                  color: "#87BBFD",
+                  color: "#e0e0e0",
                 },
               },
               invalid: {
