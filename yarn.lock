@@ -257,10 +257,10 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@commercelayer/react-components@^2.16.0":
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.16.0.tgz#dc024fc63912c9a77de3c77af34a41bf5be0a770"
-  integrity sha512-4n7PRBQNg+yEkoNZ6D0qNX/BOHz7K9Qr7p7/rpiRjPDLPEGUjV5wvtoK8DAEFWWdtey49f6cVZrBbt4Yyy4u/w==
+"@commercelayer/react-components@^2.17.0":
+  version "2.18.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.18.0.tgz#00aeeb4afec0dd092553cdc4866fc516d706ff8a"
+  integrity sha512-cfv6nh7uUOuqMrexE4xXoKvxaUZT4tD0u0DbWCEa5wSxpTsiKdApRcABco1r/VzLJIzQOiFfTef+IiXI/a055Q==
   dependencies:
     "@commercelayer/js-sdk" "^3.9.2"
     "@stripe/react-stripe-js" "^1.4.0"
