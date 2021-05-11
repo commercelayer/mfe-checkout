@@ -1,11 +1,13 @@
-import { Card } from "components/ui/Card"
 import humanizeString from "humanize-string"
 import { NextPage } from "next"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import titleize from "titleize"
+import { parse } from "tldts"
 import tw from "twin.macro"
+
+import { Card } from "components/ui/Card"
 
 const Invalid: NextPage = () => {
   const { t } = useTranslation()
@@ -13,10 +15,20 @@ const Invalid: NextPage = () => {
 
   useEffect(() => {
     if (window) {
-      const humanizeHostname = titleize(
-        humanizeString(window.location.hostname)
-      )
-      setTitle(humanizeHostname)
+      const parseURL = parse(window.location.hostname, {
+        validHosts: ["localhost"],
+      })
+      if (parseURL.domain !== "localhost") {
+        const subdomain = parseURL.subdomain
+        const domainWithoutSuffix = parseURL.domainWithoutSuffix
+
+        const urlHumanize = titleize(
+          humanizeString(subdomain + "-" + domainWithoutSuffix)
+        )
+        setTitle(urlHumanize)
+      } else {
+        setTitle(titleize(parseURL.domain))
+      }
     }
   }, [])
 
