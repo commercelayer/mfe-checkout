@@ -1,10 +1,5 @@
-import {
-  PlaceOrderButton,
-  PlaceOrderContainer,
-} from "@commercelayer/react-components"
-
+import { PlaceOrderContainer } from "@commercelayer/react-components"
 import "twin.macro"
-
 import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -24,7 +19,7 @@ import { StepLine } from "components/ui/StepLine"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
-import { StyledPlaceOrderButton, StyledPlaceOrderContainer } from "./styled"
+import { StyledPlaceOrderButton } from "./styled"
 
 interface Props {
   className?: string
@@ -32,11 +27,7 @@ interface Props {
   onToggleActive: () => void
 }
 
-export const StepPayment: React.FC<Props> = ({
-  className,
-  isActive,
-  onToggleActive,
-}) => {
+export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
   const [canContinue, setCanContinue] = useState(false)
 
   const appCtx = useContext(AppContext)

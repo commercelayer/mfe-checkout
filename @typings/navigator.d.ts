@@ -1,1 +1,1 @@
-type SingleStepEnum = 'Customer' | 'Shipping' | 'Payment' | 'Complete'
+type SingleStepEnum = "Customer" | "Shipping" | "Payment" | "Complete"

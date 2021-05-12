@@ -10,13 +10,13 @@
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start -p $PORT",
-    "lint": "eslint ./ --ext .tsx,.ts",
+    "lint": "eslint ./ --ext .js,.jsx,.tsx,.ts",
     "lint:fix": "eslint ./ --ext .tsx,.ts --fix",
     "test": "cypress open"
   },
   "dependencies": {
     "@commercelayer/js-sdk": "^3.10.0",
-    "@commercelayer/react-components": "^2.17.0",
+    "@commercelayer/react-components": "^2.18.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
