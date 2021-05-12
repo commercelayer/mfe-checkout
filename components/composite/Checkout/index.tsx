@@ -64,12 +64,21 @@ export const Checkout: React.FC<Props> = ({
       <LayoutDefault
         aside={
           <Sidebar>
-            <Logo logoUrl={logoUrl} companyName={companyName} />
+            <Logo
+              logoUrl={logoUrl}
+              companyName={companyName}
+              className="hidden md:block"
+            />
             <OrderSummary />
           </Sidebar>
         }
         main={
           <div>
+            <Logo
+              logoUrl={logoUrl}
+              companyName={companyName}
+              className="block md:hidden"
+            />
             <MainHeader orderNumber={orderNumber} />
             <StepNav
               steps={steps}
@@ -102,5 +111,5 @@ export const Checkout: React.FC<Props> = ({
 }
 
 const Sidebar = styled.div`
-  ${tw`pl-5 pr-5 md:pl-20 md:pr-10`}
+  ${tw`pl-5 pr-5 py-10 md:pl-20 md:pr-10 md:py-0`}
 `
