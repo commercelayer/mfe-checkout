@@ -4,6 +4,7 @@ import {
   LineItemName,
   LineItemQuantity,
   LineItemAmount,
+  LineItemSkuCode,
 } from "@commercelayer/react-components"
 import { LineItemType } from "@commercelayer/react-components/dist/typings"
 import { useTranslation } from "react-i18next"
@@ -36,6 +37,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
                 t("orderRecap.quantity", { count: props.quantity })
               }
             </LineItemQuantity>
+            <LineItemSkuCode />
           </LineItemQty>
         </LineItemDescription>
       </LineItemWrapper>
