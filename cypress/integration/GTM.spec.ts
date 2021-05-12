@@ -83,13 +83,19 @@ describe("check Data Layers GTM", () => {
         [
           "@getShippingMethods",
           "@getOrderShipments",
+          "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
           "@updateOrder",
+          "@getCustomerAddresses",
         ],
         { timeout: 100000 }
       )
@@ -98,7 +104,6 @@ describe("check Data Layers GTM", () => {
     })
 
     it("check begin_checkout GTM", () => {
-      cy.wait(["@retrieveLineItems", "@retrieveLineItems"], { timeout: 100000 })
       cy.getDataLayer({ gtm: "begin_checkout" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 1)
         assert.equal(dataLayer[0].ecommerce.currency, "EUR")
@@ -119,12 +124,13 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("save-shipments-button").click()
       cy.wait(
         [
-          "@getShippingMethods",
           "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@availablePaymentMethods",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
@@ -136,6 +142,7 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@getOrders",
           "@updateOrder",
+          "@getCustomerAddresses",
         ],
         {
           timeout: 100000,
@@ -215,7 +222,8 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@updateOrder",
           "@getOrders",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getShippingMethods",
           "@availablePaymentMethods",
           "@getOrderShipments",
@@ -276,6 +284,8 @@ describe("check Data Layers GTM", () => {
           "@getOrderShipments",
           "@getOrders",
           "@updateOrder",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@retrieveLineItems",
           "@getOrderShipments",
@@ -353,6 +363,8 @@ describe("check Data Layers GTM", () => {
           "@getOrderShipments",
           "@getOrders",
           "@updateOrder",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@retrieveLineItems",
           "@getShippingMethods",
@@ -472,8 +484,11 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getCustomerAddresses",
           "@updateOrder",
+          "@getCustomerAddresses",
         ],
         { timeout: 100000 }
       )
@@ -513,15 +528,16 @@ describe("check Data Layers GTM", () => {
           "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrders",
-          "@getOrders",
+          "@retrieveLineItems",
           "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
         ],
         { timeout: 100000 }
       )
@@ -536,9 +552,16 @@ describe("check Data Layers GTM", () => {
       cy.wait(
         [
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
           "@retrieveLineItems",
           "@getShippingMethods",
           "@getOrderShipments",
+          "@updateOrder",
+          "@getCustomerAddresses",
         ],
         { timeout: 100000 }
       )

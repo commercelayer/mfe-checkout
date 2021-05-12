@@ -116,6 +116,9 @@ describe("Checkout Free Payment", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getCustomerAddresses",
         ],
         {
           timeout: 100000,
@@ -142,7 +145,7 @@ describe("Checkout Free Payment", () => {
 
     it("place order and redirect", () => {
       cy.dataCy("place-order-button").click({ force: true })
-      cy.dataCy("button-continue-to-shop").click()
+      cy.dataCy("button-continue-to-shop").click({ force: true })
       cy.wait(200)
       cy.url().should("eq", returnUrl)
     })
@@ -230,6 +233,9 @@ describe("Checkout Free Payment", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getCustomerAddresses",
         ],
         {
           timeout: 100000,

@@ -89,12 +89,26 @@ describe("Checkout entrypoint", () => {
           cy.newStubData(["getOrders1"], filename)
         }
 
-        cy.wait(["@getOrders", "@retrieveLineItems"], { timeout: 100000 })
-
-        cy.dataCy("test-summary").should(
-          "have.text",
-          "Your shopping cart contains 2 items"
+        cy.wait(
+          [
+            "@getShippingMethods",
+            "@getOrderShipments",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
+            "@updateOrder",
+          ],
+          {
+            timeout: 100000,
+          }
         )
+
+        cy.dataCy("test-summary").should("have.text", "Order summary")
       })
     })
   })

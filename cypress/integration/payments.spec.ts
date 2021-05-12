@@ -105,7 +105,10 @@ describe("Checkout Payments", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@updateOrder",
+          "@getCustomerAddresses",
           "@getCustomerAddresses",
         ],
         { timeout: 100000 }
@@ -144,11 +147,9 @@ describe("Checkout Payments", () => {
           "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -158,7 +159,7 @@ describe("Checkout Payments", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
+          "@getCustomerAddresses",
         ],
         { timeout: 100000 }
       )
@@ -239,11 +240,17 @@ describe("Checkout Payments", () => {
         [
           "@getShippingMethods",
           "@getOrderShipments",
+          "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
         ],
         { timeout: 100000 }
       )
@@ -280,8 +287,6 @@ describe("Checkout Payments", () => {
           "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",

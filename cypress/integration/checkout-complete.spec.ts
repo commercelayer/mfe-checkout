@@ -94,6 +94,12 @@ describe("Checkout Checkout Complete", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
         ],
         { timeout: 100000 }
       )
@@ -120,14 +126,20 @@ describe("Checkout Checkout Complete", () => {
 
       cy.wait(
         [
-          "@getOrders",
-          "@getOrders",
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
           "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getCustomerAddresses",
         ],
         { timeout: 100000 }
       )
@@ -142,10 +154,18 @@ describe("Checkout Checkout Complete", () => {
       cy.dataCy("place-order-button").click()
       cy.wait(
         [
-          "@getOrders",
-          "@retrieveLineItems",
           "@getShippingMethods",
+          "@getShipments",
           "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
         ],
         { timeout: 100000 }
       )

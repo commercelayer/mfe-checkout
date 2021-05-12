@@ -99,6 +99,8 @@ describe("Checkout Checkout-Digital", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@updateOrder",
         ],
         {
           timeout: 100000,

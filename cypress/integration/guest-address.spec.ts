@@ -49,12 +49,15 @@ describe("Checkout guest address", () => {
         [
           "@getShippingMethods",
           "@getOrderShipments",
+          "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@updateOrder",
         ],
         { timeout: 100000 }
       )
@@ -67,9 +70,17 @@ describe("Checkout guest address", () => {
         .type(`{selectall}{backspace}${emailCustomer}`)
         .blur({ force: true })
 
-      cy.wait(["@updateOrder", "@getOrders", "@retrieveLineItems"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@updateOrder",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.reload()
 
@@ -77,12 +88,15 @@ describe("Checkout guest address", () => {
         [
           "@getShippingMethods",
           "@getOrderShipments",
+          "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@updateOrder",
         ],
         { timeout: 100000 }
       )
@@ -109,12 +123,15 @@ describe("Checkout guest address", () => {
           "@getShippingMethods",
           "@getOrderShipments",
           "@getOrderShipments",
+          "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@updateOrder",
           "@updateOrder",
           "@createAddress",
         ],
@@ -178,6 +195,8 @@ describe("Checkout guest address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@updateOrder",
           "@updateOrder",
           "@createAddress",
           "@createAddress",
@@ -263,9 +282,12 @@ describe("Checkout guest address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@updateOrder",
         ],
         { timeout: 100000 }
       )
@@ -367,6 +389,8 @@ describe("Checkout guest address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@updateOrder",
         ],
         { timeout: 100000 }
       )
