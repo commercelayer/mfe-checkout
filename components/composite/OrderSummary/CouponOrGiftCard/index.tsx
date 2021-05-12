@@ -22,6 +22,7 @@ import {
 } from "./styled"
 
 import "twin.macro"
+import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
 
 export const CouponOrGiftCard: React.FC = () => {
   const { t } = useTranslation()
@@ -51,6 +52,15 @@ export const CouponOrGiftCard: React.FC = () => {
     ? "inline-block text-sm pt-3 border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500"
     : ""
 
+  const messages: ErrorComponentProps["messages"] = [
+    {
+      code: "VALIDATION_ERROR",
+      resource: "order",
+      field: "giftCardOrCouponCode",
+      message: t("input.mustBeValidCouponOrGiftCard"),
+    },
+  ]
+
   return (
     <>
       <GiftCardOrCouponForm onSubmit={handleSubmit}>
@@ -71,6 +81,7 @@ export const CouponOrGiftCard: React.FC = () => {
             className={classError}
             resource="order"
             field="giftCardOrCouponCode"
+            messages={messages}
           />
         </CouponFormWrapper>
       </GiftCardOrCouponForm>

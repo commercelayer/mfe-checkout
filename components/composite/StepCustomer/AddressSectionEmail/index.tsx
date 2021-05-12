@@ -34,7 +34,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
       code: "VALIDATION_ERROR",
       resource: "billingAddress",
       field: "email",
-      message: t("input.mustBeValid"),
+      message: t("input.mustBeValidEmail"),
     },
   ]
 

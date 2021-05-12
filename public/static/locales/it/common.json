@@ -17,7 +17,8 @@
 
     "input":{
         "cantBlank" : "Non può essere vuoto",
-        "mustBeValid":"Deve essere un indirizzo email valido"
+        "mustBeValidEmail":"Deve essere un indirizzo email valido",
+        "mustBeValidCouponOrGiftCard":"Non corrisponde ad alcuna carta regalo o coupon attivo"
     },
 
     "orderRecap": {

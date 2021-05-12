@@ -17,7 +17,8 @@
 
     "input":{
         "cantBlank" : "Can't be blank",
-        "mustBeValid":"Must be valid email"
+        "mustBeValidEmail":"Must be valid email",
+        "mustBeValidCouponOrGiftCard":"Doesn't match any active gift card or coupon"
     },
 
     "orderRecap": {
