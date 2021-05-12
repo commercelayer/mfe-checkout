@@ -89,6 +89,14 @@ export const CouponOrGiftCard: React.FC = () => {
                   onClick={refetchOrder}
                 />
               </span>
+              <GiftCardOrCouponCode type="coupon">
+                {(props) => {
+                  const { hide } = props
+                  return hide ? null : (
+                    <DiscountAmount data-cy="discount-amount" />
+                  )
+                }}
+              </GiftCardOrCouponCode>
             </CouponRecap>
           )
         }}
@@ -111,20 +119,16 @@ export const CouponOrGiftCard: React.FC = () => {
                   onClick={refetchOrder}
                 />
               </span>
+              <GiftCardOrCouponCode type="giftCard">
+                {(props) => {
+                  const { hide } = props
+                  return hide ? null : (
+                    <GiftCardAmount data-cy="giftcard-amount" />
+                  )
+                }}
+              </GiftCardOrCouponCode>
             </CouponRecap>
           )
-        }}
-      </GiftCardOrCouponCode>
-      <GiftCardOrCouponCode type="coupon">
-        {(props) => {
-          const { hide } = props
-          return hide ? null : <DiscountAmount data-cy="discount-amount" />
-        }}
-      </GiftCardOrCouponCode>
-      <GiftCardOrCouponCode type="giftCard">
-        {(props) => {
-          const { hide } = props
-          return hide ? null : <GiftCardAmount data-cy="giftcard-amount" />
         }}
       </GiftCardOrCouponCode>
     </>
