@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next"
 import "twin.macro"
 import { PaymentContainer } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
-import { PaymentWrapper } from "./styled"
+import { PaymentWrapper, StyledPaymentMethodRadioButton } from "./styled"
 
 interface Props {
   stripeKey: string
@@ -29,7 +29,7 @@ export const CheckoutPayment: React.FC<Props> = ({
         <PaymentWrapper>
           <div className="flex items-center">
             <div className="px-2">
-              <PaymentMethodRadioButton />
+              <StyledPaymentMethodRadioButton className="form-radio" />
             </div>
             <PaymentMethodName />
           </div>

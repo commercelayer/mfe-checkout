@@ -22,6 +22,7 @@ import {
   PaymentSourceContainer,
   PaymentDetailsWrapper,
   WalletCheckbox,
+  StyledPaymentMethodRadioButton,
 } from "./styled"
 
 interface Props {
@@ -69,7 +70,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
             <PaymentSummary>
               <PaymentSummaryItem>
                 <PaymentRadioContainer>
-                  <PaymentMethodRadioButton />
+                  <StyledPaymentMethodRadioButton className="form-radio" />
                 </PaymentRadioContainer>
                 <PaymentMethodName />
               </PaymentSummaryItem>
