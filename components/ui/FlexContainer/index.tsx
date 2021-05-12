@@ -1,8 +1,12 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
-export const FlexContainer: React.FC = ({ children }) => (
-  <Wrapper>{children}</Wrapper>
+interface Props {
+  className?: string
+}
+
+export const FlexContainer: React.FC<Props> = ({ children, className }) => (
+  <Wrapper className={className}>{children}</Wrapper>
 )
 
 const Wrapper = styled.div`

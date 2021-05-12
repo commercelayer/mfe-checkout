@@ -105,15 +105,15 @@ export const StepCustomer: React.FC<Props> = ({
           </Fragment>
         ) : (
           <div>
-            <FlexContainer>
+            <FlexContainer className="flex-col md:flex-row">
               {billingAddress && (
-                <div className="w-2/4">
+                <div className="w-full md:w-2/4">
                   <AddressSectionTitle>
                     {t(`addressForm.billed_to`)}
                   </AddressSectionTitle>
                   <Address
                     addresses={[billingAddress]}
-                    className="p-3 mr-4 border rounded shadow-sm"
+                    className="p-3 border rounded md:mr-4 shadow-sm"
                   >
                     <AddressField
                       tw="pl-1 font-bold"
@@ -132,7 +132,7 @@ export const StepCustomer: React.FC<Props> = ({
                 </div>
               )}
               {isShipmentRequired && shippingAddress && (
-                <div className="w-2/4">
+                <div className="w-full mt-4 md:w-2/4 md:mt-0">
                   <AddressSectionTitle>
                     {t(`addressForm.shipped_to`)}
                   </AddressSectionTitle>

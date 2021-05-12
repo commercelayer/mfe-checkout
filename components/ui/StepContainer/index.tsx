@@ -7,4 +7,7 @@ export const StepContainer: React.FC = ({ children }) => (
 
 const Container = styled.div`
   ${tw`flex flex-row items-stretch justify-start mb-10`}
+  &:nth-last-of-type(1) {
+    ${tw`mb-0`}
+  }
 `

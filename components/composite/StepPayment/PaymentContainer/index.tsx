@@ -43,7 +43,7 @@ export const PaymentContainer: React.FC<Props> = ({
           handleSubmit: handleSave,
           submitLabel: t("stepPayment.setPaymentMethod"),
           submitClassName:
-            "mt-5 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary",
+            "inline-flex items-center justify-center w-full p-3 text-xs font-extrabold text-white bg-primary border border-transparent rounded-md hover:opacity-80 disabled:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 md:w-48",
           containerClassName: "pt-1",
           submitContainerClassName: "flex justify-end",
         },
