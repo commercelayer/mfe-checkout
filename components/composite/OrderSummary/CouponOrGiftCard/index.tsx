@@ -75,63 +75,58 @@ export const CouponOrGiftCard: React.FC = () => {
         </CouponFormWrapper>
       </GiftCardOrCouponForm>
 
-      <CouponRecap>
-        <GiftCardOrCouponCode
-          type="coupon"
-          className="inline-flex items-center"
-        >
-          {(props) => {
-            const { hide, code, ...p } = props
-            return hide ? null : (
-              <>
-                <span data-cy="code-coupon" {...p}>
-                  <CouponName>{code}</CouponName>
-                  <StyledGiftCardOrCouponRemoveButton
-                    data-cy="remove_coupon"
-                    type="coupon"
-                    label="Remove"
-                    onClick={refetchOrder}
-                  />
-                </span>
-              </>
-            )
-          }}
-        </GiftCardOrCouponCode>
-        <GiftCardOrCouponCode
-          type="giftCard"
-          className="inline-flex items-center text-sm font-medium"
-        >
-          {(props) => {
-            const { hide, code, ...p } = props
-            return hide ? null : (
-              <>
-                <span data-cy="code-giftcard" {...p}>
-                  {code}
-                  <StyledGiftCardOrCouponRemoveButton
-                    data-cy="remove_giftcard"
-                    type="giftCard"
-                    className=""
-                    label="Remove"
-                    onClick={refetchOrder}
-                  />
-                </span>
-              </>
-            )
-          }}
-        </GiftCardOrCouponCode>
-        <GiftCardOrCouponCode type="coupon">
-          {(props) => {
-            const { hide } = props
-            return hide ? null : <DiscountAmount data-cy="discount-amount" />
-          }}
-        </GiftCardOrCouponCode>
-        <GiftCardOrCouponCode type="giftCard">
-          {(props) => {
-            const { hide } = props
-            return hide ? null : <GiftCardAmount data-cy="giftcard-amount" />
-          }}
-        </GiftCardOrCouponCode>
-      </CouponRecap>
+      <GiftCardOrCouponCode type="coupon" className="inline-flex items-center">
+        {(props) => {
+          const { hide, code, ...p } = props
+          return hide ? null : (
+            <CouponRecap>
+              <span data-cy="code-coupon" {...p}>
+                <CouponName>{code}</CouponName>
+                <StyledGiftCardOrCouponRemoveButton
+                  data-cy="remove_coupon"
+                  type="coupon"
+                  label="Remove"
+                  onClick={refetchOrder}
+                />
+              </span>
+            </CouponRecap>
+          )
+        }}
+      </GiftCardOrCouponCode>
+      <GiftCardOrCouponCode
+        type="giftCard"
+        className="inline-flex items-center text-sm font-medium"
+      >
+        {(props) => {
+          const { hide, code, ...p } = props
+          return hide ? null : (
+            <CouponRecap>
+              <span data-cy="code-giftcard" {...p}>
+                {code}
+                <StyledGiftCardOrCouponRemoveButton
+                  data-cy="remove_giftcard"
+                  type="giftCard"
+                  className=""
+                  label="Remove"
+                  onClick={refetchOrder}
+                />
+              </span>
+            </CouponRecap>
+          )
+        }}
+      </GiftCardOrCouponCode>
+      <GiftCardOrCouponCode type="coupon">
+        {(props) => {
+          const { hide } = props
+          return hide ? null : <DiscountAmount data-cy="discount-amount" />
+        }}
+      </GiftCardOrCouponCode>
+      <GiftCardOrCouponCode type="giftCard">
+        {(props) => {
+          const { hide } = props
+          return hide ? null : <GiftCardAmount data-cy="giftcard-amount" />
+        }}
+      </GiftCardOrCouponCode>
     </>
   )
 }
