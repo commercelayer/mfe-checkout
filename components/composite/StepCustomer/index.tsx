@@ -117,10 +117,7 @@ export const StepCustomer: React.FC<Props> = ({
                   <AddressSectionTitle>
                     {t(`addressForm.billed_to`)}
                   </AddressSectionTitle>
-                  <CustomerAddressCard
-                    addresses={[billingAddress]}
-                    className="p-3 border rounded shadow-sm"
-                  />
+                  <CustomerAddressCard addresses={[billingAddress]} />
                 </div>
               )}
               {isShipmentRequired && shippingAddress && (

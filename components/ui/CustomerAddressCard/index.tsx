@@ -1,13 +1,16 @@
+import { AddressCollection } from "@commercelayer/js-sdk"
 import { Address, AddressField } from "@commercelayer/react-components"
 
 interface AddressCardProps {
   addressType: "shipping" | "billing"
+  addresses: [AddressCollection]
   deselect: boolean
   onSelect: () => void
 }
 
 export const CustomerAddressCard: React.FC<AddressCardProps> = ({
   addressType,
+  addresses,
   deselect,
   onSelect,
 }) => {
@@ -18,6 +21,7 @@ export const CustomerAddressCard: React.FC<AddressCardProps> = ({
   return (
     <Address
       data-cy={dataCy}
+      addresses={addresses}
       className="p-3 border rounded cursor-pointer hover:border-primary shadow-sm"
       selectedClassName="border-primary"
       deselect={deselect}
