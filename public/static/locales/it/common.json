@@ -32,6 +32,7 @@
         "tax_amount": "Tasse",
         "shipping_amount": "Spedizione",
         "payment_method_amount": "Metodo di pagamento",
+        "subtotal_amount": "Subtotale",
         "total_amount": "Totale"
     },
 

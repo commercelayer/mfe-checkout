@@ -5,6 +5,9 @@ import {
   ShippingAmount,
   TotalAmount,
   PaymentMethodAmount,
+  SubTotalAmount,
+  DiscountAmount,
+  GiftCardAmount,
 } from "@commercelayer/react-components"
 import { useTranslation } from "react-i18next"
 import "twin.macro"
@@ -50,8 +53,12 @@ export const OrderSummary: React.FC = () => {
         <AmountWrapper>
           <CouponOrGiftCard />
           <RecapLine>
-            <RecapLineItem>{t("orderRecap.tax_amount")}</RecapLineItem>
-            <TaxesAmount />
+            <RecapLineItem>{t("orderRecap.subtotal_amount")}</RecapLineItem>
+            <SubTotalAmount />
+          </RecapLine>
+          <RecapLine>
+            <RecapLineItem>{t("orderRecap.discount_amount")}</RecapLineItem>
+            <DiscountAmount />
           </RecapLine>
           <RecapLine>
             <RecapLineItem>{t("orderRecap.shipping_amount")}</RecapLineItem>
@@ -62,6 +69,14 @@ export const OrderSummary: React.FC = () => {
               {t("orderRecap.payment_method_amount")}
             </RecapLineItem>
             <PaymentMethodAmount />
+          </RecapLine>
+          <RecapLine>
+            <RecapLineItem>{t("orderRecap.tax_amount")}</RecapLineItem>
+            <TaxesAmount />
+          </RecapLine>
+          <RecapLine>
+            <RecapLineItem>{t("orderRecap.giftcard_amount")}</RecapLineItem>
+            <GiftCardAmount />
           </RecapLine>
           <RecapLineTotal>
             <RecapLineItemTotal>

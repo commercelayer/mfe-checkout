@@ -1,8 +1,5 @@
 import {
   GiftCardOrCouponCode,
-  GiftCardOrCouponRemoveButton,
-  DiscountAmount,
-  GiftCardAmount,
   GiftCardOrCouponInput,
   GiftCardOrCouponSubmit,
   Errors,
@@ -100,14 +97,6 @@ export const CouponOrGiftCard: React.FC = () => {
                   onClick={refetchOrder}
                 />
               </span>
-              <GiftCardOrCouponCode type="coupon">
-                {(props) => {
-                  const { hide } = props
-                  return hide ? null : (
-                    <DiscountAmount data-cy="discount-amount" />
-                  )
-                }}
-              </GiftCardOrCouponCode>
             </CouponRecap>
           )
         }}
@@ -130,14 +119,6 @@ export const CouponOrGiftCard: React.FC = () => {
                   onClick={refetchOrder}
                 />
               </span>
-              <GiftCardOrCouponCode type="giftCard">
-                {(props) => {
-                  const { hide } = props
-                  return hide ? null : (
-                    <GiftCardAmount data-cy="giftcard-amount" />
-                  )
-                }}
-              </GiftCardOrCouponCode>
             </CouponRecap>
           )
         }}
