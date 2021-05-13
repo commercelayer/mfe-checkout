@@ -80,9 +80,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     language: order.languageCode,
     primaryColor: organization?.primaryColor || "#000000",
     contrastColor: organization?.contrastColor || "#ffffff",
-    favicon:
-      organization?.faviconUrl ||
-      "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
+    favicon: "/favicon.png",
     gtmId: organization?.gtmId || "GTM-TGCQ5BM",
     supportEmail: "test@extendi.it",
     supportPhone: "+39 111 222 3333",
