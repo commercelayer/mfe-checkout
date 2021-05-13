@@ -117,7 +117,10 @@ export const StepCustomer: React.FC<Props> = ({
                   <AddressSectionTitle>
                     {t(`addressForm.billed_to`)}
                   </AddressSectionTitle>
-                  <CustomerAddressCard addresses={[billingAddress]} />
+                  <CustomerAddressCard
+                    deselect={true}
+                    addresses={[billingAddress]}
+                  />
                 </div>
               )}
               {isShipmentRequired && shippingAddress && (
@@ -125,7 +128,10 @@ export const StepCustomer: React.FC<Props> = ({
                   <AddressSectionTitle>
                     {t(`addressForm.shipped_to`)}
                   </AddressSectionTitle>
-                  <CustomerAddressCard addresses={[shippingAddress]} />
+                  <CustomerAddressCard
+                    deselect={true}
+                    addresses={[shippingAddress]}
+                  />
                 </div>
               )}
             </GridContainer>
