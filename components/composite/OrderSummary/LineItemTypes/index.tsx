@@ -22,7 +22,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
     <LineItem type={type}>
       <LineItemWrapper>
         <LineItemImage
-          width={75}
+          width={85}
           className="self-start p-1 bg-white border rounded"
         />
         <LineItemDescription>
@@ -49,7 +49,7 @@ const LineItemWrapper = styled.div`
   ${tw`flex flex-row mb-7 pb-6 border-b`}
 `
 const LineItemDescription = styled.div`
-  ${tw`pl-4 flex flex-col flex-1`}
+  ${tw`pl-8 flex flex-col flex-1`}
 `
 const LineItemTitle = styled.div`
   ${tw`flex justify-between`}
