@@ -12,7 +12,8 @@
         "delete": "Elimina",
         "done": "Fatto",
         "free" : "Gratis",
-        "complete": "Completo"
+        "complete": "Completo",
+        "apply": "Applica"
     },
 
     "input":{
@@ -25,6 +26,7 @@
         "order_summary": "Riepilogo ordine",
         "cartContains": "Il tuo carrello contiene {{count}} articolo",
         "cartContains_plural": "Il tuo carrello contiene {{count}} articoli",
+        "couponCode": "Codice coupon",
         "quantity": "Quantità: {{count}}",
         "quantity_plural": "Quantità: {{count}}",
         "discount_amount": "Sconto",
@@ -50,6 +52,9 @@
     "stepShipping": {
         "title": "Consegna",
         "summary": "Riepilogo della spedizione e modalità di consegna",
+        "shipment": "Spedizione #<0/>",
+        "notAvaible": "Non sono disponibili metodi di spedizione",
+        "stockTransfer": "<0/> di <1/> articoli verranno trasferiti",
         "methodSelected": "Metodo di spedizione selezionato",
         "methodUnselected": "Metodo di spedizione da selezionare",
         "addShippingMethod": "Aggiungi i dati del cliente prima della spedizione",

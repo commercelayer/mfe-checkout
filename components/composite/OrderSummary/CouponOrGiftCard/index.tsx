@@ -5,6 +5,7 @@ import {
   Errors,
   GiftCardOrCouponForm,
 } from "@commercelayer/react-components"
+import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
 import { useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -19,7 +20,6 @@ import {
 } from "./styled"
 
 import "twin.macro"
-import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
 
 export const CouponOrGiftCard: React.FC = () => {
   const { t } = useTranslation()
@@ -66,11 +66,11 @@ export const CouponOrGiftCard: React.FC = () => {
             <GiftCardOrCouponInput
               data-cy="input_giftcard_coupon"
               className={`${classError} form-input block w-full rounded-none rounded-l-md text-sm border-gray-400 border p-3 transition duration-500 ease-in-out focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary-light focus:ring-opacity-50`}
-              placeholder="Coupon code"
+              placeholder={t("orderRecap.couponCode")}
             />
             <GiftCardOrCouponSubmit
               data-cy="submit_giftcard_coupon"
-              label="Apply"
+              label={t("general.apply")}
               className={`w-auto -ml-px relative inline-flex items-center space-x-2 px-8 py-3 text-xs font-extrabold text-white bg-primary border border-transparent rounded-r-md hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50`}
             />
           </CouponFieldWrapper>

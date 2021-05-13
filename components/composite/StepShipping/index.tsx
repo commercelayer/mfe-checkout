@@ -8,7 +8,6 @@ import {
   LineItemQuantity,
   ShippingMethodName,
   ShippingMethod,
-  ShippingMethodRadioButton,
   ShippingMethodPrice,
   LineItemsContainer,
   StockTransfer,
@@ -139,9 +138,11 @@ export const StepShipping: React.FC<Props> = ({
                 <Shipment>
                   <ShippingWrapper>
                     <ShippingTitle>
-                      Shipment #<ShipmentField name="keyNumber" />
+                      <Trans t={t} i18nKey="stepShipping.shipment">
+                        <ShipmentField name="keyNumber" />
+                      </Trans>
                     </ShippingTitle>
-                    <ShippingMethod>
+                    <ShippingMethod emptyText={t("stepShipping.notAvaible")}>
                       <ShippingSummary>
                         <StyledShippingMethodRadioButton
                           className="form-radio"
@@ -191,12 +192,18 @@ export const StepShipping: React.FC<Props> = ({
                               <LineItemName data-cy="line-item-name" />
                             </ShippingLineItemTitle>
                             <ShippingLineItemQty>
-                              Quantity:{" "}
                               <LineItemQuantity
                                 readonly
                                 data-cy="line-item-quantity"
                                 max={100}
-                              />
+                              >
+                                {(props) =>
+                                  !!props.quantity &&
+                                  t("orderRecap.quantity", {
+                                    count: props.quantity,
+                                  })
+                                }
+                              </LineItemQuantity>
                             </ShippingLineItemQty>
                           </ShippingLineItemDescription>
                         </ShippingLineItem>
@@ -206,12 +213,13 @@ export const StepShipping: React.FC<Props> = ({
                               className="flex flex-row"
                               data-cy="stock-transfer"
                             >
-                              <StockTransferField
-                                className="px-1"
-                                type="quantity"
-                              />{" "}
-                              of <LineItemQuantity readonly className="px-1" />
-                              items will undergo a transfer
+                              <Trans t={t} i18nKey="stepShipping.stockTransfer">
+                                <StockTransferField
+                                  className="px-1"
+                                  type="quantity"
+                                />
+                                <LineItemQuantity readonly className="px-1" />
+                              </Trans>
                             </div>
                           </StockTransfer>
                         </div>

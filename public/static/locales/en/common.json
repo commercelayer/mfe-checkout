@@ -12,7 +12,8 @@
         "delete": "Delete",
         "done": "Done",
         "free" : "Free",
-        "complete": "Complete"
+        "complete": "Complete",
+        "apply": "Apply"
     },
 
     "input":{
@@ -25,6 +26,7 @@
         "order_summary": "Order summary",
         "cartContains": "Your shopping cart contains {{count}} item",
         "cartContains_plural": "Your shopping cart contains {{count}} items",
+        "couponCode": "Coupon code",
         "quantity": "Quantity: {{count}}",
         "quantity_plural": "Quantities: {{count}}",
         "discount_amount": "Discount",
@@ -50,6 +52,9 @@
     "stepShipping": {
         "title": "Delivery",
         "summary": "Shipment summary and delivery methods",
+        "shipment": "Shimpment #<0/>",
+        "notAvaible": "There are not any shipping method available",
+        "stockTransfer": "<0/> of <1/> items will undergo a transfer",
         "methodSelected": "You have a shipping method set",
         "methodUnselected": "Shipping method to select",
         "addShippingMethod": "Add customer data before shipping",
