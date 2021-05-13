@@ -279,7 +279,9 @@ export const fetchOrderById = async ({
       (a: ShipmentSelected) => a.shippingMethodId
     )
 
-    let hasShippingMethod = Boolean(!shippingMethods?.includes(undefined))
+    let hasShippingMethod = Boolean(
+      shippingMethods?.length && !shippingMethods?.includes(undefined)
+    )
 
     // If billing and shipping addresses are set, we have only
     // a shipping method per shipment, we set it to all shipments.

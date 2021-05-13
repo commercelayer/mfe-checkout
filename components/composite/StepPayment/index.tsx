@@ -75,13 +75,15 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
       <StepContent>
         <StepHeader
           stepNumber={3}
-          status={isActive ? "edit" : "done"}
+          status={isActive ? "edit" : hasPaymentMethod ? "done" : "disabled"}
           label={t("stepPayment.title")}
           info={
             isPaymentRequired
               ? isActive
                 ? t("stepPayment.summary")
-                : t("stepPayment.methodSelected")
+                : hasPaymentMethod
+                ? t("stepPayment.methodNotSelected")
+                : t("stepPayment.methodUnselected")
               : t("stepPayment.notRequired")
           }
           onEditRequest={() => {
@@ -107,7 +109,7 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
                   <ButtonWrapper>
                     <Button
                       disabled={!canContinue}
-                      data-cy="save-shipments-button"
+                      data-cy="save-payment-button"
                       onClick={handleSave}
                     >
                       {t("general.save")}
@@ -115,36 +117,36 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
                   </ButtonWrapper>
                 )}
               </>
-            ) : hasPaymentMethod ? (
-              <>
-                <StepSummary>
-                  <StepSummaryItem data-cy="payment-method-selected">
-                    {paymentMethod?.name}
-                  </StepSummaryItem>
-                  <StepSummaryItemValue data-cy="payment-method-price-selected">
-                    {paymentMethod?.formattedPriceAmount}
-                  </StepSummaryItemValue>
-                </StepSummary>
-                <PlaceOrderContainer
-                  options={{
-                    stripePayment: {
-                      publishableKey: stripeKey,
-                    },
-                    savePaymentSourceToCustomerWallet: !isGuest,
-                  }}
-                >
-                  <ButtonWrapper>
-                    <StyledPlaceOrderButton
-                      data-cy="place-order-button"
-                      onClick={handlePlaceOrder}
-                      label={t("stepPayment.submit")}
-                      className="mt-8"
-                    />
-                  </ButtonWrapper>
-                </PlaceOrderContainer>
-              </>
             ) : (
-              <div>{t("stepPayment.methodUnselected")}</div>
+              hasPaymentMethod && (
+                <>
+                  <StepSummary>
+                    <StepSummaryItem data-cy="payment-method-selected">
+                      {paymentMethod?.name}
+                    </StepSummaryItem>
+                    <StepSummaryItemValue data-cy="payment-method-price-selected">
+                      {paymentMethod?.formattedPriceAmount}
+                    </StepSummaryItemValue>
+                  </StepSummary>
+                  <PlaceOrderContainer
+                    options={{
+                      stripePayment: {
+                        publishableKey: stripeKey,
+                      },
+                      savePaymentSourceToCustomerWallet: !isGuest,
+                    }}
+                  >
+                    <ButtonWrapper>
+                      <StyledPlaceOrderButton
+                        data-cy="place-order-button"
+                        onClick={handlePlaceOrder}
+                        label={t("stepPayment.submit")}
+                        className="mt-8"
+                      />
+                    </ButtonWrapper>
+                  </PlaceOrderContainer>
+                </>
+              )
             )}
           </div>
         ) : (

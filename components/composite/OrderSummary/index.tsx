@@ -58,7 +58,7 @@ export const OrderSummary: React.FC = () => {
           </RecapLine>
           <RecapLine>
             <RecapLineItem>{t("orderRecap.discount_amount")}</RecapLineItem>
-            <DiscountAmount />
+            <DiscountAmount data-cy="discount-amount" />
           </RecapLine>
           <RecapLine>
             <RecapLineItem>{t("orderRecap.shipping_amount")}</RecapLineItem>
@@ -76,7 +76,7 @@ export const OrderSummary: React.FC = () => {
           </RecapLine>
           <RecapLine>
             <RecapLineItem>{t("orderRecap.giftcard_amount")}</RecapLineItem>
-            <GiftCardAmount />
+            <GiftCardAmount data-cy="giftcard-amount" />
           </RecapLine>
           <RecapLineTotal>
             <RecapLineItemTotal>

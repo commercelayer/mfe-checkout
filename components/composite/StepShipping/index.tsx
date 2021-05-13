@@ -118,13 +118,15 @@ export const StepShipping: React.FC<Props> = ({
       <StepContent>
         <StepHeader
           stepNumber={2}
-          status={isActive ? "edit" : "done"}
+          status={isActive ? "edit" : hasShippingMethod ? "done" : "disabled"}
           label={t("stepShipping.title")}
           info={
             isShipmentRequired
               ? isActive
                 ? t("stepShipping.summary")
-                : t("stepShipping.methodSelected")
+                : hasShippingMethod
+                ? t("stepShipping.methodSelected")
+                : t("stepShipping.methodUnselected")
               : t("stepShipping.notRequired")
           }
           onEditRequest={() => {
@@ -238,31 +240,37 @@ export const StepShipping: React.FC<Props> = ({
                   </Button>
                 </ButtonWrapper>
               </ShipmentsContainer>
-            ) : hasShippingMethod ? (
-              <ShipmentsContainer>
-                <Shipment>
-                  <ShippingMethod readonly>
-                    <StepSummary>
-                      <StepSummaryItem>
-                        <ShippingMethodName data-cy="shipping-method-name-recap" />
-                        <StepSummaryItemDescription>
-                          <Trans t={t} i18nKey="stepShipping.deliveryLeadTime">
-                            <DeliveryLeadTime type="minDays" />
-                            <DeliveryLeadTime type="maxDays" className="mr-1" />
-                          </Trans>
-                        </StepSummaryItemDescription>
-                      </StepSummaryItem>
-                      <StepSummaryItemValue>
-                        <ShippingMethodPrice
-                          labelFreeOver={t("general.free")}
-                        />
-                      </StepSummaryItemValue>
-                    </StepSummary>
-                  </ShippingMethod>
-                </Shipment>
-              </ShipmentsContainer>
             ) : (
-              <div>{t("stepShipping.methodUnselected")}</div>
+              hasShippingMethod && (
+                <ShipmentsContainer>
+                  <Shipment>
+                    <ShippingMethod readonly>
+                      <StepSummary>
+                        <StepSummaryItem>
+                          <ShippingMethodName data-cy="shipping-method-name-recap" />
+                          <StepSummaryItemDescription>
+                            <Trans
+                              t={t}
+                              i18nKey="stepShipping.deliveryLeadTime"
+                            >
+                              <DeliveryLeadTime type="minDays" />
+                              <DeliveryLeadTime
+                                type="maxDays"
+                                className="mr-1"
+                              />
+                            </Trans>
+                          </StepSummaryItemDescription>
+                        </StepSummaryItem>
+                        <StepSummaryItemValue>
+                          <ShippingMethodPrice
+                            labelFreeOver={t("general.free")}
+                          />
+                        </StepSummaryItemValue>
+                      </StepSummary>
+                    </ShippingMethod>
+                  </Shipment>
+                </ShipmentsContainer>
+              )
             )}
           </div>
         )}
