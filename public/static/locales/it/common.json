@@ -26,12 +26,13 @@
         "cartContains": "Il tuo carrello contiene {{count}} articolo",
         "cartContains_plural": "Il tuo carrello contiene {{count}} articoli",
         "quantity": "Quantità: {{count}}",
-        "quantity_plural": "Quantità:",
+        "quantity_plural": "Quantità: {{count}}",
         "discount_amount": "Sconto",
         "giftcard_amount": "Gift card",
         "tax_amount": "Tasse",
         "shipping_amount": "Spedizione",
         "payment_method_amount": "Metodo di pagamento",
+        "subtotal_amount": "Subtotale",
         "total_amount": "Totale"
     },
 

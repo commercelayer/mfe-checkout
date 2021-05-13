@@ -6,5 +6,5 @@ export const AddressSectionTitle: React.FC = ({ children }) => {
 }
 
 const Wrapper = styled.h3`
-  ${tw`mb-2 font-normal text-sm leading-6`}
+  ${tw`mt-2 mb-2 font-normal text-sm`}
 `

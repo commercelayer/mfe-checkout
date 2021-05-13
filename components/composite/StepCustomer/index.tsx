@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next"
 import "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
-import { FlexContainer } from "components/ui/FlexContainer"
+import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
+import { GridContainer } from "components/ui/GridContainer"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
@@ -105,39 +106,25 @@ export const StepCustomer: React.FC<Props> = ({
             )}
           </Fragment>
         ) : (
-          <div>
+          <>
             <AddressSectionEmail
               isGuest={isGuest}
               emailAddress={emailAddress}
             />
-            <FlexContainer className="flex-col md:flex-row">
+            <GridContainer>
               {billingAddress && (
-                <div className="w-full md:w-2/4">
+                <div className="w-full">
                   <AddressSectionTitle>
                     {t(`addressForm.billed_to`)}
                   </AddressSectionTitle>
-                  <Address
+                  <CustomerAddressCard
                     addresses={[billingAddress]}
-                    className="p-3 border rounded md:mr-4 shadow-sm"
-                  >
-                    <AddressField
-                      tw="pl-1 font-bold"
-                      name="full_name"
-                      data-cy="fullname_billing"
-                      className="flex font-bold text-md"
-                    />
-
-                    <AddressField
-                      tw="pl-1"
-                      name="full_address"
-                      data-cy="full_address_billing"
-                      className="text-sm text-gray-600"
-                    />
-                  </Address>
+                    className="p-3 border rounded shadow-sm"
+                  />
                 </div>
               )}
               {isShipmentRequired && shippingAddress && (
-                <div className="w-full mt-4 md:w-2/4 md:mt-0">
+                <div className="w-full">
                   <AddressSectionTitle>
                     {t(`addressForm.shipped_to`)}
                   </AddressSectionTitle>
@@ -161,12 +148,12 @@ export const StepCustomer: React.FC<Props> = ({
                   </Address>
                 </div>
               )}
-            </FlexContainer>
+            </GridContainer>
 
             {!hasShippingAddress && !hasBillingAddress ? (
               <div>No Billing / Shipping Address set</div>
             ) : null}
-          </div>
+          </>
         )}
       </StepContent>
     </StepContainer>

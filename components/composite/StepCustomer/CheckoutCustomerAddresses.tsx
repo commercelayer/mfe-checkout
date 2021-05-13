@@ -6,8 +6,6 @@ import {
   ShippingAddressForm,
   CustomerContainer,
   BillingAddressContainer,
-  Address,
-  AddressField,
   ShippingAddressContainer,
 } from "@commercelayer/react-components"
 import { useState, Fragment, useEffect } from "react"
@@ -17,7 +15,8 @@ import styled from "styled-components"
 import "twin.macro"
 import { AddButton } from "components/ui/AddButton"
 import { ButtonCss } from "components/ui/Button"
-import { FlexContainer } from "components/ui/FlexContainer"
+import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
+import { GridContainer } from "components/ui/GridContainer"
 import { Toggle } from "components/ui/Toggle"
 
 import { AddressButtonAddNew } from "./AddressButtonAddNew"
@@ -80,6 +79,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
   useEffect(() => {
     if (shipToDifferentAddress && !hasCustomerAddresses) {
+      1
       setShippingAddressFill(null)
       setShowShippingAddressForm(true)
     }
@@ -110,28 +110,30 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
       <AddressSectionEmail isGuest={isGuest} emailAddress={emailAddress} />
       <CustomerContainer>
         <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
-          <AddressSectionTitle>
-            {t(`addressForm.billing_address_title`)}
-          </AddressSectionTitle>
-          <FlexContainer>
-            <BillingAddressContainer>
-              <AddressCardComponent
-                addressType="billing"
-                deselect={showBillingAddressForm}
-                onSelect={() =>
-                  showBillingAddressForm && setShowBillingAddressForm(false)
-                }
-              />
-            </BillingAddressContainer>
-            <>
-              {!showBillingAddressForm && hasCustomerAddresses && (
-                <AddButton
-                  dataCy="add_new_billing_address"
-                  action={handleShowBillingForm}
+          <div className="mt-4">
+            <AddressSectionTitle>
+              {t(`addressForm.billing_address_title`)}
+            </AddressSectionTitle>
+            <GridContainer>
+              <BillingAddressContainer>
+                <CustomerAddressCard
+                  addressType="billing"
+                  deselect={showBillingAddressForm}
+                  onSelect={() =>
+                    showBillingAddressForm && setShowBillingAddressForm(false)
+                  }
                 />
-              )}
-            </>
-          </FlexContainer>
+              </BillingAddressContainer>
+              <>
+                {!showBillingAddressForm && hasCustomerAddresses && (
+                  <AddButton
+                    dataCy="add_new_billing_address"
+                    action={handleShowBillingForm}
+                  />
+                )}
+              </>
+            </GridContainer>
+          </div>
           <div
             className={
               showBillingAddressForm || !hasCustomerAddresses ? "" : "hidden"
@@ -170,8 +172,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   <AddressSectionTitle>
                     {t(`addressForm.shipping_address_title`)}
                   </AddressSectionTitle>
-                  <FlexContainer>
-                    <AddressCardComponent
+                  <GridContainer className="mb-6">
+                    <CustomerAddressCard
                       addressType="shipping"
                       deselect={showShippingAddressForm}
                       onSelect={() =>
@@ -186,7 +188,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                         action={handleShowShippingForm}
                       />
                     )}
-                  </FlexContainer>
+                  </GridContainer>
                 </ShippingAddressContainer>
               </div>
 
@@ -243,90 +245,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     </Fragment>
   )
 }
-
-interface AddressCardProps {
-  addressType: "shipping" | "billing"
-  deselect: boolean
-  onSelect: () => void
-}
-
-const AddressCardComponent: React.FC<AddressCardProps> = ({
-  addressType,
-  deselect,
-  onSelect,
-}) => {
-  const dataCy =
-    addressType === "billing"
-      ? "customer-billing-address"
-      : "customer-shipping-address"
-  return (
-    <Address
-      data-cy={dataCy}
-      className="w-1/3 p-3 mr-4 border rounded cursor-pointer hover:border-primary shadow-sm"
-      selectedClassName="border-primary"
-      deselect={deselect}
-      onSelect={onSelect}
-      disabledClassName="opacity-50 cursor-not-allowed"
-    >
-      <div tw="flex font-bold text-md">
-        <AddressField name="first_name" />
-        <AddressField name="last_name" tw="ml-1" />
-      </div>
-      <div tw="text-sm text-gray-600">
-        <AddressField name="full_address" />
-        {/* <AddressField>
-          {({ address }) => (
-            <CustomAddress
-              firstName={address.firstName}
-              lastName={address.lastName}
-              city={address.city}
-              line1={address.line1}
-              line2={address.line2}
-              zipCode={address.zipCode}
-              stateCode={address.stateCode}
-              countryCode={address.countryCode}
-              phone={address.phone}
-            />
-          )}
-        </AddressField> */}
-      </div>
-    </Address>
-  )
-}
-
-interface AddressProps {
-  firstName: string
-  lastName: string
-  city: string
-  line1: string
-  line2: string
-  zipCode: string
-  stateCode: string
-  countryCode: string
-  phone: string
-}
-
-const CustomAddress = ({
-  firstName,
-  lastName,
-  city,
-  line1,
-  line2,
-  zipCode,
-  stateCode,
-  countryCode,
-  phone,
-}: AddressProps) => (
-  <div>
-    {firstName} {lastName}
-    <br />
-    {[line1, line2].join(", ")} {zipCode}
-    <br />
-    {city}, {stateCode} ({countryCode})
-    <br />
-    {phone}
-  </div>
-)
 
 const StyledSaveAddressesButton = styled(SaveAddressesButton)`
   ${ButtonCss}
