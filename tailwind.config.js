@@ -35,6 +35,7 @@ module.exports = {
       fontSize: {
         md: "0.938rem",
         ss: "0.813rem",
+        xxs: "0.75rem",
       },
       flex: {
         '75': '0 0 75px',

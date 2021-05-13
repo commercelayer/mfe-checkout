@@ -26,6 +26,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
           className="self-start p-1 bg-white border rounded"
         />
         <LineItemDescription>
+          <StyledLineItemSkuCode />
           <LineItemTitle>
             <LineItemName className="font-bold" />
             <LineItemAmount className="text-lg font-extrabold" />
@@ -37,7 +38,6 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
                 t("orderRecap.quantity", { count: props.quantity })
               }
             </LineItemQuantity>
-            <LineItemSkuCode />
           </LineItemQty>
         </LineItemDescription>
       </LineItemWrapper>
@@ -56,4 +56,7 @@ const LineItemTitle = styled.div`
 `
 const LineItemQty = styled.div`
   ${tw`text-xs uppercase mt-1 text-gray-400`}
+`
+const StyledLineItemSkuCode = styled(LineItemSkuCode)`
+  ${tw`text-xxs uppercase text-gray-500 font-bold`}
 `
