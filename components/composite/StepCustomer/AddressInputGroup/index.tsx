@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 
 import { AppContext } from "components/data/AppProvider"
+import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
 
@@ -105,14 +106,12 @@ export const AddressInputGroup: React.FC<Props> = ({
           )}
         </div>
       </Wrapper>
-      <p tw="mt-2 text-sm text-red-600" id="email-error">
-        <Errors
-          data-cy={`error_${fieldName}`}
-          resource={resource}
-          field={fieldName}
-          messages={messages}
-        />
-      </p>
+      <StyledErrors
+        data-cy={`error_${fieldName}`}
+        resource={resource}
+        field={fieldName}
+        messages={messages}
+      />
     </div>
   )
 }
@@ -124,7 +123,9 @@ const Wrapper = styled.div`
 const StyledAddressInput = styled(AddressInput)`
   ${InputCss}
 `
-
 const StyledAddressCountrySelector = styled(AddressCountrySelector)`
   ${InputCss}
+`
+const StyledErrors = styled(Errors)`
+  ${ErrorCss}
 `
