@@ -14,10 +14,14 @@ const Invalid: NextPage = () => {
 
   useEffect(() => {
     if (window) {
-      const humanizeHostname = titleize(
-        humanizeString(window.location.hostname)
-      )
-      setTitle(humanizeHostname)
+      try {
+        const humanizeHostname = titleize(
+          humanizeString(window.location.hostname.split(".")[0])
+        )
+        setTitle(humanizeHostname)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }, [])
 
