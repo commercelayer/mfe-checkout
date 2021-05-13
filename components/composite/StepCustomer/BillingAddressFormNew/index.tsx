@@ -77,5 +77,5 @@ const Wrapper = styled.div`
 `
 
 const Grid = styled.div`
-  ${tw`grid grid-cols-2 gap-4`}
+  ${tw`grid md:grid-cols-2 md:gap-4`}
 `
