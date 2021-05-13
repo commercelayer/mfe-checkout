@@ -70,11 +70,11 @@ const Body = styled.div`
 `
 
 const Top = styled.div`
-  ${tw`flex items-center mb-1.5`}
+  ${tw`flex items-start mb-1.5`}
 `
 
 const Edit = styled.div`
-  ${tw`ml-2`}
+  ${tw`ml-2 flex self-end`}
 `
 
 const EditButton = styled.button`

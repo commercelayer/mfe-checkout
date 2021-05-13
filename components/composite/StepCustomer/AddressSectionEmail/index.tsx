@@ -11,6 +11,7 @@ import tw from "twin.macro"
 
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
+import { GridContainer } from "components/ui/GridContainer"
 
 interface Props {
   isGuest: boolean
@@ -40,13 +41,13 @@ export const AddressSectionEmail: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      <div className="relative h-10">
-        {!isGuest ? (
-          <ReadOnlyEmail data-cy="current-customer-email">
-            {emailAddress}
-          </ReadOnlyEmail>
-        ) : (
-          <Fragment>
+      <GridContainer>
+        <div className="relative">
+          {!isGuest ? (
+            <ReadOnlyEmail data-cy="current-customer-email">
+              {emailAddress}
+            </ReadOnlyEmail>
+          ) : (
             <CustomerContainer isGuest>
               <StyledCustomInput
                 data-cy="customer_email"
@@ -63,25 +64,25 @@ export const AddressSectionEmail: React.FC<Props> = ({
                 messages={messages}
               />
             </CustomerContainer>
-          </Fragment>
-        )}
-        <Label htmlFor="customer_email">
-          {t("addressForm.customer_email")}
-        </Label>
-      </div>
+          )}
+          <Label htmlFor="customer_email">
+            {t("addressForm.customer_email")}
+          </Label>
+        </div>
+      </GridContainer>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
-  ${tw`mb-2`}
+  ${tw`mt-6 mb-2`}
 `
 const ReadOnlyEmail = styled.div`
   ${InputCss}
-  ${tw`w-auto inline-block bg-gray-50`}
+  ${tw`w-full inline-block bg-gray-50`}
 `
 
 const StyledCustomInput = styled(CustomerInput)`
   ${InputCss}
-  ${tw`w-1/2 inline-block`}
+  ${tw`w-full inline-block`}
 `
