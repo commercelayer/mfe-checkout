@@ -10,6 +10,7 @@ import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { StepLine } from "components/ui/StepLine"
 
+import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionTitle } from "./AddressSectionTitle"
 import { CheckoutAddresses } from "./CheckoutAddresses"
 import { CheckoutCustomerAddresses } from "./CheckoutCustomerAddresses"
@@ -105,6 +106,10 @@ export const StepCustomer: React.FC<Props> = ({
           </Fragment>
         ) : (
           <div>
+            <AddressSectionEmail
+              isGuest={isGuest}
+              emailAddress={emailAddress}
+            />
             <FlexContainer className="flex-col md:flex-row">
               {billingAddress && (
                 <div className="w-full md:w-2/4">
