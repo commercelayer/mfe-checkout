@@ -10,9 +10,12 @@ interface UseSettingsOrInvalid {
 
 export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const router = useRouter()
+  const { orderId, accessToken } = router.query
 
   const { data, error } = useSWR(
-    router.isReady ? `/api/settings${router.asPath}` : null,
+    router.isReady
+      ? `/api/settings?accessToken=${accessToken}&orderId=${orderId}`
+      : null,
     fetcher
   )
 
