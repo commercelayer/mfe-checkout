@@ -125,24 +125,7 @@ export const StepCustomer: React.FC<Props> = ({
                   <AddressSectionTitle>
                     {t(`addressForm.shipped_to`)}
                   </AddressSectionTitle>
-                  <Address
-                    addresses={[shippingAddress]}
-                    className="p-3 border rounded shadow-sm"
-                  >
-                    <AddressField
-                      tw="pl-1 font-bold"
-                      name="full_name"
-                      data-cy="fullname_shipping"
-                      className="flex font-bold text-md"
-                    />
-
-                    <AddressField
-                      tw="pl-1"
-                      name="full_address"
-                      data-cy="full_address_shipping"
-                      className="text-sm text-gray-600"
-                    />
-                  </Address>
+                  <CustomerAddressCard addresses={[shippingAddress]} />
                 </div>
               )}
             </GridContainer>
