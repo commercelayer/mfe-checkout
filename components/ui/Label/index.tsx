@@ -17,4 +17,7 @@ export const Label: React.FC<Props> = ({ dataCy, htmlFor, textLabel }) => {
 
 const Wrapper = styled.label`
   ${tw`ml-2 cursor-pointer text-sm text-gray-600`}
+  &.hasError {
+    ${tw`text-red-400`}
+  }
 `

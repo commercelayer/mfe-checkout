@@ -15,6 +15,7 @@ import {
 import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
+import tw from "twin.macro"
 
 import { AppContext } from "components/data/AppProvider"
 import { ErrorCss } from "components/ui/form/Error"
@@ -122,7 +123,11 @@ const Wrapper = styled.div`
 
 const StyledAddressInput = styled(AddressInput)`
   ${InputCss}
+  &.hasError {
+    ${tw`border-red-400 border-2 focus:ring-offset-0 focus:ring-red-400 focus:ring-opacity-50`}
+  }
 `
+
 const StyledAddressCountrySelector = styled(AddressCountrySelector)`
   ${InputCss}
 `

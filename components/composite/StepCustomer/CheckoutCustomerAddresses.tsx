@@ -142,7 +142,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             <BillingAddressForm
               autoComplete="on"
               reset={!showBillingAddressForm}
-              errorClassName="border-red"
+              errorClassName="hasError"
             >
               {showBillingAddressForm ? (
                 <>
@@ -199,6 +199,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   hidden={!shipToDifferentAddress}
                   className="p-2"
                   reset={!showShippingAddressForm}
+                  errorClassName="hasError"
                 >
                   {showShippingAddressForm ? (
                     <>
