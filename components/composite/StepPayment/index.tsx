@@ -82,7 +82,7 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
               ? isActive
                 ? t("stepPayment.summary")
                 : hasPaymentMethod
-                ? t("stepPayment.methodNotSelected")
+                ? t("stepPayment.methodSelected")
                 : t("stepPayment.methodUnselected")
               : t("stepPayment.notRequired")
           }
