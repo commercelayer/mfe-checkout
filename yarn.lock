@@ -237,7 +237,7 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-sdk@^3.10.0":
+"@commercelayer/js-sdk@^3.10.0", "@commercelayer/js-sdk@^3.9.2":
   version "3.10.0"
   resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.10.0.tgz#a9d04da56d833b2f60f861a5d007db832360b97e"
   integrity sha512-LAQ0Y74Ao6gKJj5PwEW7Iwpxtm+8+HXG1EszQJ9aPJL7euMkEJfHkywV43ypnhUFXfueQaK8UmErSRQBVWTCVQ==
@@ -247,24 +247,14 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@commercelayer/js-sdk@^3.9.2":
-  version "3.9.2"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.9.2.tgz#e293489056f0e9cd4ab05e7b0e40cd90bd444ee7"
-  integrity sha512-+2GXKsD11hKMN9VBdhmv6Crdki5JdSYohdr4Xmgt1pXGzARlzcPFMalU9WI3P6VnVD9C41m1nL3rseSJcy5Lmg==
-  dependencies:
-    active-resource "^1.0.0-beta.7"
-    axios "^0.21.1"
-    lodash "^4.17.21"
-    lodash-es "^4.17.21"
-
-"@commercelayer/react-components@^2.13.0":
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.13.0.tgz#68a34e2d3062af7c4d26d2100af92774216617b5"
-  integrity sha512-RF6zOA79XI90dnbM3tbO/TWaDA6m38EXWX3eXo0arB4nB9hQLVfR8g5vg6PO/1QDKEVnvov4+3obvl9heIiRCg==
+"@commercelayer/react-components@^2.20.0":
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.20.0.tgz#0c4503bcbad24370fed5a54d8b1d49c6ec32249d"
+  integrity sha512-S0+ApI5Rbnlbjn6xjZLX2LeGOmP2fjtyQxkaORCFXcdyOgShlNG4l4GLPwil9oMI7k7qhLrCQJaPENVpm2IrMA==
   dependencies:
     "@commercelayer/js-sdk" "^3.9.2"
     "@stripe/react-stripe-js" "^1.4.0"
-    "@stripe/stripe-js" "^1.13.2"
+    "@stripe/stripe-js" "^1.14.0"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
     rapid-form "^1.4.1"
@@ -505,10 +495,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^1.13.2":
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.13.2.tgz#bb2f561085b5dd091355df871d432b8e1fd467f6"
-  integrity sha512-fycUk7ECukNc31lD5apcrUgdRC1BfiIacs+CpacoCjOgo3ablolnWCvDQWMmVWtODYa8bBv2dlBla+Edc5OvZg==
+"@stripe/stripe-js@^1.14.0":
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.14.0.tgz#0eb8a185197948ab9ddb62ee28ae555e7d90bc72"
+  integrity sha512-Zw4EI+ph8RPxRpIX2uwKKDIbe7WM2OarasPjIPRulU1UCj8lRFqWWW/fTj79lZtnX3FNZkiTRM13UG1UZF7yjQ==
 
 "@stylelint/postcss-css-in-js@^0.37.2":
   version "0.37.2"
