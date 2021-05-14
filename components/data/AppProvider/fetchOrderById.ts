@@ -361,7 +361,7 @@ export const fetchOrderById = async ({
       shippingAddress,
     })
 
-    const isComplete = Boolean(!order.placeable)
+    const isComplete = order.status === "placed"
 
     const returnUrl = order.returnUrl
 
