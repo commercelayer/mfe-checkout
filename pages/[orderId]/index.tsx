@@ -9,6 +9,7 @@ import { Checkout } from "components/composite/Checkout"
 import { AppProvider } from "components/data/AppProvider"
 import { GTMProvider } from "components/data/GTMProvider"
 import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
+import { Footer } from "components/ui/Footer"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
 interface GlobalStyleProps {
@@ -71,6 +72,7 @@ const Home: NextPage = () => {
           </ThemeProvider>
         </OrderContainer>
       </CommerceLayer>
+      <Footer />
     </div>
   )
 }
