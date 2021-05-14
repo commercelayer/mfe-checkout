@@ -144,15 +144,12 @@ describe("Checkout Checkout Complete", () => {
         ],
         { timeout: 100000 }
       )
-      cy.dataCy("payment-method-selected").should(
-        "contain.text",
-        "Stripe Payment"
-      )
+      cy.dataCy("payment-method-selected").should("contain.text", "Visa")
       cy.dataCy("payment-method-price-selected").should("contain.text", "0,00")
     })
 
     it("place order and redirect", () => {
-      cy.wait(["@getOrderShipments", "@getShipments", "@getOrders"])
+      cy.wait(2000)
       cy.dataCy("place-order-button").click()
       cy.wait(
         [
@@ -160,6 +157,8 @@ describe("Checkout Checkout Complete", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",

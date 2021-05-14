@@ -1,7 +1,14 @@
-import { PlaceOrderContainer } from "@commercelayer/react-components"
+import {
+  PaymentSourceBrandIcon,
+  PaymentSourceBrandName,
+  PaymentSourceDetail,
+  PlaceOrderContainer,
+  PaymentSource,
+  PaymentMethodsContainer,
+} from "@commercelayer/react-components"
 import "twin.macro"
 import { useContext, useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 
 import {
   StepSummary,
@@ -122,7 +129,17 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
                 <>
                   <StepSummary>
                     <StepSummaryItem data-cy="payment-method-selected">
-                      {paymentMethod?.name}
+                      <PaymentMethodsContainer>
+                        <PaymentSource readonly>
+                          <Trans t={t} i18nKey="stepPayment.endingIn">
+                            <PaymentSourceBrandName className="mr-1" />
+                            <PaymentSourceDetail
+                              className="ml-1"
+                              type="last4"
+                            />
+                          </Trans>
+                        </PaymentSource>
+                      </PaymentMethodsContainer>
                     </StepSummaryItem>
                     <StepSummaryItemValue data-cy="payment-method-price-selected">
                       {paymentMethod?.formattedPriceAmount}

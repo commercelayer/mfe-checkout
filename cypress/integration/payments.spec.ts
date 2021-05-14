@@ -166,10 +166,7 @@ describe("Checkout Payments", () => {
         { timeout: 100000 }
       )
 
-      cy.dataCy("payment-method-selected").should(
-        "contain.text",
-        "Stripe Payment"
-      )
+      cy.dataCy("payment-method-selected").should("contain.text", "Visa")
       cy.dataCy("payment-method-price-selected").should("contain.text", "0,00")
     })
   })
@@ -304,10 +301,7 @@ describe("Checkout Payments", () => {
         { timeout: 100000 }
       )
 
-      cy.dataCy("payment-method-selected").should(
-        "contain.text",
-        "Stripe Payment"
-      )
+      cy.dataCy("payment-method-selected").should("contain.text", "Visa")
       cy.dataCy("payment-method-price-selected").should("contain.text", "0,00")
     })
   })
