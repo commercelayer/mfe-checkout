@@ -36,7 +36,7 @@ export const Footer: React.FC = () => {
 }
 
 const Wrapper = styled.div`
-  ${tw`flex justify-between mt-20 border-t pt-3 text-xs text-gray-500 lg:pb-6`}
+  ${tw`flex justify-between mt-20 border-t pt-3 text-xs text-gray-500`}
 `
 const LogoWrapper = styled.div`
   ${tw`flex`}
