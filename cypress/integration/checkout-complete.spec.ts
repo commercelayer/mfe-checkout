@@ -77,9 +77,7 @@ describe("Checkout Checkout Complete", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -89,6 +87,8 @@ describe("Checkout Checkout Complete", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -139,6 +139,7 @@ describe("Checkout Checkout Complete", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
           "@getCustomerAddresses",
         ],
         { timeout: 100000 }
@@ -151,17 +152,14 @@ describe("Checkout Checkout Complete", () => {
     })
 
     it("place order and redirect", () => {
+      cy.wait(["@getOrderShipments", "@getShipments", "@getOrders"])
       cy.dataCy("place-order-button").click()
       cy.wait(
         [
           "@getShippingMethods",
-          "@getShipments",
-          "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",

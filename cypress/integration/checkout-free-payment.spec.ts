@@ -97,9 +97,7 @@ describe("Checkout Free Payment", () => {
     })
 
     it("valid customer token and check giftcard", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -110,6 +108,7 @@ describe("Checkout Free Payment", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -144,7 +143,21 @@ describe("Checkout Free Payment", () => {
     })
 
     it("place order and redirect", () => {
+      cy.wait(3000)
       cy.dataCy("place-order-button").click({ force: true })
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+        ],
+        { timeout: 100000 }
+      )
       cy.dataCy("button-continue-to-shop").click({ force: true })
       cy.wait(200)
       cy.url().should("eq", returnUrl)
@@ -218,9 +231,7 @@ describe("Checkout Free Payment", () => {
     })
 
     it("valid customer token and check giftcard", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getOrderShipments",
@@ -258,14 +269,15 @@ describe("Checkout Free Payment", () => {
     })
 
     it("place order and redirect", () => {
+      cy.wait(3000)
       cy.dataCy("place-order-button").click({ force: true })
       cy.wait(
         [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@updateOrder",
         ],
         { timeout: 100000 }

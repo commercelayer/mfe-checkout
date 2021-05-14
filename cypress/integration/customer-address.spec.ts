@@ -49,13 +49,10 @@ describe("Checkout customer address", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
-          "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
@@ -95,10 +92,11 @@ describe("Checkout customer address", () => {
           "@getShippingMethods",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -173,6 +171,8 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -266,6 +266,8 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -301,9 +303,12 @@ describe("Checkout customer address", () => {
         .click({ force: true })
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        ["@getCustomerAddresses", "@getOrders", "@getOrders", "@getOrders"],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -319,6 +324,7 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -405,9 +411,7 @@ describe("Checkout customer address", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -415,6 +419,10 @@ describe("Checkout customer address", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -506,6 +514,8 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -571,6 +581,9 @@ describe("Checkout customer address", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -635,7 +648,8 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -729,9 +743,7 @@ describe("Checkout customer address", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -739,6 +751,10 @@ describe("Checkout customer address", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -817,9 +833,7 @@ describe("Checkout customer address", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -827,11 +841,18 @@ describe("Checkout customer address", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
           "@updateOrder",
           "@updateAddress",
           "@updateAddress",
@@ -898,6 +919,8 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -983,6 +1006,8 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -1050,6 +1075,8 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -1109,6 +1136,8 @@ describe("Checkout customer address", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1232,13 +1261,10 @@ describe("Checkout customer address", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
-          "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
@@ -1277,10 +1303,11 @@ describe("Checkout customer address", () => {
           "@getShippingMethods",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1344,8 +1371,12 @@ describe("Checkout customer address", () => {
         [
           "@getShippingMethods",
           "@getOrderShipments",
+          "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1418,6 +1449,8 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1503,6 +1536,8 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -1572,6 +1607,8 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -1632,6 +1669,8 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1737,14 +1776,11 @@ describe("Checkout customer address", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
 
       cy.wait(
         [
           "@getShippingMethods",
-          "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
@@ -1784,9 +1820,11 @@ describe("Checkout customer address", () => {
           "@getShippingMethods",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1884,6 +1922,8 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -1961,6 +2001,8 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -2029,6 +2071,8 @@ describe("Checkout customer address", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",

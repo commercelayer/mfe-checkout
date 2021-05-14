@@ -1,5 +1,3 @@
-import { internet } from "faker"
-
 import { euAddress, euAddress2 } from "../support/utils"
 
 describe("Checkout guest address", () => {
@@ -36,11 +34,7 @@ describe("Checkout guest address", () => {
     })
 
     it("exist customer email", function () {
-      cy.visit(
-        `/?accessToken=${Cypress.env("accessToken")}&orderId=${
-          this.newOrder.id
-        }`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`)
       if (!Cypress.env("record")) {
         cy.newStubData("getOrders1", filename)
       }
@@ -48,7 +42,6 @@ describe("Checkout guest address", () => {
       cy.wait(
         [
           "@getShippingMethods",
-          "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
@@ -70,24 +63,15 @@ describe("Checkout guest address", () => {
         .type(`{selectall}{backspace}${emailCustomer}`)
         .blur({ force: true })
 
-      cy.wait(
-        [
-          "@updateOrder",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@updateOrder", "@getOrders", "@retrieveLineItems"], {
+        timeout: 100000,
+      })
 
       cy.reload()
 
       cy.wait(
         [
           "@getShippingMethods",
-          "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
@@ -121,7 +105,6 @@ describe("Checkout guest address", () => {
       cy.wait(
         [
           "@getShippingMethods",
-          "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
@@ -268,11 +251,7 @@ describe("Checkout guest address", () => {
     })
 
     it("check information", function () {
-      cy.visit(
-        `/?accessToken=${Cypress.env("accessToken")}&orderId=${
-          this.newOrder.id
-        }`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`)
 
       cy.wait(
         [
@@ -371,11 +350,7 @@ describe("Checkout guest address", () => {
     })
 
     it("check information", function () {
-      cy.visit(
-        `/?accessToken=${Cypress.env("accessToken")}&orderId=${
-          this.newOrder.id
-        }`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`)
 
       cy.wait(
         [

@@ -55,9 +55,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -81,6 +79,10 @@ describe("Checkout Shipments", () => {
           "@updateOrder",
           "@retrieveLineItems",
           "@getOrderShipments",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
         ],
         {
           timeout: 100000,
@@ -90,7 +92,7 @@ describe("Checkout Shipments", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click()
-      cy.wait(["@retrieveLineItems", "@getShipments"], {
+      cy.wait(["@retrieveLineItems", "@getShipments", "@getOrders"], {
         timeout: 100000,
       })
       cy.dataCy("save-shipments-button").click()
@@ -211,9 +213,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -233,9 +233,20 @@ describe("Checkout Shipments", () => {
     })
 
     it("select Standard Shipping to both shipments and save", () => {
-      cy.wait(["@updateOrder", "@retrieveLineItems", "@getOrderShipments"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@updateOrder",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -267,16 +278,14 @@ describe("Checkout Shipments", () => {
       cy.wait(
         [
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getShippingMethods",
           "@getOrderShipments",
-          "@getOrders",
           "@updateOrder",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrderShipments",
           "@availablePaymentMethods",
           "@retrieveLineItems",
@@ -564,9 +573,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getOrders",
@@ -586,6 +593,7 @@ describe("Checkout Shipments", () => {
     it("check both Standard Shipping", () => {
       cy.wait(
         [
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -666,9 +674,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getOrders",
@@ -692,6 +698,7 @@ describe("Checkout Shipments", () => {
           "@retrieveLineItems",
           "@getOrderShipments",
           "@availablePaymentMethods",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -778,9 +785,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getOrders",
@@ -804,6 +809,7 @@ describe("Checkout Shipments", () => {
           "@retrieveLineItems",
           "@getOrderShipments",
           "@availablePaymentMethods",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -897,9 +903,7 @@ describe("Checkout Shipments", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getOrders",
@@ -923,6 +927,7 @@ describe("Checkout Shipments", () => {
           "@retrieveLineItems",
           "@getOrderShipments",
           "@availablePaymentMethods",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1022,7 +1027,7 @@ describe("Checkout Shipments", () => {
 
       it("valid customer token", function () {
         cy.visit(
-          `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
+          `/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`
         )
         cy.wait(
           [
@@ -1047,6 +1052,7 @@ describe("Checkout Shipments", () => {
             "@retrieveLineItems",
             "@getOrderShipments",
             "@availablePaymentMethods",
+            "@getOrders",
             "@getOrders",
             "@getOrders",
             "@getOrders",
