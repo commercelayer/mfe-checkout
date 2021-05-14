@@ -12,10 +12,22 @@ export const Footer: React.FC = () => {
       <ListWrapper>
         <ListLink>
           <ListItem>
-            <a href="">Terms</a>
+            <a
+              target="_blank"
+              href="https://commercelayer.io/legal/terms-of-service/"
+              rel="noreferrer"
+            >
+              Terms
+            </a>
           </ListItem>
           <ListItem>
-            <a href="">Privacy</a>
+            <a
+              target="_blank"
+              href="https://commercelayer.io/legal/privacy-policy/"
+              rel="noreferrer"
+            >
+              Privacy
+            </a>
           </ListItem>
         </ListLink>
       </ListWrapper>
