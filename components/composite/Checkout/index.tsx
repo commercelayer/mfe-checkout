@@ -12,6 +12,7 @@ import { StepShipping } from "components/composite/StepShipping"
 import { AppContext } from "components/data/AppProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
+import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
@@ -69,7 +70,10 @@ export const Checkout: React.FC<Props> = ({
               companyName={companyName}
               className="hidden md:block"
             />
-            <OrderSummary />
+            <SummaryWrapper>
+              <OrderSummary />
+            </SummaryWrapper>
+            <Footer />
           </Sidebar>
         }
         main={
@@ -111,5 +115,8 @@ export const Checkout: React.FC<Props> = ({
 }
 
 const Sidebar = styled.div`
-  ${tw`p-5 lg:pl-20 lg:pr-10 lg:py-0`}
+  ${tw`flex flex-col min-h-full p-5 lg:pl-20 lg:pr-10 lg:py-0`}
+`
+const SummaryWrapper = styled.div`
+  ${tw`flex-1`}
 `
