@@ -28,7 +28,7 @@
         "cartContains_plural": "Your shopping cart contains {{count}} items",
         "couponCode": "Coupon code",
         "quantity": "Quantity: {{count}}",
-        "quantity_plural": "Quantities: {{count}}",
+        "quantity_plural": "Quantity: {{count}}",
         "discount_amount": "Discount",
         "giftcard_amount": "Gift card",
         "tax_amount": "Tax",
