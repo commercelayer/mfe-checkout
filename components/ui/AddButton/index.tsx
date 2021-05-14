@@ -30,7 +30,7 @@ export const AddButton: React.FC<Props> = ({ dataCy, action }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`w-full flex flex-row py-2 mt-4 justify-center items-center text-center px-2 bg-gray-100 text-gray-500 border rounded cursor-pointer hover:border-primary shadow-sm md:w-22 md:flex-col md:mt-0`}
+  ${tw`w-full flex flex-row py-2 mt-4 justify-center items-center text-center px-2 bg-gray-100 text-gray-500 border rounded cursor-pointer hover:border-primary shadow-sm lg:w-22 lg:flex-col lg:mt-0`}
 `
 const Label = styled.p`
   ${tw`text-xs`}

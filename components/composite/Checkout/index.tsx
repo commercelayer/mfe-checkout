@@ -111,5 +111,5 @@ export const Checkout: React.FC<Props> = ({
 }
 
 const Sidebar = styled.div`
-  ${tw`pl-5 pr-5 py-10 md:pl-20 md:pr-10 md:py-0`}
+  ${tw`p-5 lg:pl-20 lg:pr-10 lg:py-0`}
 `

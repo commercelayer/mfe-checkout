@@ -49,7 +49,7 @@ const LineItemWrapper = styled.div`
   ${tw`flex flex-row mb-7 pb-6 border-b`}
 `
 const LineItemDescription = styled.div`
-  ${tw`pl-8 flex flex-col flex-1`}
+  ${tw`pl-4 flex flex-col flex-1 lg:pl-8`}
 `
 const LineItemTitle = styled.div`
   ${tw`flex justify-between`}

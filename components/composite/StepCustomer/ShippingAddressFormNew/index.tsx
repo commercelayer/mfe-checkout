@@ -80,5 +80,5 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
 }
 
 const Grid = styled.div`
-  ${tw`grid md:grid-cols-2 md:gap-4`}
+  ${tw`grid lg:grid-cols-2 lg:gap-4`}
 `
