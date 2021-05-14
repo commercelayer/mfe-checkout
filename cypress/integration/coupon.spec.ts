@@ -92,9 +92,7 @@ describe("Checkout Coupon", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -104,6 +102,8 @@ describe("Checkout Coupon", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -201,9 +201,7 @@ describe("Checkout Coupon", () => {
     })
 
     it("valid customer token", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -213,6 +211,9 @@ describe("Checkout Coupon", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -248,6 +249,7 @@ describe("Checkout Coupon", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
           "@updateOrder",
           "@getCustomerAddresses",
         ],
@@ -270,6 +272,10 @@ describe("Checkout Coupon", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",

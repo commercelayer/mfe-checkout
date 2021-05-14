@@ -29,14 +29,11 @@ describe("Checkout language", () => {
           cy.newStubData("getOrders1", filename)
         }
 
-        cy.visit(
-          `/?accessToken=${Cypress.env("accessToken")}&orderId=${order.id}`
-        )
+        cy.visit(`/${order.id}?accessToken=${Cypress.env("accessToken")}`)
 
         cy.wait(
           [
             "@getShippingMethods",
-            "@getOrderShipments",
             "@getOrderShipments",
             "@retrieveLineItems",
             "@retrieveLineItems",
@@ -86,14 +83,11 @@ describe("Checkout language", () => {
           cy.newStubData("getOrders1", filename)
         }
 
-        cy.visit(
-          `/?accessToken=${Cypress.env("accessToken")}&orderId=${order.id}`
-        )
+        cy.visit(`/${order.id}?accessToken=${Cypress.env("accessToken")}`)
 
         cy.wait(
           [
             "@getShippingMethods",
-            "@getOrderShipments",
             "@getOrderShipments",
             "@retrieveLineItems",
             "@retrieveLineItems",

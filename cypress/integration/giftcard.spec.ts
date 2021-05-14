@@ -103,9 +103,7 @@ describe("Checkout GiftCard", () => {
     })
 
     it("valid customer token and check giftcard", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -220,9 +218,7 @@ describe("Checkout GiftCard", () => {
     })
 
     it("valid customer token, set manual gift card and check", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -276,12 +272,14 @@ describe("Checkout GiftCard", () => {
       cy.wait(
         [
           "@getShippingMethods",
-          "@getShippingMethods",
-          "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",

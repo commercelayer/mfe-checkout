@@ -85,17 +85,12 @@ describe("Checkout Checkout-Digital", () => {
     })
 
     it("valid customer token and check if digital", function () {
-      cy.visit(
-        `/?accessToken=${this.tokenObj.access_token}&orderId=${this.newOrder.id}`
-      )
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",

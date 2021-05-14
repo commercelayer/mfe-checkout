@@ -21,7 +21,7 @@ describe("Checkout entrypoint", () => {
 
   context("missing accessToken", () => {
     it("redirect to invalid page", () => {
-      cy.visit(`/?orderId=123123`)
+      cy.visit(`/abc123`)
       cy.dataCy("invalid-checkout").should(
         "have.text",
         "This order is no longer accessible."
@@ -35,7 +35,7 @@ describe("Checkout entrypoint", () => {
         statusCode: 500,
         body: {},
       })
-      cy.visit("/?accessToken=wrongAccessToken&orderId=wrongOrderId")
+      cy.visit("/wrongOrderId?accessToken=wrongAccessToken")
     })
 
     it("redirect to invalid", () => {
@@ -80,9 +80,7 @@ describe("Checkout entrypoint", () => {
 
       it("redirect to valid checkout", function () {
         cy.visit(
-          `/?accessToken=${Cypress.env("accessToken")}&orderId=${
-            this.newOrder.id
-          }`
+          `/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`
         )
 
         if (!Cypress.env("record")) {
@@ -92,7 +90,6 @@ describe("Checkout entrypoint", () => {
         cy.wait(
           [
             "@getShippingMethods",
-            "@getOrderShipments",
             "@getOrderShipments",
             "@retrieveLineItems",
             "@retrieveLineItems",
