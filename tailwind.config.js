@@ -31,6 +31,9 @@ module.exports = {
           500: "#8D8D8D",
           600: "#666666",
         },
+        red: {
+          400: "#ED5959",
+        },
       },
       fontSize: {
         md: "0.938rem",
