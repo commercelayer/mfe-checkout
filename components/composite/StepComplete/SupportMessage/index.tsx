@@ -39,8 +39,18 @@ export const SupportMessage: React.FC<Props> = ({
       i18nKey={setI18nKey()}
       values={{ email: supportEmail, phone: supportPhone }}
       components={{
-        WrapperEmail: <strong tw="cursor-pointer" onClick={handleEmail} />,
-        WrapperPhone: <strong tw="cursor-pointer" onClick={handlePhone} />,
+        WrapperEmail: (
+          <strong
+            tw="cursor-pointer text-black border-b border-gray-400"
+            onClick={handleEmail}
+          />
+        ),
+        WrapperPhone: (
+          <strong
+            tw="cursor-pointer text-black border-b border-gray-400"
+            onClick={handlePhone}
+          />
+        ),
       }}
     />
   )

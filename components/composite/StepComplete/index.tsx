@@ -1,3 +1,4 @@
+import { fromCallback } from "cypress/types/bluebird"
 import { useContext } from "react"
 import { useTranslation, Trans } from "react-i18next"
 import styled from "styled-components"
@@ -6,9 +7,11 @@ import tw from "twin.macro"
 import { AppContext } from "components/data/AppProvider"
 import { Base } from "components/ui/Base"
 import { Button } from "components/ui/Button"
-import { Card } from "components/ui/Card"
+import { Container } from "components/ui/Container"
+import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 
+import { CheckIcon } from "./CheckIcon"
 import { SupportMessage } from "./SupportMessage"
 
 interface Props {
@@ -41,12 +44,9 @@ export const StepComplete: React.FC<Props> = ({
             companyName={companyName}
             tw="pt-10 mb-10 pl-4"
           />
-          <Card>
-            <Text>{t("stepComplete.title")}</Text>
-            <Text
-              data-cy="complete-checkout-summary"
-              tw="py-5 h-20 text-center"
-            >
+          <Main>
+            <Title>{t("stepComplete.title")}</Title>
+            <Text data-cy="complete-checkout-summary" tw="text-gray-500">
               <Trans
                 i18nKey={"stepComplete.summary"}
                 values={{ orderId: ctx?.orderId }}
@@ -55,12 +55,12 @@ export const StepComplete: React.FC<Props> = ({
                 }}
               />
             </Text>
-            <Text>
+            <Message>
               <SupportMessage
                 supportEmail={supportEmail}
                 supportPhone={supportPhone}
               />
-            </Text>
+            </Message>
             {ctx?.returnUrl && (
               <WrapperButton>
                 <Button data-cy="button-continue-to-shop" onClick={handleClick}>
@@ -68,25 +68,29 @@ export const StepComplete: React.FC<Props> = ({
                 </Button>
               </WrapperButton>
             )}
-          </Card>
+          </Main>
+          <Footer />
         </Wrapper>
       </Container>
     </Base>
   )
 }
 
-const Container = styled.div`
-  ${tw`flex items-center justify-center`}
+const Main = styled.div`
+  ${tw`flex flex-col flex-1 justify-center items-center text-center`}
 `
-
 const Wrapper = styled.div`
-  ${tw`flex-1 max-w-screen-sm	items-center justify-center`}
+  ${tw`flex flex-wrap justify-end items-stretch flex-col h-screen p-10 lg:px-20 lg:py-0`}
 `
-
+const Title = styled.h1`
+  ${tw`text-2xl lg:text-4xl font-semibold mb-4`}
+`
 const Text = styled.p`
-  ${tw`py-2 h-20 text-center`}
+  ${tw`py-2`}
 `
-
+const Message = styled.div`
+  ${tw`my-8 text-gray-500`}
+`
 const WrapperButton = styled.div`
   ${tw`flex items-center justify-center pt-5`}
 `

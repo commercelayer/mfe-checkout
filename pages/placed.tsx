@@ -59,8 +59,6 @@ const Home: NextPage = () => {
           supportPhone={settings.supportPhone}
         />
       </ThemeProvider>
-
-      <Footer />
     </div>
   )
 }
