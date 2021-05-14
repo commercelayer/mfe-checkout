@@ -2,7 +2,7 @@ import { AddressCollection } from "@commercelayer/js-sdk"
 import { Address, AddressField } from "@commercelayer/react-components"
 
 interface AddressCardProps {
-  addressType?: "shipping" | "billing"
+  addressType: "shipping" | "billing"
   addresses?: [AddressCollection]
   deselect: boolean
   onSelect?: () => void
@@ -43,6 +43,7 @@ export const CustomerAddressCard: React.FC<AddressCardProps> = ({
               stateCode={address.stateCode}
               countryCode={address.countryCode}
               phone={address.phone}
+              addressType={addressType}
             />
           )}
         </AddressField>
@@ -61,6 +62,7 @@ interface AddressProps {
   stateCode: string
   countryCode: string
   phone: string
+  addressType: string
 }
 
 const CustomAddress = ({
@@ -73,12 +75,16 @@ const CustomAddress = ({
   stateCode,
   countryCode,
   phone,
+  addressType,
 }: AddressProps) => (
   <>
-    <p className="font-bold text-md">
+    <p className="font-bold text-md" data-cy={`fullname_${addressType}`}>
       {firstName} {lastName}
     </p>
-    <p className="text-sm text-gray-600">
+    <p
+      className="text-sm text-gray-600"
+      data-cy={`full_address_${addressType}`}
+    >
       {[line1, line2].join(", ")}
       <br />
       {zipCode} {city} - {stateCode} ({countryCode})

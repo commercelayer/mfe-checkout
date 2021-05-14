@@ -118,6 +118,7 @@ export const StepCustomer: React.FC<Props> = ({
                     {t(`addressForm.billed_to`)}
                   </AddressSectionTitle>
                   <CustomerAddressCard
+                    addressType="billing"
                     deselect={true}
                     addresses={[billingAddress]}
                   />
@@ -129,6 +130,7 @@ export const StepCustomer: React.FC<Props> = ({
                     {t(`addressForm.shipped_to`)}
                   </AddressSectionTitle>
                   <CustomerAddressCard
+                    addressType="shipping"
                     deselect={true}
                     addresses={[shippingAddress]}
                   />
