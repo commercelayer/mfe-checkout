@@ -199,6 +199,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   hidden={!shipToDifferentAddress}
                   className="p-2"
                   reset={!showShippingAddressForm}
+                  errorClassName="hasError"
                 >
                   {showShippingAddressForm ? (
                     <>
