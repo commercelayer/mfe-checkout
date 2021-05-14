@@ -52,14 +52,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     ).find(orderId)
     order = await orderFetched?.update({ _refresh: true })
   } catch (e) {
-    console.log(`error on retrieving order: ${e}`)
+    console.log("error on retrieving order:")
+    console.log(e)
+    console.log("access token:")
+    console.log(accessToken)
+    console.log("orderId")
+    console.log(orderId)
+    console.log("endpoint")
+    console.log(endpoint)
   }
 
   let organization
   try {
     organization = await Organization.all()
   } catch (e) {
-    console.log(`error on retrieving organization: ${e}`)
+    console.log("error on retrieving organization:")
+    console.log(e)
   }
 
   if (!order?.id || order.status === "placed") {
@@ -80,7 +88,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     language: order.languageCode,
     primaryColor: organization?.primaryColor || "#000000",
     contrastColor: organization?.contrastColor || "#ffffff",
-    favicon: "/favicon.png",
+    favicon: organization?.faviconUrl || "/favicon.png",
     gtmId: organization?.gtmId || "GTM-TGCQ5BM",
     supportEmail: "test@extendi.it",
     supportPhone: "+39 111 222 3333",
