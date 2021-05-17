@@ -35,7 +35,6 @@ interface Props {
   isUsingNewBillingAddress: boolean
   isUsingNewShippingAddress: boolean
   hasCustomerAddresses: boolean
-  isGuest: boolean
   emailAddress: string
   isLocalLoader: boolean
   handleSave: () => void
@@ -49,7 +48,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   isShipmentRequired,
   hasSameAddresses,
   hasCustomerAddresses,
-  isGuest,
   emailAddress,
   isLocalLoader,
   handleSave,
@@ -79,7 +77,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
   useEffect(() => {
     if (shipToDifferentAddress && !hasCustomerAddresses) {
-      1
       setShippingAddressFill(null)
       setShowShippingAddressForm(true)
     }
@@ -107,7 +104,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
   return (
     <Fragment>
-      <AddressSectionEmail isGuest={isGuest} emailAddress={emailAddress} />
+      <AddressSectionEmail readonly emailAddress={emailAddress} />
       <CustomerContainer>
         <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
           <div className="mt-4">
@@ -164,15 +161,18 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 onChange={handleToggle}
               />
 
+              <div className={`${shipToDifferentAddress ? "" : "hidden"} p-2`}>
+                <AddressSectionTitle>
+                  {t(`addressForm.shipping_address_title`)}
+                </AddressSectionTitle>
+              </div>
+
               <div
                 className={`${
                   shipToDifferentAddress && hasCustomerAddresses ? "" : "hidden"
                 }`}
               >
                 <ShippingAddressContainer>
-                  <AddressSectionTitle>
-                    {t(`addressForm.shipping_address_title`)}
-                  </AddressSectionTitle>
                   <GridContainer className="mb-6">
                     <CustomerAddressCard
                       addressType="shipping"
@@ -225,7 +225,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                     setShowShippingAddressForm(isUsingNewShippingAddress)
                   }}
                 >
-                  Discard changes
+                  {t("general.discard")}
                 </AddressButtonAddNew>
               ) : null}
             </div>
