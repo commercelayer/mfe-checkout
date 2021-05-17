@@ -23,7 +23,6 @@ interface Props {
   billingAddress: AddressCollection | null
   shippingAddress: AddressCollection | null
   emailAddress: string
-  isGuest: boolean
   hasSameAddresses: boolean
   isShipmentRequired: boolean
   isLocalLoader: boolean
@@ -34,7 +33,6 @@ export const CheckoutAddresses: React.FC<Props> = ({
   billingAddress,
   shippingAddress,
   emailAddress,
-  isGuest,
   hasSameAddresses,
   isShipmentRequired,
   isLocalLoader,
@@ -64,7 +62,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
 
   return (
     <Fragment>
-      <AddressSectionEmail isGuest={isGuest} emailAddress={emailAddress} />
+      <AddressSectionEmail emailAddress={emailAddress} />
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
         <div className="mt-4">
           <AddressSectionTitle>

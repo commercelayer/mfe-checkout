@@ -14,12 +14,12 @@ import { Label } from "components/ui/form/Label"
 import { GridContainer } from "components/ui/GridContainer"
 
 interface Props {
-  isGuest: boolean
+  readonly?: boolean
   emailAddress: string
 }
 
 export const AddressSectionEmail: React.FC<Props> = ({
-  isGuest,
+  readonly,
   emailAddress,
 }) => {
   const { t } = useTranslation()
@@ -43,13 +43,14 @@ export const AddressSectionEmail: React.FC<Props> = ({
     <Wrapper>
       <GridContainer>
         <div className="relative">
-          {!isGuest ? (
+          {readonly ? (
             <ReadOnlyEmail data-cy="current-customer-email">
               {emailAddress}
             </ReadOnlyEmail>
           ) : (
             <CustomerContainer isGuest>
               <StyledCustomInput
+                className="form-input"
                 data-cy="customer_email"
                 id="customer_email"
                 errorClassName="hasError"

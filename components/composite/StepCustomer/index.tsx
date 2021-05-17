@@ -1,4 +1,3 @@
-import { Address, AddressField } from "@commercelayer/react-components"
 import { Fragment, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import "twin.macro"
@@ -22,11 +21,7 @@ interface Props {
   onToggleActive: () => void
 }
 
-export const StepCustomer: React.FC<Props> = ({
-  className,
-  isActive,
-  onToggleActive,
-}) => {
+export const StepCustomer: React.FC<Props> = ({ isActive, onToggleActive }) => {
   const appCtx = useContext(AppContext)
   const { t } = useTranslation()
 
@@ -83,7 +78,6 @@ export const StepCustomer: React.FC<Props> = ({
                 shippingAddress={shippingAddress}
                 billingAddress={billingAddress}
                 emailAddress={emailAddress}
-                isGuest={isGuest}
                 hasSameAddresses={hasSameAddresses}
                 isShipmentRequired={isShipmentRequired}
                 isLocalLoader={isLocalLoader}
@@ -94,7 +88,6 @@ export const StepCustomer: React.FC<Props> = ({
                 shippingAddress={shippingAddress}
                 billingAddress={billingAddress}
                 emailAddress={emailAddress}
-                isGuest={isGuest}
                 hasCustomerAddresses={hasCustomerAddresses}
                 isShipmentRequired={isShipmentRequired}
                 isUsingNewShippingAddress={isUsingNewShippingAddress}
@@ -107,10 +100,7 @@ export const StepCustomer: React.FC<Props> = ({
           </Fragment>
         ) : (
           <>
-            <AddressSectionEmail
-              isGuest={isGuest}
-              emailAddress={emailAddress}
-            />
+            <AddressSectionEmail readonly emailAddress={emailAddress} />
             <GridContainer>
               {billingAddress && (
                 <div className="w-full">
