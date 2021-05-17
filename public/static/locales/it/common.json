@@ -13,7 +13,8 @@
         "done": "Fatto",
         "free" : "Gratis",
         "complete": "Completo",
-        "apply": "Applica"
+        "apply": "Applica",
+        "discard": "Non salvare le modifiche"
     },
 
     "input":{

@@ -4,11 +4,11 @@ import {
   Errors,
 } from "@commercelayer/react-components"
 import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
-import { Fragment } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
 import { GridContainer } from "components/ui/GridContainer"
@@ -52,12 +52,13 @@ export const AddressSectionEmail: React.FC<Props> = ({
               <StyledCustomInput
                 data-cy="customer_email"
                 id="customer_email"
+                errorClassName="hasError"
                 // tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 placeholder="E-mail"
                 saveOnBlur={true}
                 value={emailAddress}
               />
-              <Errors
+              <StyledErrors
                 data-cy="customer_email_error"
                 resource="order"
                 field="customer_email"
@@ -84,5 +85,10 @@ const ReadOnlyEmail = styled.div`
 
 const StyledCustomInput = styled(CustomerInput)`
   ${InputCss}
-  ${tw`w-full inline-block`}
+  &.hasError {
+    ${tw`border-red-400 border-2 focus:ring-offset-0 focus:ring-red-400 focus:ring-opacity-50`}
+  }
+`
+const StyledErrors = styled(Errors)`
+  ${ErrorCss}
 `

@@ -1,5 +1,4 @@
 import { AddressCollection } from "@commercelayer/js-sdk"
-import { Fragment } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
