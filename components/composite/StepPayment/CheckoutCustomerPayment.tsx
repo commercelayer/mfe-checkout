@@ -2,7 +2,6 @@ import {
   PaymentMethod,
   PaymentMethodName,
   PaymentMethodPrice,
-  PaymentMethodRadioButton,
   PaymentSource,
   CustomerContainer,
 } from "@commercelayer/react-components"

@@ -2,7 +2,6 @@ import {
   PaymentMethod,
   PaymentMethodName,
   PaymentMethodPrice,
-  PaymentMethodRadioButton,
   PaymentSource,
 } from "@commercelayer/react-components"
 import { useTranslation } from "react-i18next"
@@ -10,7 +9,16 @@ import { useTranslation } from "react-i18next"
 import "twin.macro"
 import { PaymentContainer } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
-import { PaymentWrapper, StyledPaymentMethodRadioButton } from "./styled"
+import {
+  PaymentWrapper,
+  PaymentSummary,
+  PaymentSummaryItem,
+  PaymentSummaryValue,
+  PaymentRadioContainer,
+  PaymentSourceContainer,
+  PaymentDetailsWrapper,
+  StyledPaymentMethodRadioButton,
+} from "./styled"
 
 interface Props {
   stripeKey: string
@@ -25,23 +33,27 @@ export const CheckoutPayment: React.FC<Props> = ({
 
   return (
     <PaymentContainer handleSave={handleSave} stripeKey={stripeKey}>
-      <PaymentMethod>
+      <PaymentMethod activeClass="active">
         <PaymentWrapper>
-          <div className="flex items-center">
-            <div className="px-2">
-              <StyledPaymentMethodRadioButton className="form-radio" />
-            </div>
-            <PaymentMethodName />
-          </div>
-          <PaymentMethodPrice labelFree={t("general.free")} />
+          <PaymentSummary>
+            <PaymentSummaryItem>
+              <PaymentRadioContainer>
+                <StyledPaymentMethodRadioButton className="form-radio" />
+              </PaymentRadioContainer>
+              <PaymentMethodName />
+            </PaymentSummaryItem>
+            <PaymentSummaryValue>
+              <PaymentMethodPrice labelFree={t("general.free")} />
+            </PaymentSummaryValue>
+          </PaymentSummary>
+          <PaymentSourceContainer data-cy="payment-source">
+            <PaymentSource className="flex flex-row py-2 my-2">
+              <PaymentDetailsWrapper>
+                <PaymentDetails hasEditButton />
+              </PaymentDetailsWrapper>
+            </PaymentSource>
+          </PaymentSourceContainer>
         </PaymentWrapper>
-        <div data-cy="payment-source">
-          <PaymentSource className="flex flex-row py-2 my-2">
-            <div className="flex flex-row items-center justify-start p-3 text-sm bg-gray-100 border">
-              <PaymentDetails hasEditButton />
-            </div>
-          </PaymentSource>
-        </div>
       </PaymentMethod>
     </PaymentContainer>
   )
