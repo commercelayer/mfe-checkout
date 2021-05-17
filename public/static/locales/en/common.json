@@ -13,7 +13,8 @@
         "done": "Done",
         "free" : "Free",
         "complete": "Complete",
-        "apply": "Apply"
+        "apply": "Apply",
+        "discard": "Discard changes"
     },
 
     "input":{

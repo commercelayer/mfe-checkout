@@ -37,7 +37,7 @@ export const Checkout: React.FC<Props> = ({
     activeStep,
     lastActivableStep,
     setActiveStep,
-    isLoading,
+    // isLoading,
     steps,
   } = useActiveStep()
 
