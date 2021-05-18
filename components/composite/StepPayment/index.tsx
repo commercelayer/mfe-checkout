@@ -174,7 +174,6 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
               data-cy="place-order-button"
               onClick={handlePlaceOrder}
               label={t("stepPayment.submit")}
-              className="mt-8"
             />
           </ButtonWrapper>
         </PlaceOrderContainer>

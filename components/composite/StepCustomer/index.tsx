@@ -1,3 +1,4 @@
+import classNames from "classnames"
 import { Fragment, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import "twin.macro"
@@ -14,8 +15,6 @@ import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionTitle } from "./AddressSectionTitle"
 import { CheckoutAddresses } from "./CheckoutAddresses"
 import { CheckoutCustomerAddresses } from "./CheckoutCustomerAddresses"
-
-import classNames from "classnames"
 
 interface Props {
   className?: string
