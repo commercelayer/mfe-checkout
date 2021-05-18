@@ -11,6 +11,7 @@ import "twin.macro"
 import styled from "styled-components"
 
 import { ButtonCss } from "components/ui/Button"
+import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { Toggle } from "components/ui/Toggle"
 
 import { AddressSectionEmail } from "./AddressSectionEmail"
@@ -101,7 +102,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
           <AddressSectionSaveForm>
             <StyledSaveAddressesButton
               disabled={isLocalLoader}
-              label={`${isLocalLoader ? "... " : ""}${
+              label={`${isLocalLoader ? <SpinnerIcon /> : ""}${
                 isShipmentRequired
                   ? t("stepCustomer.continueToDelivery")
                   : t("stepShipping.continueToPayment")

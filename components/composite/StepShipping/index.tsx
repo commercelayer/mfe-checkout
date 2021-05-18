@@ -29,6 +29,7 @@ import {
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { Button, ButtonWrapper } from "components/ui/Button"
+import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
@@ -242,7 +243,7 @@ export const StepShipping: React.FC<Props> = ({
                     data-cy="save-shipments-button"
                     onClick={handleSave}
                   >
-                    {isLocalLoader && "... "}
+                    {isLocalLoader && <SpinnerIcon />}
                     {t("stepShipping.continueToPayment")}
                   </Button>
                 </ButtonWrapper>
