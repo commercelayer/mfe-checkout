@@ -3,6 +3,7 @@ import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import { NextPage } from "next"
 import Head from "next/head"
 import { useTranslation } from "react-i18next"
+import Rollbar from "rollbar"
 import { createGlobalStyle, ThemeProvider } from "styled-components"
 
 import { Checkout } from "components/composite/Checkout"
@@ -23,6 +24,16 @@ const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
 `
 
 const Home: NextPage = () => {
+  const rollbar = new Rollbar({
+    accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+    payload: {
+      environment: "production",
+    },
+  })
+  rollbar.info("init rollbar")
+
   const { t } = useTranslation()
 
   const { settings, isLoading } = useSettingsOrInvalid()

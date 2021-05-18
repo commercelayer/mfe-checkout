@@ -31,6 +31,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-gtm-module": "^2.0.11",
+    "rollbar": "^2.21.1",
     "styled-components": "^5.2.3",
     "swr": "^0.5.6",
     "titleize": "^2.1.0",
