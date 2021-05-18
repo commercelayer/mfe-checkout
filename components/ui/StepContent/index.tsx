@@ -6,7 +6,7 @@ export const StepContent: React.FC = ({ children }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`relative pl-3 w-full pointer-events-auto transition duration-500 ease-in-out`}
+  ${tw`relative pl-3 w-full pointer-events-auto transition duration-500 ease-in`}
   .done & {
     filter: grayscale(80%) opacity(50%);
 
