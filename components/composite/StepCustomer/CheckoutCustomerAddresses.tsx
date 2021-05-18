@@ -233,11 +233,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             <AddressSectionSaveForm>
               <StyledSaveAddressesButton
                 disabled={isLocalLoader}
-                label={`${isLocalLoader ? <SpinnerIcon /> : ""}${
-                  isShipmentRequired
-                    ? t("stepCustomer.continueToDelivery")
-                    : t("stepShipping.continueToPayment")
-                }`}
+                label={
+                  <>
+                    {isLocalLoader && <SpinnerIcon />}
+                    {isShipmentRequired
+                      ? t("stepCustomer.continueToDelivery")
+                      : t("stepShipping.continueToPayment")}
+                  </>
+                }
                 data-cy="save-addresses-button"
                 onClick={handleSave}
               />

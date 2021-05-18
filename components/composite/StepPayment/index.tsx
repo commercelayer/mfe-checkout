@@ -20,6 +20,7 @@ import {
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { Button, ButtonWrapper } from "components/ui/Button"
+import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
@@ -37,6 +38,8 @@ interface Props {
 
 export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
   const [canContinue, setCanContinue] = useState(false)
+  const [isLocalLoader, setIsLocalLoader] = useState(false)
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false)
 
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
@@ -60,17 +63,21 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
   const stripeKey = "pk_test_TYooMQauvdEDq54NiTphI7jx"
 
   const handleSave = async () => {
+    setIsLocalLoader(true)
     if (gtmCtx?.fireAddPaymentInfo) {
       gtmCtx.fireAddPaymentInfo()
     }
     await refetchOrder()
+    setIsLocalLoader(false)
   }
 
   const handlePlaceOrder = async () => {
+    setIsPlacingOrder(true)
     if (gtmCtx?.firePurchase) {
       gtmCtx.firePurchase()
     }
     await refetchOrder()
+    setIsPlacingOrder(false)
   }
 
   useEffect(() => {
@@ -126,6 +133,7 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
                         data-cy="save-payment-button"
                         onClick={handleSave}
                       >
+                        {isLocalLoader && <SpinnerIcon />}
                         {t("general.save")}
                       </Button>
                     </ButtonWrapper>
@@ -171,9 +179,15 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
         >
           <ButtonWrapper>
             <StyledPlaceOrderButton
+              disabled={isPlacingOrder}
               data-cy="place-order-button"
               onClick={handlePlaceOrder}
-              label={t("stepPayment.submit")}
+              label={
+                <>
+                  {isPlacingOrder && <SpinnerIcon />}
+                  {t("stepPayment.submit")}
+                </>
+              }
             />
           </ButtonWrapper>
         </PlaceOrderContainer>
