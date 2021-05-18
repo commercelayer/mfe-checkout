@@ -55,7 +55,7 @@ const LineItemTitle = styled.div`
   ${tw`flex justify-between`}
 `
 const LineItemQty = styled.div`
-  ${tw`text-xs uppercase mt-1 text-gray-400`}
+  ${tw`text-xs uppercase mt-1 text-gray-600`}
 `
 const StyledLineItemSkuCode = styled(LineItemSkuCode)`
   ${tw`text-xxs uppercase text-gray-500 font-bold`}

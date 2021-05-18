@@ -1,3 +1,4 @@
+import classNames from "classnames"
 import { Fragment, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 import "twin.macro"
@@ -57,7 +58,13 @@ export const StepCustomer: React.FC<Props> = ({ isActive, onToggleActive }) => {
   // se non ci sono indirizzi in rubrica, ma solo l'indirizzo dell'ordine (non ancora salvato in rubrica) si mostra il form con i valori in edit
 
   return (
-    <StepContainer className={isActive ? "current" : "done"}>
+    <StepContainer
+      className={classNames({
+        current: isActive,
+        done: !isActive,
+        submitting: isLocalLoader,
+      })}
+    >
       <StepLine stepNumber={1} status={isActive ? "edit" : "done"} />
       <StepContent>
         <StepHeader

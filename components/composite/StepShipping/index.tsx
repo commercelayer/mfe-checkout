@@ -15,6 +15,7 @@ import {
   DeliveryLeadTime,
   ShipmentField,
 } from "@commercelayer/react-components"
+import classNames from "classnames"
 import { useTranslation, Trans } from "next-i18next"
 import { useContext, useState, useEffect } from "react"
 
@@ -113,7 +114,13 @@ export const StepShipping: React.FC<Props> = ({
   }
 
   return (
-    <StepContainer className={isActive ? "current" : "done"}>
+    <StepContainer
+      className={classNames({
+        current: isActive,
+        done: !isActive,
+        submitting: isLocalLoader,
+      })}
+    >
       <StepLine stepNumber={2} status={isActive ? "edit" : "done"} />
       <StepContent>
         <StepHeader
