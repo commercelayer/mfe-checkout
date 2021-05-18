@@ -58,8 +58,8 @@ export const StepCustomer: React.FC<Props> = ({ isActive, onToggleActive }) => {
 
   return (
     <StepContainer>
-      <StepLine />
-      <StepContent>
+      <StepLine stepNumber={1} status={isActive ? "edit" : "done"} />
+      <StepContent className={isActive ? "current" : "done"}>
         <StepHeader
           stepNumber={1}
           status={isActive ? "edit" : "done"}

@@ -2,8 +2,6 @@ import { useTranslation } from "react-i18next"
 import styled, { css } from "styled-components"
 import tw from "twin.macro"
 
-import { CheckmarkIcon } from "./CheckmarkIcon"
-
 interface Props {
   status: "edit" | "done" | "disabled"
   label: string
@@ -23,9 +21,6 @@ export const StepHeader: React.FC<Props> = ({
 
   return (
     <Wrapper disabled={status === "disabled"}>
-      <Badge active={status === "edit"}>
-        {status === "done" ? <CheckmarkIcon /> : stepNumber}
-      </Badge>
       <Body>
         <Top>
           <Title data-cy="step-header-customer">{label}</Title>
@@ -51,10 +46,6 @@ interface WrapperProps {
   disabled?: boolean
 }
 
-interface BadgeProps {
-  active: boolean
-}
-
 const Wrapper = styled.div<WrapperProps>`
   ${tw`flex items-start mb-4`}
 `
@@ -74,12 +65,6 @@ const Edit = styled.div`
 const EditButton = styled.button`
   ${tw`text-sm font-bold text-primary border-b leading-none border-black border-opacity-10 md: transition ease-in duration-200 hover:border-opacity-50 hover:text-primary-dark focus:outline-none`}
 `
-
-const Badge = styled.div<BadgeProps>(({ active }) => [
-  tw`rounded-full text-white flex justify-center items-center w-6 h-6 text-xs font-bold absolute -left-3`,
-  active && tw`bg-primary`,
-  !active && tw`bg-gray-400`,
-])
 
 const Title = styled.h2`
   ${tw`text-lg font-semibold leading-none`}

@@ -1,10 +1,14 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
-export const StepContent: React.FC = ({ children }) => {
-  return <Wrapper>{children}</Wrapper>
+interface Props {
+  className: string
+}
+
+export const StepContent: React.FC<Props> = ({ children, className }) => {
+  return <Wrapper className={className}>{children}</Wrapper>
 }
 
 const Wrapper = styled.div`
-  ${tw`relative pl-6 w-full`}
+  ${tw`relative pl-3 w-full`}
 `
