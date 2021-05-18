@@ -77,13 +77,9 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
   }, [hasPaymentMethod])
 
   return (
-    <StepContainer>
+    <StepContainer className={isActive ? "current" : "done"}>
       <StepLine stepNumber={3} status={isActive ? "edit" : "done"} />
-      <StepContent
-        className={
-          isActive ? "current" : hasPaymentMethod ? "done" : "disabled"
-        }
-      >
+      <StepContent>
         <StepHeader
           stepNumber={3}
           status={isActive ? "edit" : hasPaymentMethod ? "done" : "disabled"}

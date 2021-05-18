@@ -1,12 +1,17 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
-export const StepContainer: React.FC = ({ children }) => (
-  <Container>{children}</Container>
+interface Props {
+  className: string
+}
+
+export const StepContainer: React.FC<Props> = ({ children, className }) => (
+  <Container className={className}>{children}</Container>
 )
 
 const Container = styled.div`
   ${tw`flex flex-row items-stretch justify-start mb-10 relative -left-3`}
+
   &:nth-last-of-type(1) {
     ${tw`mb-0`}
   }

@@ -57,9 +57,9 @@ export const StepCustomer: React.FC<Props> = ({ isActive, onToggleActive }) => {
   // se non ci sono indirizzi in rubrica, ma solo l'indirizzo dell'ordine (non ancora salvato in rubrica) si mostra il form con i valori in edit
 
   return (
-    <StepContainer>
+    <StepContainer className={isActive ? "current" : "done"}>
       <StepLine stepNumber={1} status={isActive ? "edit" : "done"} />
-      <StepContent className={isActive ? "current" : "done"}>
+      <StepContent>
         <StepHeader
           stepNumber={1}
           status={isActive ? "edit" : "done"}

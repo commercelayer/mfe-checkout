@@ -113,7 +113,7 @@ export const StepShipping: React.FC<Props> = ({
   }
 
   return (
-    <StepContainer>
+    <StepContainer className={isActive ? "current" : "done"}>
       <StepLine stepNumber={2} status={isActive ? "edit" : "done"} />
       <StepContent>
         <StepHeader
