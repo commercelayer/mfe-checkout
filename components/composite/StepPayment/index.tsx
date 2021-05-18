@@ -7,6 +7,7 @@ import {
   PaymentMethodsContainer,
 } from "@commercelayer/react-components"
 import "twin.macro"
+import classNames from "classnames"
 import { useContext, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
@@ -77,115 +78,107 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
   }, [hasPaymentMethod])
 
   return (
-    <StepContainer className={isActive ? "current" : "done"}>
-      <StepLine stepNumber={3} status={isActive ? "edit" : "done"} />
-      <StepContent>
-        <StepHeader
-          stepNumber={3}
-          status={isActive ? "edit" : hasPaymentMethod ? "done" : "disabled"}
-          label={t("stepPayment.title")}
-          info={
-            isPaymentRequired
-              ? isActive
-                ? t("stepPayment.summary")
-                : hasPaymentMethod
-                ? t("stepPayment.methodSelected")
-                : t("stepPayment.methodUnselected")
-              : t("stepPayment.notRequired")
-          }
-          onEditRequest={() => {
-            onToggleActive()
-          }}
-        />
-        {isPaymentRequired ? (
-          <div>
-            {isActive ? (
-              <>
-                {isGuest ? (
-                  <CheckoutPayment
-                    handleSave={handleSave}
-                    stripeKey={stripeKey}
-                  />
-                ) : (
-                  <CheckoutCustomerPayment
-                    handleSave={handleSave}
-                    stripeKey={stripeKey}
-                  />
-                )}
-                {hasPaymentMethod && (
-                  <ButtonWrapper>
-                    <Button
-                      disabled={!canContinue}
-                      data-cy="save-payment-button"
-                      onClick={handleSave}
-                    >
-                      {t("general.save")}
-                    </Button>
-                  </ButtonWrapper>
-                )}
-              </>
-            ) : (
-              hasPaymentMethod && (
-                <>
-                  <StepSummary>
-                    <StepSummaryItem data-cy="payment-method-selected">
-                      <PaymentMethodsContainer>
-                        <PaymentSource readonly>
-                          <Trans t={t} i18nKey="stepPayment.endingIn">
-                            <PaymentSourceBrandName className="mr-1" />
-                            <PaymentSourceDetail
-                              className="ml-1"
-                              type="last4"
-                            />
-                          </Trans>
-                        </PaymentSource>
-                      </PaymentMethodsContainer>
-                    </StepSummaryItem>
-                    <StepSummaryItemValue data-cy="payment-method-price-selected">
-                      {paymentMethod?.formattedPriceAmount}
-                    </StepSummaryItemValue>
-                  </StepSummary>
-                  <PlaceOrderContainer
-                    options={{
-                      stripePayment: {
-                        publishableKey: stripeKey,
-                      },
-                      savePaymentSourceToCustomerWallet: !isGuest,
-                    }}
-                  >
-                    <ButtonWrapper>
-                      <StyledPlaceOrderButton
-                        data-cy="place-order-button"
-                        onClick={handlePlaceOrder}
-                        label={t("stepPayment.submit")}
-                        className="mt-8"
-                      />
-                    </ButtonWrapper>
-                  </PlaceOrderContainer>
-                </>
-              )
-            )}
-          </div>
-        ) : (
-          <PlaceOrderContainer
-            options={{
-              stripePayment: {
-                publishableKey: stripeKey,
-              },
-              savePaymentSourceToCustomerWallet: !isGuest,
+    <>
+      <StepContainer
+        className={classNames({
+          current: isActive,
+          done: !isActive,
+        })}
+      >
+        <StepLine stepNumber={3} status={isActive ? "edit" : "done"} />
+        <StepContent>
+          <StepHeader
+            stepNumber={3}
+            status={isActive ? "edit" : hasPaymentMethod ? "done" : "disabled"}
+            label={t("stepPayment.title")}
+            info={
+              isPaymentRequired
+                ? isActive
+                  ? t("stepPayment.summary")
+                  : hasPaymentMethod
+                  ? t("stepPayment.methodSelected")
+                  : t("stepPayment.methodUnselected")
+                : t("stepPayment.notRequired")
+            }
+            onEditRequest={() => {
+              onToggleActive()
             }}
-          >
-            <ButtonWrapper>
-              <StyledPlaceOrderButton
-                data-cy="place-order-button"
-                onClick={handlePlaceOrder}
-                label={t("stepPayment.submit")}
-                className="mt-8"
-              />
-            </ButtonWrapper>
-          </PlaceOrderContainer>
-        )}
-      </StepContent>
-    </StepContainer>
+          />
+          {isPaymentRequired && (
+            <div>
+              {isActive ? (
+                <>
+                  {isGuest ? (
+                    <CheckoutPayment
+                      handleSave={handleSave}
+                      stripeKey={stripeKey}
+                    />
+                  ) : (
+                    <CheckoutCustomerPayment
+                      handleSave={handleSave}
+                      stripeKey={stripeKey}
+                    />
+                  )}
+                  {hasPaymentMethod && (
+                    <ButtonWrapper>
+                      <Button
+                        disabled={!canContinue}
+                        data-cy="save-payment-button"
+                        onClick={handleSave}
+                      >
+                        {t("general.save")}
+                      </Button>
+                    </ButtonWrapper>
+                  )}
+                </>
+              ) : (
+                hasPaymentMethod && (
+                  <>
+                    <StepSummary>
+                      <StepSummaryItem data-cy="payment-method-selected">
+                        <PaymentMethodsContainer>
+                          <PaymentSource readonly>
+                            <Trans t={t} i18nKey="stepPayment.endingIn">
+                              <PaymentSourceBrandName className="mr-1" />
+                              <PaymentSourceDetail
+                                className="ml-1"
+                                type="last4"
+                              />
+                            </Trans>
+                          </PaymentSource>
+                        </PaymentMethodsContainer>
+                      </StepSummaryItem>
+                      <StepSummaryItemValue data-cy="payment-method-price-selected">
+                        {paymentMethod?.formattedPriceAmount}
+                      </StepSummaryItemValue>
+                    </StepSummary>
+                  </>
+                )
+              )}
+            </div>
+          )}
+        </StepContent>
+      </StepContainer>
+      {((isPaymentRequired && !isActive && hasPaymentMethod) ||
+        !isPaymentRequired) && (
+        <PlaceOrderContainer
+          options={{
+            stripePayment: {
+              publishableKey: stripeKey,
+            },
+            savePaymentSourceToCustomerWallet: !isGuest,
+          }}
+        >
+          <ButtonWrapper>
+            <StyledPlaceOrderButton
+              data-cy="place-order-button"
+              onClick={handlePlaceOrder}
+              label={t("stepPayment.submit")}
+              className="mt-8"
+            />
+          </ButtonWrapper>
+        </PlaceOrderContainer>
+      )}
+    </>
   )
 }
