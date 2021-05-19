@@ -71,7 +71,11 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
                 <PaymentRadioContainer>
                   <StyledPaymentMethodRadioButton className="form-radio" />
                 </PaymentRadioContainer>
-                <PaymentMethodName />
+                {String(<PaymentMethodName />) === "Stripe payment" ? (
+                  t("stepPayment.creditCard")
+                ) : (
+                  <PaymentMethodName />
+                )}
               </PaymentSummaryItem>
               <PaymentSummaryValue>
                 <PaymentMethodPrice labelFree={t("general.free")} />
