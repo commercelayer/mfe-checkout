@@ -6,9 +6,11 @@ import { Logo } from "./cl"
 export const Footer: React.FC = () => {
   return (
     <Wrapper>
-      <LogoWrapper>
-        Powered by <Logo />
-      </LogoWrapper>
+      <a target="_blank" href="https://commercelayer.io/" rel="noreferrer">
+        <LogoWrapper>
+          Powered by <Logo />
+        </LogoWrapper>
+      </a>
       <ListWrapper>
         <ListLink>
           <ListItem>
