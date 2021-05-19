@@ -3,6 +3,8 @@ import CLayer, { Order, Organization } from "@commercelayer/js-sdk"
 import jwt_decode from "jwt-decode"
 import type { NextApiRequest, NextApiResponse } from "next"
 
+import hex2hsl, { WHITE_COLOR, BLACK_COLOR } from "components/utils/hex2hsl"
+
 interface JWTProps {
   organization: {
     slug: string
@@ -86,8 +88,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
     companyName: organization?.name || "Test company",
     language: order.languageCode,
-    primaryColor: organization?.primaryColor || "#000000",
-    contrastColor: organization?.contrastColor || "#ffffff",
+    primaryColor: hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,
+    contrastColor:
+      hex2hsl(organization?.contrastColor as string) || WHITE_COLOR,
     favicon: organization?.faviconUrl || "/favicon.png",
     gtmId: organization?.gtmId || "GTM-TGCQ5BM",
     supportEmail: "test@extendi.it",

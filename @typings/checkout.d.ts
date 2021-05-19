@@ -1,3 +1,9 @@
+interface HSLProps {
+  h: number
+  s: number
+  l: number
+}
+
 interface CheckoutSettings {
   accessToken: string
   orderId: string
@@ -7,8 +13,8 @@ interface CheckoutSettings {
   logoUrl: string
   companyName: string
   language: string
-  primaryColor: string
-  contrastColor: string
+  primaryColor: HSLProps
+  contrastColor: HSLProps
   favicon: string
   gtmId: string
   supportEmail: string
