@@ -17,6 +17,7 @@ import { AddButton } from "components/ui/AddButton"
 import { ButtonCss } from "components/ui/Button"
 import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
 import { GridContainer } from "components/ui/GridContainer"
+import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { Toggle } from "components/ui/Toggle"
 
 import { AddressButtonAddNew } from "./AddressButtonAddNew"
@@ -232,11 +233,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             <AddressSectionSaveForm>
               <StyledSaveAddressesButton
                 disabled={isLocalLoader}
-                label={`${isLocalLoader ? "... " : ""}${
-                  isShipmentRequired
-                    ? t("stepCustomer.continueToDelivery")
-                    : t("stepShipping.continueToPayment")
-                }`}
+                label={
+                  <>
+                    {isLocalLoader && <SpinnerIcon />}
+                    {isShipmentRequired
+                      ? t("stepCustomer.continueToDelivery")
+                      : t("stepShipping.continueToPayment")}
+                  </>
+                }
                 data-cy="save-addresses-button"
                 onClick={handleSave}
               />
