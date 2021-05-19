@@ -57,26 +57,57 @@ export const OrderSummary: React.FC = () => {
             <SubTotalAmount />
           </RecapLine>
           <RecapLine>
-            <RecapLineItem>{t("orderRecap.discount_amount")}</RecapLineItem>
-            <DiscountAmount data-cy="discount-amount" />
+            <DiscountAmount data-cy="discount-amount">
+              {(props) => {
+                if (props.priceCents === 0) return <></>
+                return (
+                  <>
+                    <RecapLineItem>
+                      {t("orderRecap.discount_amount")}
+                    </RecapLineItem>
+                    {props.price}
+                  </>
+                )
+              }}
+            </DiscountAmount>
           </RecapLine>
           <RecapLine>
             <RecapLineItem>{t("orderRecap.shipping_amount")}</RecapLineItem>
             <ShippingAmount />
           </RecapLine>
           <RecapLine>
-            <RecapLineItem>
-              {t("orderRecap.payment_method_amount")}
-            </RecapLineItem>
-            <PaymentMethodAmount />
+            <PaymentMethodAmount>
+              {(props) => {
+                if (props.priceCents === 0) return <></>
+                return (
+                  <>
+                    <RecapLineItem>
+                      {t("orderRecap.payment_method_amount")}
+                    </RecapLineItem>
+                    {props.price}
+                  </>
+                )
+              }}
+            </PaymentMethodAmount>
           </RecapLine>
           <RecapLine>
             <RecapLineItem>{t("orderRecap.tax_amount")}</RecapLineItem>
             <TaxesAmount />
           </RecapLine>
           <RecapLine>
-            <RecapLineItem>{t("orderRecap.giftcard_amount")}</RecapLineItem>
-            <GiftCardAmount data-cy="giftcard-amount" />
+            <GiftCardAmount data-cy="giftcard-amount">
+              {(props) => {
+                if (props.priceCents === 0) return <></>
+                return (
+                  <>
+                    <RecapLineItem>
+                      {t("orderRecap.giftcard_amount")}
+                    </RecapLineItem>
+                    {props.price}
+                  </>
+                )
+              }}
+            </GiftCardAmount>
           </RecapLine>
           <RecapLineTotal>
             <RecapLineItemTotal>
