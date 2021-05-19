@@ -179,7 +179,6 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
         >
           <ButtonWrapper>
             <StyledPlaceOrderButton
-              // disabled={isPlacingOrder}
               data-cy="place-order-button"
               onClick={handlePlaceOrder}
               label={
