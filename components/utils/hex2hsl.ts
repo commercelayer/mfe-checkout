@@ -1,11 +1,18 @@
-interface HSLProps {
-  h: number
-  s: number
-  l: number
+export const BLACK_COLOR: HSLProps = {
+  h: 0,
+  l: 0,
+  s: 0,
 }
-function hexToHSL(hex: string) {
+
+export const WHITE_COLOR: HSLProps = {
+  h: 0,
+  l: 1,
+  s: 0,
+}
+
+function hexToHSL(hex: string): HSLProps | undefined {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-  if (!result) return null
+  if (!result) return undefined
   let r = parseInt(result[1], 16)
   let g = parseInt(result[2], 16)
   let b = parseInt(result[3], 16)

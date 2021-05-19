@@ -10,28 +10,25 @@ import { AppProvider } from "components/data/AppProvider"
 import { GTMProvider } from "components/data/GTMProvider"
 import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
-import hex2hsl from "components/utils/hex2hsl"
 
 interface GlobalStyleProps {
+  // TO REMOVE
   primaryColor: string
+  // TO REMOVE
   contrastColor: string
-  primaryH?: number
-  primaryS?: number
-  primaryL?: number
-  contrastH?: number
-  contrastS?: number
-  contrastL?: number
+  primary: HSLProps
+  contrast: HSLProps
 }
 const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
   :root {
     --primary: ${({ primaryColor }) => primaryColor};
     --contrast: ${({ contrastColor }) => contrastColor};
-    --primary-h: ${({ primaryH }) => primaryH};
-    --primary-s: ${({ primaryS }) => primaryS};
-    --primary-l: ${({ primaryL }) => primaryL};
-    --contrast-h: ${({ contrastH }) => contrastH};
-    --contrast-s: ${({ contrastS }) => contrastS};
-    --contrast-l: ${({ contrastL }) => contrastL};
+    --primary-h: ${({ primary }) => primary.h};
+    --primary-s: ${({ primary }) => primary.s};
+    --primary-l: ${({ primary }) => primary.l};
+    --contrast-h: ${({ contrast }) => contrast.h};
+    --contrast-s: ${({ contrast }) => contrast.s};
+    --contrast-l: ${({ contrast }) => contrast.l};
   }
 `
 
@@ -42,15 +39,6 @@ const Home: NextPage = () => {
 
   if (isLoading) return <SpinnerLoader />
   if (!settings) return <></>
-
-  const primaryColor = hex2hsl(settings.primaryColor)
-  const primaryH = primaryColor?.h
-  const primaryS = primaryColor?.s
-  const primaryL = primaryColor?.l
-  const contrastColor = hex2hsl(settings.contrastColor)
-  const contrastH = contrastColor?.h
-  const contrastS = contrastColor?.s
-  const contrastL = contrastColor?.l
 
   return (
     <div>
@@ -63,14 +51,10 @@ const Home: NextPage = () => {
         endpoint={settings.endpoint}
       >
         <GlobalCssStyle
-          primaryColor={settings.primaryColor}
-          contrastColor={settings.contrastColor}
-          primaryH={primaryH}
-          primaryS={primaryS}
-          primaryL={primaryL}
-          contrastH={contrastH}
-          contrastS={contrastS}
-          contrastL={contrastL}
+          primaryColor="#4CAF50"
+          contrastColor="#FFFFFF"
+          primary={settings.primaryColor}
+          contrast={settings.contrastColor}
         />
         <OrderContainer orderId={settings.orderId}>
           <ThemeProvider
