@@ -1,13 +1,13 @@
 export const BLACK_COLOR: HSLProps = {
   h: 0,
-  l: 0,
-  s: 0,
+  l: "0%",
+  s: "0%",
 }
 
 export const WHITE_COLOR: HSLProps = {
   h: 0,
-  l: 1,
-  s: 0,
+  l: "100%",
+  s: "0%",
 }
 
 function removeHash(hex: string) {
@@ -71,7 +71,7 @@ function hexToHSL(hex: string): HSLProps | undefined {
     h /= 6
     h *= 360
   }
-  const HSL: HSLProps = { h, s, l }
+  const HSL: HSLProps = { h, s: `${s * 100}%`, l: `${l * 100}%` }
 
   return HSL
 }

@@ -3,7 +3,7 @@ import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
 import { NextPage } from "next"
 import Head from "next/head"
 import { useTranslation } from "react-i18next"
-import { createGlobalStyle, ThemeProvider } from "styled-components"
+import { createGlobalStyle } from "styled-components"
 
 import { Checkout } from "components/composite/Checkout"
 import { AppProvider } from "components/data/AppProvider"
@@ -22,14 +22,15 @@ interface GlobalStyleProps {
 }
 const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
   :root {
-    --primary: ${({ primaryColor }) => primaryColor};
-    --contrast: ${({ contrastColor }) => contrastColor};
     --primary-h: ${({ primary }) => primary.h};
     --primary-s: ${({ primary }) => primary.s};
     --primary-l: ${({ primary }) => primary.l};
     --contrast-h: ${({ contrast }) => contrast.h};
     --contrast-s: ${({ contrast }) => contrast.s};
     --contrast-l: ${({ contrast }) => contrast.l};
+    --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+    --primary-light: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.1);
+    --contrast: ${({ contrastColor }) => contrastColor};
   }
 `
 
@@ -59,30 +60,21 @@ const Home: NextPage = () => {
             contrast={settings.contrastColor}
           />
           <OrderContainer orderId={settings.orderId}>
-            <ThemeProvider
-              theme={{
-                colors: {
-                  primary: settings.primaryColor,
-                  contrast: settings.contrastColor,
-                },
-              }}
+            <AppProvider
+              orderId={settings.orderId}
+              accessToken={settings.accessToken}
+              endpoint={settings.endpoint}
             >
-              <AppProvider
-                orderId={settings.orderId}
-                accessToken={settings.accessToken}
-                endpoint={settings.endpoint}
-              >
-                <GTMProvider gtmId={settings.gtmId}>
-                  <Checkout
-                    logoUrl={settings.logoUrl}
-                    orderNumber={settings.orderNumber}
-                    companyName={settings.companyName}
-                    supportEmail={settings.supportEmail}
-                    supportPhone={settings.supportPhone}
-                  />
-                </GTMProvider>
-              </AppProvider>
-            </ThemeProvider>
+              <GTMProvider gtmId={settings.gtmId}>
+                <Checkout
+                  logoUrl={settings.logoUrl}
+                  orderNumber={settings.orderNumber}
+                  companyName={settings.companyName}
+                  supportEmail={settings.supportEmail}
+                  supportPhone={settings.supportPhone}
+                />
+              </GTMProvider>
+            </AppProvider>
           </OrderContainer>
         </CommerceLayer>
       </RollbarProvider>

@@ -1,7 +1,7 @@
 interface HSLProps {
   h: number
-  s: number
-  l: number
+  s: string
+  l: string
 }
 
 interface CheckoutSettings {
