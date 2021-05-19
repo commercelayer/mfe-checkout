@@ -17,11 +17,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: "var(--primary)",
         primary: {
-          light: "#b7dfb9",
+          light: "var(--primary-light)",
           DEFAULT: "var(--primary)",
-          dark: "#245225",
+          dark: "var(--primary-dark)",
         },
         contrast: "var(--contrast)",
         gray: {

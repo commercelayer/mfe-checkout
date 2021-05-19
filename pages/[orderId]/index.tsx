@@ -13,10 +13,6 @@ import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
 interface GlobalStyleProps {
-  // TO REMOVE
-  primaryColor: string
-  // TO REMOVE
-  contrastColor: string
   primary: HSLProps
   contrast: HSLProps
 }
@@ -30,7 +26,8 @@ const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
     --contrast-l: ${({ contrast }) => contrast.l};
     --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
     --primary-light: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.1);
-    --contrast: ${({ contrastColor }) => contrastColor};
+    --primary-dark: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) * 0.5));
+    --contrast: hsl(var(--contrast-h), var(--contrast-s), var(--contrast-l));
   }
 `
 
@@ -54,8 +51,6 @@ const Home: NextPage = () => {
           endpoint={settings.endpoint}
         >
           <GlobalCssStyle
-            primaryColor="#4CAF50"
-            contrastColor="#FFFFFF"
             primary={settings.primaryColor}
             contrast={settings.contrastColor}
           />
