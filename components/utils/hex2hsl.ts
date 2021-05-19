@@ -10,8 +10,32 @@ export const WHITE_COLOR: HSLProps = {
   s: 0,
 }
 
+function removeHash(hex: string) {
+  if (hex.charAt && hex.charAt(0) === "#") {
+    const arr = hex.split("")
+    arr.shift()
+    return arr.join("")
+  }
+  return hex
+}
+
+function expand(hex: string) {
+  return hex
+    .split("")
+    .reduce((acc: string[], value) => acc.concat([value, value]), [])
+    .join("")
+}
+
 function hexToHSL(hex: string): HSLProps | undefined {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  if (!hex) return undefined
+
+  let hexColor = removeHash(hex)
+
+  if (hexColor.length === 3) {
+    hexColor = expand(hexColor)
+  }
+
+  const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexColor)
   if (!result) return undefined
   let r = parseInt(result[1], 16)
   let g = parseInt(result[2], 16)
