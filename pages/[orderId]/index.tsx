@@ -8,6 +8,7 @@ import { createGlobalStyle, ThemeProvider } from "styled-components"
 import { Checkout } from "components/composite/Checkout"
 import { AppProvider } from "components/data/AppProvider"
 import { GTMProvider } from "components/data/GTMProvider"
+import { RollbarProvider } from "components/data/RollbarProvider"
 import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
@@ -46,43 +47,45 @@ const Home: NextPage = () => {
         <title>{t("general.title")}</title>
         <link rel="icon" href={settings.favicon} />
       </Head>
-      <CommerceLayer
-        accessToken={settings.accessToken}
-        endpoint={settings.endpoint}
-      >
-        <GlobalCssStyle
-          primaryColor="#4CAF50"
-          contrastColor="#FFFFFF"
-          primary={settings.primaryColor}
-          contrast={settings.contrastColor}
-        />
-        <OrderContainer orderId={settings.orderId}>
-          <ThemeProvider
-            theme={{
-              colors: {
-                primary: settings.primaryColor,
-                contrast: settings.contrastColor,
-              },
-            }}
-          >
-            <AppProvider
-              orderId={settings.orderId}
-              accessToken={settings.accessToken}
-              endpoint={settings.endpoint}
+      <RollbarProvider>
+        <CommerceLayer
+          accessToken={settings.accessToken}
+          endpoint={settings.endpoint}
+        >
+          <GlobalCssStyle
+            primaryColor="#4CAF50"
+            contrastColor="#FFFFFF"
+            primary={settings.primaryColor}
+            contrast={settings.contrastColor}
+          />
+          <OrderContainer orderId={settings.orderId}>
+            <ThemeProvider
+              theme={{
+                colors: {
+                  primary: settings.primaryColor,
+                  contrast: settings.contrastColor,
+                },
+              }}
             >
-              <GTMProvider gtmId={settings.gtmId}>
-                <Checkout
-                  logoUrl={settings.logoUrl}
-                  orderNumber={settings.orderNumber}
-                  companyName={settings.companyName}
-                  supportEmail={settings.supportEmail}
-                  supportPhone={settings.supportPhone}
-                />
-              </GTMProvider>
-            </AppProvider>
-          </ThemeProvider>
-        </OrderContainer>
-      </CommerceLayer>
+              <AppProvider
+                orderId={settings.orderId}
+                accessToken={settings.accessToken}
+                endpoint={settings.endpoint}
+              >
+                <GTMProvider gtmId={settings.gtmId}>
+                  <Checkout
+                    logoUrl={settings.logoUrl}
+                    orderNumber={settings.orderNumber}
+                    companyName={settings.companyName}
+                    supportEmail={settings.supportEmail}
+                    supportPhone={settings.supportPhone}
+                  />
+                </GTMProvider>
+              </AppProvider>
+            </ThemeProvider>
+          </OrderContainer>
+        </CommerceLayer>
+      </RollbarProvider>
     </div>
   )
 }
