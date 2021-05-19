@@ -60,7 +60,7 @@
     "faker": "^5.5.3",
     "msw": "^0.28.2",
     "postcss": "^8.2.13",
-    "prettier": "^2.2.1",
+    "prettier": "^2.3.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "tailwindcss": "^2.1.2",
