@@ -92,7 +92,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     contrastColor:
       hex2hsl(organization?.contrastColor as string) || WHITE_COLOR,
     favicon: organization?.faviconUrl || "/favicon.png",
-    gtmId: organization?.gtmId || "GTM-TGCQ5BM",
+    gtmId: organization?.gtmId,
     supportEmail: "test@extendi.it",
     supportPhone: "+39 111 222 3333",
   }

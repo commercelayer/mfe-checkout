@@ -16,7 +16,7 @@ interface CheckoutSettings {
   primaryColor: HSLProps
   contrastColor: HSLProps
   favicon: string
-  gtmId: string
+  gtmId?: string
   supportEmail: string
   supportPhone: string
 }
