@@ -7,10 +7,16 @@ import CLayer, {
   PaymentMethodCollection,
   PaymentMethod,
   LineItemCollection,
+  StripePaymentCollection,
+  WireTransferCollection,
+  PaypalPaymentCollection,
+  BraintreePaymentCollection,
+  AdyenPaymentCollection,
 } from "@commercelayer/js-sdk"
 import {
   CollectionResponse,
   JSONAPIResponse,
+  SingleRelationship,
 } from "@commercelayer/js-sdk/dist/typings/Library"
 import i18n from "i18next"
 
@@ -310,8 +316,16 @@ export const fetchOrderById = async ({
     }
 
     const paymentMethod = order.paymentMethod()
-    const paymentSource = order.paymentSource()
-    let hasPaymentMethod = Boolean(paymentMethod && paymentSource)
+    const paymentSource: SingleRelationship<
+      | (StripePaymentCollection & { options?: { card?: string } })
+      | (WireTransferCollection & { options?: { card?: string } })
+      | (PaypalPaymentCollection & { options?: { card?: string } })
+      | (BraintreePaymentCollection & { options?: { card?: string } })
+      | (AdyenPaymentCollection & { options?: { card?: string } })
+    > = order.paymentSource()
+    let hasPaymentMethod = Boolean(
+      paymentMethod && paymentSource?.options?.card
+    )
 
     if (!hasPaymentMethod && !isPaymentRequired) {
       hasPaymentMethod = true
