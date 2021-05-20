@@ -37,7 +37,7 @@ const ButtonTrack = styled.button`
 `
 
 const Dot = styled.span`
-  ${tw` inline-block h-3 w-3 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200`}
+  ${tw` inline-block h-3 w-3 rounded-full bg-contrast shadow transform ring-0 transition ease-in-out duration-200`}
 `
 
 const Label = styled.span`

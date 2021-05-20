@@ -29,7 +29,7 @@ interface BadgeProps {
 }
 
 const Badge = styled.div<BadgeProps>(({ active }) => [
-  tw`rounded-full text-white flex justify-center items-center w-6 h-6 text-xs font-bold`,
+  tw`rounded-full text-contrast flex justify-center items-center w-6 h-6 text-xs font-bold`,
   active && tw`bg-primary`,
   !active && tw`bg-gray-400`,
 ])
