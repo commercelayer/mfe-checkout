@@ -2,7 +2,7 @@ import { Provider, ErrorBoundary } from "@rollbar/react"
 import { Fragment } from "react"
 
 export const RollbarProvider: React.FC = ({ children }) => {
-  if (!process.env.ROLLBAR_ACCESS_TOKEN) {
+  if (!process.env.NEXT_ROLLBAR_ACCESS_TOKEN) {
     return <Fragment>{children}</Fragment>
   }
 
