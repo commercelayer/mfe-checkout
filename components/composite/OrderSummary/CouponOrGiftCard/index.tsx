@@ -1,7 +1,6 @@
 import {
   GiftCardOrCouponCode,
   GiftCardOrCouponSubmit,
-  Errors,
   GiftCardOrCouponForm,
 } from "@commercelayer/react-components"
 import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
