@@ -23,3 +23,7 @@ git push [environment] [branch]:master
 ```
 
 where `environment` is staging. Deploy on production will be made by promoting a staging deploy.
+
+## Rollbar token
+
+There are many access tokens on rollbar settings, we need to use one related to post client items.
