@@ -29,7 +29,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
           <StyledLineItemSkuCode />
           <LineItemTitle>
             <LineItemName className="font-bold" />
-            <LineItemAmount className="text-lg font-extrabold" />
+            <LineItemAmount className="pl-2 text-lg font-extrabold" />
           </LineItemTitle>
           <LineItemQty>
             <LineItemQuantity>
