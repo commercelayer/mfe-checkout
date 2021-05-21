@@ -19,6 +19,8 @@ interface Props {
   companyName: string
   supportEmail: string
   supportPhone: string
+  termsUrl: string
+  privacyUrl: string
 }
 
 export const StepComplete: React.FC<Props> = ({
@@ -26,6 +28,8 @@ export const StepComplete: React.FC<Props> = ({
   companyName,
   supportEmail,
   supportPhone,
+  termsUrl,
+  privacyUrl,
 }) => {
   const { t } = useTranslation()
 
@@ -72,7 +76,7 @@ export const StepComplete: React.FC<Props> = ({
               </WrapperButton>
             )}
           </Main>
-          <Footer />
+          <Footer termsUrl={termsUrl} privacyUrl={privacyUrl} />
         </Wrapper>
       </Container>
     </Base>

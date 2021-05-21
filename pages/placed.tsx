@@ -30,6 +30,8 @@ const Home: NextPage = () => {
     companyName: "Test company",
     supportEmail: "test@extendi.it",
     supportPhone: "+39 055 7311348",
+    termsUrl: "https://terms",
+    privacyUrl: "https://privacy",
   }
 
   return (
@@ -57,6 +59,8 @@ const Home: NextPage = () => {
           companyName={settings.companyName}
           supportEmail={settings.supportEmail}
           supportPhone={settings.supportPhone}
+          termsUrl={settings.termsUrl}
+          privacyUrl={settings.privacyUrl}
         />
       </ThemeProvider>
     </div>
