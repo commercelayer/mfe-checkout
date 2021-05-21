@@ -16,7 +16,8 @@
         "apply": "Apply",
         "discard": "Discard changes",
         "privacy_link": "Privacy",
-        "terms_link": "Terms"
+        "terms_link": "Terms",
+        "checkoutTitle": "Checkout"
     },
 
     "input":{

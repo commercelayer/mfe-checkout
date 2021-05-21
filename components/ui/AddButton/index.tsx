@@ -4,7 +4,7 @@ import tw from "twin.macro"
 
 interface Props {
   dataCy: string
-  action: () => any
+  action: () => void
 }
 
 export const AddButton: React.FC<Props> = ({ dataCy, action }) => {

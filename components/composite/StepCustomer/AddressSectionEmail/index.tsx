@@ -11,7 +11,6 @@ import tw from "twin.macro"
 import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
-import { GridContainer } from "components/ui/GridContainer"
 
 interface Props {
   readonly?: boolean

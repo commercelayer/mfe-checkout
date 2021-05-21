@@ -16,7 +16,8 @@
         "apply": "Applica",
         "discard": "Non salvare le modifiche",
         "privacy_link": "Privacy",
-        "terms_link": "Termini"
+        "terms_link": "Termini",
+        "checkoutTitle": "Checkout"
     },
 
     "input":{
