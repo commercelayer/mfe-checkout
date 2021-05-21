@@ -49,7 +49,7 @@ export const StepComplete: React.FC<Props> = ({
             tw="pt-10 mb-10 pl-4"
           />
           <Main>
-            <div className="border border-gray-900">
+            <div className="p-8">
               <CheckIcon />
             </div>
             <Title>{t("stepComplete.title")}</Title>
@@ -58,7 +58,7 @@ export const StepComplete: React.FC<Props> = ({
                 i18nKey={"stepComplete.summary"}
                 values={{ orderId: ctx?.orderId }}
                 components={{
-                  WrapperOrderId: <strong />,
+                  WrapperOrderId: <strong className="text-black" />,
                 }}
               />
             </Text>
