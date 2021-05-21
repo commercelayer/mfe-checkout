@@ -60,6 +60,8 @@ export const Checkout: React.FC<Props> = ({
         companyName={companyName}
         supportEmail={supportEmail}
         supportPhone={supportPhone}
+        termsUrl={termsUrl}
+        privacyUrl={privacyUrl}
       />
     )
   }

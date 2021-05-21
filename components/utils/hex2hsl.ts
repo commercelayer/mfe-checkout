@@ -4,12 +4,6 @@ export const BLACK_COLOR: HSLProps = {
   s: "0%",
 }
 
-export const WHITE_COLOR: HSLProps = {
-  h: 0,
-  l: "100%",
-  s: "0%",
-}
-
 function removeHash(hex: string) {
   if (hex.charAt && hex.charAt(0) === "#") {
     const arr = hex.split("")

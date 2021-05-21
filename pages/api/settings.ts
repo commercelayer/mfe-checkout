@@ -3,7 +3,7 @@ import CLayer, { Order, Organization } from "@commercelayer/js-sdk"
 import jwt_decode from "jwt-decode"
 import type { NextApiRequest, NextApiResponse } from "next"
 
-import hex2hsl, { WHITE_COLOR, BLACK_COLOR } from "components/utils/hex2hsl"
+import hex2hsl, { BLACK_COLOR } from "components/utils/hex2hsl"
 
 interface JWTProps {
   organization: {

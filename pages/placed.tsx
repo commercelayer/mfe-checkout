@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next"
 import { createGlobalStyle, ThemeProvider } from "styled-components"
 
 import { StepComplete } from "components/composite/StepComplete"
-import { Footer } from "components/ui/Footer"
 
 interface GlobalStyleProps {
   primaryColor: string
