@@ -1,6 +1,5 @@
 import {
   PaymentMethod,
-  PaymentMethodName,
   PaymentMethodPrice,
   PaymentSource,
 } from "@commercelayer/react-components"
@@ -9,6 +8,7 @@ import { useTranslation } from "react-i18next"
 import "twin.macro"
 import { PaymentContainer } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
+import { PaymentMethodNameWithStripe } from "./PaymentMethodNameWithStripe"
 import {
   PaymentWrapper,
   PaymentSummary,
@@ -40,14 +40,7 @@ export const CheckoutPayment: React.FC<Props> = ({
               <PaymentRadioContainer>
                 <StyledPaymentMethodRadioButton className="form-radio" />
               </PaymentRadioContainer>
-              <PaymentMethodName>
-                {({ labelName }) => {
-                  if (labelName === "Stripe Payment") {
-                    return t("stepPayment.creditCard")
-                  }
-                  return labelName
-                }}
-              </PaymentMethodName>
+              <PaymentMethodNameWithStripe />
             </PaymentSummaryItem>
             <PaymentSummaryValue>
               <PaymentMethodPrice labelFree={t("general.free")} />

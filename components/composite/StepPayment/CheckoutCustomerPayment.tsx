@@ -1,6 +1,5 @@
 import {
   PaymentMethod,
-  PaymentMethodName,
   PaymentMethodPrice,
   PaymentSource,
   CustomerContainer,
@@ -12,6 +11,7 @@ import { Label } from "components/ui/Label"
 
 import { PaymentContainer } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
+import { PaymentMethodNameWithStripe } from "./PaymentMethodNameWithStripe"
 import {
   PaymentWrapper,
   PaymentSummary,
@@ -81,14 +81,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
                 <PaymentRadioContainer>
                   <StyledPaymentMethodRadioButton className="form-radio" />
                 </PaymentRadioContainer>
-                <PaymentMethodName>
-                  {({ labelName }) => {
-                    if (labelName === "Stripe Payment") {
-                      return t("stepPayment.creditCard")
-                    }
-                    return labelName
-                  }}
-                </PaymentMethodName>
+                <PaymentMethodNameWithStripe />
               </PaymentSummaryItem>
               <PaymentSummaryValue>
                 <PaymentMethodPrice labelFree={t("general.free")} />
