@@ -65,8 +65,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
     return await fetchOrderById({ orderId, accessToken, endpoint }).then(
       (newState) => {
-        console.log("newState")
-        console.log(newState)
         setState({ ...newState, isLoading: false, isFirstLoading: false })
       }
     )

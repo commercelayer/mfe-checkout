@@ -379,11 +379,6 @@ export const fetchOrderById = async ({
 
     const returnUrl = order.returnUrl
 
-    console.log("order.shippingAddress :>> ", order.shippingAddress())
-    console.log("order.billingAddress :>> ", await order.billingAddress())
-    console.log("order.shipments :>> ", shipments)
-    console.log("order.paymentMethod :>> ", await order.paymentMethod())
-
     await i18n.changeLanguage(order.languageCode)
 
     return {
