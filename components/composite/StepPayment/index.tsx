@@ -1,5 +1,4 @@
 import {
-  PaymentSourceBrandIcon,
   PaymentSourceBrandName,
   PaymentSourceDetail,
   PlaceOrderContainer,

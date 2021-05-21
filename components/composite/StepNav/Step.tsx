@@ -1,8 +1,6 @@
 import styled, { css } from "styled-components"
 import tw from "twin.macro"
 
-const STEP_BG_ACTIVE = "#3b82f6"
-
 interface StepProps {
   isActive?: boolean
   isLocked?: boolean

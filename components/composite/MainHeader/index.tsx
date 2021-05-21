@@ -11,7 +11,7 @@ export const MainHeader: React.FC<Props> = ({ orderNumber }) => {
 
   return (
     <Wrapper>
-      <Title>Checkout</Title>
+      <Title>{t("general.checkoutTitle")}</Title>
       <Order>#{orderNumber}</Order>
     </Wrapper>
   )

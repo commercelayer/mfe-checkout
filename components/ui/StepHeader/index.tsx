@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import styled, { css } from "styled-components"
+import styled from "styled-components"
 import tw from "twin.macro"
 
 interface Props {

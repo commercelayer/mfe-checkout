@@ -1,7 +1,6 @@
 import { AddressInput } from "@commercelayer/react-components"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
-import tw from "twin.macro"
 
 import { CheckCss } from "components/ui/form/CheckBox"
 import { Label } from "components/ui/Label"

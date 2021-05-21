@@ -55,11 +55,7 @@ interface Props {
   onToggleActive: () => void
 }
 
-export const StepShipping: React.FC<Props> = ({
-  className,
-  isActive,
-  onToggleActive,
-}) => {
+export const StepShipping: React.FC<Props> = ({ isActive, onToggleActive }) => {
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
 
@@ -91,6 +87,7 @@ export const StepShipping: React.FC<Props> = ({
   }, [shipments])
 
   const handleChange = (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     shippingMethod: ShippingMethodCollection | Record<string, any>
   ): void => {
     setShipmentsSelected((shipmentsSelected) =>
@@ -160,6 +157,7 @@ export const StepShipping: React.FC<Props> = ({
                           onChange={(
                             shippingMethod:
                               | ShippingMethodCollection
+                              // eslint-disable-next-line @typescript-eslint/no-explicit-any
                               | Record<string, any>
                           ) => handleChange(shippingMethod)}
                         />

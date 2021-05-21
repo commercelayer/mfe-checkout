@@ -15,7 +15,7 @@ export const useActiveStep = (): UseActiveStep => {
   const [lastActivableStep, setLastActivableStep] = useState<SingleStepEnum>(
     "Customer"
   )
-  const [steps, setSteps] = useState<SingleStepEnum[]>([
+  const [steps] = useState<SingleStepEnum[]>([
     "Customer",
     "Shipping",
     "Payment",

@@ -29,13 +29,21 @@ interface Props {
   handleSave: () => void
 }
 
+interface CustomerCardsProps {
+  handleClick: () => void
+}
+
+type CustomerSaveToWalletProps = {
+  name: "save_payment_source_to_customer_wallet"
+}
+
 export const CheckoutCustomerPayment: React.FC<Props> = ({
   stripeKey,
   handleSave,
 }: Props) => {
   const { t } = useTranslation()
 
-  const TemplateCustomerCards = ({ handleClick }: any) => (
+  const TemplateCustomerCards = ({ handleClick }: CustomerCardsProps) => (
     <div
       onClick={handleClick}
       className="flex p-3 mr-4 text-sm border rounded shadow-sm"
@@ -44,7 +52,9 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
     </div>
   )
 
-  const TemplateSaveToWalletCheckbox = ({ name }: any) => (
+  const TemplateSaveToWalletCheckbox = ({
+    name,
+  }: CustomerSaveToWalletProps) => (
     <div className="flex mt-4 flex-center">
       <WalletCheckbox
         name={name}
