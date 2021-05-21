@@ -112,7 +112,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             <AddressSectionTitle>
               {t(`addressForm.billing_address_title`)}
             </AddressSectionTitle>
-            {showBillingAddressForm ? (
+            {hasCustomerAddresses && (
               <GridContainer className="mb-8">
                 <BillingAddressContainer>
                   <CustomerAddressCard
@@ -132,7 +132,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   )}
                 </>
               </GridContainer>
-            ) : null}
+            )}
           </>
           <div
             className={
