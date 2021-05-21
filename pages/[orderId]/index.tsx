@@ -24,7 +24,7 @@ const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
     --primary-light: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.1);
     --primary-dark: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) * 0.5));
     --contrast-threshold: 50%;
-    --switch: calc((var(--primary-l) - var(--contrast-threshold)) * -100000);
+    --switch: calc((var(--primary-l) - var(--contrast-threshold)) * -10000);
     --contrast: hsl(0, 0%, var(--switch));
   }
 `

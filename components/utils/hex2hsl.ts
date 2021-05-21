@@ -71,7 +71,11 @@ function hexToHSL(hex: string): HSLProps | undefined {
     h /= 6
     h *= 360
   }
-  const HSL: HSLProps = { h, s: `${s * 100}%`, l: `${l * 100}%` }
+  const HSL: HSLProps = {
+    h,
+    s: `${(s * 100).toFixed(2)}%`,
+    l: `${(l * 100).toFixed(2)}%`,
+  }
 
   return HSL
 }

@@ -88,7 +88,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
     companyName: organization?.name || "Test company",
     language: order.languageCode,
-    primaryColor: hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,
+    primaryColor: { h: 122, s: "39.44%", l: "49.99%" }, // hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,
     favicon: organization?.faviconUrl || "/favicon.png",
     gtmId: organization?.gtmId,
     supportEmail: "test@extendi.it",
