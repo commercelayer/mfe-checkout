@@ -28,7 +28,10 @@ export const PaymentSummaryValue = styled.p`
   ${tw`flex font-bold uppercase text-ss leading-8`}
 `
 export const PaymentSourceContainer = styled.div`
-  ${tw`mt-4`}
+  ${tw`mt-2`}
+  .StripeElement {
+    ${tw`p-4 border rounded shadow-sm bg-gradient-to-b from-gray-100`}
+  }
 `
 export const PaymentDetailsWrapper = styled.div`
   ${tw`flex flex-row items-center justify-start text-sm`}

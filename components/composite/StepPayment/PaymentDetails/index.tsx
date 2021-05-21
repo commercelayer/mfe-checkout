@@ -17,14 +17,14 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
 
   return (
     <Fragment>
-      <div className="flex flex-row items-center font-bold">
+      <div className="flex items-center font-bold">
         <PaymentSourceBrandIcon className="mr-2" />
         <Trans t={t} i18nKey="stepPayment.endingIn">
           <PaymentSourceBrandName className="mr-1" />
           <PaymentSourceDetail className="ml-1" type="last4" />
         </Trans>
       </div>
-      <div className="ml-3 text-gray-500">
+      <div className="pl-2 text-gray-500">
         {t("stepPayment.expires")} <PaymentSourceDetail type="expMonth" />
         /
         <PaymentSourceDetail type="expYear" />

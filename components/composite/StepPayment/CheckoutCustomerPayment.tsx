@@ -46,7 +46,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   const TemplateCustomerCards = ({ handleClick }: CustomerCardsProps) => (
     <div
       onClick={handleClick}
-      className="flex p-3 mr-4 text-sm border rounded shadow-sm"
+      className="flex items-center p-3 mb-4 text-sm border rounded cursor-pointer shadow-sm hover:border-primary"
     >
       <PaymentDetails />
     </div>
@@ -97,7 +97,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
 
             <PaymentSourceContainer data-cy="payment-source">
               <PaymentSource
-                className="flex flex-row py-2 my-2"
+                className="flex flex-col"
                 templateCustomerCards={(props) => (
                   <TemplateCustomerCards {...props} />
                 )}
