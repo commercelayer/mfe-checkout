@@ -14,20 +14,18 @@ import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
 interface GlobalStyleProps {
   primary: HSLProps
-  contrast: HSLProps
 }
 const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
   :root {
     --primary-h: ${({ primary }) => primary.h};
     --primary-s: ${({ primary }) => primary.s};
     --primary-l: ${({ primary }) => primary.l};
-    --contrast-h: ${({ contrast }) => contrast.h};
-    --contrast-s: ${({ contrast }) => contrast.s};
-    --contrast-l: ${({ contrast }) => contrast.l};
     --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
     --primary-light: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.1);
     --primary-dark: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) * 0.5));
-    --contrast: hsl(var(--contrast-h), var(--contrast-s), var(--contrast-l));
+    --contrast-threshold: 50%;
+    --switch: calc((var(--primary-l) - var(--contrast-threshold)) * -100);
+    --contrast: hsl(0, 0%, var(--switch));
   }
 `
 
@@ -50,10 +48,7 @@ const Home: NextPage = () => {
           accessToken={settings.accessToken}
           endpoint={settings.endpoint}
         >
-          <GlobalCssStyle
-            primary={settings.primaryColor}
-            contrast={settings.contrastColor}
-          />
+          <GlobalCssStyle primary={settings.primaryColor} />
           <OrderContainer orderId={settings.orderId}>
             <AppProvider
               orderId={settings.orderId}

@@ -23,7 +23,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
       <LineItemWrapper>
         <LineItemImage
           width={85}
-          className="self-start p-1 bg-white border rounded"
+          className="self-start p-1 border rounded bg-contrast"
         />
         <LineItemDescription>
           <StyledLineItemSkuCode />

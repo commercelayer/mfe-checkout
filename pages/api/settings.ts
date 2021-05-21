@@ -89,8 +89,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     companyName: organization?.name || "Test company",
     language: order.languageCode,
     primaryColor: hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,
-    contrastColor:
-      hex2hsl(organization?.contrastColor as string) || WHITE_COLOR,
     favicon: organization?.faviconUrl || "/favicon.png",
     gtmId: organization?.gtmId,
     supportEmail: "test@extendi.it",

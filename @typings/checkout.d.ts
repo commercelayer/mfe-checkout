@@ -14,7 +14,6 @@ interface CheckoutSettings {
   companyName: string
   language: string
   primaryColor: HSLProps
-  contrastColor: HSLProps
   favicon: string
   gtmId?: string
   supportEmail: string
@@ -30,7 +29,6 @@ type CheckoutPageContextProps = Pick<
   | "endpoint"
   | "language"
   | "primaryColor"
-  | "contrastColor"
   | "favicon"
   | "gtmId"
   | "supportEmail"

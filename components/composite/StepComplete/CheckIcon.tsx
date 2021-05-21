@@ -19,5 +19,5 @@ export const CheckIcon: React.FC = () => {
 }
 
 const Svg = styled.svg`
-  ${tw`text-white w-3/5`}
+  ${tw`text-contrast w-3/5`}
 `

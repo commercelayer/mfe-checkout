@@ -27,5 +27,5 @@ export const SpinnerIcon: React.FC = () => {
 }
 
 const Svg = styled.svg`
-  ${tw`text-white`}
+  ${tw`text-contrast`}
 `
