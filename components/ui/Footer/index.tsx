@@ -1,9 +1,16 @@
+import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
 
 import { Logo } from "./cl"
 
-export const Footer: React.FC = () => {
+interface Props {
+  termsUrl: string
+  privacyUrl: string
+}
+
+export const Footer: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
+  const { t } = useTranslation()
   return (
     <Wrapper>
       <a target="_blank" href="https://commercelayer.io/" rel="noreferrer">
@@ -11,28 +18,26 @@ export const Footer: React.FC = () => {
           Powered by <Logo />
         </LogoWrapper>
       </a>
-      <ListWrapper>
-        <ListLink>
-          <ListItem>
-            <a
-              target="_blank"
-              href="https://commercelayer.io/legal/terms-of-service/"
-              rel="noreferrer"
-            >
-              Terms
-            </a>
-          </ListItem>
-          <ListItem>
-            <a
-              target="_blank"
-              href="https://commercelayer.io/legal/privacy-policy/"
-              rel="noreferrer"
-            >
-              Privacy
-            </a>
-          </ListItem>
-        </ListLink>
-      </ListWrapper>
+      {(termsUrl || privacyUrl) && (
+        <ListWrapper>
+          <ListLink>
+            {termsUrl && (
+              <ListItem>
+                <a target="_blank" href={termsUrl} rel="noreferrer">
+                  {t("general.terms_link")}
+                </a>
+              </ListItem>
+            )}
+            {privacyUrl && (
+              <ListItem>
+                <a target="_blank" href={privacyUrl} rel="noreferrer">
+                  {t("general.privacy_link")}
+                </a>
+              </ListItem>
+            )}
+          </ListLink>
+        </ListWrapper>
+      )}
     </Wrapper>
   )
 }

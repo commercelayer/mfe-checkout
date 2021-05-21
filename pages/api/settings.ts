@@ -50,7 +50,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       "status",
       "number",
       "guest",
-      "language_code"
+      "language_code",
+      "terms_url",
+      "privacy_url"
     ).find(orderId)
     order = await orderFetched?.update({ _refresh: true })
   } catch (e) {
@@ -88,11 +90,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
     companyName: organization?.name || "Test company",
     language: order.languageCode,
-    primaryColor: { h: 122, s: "39.44%", l: "49.99%" }, // hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,
+    primaryColor: hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,
     favicon: organization?.faviconUrl || "/favicon.png",
     gtmId: organization?.gtmId,
     supportEmail: "test@extendi.it",
     supportPhone: "+39 111 222 3333",
+    termsUrl: order.termsUrl,
+    privacyUrl: order.privacyUrl,
   }
   res.statusCode = 200
 

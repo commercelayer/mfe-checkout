@@ -22,6 +22,8 @@ interface Props {
   companyName: string
   supportEmail: string
   supportPhone: string
+  termsUrl: string
+  privacyUrl: string
 }
 
 export const Checkout: React.FC<Props> = ({
@@ -30,6 +32,8 @@ export const Checkout: React.FC<Props> = ({
   companyName,
   supportEmail,
   supportPhone,
+  termsUrl,
+  privacyUrl,
 }) => {
   const ctx = useContext(AppContext)
 
@@ -73,7 +77,7 @@ export const Checkout: React.FC<Props> = ({
             <SummaryWrapper>
               <OrderSummary />
             </SummaryWrapper>
-            <Footer />
+            <Footer termsUrl={termsUrl} privacyUrl={privacyUrl} />
           </Sidebar>
         }
         main={

@@ -62,6 +62,8 @@ const Home: NextPage = () => {
                   companyName={settings.companyName}
                   supportEmail={settings.supportEmail}
                   supportPhone={settings.supportPhone}
+                  termsUrl={settings.termsUrl}
+                  privacyUrl={settings.privacyUrl}
                 />
               </GTMProvider>
             </AppProvider>

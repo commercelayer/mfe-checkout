@@ -14,7 +14,9 @@
         "free" : "Free",
         "complete": "Complete",
         "apply": "Apply",
-        "discard": "Discard changes"
+        "discard": "Discard changes",
+        "privacy_link": "Privacy",
+        "terms_link": "Terms"
     },
 
     "input":{

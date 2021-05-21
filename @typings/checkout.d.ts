@@ -18,6 +18,8 @@ interface CheckoutSettings {
   gtmId?: string
   supportEmail: string
   supportPhone: string
+  termsUrl: string
+  privacyUrl: string
 }
 
 type CheckoutPageContextProps = Pick<
@@ -33,4 +35,6 @@ type CheckoutPageContextProps = Pick<
   | "gtmId"
   | "supportEmail"
   | "supportPhone"
+  | "termsUrl"
+  | "privacyUrl"
 >

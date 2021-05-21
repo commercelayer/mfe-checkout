@@ -14,7 +14,9 @@
         "free" : "Gratis",
         "complete": "Completo",
         "apply": "Applica",
-        "discard": "Non salvare le modifiche"
+        "discard": "Non salvare le modifiche",
+        "privacy_link": "Privacy",
+        "terms_link": "Termini"
     },
 
     "input":{
