@@ -46,7 +46,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   const TemplateCustomerCards = ({ handleClick }: CustomerCardsProps) => (
     <div
       onClick={handleClick}
-      className="flex items-center p-3 mb-4 text-sm border rounded cursor-pointer shadow-sm hover:border-primary"
+      className="flex flex-col items-start p-3 mb-4 text-sm border rounded cursor-pointer lg:flex-row lg:items-center shadow-sm hover:border-primary"
     >
       <PaymentDetails />
     </div>
