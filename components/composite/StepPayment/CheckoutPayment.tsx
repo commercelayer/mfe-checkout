@@ -1,6 +1,5 @@
 import {
   PaymentMethod,
-  PaymentMethodName,
   PaymentMethodPrice,
   PaymentSource,
 } from "@commercelayer/react-components"
@@ -9,6 +8,7 @@ import { useTranslation } from "react-i18next"
 import "twin.macro"
 import { PaymentContainer } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
+import { PaymentMethodNameWithStripe } from "./PaymentMethodNameWithStripe"
 import {
   PaymentWrapper,
   PaymentSummary,
@@ -40,15 +40,7 @@ export const CheckoutPayment: React.FC<Props> = ({
               <PaymentRadioContainer>
                 <StyledPaymentMethodRadioButton className="form-radio" />
               </PaymentRadioContainer>
-              <PaymentMethodName>
-                {({ htmlFor, labelName }) => (
-                  <label htmlFor={htmlFor}>
-                    {labelName === "Stripe Payment"
-                      ? t("stepPayment.creditCard")
-                      : labelName}
-                  </label>
-                )}
-              </PaymentMethodName>
+              <PaymentMethodNameWithStripe />
             </PaymentSummaryItem>
             <PaymentSummaryValue>
               <PaymentMethodPrice labelFree={t("general.free")} />
