@@ -108,33 +108,37 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
       <AddressSectionEmail readonly emailAddress={emailAddress} />
       <CustomerContainer>
         <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
-          <div className="mt-4">
+          <>
             <AddressSectionTitle>
               {t(`addressForm.billing_address_title`)}
             </AddressSectionTitle>
-            <GridContainer>
-              <BillingAddressContainer>
-                <CustomerAddressCard
-                  addressType="billing"
-                  deselect={showBillingAddressForm}
-                  onSelect={() =>
-                    showBillingAddressForm && setShowBillingAddressForm(false)
-                  }
-                />
-              </BillingAddressContainer>
-              <>
-                {!showBillingAddressForm && hasCustomerAddresses && (
-                  <AddButton
-                    dataCy="add_new_billing_address"
-                    action={handleShowBillingForm}
+            {showBillingAddressForm ? (
+              <GridContainer className="mb-8">
+                <BillingAddressContainer>
+                  <CustomerAddressCard
+                    addressType="billing"
+                    deselect={showBillingAddressForm}
+                    onSelect={() =>
+                      showBillingAddressForm && setShowBillingAddressForm(false)
+                    }
                   />
-                )}
-              </>
-            </GridContainer>
-          </div>
+                </BillingAddressContainer>
+                <>
+                  {!showBillingAddressForm && hasCustomerAddresses && (
+                    <AddButton
+                      dataCy="add_new_billing_address"
+                      action={handleShowBillingForm}
+                    />
+                  )}
+                </>
+              </GridContainer>
+            ) : null}
+          </>
           <div
             className={
-              showBillingAddressForm || !hasCustomerAddresses ? "" : "hidden"
+              showBillingAddressForm || !hasCustomerAddresses
+                ? "mt-4"
+                : "hidden"
             }
           >
             <BillingAddressForm

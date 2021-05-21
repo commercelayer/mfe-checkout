@@ -72,7 +72,7 @@ export const BillingAddressFormNew: React.FC<Props> = ({
 }
 
 const Wrapper = styled.div`
-  ${tw`mt-8`}
+  ${tw`mt-0`}
 `
 
 const Grid = styled.div`

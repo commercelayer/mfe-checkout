@@ -45,6 +45,9 @@ export const StepComplete: React.FC<Props> = ({
             tw="pt-10 mb-10 pl-4"
           />
           <Main>
+            <div className="border border-gray-900">
+              <CheckIcon />
+            </div>
             <Title>{t("stepComplete.title")}</Title>
             <Text data-cy="complete-checkout-summary" tw="text-gray-500">
               <Trans

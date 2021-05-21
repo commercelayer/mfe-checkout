@@ -22,7 +22,7 @@ export const CustomerAddressCard: React.FC<AddressCardProps> = ({
     <Address
       data-cy={dataCy}
       addresses={addresses}
-      className={`p-3 border rounded  ${
+      className={`p-3 border rounded ${
         onSelect && "hover:border-primary cursor-pointer"
       } shadow-sm`}
       selectedClassName="border-primary"
