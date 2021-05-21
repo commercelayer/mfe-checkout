@@ -41,37 +41,35 @@ export const AddressSectionEmail: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      <GridContainer>
-        <div className="relative">
-          {readonly ? (
-            <ReadOnlyEmail data-cy="current-customer-email">
-              {emailAddress}
-            </ReadOnlyEmail>
-          ) : (
-            <CustomerContainer isGuest>
-              <StyledCustomInput
-                className="form-input"
-                data-cy="customer_email"
-                id="customer_email"
-                errorClassName="hasError"
-                // tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-                placeholder="E-mail"
-                saveOnBlur={true}
-                value={emailAddress}
-              />
-              <StyledErrors
-                data-cy="customer_email_error"
-                resource="order"
-                field="customer_email"
-                messages={messages}
-              />
-            </CustomerContainer>
-          )}
-          <Label htmlFor="customer_email">
-            {t("addressForm.customer_email")}
-          </Label>
-        </div>
-      </GridContainer>
+      <div className="relative">
+        {readonly ? (
+          <ReadOnlyEmail data-cy="current-customer-email">
+            {emailAddress}
+          </ReadOnlyEmail>
+        ) : (
+          <CustomerContainer isGuest>
+            <StyledCustomInput
+              className="form-input"
+              data-cy="customer_email"
+              id="customer_email"
+              errorClassName="hasError"
+              // tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+              placeholder="E-mail"
+              saveOnBlur={true}
+              value={emailAddress}
+            />
+            <StyledErrors
+              data-cy="customer_email_error"
+              resource="order"
+              field="customer_email"
+              messages={messages}
+            />
+          </CustomerContainer>
+        )}
+        <Label htmlFor="customer_email">
+          {t("addressForm.customer_email")}
+        </Label>
+      </div>
     </Wrapper>
   )
 }
