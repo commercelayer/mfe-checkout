@@ -71,7 +71,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }
 
   useEffect(() => {
-    fetchOrderHandle(orderId, accessToken)
+    const unsubscribe = () => {
+      fetchOrderHandle(orderId, accessToken)
+    }
+    return unsubscribe()
   }, [orderId, accessToken])
 
   return (

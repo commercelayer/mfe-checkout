@@ -7,10 +7,12 @@ import {
   PaymentSourceBrandIcon,
 } from "@commercelayer/react-components"
 import "twin.macro"
+import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
 import classNames from "classnames"
 import { useContext, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
+import { StyledErrors } from "../OrderSummary/CouponOrGiftCard/styled"
 import {
   StepSummary,
   StepSummaryItem,
@@ -61,6 +63,14 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
   } = appCtx
 
   const stripeKey = "pk_test_TYooMQauvdEDq54NiTphI7jx"
+
+  const messages: ErrorComponentProps["messages"] = [
+    {
+      code: "VALIDATION_ERROR",
+      resource: "order",
+      message: t("general.systemError"),
+    },
+  ]
 
   const handleSave = async () => {
     setIsLocalLoader(true)
@@ -170,27 +180,32 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
       </StepContainer>
       {((isPaymentRequired && !isActive && hasPaymentMethod) ||
         !isPaymentRequired) && (
-        <PlaceOrderContainer
-          options={{
-            stripePayment: {
-              publishableKey: stripeKey,
-            },
-            savePaymentSourceToCustomerWallet: !isGuest,
-          }}
-        >
-          <ButtonWrapper>
-            <StyledPlaceOrderButton
-              data-cy="place-order-button"
-              onClick={handlePlaceOrder}
-              label={
-                <>
-                  {isPlacingOrder && <SpinnerIcon />}
-                  {t("stepPayment.submit")}
-                </>
-              }
-            />
-          </ButtonWrapper>
-        </PlaceOrderContainer>
+        <>
+          <StyledErrors resource="order" messages={messages} />
+          <StyledErrors resource="order" field="status" />
+          <StyledErrors resource="order" field="base" />
+          <PlaceOrderContainer
+            options={{
+              stripePayment: {
+                publishableKey: stripeKey,
+              },
+              savePaymentSourceToCustomerWallet: !isGuest,
+            }}
+          >
+            <ButtonWrapper>
+              <StyledPlaceOrderButton
+                data-cy="place-order-button"
+                onClick={handlePlaceOrder}
+                label={
+                  <>
+                    {isPlacingOrder && <SpinnerIcon />}
+                    {t("stepPayment.submit")}
+                  </>
+                }
+              />
+            </ButtonWrapper>
+          </PlaceOrderContainer>
+        </>
       )}
     </>
   )

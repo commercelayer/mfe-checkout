@@ -57,7 +57,7 @@ export const OrderSummary: React.FC = () => {
             <SubTotalAmount />
           </RecapLine>
           <RecapLine>
-            <DiscountAmount data-cy="discount-amount">
+            <DiscountAmount>
               {(props) => {
                 if (props.priceCents === 0) return <></>
                 return (
@@ -65,7 +65,7 @@ export const OrderSummary: React.FC = () => {
                     <RecapLineItem>
                       {t("orderRecap.discount_amount")}
                     </RecapLineItem>
-                    {props.price}
+                    <div data-cy="discount-amount">{props.price}</div>
                   </>
                 )
               }}
@@ -95,7 +95,7 @@ export const OrderSummary: React.FC = () => {
             <TaxesAmount />
           </RecapLine>
           <RecapLine>
-            <GiftCardAmount data-cy="giftcard-amount">
+            <GiftCardAmount>
               {(props) => {
                 if (props.priceCents === 0) return <></>
                 return (
@@ -103,7 +103,7 @@ export const OrderSummary: React.FC = () => {
                     <RecapLineItem>
                       {t("orderRecap.giftcard_amount")}
                     </RecapLineItem>
-                    {props.price}
+                    <div data-cy="giftcard-amount">{props.price}</div>
                   </>
                 )
               }}
