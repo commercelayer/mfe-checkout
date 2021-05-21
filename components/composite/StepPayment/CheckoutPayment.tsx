@@ -41,12 +41,13 @@ export const CheckoutPayment: React.FC<Props> = ({
                 <StyledPaymentMethodRadioButton className="form-radio" />
               </PaymentRadioContainer>
               <PaymentMethodName>
-                {({ labelName }) => {
-                  if (labelName === "Stripe Payment") {
-                    return t("stepPayment.creditCard")
-                  }
-                  return labelName
-                }}
+                {({ htmlFor, labelName }) => (
+                  <label htmlFor={htmlFor}>
+                    {labelName === "Stripe Payment"
+                      ? t("stepPayment.creditCard")
+                      : labelName}
+                  </label>
+                )}
               </PaymentMethodName>
             </PaymentSummaryItem>
             <PaymentSummaryValue>
