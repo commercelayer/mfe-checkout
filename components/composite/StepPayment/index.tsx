@@ -4,6 +4,7 @@ import {
   PlaceOrderContainer,
   PaymentSource,
   PaymentMethodsContainer,
+  PaymentSourceBrandIcon,
 } from "@commercelayer/react-components"
 import "twin.macro"
 import classNames from "classnames"
@@ -145,6 +146,7 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
                       <StepSummaryItem data-cy="payment-method-selected">
                         <PaymentMethodsContainer>
                           <PaymentSource readonly>
+                            <PaymentSourceBrandIcon className="mr-2" />
                             <Trans t={t} i18nKey="stepPayment.endingIn">
                               <PaymentSourceBrandName className="mr-1" />
                               <PaymentSourceDetail
