@@ -277,6 +277,16 @@
   resolved "https://registry.yarnpkg.com/@braintree/wrap-promise/-/wrap-promise-2.1.0.tgz#7e27ffc5dacd2d71533b0c42506eea8e7c2e50fa"
   integrity sha512-UIrJB+AfKU0CCfbMoWrsGpd2D/hBpY/SGgFI6WRHPOwhaZ3g9rz1weiJ6eb6L9KgVyunT7s2tckcPkbHw+NzeA==
 
+"@commercelayer/active-resource@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@commercelayer/active-resource/-/active-resource-1.0.1.tgz#c178651b76112be85d973408b481e8dde8d19a14"
+  integrity sha512-d60kjoQQBpKCzLKYasPfdYm4qXYyEG4ejuBtmq5DYtdHJClVWUKDlzEH/Bfb3az1IBnMCT1Vm2L2l1GcGpYVVQ==
+  dependencies:
+    axios "^0.21.1"
+    es6-promise "^4.1.1"
+    pluralize-js "^8.0.1"
+    qs "^6.5.0"
+
 "@commercelayer/cypress-vcr@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@commercelayer/cypress-vcr/-/cypress-vcr-1.1.0.tgz"
@@ -284,22 +294,22 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-sdk@^3.10.0":
-  version "3.10.0"
-  resolved "https://registry.npmjs.org/@commercelayer/js-sdk/-/js-sdk-3.10.0.tgz"
-  integrity sha512-LAQ0Y74Ao6gKJj5PwEW7Iwpxtm+8+HXG1EszQJ9aPJL7euMkEJfHkywV43ypnhUFXfueQaK8UmErSRQBVWTCVQ==
-  dependencies:
-    active-resource "^1.0.0-beta.7"
-    axios "^0.21.1"
-    lodash "^4.17.21"
-    lodash-es "^4.17.21"
-
 "@commercelayer/js-sdk@^3.9.2":
   version "3.9.2"
   resolved "https://registry.npmjs.org/@commercelayer/js-sdk/-/js-sdk-3.9.2.tgz"
   integrity sha512-+2GXKsD11hKMN9VBdhmv6Crdki5JdSYohdr4Xmgt1pXGzARlzcPFMalU9WI3P6VnVD9C41m1nL3rseSJcy5Lmg==
   dependencies:
     active-resource "^1.0.0-beta.7"
+    axios "^0.21.1"
+    lodash "^4.17.21"
+    lodash-es "^4.17.21"
+
+"@commercelayer/js-sdk@^4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-4.1.1.tgz#1f95e51269af66e8a3d6ebbab4b84d621a564b83"
+  integrity sha512-Amrc1PsTpkVicYwIkPUai0BbhiKd6K5XTjK+s8ZQJCb705g5aKzDb8P+HkGuXzIkchy+Wyg6o3oDgDDerOBmeQ==
+  dependencies:
+    "@commercelayer/active-resource" "^1.0.1"
     axios "^0.21.1"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
@@ -4821,6 +4831,11 @@ platform@1.3.6:
   version "1.3.6"
   resolved "https://registry.npmjs.org/platform/-/platform-1.3.6.tgz"
   integrity sha512-fnWVljUchTro6RiCFvCXBbNhJc2NijN7oIQxbwsyL0buWJPG85v81ehlHI9fXrJsMNgTofEoWIQeClKpgxFLrg==
+
+pluralize-js@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/pluralize-js/-/pluralize-js-8.0.1.tgz#8bf30c88d70c0385cfa0ad2b9db64d39820c3ec9"
+  integrity sha512-BYdyDHr+quw2JcvZrWrJTXf+sPjuhGbl7dZPnDsSDqqwGOMlTc+Laqg6sDaspvoikuOs+KbedSEJra5B0LOZDA==
 
 pnp-webpack-plugin@1.6.4:
   version "1.6.4"
