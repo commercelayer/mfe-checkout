@@ -24,7 +24,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
           <PaymentSourceDetail className="ml-1" type="last4" />
         </Trans>
       </div>
-      <div className="pl-2 text-gray-500">
+      <div className="pl-10 text-gray-500 lg:pl-2">
         {t("stepPayment.expires")} <PaymentSourceDetail type="expMonth" />
         /
         <PaymentSourceDetail type="expYear" />
