@@ -121,7 +121,7 @@ export const Checkout: React.FC<Props> = ({
 }
 
 const Sidebar = styled.div`
-  ${tw`flex flex-col min-h-full p-5 lg:pl-20 lg:pr-10 lg:pt-10 bg-gray-100`}
+  ${tw`flex flex-col min-h-full p-5 lg:pl-10 lg:pr-10 lg:pt-10 xl:pl-20 bg-gray-100`}
 `
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}

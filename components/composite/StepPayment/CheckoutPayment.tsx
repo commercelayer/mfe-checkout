@@ -33,7 +33,7 @@ export const CheckoutPayment: React.FC<Props> = ({
 
   return (
     <PaymentContainer handleSave={handleSave} stripeKey={stripeKey}>
-      <PaymentMethod activeClass="active">
+      <PaymentMethod activeClass="active" className="payment">
         <PaymentWrapper>
           <PaymentSummary>
             <PaymentSummaryItem>

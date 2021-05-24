@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next"
 import "twin.macro"
 import styled from "styled-components"
 
-import { ButtonCss } from "components/ui/Button"
+import { ButtonCss, ButtonWrapper } from "components/ui/Button"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { Toggle } from "components/ui/Toggle"
 
@@ -98,8 +98,8 @@ export const CheckoutAddresses: React.FC<Props> = ({
             <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
           </ShippingAddressForm>
         )}
-        <div tw="flex justify-between items-center justify-end">
-          <AddressSectionSaveForm>
+        <AddressSectionSaveForm>
+          <ButtonWrapper>
             <StyledSaveAddressesButton
               disabled={isLocalLoader}
               label={
@@ -113,8 +113,8 @@ export const CheckoutAddresses: React.FC<Props> = ({
               data-cy="save-addresses-button"
               onClick={handleSave}
             />
-          </AddressSectionSaveForm>
-        </div>
+          </ButtonWrapper>
+        </AddressSectionSaveForm>
       </AddressesContainer>
     </Fragment>
   )

@@ -47,7 +47,7 @@ interface WrapperProps {
 }
 
 const Wrapper = styled.div<WrapperProps>`
-  ${tw`flex items-start mb-4`}
+  ${tw`flex items-start mb-10 pl-8 md:pl-0 md:mb-5`}
 `
 
 const Body = styled.div`

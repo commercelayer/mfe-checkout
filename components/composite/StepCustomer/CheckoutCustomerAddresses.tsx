@@ -14,7 +14,7 @@ import styled from "styled-components"
 
 import "twin.macro"
 import { AddButton } from "components/ui/AddButton"
-import { ButtonCss } from "components/ui/Button"
+import { ButtonCss, ButtonWrapper } from "components/ui/Button"
 import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
 import { GridContainer } from "components/ui/GridContainer"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
@@ -220,21 +220,21 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               </div>
             </>
           )}
-          <div tw="flex justify-between items-center">
-            <div>
-              {(showBillingAddressForm && !isUsingNewBillingAddress) ||
-              (showShippingAddressForm && !isUsingNewShippingAddress) ? (
-                <AddressButtonAddNew
-                  onClick={() => {
-                    setShowBillingAddressForm(isUsingNewBillingAddress)
-                    setShowShippingAddressForm(isUsingNewShippingAddress)
-                  }}
-                >
-                  {t("general.discard")}
-                </AddressButtonAddNew>
-              ) : null}
-            </div>
-            <AddressSectionSaveForm>
+          <div>
+            {(showBillingAddressForm && !isUsingNewBillingAddress) ||
+            (showShippingAddressForm && !isUsingNewShippingAddress) ? (
+              <AddressButtonAddNew
+                onClick={() => {
+                  setShowBillingAddressForm(isUsingNewBillingAddress)
+                  setShowShippingAddressForm(isUsingNewShippingAddress)
+                }}
+              >
+                {t("general.discard")}
+              </AddressButtonAddNew>
+            ) : null}
+          </div>
+          <AddressSectionSaveForm>
+            <ButtonWrapper>
               <StyledSaveAddressesButton
                 disabled={isLocalLoader}
                 label={
@@ -248,8 +248,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 data-cy="save-addresses-button"
                 onClick={handleSave}
               />
-            </AddressSectionSaveForm>
-          </div>
+            </ButtonWrapper>
+          </AddressSectionSaveForm>
         </AddressesContainer>
       </CustomerContainer>
     </Fragment>

@@ -68,7 +68,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   return (
     <CustomerContainer>
       <PaymentContainer handleSave={handleSave} stripeKey={stripeKey}>
-        <PaymentMethod activeClass="active">
+        <PaymentMethod activeClass="active" className="payment">
           <PaymentWrapper>
             <PaymentSummaryList />
             <PaymentSourceContainer data-cy="payment-source">

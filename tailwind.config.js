@@ -45,6 +45,9 @@ module.exports = {
       flex: {
         '75': '0 0 75px',
         '85': '0 0 85px',
+      },
+      boxShadow: {
+        bottom: '0 2px 0 0 rgba(0, 0, 0, 0.05)',
       }
     },
   },

@@ -11,6 +11,11 @@ import { RadioCss } from "components/ui/form/RadioButton"
 
 export const PaymentWrapper = styled.div`
   ${tw`border border-gray-300 mb-5 p-3 rounded bg-gray-50`}
+
+  .payment:last-of-type & {
+    ${tw`mb-0`}
+  }
+
   .active & {
     ${tw`bg-contrast`}
   }
