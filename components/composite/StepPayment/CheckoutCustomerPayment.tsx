@@ -1,6 +1,5 @@
 import {
   PaymentMethod,
-  PaymentMethodPrice,
   PaymentSource,
   CustomerContainer,
 } from "@commercelayer/react-components"
@@ -11,17 +10,12 @@ import { Label } from "components/ui/Label"
 
 import { PaymentContainer } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
-import { PaymentMethodNameWithStripe } from "./PaymentMethodNameWithStripe"
+import { PaymentSummaryList } from "./PaymentSummaryList"
 import {
   PaymentWrapper,
-  PaymentSummary,
-  PaymentSummaryItem,
-  PaymentSummaryValue,
-  PaymentRadioContainer,
   PaymentSourceContainer,
   PaymentDetailsWrapper,
   WalletCheckbox,
-  StyledPaymentMethodRadioButton,
 } from "./styled"
 
 interface Props {
@@ -76,18 +70,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
       <PaymentContainer handleSave={handleSave} stripeKey={stripeKey}>
         <PaymentMethod activeClass="active">
           <PaymentWrapper>
-            <PaymentSummary>
-              <PaymentSummaryItem>
-                <PaymentRadioContainer>
-                  <StyledPaymentMethodRadioButton className="form-radio" />
-                </PaymentRadioContainer>
-                <PaymentMethodNameWithStripe />
-              </PaymentSummaryItem>
-              <PaymentSummaryValue>
-                <PaymentMethodPrice labelFree={t("general.free")} />
-              </PaymentSummaryValue>
-            </PaymentSummary>
-
+            <PaymentSummaryList />
             <PaymentSourceContainer data-cy="payment-source">
               <PaymentSource
                 className="flex flex-col"

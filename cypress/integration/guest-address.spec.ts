@@ -79,7 +79,6 @@ describe("Checkout guest address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
           "@updateOrder",
         ],
         { timeout: 100000 }
@@ -110,7 +109,6 @@ describe("Checkout guest address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -175,7 +173,6 @@ describe("Checkout guest address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",

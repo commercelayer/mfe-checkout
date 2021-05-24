@@ -85,8 +85,8 @@ describe("check Data Layers GTM", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -117,13 +117,24 @@ describe("check Data Layers GTM", () => {
       })
       cy.get("@shippingMethodButton0").click()
       cy.get("@shippingMethodButton2").click()
-      cy.wait(["@getShipments", "@getShipments", "@getOrders", "@getOrders"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getShipments",
+          "@getShipments",
+          "@getOrders",
+          "@getOrders",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("save-shipments-button").click()
       cy.wait(
         [
           "@getShippingMethods",
+          "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
@@ -136,6 +147,16 @@ describe("check Data Layers GTM", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -143,6 +164,8 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@getOrders",
           "@updateOrder",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
           "@getCustomerAddresses",
         ],
         {
@@ -167,7 +190,7 @@ describe("check Data Layers GTM", () => {
         assert.equal(dataLayer[0].ecommerce.currency, "EUR")
         assert.equal(dataLayer[0].ecommerce.shipping_tier, "Standard Shipping")
         assert.equal(dataLayer[0].ecommerce.value, 0)
-        assert.equal(dataLayer[0].ecommerce.items.length, 2)
+        assert.equal(dataLayer[0].ecommerce.items.length, 1)
         assert.equal(dataLayer[1].event, "add_shipping_info")
         assert.equal(dataLayer[1].ecommerce.currency, "EUR")
         assert.equal(dataLayer[1].ecommerce.shipping_tier, "Standard Shipping")
@@ -252,7 +275,7 @@ describe("check Data Layers GTM", () => {
         assert.equal(dataLayer[2].ecommerce.currency, "EUR")
         assert.equal(dataLayer[2].ecommerce.shipping_tier, "Express Delivery")
         assert.equal(dataLayer[2].ecommerce.value, 12)
-        assert.equal(dataLayer[2].ecommerce.items.length, 2)
+        assert.equal(dataLayer[2].ecommerce.items.length, 1)
         assert.equal(dataLayer[3].event, "add_shipping_info")
         assert.equal(dataLayer[3].ecommerce.currency, "EUR")
         assert.equal(dataLayer[3].ecommerce.shipping_tier, "Express Delivery")
@@ -319,7 +342,7 @@ describe("check Data Layers GTM", () => {
         assert.equal(dataLayer[4].ecommerce.currency, "EUR")
         assert.equal(dataLayer[4].ecommerce.shipping_tier, "Express Delivery")
         assert.equal(dataLayer[4].ecommerce.value, 12)
-        assert.equal(dataLayer[4].ecommerce.items.length, 2)
+        assert.equal(dataLayer[4].ecommerce.items.length, 1)
         assert.equal(dataLayer[5].event, "add_shipping_info")
         assert.equal(dataLayer[5].ecommerce.currency, "EUR")
         assert.equal(dataLayer[5].ecommerce.shipping_tier, "Standard Shipping")
@@ -396,7 +419,7 @@ describe("check Data Layers GTM", () => {
         assert.equal(dataLayer[6].ecommerce.currency, "EUR")
         assert.equal(dataLayer[6].ecommerce.shipping_tier, "Standard Shipping")
         assert.equal(dataLayer[6].ecommerce.value, 0)
-        assert.equal(dataLayer[6].ecommerce.items.length, 2)
+        assert.equal(dataLayer[6].ecommerce.items.length, 1)
         assert.equal(dataLayer[7].event, "add_shipping_info")
         assert.equal(dataLayer[7].ecommerce.currency, "EUR")
         assert.equal(dataLayer[7].ecommerce.shipping_tier, "Express Delivery")
@@ -477,10 +500,22 @@ describe("check Data Layers GTM", () => {
           "@getShippingMethods",
           "@getOrderShipments",
           "@getOrderShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
           "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -492,6 +527,8 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@getOrders",
           "@updateOrder",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
         ],
@@ -543,6 +580,12 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
         ],
         { timeout: 100000 }
       )
@@ -561,6 +604,7 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
@@ -568,6 +612,7 @@ describe("check Data Layers GTM", () => {
           "@getOrderShipments",
           "@updateOrder",
           "@getCustomerAddresses",
+          "@availablePaymentMethods",
         ],
         { timeout: 100000 }
       )

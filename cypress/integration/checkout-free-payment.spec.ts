@@ -107,10 +107,6 @@ describe("Checkout Free Payment", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -150,8 +146,6 @@ describe("Checkout Free Payment", () => {
           "@getShippingMethods",
           "@getOrderShipments",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@updateOrder",
@@ -237,9 +231,6 @@ describe("Checkout Free Payment", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -272,14 +263,7 @@ describe("Checkout Free Payment", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click({ force: true })
       cy.wait(
-        [
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-        ],
+        ["@retrieveLineItems", "@getOrders", "@getOrders", "@updateOrder"],
         { timeout: 100000 }
       )
       cy.dataCy("button-continue-to-shop").click()

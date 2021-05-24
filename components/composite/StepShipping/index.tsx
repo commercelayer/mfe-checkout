@@ -111,6 +111,18 @@ export const StepShipping: React.FC<Props> = ({ isActive, onToggleActive }) => {
     }
   }
 
+  function getStatusHeader() {
+    if (isActive) {
+      return "edit"
+    }
+
+    if (hasShippingMethod && isShipmentRequired) {
+      return "done"
+    }
+
+    return "disabled"
+  }
+
   return (
     <StepContainer
       className={classNames({
@@ -123,7 +135,7 @@ export const StepShipping: React.FC<Props> = ({ isActive, onToggleActive }) => {
       <StepContent>
         <StepHeader
           stepNumber={2}
-          status={isActive ? "edit" : hasShippingMethod ? "done" : "disabled"}
+          status={getStatusHeader()}
           label={t("stepShipping.title")}
           info={
             isShipmentRequired

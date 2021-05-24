@@ -3,6 +3,8 @@ import { internet } from "faker"
 import { euAddress } from "../support/utils"
 
 describe("Checkout Checkout-Digital", () => {
+  const returnUrl = "https://www.extendi.it/"
+
   const filename = "checkout-digital"
 
   const email = internet.email().toLocaleLowerCase()
@@ -19,6 +21,7 @@ describe("Checkout Checkout-Digital", () => {
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: email,
+        return_url: returnUrl,
         accessToken: this.tokenObj.access_token,
       })
         .as("newOrder")
@@ -90,8 +93,6 @@ describe("Checkout Checkout-Digital", () => {
         [
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -107,6 +108,79 @@ describe("Checkout Checkout-Digital", () => {
         "contain.text",
         "This order does not require shipping"
       )
+    })
+
+    it("insert data credit card and check data", () => {
+      cy.dataCy("payment-source").each((e, i) => {
+        cy.wrap(e).as(`paymentSource${i}`)
+      })
+      cy.get("@paymentSource0").within(() => {
+        cy.fillElementsInput("cardNumber", "4242424242424242")
+        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardCvc", "333")
+      })
+      cy.get("@paymentSource0")
+        .get("button")
+        .each((e, i) => {
+          cy.wrap(e).as(`paymentSourceButton${i}`)
+        })
+
+      cy.get("@paymentSourceButton2").click()
+
+      cy.wait(
+        [
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+        ],
+        { timeout: 100000 }
+      )
+
+      cy.dataCy("payment-method-selected").should("contain.text", "Visa")
+      cy.dataCy("payment-method-price-selected").should("contain.text", "0,00")
+    })
+
+    it("place order and redirect", () => {
+      cy.wait(2000)
+      cy.dataCy("place-order-button").click()
+      cy.wait(
+        [
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+        ],
+        { timeout: 100000 }
+      )
+      cy.dataCy("button-continue-to-shop").click()
+      cy.wait(200)
+      cy.url().should("eq", returnUrl)
     })
   })
 })

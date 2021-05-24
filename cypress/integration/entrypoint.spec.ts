@@ -93,8 +93,6 @@ describe("Checkout entrypoint", () => {
             "@getOrderShipments",
             "@retrieveLineItems",
             "@retrieveLineItems",
-            "@retrieveLineItems",
-            "@getOrders",
             "@getOrders",
             "@getOrders",
             "@getOrders",

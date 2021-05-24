@@ -189,7 +189,6 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
               stripePayment: {
                 publishableKey: stripeKey,
               },
-              savePaymentSourceToCustomerWallet: !isGuest,
             }}
           >
             <ButtonWrapper>

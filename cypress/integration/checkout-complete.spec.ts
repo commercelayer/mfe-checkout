@@ -77,16 +77,27 @@ describe("Checkout Checkout Complete", () => {
     })
 
     it("valid customer token", function () {
+      console.log(email, password, this.newOrder.id)
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
           "@getOrderShipments",
           "@getOrderShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
           "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -98,6 +109,8 @@ describe("Checkout Checkout Complete", () => {
           "@getOrders",
           "@getOrders",
           "@updateOrder",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
         ],
@@ -127,11 +140,18 @@ describe("Checkout Checkout Complete", () => {
       cy.wait(
         [
           "@getShippingMethods",
+          "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -156,8 +176,6 @@ describe("Checkout Checkout Complete", () => {
           "@getShippingMethods",
           "@getOrderShipments",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",

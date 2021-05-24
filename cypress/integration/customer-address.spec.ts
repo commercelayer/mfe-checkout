@@ -56,9 +56,6 @@ describe("Checkout customer address", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -101,10 +98,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -139,12 +132,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(
-        ["@getCustomerAddresses", "@getOrders", "@getOrders", "@getOrders"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -171,10 +161,6 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -216,12 +202,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(
-        ["@getCustomerAddresses", "@getOrders", "@getOrders", "@getOrders"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("input_billing_address_first_name").type(
         `{selectall}{backspace}${euAddress3.firstName}`
@@ -264,10 +247,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -303,12 +282,9 @@ describe("Checkout customer address", () => {
         .click({ force: true })
         .should("have.attr", "data-status", "true")
 
-      cy.wait(
-        ["@getCustomerAddresses", "@getOrders", "@getOrders", "@getOrders"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -324,10 +300,6 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -425,9 +397,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@getCustomerAddresses",
         ],
@@ -464,12 +433,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(
-        ["@getCustomerAddresses", "@getOrders", "@getOrders", "@getOrders"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("input_billing_address_first_name").type(
         `{selectall}{backspace}${euAddress3.firstName}`
@@ -512,10 +478,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -550,12 +512,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(
-        ["@getCustomerAddresses", "@getOrders", "@getOrders", "@getOrders"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -582,10 +541,6 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -627,12 +582,9 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(
-        ["@getCustomerAddresses", "@getOrders", "@getOrders", "@getOrders"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getCustomerAddresses", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -648,10 +600,6 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -757,9 +705,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@getCustomerAddresses",
         ],
@@ -850,8 +795,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@updateAddress",
@@ -919,9 +862,6 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1005,9 +945,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -1074,9 +1011,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -1136,9 +1070,6 @@ describe("Checkout customer address", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1268,8 +1199,6 @@ describe("Checkout customer address", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1306,9 +1235,6 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1382,9 +1308,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@updateOrder",
         ],
@@ -1449,9 +1372,6 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1535,9 +1455,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -1606,9 +1523,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -1669,9 +1583,6 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1784,8 +1695,6 @@ describe("Checkout customer address", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1823,9 +1732,6 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -1921,9 +1827,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -1993,9 +1896,6 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -2078,9 +1978,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@updateOrder",
           "@createAddress",
@@ -2145,9 +2042,6 @@ describe("Checkout customer address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
