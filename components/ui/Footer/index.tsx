@@ -13,7 +13,12 @@ export const Footer: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
   const { t } = useTranslation()
   return (
     <Wrapper>
-      <a target="_blank" href="https://commercelayer.io/" rel="noreferrer">
+      <a
+        target="_blank"
+        href="https://commercelayer.io/"
+        rel="noreferrer"
+        className="group"
+      >
         <LogoWrapper>
           Powered by <Logo />
         </LogoWrapper>
@@ -55,5 +60,5 @@ const ListLink = styled.ul`
   ${tw`flex flex-row flex-wrap justify-between -ml-0.5`}
 `
 const ListItem = styled.li`
-  ${tw`flex-grow px-4 border-l font-medium`}
+  ${tw`flex-grow px-1.5 md:px-4 border-l font-medium`}
 `
