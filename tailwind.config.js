@@ -52,7 +52,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      textColor: ['group-focus'],
+      maxHeight: ['group-focus'],
+    }
   },
   plugins: [
     require('@tailwindcss/forms')({

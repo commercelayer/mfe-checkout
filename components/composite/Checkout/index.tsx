@@ -12,6 +12,7 @@ import { StepShipping } from "components/composite/StepShipping"
 import { AppContext } from "components/data/AppProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
+import { Accordion } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
@@ -96,6 +97,7 @@ export const Checkout: React.FC<Props> = ({
               onStepChange={setActiveStep}
               lastActivable={lastActivableStep}
             />
+            <Accordion />
             <StepCustomer
               tw="mb-6"
               isActive={activeStep === "Customer"}
