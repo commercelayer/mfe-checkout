@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@commercelayer/cypress-vcr": "^1.1.0",
-    "@types/node": "^15.0.1",
+    "@types/node": "^15.6.1",
     "@types/react": "^17.0.4",
     "@types/react-gtm-module": "^2.0.0",
     "@types/styled-components": "^5.1.9",
