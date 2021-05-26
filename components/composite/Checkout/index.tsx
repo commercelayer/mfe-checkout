@@ -110,6 +110,7 @@ export const Checkout: React.FC<Props> = ({
               tw="mb-6"
               isActive={activeStep === "Payment"}
               onToggleActive={() => setActiveStep("Payment")}
+              privacyAndTerms={Boolean(privacyUrl && termsUrl)}
             />
           </div>
         }

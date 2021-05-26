@@ -270,6 +270,7 @@ describe("Checkout GiftCard", () => {
         [
           "@getOrderShipments",
           "@retrieveLineItems",
+          "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -292,7 +293,6 @@ describe("Checkout GiftCard", () => {
       cy.wait(
         [
           "@getShippingMethods",
-          "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",

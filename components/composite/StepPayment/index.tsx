@@ -5,6 +5,7 @@ import {
   PaymentSource,
   PaymentMethodsContainer,
   PaymentSourceBrandIcon,
+  PrivacyAndTermsCheckbox,
 } from "@commercelayer/react-components"
 import "twin.macro"
 import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
@@ -36,9 +37,14 @@ interface Props {
   className?: string
   isActive?: boolean
   onToggleActive: () => void
+  privacyAndTerms: boolean
 }
 
-export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
+export const StepPayment: React.FC<Props> = ({
+  isActive,
+  onToggleActive,
+  privacyAndTerms,
+}) => {
   const [canContinue, setCanContinue] = useState(false)
   const [isLocalLoader, setIsLocalLoader] = useState(false)
   const [isPlacingOrder, setIsPlacingOrder] = useState(false)
@@ -68,7 +74,20 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
     {
       code: "VALIDATION_ERROR",
       resource: "order",
-      message: t("general.systemError"),
+      field: "status",
+      message: t("error.transition"),
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "order",
+      field: "base",
+      message: t("error.shipments"),
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "order",
+      field: "giftCardOrCouponCode",
+      message: " ",
     },
   ]
 
@@ -182,15 +201,23 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
         !isPaymentRequired) && (
         <>
           <StyledErrors resource="order" messages={messages} />
-          <StyledErrors resource="order" field="status" />
-          <StyledErrors resource="order" field="base" />
-          <PlaceOrderContainer
-            options={{
-              stripePayment: {
-                publishableKey: stripeKey,
-              },
-            }}
-          >
+          <PlaceOrderContainer>
+            {privacyAndTerms && (
+              <div className="flex flex-row-reverse justify-end">
+                <label
+                  htmlFor="privacy-terms"
+                  className="self-end block ml-3 text-sm font-medium text-gray-700"
+                >
+                  {t("general.privacy_and_terms")}
+                </label>
+                <div className="mt-1">
+                  <PrivacyAndTermsCheckbox
+                    id="privacy-terms"
+                    className="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 disabled:opacity-50"
+                  />
+                </div>
+              </div>
+            )}
             <ButtonWrapper>
               <StyledPlaceOrderButton
                 data-cy="place-order-button"

@@ -39,16 +39,28 @@ export const AddressInputGroup: React.FC<Props> = ({
 
   const messages: ErrorComponentProps["messages"] = [
     {
-      code: "EMPTY_ERROR",
+      code: "VALIDATION_ERROR",
       resource: "billingAddress",
-      field: "firstName",
-      message: t("input.cantBlank"),
+      field: fieldName,
+      message: t("input.mustBeValidFormat"),
     },
     {
       code: "VALIDATION_ERROR",
+      resource: "shippingAddress",
+      field: fieldName,
+      message: t("input.mustBeValidFormat"),
+    },
+    {
+      code: "EMPTY_ERROR",
       resource: "billingAddress",
-      field: "email",
-      message: t("input.mustBeValidEmail"),
+      field: fieldName,
+      message: t("input.cantBlank"),
+    },
+    {
+      code: "EMPTY_ERROR",
+      resource: "shippingAddress",
+      field: fieldName,
+      message: t("input.cantBlank"),
     },
   ]
 
