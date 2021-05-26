@@ -140,7 +140,7 @@ export const StepPayment: React.FC<Props> = ({
       >
         <StepLine stepNumber={3} status={isActive ? "edit" : "done"} />
         <StepContent>
-          {isMobile && (
+          {!isMobile && (
             <StepHeaderPayment
               step={3}
               status={
