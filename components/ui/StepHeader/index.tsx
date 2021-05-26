@@ -2,6 +2,8 @@ import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import { Badge } from "../Badge"
+
 interface Props {
   status: "edit" | "done" | "disabled"
   label: string
@@ -23,6 +25,9 @@ export const StepHeader: React.FC<Props> = ({
     <Wrapper disabled={status === "disabled"}>
       <Body>
         <Top>
+          <MobileBadge>
+            <Badge status={status} stepNumber={stepNumber} />
+          </MobileBadge>
           <Title data-cy="step-header-customer">{label}</Title>
           {status === "done" ? (
             <Edit>
@@ -55,7 +60,7 @@ const Body = styled.div`
 `
 
 const Top = styled.div`
-  ${tw`flex items-start mb-1.5`}
+  ${tw`flex items-center md:items-start mb-1.5`}
 `
 
 const Edit = styled.div`
@@ -67,9 +72,12 @@ const EditButton = styled.button`
 `
 
 const Title = styled.h2`
-  ${tw`text-lg font-semibold leading-none`}
+  ${tw`text-lg font-semibold leading-none pl-2 md:pl-0`}
 `
 
 const Info = styled.p`
   ${tw`text-gray-500 text-sm`}
+`
+const MobileBadge = styled.div`
+  ${tw`block md:hidden`}
 `
