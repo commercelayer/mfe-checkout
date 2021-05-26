@@ -42,13 +42,13 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`overflow-hidden`}
+  ${tw`overflow-hidden -mx-5`}
 `
 const AccordionTab = styled.div`
-  ${tw`outline-none`}
+  ${tw`outline-none bg-white shadow-bottom mb-2 px-5`}
 `
 const AccordionTabHeader = styled.div`
-  ${tw`relative flex items-center justify-between py-3 cursor-pointer transition ease duration-500 focus:bg-gray-500`}
+  ${tw`relative flex items-start justify-between py-3 cursor-pointer transition ease duration-500 focus:bg-gray-500`}
 `
 const AccordionTitle = styled.div`
   ${tw`group-focus:text-gray-600 transition ease duration-500`}

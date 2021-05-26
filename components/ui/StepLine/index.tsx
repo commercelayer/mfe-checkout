@@ -22,7 +22,7 @@ export const StepLine: React.FC<Props> = ({ status, stepNumber }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`flex flex-col items-center absolute md:-left-3 md:relative`}
+  ${tw`flex flex-col items-center hidden md:visible md:-left-3 md:relative`}
 `
 interface BadgeProps {
   active: boolean
