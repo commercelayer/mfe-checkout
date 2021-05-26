@@ -69,5 +69,8 @@ const AccordionIcon = styled.div`
   ${tw`transform transition ease duration-500 group-focus:text-gray-900 group-focus:-rotate-180`}
 `
 const AccordionBody = styled.div`
-  ${tw`overflow-hidden group-focus:max-h-screen max-h-0 ease duration-500`}
+  ${tw`overflow-hidden group-focus:max-h-full max-h-0 ease duration-500`}
+  .active & {
+    ${tw`max-h-full`}
+  }
 `
