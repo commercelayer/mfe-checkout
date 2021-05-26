@@ -1,9 +1,11 @@
 import classNames from "classnames"
 import { Fragment, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
-import "twin.macro"
 
+import "twin.macro"
 import { AppContext } from "components/data/AppProvider"
+import useDeviceDetect from "components/hooks/useDeviceDetect"
+import { AccordionItem } from "components/ui/Accordion"
 import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
 import { GridContainer } from "components/ui/GridContainer"
 import { StepContainer } from "components/ui/StepContainer"
@@ -20,11 +22,39 @@ interface Props {
   className?: string
   isActive?: boolean
   onToggleActive: () => void
+  step: number
 }
 
-export const StepCustomer: React.FC<Props> = ({ isActive, onToggleActive }) => {
+export const StepHeaderCustomer: React.FC<Props> = ({
+  isActive,
+  onToggleActive,
+  step,
+}) => {
+  const { t } = useTranslation()
+  return (
+    <StepHeader
+      stepNumber={step}
+      status={isActive ? "edit" : "done"}
+      label={t("stepCustomer.title")}
+      info={
+        isActive ? t("stepCustomer.summary") : t("stepCustomer.information")
+      }
+      onEditRequest={() => {
+        onToggleActive()
+      }}
+    />
+  )
+}
+
+export const StepCustomer: React.FC<Props> = ({
+  isActive,
+  onToggleActive,
+  step,
+}) => {
   const appCtx = useContext(AppContext)
   const { t } = useTranslation()
+
+  const { isMobile } = useDeviceDetect()
 
   const [isLocalLoader, setIsLocalLoader] = useState(false)
 
@@ -67,17 +97,26 @@ export const StepCustomer: React.FC<Props> = ({ isActive, onToggleActive }) => {
     >
       <StepLine stepNumber={1} status={isActive ? "edit" : "done"} />
       <StepContent>
-        <StepHeader
-          stepNumber={1}
-          status={isActive ? "edit" : "done"}
-          label={t("stepCustomer.title")}
-          info={
-            isActive ? t("stepCustomer.summary") : t("stepCustomer.information")
-          }
-          onEditRequest={() => {
-            onToggleActive()
-          }}
-        />
+        {!isMobile && (
+          <StepHeaderCustomer
+            isActive={isActive}
+            onToggleActive={onToggleActive}
+            step={step}
+          />
+          // <StepHeader
+          //   stepNumber={1}
+          //   status={isActive ? "edit" : "done"}
+          //   label={t("stepCustomer.title")}
+          //   info={
+          //     isActive
+          //       ? t("stepCustomer.summary")
+          //       : t("stepCustomer.information")
+          //   }
+          //   onEditRequest={() => {
+          //     onToggleActive()
+          //   }}
+          // />
+        )}
         {isActive ? (
           <Fragment>
             {isGuest ? (

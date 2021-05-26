@@ -5,14 +5,23 @@ import tw from "twin.macro"
 import { MainHeader } from "components/composite/MainHeader"
 import { OrderSummary } from "components/composite/OrderSummary"
 import { StepComplete } from "components/composite/StepComplete"
-import { StepCustomer } from "components/composite/StepCustomer"
+import {
+  StepCustomer,
+  StepHeaderCustomer,
+} from "components/composite/StepCustomer"
 import { StepNav } from "components/composite/StepNav"
-import { StepPayment } from "components/composite/StepPayment"
-import { StepShipping } from "components/composite/StepShipping"
+import {
+  StepPayment,
+  StepHeaderPayment,
+} from "components/composite/StepPayment"
+import {
+  StepShipping,
+  StepHeaderShipping,
+} from "components/composite/StepShipping"
 import { AppContext } from "components/data/AppProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
-import { Accordion } from "components/ui/Accordion"
+import { Accordion, AccordionItem } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
@@ -97,8 +106,60 @@ export const Checkout: React.FC<Props> = ({
               onStepChange={setActiveStep}
               lastActivable={lastActivableStep}
             />
-            <Accordion />
-            <StepCustomer
+            <Accordion>
+              <AccordionItem
+                index={1}
+                header={
+                  <StepHeaderCustomer
+                    isActive={activeStep === "Customer"}
+                    onToggleActive={() => setActiveStep("Customer")}
+                    step={1}
+                  />
+                }
+              >
+                <StepCustomer
+                  tw="mb-6"
+                  isActive={activeStep === "Customer"}
+                  onToggleActive={() => setActiveStep("Customer")}
+                  step={1}
+                />
+              </AccordionItem>
+              <AccordionItem
+                index={2}
+                header={
+                  <StepHeaderShipping
+                    isActive={activeStep === "Shipping"}
+                    onToggleActive={() => setActiveStep("Shipping")}
+                    step={2}
+                  />
+                }
+              >
+                <StepShipping
+                  tw="mb-6"
+                  isActive={activeStep === "Shipping"}
+                  onToggleActive={() => setActiveStep("Shipping")}
+                  step={2}
+                />
+              </AccordionItem>
+              <AccordionItem
+                index={2}
+                header={
+                  <StepHeaderPayment
+                    isActive={activeStep === "Payment"}
+                    onToggleActive={() => setActiveStep("Payment")}
+                    step={3}
+                  />
+                }
+              >
+                <StepPayment
+                  tw="mb-6"
+                  isActive={activeStep === "Payment"}
+                  onToggleActive={() => setActiveStep("Payment")}
+                  step={3}
+                />
+              </AccordionItem>
+            </Accordion>
+            {/* <StepCustomer
               tw="mb-6"
               isActive={activeStep === "Customer"}
               onToggleActive={() => setActiveStep("Customer")}
@@ -112,7 +173,7 @@ export const Checkout: React.FC<Props> = ({
               tw="mb-6"
               isActive={activeStep === "Payment"}
               onToggleActive={() => setActiveStep("Payment")}
-            />
+            /> */}
           </div>
         }
       />

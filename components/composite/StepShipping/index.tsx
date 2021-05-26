@@ -28,6 +28,8 @@ import {
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
+import useDeviceDetect from "components/hooks/useDeviceDetect"
+import { AccordionItem } from "components/ui/Accordion"
 import { Button, ButtonWrapper } from "components/ui/Button"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
@@ -53,11 +55,47 @@ interface Props {
   className?: string
   isActive?: boolean
   onToggleActive: () => void
+  step: number
 }
 
-export const StepShipping: React.FC<Props> = ({ isActive, onToggleActive }) => {
+interface HeaderProps {
+  className?: string
+  isActive?: boolean
+  onToggleActive: () => void
+  step: number
+  status?: "done" | "edit" | "disabled"
+  info?: string
+}
+
+export const StepHeaderShipping: React.FC<HeaderProps> = ({
+  isActive,
+  onToggleActive,
+  step,
+  status,
+  info,
+}) => {
+  const { t } = useTranslation()
+  return (
+    <StepHeader
+      stepNumber={step}
+      status={status || isActive ? "edit" : "done"}
+      label={t("stepShipping.title")}
+      info={info || t("stepShipping.summary")}
+      onEditRequest={() => {
+        onToggleActive()
+      }}
+    />
+  )
+}
+
+export const StepShipping: React.FC<Props> = ({
+  isActive,
+  onToggleActive,
+  step,
+}) => {
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
+  const { isMobile } = useDeviceDetect()
 
   const { t } = useTranslation()
 
@@ -131,25 +169,24 @@ export const StepShipping: React.FC<Props> = ({ isActive, onToggleActive }) => {
         submitting: isLocalLoader,
       })}
     >
-      <StepLine stepNumber={2} status={isActive ? "edit" : "done"} />
+      <StepLine stepNumber={step} status={isActive ? "edit" : "done"} />
       <StepContent>
-        <StepHeader
-          stepNumber={2}
-          status={getStatusHeader()}
-          label={t("stepShipping.title")}
-          info={
-            isShipmentRequired
-              ? isActive
-                ? t("stepShipping.summary")
-                : hasShippingMethod
-                ? t("stepShipping.methodSelected")
-                : t("stepShipping.methodUnselected")
-              : t("stepShipping.notRequired")
-          }
-          onEditRequest={() => {
-            onToggleActive()
-          }}
-        />
+        {!isMobile && (
+          <StepHeaderShipping
+            step={step}
+            status={getStatusHeader()}
+            info={
+              isShipmentRequired
+                ? isActive
+                  ? t("stepShipping.summary")
+                  : hasShippingMethod
+                  ? t("stepShipping.methodSelected")
+                  : t("stepShipping.methodUnselected")
+                : t("stepShipping.notRequired")
+            }
+            onToggleActive={onToggleActive}
+          />
+        )}
         {isShipmentRequired && (
           <div>
             {isActive ? (

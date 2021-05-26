@@ -21,6 +21,8 @@ import {
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
+import useDeviceDetect from "components/hooks/useDeviceDetect"
+import { AccordionItem } from "components/ui/Accordion"
 import { Button, ButtonWrapper } from "components/ui/Button"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
@@ -36,13 +38,48 @@ interface Props {
   className?: string
   isActive?: boolean
   onToggleActive: () => void
+  step: number
 }
 
-export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
+interface HeaderProps {
+  className?: string
+  isActive?: boolean
+  onToggleActive: () => void
+  step: number
+  status?: "done" | "edit" | "disabled"
+  info?: string
+}
+
+export const StepHeaderPayment: React.FC<HeaderProps> = ({
+  isActive,
+  onToggleActive,
+  step,
+  status,
+  info,
+}) => {
+  const { t } = useTranslation()
+  return (
+    <StepHeader
+      stepNumber={step}
+      status={status || isActive ? "edit" : "done"}
+      label={t("stepPayment.title")}
+      info={info || t("stepPayment.summary")}
+      onEditRequest={() => {
+        onToggleActive()
+      }}
+    />
+  )
+}
+
+export const StepPayment: React.FC<Props> = ({
+  isActive,
+  onToggleActive,
+  step,
+}) => {
   const [canContinue, setCanContinue] = useState(false)
   const [isLocalLoader, setIsLocalLoader] = useState(false)
   const [isPlacingOrder, setIsPlacingOrder] = useState(false)
-
+  const { isMobile } = useDeviceDetect()
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
 
@@ -95,7 +132,25 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
   }, [hasPaymentMethod])
 
   return (
-    <>
+    <AccordionItem
+      index={2}
+      header={
+        <StepHeaderPayment
+          step={step}
+          status={isActive ? "edit" : hasPaymentMethod ? "done" : "disabled"}
+          info={
+            isPaymentRequired
+              ? isActive
+                ? t("stepPayment.summary")
+                : hasPaymentMethod
+                ? t("stepPayment.methodSelected")
+                : t("stepPayment.methodUnselected")
+              : t("stepPayment.notRequired")
+          }
+          onToggleActive={onToggleActive}
+        />
+      }
+    >
       <StepContainer
         className={classNames({
           current: isActive,
@@ -104,23 +159,27 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
       >
         <StepLine stepNumber={3} status={isActive ? "edit" : "done"} />
         <StepContent>
-          <StepHeader
-            stepNumber={3}
-            status={isActive ? "edit" : hasPaymentMethod ? "done" : "disabled"}
-            label={t("stepPayment.title")}
-            info={
-              isPaymentRequired
-                ? isActive
-                  ? t("stepPayment.summary")
-                  : hasPaymentMethod
-                  ? t("stepPayment.methodSelected")
-                  : t("stepPayment.methodUnselected")
-                : t("stepPayment.notRequired")
-            }
-            onEditRequest={() => {
-              onToggleActive()
-            }}
-          />
+          {isMobile && (
+            <StepHeader
+              stepNumber={3}
+              status={
+                isActive ? "edit" : hasPaymentMethod ? "done" : "disabled"
+              }
+              label={t("stepPayment.title")}
+              info={
+                isPaymentRequired
+                  ? isActive
+                    ? t("stepPayment.summary")
+                    : hasPaymentMethod
+                    ? t("stepPayment.methodSelected")
+                    : t("stepPayment.methodUnselected")
+                  : t("stepPayment.notRequired")
+              }
+              onEditRequest={() => {
+                onToggleActive()
+              }}
+            />
+          )}
           {isPaymentRequired && (
             <div>
               {isActive ? (
@@ -206,6 +265,6 @@ export const StepPayment: React.FC<Props> = ({ isActive, onToggleActive }) => {
           </PlaceOrderContainer>
         </>
       )}
-    </>
+    </AccordionItem>
   )
 }
