@@ -109,6 +109,7 @@ export const Checkout: React.FC<Props> = ({
             <Accordion>
               <AccordionItem
                 index={1}
+                isActive={activeStep === "Customer"}
                 header={
                   <StepHeaderCustomer
                     isActive={activeStep === "Customer"}
@@ -126,6 +127,7 @@ export const Checkout: React.FC<Props> = ({
               </AccordionItem>
               <AccordionItem
                 index={2}
+                isActive={activeStep === "Shipping"}
                 header={
                   <StepHeaderShipping
                     isActive={activeStep === "Shipping"}
@@ -143,6 +145,7 @@ export const Checkout: React.FC<Props> = ({
               </AccordionItem>
               <AccordionItem
                 index={2}
+                isActive={activeStep === "Payment"}
                 header={
                   <StepHeaderPayment
                     isActive={activeStep === "Payment"}

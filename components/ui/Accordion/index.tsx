@@ -1,4 +1,5 @@
-import { ReactNode, useState } from "react"
+import classNames from "classnames"
+import { ReactNode } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
@@ -7,6 +8,7 @@ import useDeviceDetect from "components/hooks/useDeviceDetect"
 interface Props {
   index: number
   header: ReactNode
+  isActive: boolean
 }
 
 export const Accordion: React.FC = ({ children }) => {
@@ -14,11 +16,21 @@ export const Accordion: React.FC = ({ children }) => {
   return isMobile ? <Wrapper>{children}</Wrapper> : <>{children}</>
 }
 
-export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
+export const AccordionItem: React.FC<Props> = ({
+  children,
+  index,
+  header,
+  isActive,
+}) => {
   const { isMobile } = useDeviceDetect()
   if (!isMobile) return <>{children}</>
   return (
-    <AccordionTab tabIndex={index} className="group">
+    <AccordionTab
+      tabIndex={index}
+      className={classNames("group", {
+        active: isActive,
+      })}
+    >
       <AccordionTabHeader className="group">
         <AccordionTitle>{header}</AccordionTitle>
         <AccordionIcon>
