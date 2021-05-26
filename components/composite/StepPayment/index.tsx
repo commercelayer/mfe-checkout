@@ -37,13 +37,13 @@ interface Props {
   className?: string
   isActive?: boolean
   onToggleActive: () => void
-  privacyAndTerms: boolean
+  isAcceptanceRequired: boolean
 }
 
 export const StepPayment: React.FC<Props> = ({
   isActive,
   onToggleActive,
-  privacyAndTerms,
+  isAcceptanceRequired,
 }) => {
   const [canContinue, setCanContinue] = useState(false)
   const [isLocalLoader, setIsLocalLoader] = useState(false)
@@ -202,7 +202,7 @@ export const StepPayment: React.FC<Props> = ({
         <>
           <StyledErrors resource="order" messages={messages} />
           <PlaceOrderContainer>
-            {privacyAndTerms && (
+            {isAcceptanceRequired && (
               <div className="flex flex-row-reverse justify-end">
                 <label
                   htmlFor="privacy-terms"
