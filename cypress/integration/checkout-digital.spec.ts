@@ -91,8 +91,10 @@ describe("Checkout Checkout-Digital", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
+          "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
+          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -135,7 +137,6 @@ describe("Checkout Checkout-Digital", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",

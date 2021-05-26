@@ -79,6 +79,7 @@ describe("Checkout guest address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
           "@updateOrder",
         ],
         { timeout: 100000 }

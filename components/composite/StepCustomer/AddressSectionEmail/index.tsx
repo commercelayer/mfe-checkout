@@ -26,14 +26,14 @@ export const AddressSectionEmail: React.FC<Props> = ({
   const messages: ErrorComponentProps["messages"] = [
     {
       code: "EMPTY_ERROR",
-      resource: "billingAddress",
-      field: "firstName",
+      resource: "order",
+      field: "customer_email",
       message: t("input.cantBlank"),
     },
     {
       code: "VALIDATION_ERROR",
-      resource: "billingAddress",
-      field: "email",
+      resource: "order",
+      field: "customer_email",
       message: t("input.mustBeValidEmail"),
     },
   ]

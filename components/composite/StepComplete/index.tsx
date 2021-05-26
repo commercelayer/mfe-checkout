@@ -86,7 +86,7 @@ const Main = styled.div`
   ${tw`flex flex-col flex-1 justify-center items-center text-center`}
 `
 const Wrapper = styled.div`
-  ${tw`flex flex-wrap justify-end items-stretch flex-col h-screen p-10 lg:px-20 lg:pb-10`}
+  ${tw`flex flex-wrap justify-end items-stretch flex-col h-screen p-5 md:p-10 lg:px-20 lg:pb-10`}
 `
 const Title = styled.h1`
   ${tw`text-2xl lg:text-4xl font-semibold mb-4`}

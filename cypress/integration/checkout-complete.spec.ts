@@ -108,6 +108,7 @@ describe("Checkout Checkout Complete", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
+          "@getOrders",
           "@updateOrder",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
