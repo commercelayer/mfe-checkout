@@ -22,7 +22,6 @@ import {
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import useDeviceDetect from "components/hooks/useDeviceDetect"
-import { AccordionItem } from "components/ui/Accordion"
 import { Button, ButtonWrapper } from "components/ui/Button"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
@@ -132,25 +131,7 @@ export const StepPayment: React.FC<Props> = ({
   }, [hasPaymentMethod])
 
   return (
-    <AccordionItem
-      index={2}
-      header={
-        <StepHeaderPayment
-          step={step}
-          status={isActive ? "edit" : hasPaymentMethod ? "done" : "disabled"}
-          info={
-            isPaymentRequired
-              ? isActive
-                ? t("stepPayment.summary")
-                : hasPaymentMethod
-                ? t("stepPayment.methodSelected")
-                : t("stepPayment.methodUnselected")
-              : t("stepPayment.notRequired")
-          }
-          onToggleActive={onToggleActive}
-        />
-      }
-    >
+    <>
       <StepContainer
         className={classNames({
           current: isActive,
@@ -160,12 +141,11 @@ export const StepPayment: React.FC<Props> = ({
         <StepLine stepNumber={3} status={isActive ? "edit" : "done"} />
         <StepContent>
           {isMobile && (
-            <StepHeader
-              stepNumber={3}
+            <StepHeaderPayment
+              step={3}
               status={
                 isActive ? "edit" : hasPaymentMethod ? "done" : "disabled"
               }
-              label={t("stepPayment.title")}
               info={
                 isPaymentRequired
                   ? isActive
@@ -175,9 +155,7 @@ export const StepPayment: React.FC<Props> = ({
                     : t("stepPayment.methodUnselected")
                   : t("stepPayment.notRequired")
               }
-              onEditRequest={() => {
-                onToggleActive()
-              }}
+              onToggleActive={onToggleActive}
             />
           )}
           {isPaymentRequired && (
@@ -265,6 +243,6 @@ export const StepPayment: React.FC<Props> = ({
           </PlaceOrderContainer>
         </>
       )}
-    </AccordionItem>
+    </>
   )
 }
