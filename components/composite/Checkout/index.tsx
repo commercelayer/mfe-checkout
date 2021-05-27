@@ -62,6 +62,7 @@ export const Checkout: React.FC<Props> = ({
         supportPhone={supportPhone}
         termsUrl={termsUrl}
         privacyUrl={privacyUrl}
+        orderNumber={orderNumber}
       />
     )
   }

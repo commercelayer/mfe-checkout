@@ -20,6 +20,7 @@ interface Props {
   supportPhone: string
   termsUrl: string
   privacyUrl: string
+  orderNumber: number
 }
 
 export const StepComplete: React.FC<Props> = ({
@@ -29,6 +30,7 @@ export const StepComplete: React.FC<Props> = ({
   supportPhone,
   termsUrl,
   privacyUrl,
+  orderNumber,
 }) => {
   const { t } = useTranslation()
 
@@ -55,7 +57,7 @@ export const StepComplete: React.FC<Props> = ({
             <Text data-cy="complete-checkout-summary" tw="text-gray-500">
               <Trans
                 i18nKey={"stepComplete.summary"}
-                values={{ orderId: ctx?.orderId }}
+                values={{ orderNumber: orderNumber }}
                 components={{
                   WrapperOrderId: <strong className="text-black" />,
                 }}
