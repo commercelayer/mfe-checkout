@@ -63,13 +63,16 @@ const AccordionTabHeader = styled.div`
   ${tw`relative flex items-start justify-between py-3 cursor-pointer transition ease duration-500 focus:bg-gray-500`}
 `
 const AccordionTitle = styled.div`
-  ${tw`group-focus:text-gray-600 transition ease duration-500`}
+  ${tw`transition ease duration-500`}
 `
 const AccordionIcon = styled.div`
-  ${tw`transform transition ease duration-500 group-focus:text-gray-900 group-focus:-rotate-180`}
+  ${tw`transform transition ease duration-500`}
+  .active & {
+    ${tw`-rotate-180`}
+  }
 `
 const AccordionBody = styled.div`
-  ${tw`overflow-hidden group-focus:max-h-full max-h-0 ease duration-500`}
+  ${tw`overflow-hidden max-h-0 ease duration-500`}
   .active & {
     ${tw`max-h-full`}
   }
