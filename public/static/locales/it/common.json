@@ -117,7 +117,7 @@
 
     "stepComplete": {
         "title": "Ordine effettuato con successo!",
-        "summary": "Il tuo ordine No: <WrapperOrderId>#{{orderId}}</WrapperOrderId>",
+        "summary": "Il tuo ordine No: <WrapperOrderId>#{{orderNumber}}</WrapperOrderId>",
         "continue": "Continua lo shopping",
         "supportEmail": "Se hai domande sul tuo ordine, puoi inviarci un'e-mail a <WrapperEmail>{{email}}</WrapperEmail>",
         "supportPhone": "Se hai domande sul tuo ordine, puoi chiamarci al numero <WrapperPhone>{{phone}}</WrapperPhone>",

@@ -31,6 +31,7 @@ const Home: NextPage = () => {
     supportPhone: "+39 055 7311348",
     termsUrl: "https://terms",
     privacyUrl: "https://privacy",
+    orderNumber: 123456,
   }
 
   return (
@@ -60,6 +61,7 @@ const Home: NextPage = () => {
           supportPhone={settings.supportPhone}
           termsUrl={settings.termsUrl}
           privacyUrl={settings.privacyUrl}
+          orderNumber={settings.orderNumber}
         />
       </ThemeProvider>
     </div>
