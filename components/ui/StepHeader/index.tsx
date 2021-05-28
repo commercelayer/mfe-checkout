@@ -64,7 +64,7 @@ const Top = styled.div`
 `
 
 const Edit = styled.div`
-  ${tw`ml-2 flex self-end`}
+  ${tw`ml-2 md:flex md:self-end`}
 `
 
 const EditButton = styled.button`
@@ -76,7 +76,7 @@ const Title = styled.h2`
 `
 
 const Info = styled.p`
-  ${tw`text-gray-500 text-sm`}
+  ${tw`text-gray-500 text-sm pl-8 md:pl-0`}
 `
 const MobileBadge = styled.div`
   ${tw`block md:hidden`}
