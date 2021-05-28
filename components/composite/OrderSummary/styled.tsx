@@ -21,6 +21,10 @@ export const AmountSpacer = styled.div`
 `
 export const RecapLine = styled.div`
   ${tw`flex flex-row justify-between py-0.5`}
+
+  &:empty {
+    ${tw`hidden`}
+  }
 `
 export const RecapLineItem = styled.p`
   ${tw`font-semibold`}
@@ -29,5 +33,5 @@ export const RecapLineTotal = styled(RecapLine)`
   ${tw`border-t border-gray-500 mt-7 pt-6`}
 `
 export const RecapLineItemTotal = styled(RecapLineItem)`
-  ${tw`text-xl font-normal`}
+  ${tw`text-xl font-normal invisible lg:visible`}
 `
