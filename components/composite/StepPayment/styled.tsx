@@ -39,7 +39,7 @@ export const PaymentSourceContainer = styled.div`
   }
 `
 export const PaymentDetailsWrapper = styled.div`
-  ${tw`flex flex-row items-center justify-start text-sm`}
+  ${tw`flex flex-row items-start justify-between lg:justify-start lg:items-center text-sm`}
 `
 export const PaymentItemTitle = styled.h5`
   ${tw`text-sm font-bold`}
