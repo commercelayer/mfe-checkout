@@ -1,12 +1,14 @@
 import {
   PlaceOrderButton,
   PaymentMethodRadioButton,
+  Errors,
 } from "@commercelayer/react-components"
 import styled from "styled-components"
 import tw from "twin.macro"
 
 import { ButtonCss } from "components/ui/Button"
 import { CheckCss } from "components/ui/form/CheckBox"
+import { ErrorCss } from "components/ui/form/Error"
 import { RadioCss } from "components/ui/form/RadioButton"
 
 export const PaymentWrapper = styled.div`
@@ -55,4 +57,19 @@ export const StyledPlaceOrderButton = styled(PlaceOrderButton)`
 `
 export const StyledPaymentMethodRadioButton = styled(PaymentMethodRadioButton)`
   ${RadioCss}
+`
+export const ErrorWrapper = styled.div`
+  ${tw`bg-red-50 flex justify-center border border-2 border-red-300 mb-10`}
+`
+export const ErrorIco = styled.div`
+  ${tw`flex items-center bg-red-300`}
+`
+
+export const ErrorMessage = styled.div`
+  ${tw`flex-1`}
+`
+
+export const StyledErrors = styled(Errors)`
+  ${ErrorCss}
+  ${tw`pt-0 pl-0 text-md p-3`}
 `

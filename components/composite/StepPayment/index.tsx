@@ -13,7 +13,6 @@ import classNames from "classnames"
 import { useContext, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
-import { StyledErrors } from "../OrderSummary/CouponOrGiftCard/styled"
 import {
   StepSummary,
   StepSummaryItem,
@@ -31,7 +30,14 @@ import { StepLine } from "components/ui/StepLine"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
-import { StyledPlaceOrderButton } from "./styled"
+import { ErrorIcon } from "./ErrorIcon"
+import {
+  StyledPlaceOrderButton,
+  StyledErrors,
+  ErrorWrapper,
+  ErrorMessage,
+  ErrorIco,
+} from "./styled"
 
 interface Props {
   className?: string
@@ -200,7 +206,14 @@ export const StepPayment: React.FC<Props> = ({
       {((isPaymentRequired && !isActive && hasPaymentMethod) ||
         !isPaymentRequired) && (
         <>
-          <StyledErrors resource="order" messages={messages} />
+          <ErrorWrapper>
+            <ErrorIco>
+              <ErrorIcon />
+            </ErrorIco>
+            <ErrorMessage>
+              <StyledErrors resource="order" messages={messages} />
+            </ErrorMessage>
+          </ErrorWrapper>
           <PlaceOrderContainer>
             {isAcceptanceRequired && (
               <div className="flex flex-row-reverse justify-end">
