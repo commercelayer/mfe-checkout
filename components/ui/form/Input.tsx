@@ -5,8 +5,7 @@ export const InputCss = css`
   ${tw`block w-full border-gray-400 border rounded-md p-3 transition duration-500 ease-in-out focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary-light focus:ring-opacity-50  sm:text-sm`}
 
   &:-webkit-autofill {
-    ${tw`shadow-inner bg-gray-900`}
-
+    &,
     &:focus {
       ${tw`shadow-inner`}
     }
