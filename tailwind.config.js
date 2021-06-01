@@ -48,6 +48,7 @@ module.exports = {
       },
       boxShadow: {
         bottom: '0 2px 0 0 rgba(0, 0, 0, 0.05)',
+        inner: '0 0 0 1000px rgba(255, 255, 255, 1) inset',
       }
     },
   },
