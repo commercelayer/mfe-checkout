@@ -1,11 +1,28 @@
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
+
+const path = require("path")
+
 module.exports = {
   future: {
     webpack5: true,
   },
-  // // Fixes npm packages that depend on `fs` module
-  // resolve: {
-  //   fallback: {
-  //       "fs": false
-  //   },
-  // }
+  webpack: (config) => {
+    config.plugins.push(new DuplicatePackageCheckerPlugin())
+    config.resolve.alias['axios'] = path.resolve(
+      __dirname,
+      'node_modules',
+      'axios',
+    )
+    config.resolve.alias['@commercelayer/js-sdk'] = path.resolve(
+      __dirname,
+      'node_modules',
+      '@commercelayer/js-sdk',
+    )
+    config.resolve.alias['@babel/runtime'] = path.resolve(
+      __dirname,
+      'node_modules',
+      '@babel/runtime',
+    )
+    return config
+  },
 }
