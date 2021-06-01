@@ -51,7 +51,7 @@ interface Props {
 interface HeaderProps {
   className?: string
   isActive?: boolean
-  onToggleActive: () => void
+  onToggleActive?: () => void
   step: number
   status?: "done" | "edit" | "disabled"
   info?: string
@@ -71,9 +71,13 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({
       status={status || isActive ? "edit" : "done"}
       label={t("stepPayment.title")}
       info={info || t("stepPayment.summary")}
-      onEditRequest={() => {
-        onToggleActive()
-      }}
+      onEditRequest={
+        onToggleActive
+          ? () => {
+              onToggleActive()
+            }
+          : undefined
+      }
     />
   )
 }

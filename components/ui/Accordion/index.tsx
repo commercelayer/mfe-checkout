@@ -9,6 +9,7 @@ interface Props {
   index: number
   header: ReactNode
   isActive: boolean
+  onToggleActive: () => void
 }
 
 export const Accordion: React.FC = ({ children }) => {
@@ -21,11 +22,13 @@ export const AccordionItem: React.FC<Props> = ({
   index,
   header,
   isActive,
+  onToggleActive,
 }) => {
   const { isMobile } = useDeviceDetect()
   if (!isMobile) return <>{children}</>
   return (
     <AccordionTab
+      onClick={onToggleActive}
       tabIndex={index}
       className={classNames("group", {
         active: isActive,

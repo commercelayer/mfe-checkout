@@ -20,7 +20,7 @@ import { CheckoutCustomerAddresses } from "./CheckoutCustomerAddresses"
 interface Props {
   className?: string
   isActive?: boolean
-  onToggleActive: () => void
+  onToggleActive?: () => void
   step: number
 }
 
@@ -38,9 +38,13 @@ export const StepHeaderCustomer: React.FC<Props> = ({
       info={
         isActive ? t("stepCustomer.summary") : t("stepCustomer.information")
       }
-      onEditRequest={() => {
-        onToggleActive()
-      }}
+      onEditRequest={
+        onToggleActive
+          ? () => {
+              onToggleActive()
+            }
+          : undefined
+      }
     />
   )
 }

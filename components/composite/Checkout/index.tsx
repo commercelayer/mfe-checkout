@@ -111,10 +111,10 @@ export const Checkout: React.FC<Props> = ({
               <AccordionItem
                 index={1}
                 isActive={activeStep === "Customer"}
+                onToggleActive={() => setActiveStep("Customer")}
                 header={
                   <StepHeaderCustomer
                     isActive={activeStep === "Customer"}
-                    onToggleActive={() => setActiveStep("Customer")}
                     step={1}
                   />
                 }
@@ -129,10 +129,10 @@ export const Checkout: React.FC<Props> = ({
               <AccordionItem
                 index={2}
                 isActive={activeStep === "Shipping"}
+                onToggleActive={() => setActiveStep("Shipping")}
                 header={
                   <StepHeaderShipping
                     isActive={activeStep === "Shipping"}
-                    onToggleActive={() => setActiveStep("Shipping")}
                     step={2}
                   />
                 }
@@ -147,10 +147,10 @@ export const Checkout: React.FC<Props> = ({
               <AccordionItem
                 index={2}
                 isActive={activeStep === "Payment"}
+                onToggleActive={() => setActiveStep("Payment")}
                 header={
                   <StepHeaderPayment
                     isActive={activeStep === "Payment"}
-                    onToggleActive={() => setActiveStep("Payment")}
                     step={3}
                   />
                 }
