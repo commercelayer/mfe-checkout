@@ -4,14 +4,9 @@ import "twin.macro"
 
 interface Props {
   handleSave: () => void
-  stripeKey: string
 }
 
-export const PaymentContainer: React.FC<Props> = ({
-  handleSave,
-  stripeKey,
-  children,
-}) => {
+export const PaymentContainer: React.FC<Props> = ({ handleSave, children }) => {
   const { t } = useTranslation()
 
   return (
@@ -46,7 +41,6 @@ export const PaymentContainer: React.FC<Props> = ({
             hideIcon: false,
             hidePostalCode: true,
           },
-          publishableKey: stripeKey,
           handleSubmit: handleSave,
           submitLabel: t("stepPayment.setPaymentMethod"),
           submitClassName:
