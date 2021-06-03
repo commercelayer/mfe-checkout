@@ -74,8 +74,6 @@ export const StepPayment: React.FC<Props> = ({
     isPaymentRequired,
   } = appCtx
 
-  const stripeKey = "pk_test_TYooMQauvdEDq54NiTphI7jx"
-
   const messages: ErrorComponentProps["messages"] = [
     {
       code: "VALIDATION_ERROR",
@@ -151,15 +149,9 @@ export const StepPayment: React.FC<Props> = ({
               {isActive ? (
                 <>
                   {isGuest ? (
-                    <CheckoutPayment
-                      handleSave={handleSave}
-                      stripeKey={stripeKey}
-                    />
+                    <CheckoutPayment handleSave={handleSave} />
                   ) : (
-                    <CheckoutCustomerPayment
-                      handleSave={handleSave}
-                      stripeKey={stripeKey}
-                    />
+                    <CheckoutCustomerPayment handleSave={handleSave} />
                   )}
                   {hasPaymentMethod && (
                     <ButtonWrapper>
