@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components"
 
-export const SpinnerLoader: React.FC = () => {
+const SpinnerLoader: React.FC = () => {
   return (
     <Wrapper>
       <Spinner sizepx={100} color="gray">
@@ -80,3 +80,4 @@ const Spinner = styled.div<WrapperProps>`
     }
   }
 `
+export default SpinnerLoader

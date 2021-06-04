@@ -13,16 +13,16 @@ module.exports = {
       'node_modules',
       'axios',
     )
-    config.resolve.alias['@commercelayer/js-sdk'] = path.resolve(
+    config.resolve.alias['strip-ansi'] = path.resolve(
       __dirname,
       'node_modules',
-      '@commercelayer/js-sdk',
-    )
-    config.resolve.alias['@babel/runtime'] = path.resolve(
-      __dirname,
-      'node_modules',
-      '@babel/runtime',
-    )
+      'next/dist/compiled/strip-ansi',
+      )
+      config.resolve.alias['@babel/runtime'] = path.resolve(
+        __dirname,
+        'node_modules',
+        '@babel/runtime',
+      )
     return config
   },
 }

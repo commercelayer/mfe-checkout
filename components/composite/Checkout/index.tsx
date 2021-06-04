@@ -24,7 +24,7 @@ import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
-import { SpinnerLoader } from "components/ui/SpinnerLoader"
+import SpinnerLoader from "components/ui/SpinnerLoader"
 
 interface Props {
   logoUrl: string
@@ -36,7 +36,7 @@ interface Props {
   privacyUrl: string
 }
 
-export const Checkout: React.FC<Props> = ({
+const Checkout: React.FC<Props> = ({
   logoUrl,
   orderNumber,
   companyName,
@@ -194,3 +194,4 @@ const Sidebar = styled.div`
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}
 `
+export default Checkout
