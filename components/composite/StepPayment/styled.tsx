@@ -58,6 +58,10 @@ export const StyledPlaceOrderButton = styled(PlaceOrderButton)`
 export const StyledPaymentMethodRadioButton = styled(PaymentMethodRadioButton)`
   ${RadioCss}
 `
+export const PrivacyAndTermsWrapper = styled.div`
+  ${tw`flex items-center`}
+`
+
 export const ErrorWrapper = styled.div`
   ${tw`bg-red-50 flex justify-center border border-2 border-red-300 mb-10`}
 `

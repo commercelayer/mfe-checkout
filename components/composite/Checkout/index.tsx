@@ -160,7 +160,7 @@ export const Checkout: React.FC<Props> = ({
                   isActive={activeStep === "Payment"}
                   onToggleActive={() => setActiveStep("Payment")}
                   step={3}
-                  isAcceptanceRequired={Boolean(termsUrl)}
+                  termsUrl={termsUrl}
                 />
               </AccordionItem>
             </Accordion>
