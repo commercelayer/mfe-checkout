@@ -19,7 +19,6 @@ import {
 } from "./styled"
 
 interface Props {
-  stripeKey: string
   handleSave: () => void
 }
 
@@ -32,7 +31,6 @@ type CustomerSaveToWalletProps = {
 }
 
 export const CheckoutCustomerPayment: React.FC<Props> = ({
-  stripeKey,
   handleSave,
 }: Props) => {
   const { t } = useTranslation()
@@ -67,7 +65,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
 
   return (
     <CustomerContainer>
-      <PaymentContainer handleSave={handleSave} stripeKey={stripeKey}>
+      <PaymentContainer handleSave={handleSave}>
         <PaymentMethod activeClass="active" className="payment">
           <PaymentWrapper>
             <PaymentSummaryList />

@@ -33,6 +33,7 @@ import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
 import { ErrorIcon } from "./ErrorIcon"
 import {
+  PrivacyAndTermsWrapper,
   StyledPlaceOrderButton,
   StyledErrors,
   ErrorWrapper,
@@ -45,7 +46,7 @@ interface Props {
   isActive?: boolean
   onToggleActive: () => void
   step: number
-  isAcceptanceRequired: boolean
+  termsUrl: string
 }
 
 interface HeaderProps {
@@ -84,9 +85,8 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({
 
 export const StepPayment: React.FC<Props> = ({
   isActive,
-  isAcceptanceRequired,
+  termsUrl,
   onToggleActive,
-  step,
 }) => {
   const [canContinue, setCanContinue] = useState(false)
   const [isLocalLoader, setIsLocalLoader] = useState(false)
@@ -110,8 +110,6 @@ export const StepPayment: React.FC<Props> = ({
     isGuest,
     isPaymentRequired,
   } = appCtx
-
-  const stripeKey = "pk_test_TYooMQauvdEDq54NiTphI7jx"
 
   const messages: ErrorComponentProps["messages"] = [
     {
@@ -189,15 +187,9 @@ export const StepPayment: React.FC<Props> = ({
               {isActive ? (
                 <>
                   {isGuest ? (
-                    <CheckoutPayment
-                      handleSave={handleSave}
-                      stripeKey={stripeKey}
-                    />
+                    <CheckoutPayment handleSave={handleSave} />
                   ) : (
-                    <CheckoutCustomerPayment
-                      handleSave={handleSave}
-                      stripeKey={stripeKey}
-                    />
+                    <CheckoutCustomerPayment handleSave={handleSave} />
                   )}
                   {hasPaymentMethod && (
                     <ButtonWrapper>
@@ -244,30 +236,45 @@ export const StepPayment: React.FC<Props> = ({
       {((isPaymentRequired && !isActive && hasPaymentMethod) ||
         !isPaymentRequired) && (
         <>
-          <ErrorWrapper>
-            <ErrorIco>
-              <ErrorIcon />
-            </ErrorIco>
-            <ErrorMessage>
-              <StyledErrors resource="order" messages={messages} />
-            </ErrorMessage>
-          </ErrorWrapper>
+          <StyledErrors resource="order" messages={messages}>
+            {(props) => {
+              if (!props.errors.length) {
+                return null
+              }
+              return props.errors.map((error, index) => {
+                return (
+                  <ErrorWrapper key={index}>
+                    <ErrorIco>
+                      <ErrorIcon />
+                    </ErrorIco>
+                    <ErrorMessage>{error}</ErrorMessage>
+                  </ErrorWrapper>
+                )
+              })
+            }}
+          </StyledErrors>
           <PlaceOrderContainer>
-            {isAcceptanceRequired && (
-              <div className="flex flex-row-reverse justify-end">
+            {!!termsUrl && (
+              <PrivacyAndTermsWrapper>
+                <PrivacyAndTermsCheckbox
+                  id="privacy-terms"
+                  className="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 disabled:opacity-50"
+                />
                 <label
                   htmlFor="privacy-terms"
-                  className="self-end block ml-3 text-sm font-medium text-gray-700"
+                  className="self-end block ml-3 text-sm text-gray-700"
                 >
-                  {t("general.privacy_and_terms")}
-                </label>
-                <div className="mt-1">
-                  <PrivacyAndTermsCheckbox
-                    id="privacy-terms"
-                    className="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 disabled:opacity-50"
+                  <Trans
+                    i18nKey="general.privacy_and_terms"
+                    components={{
+                      bold: <strong />,
+                      url: (
+                        <a href={termsUrl} target="_blank" rel="noreferrer" />
+                      ),
+                    }}
                   />
-                </div>
-              </div>
+                </label>
+              </PrivacyAndTermsWrapper>
             )}
             <ButtonWrapper>
               <StyledPlaceOrderButton

@@ -11,16 +11,12 @@ import {
 } from "./styled"
 
 interface Props {
-  stripeKey: string
   handleSave: () => void
 }
 
-export const CheckoutPayment: React.FC<Props> = ({
-  stripeKey,
-  handleSave,
-}: Props) => {
+export const CheckoutPayment: React.FC<Props> = ({ handleSave }: Props) => {
   return (
-    <PaymentContainer handleSave={handleSave} stripeKey={stripeKey}>
+    <PaymentContainer handleSave={handleSave}>
       <PaymentMethod activeClass="active" className="payment">
         <PaymentWrapper>
           <PaymentSummaryList />
