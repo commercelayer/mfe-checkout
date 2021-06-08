@@ -2,6 +2,7 @@ import {
   PlaceOrderButton,
   PaymentMethodRadioButton,
   Errors,
+  PrivacyAndTermsCheckbox,
 } from "@commercelayer/react-components"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -72,4 +73,7 @@ export const ErrorMessage = styled.div`
 export const StyledErrors = styled(Errors)`
   ${ErrorCss}
   ${tw`pt-0 pl-0 text-md p-3`}
+`
+export const StyledPrivacyAndTermsCheckbox = styled(PrivacyAndTermsCheckbox)`
+  ${CheckCss}
 `

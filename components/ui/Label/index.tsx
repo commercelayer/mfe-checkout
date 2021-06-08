@@ -2,7 +2,7 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 interface Props {
-  dataCy: string
+  dataCy?: string
   htmlFor: string
   textLabel: string
 }

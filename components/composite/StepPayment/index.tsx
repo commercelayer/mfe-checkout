@@ -22,6 +22,7 @@ import {
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { Button, ButtonWrapper } from "components/ui/Button"
+import { Label } from "components/ui/Label"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
@@ -37,6 +38,7 @@ import {
   ErrorWrapper,
   ErrorMessage,
   ErrorIco,
+  StyledPrivacyAndTermsCheckbox,
 } from "./styled"
 
 interface Props {
@@ -208,20 +210,17 @@ export const StepPayment: React.FC<Props> = ({
           </ErrorWrapper>
           <PlaceOrderContainer>
             {isAcceptanceRequired && (
-              <div className="flex flex-row-reverse justify-end">
-                <label
+              <>
+                <StyledPrivacyAndTermsCheckbox
+                  id="privacy-terms"
+                  name="privacy-terms"
+                  className="form-checkbox"
+                />
+                <Label
                   htmlFor="privacy-terms"
-                  className="self-end block ml-3 text-sm font-medium text-gray-700"
-                >
-                  {t("general.privacy_and_terms")}
-                </label>
-                <div className="mt-1">
-                  <PrivacyAndTermsCheckbox
-                    id="privacy-terms"
-                    className="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 disabled:opacity-50"
-                  />
-                </div>
-              </div>
+                  textLabel={t("general.privacy_and_terms")}
+                />
+              </>
             )}
             <ButtonWrapper>
               <StyledPlaceOrderButton
