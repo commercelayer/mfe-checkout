@@ -69,7 +69,7 @@ export const StepNav: React.FC<Props> = ({
 }
 
 const Wrapper = styled.nav`
-  ${tw`mb-12 pt-2`}
+  ${tw`mb-12 pt-2 hidden md:block`}
 `
 
 const StepList = styled.ol`
