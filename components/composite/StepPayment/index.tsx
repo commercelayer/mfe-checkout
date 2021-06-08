@@ -22,6 +22,7 @@ import {
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { Button, ButtonWrapper } from "components/ui/Button"
+import { FlexContainer } from "components/ui/FlexContainer"
 import { Label } from "components/ui/Label"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
@@ -210,7 +211,7 @@ export const StepPayment: React.FC<Props> = ({
           </ErrorWrapper>
           <PlaceOrderContainer>
             {isAcceptanceRequired && (
-              <>
+              <FlexContainer className="items-center">
                 <StyledPrivacyAndTermsCheckbox
                   id="privacy-terms"
                   name="privacy-terms"
@@ -220,7 +221,7 @@ export const StepPayment: React.FC<Props> = ({
                   htmlFor="privacy-terms"
                   textLabel={t("general.privacy_and_terms")}
                 />
-              </>
+              </FlexContainer>
             )}
             <ButtonWrapper>
               <StyledPlaceOrderButton

@@ -2,6 +2,7 @@ import { AddressInput } from "@commercelayer/react-components"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 
+import { FlexContainer } from "components/ui/FlexContainer"
 import { CheckCss } from "components/ui/form/CheckBox"
 import { Label } from "components/ui/Label"
 
@@ -24,7 +25,7 @@ export const AddressSectionSaveOnAddressBook: React.FC<Props> = ({
       : "shipping_address_save_to_customer_address_book"
 
   return (
-    <>
+    <FlexContainer className="items-center">
       <StyledAddressInput
         data-cy={dataCy}
         name={fieldName}
@@ -38,7 +39,7 @@ export const AddressSectionSaveOnAddressBook: React.FC<Props> = ({
         dataCy={dataCy}
         textLabel={t("stepCustomer.saveAddressBook")}
       />
-    </>
+    </FlexContainer>
   )
 }
 
