@@ -76,7 +76,7 @@ const AccordionIcon = styled.div`
   }
 `
 const AccordionBody = styled.div`
-  ${tw`overflow-hidden max-h-0 transition duration-1000 delay-100 ease-in opacity-0`}
+  ${tw`overflow-hidden max-h-0 transition duration-1000 ease-in opacity-0`}
   .active & {
     ${tw`max-h-full opacity-100`}
   }
