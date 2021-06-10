@@ -17,12 +17,18 @@ module.exports = {
       __dirname,
       'node_modules',
       'next/dist/compiled/strip-ansi',
-      )
-      config.resolve.alias['@babel/runtime'] = path.resolve(
-        __dirname,
-        'node_modules',
-        '@babel/runtime',
-      )
+    )
+    config.resolve.alias['@babel/runtime'] = path.resolve(
+      __dirname,
+      'node_modules',
+      '@babel/runtime',
+    )
+    config.resolve.alias['@commercelayer/js-sdk'] = path.resolve(
+      __dirname,
+      'node_modules',
+      '@commercelayer/js-sdk',
+    )
+
     return config
   },
 }
