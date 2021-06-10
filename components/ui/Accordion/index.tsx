@@ -13,8 +13,9 @@ interface Props {
 }
 
 export const Accordion: React.FC = ({ children }) => {
-  const { isMobile } = useDeviceDetect()
-  return isMobile ? <Wrapper>{children}</Wrapper> : <>{children}</>
+  // const { isMobile } = useDeviceDetect()
+  // return isMobile ? <Wrapper>{children}</Wrapper> : <>{children}</>
+  return <Wrapper>{children}</Wrapper>
 }
 
 export const AccordionItem: React.FC<Props> = ({
@@ -24,8 +25,8 @@ export const AccordionItem: React.FC<Props> = ({
   isActive,
   onToggleActive,
 }) => {
-  const { isMobile } = useDeviceDetect()
-  if (!isMobile) return <>{children}</>
+  // const { isMobile } = useDeviceDetect()
+  // if (!isMobile) return <>{children}</>
   return (
     <AccordionTab
       onClick={onToggleActive}

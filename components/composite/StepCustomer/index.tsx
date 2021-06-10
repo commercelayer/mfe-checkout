@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next"
 
 import "twin.macro"
 import { AppContext } from "components/data/AppProvider"
-import useDeviceDetect from "components/hooks/useDeviceDetect"
 import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
 import { GridContainer } from "components/ui/GridContainer"
 import { StepContainer } from "components/ui/StepContainer"
@@ -57,8 +56,6 @@ export const StepCustomer: React.FC<Props> = ({
   const appCtx = useContext(AppContext)
   const { t } = useTranslation()
 
-  const { isMobile } = useDeviceDetect()
-
   const [isLocalLoader, setIsLocalLoader] = useState(false)
 
   if (!appCtx) {
@@ -100,7 +97,7 @@ export const StepCustomer: React.FC<Props> = ({
     >
       <StepLine stepNumber={1} status={isActive ? "edit" : "done"} />
       <StepContent>
-        {!isMobile && (
+        {/* {!isMobile && (
           <StepHeaderCustomer
             isActive={isActive}
             onToggleActive={onToggleActive}
@@ -119,7 +116,7 @@ export const StepCustomer: React.FC<Props> = ({
           //     onToggleActive()
           //   }}
           // />
-        )}
+        )} */}
         {isActive ? (
           <Fragment>
             {isGuest ? (

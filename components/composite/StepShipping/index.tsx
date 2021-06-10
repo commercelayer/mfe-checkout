@@ -28,8 +28,6 @@ import {
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
-import useDeviceDetect from "components/hooks/useDeviceDetect"
-import { AccordionItem } from "components/ui/Accordion"
 import { Button, ButtonWrapper } from "components/ui/Button"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
@@ -99,7 +97,6 @@ export const StepShipping: React.FC<Props> = ({
 }) => {
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
-  const { isMobile } = useDeviceDetect()
 
   const { t } = useTranslation()
 
@@ -107,12 +104,8 @@ export const StepShipping: React.FC<Props> = ({
     return null
   }
 
-  const {
-    shipments,
-    hasShippingMethod,
-    isShipmentRequired,
-    refetchOrder,
-  } = appCtx
+  const { shipments, hasShippingMethod, isShipmentRequired, refetchOrder } =
+    appCtx
 
   const [shipmentsSelected, setShipmentsSelected] = useState(shipments)
   const [canContinue, setCanContinue] = useState(false)
@@ -175,7 +168,7 @@ export const StepShipping: React.FC<Props> = ({
     >
       <StepLine stepNumber={step} status={isActive ? "edit" : "done"} />
       <StepContent>
-        {!isMobile && (
+        {/* {!isMobile && (
           <StepHeaderShipping
             step={step}
             status={getStatusHeader()}
@@ -190,7 +183,7 @@ export const StepShipping: React.FC<Props> = ({
             }
             onToggleActive={onToggleActive}
           />
-        )}
+        )} */}
         {isShipmentRequired && (
           <div>
             {isActive ? (

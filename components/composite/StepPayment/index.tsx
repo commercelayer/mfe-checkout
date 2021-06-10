@@ -21,7 +21,6 @@ import {
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
-import useDeviceDetect from "components/hooks/useDeviceDetect"
 import { Button, ButtonWrapper } from "components/ui/Button"
 import { FlexContainer } from "components/ui/FlexContainer"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
@@ -92,7 +91,6 @@ export const StepPayment: React.FC<Props> = ({
   const [canContinue, setCanContinue] = useState(false)
   const [isLocalLoader, setIsLocalLoader] = useState(false)
   const [isPlacingOrder, setIsPlacingOrder] = useState(false)
-  const { isMobile } = useDeviceDetect()
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
 
@@ -165,7 +163,7 @@ export const StepPayment: React.FC<Props> = ({
       >
         <StepLine stepNumber={3} status={isActive ? "edit" : "done"} />
         <StepContent>
-          {!isMobile && (
+          {/* {!isMobile && (
             <StepHeaderPayment
               step={3}
               status={
@@ -182,7 +180,7 @@ export const StepPayment: React.FC<Props> = ({
               }
               onToggleActive={onToggleActive}
             />
-          )}
+          )} */}
           {isPaymentRequired && (
             <div>
               {isActive ? (
