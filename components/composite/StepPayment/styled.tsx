@@ -2,6 +2,7 @@ import {
   PlaceOrderButton,
   PaymentMethodRadioButton,
   Errors,
+  PrivacyAndTermsCheckbox,
 } from "@commercelayer/react-components"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -83,4 +84,7 @@ export const ErrorsContainer = styled.div`
   & > div:only-of-type {
     ${tw`mb-10`}
   }
+`
+export const StyledPrivacyAndTermsCheckbox = styled(PrivacyAndTermsCheckbox)`
+  ${CheckCss}
 `

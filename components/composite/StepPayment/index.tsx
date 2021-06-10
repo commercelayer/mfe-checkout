@@ -23,6 +23,7 @@ import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import useDeviceDetect from "components/hooks/useDeviceDetect"
 import { Button, ButtonWrapper } from "components/ui/Button"
+import { FlexContainer } from "components/ui/FlexContainer"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
@@ -33,7 +34,6 @@ import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
 import { ErrorIcon } from "./ErrorIcon"
 import {
-  PrivacyAndTermsWrapper,
   StyledPlaceOrderButton,
   StyledErrors,
   ErrorWrapper,
@@ -258,7 +258,7 @@ export const StepPayment: React.FC<Props> = ({
           </ErrorsContainer>
           <PlaceOrderContainer>
             {!!termsUrl && (
-              <PrivacyAndTermsWrapper>
+              <FlexContainer className="items-center">
                 <PrivacyAndTermsCheckbox
                   id="privacy-terms"
                   className="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 disabled:opacity-50"
@@ -277,7 +277,7 @@ export const StepPayment: React.FC<Props> = ({
                     }}
                   />
                 </label>
-              </PrivacyAndTermsWrapper>
+              </FlexContainer>
             )}
             <ButtonWrapper>
               <StyledPlaceOrderButton
