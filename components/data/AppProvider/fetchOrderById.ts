@@ -326,7 +326,9 @@ export const fetchOrderById = async ({
       | (AdyenPaymentCollection & { options?: { card?: string } })
     > = order.paymentSource()
     let hasPaymentMethod = Boolean(
-      paymentMethod && paymentSource?.options?.card
+      paymentMethod && paymentMethod.paymentSourceType === "stripe_payments"
+        ? paymentSource?.options?.card
+        : paymentMethod?.paymentSourceType === "wire_transfers"
     )
 
     if (!hasPaymentMethod && !isPaymentRequired) {
@@ -351,7 +353,9 @@ export const fetchOrderById = async ({
           id: allAvailablePaymentMethods[0].id,
         })
 
-        await (await Order.find(order.id)).update({
+        await (
+          await Order.find(order.id)
+        ).update({
           paymentMethod,
         })
 
@@ -397,7 +401,7 @@ export const fetchOrderById = async ({
       billingAddress,
       hasShippingMethod,
       paymentMethod,
-      shipments: (shipmentsSelected as unknown) as ShipmentSelected[],
+      shipments: shipmentsSelected as unknown as ShipmentSelected[],
       hasPaymentMethod,
       shippingCountryCodeLock,
       isShipmentRequired,
