@@ -9,7 +9,6 @@ import { GridContainer } from "components/ui/GridContainer"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { StepLine } from "components/ui/StepLine"
 
 import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionTitle } from "./AddressSectionTitle"
@@ -95,7 +94,6 @@ export const StepCustomer: React.FC<Props> = ({
         submitting: isLocalLoader,
       })}
     >
-      <StepLine stepNumber={1} status={isActive ? "edit" : "done"} />
       <StepContent>
         {/* {!isMobile && (
           <StepHeaderCustomer

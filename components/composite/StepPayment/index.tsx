@@ -27,7 +27,6 @@ import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { StepLine } from "components/ui/StepLine"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
@@ -161,7 +160,6 @@ export const StepPayment: React.FC<Props> = ({
           done: !isActive,
         })}
       >
-        <StepLine stepNumber={3} status={isActive ? "edit" : "done"} />
         <StepContent>
           {/* {!isMobile && (
             <StepHeaderPayment

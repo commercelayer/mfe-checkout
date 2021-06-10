@@ -33,7 +33,6 @@ import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { StepLine } from "components/ui/StepLine"
 
 import {
   ShippingWrapper,
@@ -104,8 +103,12 @@ export const StepShipping: React.FC<Props> = ({
     return null
   }
 
-  const { shipments, hasShippingMethod, isShipmentRequired, refetchOrder } =
-    appCtx
+  const {
+    shipments,
+    hasShippingMethod,
+    isShipmentRequired,
+    refetchOrder,
+  } = appCtx
 
   const [shipmentsSelected, setShipmentsSelected] = useState(shipments)
   const [canContinue, setCanContinue] = useState(false)
@@ -166,7 +169,6 @@ export const StepShipping: React.FC<Props> = ({
         submitting: isLocalLoader,
       })}
     >
-      <StepLine stepNumber={step} status={isActive ? "edit" : "done"} />
       <StepContent>
         {/* {!isMobile && (
           <StepHeaderShipping
