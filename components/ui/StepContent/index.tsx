@@ -6,5 +6,5 @@ export const StepContent: React.FC = ({ children }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`relative w-full pointer-events-auto transition duration-500 ease-in`}
+  ${tw`relative w-full pointer-events-auto`}
 `

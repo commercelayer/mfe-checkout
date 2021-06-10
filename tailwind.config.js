@@ -33,6 +33,9 @@ module.exports = {
         red: {
           400: "#ED5959",
         },
+        green: {
+          400: "#2BC48A",
+        },
       },
       fontSize: {
         md: "0.938rem",
