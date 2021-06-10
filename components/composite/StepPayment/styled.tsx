@@ -63,17 +63,24 @@ export const PrivacyAndTermsWrapper = styled.div`
 `
 
 export const ErrorWrapper = styled.div`
-  ${tw`bg-red-50 flex justify-center border border-2 border-red-300 mb-10`}
+  ${tw`bg-red-50 flex justify-center border border-2 border-red-300`}
+  & + & {
+    ${tw`mb-10 mt-5`}
+  }
 `
 export const ErrorIco = styled.div`
   ${tw`flex items-center bg-red-300`}
 `
-
 export const ErrorMessage = styled.div`
-  ${tw`flex-1`}
+  ${ErrorCss}
+  ${tw`flex-1 pt-0 pl-0 text-sm p-3`}
 `
-
 export const StyledErrors = styled(Errors)`
   ${ErrorCss}
-  ${tw`pt-0 pl-0 text-md p-3`}
+  ${tw`pt-0 pl-0 text-sm p-3`}
+`
+export const ErrorsContainer = styled.div`
+  & > div:only-of-type {
+    ${tw`mb-10`}
+  }
 `

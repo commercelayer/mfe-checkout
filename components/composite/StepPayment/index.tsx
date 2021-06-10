@@ -39,6 +39,7 @@ import {
   ErrorWrapper,
   ErrorMessage,
   ErrorIco,
+  ErrorsContainer,
 } from "./styled"
 
 interface Props {
@@ -236,23 +237,25 @@ export const StepPayment: React.FC<Props> = ({
       {((isPaymentRequired && !isActive && hasPaymentMethod) ||
         !isPaymentRequired) && (
         <>
-          <StyledErrors resource="order" messages={messages}>
-            {(props) => {
-              if (!props.errors.length) {
-                return null
-              }
-              return props.errors.map((error, index) => {
-                return (
-                  <ErrorWrapper key={index}>
-                    <ErrorIco>
-                      <ErrorIcon />
-                    </ErrorIco>
-                    <ErrorMessage>{error}</ErrorMessage>
-                  </ErrorWrapper>
-                )
-              })
-            }}
-          </StyledErrors>
+          <ErrorsContainer>
+            <StyledErrors resource="order" messages={messages}>
+              {(props) => {
+                if (!props.errors.length) {
+                  return null
+                }
+                return props.errors.map((error, index) => {
+                  return (
+                    <ErrorWrapper key={index}>
+                      <ErrorIco>
+                        <ErrorIcon />
+                      </ErrorIco>
+                      <ErrorMessage>{error}</ErrorMessage>
+                    </ErrorWrapper>
+                  )
+                })
+              }}
+            </StyledErrors>
+          </ErrorsContainer>
           <PlaceOrderContainer>
             {!!termsUrl && (
               <PrivacyAndTermsWrapper>
