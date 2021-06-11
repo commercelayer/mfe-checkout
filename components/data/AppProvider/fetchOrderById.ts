@@ -319,16 +319,29 @@ export const fetchOrderById = async ({
 
     const paymentMethod = order.paymentMethod()
     const paymentSource: SingleRelationship<
-      | (StripePaymentCollection & { options?: { card?: string } })
-      | (WireTransferCollection & { options?: { card?: string } })
-      | (PaypalPaymentCollection & { options?: { card?: string } })
-      | (BraintreePaymentCollection & { options?: { card?: string } })
-      | (AdyenPaymentCollection & { options?: { card?: string } })
+      | (StripePaymentCollection & {
+          options?: { card?: string }
+          metadata: { card?: string }
+        })
+      | (WireTransferCollection & {
+          options?: { card?: string }
+          metadata: { card?: string }
+        })
+      | (PaypalPaymentCollection & {
+          options?: { card?: string }
+          metadata: { card?: string }
+        })
+      | (BraintreePaymentCollection & {
+          options?: { card?: string }
+          metadata: { card?: string }
+        })
+      | (AdyenPaymentCollection & {
+          options?: { card?: string }
+          metadata: { card?: string }
+        })
     > = order.paymentSource()
     let hasPaymentMethod = Boolean(
-      paymentMethod && paymentMethod.paymentSourceType === "stripe_payments"
-        ? paymentSource?.options?.card
-        : paymentMethod?.paymentSourceType === "wire_transfers"
+      paymentSource?.metadata?.card || paymentSource?.options?.card
     )
 
     if (!hasPaymentMethod && !isPaymentRequired) {

@@ -82,6 +82,8 @@
         "methodUnselected": "Payment method to select",
         "paymentMethod": "You have a payment method set",
         "creditCard": "Credit card",
+        "wireTransfer": "Wire transfer",
+        "wireTransferDescription": "After placing the order, you will need to manually complete the payment with your bank",
         "addPaymentMethod": "Add shipping method before payment",
         "setPaymentMethod": "Set payment method",
         "endingIn": "<0/> ending in <1/>",

@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@commercelayer/js-sdk": "^3.10.0",
-    "@commercelayer/react-components": "^2.25.0",
+    "@commercelayer/react-components": "^2.27.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
@@ -42,7 +42,7 @@
   "devDependencies": {
     "@commercelayer/cypress-vcr": "^1.1.0",
     "@types/node": "^15.12.2",
-    "@types/react": "^17.0.10",
+    "@types/react": "^17.0.11",
     "@types/react-gtm-module": "^2.0.0",
     "@types/styled-components": "^5.1.10",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
@@ -60,7 +60,7 @@
     "eslint-plugin-tailwind": "^0.2.1",
     "faker": "^5.5.3",
     "msw": "^0.29.0",
-    "postcss": "^8.3.0",
+    "postcss": "^8.3.2",
     "prettier": "^2.3.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",

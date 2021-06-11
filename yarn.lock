@@ -304,10 +304,10 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@commercelayer/react-components@^2.25.0":
-  version "2.25.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.25.0.tgz#791cc0130fc0bae06ef3f8a346364f5c15566eb4"
-  integrity sha512-3KvWLoCjp1xNF6ay7MAh+chuSNLzZiZygbxHs1Uu4blKVtkH7Yvok24+2VxC0KnFbgxZJuMU/RX/0yFMEiS+eQ==
+"@commercelayer/react-components@^2.27.0":
+  version "2.27.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.27.0.tgz#ed9759673c5cf66739b8f2494fa8d77b870882a1"
+  integrity sha512-lEEnKeGAQICQlvJCCT5iGPbvAUOFXnLYfjHsFXiQCW9hBFhC9NbV0L1vfWOkLRliXAFFTIFvtrtpvBSKDpwp5g==
   dependencies:
     "@commercelayer/js-sdk" "^3.9.2"
     "@stripe/react-stripe-js" "^1.4.1"
@@ -680,10 +680,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@^17.0.10":
-  version "17.0.10"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.10.tgz#c8bb4e37cc642f7cc5532959cb5e2ead6c74dec9"
-  integrity sha512-+Tc5aGO49L/cjFBfpIPB398ztmAUChglc+a+EYlvphMOMvwUEzmLiyfmnEseGE7inMO6XiSffHmXVPC8GonksQ==
+"@types/react@^17.0.11":
+  version "17.0.11"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.11.tgz#67fcd0ddbf5a0b083a0f94e926c7d63f3b836451"
+  integrity sha512-yFRQbD+whVonItSk7ZzP/L+gPTJVBkL/7shLEF+i9GC/1cV3JmUxEQz6+9ylhUpWSDuqo1N9qEvqS6vTj4USUA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -5049,10 +5049,10 @@ postcss@^8.1.6, postcss@^8.1.8:
     nanoid "^3.1.22"
     source-map "^0.6.1"
 
-postcss@^8.3.0:
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.0.tgz#b1a713f6172ca427e3f05ef1303de8b65683325f"
-  integrity sha512-+ogXpdAjWGa+fdYY5BQ96V/6tAo+TdSSIMP5huJBIygdWwKtVoB5JWZ7yUd4xZ8r+8Kvvx4nyg/PQ071H4UtcQ==
+postcss@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.2.tgz#ed3ec489f5428af5740cd6effcc216b4d455ee64"
+  integrity sha512-y1FK/AWdZlBF5lusS5j5l4/vF67+vQZt1SXPVJ32y1kRGDQyrs1zk32hG1cInRTu14P0V+orPz+ifwW/7rR4bg==
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.23"
