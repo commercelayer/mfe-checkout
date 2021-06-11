@@ -14,6 +14,7 @@ import {
   StepPayment,
   StepHeaderPayment,
 } from "components/composite/StepPayment"
+import StepPlaceOrder from "components/composite/StepPlaceOrder"
 import {
   StepShipping,
   StepHeaderShipping,
@@ -24,7 +25,7 @@ import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
-import SpinnerLoader from "components/ui/SpinnerLoader"
+import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
 interface Props {
   logoUrl: string
@@ -155,15 +156,10 @@ const Checkout: React.FC<Props> = ({
                   />
                 }
               >
-                <StepPayment
-                  tw="mb-6"
-                  isActive={activeStep === "Payment"}
-                  onToggleActive={() => setActiveStep("Payment")}
-                  step={3}
-                  termsUrl={termsUrl}
-                />
+                <StepPayment tw="mb-6" isActive={activeStep === "Payment"} />
               </AccordionItem>
             </Accordion>
+            <StepPlaceOrder termsUrl={termsUrl} />
             {/* <StepCustomer
               tw="mb-6"
               isActive={activeStep === "Customer"}
