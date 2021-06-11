@@ -51,7 +51,7 @@ export const PaymentContainer: React.FC<Props> = ({ handleSave, children }) => {
         wireTransfer: {
           infoMessage: {
             text: t("stepPayment.wireTransferDescription"),
-            className: "py-5",
+            className: "text-sm text-gray-500",
           },
           submitButton: {
             containerClassName: "flex justify-end pt-3",
