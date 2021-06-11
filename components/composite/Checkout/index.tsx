@@ -59,10 +59,6 @@ const Checkout: React.FC<Props> = ({
   if (!ctx || ctx.isFirstLoading) {
     return <SpinnerLoader />
   }
-  // console.log(ctx)
-  // if (isLoading) {
-  //   return <SpinnerLoader />
-  // }
 
   const renderComplete = () => {
     return (
@@ -160,21 +156,6 @@ const Checkout: React.FC<Props> = ({
               </AccordionItem>
             </Accordion>
             <StepPlaceOrder termsUrl={termsUrl} />
-            {/* <StepCustomer
-              tw="mb-6"
-              isActive={activeStep === "Customer"}
-              onToggleActive={() => setActiveStep("Customer")}
-            />
-            <StepShipping
-              tw="mb-6"
-              isActive={activeStep === "Shipping"}
-              onToggleActive={() => setActiveStep("Shipping")}
-            />
-            <StepPayment
-              tw="mb-6"
-              isActive={activeStep === "Payment"}
-              onToggleActive={() => setActiveStep("Payment")}
-            /> */}
           </div>
         }
       />
