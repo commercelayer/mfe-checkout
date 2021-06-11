@@ -45,15 +45,53 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({
   onToggleActive,
   step,
   status,
-  info,
 }) => {
+  const appCtx = useContext(AppContext)
+
+  if (!appCtx) {
+    return null
+  }
+
+  const { hasPaymentMethod, paymentMethod, isPaymentRequired } = appCtx
+
   const { t } = useTranslation()
+
+  const recapText = () => {
+    if (!isPaymentRequired) {
+      t("stepPayment.notRequired")
+    }
+    if (!hasPaymentMethod) {
+      t("stepPayment.methodUnselected")
+    }
+
+    return (
+      <>
+        <StepSummary>
+          <StepSummaryItem data-cy="payment-method-selected">
+            <PaymentMethodsContainer>
+              <PaymentSource readonly>
+                <PaymentSourceBrandIcon className="mr-2" />
+                <Trans t={t} i18nKey="stepPayment.endingIn">
+                  <PaymentSourceBrandName className="mr-1" />
+                  <PaymentSourceDetail className="ml-1" type="last4" />
+                </Trans>
+              </PaymentSource>
+            </PaymentMethodsContainer>
+          </StepSummaryItem>
+          <StepSummaryItemValue data-cy="payment-method-price-selected">
+            {paymentMethod?.formattedPriceAmount}
+          </StepSummaryItemValue>
+        </StepSummary>
+      </>
+    )
+  }
+
   return (
     <StepHeader
       stepNumber={step}
       status={status || isActive ? "edit" : "done"}
       label={t("stepPayment.title")}
-      info={info || t("stepPayment.summary")}
+      info={recapText()}
       onEditRequest={
         onToggleActive
           ? () => {
@@ -79,13 +117,7 @@ export const StepPayment: React.FC<Props> = ({ isActive }) => {
     return null
   }
 
-  const {
-    hasPaymentMethod,
-    paymentMethod,
-    refetchOrder,
-    isGuest,
-    isPaymentRequired,
-  } = appCtx
+  const { hasPaymentMethod, refetchOrder, isGuest, isPaymentRequired } = appCtx
 
   const handleSave = async () => {
     setIsLocalLoader(true)
@@ -108,27 +140,9 @@ export const StepPayment: React.FC<Props> = ({ isActive }) => {
       })}
     >
       <StepContent>
-        {/* {!isMobile && (
-            <StepHeaderPayment
-              step={3}
-              status={
-                isActive ? "edit" : hasPaymentMethod ? "done" : "disabled"
-              }
-              info={
-                isPaymentRequired
-                  ? isActive
-                    ? t("stepPayment.summary")
-                    : hasPaymentMethod
-                    ? t("stepPayment.methodSelected")
-                    : t("stepPayment.methodUnselected")
-                  : t("stepPayment.notRequired")
-              }
-              onToggleActive={onToggleActive}
-            />
-          )} */}
         {isPaymentRequired && (
           <div>
-            {isActive ? (
+            {isActive && (
               <>
                 {isGuest ? (
                   <CheckoutPayment handleSave={handleSave} />
@@ -148,30 +162,6 @@ export const StepPayment: React.FC<Props> = ({ isActive }) => {
                   </ButtonWrapper>
                 )}
               </>
-            ) : (
-              hasPaymentMethod && (
-                <>
-                  <StepSummary>
-                    <StepSummaryItem data-cy="payment-method-selected">
-                      <PaymentMethodsContainer>
-                        <PaymentSource readonly>
-                          <PaymentSourceBrandIcon className="mr-2" />
-                          <Trans t={t} i18nKey="stepPayment.endingIn">
-                            <PaymentSourceBrandName className="mr-1" />
-                            <PaymentSourceDetail
-                              className="ml-1"
-                              type="last4"
-                            />
-                          </Trans>
-                        </PaymentSource>
-                      </PaymentMethodsContainer>
-                    </StepSummaryItem>
-                    <StepSummaryItemValue data-cy="payment-method-price-selected">
-                      {paymentMethod?.formattedPriceAmount}
-                    </StepSummaryItemValue>
-                  </StepSummary>
-                </>
-              )
             )}
           </div>
         )}
