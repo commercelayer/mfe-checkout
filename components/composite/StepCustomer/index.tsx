@@ -1,3 +1,4 @@
+import { Address, AddressField } from "@commercelayer/react-components"
 import classNames from "classnames"
 import { Fragment, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -46,29 +47,36 @@ export const StepHeaderCustomer: React.FC<Props> = ({
     }
     if (billingAddress && (hasSameAddresses || !isShipmentRequired)) {
       return (
-        <CustomerAddressCard
-          addressType="billing"
-          deselect={true}
-          addresses={[billingAddress]}
-        />
+        <Address addresses={[billingAddress]}>
+          {
+            <AddressField>
+              {({ address }) => <p>{address.name} </p>}
+            </AddressField>
+          }
+        </Address>
       )
     }
     return (
       (billingAddress && shippingAddress && (
         <>
-          <CustomerAddressCard
-            addressType="billing"
-            deselect={true}
-            addresses={[billingAddress]}
-          />
-          <AddressSectionTitle>
-            {t(`addressForm.shipped_to`)}
-          </AddressSectionTitle>
-          <CustomerAddressCard
-            addressType="shipping"
-            deselect={true}
-            addresses={[shippingAddress]}
-          />
+          <Address addresses={[billingAddress]}>
+            {
+              <AddressField>
+                {({ address }) => <p>{address.name} </p>}
+              </AddressField>
+            }
+          </Address>
+          <Address addresses={[shippingAddress]}>
+            {
+              <AddressField>
+                {({ address }) => (
+                  <p>
+                    {t(`addressForm.shipped_to`)}: {address.name}{" "}
+                  </p>
+                )}
+              </AddressField>
+            }
+          </Address>
         </>
       )) ||
       ""
