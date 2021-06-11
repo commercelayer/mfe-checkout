@@ -27,15 +27,62 @@ export const StepHeaderCustomer: React.FC<Props> = ({
   onToggleActive,
   step,
 }) => {
+  const appCtx = useContext(AppContext)
+  if (!appCtx) {
+    return null
+  }
+  const {
+    billingAddress,
+    shippingAddress,
+    hasShippingAddress,
+    hasBillingAddress,
+    hasSameAddresses,
+    isShipmentRequired,
+  } = appCtx
+
   const { t } = useTranslation()
+
+  const addressText = () => {
+    if (!hasShippingAddress && !hasBillingAddress) {
+      return "No Billing / Shipping Address set"
+    }
+    if (billingAddress && (hasSameAddresses || !isShipmentRequired)) {
+      return (
+        <CustomerAddressCard
+          addressType="billing"
+          deselect={true}
+          addresses={[billingAddress]}
+        />
+      )
+    }
+    return (
+      (billingAddress && shippingAddress && (
+        <>
+          <CustomerAddressCard
+            addressType="billing"
+            deselect={true}
+            addresses={[billingAddress]}
+          />
+          <AddressSectionTitle>
+            {t(`addressForm.shipped_to`)}
+          </AddressSectionTitle>
+          <CustomerAddressCard
+            addressType="shipping"
+            deselect={true}
+            addresses={[shippingAddress]}
+          />
+        </>
+      )) ||
+      ""
+    )
+  }
+
   return (
     <StepHeader
       stepNumber={step}
       status={isActive ? "edit" : "done"}
       label={t("stepCustomer.title")}
-      info={
-        isActive ? t("stepCustomer.summary") : t("stepCustomer.information")
-      }
+      info={isActive ? t("stepCustomer.summary") : addressText()}
       onEditRequest={
         onToggleActive
           ? () => {
@@ -47,13 +94,8 @@ export const StepHeaderCustomer: React.FC<Props> = ({
   )
 }
 
-export const StepCustomer: React.FC<Props> = ({
-  isActive,
-  onToggleActive,
-  step,
-}) => {
+export const StepCustomer: React.FC<Props> = ({ isActive }) => {
   const appCtx = useContext(AppContext)
-  const { t } = useTranslation()
 
   const [isLocalLoader, setIsLocalLoader] = useState(false)
 
@@ -61,8 +103,6 @@ export const StepCustomer: React.FC<Props> = ({
     return null
   }
   const {
-    hasShippingAddress,
-    hasBillingAddress,
     isGuest,
     isShipmentRequired,
     billingAddress,
@@ -95,27 +135,7 @@ export const StepCustomer: React.FC<Props> = ({
       })}
     >
       <StepContent>
-        {/* {!isMobile && (
-          <StepHeaderCustomer
-            isActive={isActive}
-            onToggleActive={onToggleActive}
-            step={step}
-          />
-          // <StepHeader
-          //   stepNumber={1}
-          //   status={isActive ? "edit" : "done"}
-          //   label={t("stepCustomer.title")}
-          //   info={
-          //     isActive
-          //       ? t("stepCustomer.summary")
-          //       : t("stepCustomer.information")
-          //   }
-          //   onEditRequest={() => {
-          //     onToggleActive()
-          //   }}
-          // />
-        )} */}
-        {isActive ? (
+        {isActive && (
           <Fragment>
             {isGuest ? (
               <CheckoutAddresses
@@ -142,40 +162,6 @@ export const StepCustomer: React.FC<Props> = ({
               />
             )}
           </Fragment>
-        ) : (
-          <>
-            <AddressSectionEmail readonly emailAddress={emailAddress} />
-            <GridContainer>
-              {billingAddress && (
-                <div className="w-full">
-                  <AddressSectionTitle>
-                    {t(`addressForm.billed_to`)}
-                  </AddressSectionTitle>
-                  <CustomerAddressCard
-                    addressType="billing"
-                    deselect={true}
-                    addresses={[billingAddress]}
-                  />
-                </div>
-              )}
-              {isShipmentRequired && shippingAddress && (
-                <div className="w-full">
-                  <AddressSectionTitle>
-                    {t(`addressForm.shipped_to`)}
-                  </AddressSectionTitle>
-                  <CustomerAddressCard
-                    addressType="shipping"
-                    deselect={true}
-                    addresses={[shippingAddress]}
-                  />
-                </div>
-              )}
-            </GridContainer>
-
-            {!hasShippingAddress && !hasBillingAddress ? (
-              <div>No Billing / Shipping Address set</div>
-            ) : null}
-          </>
         )}
       </StepContent>
     </StepContainer>

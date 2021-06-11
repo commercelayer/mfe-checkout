@@ -7,7 +7,7 @@ import { Badge } from "../Badge"
 interface Props {
   status: "edit" | "done" | "disabled"
   label: string
-  info: string
+  info: string | Element | JSX.Element
   stepNumber?: number
   onEditRequest?: () => void
 }
