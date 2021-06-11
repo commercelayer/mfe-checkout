@@ -89,11 +89,7 @@ export const StepHeaderShipping: React.FC<HeaderProps> = ({
   )
 }
 
-export const StepShipping: React.FC<Props> = ({
-  isActive,
-  onToggleActive,
-  step,
-}) => {
+export const StepShipping: React.FC<Props> = ({ isActive }) => {
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
 
@@ -103,12 +99,8 @@ export const StepShipping: React.FC<Props> = ({
     return null
   }
 
-  const {
-    shipments,
-    hasShippingMethod,
-    isShipmentRequired,
-    refetchOrder,
-  } = appCtx
+  const { shipments, hasShippingMethod, isShipmentRequired, refetchOrder } =
+    appCtx
 
   const [shipmentsSelected, setShipmentsSelected] = useState(shipments)
   const [canContinue, setCanContinue] = useState(false)
