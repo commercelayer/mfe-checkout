@@ -62,6 +62,10 @@ const Wrapper = styled.div`
 `
 const AccordionTab = styled.div`
   ${tw`outline-none bg-white shadow-bottom mb-2 px-5 md:px-0 md:mb-0 md:shadow-none md:border-b`}
+
+  &:last-of-type {
+    ${tw`mb-5`}
+  }
 `
 const AccordionTabHeader = styled.div`
   ${tw`relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease duration-500 focus:bg-gray-500 md:pt-6 md:pb-0`}

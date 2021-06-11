@@ -1,8 +1,13 @@
-import { Errors, PlaceOrderButton } from "@commercelayer/react-components"
+import {
+  Errors,
+  PlaceOrderButton,
+  PrivacyAndTermsCheckbox,
+} from "@commercelayer/react-components"
 import styled from "styled-components"
 import tw from "twin.macro"
 
 import { ButtonCss } from "components/ui/Button"
+import { CheckCss } from "components/ui/form/CheckBox"
 import { ErrorCss } from "components/ui/form/Error"
 
 export const ErrorWrapper = styled.div`
@@ -29,4 +34,10 @@ export const ErrorsContainer = styled.div`
 `
 export const StyledPlaceOrderButton = styled(PlaceOrderButton)`
   ${ButtonCss}
+`
+export const StyledPrivacyAndTermsCheckbox = styled(PrivacyAndTermsCheckbox)`
+  ${CheckCss}
+`
+export const CheckboxWrapper = styled.div`
+  ${tw`w-6 h-6 flex justify-center items-center rounded bg-gray-100`}
 `

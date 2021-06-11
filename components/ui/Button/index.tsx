@@ -6,7 +6,7 @@ export const ButtonCss = css`
 `
 
 export const ButtonWrapper = styled.div`
-  ${tw`flex justify-end`}
+  ${tw`flex justify-end `}
 `
 
 export const Button = styled.button`

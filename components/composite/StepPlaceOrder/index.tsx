@@ -1,7 +1,4 @@
-import {
-  PlaceOrderContainer,
-  PrivacyAndTermsCheckbox,
-} from "@commercelayer/react-components"
+import { PlaceOrderContainer } from "@commercelayer/react-components"
 import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -10,6 +7,7 @@ import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { ButtonWrapper } from "components/ui/Button"
 import { FlexContainer } from "components/ui/FlexContainer"
+import { Label } from "components/ui/Label"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 
 import { ErrorIcon } from "./ErrorIcon"
@@ -20,6 +18,8 @@ import {
   ErrorWrapper,
   StyledErrors,
   StyledPlaceOrderButton,
+  StyledPrivacyAndTermsCheckbox,
+  CheckboxWrapper,
 } from "./styled"
 
 interface Props {
@@ -93,15 +93,15 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl }) => {
       </ErrorsContainer>
       <PlaceOrderContainer>
         {!!termsUrl && (
-          <FlexContainer className="items-center">
-            <PrivacyAndTermsCheckbox
-              id="privacy-terms"
-              className="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-400 disabled:opacity-50"
-            />
-            <label
-              htmlFor="privacy-terms"
-              className="self-end block ml-3 text-sm text-gray-700"
-            >
+          <FlexContainer className="items-start pb-5 mb-5 border-b md:items-center">
+            <CheckboxWrapper>
+              <StyledPrivacyAndTermsCheckbox
+                id="privacy-terms"
+                className="form-checkbox"
+              />
+            </CheckboxWrapper>
+            <Label htmlFor="privacy-terms">
+              {" "}
               <Trans
                 i18nKey="general.privacy_and_terms"
                 components={{
@@ -109,7 +109,7 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl }) => {
                   url: <a href={termsUrl} target="_blank" rel="noreferrer" />,
                 }}
               />
-            </label>
+            </Label>
           </FlexContainer>
         )}
         <ButtonWrapper>

@@ -4,13 +4,18 @@ import tw from "twin.macro"
 interface Props {
   dataCy?: string
   htmlFor: string
-  textLabel: string
+  textLabel?: string
 }
 
-export const Label: React.FC<Props> = ({ dataCy, htmlFor, textLabel }) => {
+export const Label: React.FC<Props> = ({
+  dataCy,
+  htmlFor,
+  textLabel,
+  children,
+}) => {
   return (
     <Wrapper data-cy={dataCy} htmlFor={htmlFor}>
-      {textLabel}
+      {children || textLabel}
     </Wrapper>
   )
 }
