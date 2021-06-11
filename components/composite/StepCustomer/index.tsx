@@ -40,7 +40,7 @@ export const StepHeaderCustomer: React.FC<Props> = ({
 
   const { t } = useTranslation()
 
-  const addressText = () => {
+  const recapText = () => {
     if (!hasShippingAddress && !hasBillingAddress) {
       return "No Billing / Shipping Address set"
     }
@@ -80,7 +80,7 @@ export const StepHeaderCustomer: React.FC<Props> = ({
       stepNumber={step}
       status={isActive ? "edit" : "done"}
       label={t("stepCustomer.title")}
-      info={isActive ? t("stepCustomer.summary") : addressText()}
+      info={isActive ? t("stepCustomer.summary") : recapText()}
       onEditRequest={
         onToggleActive
           ? () => {
