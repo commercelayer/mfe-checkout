@@ -59,10 +59,14 @@ export const StepHeaderCustomer: React.FC<Props> = ({
     return (
       (billingAddress && shippingAddress && (
         <>
-          <Address addresses={[billingAddress]}>
+          <Address addresses={[billingAddress]} className="mb-1">
             {
               <AddressField>
-                {({ address }) => <p>{address.name} </p>}
+                {({ address }) => (
+                  <>
+                    <p>{address.name} </p>
+                  </>
+                )}
               </AddressField>
             }
           </Address>
@@ -71,7 +75,10 @@ export const StepHeaderCustomer: React.FC<Props> = ({
               <AddressField>
                 {({ address }) => (
                   <p>
-                    {t(`addressForm.shipped_to`)}: {address.name}{" "}
+                    <span className="font-semibold text-black">
+                      {t(`addressForm.shipped_to`)}
+                    </span>{" "}
+                    {address.name}{" "}
                   </p>
                 )}
               </AddressField>

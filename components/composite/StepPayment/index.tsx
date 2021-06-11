@@ -66,22 +66,17 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({
 
     return (
       <>
-        <StepSummary>
-          <StepSummaryItem data-cy="payment-method-selected">
-            <PaymentMethodsContainer>
-              <PaymentSource readonly>
-                <PaymentSourceBrandIcon className="mr-2" />
-                <Trans t={t} i18nKey="stepPayment.endingIn">
-                  <PaymentSourceBrandName className="mr-1" />
-                  <PaymentSourceDetail className="ml-1" type="last4" />
-                </Trans>
-              </PaymentSource>
-            </PaymentMethodsContainer>
-          </StepSummaryItem>
-          <StepSummaryItemValue data-cy="payment-method-price-selected">
-            {paymentMethod?.formattedPriceAmount}
-          </StepSummaryItemValue>
-        </StepSummary>
+        <div className="flex">
+          <PaymentMethodsContainer>
+            <PaymentSource readonly>
+              <PaymentSourceBrandIcon className="mr-2" />
+              <Trans t={t} i18nKey="stepPayment.endingIn">
+                <PaymentSourceBrandName className="mr-1" />
+                <PaymentSourceDetail className="ml-1" type="last4" />
+              </Trans>
+            </PaymentSource>
+          </PaymentMethodsContainer>
+        </div>
       </>
     )
   }
