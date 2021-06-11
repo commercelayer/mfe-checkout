@@ -95,7 +95,7 @@ export const StepHeaderCustomer: React.FC<Props> = ({
       stepNumber={step}
       status={isActive ? "edit" : "done"}
       label={t("stepCustomer.title")}
-      info={isActive ? t("stepCustomer.summary") : recapText()}
+      info={recapText()}
       onEditRequest={
         onToggleActive
           ? () => {
