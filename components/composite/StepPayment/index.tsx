@@ -10,12 +10,6 @@ import classNames from "classnames"
 import { useContext, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
-import {
-  StepSummary,
-  StepSummaryItem,
-  StepSummaryItemValue,
-} from "../styled/StepSummary"
-
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { Button, ButtonWrapper } from "components/ui/Button"
@@ -70,10 +64,14 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({
           <PaymentMethodsContainer>
             <PaymentSource readonly>
               <PaymentSourceBrandIcon className="mr-2" />
-              <Trans t={t} i18nKey="stepPayment.endingIn">
+              {paymentMethod?.paymentSourceType === "wire_transfers" ? (
                 <PaymentSourceBrandName className="mr-1" />
-                <PaymentSourceDetail className="ml-1" type="last4" />
-              </Trans>
+              ) : (
+                <Trans t={t} i18nKey="stepPayment.endingIn">
+                  <PaymentSourceBrandName className="mr-1" />
+                  <PaymentSourceDetail className="ml-1" type="last4" />
+                </Trans>
+              )}
             </PaymentSource>
           </PaymentMethodsContainer>
         </div>
