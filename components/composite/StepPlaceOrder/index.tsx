@@ -24,9 +24,10 @@ import {
 
 interface Props {
   termsUrl: string
+  privacyUrl: string
 }
 
-const StepPlaceOrder: React.FC<Props> = ({ termsUrl }) => {
+const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
   const { t } = useTranslation()
 
   const [isPlacingOrder, setIsPlacingOrder] = useState(false)
@@ -92,7 +93,7 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl }) => {
         </StyledErrors>
       </ErrorsContainer>
       <PlaceOrderContainer>
-        {!!termsUrl && (
+        {!!termsUrl && !!privacyUrl && (
           <FlexContainer className="items-start pb-5 mb-5 border-b md:items-center">
             <CheckboxWrapper>
               <StyledPrivacyAndTermsCheckbox
@@ -101,12 +102,16 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl }) => {
               />
             </CheckboxWrapper>
             <Label htmlFor="privacy-terms">
-              {" "}
               <Trans
                 i18nKey="general.privacy_and_terms"
                 components={{
                   bold: <strong />,
-                  url: <a href={termsUrl} target="_blank" rel="noreferrer" />,
+                  termsUrl: (
+                    <a href={termsUrl} target="_blank" rel="noreferrer" />
+                  ),
+                  privacyUrl: (
+                    <a href={privacyUrl} target="_blank" rel="noreferrer" />
+                  ),
                 }}
               />
             </Label>

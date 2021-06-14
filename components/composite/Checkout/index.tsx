@@ -155,7 +155,7 @@ const Checkout: React.FC<Props> = ({
                 <StepPayment tw="mb-6" isActive={activeStep === "Payment"} />
               </AccordionItem>
             </Accordion>
-            <StepPlaceOrder termsUrl={termsUrl} />
+            <StepPlaceOrder termsUrl={termsUrl} privacyUrl={privacyUrl} />
           </div>
         }
       />

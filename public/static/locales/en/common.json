@@ -17,7 +17,7 @@
         "discard": "Discard changes",
         "privacy_link": "Privacy",
         "terms_link": "Terms",
-        "privacy_and_terms": "By clicking the checkbox you agree to <bold><url>terms and privacy</url></bold>.",
+        "privacy_and_terms": "By clicking the checkbox you agree to <bold><termsUrl>terms</termsUrl></bold> and <bold><privacyUrl>privacy</privacyUrl></bold>.",
         "checkoutTitle": "Checkout"
     },
 
