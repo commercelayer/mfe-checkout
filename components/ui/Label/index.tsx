@@ -25,4 +25,8 @@ const Wrapper = styled.label`
   &.hasError {
     ${tw`text-red-400`}
   }
+
+  a {
+    ${tw`text-gray-900 border-b border-gray-200 transition ease hover:text-gray-600`}
+  }
 `

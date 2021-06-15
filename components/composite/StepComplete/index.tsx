@@ -47,7 +47,7 @@ export const StepComplete: React.FC<Props> = ({
           <Logo
             logoUrl={logoUrl}
             companyName={companyName}
-            tw="pt-10 mb-10 pl-4"
+            tw="pt-10 mb-10 pl-4 self-center md:self-auto"
           />
           <Main>
             <div className="p-8">

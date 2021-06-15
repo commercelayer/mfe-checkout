@@ -5,8 +5,8 @@ import tw from "twin.macro"
 import { Logo } from "./cl"
 
 interface Props {
-  termsUrl: string
-  privacyUrl: string
+  termsUrl?: string
+  privacyUrl?: string
 }
 
 export const Footer: React.FC<Props> = ({ termsUrl, privacyUrl }) => {

@@ -73,5 +73,5 @@ const Wrapper = styled.nav`
 `
 
 const StepList = styled.ol`
-  ${tw`list-none p-0 inline-flex text-gray-600 text-sm text-opacity-70`}
+  ${tw`list-none p-0 inline-flex text-gray-900 text-sm font-medium`}
 `

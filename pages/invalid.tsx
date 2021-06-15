@@ -6,11 +6,16 @@ import styled from "styled-components"
 import titleize from "titleize"
 import tw from "twin.macro"
 
-import { Card } from "components/ui/Card"
+import { Base } from "components/ui/Base"
+import { Container } from "components/ui/Container"
+import { Footer } from "components/ui/Footer"
+import { Logo } from "components/ui/Logo"
 
 const Invalid: NextPage = () => {
   const { t } = useTranslation()
   const [title, setTitle] = useState("")
+  const logoUrl =
+    "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
 
   useEffect(() => {
     if (window) {
@@ -29,31 +34,29 @@ const Invalid: NextPage = () => {
     <Base>
       <Container>
         <Wrapper>
-          <Text tw="text-center text-lg font-bold pt-10 mb-10 pl-4">
-            {title}
-          </Text>
-          <Card>
-            <Text data-cy="invalid-checkout" tw="py-5 h-44 text-center">
-              {t("general.invalid")}
-            </Text>
-          </Card>
+          <Logo
+            logoUrl={logoUrl}
+            companyName={title}
+            tw="pt-10 mb-10 pl-4 self-center md:self-auto"
+          />
+          <Main>
+            <Text>{t("general.invalid")}</Text>
+          </Main>
+          <Footer />
         </Wrapper>
       </Container>
     </Base>
   )
 }
 
-const Base = styled.div`
-  ${tw`bg-gray-100 min-h-screen`}
-`
-const Container = styled.div`
-  ${tw`flex items-center justify-center`}
+const Main = styled.div`
+  ${tw`flex flex-col flex-1 justify-center items-center text-center`}
 `
 const Wrapper = styled.div`
-  ${tw`flex-1 max-w-screen-sm	items-center justify-center`}
+  ${tw`flex flex-wrap justify-end items-stretch flex-col h-screen p-5 md:p-10 lg:px-20 lg:pb-10`}
 `
 const Text = styled.p`
-  ${tw`py-5 h-20 text-center`}
+  ${tw`py-2 text-xl font-semibold`}
 `
 
 export default Invalid
