@@ -5,12 +5,10 @@ import { useTranslation } from "react-i18next"
 
 import "twin.macro"
 import { AppContext } from "components/data/AppProvider"
-import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 
-import { AddressSectionTitle } from "./AddressSectionTitle"
 import { CheckoutAddresses } from "./CheckoutAddresses"
 import { CheckoutCustomerAddresses } from "./CheckoutCustomerAddresses"
 
