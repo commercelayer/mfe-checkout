@@ -1,13 +1,19 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
-export const Logo: React.FC = () => {
+interface Props {
+  width?: string
+  height?: string
+  className?: string
+}
+
+export const Logo: React.FC<Props> = ({ width, height, className }) => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      className="pl-2"
-      width="114"
-      height="19"
+      className={className}
+      width={width}
+      height={height}
       viewBox="0 0 114 19"
       fill="currentColor"
     >

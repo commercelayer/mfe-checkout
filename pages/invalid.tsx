@@ -9,13 +9,11 @@ import tw from "twin.macro"
 import { Base } from "components/ui/Base"
 import { Container } from "components/ui/Container"
 import { Footer } from "components/ui/Footer"
-import { Logo } from "components/ui/Logo"
+import { Logo } from "components/ui/Footer/cl"
 
 const Invalid: NextPage = () => {
   const { t } = useTranslation()
   const [title, setTitle] = useState("")
-  const logoUrl =
-    "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
 
   useEffect(() => {
     if (window) {
@@ -34,11 +32,9 @@ const Invalid: NextPage = () => {
     <Base>
       <Container>
         <Wrapper>
-          <Logo
-            logoUrl={logoUrl}
-            companyName={title}
-            tw="pt-10 mb-10 pl-4 self-center md:self-auto"
-          />
+          <LogoWrapper>
+            <Logo tw="text-black md:pl-4 self-center md:self-auto" />
+          </LogoWrapper>
           <Main>
             <Text>{t("general.invalid")}</Text>
           </Main>
@@ -57,6 +53,9 @@ const Wrapper = styled.div`
 `
 const Text = styled.p`
   ${tw`py-2 text-xl font-semibold`}
+`
+const LogoWrapper = styled.div`
+  ${tw`md:max-w-xs`}
 `
 
 export default Invalid
