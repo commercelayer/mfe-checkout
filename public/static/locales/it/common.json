@@ -17,7 +17,7 @@
         "discard": "Non salvare le modifiche",
         "privacy_link": "Privacy",
         "terms_link": "Termini",
-        "privacy_and_terms": "Accetta termini e condizioni",
+        "privacy_and_terms": "Spuntando la casella accetti i <bold><termsUrl>termini</termsUrl></bold> e la <bold><privacyUrl>privacy</privacyUrl></bold>.",
         "checkoutTitle": "Checkout"
     },
 
@@ -66,7 +66,8 @@
         "shipment": "Spedizione #<0/>",
         "notAvaible": "Non sono disponibili metodi di spedizione",
         "stockTransfer": "<0/> di <1/> articoli verranno trasferiti",
-        "methodSelected": "Metodo di spedizione selezionato",
+        "methodSelected": "Il tuo ordine contiene {{count}} spedizione",
+        "methodSelected_plural": "Il tuo ordine contiene {{count}} spedizioni",
         "methodUnselected": "Metodo di spedizione da selezionare",
         "addShippingMethod": "Aggiungi i dati del cliente prima della spedizione",
         "deliveryLeadTime" : "<0/> - <1/> giorni",
@@ -81,6 +82,8 @@
         "methodUnselected": "Metodo di pagamento da selezionare",
         "paymentMethod": "Hai impostato un metodo di pagamento",
         "creditCard": "Carta di credito",
+        "wireTransfer": "Bonifico bancario",
+        "wireTransferDescription": "Dopo aver effettuato l'ordine, dovrai completare manualmente il pagamento con la tua banca",
         "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento",
         "setPaymentMethod": "Imposta il metodo di pagamento",
         "endingIn": "<0/> finisce con <1/>",

@@ -44,9 +44,22 @@ export const PaymentContainer: React.FC<Props> = ({ handleSave, children }) => {
           handleSubmit: handleSave,
           submitLabel: t("stepPayment.setPaymentMethod"),
           submitClassName:
-            "inline-flex items-center justify-center w-full p-3 text-xs font-extrabold text-contrast bg-primary border border-transparent rounded-md hover:opacity-80 disabled:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 lg:w-48",
+            "inline-flex items-start justify-center w-full p-3 text-xs font-extrabold text-black bg-white border-2 border-primary rounded-md ring-4 ring-gray-200 ring-opacity-50 hover:opacity-80 focus:outline-none focus:ring-opacity-100 disabled:opacity-50 lg:w-auto",
           containerClassName: "stripe-custom-form",
           submitContainerClassName: "flex justify-end pt-3",
+        },
+        wireTransfer: {
+          infoMessage: {
+            text: t("stepPayment.wireTransferDescription"),
+            className: "text-sm text-gray-500",
+          },
+          submitButton: {
+            containerClassName: "flex justify-end pt-3",
+            onClick: handleSave,
+            label: t("stepPayment.setPaymentMethod"),
+            className:
+              "inline-flex items-start justify-center w-full p-3 text-xs font-extrabold text-black bg-white border-2 border-primary rounded-md ring-4 ring-gray-200 ring-opacity-50 hover:opacity-80 focus:outline-none focus:ring-opacity-100 disabled:opacity-50 lg:w-auto",
+          },
         },
       }}
     >

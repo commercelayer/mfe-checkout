@@ -5,13 +5,24 @@ import tw from "twin.macro"
 import { MainHeader } from "components/composite/MainHeader"
 import { OrderSummary } from "components/composite/OrderSummary"
 import { StepComplete } from "components/composite/StepComplete"
-import { StepCustomer } from "components/composite/StepCustomer"
+import {
+  StepCustomer,
+  StepHeaderCustomer,
+} from "components/composite/StepCustomer"
 import { StepNav } from "components/composite/StepNav"
-import { StepPayment } from "components/composite/StepPayment"
-import { StepShipping } from "components/composite/StepShipping"
+import {
+  StepPayment,
+  StepHeaderPayment,
+} from "components/composite/StepPayment"
+import StepPlaceOrder from "components/composite/StepPlaceOrder"
+import {
+  StepShipping,
+  StepHeaderShipping,
+} from "components/composite/StepShipping"
 import { AppContext } from "components/data/AppProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
+import { Accordion, AccordionItem } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 import { SpinnerLoader } from "components/ui/SpinnerLoader"
@@ -26,7 +37,7 @@ interface Props {
   privacyUrl: string
 }
 
-export const Checkout: React.FC<Props> = ({
+const Checkout: React.FC<Props> = ({
   logoUrl,
   orderNumber,
   companyName,
@@ -48,10 +59,6 @@ export const Checkout: React.FC<Props> = ({
   if (!ctx || ctx.isFirstLoading) {
     return <SpinnerLoader />
   }
-  // console.log(ctx)
-  // if (isLoading) {
-  //   return <SpinnerLoader />
-  // }
 
   const renderComplete = () => {
     return (
@@ -97,22 +104,58 @@ export const Checkout: React.FC<Props> = ({
               onStepChange={setActiveStep}
               lastActivable={lastActivableStep}
             />
-            <StepCustomer
-              tw="mb-6"
-              isActive={activeStep === "Customer"}
-              onToggleActive={() => setActiveStep("Customer")}
-            />
-            <StepShipping
-              tw="mb-6"
-              isActive={activeStep === "Shipping"}
-              onToggleActive={() => setActiveStep("Shipping")}
-            />
-            <StepPayment
-              tw="mb-6"
-              isActive={activeStep === "Payment"}
-              onToggleActive={() => setActiveStep("Payment")}
-              isAcceptanceRequired={Boolean(termsUrl)}
-            />
+            <Accordion>
+              <AccordionItem
+                index={1}
+                isActive={activeStep === "Customer"}
+                onToggleActive={() => setActiveStep("Customer")}
+                header={
+                  <StepHeaderCustomer
+                    isActive={activeStep === "Customer"}
+                    step={1}
+                  />
+                }
+              >
+                <StepCustomer
+                  tw="mb-6"
+                  isActive={activeStep === "Customer"}
+                  onToggleActive={() => setActiveStep("Customer")}
+                  step={1}
+                />
+              </AccordionItem>
+              <AccordionItem
+                index={2}
+                isActive={activeStep === "Shipping"}
+                onToggleActive={() => setActiveStep("Shipping")}
+                header={
+                  <StepHeaderShipping
+                    isActive={activeStep === "Shipping"}
+                    step={2}
+                  />
+                }
+              >
+                <StepShipping
+                  tw="mb-6"
+                  isActive={activeStep === "Shipping"}
+                  onToggleActive={() => setActiveStep("Shipping")}
+                  step={2}
+                />
+              </AccordionItem>
+              <AccordionItem
+                index={2}
+                isActive={activeStep === "Payment"}
+                onToggleActive={() => setActiveStep("Payment")}
+                header={
+                  <StepHeaderPayment
+                    isActive={activeStep === "Payment"}
+                    step={3}
+                  />
+                }
+              >
+                <StepPayment tw="mb-6" isActive={activeStep === "Payment"} />
+              </AccordionItem>
+            </Accordion>
+            <StepPlaceOrder termsUrl={termsUrl} privacyUrl={privacyUrl} />
           </div>
         }
       />
@@ -128,3 +171,4 @@ const Sidebar = styled.div`
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}
 `
+export default Checkout

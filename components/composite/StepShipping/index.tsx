@@ -19,13 +19,6 @@ import classNames from "classnames"
 import { useTranslation, Trans } from "next-i18next"
 import { useContext, useState, useEffect } from "react"
 
-import {
-  StepSummary,
-  StepSummaryItem,
-  StepSummaryItemDescription,
-  StepSummaryItemValue,
-} from "../styled/StepSummary"
-
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { Button, ButtonWrapper } from "components/ui/Button"
@@ -33,7 +26,6 @@ import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { StepLine } from "components/ui/StepLine"
 
 import {
   ShippingWrapper,
@@ -53,9 +45,61 @@ interface Props {
   className?: string
   isActive?: boolean
   onToggleActive: () => void
+  step: number
 }
 
-export const StepShipping: React.FC<Props> = ({ isActive, onToggleActive }) => {
+interface HeaderProps {
+  className?: string
+  isActive?: boolean
+  onToggleActive?: () => void
+  step: number
+  status?: "done" | "edit" | "disabled"
+  info?: string
+}
+
+export const StepHeaderShipping: React.FC<HeaderProps> = ({
+  isActive,
+  onToggleActive,
+  step,
+  status,
+}) => {
+  const appCtx = useContext(AppContext)
+
+  if (!appCtx) {
+    return null
+  }
+  const { t } = useTranslation()
+  const { hasShippingMethod, isShipmentRequired, shipments } = appCtx
+
+  const recapText = () => {
+    if (!isShipmentRequired) {
+      return t("stepShipping.notRequired")
+    }
+    if (hasShippingMethod) {
+      return t("stepShipping.methodSelected", { count: shipments.length })
+    } else {
+      return t("stepShipping.methodUnselected")
+    }
+  }
+
+  return (
+    <StepHeader
+      stepNumber={step}
+      status={status || isActive ? "edit" : "done"}
+      label={t("stepShipping.title")}
+      info={recapText()}
+      onEditRequest={
+        onToggleActive
+          ? () => {
+              onToggleActive()
+            }
+          : undefined
+      }
+    />
+  )
+}
+
+export const StepShipping: React.FC<Props> = ({ isActive }) => {
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
 
@@ -65,12 +109,7 @@ export const StepShipping: React.FC<Props> = ({ isActive, onToggleActive }) => {
     return null
   }
 
-  const {
-    shipments,
-    hasShippingMethod,
-    isShipmentRequired,
-    refetchOrder,
-  } = appCtx
+  const { shipments, isShipmentRequired, refetchOrder } = appCtx
 
   const [shipmentsSelected, setShipmentsSelected] = useState(shipments)
   const [canContinue, setCanContinue] = useState(false)
@@ -111,18 +150,6 @@ export const StepShipping: React.FC<Props> = ({ isActive, onToggleActive }) => {
     }
   }
 
-  function getStatusHeader() {
-    if (isActive) {
-      return "edit"
-    }
-
-    if (hasShippingMethod && isShipmentRequired) {
-      return "done"
-    }
-
-    return "disabled"
-  }
-
   return (
     <StepContainer
       className={classNames({
@@ -131,28 +158,10 @@ export const StepShipping: React.FC<Props> = ({ isActive, onToggleActive }) => {
         submitting: isLocalLoader,
       })}
     >
-      <StepLine stepNumber={2} status={isActive ? "edit" : "done"} />
       <StepContent>
-        <StepHeader
-          stepNumber={2}
-          status={getStatusHeader()}
-          label={t("stepShipping.title")}
-          info={
-            isShipmentRequired
-              ? isActive
-                ? t("stepShipping.summary")
-                : hasShippingMethod
-                ? t("stepShipping.methodSelected")
-                : t("stepShipping.methodUnselected")
-              : t("stepShipping.notRequired")
-          }
-          onEditRequest={() => {
-            onToggleActive()
-          }}
-        />
         {isShipmentRequired && (
           <div>
-            {isActive ? (
+            {isActive && (
               <ShipmentsContainer>
                 <Shipment>
                   <ShippingWrapper>
@@ -258,37 +267,6 @@ export const StepShipping: React.FC<Props> = ({ isActive, onToggleActive }) => {
                   </Button>
                 </ButtonWrapper>
               </ShipmentsContainer>
-            ) : (
-              hasShippingMethod && (
-                <ShipmentsContainer>
-                  <Shipment>
-                    <ShippingMethod readonly>
-                      <StepSummary>
-                        <StepSummaryItem>
-                          <ShippingMethodName data-cy="shipping-method-name-recap" />
-                          <StepSummaryItemDescription>
-                            <Trans
-                              t={t}
-                              i18nKey="stepShipping.deliveryLeadTime"
-                            >
-                              <DeliveryLeadTime type="minDays" />
-                              <DeliveryLeadTime
-                                type="maxDays"
-                                className="mr-1"
-                              />
-                            </Trans>
-                          </StepSummaryItemDescription>
-                        </StepSummaryItem>
-                        <StepSummaryItemValue>
-                          <ShippingMethodPrice
-                            labelFreeOver={t("general.free")}
-                          />
-                        </StepSummaryItemValue>
-                      </StepSummary>
-                    </ShippingMethod>
-                  </Shipment>
-                </ShipmentsContainer>
-              )
             )}
           </div>
         )}

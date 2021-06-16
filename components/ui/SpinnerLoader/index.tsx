@@ -80,3 +80,5 @@ const Spinner = styled.div<WrapperProps>`
     }
   }
 `
+
+export default SpinnerLoader

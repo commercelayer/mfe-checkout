@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import CLayer, { Order, Organization } from "@commercelayer/js-sdk"
+import { Order, Organization } from "@commercelayer/js-sdk"
 import jwt_decode from "jwt-decode"
 import type { NextApiRequest, NextApiResponse } from "next"
 
@@ -37,24 +37,28 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.json({ validCheckout: false })
   }
 
-  CLayer.init({
-    accessToken,
-    endpoint,
-  })
+  // CLayer.init({
+  //   accessToken,
+  //   endpoint,
+  // })
 
   let order
 
   try {
-    const orderFetched = await Order.select(
-      "id",
-      "status",
-      "number",
-      "guest",
-      "language_code",
-      "terms_url",
-      "privacy_url"
-    ).find(orderId)
-    order = await orderFetched?.update({ _refresh: true })
+    const orderFetched = await Order.withCredentials({ accessToken, endpoint })
+      .select(
+        "id",
+        "status",
+        "number",
+        "guest",
+        "language_code",
+        "terms_url",
+        "privacy_url"
+      )
+      .find(orderId)
+    order = await orderFetched
+      ?.withCredentials({ accessToken, endpoint })
+      .update({ _refresh: true })
   } catch (e) {
     console.log("error on retrieving order:")
     console.log(e)
@@ -68,7 +72,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   let organization
   try {
-    organization = await Organization.all()
+    organization = await Organization.withCredentials({
+      accessToken,
+      endpoint,
+    }).all()
   } catch (e) {
     console.log("error on retrieving organization:")
     console.log(e)

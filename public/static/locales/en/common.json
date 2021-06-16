@@ -17,7 +17,7 @@
         "discard": "Discard changes",
         "privacy_link": "Privacy",
         "terms_link": "Terms",
-        "privacy_and_terms": "Accept privacy and terms",
+        "privacy_and_terms": "By clicking the checkbox you agree to <bold><termsUrl>terms</termsUrl></bold> and <bold><privacyUrl>privacy</privacyUrl></bold>.",
         "checkoutTitle": "Checkout"
     },
 
@@ -66,7 +66,8 @@
         "shipment": "Shimpment #<0/>",
         "notAvaible": "There are not any shipping method available",
         "stockTransfer": "<0/> of <1/> items will undergo a transfer",
-        "methodSelected": "You have a shipping method set",
+        "methodSelected": "Your order contains {{count}} shipment",
+        "methodSelected_plural": "Your order contains {{count}} shipments",
         "methodUnselected": "Shipping method to select",
         "addShippingMethod": "Add customer data before shipping",
         "deliveryLeadTime" : "<0/> - <1/> days",
@@ -81,6 +82,8 @@
         "methodUnselected": "Payment method to select",
         "paymentMethod": "You have a payment method set",
         "creditCard": "Credit card",
+        "wireTransfer": "Wire transfer",
+        "wireTransferDescription": "After placing the order, you will need to manually complete the payment with your bank",
         "addPaymentMethod": "Add shipping method before payment",
         "setPaymentMethod": "Set payment method",
         "endingIn": "<0/> ending in <1/>",

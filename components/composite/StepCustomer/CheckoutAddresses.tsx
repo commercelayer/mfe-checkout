@@ -41,10 +41,8 @@ export const CheckoutAddresses: React.FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation()
 
-  const [
-    shippingAddressFill,
-    setShippingAddressFill,
-  ] = useState<AddressCollection | null>(shippingAddress)
+  const [shippingAddressFill, setShippingAddressFill] =
+    useState<AddressCollection | null>(shippingAddress)
 
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
     !hasSameAddresses

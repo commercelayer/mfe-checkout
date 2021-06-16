@@ -319,14 +319,29 @@ export const fetchOrderById = async ({
 
     const paymentMethod = order.paymentMethod()
     const paymentSource: SingleRelationship<
-      | (StripePaymentCollection & { options?: { card?: string } })
-      | (WireTransferCollection & { options?: { card?: string } })
-      | (PaypalPaymentCollection & { options?: { card?: string } })
-      | (BraintreePaymentCollection & { options?: { card?: string } })
-      | (AdyenPaymentCollection & { options?: { card?: string } })
+      | (StripePaymentCollection & {
+          options?: { card?: string }
+          metadata: { card?: string }
+        })
+      | (WireTransferCollection & {
+          options?: { card?: string }
+          metadata: { card?: string }
+        })
+      | (PaypalPaymentCollection & {
+          options?: { card?: string }
+          metadata: { card?: string }
+        })
+      | (BraintreePaymentCollection & {
+          options?: { card?: string }
+          metadata: { card?: string }
+        })
+      | (AdyenPaymentCollection & {
+          options?: { card?: string }
+          metadata: { card?: string }
+        })
     > = order.paymentSource()
     let hasPaymentMethod = Boolean(
-      paymentMethod && paymentSource?.options?.card
+      paymentSource?.metadata?.card || paymentSource?.options?.card
     )
 
     if (!hasPaymentMethod && !isPaymentRequired) {
@@ -351,7 +366,9 @@ export const fetchOrderById = async ({
           id: allAvailablePaymentMethods[0].id,
         })
 
-        await (await Order.find(order.id)).update({
+        await (
+          await Order.find(order.id)
+        ).update({
           paymentMethod,
         })
 
@@ -397,7 +414,7 @@ export const fetchOrderById = async ({
       billingAddress,
       hasShippingMethod,
       paymentMethod,
-      shipments: (shipmentsSelected as unknown) as ShipmentSelected[],
+      shipments: shipmentsSelected as unknown as ShipmentSelected[],
       hasPaymentMethod,
       shippingCountryCodeLock,
       isShipmentRequired,

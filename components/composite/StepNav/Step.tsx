@@ -13,7 +13,7 @@ export const Step = styled.li<StepProps>`
   ${({ isActive }) =>
     isActive
       ? css`
-          ${tw`font-bold text-primary`}
+          ${tw`font-bold text-black`}
         `
       : null}
   ${({ isLocked }) =>

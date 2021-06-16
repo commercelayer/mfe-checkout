@@ -77,48 +77,52 @@ describe("Checkout Checkout Complete", () => {
     })
 
     it("valid customer token", function () {
-      console.log(email, password, this.newOrder.id)
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
           "@getShippingMethods",
-          "@getOrderShipments",
-          "@getOrderShipments",
+          "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@getCustomerAddresses",
+          "@availableCustomerPaymentSources",
+          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
+    })
+
+    it("select payment method credit card", () => {
+      cy.dataCy("payment-method-radio-button").each((e, i) => {
+        cy.wrap(e).as(`paymentMethodRadioButton${i}`)
+      })
+      cy.get("@paymentMethodRadioButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@stripePayments",
+          "@availableCustomerPaymentSources",
+          "@availableCustomerPaymentSources",
+        ],
+        { timeout: 100000 }
+      )
     })
 
     it("insert data credit card and check data", () => {
@@ -136,7 +140,7 @@ describe("Checkout Checkout Complete", () => {
           cy.wrap(e).as(`paymentSourceButton${i}`)
         })
 
-      cy.get("@paymentSourceButton3").click()
+      cy.get("@paymentSourceButton1").click()
 
       cy.wait(
         [
@@ -144,29 +148,15 @@ describe("Checkout Checkout Complete", () => {
           "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@getOrderShipments",
-          "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getCustomerAddresses",
+          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )
-      cy.dataCy("payment-method-selected").should("contain.text", "Visa")
-      cy.dataCy("payment-method-price-selected").should("contain.text", "0,00")
+      cy.dataCy("payment-method-amount").should("contain.text", "10,00")
     })
 
     it("place order and redirect", () => {
@@ -178,15 +168,12 @@ describe("Checkout Checkout Complete", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
         ],
         { timeout: 100000 }
       )
       cy.dataCy("button-continue-to-shop").click()
-      cy.wait(200)
+      cy.wait(2000)
       cy.url().should("eq", returnUrl)
     })
   })

@@ -91,12 +91,10 @@ describe("Checkout entrypoint", () => {
           [
             "@getShippingMethods",
             "@getOrderShipments",
+            "@getOrderShipments",
             "@retrieveLineItems",
             "@retrieveLineItems",
             "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@updateOrder",
           ],
           {
             timeout: 100000,

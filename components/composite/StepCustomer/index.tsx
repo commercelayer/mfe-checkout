@@ -1,30 +1,114 @@
+import { Address, AddressField } from "@commercelayer/react-components"
 import classNames from "classnames"
 import { Fragment, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
-import "twin.macro"
 
+import "twin.macro"
 import { AppContext } from "components/data/AppProvider"
-import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
-import { GridContainer } from "components/ui/GridContainer"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { StepLine } from "components/ui/StepLine"
 
-import { AddressSectionEmail } from "./AddressSectionEmail"
-import { AddressSectionTitle } from "./AddressSectionTitle"
 import { CheckoutAddresses } from "./CheckoutAddresses"
 import { CheckoutCustomerAddresses } from "./CheckoutCustomerAddresses"
 
 interface Props {
   className?: string
   isActive?: boolean
-  onToggleActive: () => void
+  onToggleActive?: () => void
+  step: number
 }
 
-export const StepCustomer: React.FC<Props> = ({ isActive, onToggleActive }) => {
+export const StepHeaderCustomer: React.FC<Props> = ({
+  isActive,
+  onToggleActive,
+  step,
+}) => {
   const appCtx = useContext(AppContext)
+  if (!appCtx) {
+    return null
+  }
+  const {
+    billingAddress,
+    shippingAddress,
+    hasShippingAddress,
+    hasBillingAddress,
+    hasSameAddresses,
+    isShipmentRequired,
+  } = appCtx
+
   const { t } = useTranslation()
+
+  const recapText = () => {
+    if (!hasShippingAddress && !hasBillingAddress) {
+      return "No Billing / Shipping Address set"
+    }
+    if (billingAddress && (hasSameAddresses || !isShipmentRequired)) {
+      return (
+        <Address addresses={[billingAddress]}>
+          {
+            <AddressField>
+              {({ address }) => (
+                <p data-cy="full-billing-information">{address.name} </p>
+              )}
+            </AddressField>
+          }
+        </Address>
+      )
+    }
+    return (
+      (billingAddress && shippingAddress && (
+        <>
+          <Address addresses={[billingAddress]} className="mb-1">
+            {
+              <AddressField>
+                {({ address }) => (
+                  <>
+                    <p data-cy="full-billing-information">{address.name} </p>
+                  </>
+                )}
+              </AddressField>
+            }
+          </Address>
+          <Address addresses={[shippingAddress]}>
+            {
+              <AddressField>
+                {({ address }) => (
+                  <p data-cy="full-shipping-information">
+                    <span className="font-semibold text-black">
+                      {t(`addressForm.shipped_to`)}
+                    </span>{" "}
+                    {address.name}{" "}
+                  </p>
+                )}
+              </AddressField>
+            }
+          </Address>
+        </>
+      )) ||
+      ""
+    )
+  }
+
+  return (
+    <StepHeader
+      stepNumber={step}
+      status={isActive ? "edit" : "done"}
+      label={t("stepCustomer.title")}
+      info={recapText()}
+      onEditRequest={
+        onToggleActive
+          ? () => {
+              onToggleActive()
+            }
+          : undefined
+      }
+    />
+  )
+}
+
+export const StepCustomer: React.FC<Props> = ({ isActive }) => {
+  const appCtx = useContext(AppContext)
 
   const [isLocalLoader, setIsLocalLoader] = useState(false)
 
@@ -32,8 +116,6 @@ export const StepCustomer: React.FC<Props> = ({ isActive, onToggleActive }) => {
     return null
   }
   const {
-    hasShippingAddress,
-    hasBillingAddress,
     isGuest,
     isShipmentRequired,
     billingAddress,
@@ -65,20 +147,8 @@ export const StepCustomer: React.FC<Props> = ({ isActive, onToggleActive }) => {
         submitting: isLocalLoader,
       })}
     >
-      <StepLine stepNumber={1} status={isActive ? "edit" : "done"} />
       <StepContent>
-        <StepHeader
-          stepNumber={1}
-          status={isActive ? "edit" : "done"}
-          label={t("stepCustomer.title")}
-          info={
-            isActive ? t("stepCustomer.summary") : t("stepCustomer.information")
-          }
-          onEditRequest={() => {
-            onToggleActive()
-          }}
-        />
-        {isActive ? (
+        {isActive && (
           <Fragment>
             {isGuest ? (
               <CheckoutAddresses
@@ -105,40 +175,6 @@ export const StepCustomer: React.FC<Props> = ({ isActive, onToggleActive }) => {
               />
             )}
           </Fragment>
-        ) : (
-          <>
-            <AddressSectionEmail readonly emailAddress={emailAddress} />
-            <GridContainer>
-              {billingAddress && (
-                <div className="w-full">
-                  <AddressSectionTitle>
-                    {t(`addressForm.billed_to`)}
-                  </AddressSectionTitle>
-                  <CustomerAddressCard
-                    addressType="billing"
-                    deselect={true}
-                    addresses={[billingAddress]}
-                  />
-                </div>
-              )}
-              {isShipmentRequired && shippingAddress && (
-                <div className="w-full">
-                  <AddressSectionTitle>
-                    {t(`addressForm.shipped_to`)}
-                  </AddressSectionTitle>
-                  <CustomerAddressCard
-                    addressType="shipping"
-                    deselect={true}
-                    addresses={[shippingAddress]}
-                  />
-                </div>
-              )}
-            </GridContainer>
-
-            {!hasShippingAddress && !hasBillingAddress ? (
-              <div>No Billing / Shipping Address set</div>
-            ) : null}
-          </>
         )}
       </StepContent>
     </StepContainer>

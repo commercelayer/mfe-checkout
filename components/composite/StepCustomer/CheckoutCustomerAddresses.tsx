@@ -55,14 +55,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation()
 
-  const [
-    billingAddressFill,
-    setBillingAddressFill,
-  ] = useState<AddressCollection | null>(billingAddress)
-  const [
-    shippingAddressFill,
-    setShippingAddressFill,
-  ] = useState<AddressCollection | null>(shippingAddress)
+  const [billingAddressFill, setBillingAddressFill] =
+    useState<AddressCollection | null>(billingAddress)
+  const [shippingAddressFill, setShippingAddressFill] =
+    useState<AddressCollection | null>(shippingAddress)
 
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState<boolean>(
     !hasSameAddresses
@@ -71,10 +67,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   const [showBillingAddressForm, setShowBillingAddressForm] = useState<boolean>(
     isUsingNewBillingAddress
   )
-  const [
-    showShippingAddressForm,
-    setShowShippingAddressForm,
-  ] = useState<boolean>(isUsingNewShippingAddress)
+  const [showShippingAddressForm, setShowShippingAddressForm] =
+    useState<boolean>(isUsingNewShippingAddress)
 
   useEffect(() => {
     if (shipToDifferentAddress && !hasCustomerAddresses) {

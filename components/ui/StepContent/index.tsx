@@ -6,12 +6,5 @@ export const StepContent: React.FC = ({ children }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`relative w-full pointer-events-auto transition duration-500 ease-in`}
-  .done & {
-    filter: grayscale(80%) opacity(50%);
-
-    &:hover {
-      filter: none;
-    }
-  }
+  ${tw`relative w-full pointer-events-auto`}
 `

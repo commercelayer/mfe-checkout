@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
-import { CheckmarkIcon } from "./CheckmarkIcon"
+import { Badge } from "../Badge"
 
 interface Props {
   status: "edit" | "done" | "disabled"
@@ -12,9 +12,7 @@ export const StepLine: React.FC<Props> = ({ status, stepNumber }) => {
   return (
     <Wrapper>
       <div>
-        <Badge active={status === "edit"}>
-          {status === "done" ? <CheckmarkIcon /> : stepNumber}
-        </Badge>
+        <Badge status={status} stepNumber={stepNumber} />
       </div>
       <Line />
     </Wrapper>
@@ -22,17 +20,8 @@ export const StepLine: React.FC<Props> = ({ status, stepNumber }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`flex flex-col items-center absolute md:-left-3 md:relative`}
+  ${tw`flex-col items-center hidden md:flex md:-left-3 md:relative`}
 `
-interface BadgeProps {
-  active: boolean
-}
-
-const Badge = styled.div<BadgeProps>(({ active }) => [
-  tw`rounded-full text-contrast flex justify-center items-center w-6 h-6 text-xs font-bold`,
-  active && tw`bg-primary`,
-  !active && tw`bg-gray-400`,
-])
 
 const Line = styled.div`
   ${tw`w-px bg-gray-200 h-full hidden md:block`}

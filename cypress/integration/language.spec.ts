@@ -35,14 +35,11 @@ describe("Checkout language", () => {
           [
             "@getShippingMethods",
             "@getOrderShipments",
+            "@getOrderShipments",
             "@retrieveLineItems",
             "@retrieveLineItems",
             "@retrieveLineItems",
             "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@updateOrder",
           ],
           {
             timeout: 100000,
@@ -89,14 +86,11 @@ describe("Checkout language", () => {
           [
             "@getShippingMethods",
             "@getOrderShipments",
+            "@getOrderShipments",
             "@retrieveLineItems",
             "@retrieveLineItems",
             "@retrieveLineItems",
             "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@updateOrder",
           ],
           { timeout: 100000 }
         )

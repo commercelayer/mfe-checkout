@@ -2,10 +2,12 @@ import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import { Badge } from "../Badge"
+
 interface Props {
   status: "edit" | "done" | "disabled"
   label: string
-  info: string
+  info: string | Element | JSX.Element
   stepNumber?: number
   onEditRequest?: () => void
 }
@@ -23,18 +25,8 @@ export const StepHeader: React.FC<Props> = ({
     <Wrapper disabled={status === "disabled"}>
       <Body>
         <Top>
+          <Badge status={status} stepNumber={stepNumber} />
           <Title data-cy="step-header-customer">{label}</Title>
-          {status === "done" ? (
-            <Edit>
-              {" "}
-              <EditButton
-                data-cy={`edit-step-${stepNumber}-button`}
-                onClick={onEditRequest}
-              >
-                {t("general.edit")}
-              </EditButton>
-            </Edit>
-          ) : null}
         </Top>
         <Info data-cy="step-header-info">{info}</Info>
       </Body>
@@ -47,7 +39,7 @@ interface WrapperProps {
 }
 
 const Wrapper = styled.div<WrapperProps>`
-  ${tw`flex items-start mb-10 pl-8 md:pl-0 md:mb-5`}
+  ${tw`flex items-start mb-1.5 md:pl-0 md:mb-5`}
 `
 
 const Body = styled.div`
@@ -55,21 +47,13 @@ const Body = styled.div`
 `
 
 const Top = styled.div`
-  ${tw`flex items-start mb-1.5`}
-`
-
-const Edit = styled.div`
-  ${tw`ml-2 flex self-end`}
-`
-
-const EditButton = styled.button`
-  ${tw`text-sm font-bold text-primary border-b leading-none border-black border-opacity-10 md: transition ease-in duration-200 hover:border-opacity-50 hover:text-primary-dark focus:outline-none`}
+  ${tw`flex items-center md:items-start mb-0.5`}
 `
 
 const Title = styled.h2`
-  ${tw`text-lg font-semibold leading-none`}
+  ${tw`text-lg font-semibold leading-none pl-2`}
 `
 
 const Info = styled.p`
-  ${tw`text-gray-500 text-sm`}
+  ${tw`text-gray-500 text-sm pl-8`}
 `
