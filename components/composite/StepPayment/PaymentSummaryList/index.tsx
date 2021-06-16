@@ -21,7 +21,10 @@ export const PaymentSummaryList = () => {
       <PaymentSummary>
         <PaymentSummaryItem>
           <PaymentRadioContainer>
-            <StyledPaymentMethodRadioButton className="form-radio" />
+            <StyledPaymentMethodRadioButton
+              className="form-radio"
+              data-cy="payment-method-radio-button"
+            />
           </PaymentRadioContainer>
           <PaymentMethodNameWithStripe />
         </PaymentSummaryItem>

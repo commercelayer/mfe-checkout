@@ -40,7 +40,7 @@ const Invalid: NextPage = () => {
             tw="pt-10 mb-10 pl-4 self-center md:self-auto"
           />
           <Main>
-            <Text>{t("general.invalid")}</Text>
+            <Text data-cy="invalid-checkout">{t("general.invalid")}</Text>
           </Main>
           <Footer />
         </Wrapper>

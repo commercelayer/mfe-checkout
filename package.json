@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@commercelayer/js-sdk": "^3.10.0",
-    "@commercelayer/react-components": "^2.27.1",
+    "@commercelayer/react-components": "^2.28.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
@@ -28,7 +28,7 @@
     "humanize-string": "^2.1.0",
     "jwt-decode": "^3.1.2",
     "next": "10.2.3",
-    "next-i18next": "^8.4.0",
+    "next-i18next": "^8.5.0",
     "pure-md5": "^0.1.13",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -37,7 +37,7 @@
     "styled-components": "^5.3.0",
     "swr": "^0.5.6",
     "titleize": "^2.1.0",
-    "twin.macro": "^2.4.2"
+    "twin.macro": "^2.5.0"
   },
   "devDependencies": {
     "@commercelayer/cypress-vcr": "^1.1.0",
@@ -45,8 +45,8 @@
     "@types/react": "^17.0.11",
     "@types/react-gtm-module": "^2.0.0",
     "@types/styled-components": "^5.1.10",
-    "@typescript-eslint/eslint-plugin": "^4.26.1",
-    "@typescript-eslint/parser": "^4.26.1",
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
     "autoprefixer": "^10.2.6",
     "cypress": "^7.5.0",
     "eslint": "^7.28.0",
@@ -60,7 +60,7 @@
     "eslint-plugin-tailwind": "^0.2.1",
     "faker": "^5.5.3",
     "msw": "^0.29.0",
-    "postcss": "^8.3.2",
+    "postcss": "^8.3.4",
     "prettier": "^2.3.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",

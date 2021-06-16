@@ -3,6 +3,10 @@ import {
   PaymentSource,
   CustomerContainer,
 } from "@commercelayer/react-components"
+import {
+  CustomerCardsProps,
+  CustomerSaveToWalletProps,
+} from "@commercelayer/react-components/dist/components/PaymentSource"
 import { useTranslation } from "react-i18next"
 
 import "twin.macro"
@@ -20,14 +24,6 @@ import {
 
 interface Props {
   handleSave: () => void
-}
-
-interface CustomerCardsProps {
-  handleClick: () => void
-}
-
-type CustomerSaveToWalletProps = {
-  name: "save_payment_source_to_customer_wallet"
 }
 
 export const CheckoutCustomerPayment: React.FC<Props> = ({
@@ -72,6 +68,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
             <PaymentSourceContainer data-cy="payment-source">
               <PaymentSource
                 className="flex flex-col"
+                onClickCustomerCards={handleSave}
                 templateCustomerCards={(props) => (
                   <TemplateCustomerCards {...props} />
                 )}
