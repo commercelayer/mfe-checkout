@@ -19,6 +19,7 @@ import {
   StepShipping,
   StepHeaderShipping,
 } from "components/composite/StepShipping"
+import { AccordionProvider } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
@@ -105,58 +106,45 @@ const Checkout: React.FC<Props> = ({
               lastActivable={lastActivableStep}
             />
             <Accordion>
-              <AccordionItem
-                index={1}
-                isActive={activeStep === "Customer"}
-                onToggleActive={() => setActiveStep("Customer")}
-                header={
-                  <StepHeaderCustomer
-                    isActive={activeStep === "Customer"}
-                    lastActivableStep={lastActivableStep}
-                    step={1}
-                  />
-                }
+              <AccordionProvider
+                activeStep={activeStep}
+                lastActivableStep={lastActivableStep}
+                setActiveStep={setActiveStep}
+                step="Customer"
               >
-                <StepCustomer
-                  tw="mb-6"
-                  isActive={activeStep === "Customer"}
-                  onToggleActive={() => setActiveStep("Customer")}
-                  step={1}
-                />
-              </AccordionItem>
-              <AccordionItem
-                index={2}
-                isActive={activeStep === "Shipping"}
-                onToggleActive={() => setActiveStep("Shipping")}
-                header={
-                  <StepHeaderShipping
-                    isActive={activeStep === "Shipping"}
-                    lastActivableStep={lastActivableStep}
-                    step={2}
-                  />
-                }
+                <AccordionItem
+                  index={1}
+                  header={<StepHeaderCustomer step={1} />}
+                >
+                  <StepCustomer tw="mb-6" step={1} />
+                </AccordionItem>
+              </AccordionProvider>
+              <AccordionProvider
+                activeStep={activeStep}
+                lastActivableStep={lastActivableStep}
+                setActiveStep={setActiveStep}
+                step="Shipping"
               >
-                <StepShipping
-                  tw="mb-6"
-                  isActive={activeStep === "Shipping"}
-                  onToggleActive={() => setActiveStep("Shipping")}
-                  step={2}
-                />
-              </AccordionItem>
-              <AccordionItem
-                index={3}
-                isActive={activeStep === "Payment"}
-                onToggleActive={() => setActiveStep("Payment")}
-                header={
-                  <StepHeaderPayment
-                    isActive={activeStep === "Payment"}
-                    lastActivableStep={lastActivableStep}
-                    step={3}
-                  />
-                }
+                <AccordionItem
+                  index={2}
+                  header={<StepHeaderShipping step={2} />}
+                >
+                  <StepShipping tw="mb-6" step={2} />
+                </AccordionItem>
+              </AccordionProvider>
+              <AccordionProvider
+                activeStep={activeStep}
+                lastActivableStep={lastActivableStep}
+                setActiveStep={setActiveStep}
+                step="Payment"
               >
-                <StepPayment tw="mb-6" isActive={activeStep === "Payment"} />
-              </AccordionItem>
+                <AccordionItem
+                  index={3}
+                  header={<StepHeaderPayment step={3} />}
+                >
+                  <StepPayment tw="mb-6" />
+                </AccordionItem>
+              </AccordionProvider>
             </Accordion>
             <StepPlaceOrder termsUrl={termsUrl} privacyUrl={privacyUrl} />
           </div>

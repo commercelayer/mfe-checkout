@@ -4,6 +4,7 @@ import { Fragment, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import "twin.macro"
+import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
@@ -14,20 +15,13 @@ import { CheckoutCustomerAddresses } from "./CheckoutCustomerAddresses"
 
 interface Props {
   className?: string
-  isActive?: boolean
-  lastActivableStep?: SingleStepEnum
-  onToggleActive?: () => void
   step: number
 }
 
-export const StepHeaderCustomer: React.FC<Props> = ({
-  onToggleActive,
-  isActive,
-  lastActivableStep,
-  step,
-}) => {
+export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
   const appCtx = useContext(AppContext)
-  if (!appCtx) {
+  const accordionCtx = useContext(AccordionContext)
+  if (!appCtx || !accordionCtx) {
     return null
   }
 
@@ -93,39 +87,24 @@ export const StepHeaderCustomer: React.FC<Props> = ({
     )
   }
 
-  const status = () => {
-    if (isActive) {
-      return "edit"
-    }
-    if (lastActivableStep === "Customer") {
-      return "disabled"
-    }
-    return "done"
-  }
-
   return (
     <StepHeader
       stepNumber={step}
-      status={status()}
+      status={accordionCtx.status}
       label={t("stepCustomer.title")}
       info={recapText()}
-      onEditRequest={
-        onToggleActive
-          ? () => {
-              onToggleActive()
-            }
-          : undefined
-      }
+      onEditRequest={accordionCtx.setStep}
     />
   )
 }
 
-export const StepCustomer: React.FC<Props> = ({ isActive }) => {
+export const StepCustomer: React.FC<Props> = () => {
   const appCtx = useContext(AppContext)
+  const accordionCtx = useContext(AccordionContext)
 
   const [isLocalLoader, setIsLocalLoader] = useState(false)
 
-  if (!appCtx) {
+  if (!appCtx || !accordionCtx) {
     return null
   }
   const {
@@ -155,13 +134,13 @@ export const StepCustomer: React.FC<Props> = ({ isActive }) => {
   return (
     <StepContainer
       className={classNames({
-        current: isActive,
-        done: !isActive,
+        current: accordionCtx.isActive,
+        done: !accordionCtx.isActive,
         submitting: isLocalLoader,
       })}
     >
       <StepContent>
-        {isActive && (
+        {accordionCtx.isActive && (
           <Fragment>
             {isGuest ? (
               <CheckoutAddresses

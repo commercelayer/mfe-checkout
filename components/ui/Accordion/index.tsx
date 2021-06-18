@@ -1,15 +1,14 @@
 import classNames from "classnames"
-import { ReactNode } from "react"
+import { ReactNode, useContext } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
-import useDeviceDetect from "components/hooks/useDeviceDetect"
+import { AccordionContext } from "components/data/AccordionProvider"
+import { useActiveStep } from "components/hooks/useActiveStep"
 
 interface Props {
   index: number
   header: ReactNode
-  isActive: boolean
-  onToggleActive: () => void
 }
 
 export const Accordion: React.FC = ({ children }) => {
@@ -18,21 +17,20 @@ export const Accordion: React.FC = ({ children }) => {
   return <Wrapper>{children}</Wrapper>
 }
 
-export const AccordionItem: React.FC<Props> = ({
-  children,
-  index,
-  header,
-  isActive,
-  onToggleActive,
-}) => {
+export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
+  const ctx = useContext(AccordionContext)
+
+  if (!ctx) return null
+
   // const { isMobile } = useDeviceDetect()
   // if (!isMobile) return <>{children}</>
   return (
     <AccordionTab
-      onClick={onToggleActive}
+      onClick={ctx.setStep}
       tabIndex={index}
       className={classNames("group", {
-        active: isActive,
+        active: ctx.isActive,
+        disabled: ctx.status === "disabled",
       })}
     >
       <AccordionTabHeader className="group">

@@ -19,6 +19,7 @@ import classNames from "classnames"
 import { useTranslation, Trans } from "next-i18next"
 import { useContext, useState, useEffect } from "react"
 
+import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { Button, ButtonWrapper } from "components/ui/Button"
@@ -43,29 +44,20 @@ import {
 
 interface Props {
   className?: string
-  isActive?: boolean
-  onToggleActive: () => void
   step: number
 }
 
 interface HeaderProps {
   className?: string
-  isActive?: boolean
-  lastActivableStep: SingleStepEnum
-  onToggleActive?: () => void
   step: number
   info?: string
 }
 
-export const StepHeaderShipping: React.FC<HeaderProps> = ({
-  onToggleActive,
-  step,
-  isActive,
-  lastActivableStep,
-}) => {
+export const StepHeaderShipping: React.FC<HeaderProps> = ({ step }) => {
   const appCtx = useContext(AppContext)
+  const accordionCtx = useContext(AccordionContext)
 
-  if (!appCtx) {
+  if (!appCtx || !accordionCtx) {
     return null
   }
   const { t } = useTranslation()
@@ -82,41 +74,25 @@ export const StepHeaderShipping: React.FC<HeaderProps> = ({
     }
   }
 
-  const status = () => {
-    if (isActive) {
-      return "edit"
-    }
-
-    if (lastActivableStep === "Customer" || lastActivableStep === "Shipping") {
-      return "disabled"
-    }
-    return "done"
-  }
-
   return (
     <StepHeader
       stepNumber={step}
-      status={status()}
+      status={accordionCtx.status}
       label={t("stepShipping.title")}
       info={recapText()}
-      onEditRequest={
-        onToggleActive
-          ? () => {
-              onToggleActive()
-            }
-          : undefined
-      }
+      onEditRequest={accordionCtx.setStep}
     />
   )
 }
 
-export const StepShipping: React.FC<Props> = ({ isActive }) => {
+export const StepShipping: React.FC<Props> = () => {
   const appCtx = useContext(AppContext)
+  const accordionCtx = useContext(AccordionContext)
   const gtmCtx = useContext(GTMContext)
 
   const { t } = useTranslation()
 
-  if (!appCtx) {
+  if (!appCtx || !accordionCtx) {
     return null
   }
 
@@ -164,15 +140,15 @@ export const StepShipping: React.FC<Props> = ({ isActive }) => {
   return (
     <StepContainer
       className={classNames({
-        current: isActive,
-        done: !isActive,
+        current: accordionCtx.isActive,
+        done: !accordionCtx.isActive,
         submitting: isLocalLoader,
       })}
     >
       <StepContent>
         {isShipmentRequired && (
           <div>
-            {isActive && (
+            {accordionCtx.isActive && (
               <ShipmentsContainer>
                 <Shipment>
                   <ShippingWrapper>

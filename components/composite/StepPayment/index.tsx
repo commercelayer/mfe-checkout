@@ -10,6 +10,7 @@ import classNames from "classnames"
 import { useContext } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
+import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { StepContainer } from "components/ui/StepContainer"
@@ -19,28 +20,17 @@ import { StepHeader } from "components/ui/StepHeader"
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
 
-interface Props {
-  isActive?: boolean
-}
-
 interface HeaderProps {
   className?: string
-  isActive?: boolean
-  lastActivableStep: SingleStepEnum
-  onToggleActive?: () => void
   step: number
   info?: string
 }
 
-export const StepHeaderPayment: React.FC<HeaderProps> = ({
-  onToggleActive,
-  step,
-  isActive,
-  lastActivableStep,
-}) => {
+export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
   const appCtx = useContext(AppContext)
+  const accordionCtx = useContext(AccordionContext)
 
-  if (!appCtx) {
+  if (!appCtx || !accordionCtx) {
     return null
   }
 
@@ -82,44 +72,25 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({
     )
   }
 
-  const status = () => {
-    if (isActive) {
-      return "edit"
-    }
-    if (
-      lastActivableStep === "Customer" ||
-      lastActivableStep === "Payment" ||
-      lastActivableStep === "Shipping"
-    ) {
-      return "disabled"
-    }
-    return "done"
-  }
-
   return (
     <StepHeader
       stepNumber={step}
-      status={status()}
+      status={accordionCtx.status}
       label={t("stepPayment.title")}
       info={recapText()}
-      onEditRequest={
-        onToggleActive
-          ? () => {
-              onToggleActive()
-            }
-          : undefined
-      }
+      onEditRequest={accordionCtx.setStep}
     />
   )
 }
 
-export const StepPayment: React.FC<Props> = ({ isActive }) => {
+export const StepPayment: React.FC = () => {
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
+  const accordionCtx = useContext(AccordionContext)
 
   // if (!appCtx || !appCtx.hasShippingMethod) {
   // this exit on shippingMethod is causing an error in useEffect to enable button
-  if (!appCtx) {
+  if (!appCtx || !accordionCtx) {
     return null
   }
 
@@ -135,14 +106,14 @@ export const StepPayment: React.FC<Props> = ({ isActive }) => {
   return (
     <StepContainer
       className={classNames({
-        current: isActive,
-        done: !isActive,
+        current: accordionCtx.isActive,
+        done: !accordionCtx.isActive,
       })}
     >
       <StepContent>
         {isPaymentRequired && (
           <div>
-            {isActive && (
+            {accordionCtx.isActive && (
               <>
                 {isGuest ? (
                   <CheckoutPayment handleSave={handleSave} />
