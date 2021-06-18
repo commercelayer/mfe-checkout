@@ -144,7 +144,7 @@ const Checkout: React.FC<Props> = ({
                 />
               </AccordionItem>
               <AccordionItem
-                index={2}
+                index={3}
                 isActive={activeStep === "Payment"}
                 onToggleActive={() => setActiveStep("Payment")}
                 header={
