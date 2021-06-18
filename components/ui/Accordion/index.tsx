@@ -26,7 +26,7 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
   // if (!isMobile) return <>{children}</>
   return (
     <AccordionTab
-      onClick={ctx.setStep}
+      onClick={ctx.status !== "disabled" ? ctx.setStep : undefined}
       tabIndex={index}
       className={classNames("group", {
         active: ctx.isActive,
