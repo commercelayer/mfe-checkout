@@ -67,6 +67,9 @@ const AccordionTab = styled.div`
 `
 const AccordionTabHeader = styled.div`
   ${tw`relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease duration-500 focus:bg-gray-500 md:pt-6 md:pb-0`}
+  .disabled & {
+    ${tw`pointer-events-none`}
+  }
 `
 const AccordionTitle = styled.div`
   ${tw`transition ease duration-500`}
@@ -81,5 +84,9 @@ const AccordionBody = styled.div`
   ${tw`max-h-0 transition duration-1000 ease-in opacity-0`}
   .active & {
     ${tw`max-h-full opacity-100`}
+  }
+
+  .disabled & {
+    ${tw`max-h-0 opacity-0`}
   }
 `
