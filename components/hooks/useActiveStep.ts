@@ -12,9 +12,8 @@ interface UseActiveStep {
 
 export const useActiveStep = (): UseActiveStep => {
   const [activeStep, setActiveStep] = useState<SingleStepEnum>("Customer")
-  const [lastActivableStep, setLastActivableStep] = useState<SingleStepEnum>(
-    "Customer"
-  )
+  const [lastActivableStep, setLastActivableStep] =
+    useState<SingleStepEnum>("Customer")
   const [steps] = useState<SingleStepEnum[]>([
     "Customer",
     "Shipping",
@@ -45,9 +44,9 @@ export const useActiveStep = (): UseActiveStep => {
 
       const canSelectShippingMethod =
         ctx.hasShippingAddress || !ctx.isShipmentRequired
-      const canSelectPayment = ctx.hasShippingAddress && ctx.hasShippingMethod
+      const canSelectPayment = canSelectShippingMethod && ctx.hasShippingMethod
       const canPlaceOrder =
-        ctx.hasShippingAddress && ctx.hasShippingMethod && ctx.hasPaymentMethod
+        canSelectShippingMethod && canSelectPayment && ctx.hasPaymentMethod
 
       if (canPlaceOrder) {
         setActiveStep("Complete")

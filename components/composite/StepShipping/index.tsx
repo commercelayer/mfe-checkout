@@ -51,17 +51,17 @@ interface Props {
 interface HeaderProps {
   className?: string
   isActive?: boolean
+  lastActivableStep: SingleStepEnum
   onToggleActive?: () => void
   step: number
-  status?: "done" | "edit" | "disabled"
   info?: string
 }
 
 export const StepHeaderShipping: React.FC<HeaderProps> = ({
-  isActive,
   onToggleActive,
   step,
-  status,
+  isActive,
+  lastActivableStep,
 }) => {
   const appCtx = useContext(AppContext)
 
@@ -82,10 +82,21 @@ export const StepHeaderShipping: React.FC<HeaderProps> = ({
     }
   }
 
+  const status = () => {
+    if (isActive) {
+      return "edit"
+    }
+
+    if (lastActivableStep === "Customer" || lastActivableStep === "Shipping") {
+      return "disabled"
+    }
+    return "done"
+  }
+
   return (
     <StepHeader
       stepNumber={step}
-      status={status || isActive ? "edit" : "done"}
+      status={status()}
       label={t("stepShipping.title")}
       info={recapText()}
       onEditRequest={

@@ -112,6 +112,7 @@ const Checkout: React.FC<Props> = ({
                 header={
                   <StepHeaderCustomer
                     isActive={activeStep === "Customer"}
+                    lastActivableStep={lastActivableStep}
                     step={1}
                   />
                 }
@@ -130,6 +131,7 @@ const Checkout: React.FC<Props> = ({
                 header={
                   <StepHeaderShipping
                     isActive={activeStep === "Shipping"}
+                    lastActivableStep={lastActivableStep}
                     step={2}
                   />
                 }
@@ -148,6 +150,7 @@ const Checkout: React.FC<Props> = ({
                 header={
                   <StepHeaderPayment
                     isActive={activeStep === "Payment"}
+                    lastActivableStep={lastActivableStep}
                     step={3}
                   />
                 }

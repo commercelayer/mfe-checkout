@@ -15,19 +15,22 @@ import { CheckoutCustomerAddresses } from "./CheckoutCustomerAddresses"
 interface Props {
   className?: string
   isActive?: boolean
+  lastActivableStep?: SingleStepEnum
   onToggleActive?: () => void
   step: number
 }
 
 export const StepHeaderCustomer: React.FC<Props> = ({
-  isActive,
   onToggleActive,
+  isActive,
+  lastActivableStep,
   step,
 }) => {
   const appCtx = useContext(AppContext)
   if (!appCtx) {
     return null
   }
+
   const {
     billingAddress,
     shippingAddress,
@@ -90,10 +93,20 @@ export const StepHeaderCustomer: React.FC<Props> = ({
     )
   }
 
+  const status = () => {
+    if (isActive) {
+      return "edit"
+    }
+    if (lastActivableStep === "Customer") {
+      return "disabled"
+    }
+    return "done"
+  }
+
   return (
     <StepHeader
       stepNumber={step}
-      status={isActive ? "edit" : "done"}
+      status={status()}
       label={t("stepCustomer.title")}
       info={recapText()}
       onEditRequest={
