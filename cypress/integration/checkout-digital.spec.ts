@@ -91,14 +91,11 @@ describe("Checkout Checkout-Digital", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
+          "@getOrderShipments",
           "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
         ],
         {
           timeout: 100000,
@@ -109,6 +106,26 @@ describe("Checkout Checkout-Digital", () => {
       cy.dataCy("step-header-info").should(
         "contain.text",
         "This order does not require shipping"
+      )
+    })
+
+    it("select payment method credit card", () => {
+      cy.dataCy("payment-method-radio-button").each((e, i) => {
+        cy.wrap(e).as(`paymentMethodRadioButton${i}`)
+      })
+      cy.get("@paymentMethodRadioButton0").click()
+      cy.wait(
+        [
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@stripePayments",
+        ],
+        { timeout: 100000 }
       )
     })
 
@@ -127,60 +144,29 @@ describe("Checkout Checkout-Digital", () => {
           cy.wrap(e).as(`paymentSourceButton${i}`)
         })
 
-      cy.get("@paymentSourceButton2").click()
+      cy.get("@paymentSourceButton1").click()
 
       cy.wait(
         [
           "@getOrderShipments",
-          "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
         ],
         { timeout: 100000 }
       )
 
-      cy.dataCy("payment-method-selected").should("contain.text", "Visa")
-      cy.dataCy("payment-method-price-selected").should("contain.text", "0,00")
+      cy.dataCy("payment-method-amount").should("contain.text", "10,00")
     })
 
     it("place order and redirect", () => {
       cy.wait(2000)
       cy.dataCy("place-order-button").click()
-      cy.wait(
-        [
-          "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@retrieveLineItems", "@getOrders", "@updateOrder"], {
+        timeout: 100000,
+      })
       cy.dataCy("button-continue-to-shop").click()
-      cy.wait(200)
+      cy.wait(2000)
       cy.url().should("eq", returnUrl)
     })
   })

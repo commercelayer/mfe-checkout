@@ -7,13 +7,11 @@ import {
 } from "@commercelayer/react-components"
 import "twin.macro"
 import classNames from "classnames"
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
-import { Button, ButtonWrapper } from "components/ui/Button"
-import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
@@ -46,16 +44,16 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({
     return null
   }
 
-  const { hasPaymentMethod, paymentMethod, isPaymentRequired } = appCtx
+  const { hasPaymentMethod, isPaymentRequired } = appCtx
 
   const { t } = useTranslation()
 
   const recapText = () => {
     if (!isPaymentRequired) {
-      t("stepPayment.notRequired")
+      return t("stepPayment.notRequired")
     }
     if (!hasPaymentMethod) {
-      t("stepPayment.methodUnselected")
+      return t("stepPayment.methodUnselected")
     }
 
     return (
@@ -64,14 +62,19 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({
           <PaymentMethodsContainer>
             <PaymentSource readonly>
               <PaymentSourceBrandIcon className="mr-2" />
-              {paymentMethod?.paymentSourceType === "wire_transfers" ? (
-                <PaymentSourceBrandName className="mr-1" />
-              ) : (
-                <Trans t={t} i18nKey="stepPayment.endingIn">
-                  <PaymentSourceBrandName className="mr-1" />
-                  <PaymentSourceDetail className="ml-1" type="last4" />
-                </Trans>
-              )}
+              <PaymentSourceBrandName className="mr-1">
+                {({ brand }) => {
+                  if (brand.includes("Wire transfer")) {
+                    return brand
+                  }
+                  return (
+                    <Trans t={t} i18nKey="stepPayment.endingIn">
+                      {brand}
+                      <PaymentSourceDetail className="ml-1" type="last4" />
+                    </Trans>
+                  )
+                }}
+              </PaymentSourceBrandName>
             </PaymentSource>
           </PaymentMethodsContainer>
         </div>
@@ -97,12 +100,8 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({
 }
 
 export const StepPayment: React.FC<Props> = ({ isActive }) => {
-  const [canContinue, setCanContinue] = useState(false)
-  const [isLocalLoader, setIsLocalLoader] = useState(false)
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
-
-  const { t } = useTranslation()
 
   // if (!appCtx || !appCtx.hasShippingMethod) {
   // this exit on shippingMethod is causing an error in useEffect to enable button
@@ -110,20 +109,14 @@ export const StepPayment: React.FC<Props> = ({ isActive }) => {
     return null
   }
 
-  const { hasPaymentMethod, refetchOrder, isGuest, isPaymentRequired } = appCtx
+  const { refetchOrder, isGuest, isPaymentRequired } = appCtx
 
   const handleSave = async () => {
-    setIsLocalLoader(true)
     if (gtmCtx?.fireAddPaymentInfo) {
       gtmCtx.fireAddPaymentInfo()
     }
     await refetchOrder()
-    setIsLocalLoader(false)
   }
-
-  useEffect(() => {
-    setCanContinue(!!hasPaymentMethod)
-  }, [hasPaymentMethod])
 
   return (
     <StepContainer
@@ -141,18 +134,6 @@ export const StepPayment: React.FC<Props> = ({ isActive }) => {
                   <CheckoutPayment handleSave={handleSave} />
                 ) : (
                   <CheckoutCustomerPayment handleSave={handleSave} />
-                )}
-                {hasPaymentMethod && (
-                  <ButtonWrapper>
-                    <Button
-                      disabled={!canContinue}
-                      data-cy="save-payment-button"
-                      onClick={handleSave}
-                    >
-                      {isLocalLoader && <SpinnerIcon />}
-                      {t("general.save")}
-                    </Button>
-                  </ButtonWrapper>
                 )}
               </>
             )}

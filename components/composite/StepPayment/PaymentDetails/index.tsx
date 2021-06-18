@@ -30,14 +30,19 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
       <div className="flex flex-col lg:items-center lg:flex-row">
         <div className="flex items-center font-bold">
           <PaymentSourceBrandIcon className="mr-2" />
-          {paymentMethod?.paymentSourceType === "wire_transfers" ? (
-            <PaymentSourceBrandName className="mr-1" />
-          ) : (
-            <Trans t={t} i18nKey="stepPayment.endingIn">
-              <PaymentSourceBrandName className="mr-1" />
-              <PaymentSourceDetail className="ml-1" type="last4" />
-            </Trans>
-          )}
+          <PaymentSourceBrandName className="mr-1">
+            {({ brand }) => {
+              if (brand.includes("Wire transfer")) {
+                return brand
+              }
+              return (
+                <Trans t={t} i18nKey="stepPayment.endingIn">
+                  {brand}
+                  <PaymentSourceDetail className="ml-1" type="last4" />
+                </Trans>
+              )
+            }}
+          </PaymentSourceBrandName>
         </div>
         {paymentMethod?.paymentSourceType !== "wire_transfers" && (
           <div className="pl-10 text-gray-500 lg:pl-2">

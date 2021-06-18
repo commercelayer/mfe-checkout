@@ -80,21 +80,18 @@ describe("check Data Layers GTM", () => {
       cy.wait(
         [
           "@getShippingMethods",
+          "@getShipments",
+          "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
+          "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
           "@getCustomerAddresses",
+          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )
@@ -119,10 +116,12 @@ describe("check Data Layers GTM", () => {
       cy.get("@shippingMethodButton2").click()
       cy.wait(
         [
+          "@getShipments",
+          "@getShipments",
+          "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
-          "@getShipments",
-          "@getShipments",
+          "@retrieveLineItems",
           "@getOrders",
           "@getOrders",
         ],
@@ -134,7 +133,10 @@ describe("check Data Layers GTM", () => {
       cy.wait(
         [
           "@getShippingMethods",
-          "@getOrderShipments",
+          "@getShipments",
+          "@getShipments",
+          "@getShipments",
+          "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
@@ -145,44 +147,11 @@ describe("check Data Layers GTM", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@getCustomerAddresses",
-          "@getCustomerAddresses",
           "@getCustomerAddresses",
         ],
         {
           timeout: 100000,
         }
-      )
-
-      cy.dataCy("shipping-method-name-recap").each((e, i) => {
-        cy.wrap(e).as(`shippingMethodNameRecap${i}`)
-      })
-      cy.get("@shippingMethodNameRecap0").should(
-        "contain.text",
-        "Standard Shipping"
-      )
-      cy.get("@shippingMethodNameRecap1").should(
-        "contain.text",
-        "Standard Shipping"
       )
       cy.getDataLayer({ gtm: "add_shipping_info" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 2)
@@ -213,10 +182,14 @@ describe("check Data Layers GTM", () => {
       cy.wait(
         [
           "@getShipments",
+          "@getShipments",
+          "@getShipments",
           "@getOrders",
           "@retrieveLineItems",
-          "@getOrderShipments",
           "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@getOrderShipments",
         ],
         {
           timeout: 100000,
@@ -225,12 +198,15 @@ describe("check Data Layers GTM", () => {
       cy.get("@shippingMethodButton3").click()
       cy.wait(
         [
-          "@retrieveLineItems",
+          "@getShipments",
+          "@getShipments",
           "@getShipments",
           "@getOrders",
           "@retrieveLineItems",
-          "@getOrderShipments",
           "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@getOrderShipments",
         ],
         {
           timeout: 100000,
@@ -241,33 +217,15 @@ describe("check Data Layers GTM", () => {
         [
           "@getShippingMethods",
           "@getOrderShipments",
+          "@getOrderShipments",
           "@availablePaymentMethods",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
           "@getCustomerAddresses",
+          "@availableCustomerPaymentSources",
         ],
         {
           timeout: 100000,
         }
-      )
-      cy.dataCy("shipping-method-name-recap").each((e, i) => {
-        cy.wrap(e).as(`shippingMethodNameRecap${i}`)
-      })
-      cy.get("@shippingMethodNameRecap0").should(
-        "contain.text",
-        "Express Delivery"
-      )
-      cy.get("@shippingMethodNameRecap1").should(
-        "contain.text",
-        "Express Delivery"
       )
       cy.getDataLayer({ gtm: "add_shipping_info" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 4)
@@ -288,9 +246,12 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait(["@retrieveLineItems"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        ["@getOrderShipments", "@retrieveLineItems", "@retrieveLineItems"],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -299,43 +260,25 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("save-shipments-button").click()
       cy.wait(
         [
+          "@getShippingMethods",
+          "@getShipments",
+          "@getShipments",
           "@getShipments",
           "@getOrders",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getShippingMethods",
-          "@getOrderShipments",
-          "@getOrders",
-          "@updateOrder",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@retrieveLineItems",
           "@getOrderShipments",
-          "@availablePaymentMethods",
           "@getOrderShipments",
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@availableCustomerPaymentSources",
         ],
         {
           timeout: 100000,
         }
       )
-      cy.dataCy("shipping-method-name-recap").each((e, i) => {
-        cy.wrap(e).as(`shippingMethodNameRecap${i}`)
-      })
-      cy.get("@shippingMethodNameRecap0").should(
-        "contain.text",
-        "Express Delivery"
-      )
-      cy.wait(["@retrieveLineItems"], {
-        timeout: 100000,
-      })
-      cy.get("@shippingMethodNameRecap1").should(
-        "contain.text",
-        "Standard Shipping"
-      )
-      cy.wait("@getOrders", { timeout: 100000 })
       cy.getDataLayer({ gtm: "add_shipping_info" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 6)
         assert.equal(dataLayer[4].event, "add_shipping_info")
@@ -355,7 +298,10 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait("@retrieveLineItems", { timeout: 100000 })
+      cy.wait(
+        ["@getOrderShipments", "@retrieveLineItems", "@retrieveLineItems"],
+        { timeout: 100000 }
+      )
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -365,19 +311,21 @@ describe("check Data Layers GTM", () => {
           "@getShipments",
           "@getOrders",
           "@retrieveLineItems",
-          "@getOrderShipments",
           "@retrieveLineItems",
+          "@getOrderShipments",
         ],
         { timeout: 100000 }
       )
       cy.get("@shippingMethodButton3").click()
       cy.wait(
         [
-          "@retrieveLineItems",
+          "@getShipments",
+          "@getShipments",
           "@getShipments",
           "@getOrders",
-          "@retrieveLineItems",
           "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
           "@retrieveLineItems",
         ],
         { timeout: 100000 }
@@ -386,33 +334,20 @@ describe("check Data Layers GTM", () => {
       cy.wait(
         [
           "@retrieveLineItems",
-          "@getOrders",
-          "@retrieveLineItems",
           "@getOrderShipments",
-          "@getOrders",
-          "@updateOrder",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
+          "@retrieveLineItems",
+          "@getShipments",
+          "@getShipments",
           "@retrieveLineItems",
           "@getShippingMethods",
+          "@getOrderShipments",
+          "@getCustomerAddresses",
           "@availablePaymentMethods",
+          "@availableCustomerPaymentSources",
           "@getOrderShipments",
         ],
         { timeout: 100000 }
       )
-      cy.dataCy("shipping-method-name-recap").each((e, i) => {
-        cy.wrap(e).as(`shippingMethodNameRecap${i}`)
-      })
-      cy.get("@shippingMethodNameRecap0").should(
-        "contain.text",
-        "Standard Shipping"
-      )
-      cy.get("@shippingMethodNameRecap1").should(
-        "contain.text",
-        "Express Delivery"
-      )
-      cy.wait("@getOrders", { timeout: 100000 })
       cy.getDataLayer({ gtm: "add_shipping_info" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 8)
         assert.equal(dataLayer[6].event, "add_shipping_info")
@@ -498,39 +433,18 @@ describe("check Data Layers GTM", () => {
       cy.wait(
         [
           "@getShippingMethods",
-          "@getOrderShipments",
-          "@getOrderShipments",
+          "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@getCustomerAddresses",
+          "@availableCustomerPaymentSources",
+          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )
@@ -548,6 +462,26 @@ describe("check Data Layers GTM", () => {
       })
     })
 
+    it("select payment method credit card", () => {
+      cy.dataCy("payment-method-radio-button").each((e, i) => {
+        cy.wrap(e).as(`paymentMethodRadioButton${i}`)
+      })
+      cy.get("@paymentMethodRadioButton0").click()
+      cy.wait(
+        [
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@stripePayments",
+        ],
+        { timeout: 100000 }
+      )
+    })
+
     it("insert data card, save and check add_shipping_info", () => {
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
@@ -562,64 +496,34 @@ describe("check Data Layers GTM", () => {
         .each((e, i) => {
           cy.wrap(e).as(`paymentSourceButton${i}`)
         })
-      cy.get("@paymentSourceButton3").click()
+      cy.get("@paymentSourceButton1").click()
       cy.wait(
         [
-          "@getShippingMethods",
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
         ],
         { timeout: 100000 }
       )
+
+      cy.dataCy("payment-method-amount").should("contain.text", "10,00")
       cy.getDataLayer({ gtm: "add_payment_info" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 1)
         assert.equal(dataLayer[0].ecommerce.currency, "EUR")
-        assert.equal(dataLayer[0].ecommerce.value, 0)
+        assert.equal(dataLayer[0].ecommerce.value, 10)
         assert.equal(dataLayer[0].ecommerce.payment_type, "Stripe Payment")
         assert.equal(dataLayer[0].ecommerce.items.length, 2)
       })
       cy.wait(2000)
       cy.dataCy("place-order-button").click()
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getShippingMethods",
-          "@getOrderShipments",
-          "@updateOrder",
-          "@getCustomerAddresses",
-          "@availablePaymentMethods",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@retrieveLineItems", "@getOrders", "@updateOrder"], {
+        timeout: 100000,
+      })
       cy.getDataLayer({ gtm: "purchase" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 1)
         assert.equal(dataLayer[0].ecommerce.currency, "EUR")
-        assert.equal(dataLayer[0].ecommerce.value, 244)
+        assert.equal(dataLayer[0].ecommerce.value, 254)
         assert.equal(dataLayer[0].ecommerce.shipping, 0)
         assert.equal(dataLayer[0].ecommerce.tax, 0)
         // assert.equal(dataLayer[0].ecommerce.transaction_id, null)

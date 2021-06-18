@@ -36,7 +36,7 @@ const Invalid: NextPage = () => {
             <Logo tw="text-black md:pl-4 self-center md:self-auto" />
           </LogoWrapper>
           <Main>
-            <Text>{t("general.invalid")}</Text>
+            <Text data-cy="invalid-checkout">{t("general.invalid")}</Text>
           </Main>
           <Footer />
         </Wrapper>
