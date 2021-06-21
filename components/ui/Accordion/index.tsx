@@ -4,7 +4,6 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 import { AccordionContext } from "components/data/AccordionProvider"
-import { useActiveStep } from "components/hooks/useActiveStep"
 
 interface Props {
   index: number
@@ -22,8 +21,6 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
 
   if (!ctx) return null
 
-  // const { isMobile } = useDeviceDetect()
-  // if (!isMobile) return <>{children}</>
   return (
     <AccordionTab
       onClick={ctx.status !== "disabled" ? ctx.setStep : undefined}

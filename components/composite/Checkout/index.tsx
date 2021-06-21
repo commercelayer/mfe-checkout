@@ -122,7 +122,9 @@ const Checkout: React.FC<Props> = ({
               <AccordionProvider
                 activeStep={activeStep}
                 lastActivableStep={lastActivableStep}
-                setActiveStep={setActiveStep}
+                setActiveStep={
+                  ctx.isShipmentRequired ? setActiveStep : undefined
+                }
                 step="Shipping"
               >
                 <AccordionItem
@@ -135,7 +137,9 @@ const Checkout: React.FC<Props> = ({
               <AccordionProvider
                 activeStep={activeStep}
                 lastActivableStep={lastActivableStep}
-                setActiveStep={setActiveStep}
+                setActiveStep={
+                  ctx.isPaymentRequired ? setActiveStep : undefined
+                }
                 step="Payment"
               >
                 <AccordionItem

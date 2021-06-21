@@ -80,7 +80,7 @@ export const StepHeaderShipping: React.FC<HeaderProps> = ({ step }) => {
       status={accordionCtx.status}
       label={t("stepShipping.title")}
       info={recapText()}
-      onEditRequest={accordionCtx.setStep}
+      onEditRequest={isShipmentRequired ? accordionCtx.setStep : undefined}
     />
   )
 }
