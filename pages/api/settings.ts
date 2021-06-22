@@ -99,7 +99,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     language: order.languageCode,
     primaryColor: hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,
     favicon: organization?.faviconUrl || "/favicon.png",
-    gtmId: organization?.gtmId || "GTM-TGCQ5BM",
+    gtmId: organization?.gtmId,
     supportEmail: "test@extendi.it",
     supportPhone: "+39 111 222 3333",
     termsUrl: order.termsUrl,
