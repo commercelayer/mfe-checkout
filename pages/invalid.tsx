@@ -1,9 +1,6 @@
-import humanizeString from "humanize-string"
 import { NextPage } from "next"
-import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
-import titleize from "titleize"
 import tw from "twin.macro"
 
 import { Base } from "components/ui/Base"
@@ -13,20 +10,6 @@ import { Logo } from "components/ui/Footer/cl"
 
 const Invalid: NextPage = () => {
   const { t } = useTranslation()
-  const [title, setTitle] = useState("")
-
-  useEffect(() => {
-    if (window) {
-      try {
-        const humanizeHostname = titleize(
-          humanizeString(window.location.hostname.split(".")[0])
-        )
-        setTitle(humanizeHostname)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }, [])
 
   return (
     <Base>

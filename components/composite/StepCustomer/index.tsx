@@ -38,7 +38,7 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
 
   const recapText = () => {
     if (!hasShippingAddress && !hasBillingAddress) {
-      return "No Billing / Shipping Address set"
+      return <p>{t("stepCustomer.notSet")}</p>
     }
     if (billingAddress && (hasSameAddresses || !isShipmentRequired)) {
       return (
@@ -83,7 +83,7 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
           </Address>
         </>
       )) ||
-      ""
+      null
     )
   }
 

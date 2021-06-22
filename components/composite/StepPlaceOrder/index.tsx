@@ -93,42 +93,44 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
         </StyledErrors>
       </ErrorsContainer>
       <PlaceOrderContainer>
-        {!!termsUrl && !!privacyUrl && (
-          <FlexContainer className="items-start pb-5 mb-5 border-b xl:items-center">
-            <CheckboxWrapper>
-              <StyledPrivacyAndTermsCheckbox
-                id="privacy-terms"
-                className="form-checkbox"
-              />
-            </CheckboxWrapper>
-            <Label htmlFor="privacy-terms">
-              <Trans
-                i18nKey="general.privacy_and_terms"
-                components={{
-                  bold: <strong />,
-                  termsUrl: (
-                    <a href={termsUrl} target="_blank" rel="noreferrer" />
-                  ),
-                  privacyUrl: (
-                    <a href={privacyUrl} target="_blank" rel="noreferrer" />
-                  ),
-                }}
-              />
-            </Label>
-          </FlexContainer>
-        )}
-        <ButtonWrapper>
-          <StyledPlaceOrderButton
-            data-cy="place-order-button"
-            onClick={handlePlaceOrder}
-            label={
-              <>
-                {isPlacingOrder && <SpinnerIcon />}
-                {t("stepPayment.submit")}
-              </>
-            }
-          />
-        </ButtonWrapper>
+        <>
+          {!!termsUrl && !!privacyUrl && (
+            <FlexContainer className="items-start pb-5 mb-5 border-b xl:items-center">
+              <CheckboxWrapper>
+                <StyledPrivacyAndTermsCheckbox
+                  id="privacy-terms"
+                  className="form-checkbox"
+                />
+              </CheckboxWrapper>
+              <Label htmlFor="privacy-terms">
+                <Trans
+                  i18nKey="general.privacy_and_terms"
+                  components={{
+                    bold: <strong />,
+                    termsUrl: (
+                      <a href={termsUrl} target="_blank" rel="noreferrer" />
+                    ),
+                    privacyUrl: (
+                      <a href={privacyUrl} target="_blank" rel="noreferrer" />
+                    ),
+                  }}
+                />
+              </Label>
+            </FlexContainer>
+          )}
+          <ButtonWrapper>
+            <StyledPlaceOrderButton
+              data-cy="place-order-button"
+              onClick={handlePlaceOrder}
+              label={
+                <>
+                  {isPlacingOrder && <SpinnerIcon />}
+                  {t("stepPayment.submit")}
+                </>
+              }
+            />
+          </ButtonWrapper>
+        </>
       </PlaceOrderContainer>
     </>
   )
