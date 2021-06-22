@@ -133,6 +133,15 @@ describe("Checkout Free Payment", () => {
       )
     })
 
+    it("check step header badge", () => {
+      cy.dataCy("step-header-badge").each((e, i) => {
+        cy.wrap(e).as(`stepHeaderBadge${i}`)
+      })
+      cy.get("@stepHeaderBadge0").get("svg")
+      cy.get("@stepHeaderBadge1").get("svg")
+      cy.get("@stepHeaderBadge2").get("svg")
+    })
+
     it("place order and redirect", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click({ force: true })
@@ -247,6 +256,15 @@ describe("Checkout Free Payment", () => {
         "contain.text",
         "This order does not require payment"
       )
+    })
+
+    it("check step header badge", () => {
+      cy.dataCy("step-header-badge").each((e, i) => {
+        cy.wrap(e).as(`stepHeaderBadge${i}`)
+      })
+      cy.get("@stepHeaderBadge0").get("svg")
+      cy.get("@stepHeaderBadge1").get("svg")
+      cy.get("@stepHeaderBadge2").get("svg")
     })
 
     it("place order and redirect", () => {
