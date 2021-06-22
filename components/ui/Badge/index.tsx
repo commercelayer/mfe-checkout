@@ -9,7 +9,11 @@ interface Props {
 }
 
 export const Badge: React.FC<Props> = ({ status, stepNumber }) => (
-  <StepBadge active={status === "edit"} done={status === "done"}>
+  <StepBadge
+    data-cy="step-header-badge"
+    active={status === "edit"}
+    done={status === "done"}
+  >
     {status === "done" ? <CheckmarkIcon /> : stepNumber}
   </StepBadge>
 )

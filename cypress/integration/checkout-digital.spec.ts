@@ -109,6 +109,15 @@ describe("Checkout Checkout-Digital", () => {
       )
     })
 
+    it("check step header badge", () => {
+      cy.dataCy("step-header-badge").each((e, i) => {
+        cy.wrap(e).as(`stepHeaderBadge${i}`)
+      })
+      cy.get("@stepHeaderBadge0").get("svg")
+      cy.get("@stepHeaderBadge1").get("svg")
+      cy.get("@stepHeaderBadge2").should("contain.text", "3")
+    })
+
     it("select payment method credit card", () => {
       cy.dataCy("payment-method-radio-button").each((e, i) => {
         cy.wrap(e).as(`paymentMethodRadioButton${i}`)
@@ -157,6 +166,15 @@ describe("Checkout Checkout-Digital", () => {
       )
 
       cy.dataCy("payment-method-amount").should("contain.text", "10,00")
+    })
+
+    it("check step header badge", () => {
+      cy.dataCy("step-header-badge").each((e, i) => {
+        cy.wrap(e).as(`stepHeaderBadge${i}`)
+      })
+      cy.get("@stepHeaderBadge0").get("svg")
+      cy.get("@stepHeaderBadge1").get("svg")
+      cy.get("@stepHeaderBadge2").get("svg")
     })
 
     it("place order and redirect", () => {

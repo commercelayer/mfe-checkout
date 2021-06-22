@@ -15,7 +15,7 @@ interface AccordionProviderProps {
   step: SingleStepEnum
   activeStep: SingleStepEnum
   lastActivableStep: SingleStepEnum
-  setActiveStep: (step: SingleStepEnum) => void
+  setActiveStep?: (step: SingleStepEnum) => void
 }
 
 export const AccordionProvider: React.FC<AccordionProviderProps> = ({
@@ -29,8 +29,7 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   const [status, setStatus] = useState<"done" | "edit" | "disabled">("disabled")
 
   const setStep = () => {
-    console.log("setting step as active: ", step)
-    setActiveStep(step)
+    setActiveStep && setActiveStep(step)
   }
 
   useEffect(() => {
