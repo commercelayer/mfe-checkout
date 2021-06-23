@@ -63,5 +63,10 @@
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/prefer-readonly": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off"
+  },
+  "settings": {
+    "react": {
+        "version": "detect"
+    }
   }
 }
