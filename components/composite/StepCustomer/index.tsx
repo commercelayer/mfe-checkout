@@ -83,7 +83,7 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
           </Address>
         </>
       )) ||
-      null
+      ""
     )
   }
 
