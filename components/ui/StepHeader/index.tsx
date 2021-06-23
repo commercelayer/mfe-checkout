@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
 
@@ -17,10 +16,7 @@ export const StepHeader: React.FC<Props> = ({
   label,
   info,
   stepNumber,
-  onEditRequest,
 }) => {
-  const { t } = useTranslation()
-
   return (
     <Wrapper disabled={status === "disabled"}>
       <Body>
@@ -54,6 +50,6 @@ const Title = styled.h2`
   ${tw`text-lg font-semibold leading-none pl-2`}
 `
 
-const Info = styled.p`
+const Info = styled.div`
   ${tw`text-gray-500 text-sm pl-8`}
 `

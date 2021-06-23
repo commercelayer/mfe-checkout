@@ -57,7 +57,8 @@
         "saveAddressBook": "Save this address in your account",
         "addNewBillingAddress": "Add new billing address",
         "addNewShippingAddress": "Add new shipping address",
-        "continueToDelivery": "Continue to delivery"
+        "continueToDelivery": "Continue to delivery",
+        "notSet": "No Billing / Shipping Address set"
     },
 
     "stepShipping": {
