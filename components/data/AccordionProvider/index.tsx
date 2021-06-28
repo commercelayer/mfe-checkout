@@ -1,4 +1,6 @@
-import { createContext, useState, useEffect } from "react"
+import { createContext, useState, useEffect, useContext } from "react"
+
+import { AppContext } from "../AppProvider"
 
 interface AccordionProviderData {
   isActive: boolean
@@ -25,6 +27,14 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   lastActivableStep,
   setActiveStep,
 }) => {
+  const ctx = useContext(AppContext)
+
+  if (!ctx) {
+    return <>{children}</>
+  }
+
+  const { isShipmentRequired, isPaymentRequired } = ctx
+
   const [isActive, setIsActive] = useState(false)
   const [status, setStatus] = useState<"done" | "edit" | "disabled">("disabled")
 
@@ -50,7 +60,8 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
     if (step === "Shipping") {
       if (
         lastActivableStep === "Customer" ||
-        lastActivableStep === "Shipping"
+        lastActivableStep === "Shipping" ||
+        !isShipmentRequired
       ) {
         setStatus("disabled")
         return
@@ -60,7 +71,8 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
       if (
         lastActivableStep === "Customer" ||
         lastActivableStep === "Shipping" ||
-        lastActivableStep === "Payment"
+        lastActivableStep === "Payment" ||
+        !isPaymentRequired
       ) {
         setStatus("disabled")
         return

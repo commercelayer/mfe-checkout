@@ -107,7 +107,7 @@
         "billing_address_phone": "Phone",
         "ship_to_different_address": "Ship to different address",
         "shipping_address_title": "Shipping Address",
-        "shipped_to": "Shipped to:",
+        "shipped_to": "Ship to:",
         "billed_to": "Billed to:",
         "shipping_address_first_name": "First name",
         "shipping_address_last_name": "Last name",

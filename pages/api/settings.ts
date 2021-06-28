@@ -56,9 +56,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         "privacy_url"
       )
       .find(orderId)
-    order = await orderFetched
-      ?.withCredentials({ accessToken, endpoint })
-      .update({ _refresh: true })
+
+    if (orderFetched.status === "draft" || orderFetched.status === "pending") {
+      order = await orderFetched
+        ?.withCredentials({ accessToken, endpoint })
+        .update({ _refresh: true })
+    } else if (orderFetched.status === "placed") {
+      order = orderFetched?.withCredentials({ accessToken, endpoint })
+    }
   } catch (e) {
     console.log("error on retrieving order:")
     console.log(e)
@@ -79,11 +84,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (e) {
     console.log("error on retrieving organization:")
     console.log(e)
-  }
-
-  if (!order?.id || order.status === "placed") {
-    res.statusCode = 200
-    return res.json({ validCheckout: false })
   }
 
   const appSettings: CheckoutSettings = {
