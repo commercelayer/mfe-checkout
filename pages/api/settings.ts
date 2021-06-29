@@ -63,6 +63,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .update({ _refresh: true })
     } else if (orderFetched.status === "placed") {
       order = orderFetched?.withCredentials({ accessToken, endpoint })
+    } else {
+      res.statusCode = 200
+      return res.json({ validCheckout: false })
     }
   } catch (e) {
     console.log("error on retrieving order:")
