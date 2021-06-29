@@ -1,6 +1,4 @@
-import { createContext, useState, useEffect, useContext } from "react"
-
-import { AppContext } from "../AppProvider"
+import { createContext, useState, useEffect } from "react"
 
 interface AccordionProviderData {
   isActive: boolean
@@ -18,6 +16,7 @@ interface AccordionProviderProps {
   activeStep: SingleStepEnum
   lastActivableStep: SingleStepEnum
   setActiveStep?: (step: SingleStepEnum) => void
+  isStepRequired?: boolean
 }
 
 export const AccordionProvider: React.FC<AccordionProviderProps> = ({
@@ -26,20 +25,13 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   activeStep,
   lastActivableStep,
   setActiveStep,
+  isStepRequired = true,
 }) => {
-  const ctx = useContext(AppContext)
-
-  if (!ctx) {
-    return <>{children}</>
-  }
-
-  const { isShipmentRequired, isPaymentRequired } = ctx
-
   const [isActive, setIsActive] = useState(false)
   const [status, setStatus] = useState<"done" | "edit" | "disabled">("disabled")
 
   const setStep = () => {
-    setActiveStep && setActiveStep(step)
+    isStepRequired && setActiveStep && setActiveStep(step)
   }
 
   useEffect(() => {
@@ -47,6 +39,10 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   }, [activeStep])
 
   useEffect(() => {
+    if (!isStepRequired) {
+      setStatus("disabled")
+      return
+    }
     if (isActive) {
       setStatus("edit")
       return
@@ -60,8 +56,7 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
     if (step === "Shipping") {
       if (
         lastActivableStep === "Customer" ||
-        lastActivableStep === "Shipping" ||
-        !isShipmentRequired
+        lastActivableStep === "Shipping"
       ) {
         setStatus("disabled")
         return
@@ -71,8 +66,7 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
       if (
         lastActivableStep === "Customer" ||
         lastActivableStep === "Shipping" ||
-        lastActivableStep === "Payment" ||
-        !isPaymentRequired
+        lastActivableStep === "Payment"
       ) {
         setStatus("disabled")
         return
