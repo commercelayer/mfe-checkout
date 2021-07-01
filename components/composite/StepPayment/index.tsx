@@ -54,7 +54,10 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
               <PaymentSourceBrandIcon className="mr-2" />
               <PaymentSourceBrandName className="mr-1">
                 {({ brand }) => {
-                  if (brand.includes("Wire transfer")) {
+                  if (
+                    brand.includes("Wire transfer") ||
+                    brand.includes("Paypal")
+                  ) {
                     return brand
                   }
                   return (

@@ -61,6 +61,21 @@ export const PaymentContainer: React.FC<Props> = ({ handleSave, children }) => {
               "inline-flex items-start justify-center w-full p-2 text-xs font-extrabold text-black bg-white border-2 border-primary rounded-md ring-4 ring-gray-200 ring-opacity-50 hover:opacity-80 focus:outline-none focus:ring-opacity-100 disabled:opacity-50 lg:w-auto",
           },
         },
+        paypalPayment: {
+          cancelUrl: window.location.href,
+          returnUrl: window.location.href,
+          infoMessage: {
+            text: t("stepPayment.paypalDescription"),
+            className: "text-sm text-gray-500",
+          },
+          submitButton: {
+            containerClassName: "flex justify-end pt-3",
+            onClick: handleSave,
+            label: t("stepPayment.setPaymentMethod"),
+            className:
+              "inline-flex items-start justify-center w-full p-2 text-xs font-extrabold text-black bg-white border-2 border-primary rounded-md ring-4 ring-gray-200 ring-opacity-50 hover:opacity-80 focus:outline-none focus:ring-opacity-100 disabled:opacity-50 lg:w-auto",
+          },
+        },
       }}
     >
       {children}

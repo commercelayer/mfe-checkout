@@ -11,7 +11,7 @@ import { CheckCss } from "components/ui/form/CheckBox"
 import { ErrorCss } from "components/ui/form/Error"
 
 export const ErrorWrapper = styled.div`
-  ${tw`bg-red-50 flex justify-center border border-2 border-red-300`}
+  ${tw`bg-red-50 flex justify-center border border-2 border-red-300 `}
   & + & {
     ${tw`mb-10 mt-5`}
   }
@@ -21,7 +21,7 @@ export const ErrorIco = styled.div`
 `
 export const ErrorMessage = styled.div`
   ${ErrorCss}
-  ${tw`flex-1 pt-0 pl-0 text-sm p-3`}
+  ${tw`flex-1 pt-0 pl-0 text-sm p-3 break-words break-all`}
 `
 export const StyledErrors = styled(Errors)`
   ${ErrorCss}

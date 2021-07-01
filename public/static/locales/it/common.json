@@ -23,6 +23,7 @@
 
     "error": {
         "shipments": "Alcune spedizioni mancano del metodo di spedizione",
+        "paymentMethod": "Lo step del pagamento non può rimanere vuoto",
         "transition": "La transizione non è consentita"
     },
 
@@ -85,6 +86,7 @@
         "creditCard": "Carta di credito",
         "wireTransfer": "Bonifico bancario",
         "wireTransferDescription": "Dopo aver effettuato l'ordine, dovrai completare manualmente il pagamento con la tua banca",
+        "paypalDescription": "Dopo aver effettuato l'ordine, sarai reindirizzato verso il sito PayPal per accedere e autorizzare il pagamento",
         "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento",
         "setPaymentMethod": "Imposta il metodo di pagamento",
         "endingIn": "<0/> finisce con <1/>",

@@ -32,7 +32,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
           <PaymentSourceBrandIcon className="mr-2" />
           <PaymentSourceBrandName className="mr-1">
             {({ brand }) => {
-              if (brand.includes("Wire transfer")) {
+              if (brand.includes("Wire transfer") || brand.includes("Paypal")) {
                 return brand
               }
               return (
@@ -44,22 +44,25 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
             }}
           </PaymentSourceBrandName>
         </div>
-        {paymentMethod?.paymentSourceType !== "wire_transfers" && (
-          <div className="pl-10 text-gray-500 lg:pl-2">
-            {t("stepPayment.expires")} <PaymentSourceDetail type="expMonth" />
-            /
-            <PaymentSourceDetail type="expYear" />
+        {paymentMethod?.paymentSourceType !== "wire_transfers" &&
+          paymentMethod?.paymentSourceType !== "paypal_payments" && (
+            <div className="pl-10 text-gray-500 lg:pl-2">
+              {t("stepPayment.expires")} <PaymentSourceDetail type="expMonth" />
+              /
+              <PaymentSourceDetail type="expYear" />
+            </div>
+          )}
+      </div>
+      {paymentMethod?.paymentSourceType !== "wire_transfers" &&
+        paymentMethod?.paymentSourceType !== "paypal_payments" &&
+        hasEditButton && (
+          <div className="ml-10 lg:ml-3">
+            <PaymentSourceEditButton
+              label={t("general.edit")}
+              className="text-sm font-bold leading-none border-b border-black text-primary border-opacity-10 md: transition ease-in duration-200 hover:border-opacity-50 hover:text-primary-dark focus:outline-none"
+            />
           </div>
         )}
-      </div>
-      {paymentMethod?.paymentSourceType !== "wire_transfers" && hasEditButton && (
-        <div className="ml-10 lg:ml-3">
-          <PaymentSourceEditButton
-            label={t("general.edit")}
-            className="text-sm font-bold leading-none border-b border-black text-primary border-opacity-10 md: transition ease-in duration-200 hover:border-opacity-50 hover:text-primary-dark focus:outline-none"
-          />
-        </div>
-      )}
     </Fragment>
   )
 }
