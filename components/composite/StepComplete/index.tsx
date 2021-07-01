@@ -42,7 +42,7 @@ export const StepComplete: React.FC<Props> = ({
 
   return (
     <Base>
-      <Container>
+      <ContainerFlex>
         <Wrapper>
           <Logo
             logoUrl={logoUrl}
@@ -79,16 +79,19 @@ export const StepComplete: React.FC<Props> = ({
           </Main>
           <Footer termsUrl={termsUrl} privacyUrl={privacyUrl} />
         </Wrapper>
-      </Container>
+      </ContainerFlex>
     </Base>
   )
 }
 
+const ContainerFlex = styled.div`
+  ${tw`w-full min-h-full flex min-h-inherit`}
+`
 const Main = styled.div`
   ${tw`flex flex-col flex-1 justify-center items-center text-center`}
 `
 const Wrapper = styled.div`
-  ${tw`flex flex-wrap justify-end items-stretch flex-col h-screen p-5 md:p-10 lg:px-20 lg:pb-10`}
+  ${tw`flex flex-col flex-1 p-5 md:p-10 lg:px-20 lg:pb-10`}
 `
 const Title = styled.h1`
   ${tw`text-2xl lg:text-4xl font-semibold mb-4`}
