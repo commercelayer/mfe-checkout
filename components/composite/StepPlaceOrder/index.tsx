@@ -95,7 +95,7 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
       <PlaceOrderContainer>
         <>
           {!!termsUrl && !!privacyUrl && (
-            <FlexContainer className="items-start pb-5 mb-5 border-b xl:items-center">
+            <FlexContainer className="items-start pb-5 mb-5 border-b xl:items-center lg:pl-8">
               <CheckboxWrapper>
                 <StyledPrivacyAndTermsCheckbox
                   id="privacy-terms"

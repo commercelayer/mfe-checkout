@@ -79,7 +79,7 @@ const AccordionIcon = styled.div`
   }
 `
 const AccordionBody = styled.div`
-  ${tw`max-h-0 transition duration-1000 ease-in opacity-0`}
+  ${tw`max-h-0 transition duration-1000 ease-in opacity-0 lg:ml-8`}
   .active & {
     ${tw`max-h-full opacity-100`}
   }
