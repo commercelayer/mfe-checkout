@@ -22,9 +22,12 @@
     },
 
     "error": {
+        "general": "Errore generale",
         "shipments": "Alcune spedizioni mancano del metodo di spedizione",
         "paymentMethod": "Lo step del pagamento non può rimanere vuoto",
-        "transition": "La transizione non è consentita"
+        "transition": "La transizione non è consentita",
+        "payer": "Non è stato approvato il pagamento",  
+        "resourceID": "L'ID della risorsa richiesto non è stato trovato"
     },
 
     "input":{

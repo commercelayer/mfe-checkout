@@ -22,9 +22,12 @@
     },
 
     "error": {
+        "general": "General error",
         "shipments": "Some shipments are missing the shipping method",
         "paymentMethod": "Step payment can't be blank",
-        "transition": "Transition is not permitted"
+        "transition": "Transition is not permitted",
+        "payer": "Payer has not approved payment",
+        "resourceID": "The requested resource ID was not found"
     },
 
     "input":{

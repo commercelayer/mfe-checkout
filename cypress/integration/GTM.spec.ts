@@ -118,11 +118,13 @@ describe("check Data Layers GTM", () => {
         [
           "@getShipments",
           "@getShipments",
+          "@getShipments",
+          "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getOrders",
+          "@retrieveLineItems",
           "@getOrders",
         ],
         {
@@ -133,21 +135,9 @@ describe("check Data Layers GTM", () => {
       cy.wait(
         [
           "@getShippingMethods",
-          "@getShipments",
-          "@getShipments",
-          "@getShipments",
-          "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@availablePaymentMethods",
           "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getCustomerAddresses",
         ],
         {
           timeout: 100000,
@@ -466,9 +456,11 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("payment-method-radio-button").each((e, i) => {
         cy.wrap(e).as(`paymentMethodRadioButton${i}`)
       })
-      cy.get("@paymentMethodRadioButton0").click()
+      cy.get("@paymentMethodRadioButton1").click()
       cy.wait(
         [
+          "@getShipments",
+          "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
@@ -476,7 +468,11 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@getOrders",
           "@updateOrder",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
           "@stripePayments",
+          "@availableCustomerPaymentSources",
+          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )
@@ -486,7 +482,7 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
       })
-      cy.get("@paymentSource0").within(() => {
+      cy.get("@paymentSource1").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
         cy.fillElementsInput("cardExpiry", "1025")
         cy.fillElementsInput("cardCvc", "123")

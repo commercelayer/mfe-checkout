@@ -56,17 +56,23 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
       field: "paymentMethod",
       message: t("error.paymentMethod"),
     },
-    /* {
-      code: "VALIDATION_ERROR",
-      resource: "order",
-      field: "base",
-      message: t("error.shipments"), //not shipments error but generic error
-    }, */
     {
       code: "VALIDATION_ERROR",
       resource: "order",
       field: "giftCardOrCouponCode",
       message: " ",
+    },
+    {
+      code: "PAYMENT_NOT_APPROVED_FOR_EXECUTION",
+      resource: "order",
+      field: "base",
+      message: t("error.payer"),
+    },
+    {
+      code: "INVALID_RESOURCE_ID",
+      resource: "order",
+      field: "base",
+      message: t("error.resourceID"),
     },
   ]
 
