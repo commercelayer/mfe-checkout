@@ -39,10 +39,7 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
   const { t } = useTranslation()
 
   const isCreditCard = () => {
-    if (paymentMethod?.paymentSourceType === "stripe_payments") {
-      return true
-    }
-    return false
+    return paymentMethod?.paymentSourceType === "stripe_payments"
   }
 
   const recapText = () => {
