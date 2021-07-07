@@ -7,13 +7,16 @@ export const PaymentMethodNameWithStripe: React.FC = () => {
   const { t } = useTranslation()
 
   const formatLabel = (value: string) => {
-    if (value === "Stripe Payment") {
-      return t("stepPayment.creditCard")
+    switch (value) {
+      case "Stripe Payment":
+        return t("stepPayment.creditCard")
+
+      case "Paypal Payment":
+        return "Paypal"
+
+      default:
+        return value
     }
-    if (value === "Paypal Payment") {
-      return "Paypal"
-    }
-    return value
   }
 
   return (
