@@ -1,5 +1,6 @@
 import { PlaceOrderContainer } from "@commercelayer/react-components"
 import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
+import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
@@ -29,6 +30,7 @@ interface Props {
 
 const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
   const { t } = useTranslation()
+  const { query } = useRouter()
 
   const [isPlacingOrder, setIsPlacingOrder] = useState(false)
 
@@ -51,14 +53,26 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
     {
       code: "VALIDATION_ERROR",
       resource: "order",
-      field: "base",
-      message: t("error.shipments"),
+      field: "paymentMethod",
+      message: t("error.paymentMethod"),
     },
     {
       code: "VALIDATION_ERROR",
       resource: "order",
       field: "giftCardOrCouponCode",
       message: " ",
+    },
+    {
+      code: "PAYMENT_NOT_APPROVED_FOR_EXECUTION",
+      resource: "order",
+      field: "base",
+      message: t("error.payer"),
+    },
+    {
+      code: "INVALID_RESOURCE_ID",
+      resource: "order",
+      field: "base",
+      message: t("error.resourceID"),
     },
   ]
 
@@ -92,7 +106,11 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
           }}
         </StyledErrors>
       </ErrorsContainer>
-      <PlaceOrderContainer>
+      <PlaceOrderContainer
+        options={{
+          paypalPayerId: query?.PayerID as string,
+        }}
+      >
         <>
           {!!termsUrl && !!privacyUrl && (
             <FlexContainer className="items-start pb-5 mb-5 border-b xl:items-center lg:pl-8">

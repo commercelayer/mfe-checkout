@@ -103,7 +103,7 @@ describe("Checkout Checkout Complete", () => {
       cy.dataCy("payment-method-radio-button").each((e, i) => {
         cy.wrap(e).as(`paymentMethodRadioButton${i}`)
       })
-      cy.get("@paymentMethodRadioButton0").click()
+      cy.get("@paymentMethodRadioButton1").click()
       cy.wait(
         [
           "@getShipments",
@@ -129,7 +129,7 @@ describe("Checkout Checkout Complete", () => {
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
       })
-      cy.get("@paymentSource0").within(() => {
+      cy.get("@paymentSource1").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
         cy.fillElementsInput("cardExpiry", "3333")
         cy.fillElementsInput("cardCvc", "333")

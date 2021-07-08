@@ -25,6 +25,10 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
 
   const { paymentMethod } = appCtx
 
+  const isCreditCard = () => {
+    return paymentMethod?.paymentSourceType === "stripe_payments"
+  }
+
   return (
     <Fragment>
       <div className="flex flex-col lg:items-center lg:flex-row">
@@ -32,19 +36,19 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
           <PaymentSourceBrandIcon className="mr-2" />
           <PaymentSourceBrandName className="mr-1">
             {({ brand }) => {
-              if (brand.includes("Wire transfer")) {
-                return brand
+              if (isCreditCard()) {
+                return (
+                  <Trans t={t} i18nKey="stepPayment.endingIn">
+                    {brand}
+                    <PaymentSourceDetail className="ml-1" type="last4" />
+                  </Trans>
+                )
               }
-              return (
-                <Trans t={t} i18nKey="stepPayment.endingIn">
-                  {brand}
-                  <PaymentSourceDetail className="ml-1" type="last4" />
-                </Trans>
-              )
+              return brand
             }}
           </PaymentSourceBrandName>
         </div>
-        {paymentMethod?.paymentSourceType !== "wire_transfers" && (
+        {isCreditCard() && (
           <div className="pl-10 text-gray-500 lg:pl-2">
             {t("stepPayment.expires")} <PaymentSourceDetail type="expMonth" />
             /
@@ -52,7 +56,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
           </div>
         )}
       </div>
-      {paymentMethod?.paymentSourceType !== "wire_transfers" && hasEditButton && (
+      {isCreditCard() && hasEditButton && (
         <div className="ml-10 lg:ml-3">
           <PaymentSourceEditButton
             label={t("general.edit")}

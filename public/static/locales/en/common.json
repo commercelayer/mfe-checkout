@@ -22,8 +22,12 @@
     },
 
     "error": {
+        "general": "General error",
         "shipments": "Some shipments are missing the shipping method",
-        "transition": "Transition is not permitted"
+        "paymentMethod": "Step payment can't be blank",
+        "transition": "Transition is not permitted",
+        "payer": "Payer has not approved payment",
+        "resourceID": "The requested resource ID was not found"
     },
 
     "input":{
@@ -85,6 +89,7 @@
         "creditCard": "Credit card",
         "wireTransfer": "Wire transfer",
         "wireTransferDescription": "After placing the order, you will need to manually complete the payment with your bank",
+        "paypalDescription": "After placing the order, you will be redirected to the PayPal website to sign in and authorize the payment",
         "addPaymentMethod": "Add shipping method before payment",
         "setPaymentMethod": "Set payment method",
         "endingIn": "<0/> ending in <1/>",

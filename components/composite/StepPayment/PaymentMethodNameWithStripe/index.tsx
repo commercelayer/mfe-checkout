@@ -6,14 +6,23 @@ import { useTranslation } from "react-i18next"
 export const PaymentMethodNameWithStripe: React.FC = () => {
   const { t } = useTranslation()
 
+  const formatLabel = (value: string) => {
+    switch (value) {
+      case "Stripe Payment":
+        return t("stepPayment.creditCard")
+
+      case "Paypal Payment":
+        return "Paypal"
+
+      default:
+        return value
+    }
+  }
+
   return (
     <PaymentMethodName>
       {({ htmlFor, labelName }) => (
-        <label htmlFor={htmlFor}>
-          {labelName === "Stripe Payment"
-            ? t("stepPayment.creditCard")
-            : labelName}
-        </label>
+        <label htmlFor={htmlFor}>{formatLabel(labelName)}</label>
       )}
     </PaymentMethodName>
   )

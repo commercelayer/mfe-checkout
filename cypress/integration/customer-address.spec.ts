@@ -689,7 +689,6 @@ describe("Checkout customer address", () => {
       cy.wait(
         [
           "@getShippingMethods",
-          "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
@@ -1156,7 +1155,6 @@ describe("Checkout customer address", () => {
           "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@getOrders",
