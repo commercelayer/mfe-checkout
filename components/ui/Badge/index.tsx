@@ -24,7 +24,7 @@ interface BadgeProps {
 }
 
 const StepBadge = styled.div<BadgeProps>(({ active, done }) => [
-  tw`rounded-full text-contrast flex justify-center items-center w-6 h-6 text-xs font-bold md:-left-3 md:relative`,
+  tw`rounded-full text-contrast flex justify-center items-center w-6 h-6 text-xs font-bold`,
   active && tw`bg-primary`,
   !active && tw`bg-gray-400`,
   done && tw`bg-green-400`,
