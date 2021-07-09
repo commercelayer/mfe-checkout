@@ -79,12 +79,12 @@ const AccordionIcon = styled.div`
   }
 `
 const AccordionBody = styled.div`
-  ${tw`max-h-0 transition duration-300 ease-in opacity-0 lg:ml-8`}
+  ${tw`max-h-0 transform scale-y-0 origin-top transition duration-200 ease-in lg:ml-8`}
   .active & {
-    ${tw`max-h-full opacity-100`}
+    ${tw`max-h-full scale-y-100`}
   }
 
   .disabled & {
-    ${tw`max-h-0 opacity-0`}
+    ${tw`max-h-0`}
   }
 `
