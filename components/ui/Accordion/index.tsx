@@ -4,6 +4,7 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 import { AccordionContext } from "components/data/AccordionProvider"
+import { AppContext } from "components/data/AppProvider"
 
 interface Props {
   index: number
@@ -18,12 +19,19 @@ export const Accordion: React.FC = ({ children }) => {
 
 export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
   const ctx = useContext(AccordionContext)
+  const appCtx = useContext(AppContext)
 
-  if (!ctx) return null
+  if (!ctx || !appCtx) return null
+
+  const handleSelection = () => {
+    if (ctx.status !== "disabled") {
+      return ctx.isActive ? appCtx.refetchOrder() : ctx.setStep()
+    }
+  }
 
   return (
     <AccordionTab
-      onClick={ctx.status !== "disabled" ? ctx.setStep : undefined}
+      onClick={handleSelection}
       tabIndex={index}
       className={classNames("group", {
         active: ctx.isActive,
@@ -64,10 +72,6 @@ const AccordionTab = styled.div`
 `
 const AccordionTabHeader = styled.div`
   ${tw`relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease duration-500 focus:bg-gray-500 md:pt-6 md:pb-0`}
-  .disabled &,
-  .active & {
-    ${tw`pointer-events-none`}
-  }
 `
 const AccordionTitle = styled.div`
   ${tw`transition ease duration-500`}
