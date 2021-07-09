@@ -5,6 +5,7 @@ interface AccordionProviderData {
   status: "edit" | "done" | "disabled"
   step: SingleStepEnum
   setStep: () => void
+  closeStep: () => void
 }
 
 export const AccordionContext = createContext<AccordionProviderData | null>(
@@ -33,6 +34,8 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   const setStep = () => {
     isStepRequired && setActiveStep && setActiveStep(step)
   }
+
+  const closeStep = () => setActiveStep && setActiveStep(lastActivableStep)
 
   useEffect(() => {
     setIsActive(step === activeStep)
@@ -82,6 +85,7 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
         isActive,
         step,
         setStep,
+        closeStep,
         status,
       }}
     >
