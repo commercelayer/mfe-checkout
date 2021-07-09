@@ -81,7 +81,11 @@ const AccordionTitle = styled.div`
 const AccordionIcon = styled.div`
   ${tw`transform transition ease duration-500`}
   .active & {
-    ${tw`-rotate-180 text-gray-400`}
+    ${tw`-rotate-180`}
+  }
+
+  .disabled & {
+    ${tw`text-gray-400`}
   }
 `
 const AccordionBody = styled.div`
