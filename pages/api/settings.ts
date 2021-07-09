@@ -86,7 +86,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(e)
   }
 
-  if (!order?.id) {
+  if (!order?.id || !organization?.id) {
     res.statusCode = 200
     return res.json({ validCheckout: false })
   }
