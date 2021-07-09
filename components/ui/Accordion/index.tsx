@@ -25,7 +25,7 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
 
   const handleSelection = () => {
     if (ctx.status !== "disabled") {
-      return ctx.isActive ? appCtx.refetchOrder() : ctx.setStep()
+      return ctx.isActive ? ctx.setLastActivableStep() : ctx.setStep()
     }
   }
 
