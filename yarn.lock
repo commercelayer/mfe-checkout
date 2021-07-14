@@ -4278,10 +4278,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-next-i18next@^8.5.3:
-  version "8.5.3"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-8.5.3.tgz#219cfb0567afbe505b47a0fc084fba5247fb985a"
-  integrity sha512-XV+dL7iW/aOpDMIcWIB2HhfSC9cpaM9yXggE9zJFh+7r2UxJVfC23pw3u5MHFgwkcw5daC4SDBvZoVRrXSFdYQ==
+next-i18next@^8.5.5:
+  version "8.5.5"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-8.5.5.tgz#d1a7476929236050986965eb59d6f44d7631d11a"
+  integrity sha512-zYXYToVB5W2qmDbWmuT/7j+PC/CqCysZsvMY2nmIyqpgaIBhMDKHYSi8+0nJ7SG1q7i9D+wQdJNd8KLdpe4/ng==
   dependencies:
     "@babel/runtime" "^7.13.17"
     "@types/hoist-non-react-statics" "^3.3.1"
