@@ -94,6 +94,9 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
               return null
             }
             return props.errors.map((error, index) => {
+              if (!error.trim()) {
+                return null
+              }
               return (
                 <ErrorWrapper key={index}>
                   <ErrorIco>
