@@ -34,9 +34,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
             <LineItemAmount className="pl-2 text-lg font-extrabold" />
           </LineItemTitle>
           <LineItemOptions className="font-bold" showAll>
-            <div className="flex flex-col justify-between text-sm">
-              <LineItemOption keyClassName="font-medium capitalize underline" />
-            </div>
+            <StyledLineItemOption keyClassName="font-medium capitalize underline" />
           </LineItemOptions>
           <LineItemQty>
             <LineItemQuantity>
@@ -66,4 +64,7 @@ const LineItemQty = styled.div`
 `
 const StyledLineItemSkuCode = styled(LineItemSkuCode)`
   ${tw`text-xxs uppercase text-gray-500 font-bold`}
+`
+const StyledLineItemOption = styled(LineItemOption)`
+  ${tw`flex flex-col justify-between text-sm`}
 `
