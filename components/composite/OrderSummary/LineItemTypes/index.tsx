@@ -5,6 +5,8 @@ import {
   LineItemQuantity,
   LineItemAmount,
   LineItemSkuCode,
+  LineItemOptions,
+  LineItemOption,
 } from "@commercelayer/react-components"
 import { LineItemType } from "@commercelayer/react-components/dist/typings"
 import { useTranslation } from "react-i18next"
@@ -31,6 +33,11 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
             <LineItemName className="font-bold" />
             <LineItemAmount className="pl-2 text-lg font-extrabold" />
           </LineItemTitle>
+          <LineItemOptions className="font-bold" showAll>
+            <div className="flex flex-col justify-between text-sm">
+              <LineItemOption keyClassName="font-medium capitalize underline" />
+            </div>
+          </LineItemOptions>
           <LineItemQty>
             <LineItemQuantity>
               {(props) =>
