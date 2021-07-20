@@ -42,6 +42,9 @@ module.exports = {
         ss: "0.813rem",
         xxs: "0.75rem",
       },
+      backgroundSize: {
+       '16': '1rem',
+      },
       width: {
         22: "5.75rem",
       },
