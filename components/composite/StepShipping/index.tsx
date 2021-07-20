@@ -150,7 +150,14 @@ export const StepShipping: React.FC<Props> = () => {
           <div>
             {accordionCtx.isActive && (
               <ShipmentsContainer>
-                <Shipment>
+                <Shipment
+                  loader={
+                    <div className="animate-pulse">
+                      <div className="w-1/2 h-5 bg-gray-200" />
+                      <div className="h-20 my-5 bg-gray-200" />
+                    </div>
+                  }
+                >
                   <ShippingWrapper>
                     <ShippingTitle>
                       <Trans t={t} i18nKey="stepShipping.shipment">

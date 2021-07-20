@@ -54,7 +54,14 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
       <>
         <div className="flex">
           <PaymentMethodsContainer>
-            <PaymentSource readonly>
+            <PaymentSource
+              readonly
+              loader={
+                <div className="animate-pulse">
+                  <div className="my-5 bg-gray-200 h-7" />
+                </div>
+              }
+            >
               <PaymentSourceBrandIcon className="mr-2" />
               <PaymentSourceBrandName className="mr-1">
                 {({ brand }) => {

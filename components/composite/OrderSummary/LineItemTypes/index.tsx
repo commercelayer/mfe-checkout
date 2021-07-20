@@ -33,8 +33,8 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
             <LineItemName className="font-bold" />
             <LineItemAmount className="pl-2 text-lg font-extrabold" />
           </LineItemTitle>
-          <LineItemOptions className="font-bold" showAll>
-            <StyledLineItemOption keyClassName="font-medium capitalize underline" />
+          <LineItemOptions className="font-bold" showAll showName={false}>
+            <StyledLineItemOption className="font-medium underline capitalize" />
           </LineItemOptions>
           <LineItemQty>
             <LineItemQuantity>
