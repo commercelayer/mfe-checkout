@@ -62,7 +62,16 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   return (
     <CustomerContainer>
       <PaymentContainer handleSave={handleSave}>
-        <PaymentMethod activeClass="active" className="payment">
+        <PaymentMethod
+          activeClass="active"
+          className="payment"
+          loader={
+            <div className="animate-pulse">
+              <div className="my-5 bg-gray-200 h-7" />
+              <div className="my-5 bg-gray-200 h-7" />
+            </div>
+          }
+        >
           <PaymentWrapper>
             <PaymentSummaryList />
             <PaymentSourceContainer data-cy="payment-source">
@@ -75,6 +84,12 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
                 templateCustomerSaveToWallet={(props) => (
                   <TemplateSaveToWalletCheckbox {...props} />
                 )}
+                loader={
+                  <div className="animate-pulse">
+                    <div className="my-5 bg-gray-200 h-7" />
+                    <div className="my-5 bg-gray-200 h-7" />
+                  </div>
+                }
               >
                 <PaymentDetailsWrapper>
                   <PaymentDetails hasEditButton />
