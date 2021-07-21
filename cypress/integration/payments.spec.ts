@@ -98,7 +98,6 @@ describe("Checkout Payments", () => {
           "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -241,7 +240,6 @@ describe("Checkout Payments", () => {
           "@availablePaymentMethods",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
         ],
         { timeout: 100000 }
@@ -299,7 +297,6 @@ describe("Checkout Payments", () => {
           "@getOrderShipments",
           "@getOrderShipments",
           "@availablePaymentMethods",
-          "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@getOrders",

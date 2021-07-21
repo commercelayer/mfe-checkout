@@ -38,7 +38,6 @@ describe("Checkout language", () => {
             "@getOrderShipments",
             "@retrieveLineItems",
             "@retrieveLineItems",
-            "@retrieveLineItems",
             "@getOrders",
           ],
           {
@@ -87,7 +86,6 @@ describe("Checkout language", () => {
             "@getShippingMethods",
             "@getOrderShipments",
             "@getOrderShipments",
-            "@retrieveLineItems",
             "@retrieveLineItems",
             "@retrieveLineItems",
             "@getOrders",

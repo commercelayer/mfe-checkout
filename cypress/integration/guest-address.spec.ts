@@ -46,7 +46,6 @@ describe("Checkout guest address", () => {
           "@getOrderShipments",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
         ],
         { timeout: 100000 }
@@ -225,7 +224,6 @@ describe("Checkout guest address", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
         ],
         { timeout: 100000 }
@@ -308,7 +306,6 @@ describe("Checkout guest address", () => {
           "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
