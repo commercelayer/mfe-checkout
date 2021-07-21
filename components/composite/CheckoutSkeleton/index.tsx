@@ -25,7 +25,7 @@ export const CheckoutSkeleton: React.FC = () => {
                   <SkeletonBox className="w-1/5 h-6" />
                 </div>
               </div>
-              <div className="flex flex-col ml-30">
+              <div className="flex flex-col md:ml-30">
                 <SkeletonBox className="w-full h-12 mt-5 mb-10" />
                 <div className="flex justify-between mt-2">
                   <SkeletonBox className="w-2/4 h-4" />
@@ -52,9 +52,12 @@ export const CheckoutSkeleton: React.FC = () => {
         <div className="animate-pulse">
           <div className="flex flex-row items-baseline justify-between">
             <SkeletonBox className="w-40 h-10" />
-            <SkeletonBox className="w-20 h-6" />
+            <SkeletonBox className="hidden w-20 h-6 md:block" />
           </div>
-          <SkeletonBox className="w-4/6 h-4 mt-5" />
+          <div className="flex items-baseline justify-between">
+            <SkeletonBox className="w-2/5 h-6 mt-10 md:w-4/6 md:mt-5" />
+            <SkeletonBox className="block w-20 h-6 md:hidden" />
+          </div>
           <div className="flex mt-16">
             <div className="w-8 mr-5">
               <SkeletonCircle className="w-8 h-8" />
@@ -92,7 +95,7 @@ export const CheckoutSkeleton: React.FC = () => {
 }
 
 const Sidebar = styled.div`
-  ${tw`flex flex-col min-h-full p-5 lg:pl-20 lg:pr-10 lg:pt-10 xl:pl-48 bg-gray-100`}
+  ${tw`flex flex-col min-h-full p-5 lg:pl-20 lg:pr-10 pt-10 xl:pl-48`}
 `
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}
