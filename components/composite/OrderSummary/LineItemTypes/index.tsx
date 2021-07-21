@@ -68,7 +68,7 @@ const StyledLineItemSkuCode = styled(LineItemSkuCode)`
 const StyledLineItemOption = styled(LineItemOption)`
   ${tw`text-gray-500 text-xs flex font-medium capitalize pl-5 mt-1.5 bg-no-repeat bg-16`}
   span {
-    ${tw`font-bold text-gray-600 ml-1 overflow-ellipsis`}
+    ${tw`font-bold text-gray-600 ml-1 line-clamp-3 md:line-clamp-6`}
   }
 
   &:not(span) {
