@@ -8,16 +8,41 @@ export const CheckoutSkeleton: React.FC = () => {
     <LayoutDefault
       aside={
         <Sidebar>
-          <div className="animate-pulse">
-            <div className="w-1/2 h-16 mb-8 bg-gray-200" />
+          <div className="flex mb-12 animate-pulse">
+            <SkeletonCircle className="w-10 h-10 mr-5" />
+            <SkeletonBox className="w-1/2 h-10 bg-gray-200" />
           </div>
           <SummaryWrapper>
             <div className="animate-pulse">
-              <div className="w-1/2 h-5 bg-gray-200" />
-              <div className="w-1/2 h-5 mt-2 bg-gray-200" />
-              <div className="h-20 mt-5 bg-gray-200" />
-              <div className="grid justify-items-end">
-                <div className="w-3/4 mt-5 bg-gray-200 h-60" />
+              <SkeletonBox className="w-2/6 h-6 bg-gray-200" />
+              <SkeletonBox className="w-1/2 h-4 mt-2 bg-gray-200" />
+              <div className="flex my-8">
+                <SkeletonBox className="w-24 h-24 mr-6" />
+                <div className="flex flex-col flex-1 gap-3">
+                  <SkeletonBox className="w-1/2 h-3" />
+                  <SkeletonBox className="w-full h-6" />
+                  <SkeletonBox className="w-2/5 h-3" />
+                  <SkeletonBox className="w-1/5 h-6" />
+                </div>
+              </div>
+              <div className="flex flex-col ml-30">
+                <SkeletonBox className="w-full h-12 mt-5 mb-10" />
+                <div className="flex justify-between mt-2">
+                  <SkeletonBox className="w-2/4 h-4" />
+                  <SkeletonBox className="w-1/5 h-4" />
+                </div>
+                <div className="flex justify-between mt-2">
+                  <SkeletonBox className="w-2/4 h-4" />
+                  <SkeletonBox className="w-1/5 h-4" />
+                </div>
+                <div className="flex justify-between mt-2">
+                  <SkeletonBox className="w-2/4 h-4" />
+                  <SkeletonBox className="w-1/5 h-4" />
+                </div>
+                <div className="flex justify-between mt-12">
+                  <SkeletonBox className="w-1/4 h-6" />
+                  <SkeletonBox className="w-1/5 h-6" />
+                </div>
               </div>
             </div>
           </SummaryWrapper>
@@ -26,12 +51,40 @@ export const CheckoutSkeleton: React.FC = () => {
       main={
         <div className="animate-pulse">
           <div className="flex flex-row items-baseline justify-between">
-            <div className="w-40 h-10 bg-gray-200" />
-            <div className="w-40 h-8 bg-gray-200" />
+            <SkeletonBox className="w-40 h-10" />
+            <SkeletonBox className="w-20 h-6" />
           </div>
-          <div className="h-5 mt-5 bg-gray-200" />
-          <div className="w-auto mt-5 bg-gray-200 h-60" />
-          <div className="w-auto mt-5 bg-gray-200 h-60" />
+          <SkeletonBox className="w-4/6 h-4 mt-5" />
+          <div className="flex mt-16">
+            <div className="w-8 mr-5">
+              <SkeletonCircle className="w-8 h-8" />
+            </div>
+            <div className="w-full">
+              <SkeletonBox className="w-4/6 h-6 mb-3" />
+              <SkeletonBox className="w-2/5 h-3" />
+            </div>
+          </div>
+          <div className="flex mt-16">
+            <div className="w-8 mr-5">
+              <SkeletonCircle className="w-8 h-8" />
+            </div>
+            <div className="w-full">
+              <SkeletonBox className="w-4/6 h-6 mb-3" />
+              <SkeletonBox className="w-2/5 h-3" />
+            </div>
+          </div>
+          <div className="flex mt-16">
+            <div className="w-8 mr-5">
+              <SkeletonCircle className="w-8 h-8" />
+            </div>
+            <div className="w-full">
+              <SkeletonBox className="w-4/6 h-6 mb-3" />
+              <SkeletonBox className="w-2/5 h-3" />
+            </div>
+          </div>
+          <div className="flex justify-end mt-16">
+            <SkeletonBox className="w-2/5 h-10" />
+          </div>
         </div>
       }
     />
@@ -44,4 +97,11 @@ const Sidebar = styled.div`
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}
 `
+const SkeletonBox = styled.div`
+  ${tw`bg-gray-200 rounded-xl`}
+`
+const SkeletonCircle = styled(SkeletonBox)`
+  ${tw`rounded-full`}
+`
+
 export default CheckoutSkeleton

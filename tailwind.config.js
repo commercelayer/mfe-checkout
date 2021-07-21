@@ -55,6 +55,9 @@ module.exports = {
         '75': '0 0 75px',
         '85': '0 0 85px',
       },
+      margin: {
+        '30': '7.5rem',
+       },
       boxShadow: {
         bottom: '0 2px 0 0 rgba(0, 0, 0, 0.05)',
         inner: '0 0 0 1000px rgba(255, 255, 255, 1) inset',
