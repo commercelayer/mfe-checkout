@@ -33,8 +33,8 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
             <LineItemName className="font-bold" />
             <LineItemAmount className="pl-2 text-lg font-extrabold" />
           </LineItemTitle>
-          <LineItemOptions className="font-bold" showAll>
-            <StyledLineItemOption keyClassName="font-medium capitalize underline" />
+          <LineItemOptions showAll showName={false}>
+            <StyledLineItemOption />
           </LineItemOptions>
           <LineItemQty>
             <LineItemQuantity>
@@ -60,11 +60,24 @@ const LineItemTitle = styled.div`
   ${tw`flex justify-between`}
 `
 const LineItemQty = styled.div`
-  ${tw`text-xs uppercase mt-1 text-gray-600`}
+  ${tw`text-xs uppercase mt-1 bg-gray-300 max-w-max py-1 px-2.5 rounded-full tracking-wider text-gray-500 font-bold`}
 `
 const StyledLineItemSkuCode = styled(LineItemSkuCode)`
   ${tw`text-xxs uppercase text-gray-500 font-bold`}
 `
 const StyledLineItemOption = styled(LineItemOption)`
-  ${tw`flex flex-col justify-between text-sm`}
+  ${tw`text-gray-500 text-xs flex font-medium capitalize pl-5 mt-1.5 bg-no-repeat bg-16`}
+  span {
+    ${tw`font-bold text-gray-600 ml-1 overflow-ellipsis`}
+  }
+
+  &:not(span) {
+    ${tw`font-medium`}
+  }
+
+  &:last-of-type {
+    ${tw`mb-1.5`}
+  }
+
+  background-image: url("data:image/svg+xml;utf8;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJoLTUgdy01IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGZpbGw9ImN1cnJlbnRDb2xvciI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTAuMjkzIDUuMjkzYTEgMSAwIDAxMS40MTQgMGw0IDRhMSAxIDAgMDEwIDEuNDE0bC00IDRhMSAxIDAgMDEtMS40MTQtMS40MTRMMTIuNTg2IDExSDVhMSAxIDAgMTEwLTJoNy41ODZsLTIuMjkzLTIuMjkzYTEgMSAwIDAxMC0xLjQxNHoiIGNsaXAtcnVsZT0iZXZlbm9kZCIgLz4KPC9zdmc+");
 `

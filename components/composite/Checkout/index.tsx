@@ -2,6 +2,7 @@ import { useContext } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import { CheckoutSkeleton } from "components/composite/CheckoutSkeleton"
 import { MainHeader } from "components/composite/MainHeader"
 import { OrderSummary } from "components/composite/OrderSummary"
 import { StepComplete } from "components/composite/StepComplete"
@@ -26,7 +27,6 @@ import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
-import { SpinnerLoader } from "components/ui/SpinnerLoader"
 
 interface Props {
   logoUrl: string
@@ -49,18 +49,12 @@ const Checkout: React.FC<Props> = ({
 }) => {
   const ctx = useContext(AppContext)
 
-  const {
-    activeStep,
-    lastActivableStep,
-    setActiveStep,
-    // isLoading,
-    steps,
-  } = useActiveStep()
+  const { activeStep, lastActivableStep, setActiveStep, steps } =
+    useActiveStep()
 
   if (!ctx || ctx.isFirstLoading) {
-    return <SpinnerLoader />
+    return <CheckoutSkeleton />
   }
-
   const renderComplete = () => {
     return (
       <StepComplete
