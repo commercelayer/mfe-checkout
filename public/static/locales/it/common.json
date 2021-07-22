@@ -1,7 +1,7 @@
 {
 
     "general": {
-        "title": "Commerce Layer - Hosted Checkout (IT)",
+        "title": "{{companyName}} - Checkout",
         "yes": "Si",
         "no": "No",
         "cancel": "Cancella",

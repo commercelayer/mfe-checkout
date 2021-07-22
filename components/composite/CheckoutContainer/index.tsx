@@ -1,9 +1,8 @@
 import "twin.macro"
 import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
-import Head from "next/head"
-import { useTranslation } from "react-i18next"
 import { createGlobalStyle } from "styled-components"
 
+import { CheckoutHead } from "components/composite/CheckoutTitle"
 import { AppProvider } from "components/data/AppProvider"
 import { GTMProvider } from "components/data/GTMProvider"
 import { RollbarProvider } from "components/data/RollbarProvider"
@@ -31,14 +30,9 @@ interface Props {
 }
 
 const CheckoutContainer: React.FC<Props> = ({ settings, children }) => {
-  const { t } = useTranslation()
-
   return (
     <div>
-      <Head>
-        <title>{t("general.title")}</title>
-        <link rel="icon" href={settings.favicon} />
-      </Head>
+      <CheckoutHead title={settings.companyName} favicon={settings.favicon} />
       <RollbarProvider>
         <CommerceLayer
           accessToken={settings.accessToken}
