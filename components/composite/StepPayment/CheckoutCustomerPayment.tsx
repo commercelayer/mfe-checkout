@@ -14,6 +14,7 @@ import { Label } from "components/ui/Label"
 
 import { PaymentContainer } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
+import { PaymentSkeleton } from "./PaymentSkeleton"
 import { PaymentSummaryList } from "./PaymentSummaryList"
 import {
   PaymentWrapper,
@@ -65,12 +66,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
         <PaymentMethod
           activeClass="active"
           className="payment"
-          loader={
-            <div className="animate-pulse">
-              <div className="my-5 bg-gray-200 h-7" />
-              <div className="my-5 bg-gray-200 h-7" />
-            </div>
-          }
+          loader={PaymentSkeleton}
         >
           <PaymentWrapper>
             <PaymentSummaryList />
@@ -84,12 +80,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
                 templateCustomerSaveToWallet={(props) => (
                   <TemplateSaveToWalletCheckbox {...props} />
                 )}
-                loader={
-                  <div className="animate-pulse">
-                    <div className="my-5 bg-gray-200 h-7" />
-                    <div className="my-5 bg-gray-200 h-7" />
-                  </div>
-                }
+                loader={PaymentSkeleton}
               >
                 <PaymentDetailsWrapper>
                   <PaymentDetails hasEditButton />
