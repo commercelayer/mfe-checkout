@@ -22,7 +22,7 @@ export const CheckoutPayment: React.FC<Props> = ({ handleSave }: Props) => {
           <PaymentSummaryList />
           <PaymentSourceContainer data-cy="payment-source">
             <PaymentSource
-              className="flex flex-row py-2 my-2"
+              className="flex flex-col"
               loader={
                 <div className="animate-pulse">
                   <div className="my-5 bg-gray-200 h-7" />
