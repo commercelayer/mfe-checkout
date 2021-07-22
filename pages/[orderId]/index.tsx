@@ -23,7 +23,6 @@ const Home: NextPage = () => {
   const { settings, isLoading } = useSettingsOrInvalid()
 
   if (isLoading || !settings) return <CheckoutSkeleton />
-  // if (true) return <CheckoutSkeleton />
 
   return (
     <DynamicCheckoutContainer settings={settings}>
