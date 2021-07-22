@@ -19,6 +19,7 @@ import { StepHeader } from "components/ui/StepHeader"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
+import { PaymentSkeleton } from "./PaymentSkeleton"
 
 interface HeaderProps {
   className?: string
@@ -54,14 +55,7 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
       <>
         <div className="flex">
           <PaymentMethodsContainer>
-            <PaymentSource
-              readonly
-              loader={
-                <div className="animate-pulse">
-                  <div className="my-5 bg-gray-200 h-7" />
-                </div>
-              }
-            >
+            <PaymentSource readonly loader={<PaymentSkeleton />}>
               <PaymentSourceBrandIcon className="mr-2" />
               <PaymentSourceBrandName className="mr-1">
                 {({ brand }) => {
