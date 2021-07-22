@@ -37,7 +37,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>{t("general.title")}</title>
+        <title>{`${settings.companyName} - Checkout`}</title>
         <link rel="icon" href={settings.favicon} />
       </Head>
 
