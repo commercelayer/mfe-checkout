@@ -12,8 +12,8 @@ export const PaymentWrapper = styled.div`
     ${tw`mb-0`}
   }
 
-  .active & {
-    ${tw`bg-contrast`}
+  .payment.active & {
+    ${tw`border-primary bg-white`}
   }
 `
 export const PaymentSummary = styled.div`
