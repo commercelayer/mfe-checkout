@@ -1,9 +1,8 @@
 import "twin.macro"
 import { NextPage } from "next"
-import Head from "next/head"
-import { useTranslation } from "react-i18next"
 import { createGlobalStyle, ThemeProvider } from "styled-components"
 
+import { CheckoutHead } from "components/composite/CheckoutTitle"
 import { StepComplete } from "components/composite/StepComplete"
 
 interface GlobalStyleProps {
@@ -18,8 +17,6 @@ const GlobalCssStyle = createGlobalStyle<GlobalStyleProps>`
 `
 
 const Home: NextPage = () => {
-  const { t } = useTranslation()
-
   const settings = {
     logoUrl:
       "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
@@ -36,12 +33,7 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <Head>
-        <title>
-          {t("general.title", { companyName: settings.companyName })}
-        </title>
-        <link rel="icon" href={settings.favicon} />
-      </Head>
+      <CheckoutHead title={settings.companyName} favicon={settings.favicon} />
 
       <GlobalCssStyle
         primaryColor={settings.primaryColor}
