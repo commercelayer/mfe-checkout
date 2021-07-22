@@ -1,6 +1,7 @@
 {
 
     "general": {
+        "title": "{{companyName}} - Checkout",
         "yes": "Yes",
         "no": "No",
         "cancel": "Cancel",

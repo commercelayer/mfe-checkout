@@ -36,7 +36,9 @@ const CheckoutContainer: React.FC<Props> = ({ settings, children }) => {
   return (
     <div>
       <Head>
-        <title>{`${settings.companyName} - Checkout`}</title>
+        <title>
+          {t("general.title", { companyName: settings.companyName })}
+        </title>
         <link rel="icon" href={settings.favicon} />
       </Head>
       <RollbarProvider>
