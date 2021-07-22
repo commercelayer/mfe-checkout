@@ -57,7 +57,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-tailwind": "^0.2.1",
     "faker": "^5.5.3",
-    "postcss": "^8.3.5",
+    "postcss": "^8.3.6",
     "prettier": "^2.3.2",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
