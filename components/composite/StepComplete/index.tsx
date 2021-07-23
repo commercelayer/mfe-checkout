@@ -6,7 +6,6 @@ import tw from "twin.macro"
 import { AppContext } from "components/data/AppProvider"
 import { Base } from "components/ui/Base"
 import { Button } from "components/ui/Button"
-import { Container } from "components/ui/Container"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 
