@@ -110,6 +110,7 @@
         "billing_address_state_code": "State",
         "billing_address_zip_code": "Zip Code",
         "billing_address_phone": "Phone",
+        "billing_address_billing_info": "Billing info",
         "ship_to_different_address": "Ship to different address",
         "shipping_address_title": "Shipping Address",
         "shipped_to": "Ship to:",

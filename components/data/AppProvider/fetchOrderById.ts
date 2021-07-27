@@ -48,6 +48,7 @@ export interface FetchOrderByIdResponse {
   shippingAddress: AddressCollection | null
   hasBillingAddress: boolean
   billingAddress: AddressCollection | null
+  requiresBillingInfo: boolean
   hasShippingMethod: boolean
   paymentMethod: PaymentMethodCollection | null
   shipments: Array<ShipmentSelected>
@@ -398,6 +399,10 @@ export const fetchOrderById = async ({
 
     const returnUrl = order.returnUrl
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const requiresBillingInfo = order.requiresBillingInfo
+
     await i18n.changeLanguage(order.languageCode)
 
     return {
@@ -412,6 +417,7 @@ export const fetchOrderById = async ({
       shippingAddress,
       hasBillingAddress,
       billingAddress,
+      requiresBillingInfo,
       hasShippingMethod,
       paymentMethod,
       shipments: shipmentsSelected as unknown as ShipmentSelected[],
@@ -436,6 +442,7 @@ export const fetchOrderById = async ({
       shippingAddress: null,
       hasBillingAddress: false,
       billingAddress: null,
+      requiresBillingInfo: false,
       hasShippingMethod: false,
       shipments: [],
       paymentMethod: null,

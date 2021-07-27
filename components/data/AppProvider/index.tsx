@@ -28,6 +28,7 @@ const initialState: AppStateData = {
   emailAddress: "",
   hasBillingAddress: false,
   billingAddress: null,
+  requiresBillingInfo: false,
   isShipmentRequired: true,
   shippingAddress: null,
   hasShippingMethod: false,

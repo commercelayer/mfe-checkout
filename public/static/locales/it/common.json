@@ -110,6 +110,7 @@
         "billing_address_state_code": "State",
         "billing_address_zip_code": "CAP",
         "billing_address_phone": "Telefono",
+        "billing_address_billing_info": "Informazioni di fatturazione",
         "ship_to_different_address": "Spedisci ad un altro indirizzo",
         "shipping_address_title": "Indirizzo di spedizione",
         "shipped_to": "Spedito a:",
