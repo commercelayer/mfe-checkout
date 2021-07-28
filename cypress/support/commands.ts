@@ -148,7 +148,7 @@ Cypress.Commands.add("createAddress", (options) => {
           state_code: options.stateCode,
           country_code: options.countryCode,
           phone: options.phone,
-          billing_info: options.billingInfo,
+          ...(options?.billingInfo && { billing_info: options?.billingInfo }),
         },
       },
     },

@@ -5,7 +5,7 @@ describe("Checkout guest address", () => {
   const emailCustomer = "gigi@buffon.it"
 
   context("initial order empty", () => {
-    before(function () {
+    beforeEach(function () {
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: "alessani@gmail.tk",
@@ -66,7 +66,7 @@ describe("Checkout guest address", () => {
       cy.dataCy("customer_email").should("contain.value", emailCustomer)
     })
 
-    it("fill billing form and save", () => {
+    it("fill billing form and save", function () {
       cy.dataCy("input_billing_address_first_name").type(euAddress.firstName)
       cy.dataCy("input_billing_address_last_name").type(euAddress.lastName)
       cy.dataCy("input_billing_address_line_1").type(euAddress.line1)
@@ -77,6 +77,12 @@ describe("Checkout guest address", () => {
       cy.dataCy("input_billing_address_state_code").type(euAddress.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress.phone)
+
+      if (this.newOrder.attributes.requires_billing_info) {
+        cy.dataCy("input_billing_address_billing_info").type(
+          euAddress.billingInfo
+        )
+      }
 
       cy.dataCy("save-addresses-button").click()
 

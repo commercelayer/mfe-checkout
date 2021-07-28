@@ -18,7 +18,7 @@ describe("Checkout customer address", () => {
   })
 
   context("initial order empty", () => {
-    before(function () {
+    beforeEach(function () {
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: email,
@@ -67,7 +67,7 @@ describe("Checkout customer address", () => {
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
-    it("fill billing form and save", () => {
+    it("fill billing form and save", function () {
       cy.dataCy("input_billing_address_first_name").type(euAddress.firstName)
       cy.dataCy("input_billing_address_last_name").type(euAddress.lastName)
       cy.dataCy("input_billing_address_line_1").type(euAddress.line1)
@@ -78,6 +78,12 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_state_code").type(euAddress.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress.phone)
+
+      if (this.newOrder.attributes.requires_billing_info) {
+        cy.dataCy("input_billing_address_billing_info").type(
+          euAddress.billingInfo
+        )
+      }
 
       cy.dataCy("save-addresses-button").click()
 
@@ -110,7 +116,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.stateCode)
     })
 
-    it("ship to different address, fill shipping form and save", () => {
+    it("ship to different address, fill shipping form and save", function () {
       cy.dataCy("step_customer")
         .click()
         .should("have.attr", "data-status", "true")
@@ -175,7 +181,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.stateCode)
     })
 
-    it("edit billing address, fill billing form and save", () => {
+    it("edit billing address, fill billing form and save", function () {
       cy.dataCy("step_customer")
         .click()
         .should("have.attr", "data-status", "true")
@@ -208,6 +214,12 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_phone").type(
         `{selectall}{backspace}${euAddress3.phone}`
       )
+
+      if (this.newOrder.attributes.requires_billing_info) {
+        cy.dataCy("input_billing_address_billing_info").type(
+          euAddress3.billingInfo
+        )
+      }
 
       cy.dataCy("save-addresses-button").click()
 
@@ -372,7 +384,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.stateCode)
     })
 
-    it("edit billing address, fill billing form and save", () => {
+    it("edit billing address, fill billing form and save", function () {
       cy.dataCy("step_customer")
         .click()
         .should("have.attr", "data-status", "true")
@@ -405,6 +417,12 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_phone").type(
         `{selectall}{backspace}${euAddress3.phone}`
       )
+
+      if (this.newOrder.attributes.requires_billing_info) {
+        cy.dataCy("input_billing_address_billing_info").type(
+          euAddress3.billingInfo
+        )
+      }
 
       cy.dataCy("save-addresses-button").click()
 
@@ -719,7 +737,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.stateCode)
     })
 
-    it("add custom billing address and save", () => {
+    it("add custom billing address and save", function () {
       cy.dataCy("step_customer").click()
 
       cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
@@ -738,6 +756,12 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_state_code").type(euAddress2.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
+
+      if (this.newOrder.attributes.requires_billing_info) {
+        cy.dataCy("input_billing_address_billing_info").type(
+          euAddress2.billingInfo
+        )
+      }
 
       cy.dataCy("save-addresses-button").click()
 
@@ -1124,7 +1148,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.stateCode)
     })
 
-    it("add custom billing address and save", () => {
+    it("add custom billing address and save", function () {
       cy.dataCy("step_customer")
         .click()
         .should("have.attr", "data-status", "true")
@@ -1145,6 +1169,12 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_state_code").type(euAddress2.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
+
+      if (this.newOrder.attributes.requires_billing_info) {
+        cy.dataCy("input_billing_address_billing_info").type(
+          euAddress2.billingInfo
+        )
+      }
 
       cy.dataCy("save-addresses-button").click()
 
@@ -1492,7 +1522,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").should("be.disabled")
     })
 
-    it("add custom billing address and save is disabled", () => {
+    it("add custom billing address and save is disabled", function () {
       cy.dataCy("add_new_billing_address").click()
 
       cy.dataCy("input_billing_address_first_name").type(euAddress2.firstName)
@@ -1505,6 +1535,12 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_state_code").type(euAddress2.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
+
+      if (this.newOrder.attributes.requires_billing_info) {
+        cy.dataCy("input_billing_address_billing_info").type(
+          euAddress2.billingInfo
+        )
+      }
 
       cy.dataCy("save-addresses-button").should("be.disabled")
     })
