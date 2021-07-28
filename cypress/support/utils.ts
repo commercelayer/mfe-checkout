@@ -16,6 +16,7 @@ export const euAddress = {
   phone: "+39 055 1234567890",
   stateCode: "GE",
   zipCode: "16030",
+  billingInfo: "ABCDEFGHIJKLMNOPQRSTUVWYXZ",
 }
 
 export const euAddress2 = {
@@ -28,6 +29,7 @@ export const euAddress2 = {
   phone: "+39 010 010101010",
   stateCode: "RN",
   zipCode: "32100",
+  billingInfo: "0ABCDEFGHIJKLMNOPQRSTUVWYX",
 }
 
 export const euAddress3 = {
@@ -40,4 +42,5 @@ export const euAddress3 = {
   phone: "+39 123 321123123",
   stateCode: "TO",
   zipCode: "010101",
+  billingInfo: "00CDEFGHIJKLMNOPQRSTUVWYXZ",
 }
