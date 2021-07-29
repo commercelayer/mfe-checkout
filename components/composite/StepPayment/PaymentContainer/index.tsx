@@ -24,7 +24,7 @@ export const PaymentContainer: React.FC<Props> = ({ handleSave, children }) => {
               base: {
                 color: "#000",
                 fontWeight: "400",
-                fontSize: "18px",
+                fontSize: "16px",
                 fontFamily: "Manrope, sans-serif",
                 ":-webkit-autofill": {
                   color: "#fce883",
