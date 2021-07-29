@@ -48,7 +48,7 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
               {({ address }) => (
                 <p data-cy="full-billing-information">
                   {address.name}
-                  {address.billingInfo ? ", " + address.billingInfo : ""}
+                  {address.billingInfo && `, ${address.billingInfo}`}
                 </p>
               )}
             </AddressField>
@@ -66,7 +66,7 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
                   <>
                     <p data-cy="full-billing-information">
                       {address.name}
-                      {address.billingInfo ? ", " + address.billingInfo : ""}
+                      {address.billingInfo && `, ${address.billingInfo}`}
                     </p>
                   </>
                 )}
