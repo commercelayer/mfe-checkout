@@ -10,6 +10,8 @@ import {
 import { useTranslation } from "react-i18next"
 
 import "twin.macro"
+import StepPlaceOrder from "../StepPlaceOrder"
+
 import { Label } from "components/ui/Label"
 
 import { PaymentContainer } from "./PaymentContainer"
@@ -24,10 +26,14 @@ import {
 } from "./styled"
 
 interface Props {
+  termsUrl: string
+  privacyUrl: string
   handleSave: () => void
 }
 
 export const CheckoutCustomerPayment: React.FC<Props> = ({
+  termsUrl,
+  privacyUrl,
   handleSave,
 }: Props) => {
   const { t } = useTranslation()
@@ -62,7 +68,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
 
   return (
     <CustomerContainer>
-      <PaymentContainer handleSave={handleSave}>
+      <PaymentContainer>
         <PaymentMethod
           activeClass="active"
           className="payment"
@@ -89,6 +95,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
             </PaymentSourceContainer>
           </PaymentWrapper>
         </PaymentMethod>
+        <StepPlaceOrder termsUrl={termsUrl} privacyUrl={privacyUrl} />
       </PaymentContainer>
     </CustomerContainer>
   )

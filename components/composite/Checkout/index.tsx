@@ -15,7 +15,6 @@ import {
   StepPayment,
   StepHeaderPayment,
 } from "components/composite/StepPayment"
-import StepPlaceOrder from "components/composite/StepPlaceOrder"
 import {
   StepShipping,
   StepHeaderShipping,
@@ -138,11 +137,14 @@ const Checkout: React.FC<Props> = ({
                   index={3}
                   header={<StepHeaderPayment step={3} />}
                 >
-                  <StepPayment tw="mb-6" />
+                  <StepPayment
+                    tw="mb-6"
+                    termsUrl={termsUrl}
+                    privacyUrl={privacyUrl}
+                  />
                 </AccordionItem>
               </AccordionProvider>
             </Accordion>
-            <StepPlaceOrder termsUrl={termsUrl} privacyUrl={privacyUrl} />
           </div>
         }
       />
