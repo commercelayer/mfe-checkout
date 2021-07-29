@@ -93,6 +93,10 @@ export const AddressInputGroup: React.FC<Props> = ({
               className="form-select"
               data-cy={`input_${fieldName}`}
               name={fieldName as AddressCountrySelectName}
+              placeholder={{
+                label: t(`addressForm.${fieldName}_placeholder`),
+                value: "",
+              }}
               value={
                 shippingCountryCodeLock &&
                 fieldName === "shipping_address_country_code"
