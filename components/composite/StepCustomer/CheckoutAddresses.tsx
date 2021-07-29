@@ -69,7 +69,9 @@ export const CheckoutAddresses: React.FC<Props> = ({
           </AddressSectionTitle>
         </div>
         <BillingAddressForm autoComplete="on" errorClassName="hasError">
-          <BillingAddressFormNew billingAddress={billingAddress} />
+          <div className="mt-4">
+            <BillingAddressFormNew billingAddress={billingAddress} />
+          </div>
         </BillingAddressForm>
         {isShipmentRequired && (
           <Toggle
@@ -88,12 +90,12 @@ export const CheckoutAddresses: React.FC<Props> = ({
             className="p-2"
             errorClassName="hasError"
           >
-            <div className="pb-4">
-              <AddressSectionTitle>
-                {t(`addressForm.shipping_address_title`)}
-              </AddressSectionTitle>
+            <AddressSectionTitle>
+              {t(`addressForm.shipping_address_title`)}
+            </AddressSectionTitle>
+            <div className="mt-4">
+              <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
             </div>
-            <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
           </ShippingAddressForm>
         )}
         <AddressSectionSaveForm>
