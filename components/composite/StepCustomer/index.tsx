@@ -46,7 +46,10 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
           {
             <AddressField>
               {({ address }) => (
-                <p data-cy="full-billing-information">{address.name} </p>
+                <p data-cy="full-billing-information">
+                  {address.name}
+                  {address.billingInfo ? ", " + address.billingInfo : ""}
+                </p>
               )}
             </AddressField>
           }
@@ -61,7 +64,10 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
               <AddressField>
                 {({ address }) => (
                   <>
-                    <p data-cy="full-billing-information">{address.name} </p>
+                    <p data-cy="full-billing-information">
+                      {address.name}
+                      {address.billingInfo ? ", " + address.billingInfo : ""}
+                    </p>
                   </>
                 )}
               </AddressField>
