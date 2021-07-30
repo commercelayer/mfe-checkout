@@ -105,8 +105,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     primaryColor: hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,
     favicon: organization?.faviconUrl || "/favicon.png",
     gtmId: organization?.gtmId,
-    supportEmail: "test@extendi.it",
-    supportPhone: "+39 111 222 3333",
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: Organization type not updated on sdk v3
+    supportEmail: organization?.supportEmail,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: Organization type not updated on sdk v3
+    supportPhone: organization?.supportPhone,
     termsUrl: order.termsUrl,
     privacyUrl: order.privacyUrl,
   }

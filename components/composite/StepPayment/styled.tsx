@@ -31,7 +31,11 @@ export const PaymentSummaryValue = styled.p`
 export const PaymentSourceContainer = styled.div`
   ${tw`mt-2`}
   .StripeElement {
-    ${tw`p-4 border rounded shadow-sm bg-gradient-to-b from-gray-100`}
+    ${tw`px-2 py-3 border rounded shadow-sm bg-gradient-to-b from-gray-100 transition duration-500 ease-in-out`}
+  }
+
+  .StripeElement--focus {
+    ${tw`border-gray-400 bg-gradient-to-t`}
   }
 `
 export const PaymentDetailsWrapper = styled.div`

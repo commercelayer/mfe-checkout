@@ -107,6 +107,7 @@
         "billing_address_line_1": "Indirizzo",
         "billing_address_city": "Città",
         "billing_address_country_code": "Paese",
+        "billing_address_country_code_placeholder": "Seleziona un paese",
         "billing_address_state_code": "State",
         "billing_address_zip_code": "CAP",
         "billing_address_phone": "Telefono",
@@ -120,6 +121,7 @@
         "shipping_address_line_1": "Indirizzo",
         "shipping_address_city": "Città",
         "shipping_address_country_code": "Paese",
+        "shipping_address_country_code_placeholder": "Seleziona un paese",
         "shipping_address_state_code": "Stato",
         "shipping_address_zip_code": "CAP",
         "shipping_address_phone": "Telefono"
