@@ -6,14 +6,14 @@ import { CheckCss } from "components/ui/form/CheckBox"
 import { RadioCss } from "components/ui/form/RadioButton"
 
 export const PaymentWrapper = styled.div`
-  ${tw`border border-gray-300 mb-5 p-3 rounded bg-gray-50`}
+  ${tw`border border-gray-300 mb-5 p-3 rounded bg-gray-50 cursor-pointer`}
 
   .payment:last-of-type & {
     ${tw`mb-0`}
   }
 
   .payment.active & {
-    ${tw`border-primary bg-white`}
+    ${tw`border-primary bg-white cursor-default`}
   }
 `
 export const PaymentSummary = styled.div`
