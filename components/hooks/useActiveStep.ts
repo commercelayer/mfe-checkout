@@ -10,15 +10,13 @@ interface UseActiveStep {
   steps: SingleStepEnum[]
 }
 
+export const STEPS: SingleStepEnum[] = ["Customer", "Shipping", "Payment"]
+
 export const useActiveStep = (): UseActiveStep => {
   const [activeStep, setActiveStep] = useState<SingleStepEnum>("Customer")
   const [lastActivableStep, setLastActivableStep] =
     useState<SingleStepEnum>("Customer")
-  const [steps] = useState<SingleStepEnum[]>([
-    "Customer",
-    "Shipping",
-    "Payment",
-  ])
+  const [steps] = useState<SingleStepEnum[]>(STEPS)
 
   const ctx = useContext(AppContext)
 

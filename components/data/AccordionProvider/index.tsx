@@ -1,7 +1,10 @@
 import { createContext, useState, useEffect } from "react"
 
+import { STEPS } from "components/hooks/useActiveStep"
+
 interface AccordionProviderData {
   isActive: boolean
+  cannotGoNext: boolean
   status: "edit" | "done" | "disabled"
   step: SingleStepEnum
   setStep: () => void
@@ -29,10 +32,18 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   isStepRequired = true,
 }) => {
   const [isActive, setIsActive] = useState(false)
+  // state to disable pointer on open accordion if cannot progress
+  const [cannotGoNext, setCannotGoNext] = useState(true)
   const [status, setStatus] = useState<"done" | "edit" | "disabled">("disabled")
 
   const setStep = () => {
     isStepRequired && setActiveStep && setActiveStep(step)
+  }
+
+  const checkIfCanGoNext = () => {
+    const indexCurrent = STEPS.indexOf(step)
+    const indexLastActivable = STEPS.indexOf(lastActivableStep)
+    return indexCurrent >= indexLastActivable
   }
 
   const closeStep = () => setActiveStep && setActiveStep(lastActivableStep)
@@ -46,34 +57,16 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
       setStatus("disabled")
       return
     }
+
+    setCannotGoNext(checkIfCanGoNext())
+
     if (isActive) {
       setStatus("edit")
       return
     }
-    if (step === "Customer") {
-      if (lastActivableStep === "Customer") {
-        setStatus("disabled")
-        return
-      }
-    }
-    if (step === "Shipping") {
-      if (
-        lastActivableStep === "Customer" ||
-        lastActivableStep === "Shipping"
-      ) {
-        setStatus("disabled")
-        return
-      }
-    }
-    if (step === "Payment") {
-      if (
-        lastActivableStep === "Customer" ||
-        lastActivableStep === "Shipping" ||
-        lastActivableStep === "Payment"
-      ) {
-        setStatus("disabled")
-        return
-      }
+    if (checkIfCanGoNext()) {
+      setStatus("disabled")
+      return
     }
 
     setStatus("done")
@@ -83,6 +76,7 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
     <AccordionContext.Provider
       value={{
         isActive,
+        cannotGoNext,
         step,
         setStep,
         closeStep,
