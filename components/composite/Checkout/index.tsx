@@ -1,3 +1,7 @@
+import {
+  CustomerContainer,
+  PaymentMethodsContainer,
+} from "@commercelayer/react-components"
 import { useContext } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -71,81 +75,88 @@ const Checkout: React.FC<Props> = ({
 
   const renderSteps = () => {
     return (
-      <LayoutDefault
-        aside={
-          <Sidebar>
-            <Logo
-              logoUrl={logoUrl}
-              companyName={companyName}
-              className="hidden md:block"
-            />
-            <SummaryWrapper>
-              <OrderSummary />
-            </SummaryWrapper>
-            <Footer termsUrl={termsUrl} privacyUrl={privacyUrl} />
-          </Sidebar>
-        }
-        main={
-          <div>
-            <Logo
-              logoUrl={logoUrl}
-              companyName={companyName}
-              className="block md:hidden"
-            />
-            <MainHeader orderNumber={orderNumber} />
-            <StepNav
-              steps={steps}
-              activeStep={activeStep}
-              onStepChange={setActiveStep}
-              lastActivable={lastActivableStep}
-            />
-            <Accordion>
-              <AccordionProvider
+      <CustomerContainer isGuest={ctx.isGuest}>
+        <LayoutDefault
+          aside={
+            <Sidebar>
+              <Logo
+                logoUrl={logoUrl}
+                companyName={companyName}
+                className="hidden md:block"
+              />
+              <SummaryWrapper>
+                <OrderSummary />
+              </SummaryWrapper>
+              <Footer termsUrl={termsUrl} privacyUrl={privacyUrl} />
+            </Sidebar>
+          }
+          main={
+            <div>
+              <Logo
+                logoUrl={logoUrl}
+                companyName={companyName}
+                className="block md:hidden"
+              />
+              <MainHeader orderNumber={orderNumber} />
+              <StepNav
+                steps={steps}
                 activeStep={activeStep}
-                lastActivableStep={lastActivableStep}
-                setActiveStep={setActiveStep}
-                step="Customer"
-              >
-                <AccordionItem
-                  index={1}
-                  header={<StepHeaderCustomer step={1} />}
+                onStepChange={setActiveStep}
+                lastActivable={lastActivableStep}
+              />
+              <Accordion>
+                <AccordionProvider
+                  activeStep={activeStep}
+                  lastActivableStep={lastActivableStep}
+                  setActiveStep={setActiveStep}
+                  step="Customer"
                 >
-                  <StepCustomer tw="mb-6" step={1} />
-                </AccordionItem>
-              </AccordionProvider>
-              <AccordionProvider
-                activeStep={activeStep}
-                lastActivableStep={lastActivableStep}
-                setActiveStep={setActiveStep}
-                step="Shipping"
-                isStepRequired={ctx.isShipmentRequired}
-              >
-                <AccordionItem
-                  index={2}
-                  header={<StepHeaderShipping step={2} />}
+                  <AccordionItem
+                    index={1}
+                    header={<StepHeaderCustomer step={1} />}
+                  >
+                    <StepCustomer tw="mb-6" step={1} />
+                  </AccordionItem>
+                </AccordionProvider>
+                <AccordionProvider
+                  activeStep={activeStep}
+                  lastActivableStep={lastActivableStep}
+                  setActiveStep={setActiveStep}
+                  step="Shipping"
+                  isStepRequired={ctx.isShipmentRequired}
                 >
-                  <StepShipping tw="mb-6" step={2} />
-                </AccordionItem>
-              </AccordionProvider>
-              <AccordionProvider
-                activeStep={activeStep}
-                lastActivableStep={lastActivableStep}
-                setActiveStep={setActiveStep}
-                step="Payment"
-                isStepRequired={ctx.isPaymentRequired}
-              >
-                <AccordionItem
-                  index={3}
-                  header={<StepHeaderPayment step={3} />}
+                  <AccordionItem
+                    index={2}
+                    header={<StepHeaderShipping step={2} />}
+                  >
+                    <StepShipping tw="mb-6" step={2} />
+                  </AccordionItem>
+                </AccordionProvider>
+                <AccordionProvider
+                  activeStep={activeStep}
+                  lastActivableStep={lastActivableStep}
+                  setActiveStep={setActiveStep}
+                  step="Payment"
+                  isStepRequired={ctx.isPaymentRequired}
                 >
-                  <StepPayment tw="mb-6" />
-                </AccordionItem>
-              </AccordionProvider>
-            </Accordion>
-            <StepPlaceOrder termsUrl={termsUrl} privacyUrl={privacyUrl} />
-          </div>
-        }
-      />
+                  <PaymentMethodsContainer>
+                    <AccordionItem
+                      index={3}
+                      header={<StepHeaderPayment step={3} />}
+                    >
+                      <StepPayment tw="mb-6" />
+                    </AccordionItem>
+                    <StepPlaceOrder
+                      termsUrl={termsUrl}
+                      privacyUrl={privacyUrl}
+                    />
+                  </PaymentMethodsContainer>
+                </AccordionProvider>
+              </Accordion>
+            </div>
+          }
+        />
+      </CustomerContainer>
     )
   }
 
