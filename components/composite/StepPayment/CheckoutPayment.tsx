@@ -25,6 +25,7 @@ export const CheckoutPayment: React.FC<Props> = ({ privacyUrl, termsUrl }) => {
         activeClass="active"
         className="payment"
         loader={PaymentSkeleton}
+        clickableContainer
       >
         <PaymentWrapper>
           <PaymentSummaryList />

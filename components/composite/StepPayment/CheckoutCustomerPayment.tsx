@@ -73,6 +73,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
           activeClass="active"
           className="payment"
           loader={PaymentSkeleton}
+          clickableContainer
         >
           <PaymentWrapper>
             <PaymentSummaryList />
