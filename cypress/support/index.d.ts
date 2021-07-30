@@ -71,6 +71,7 @@ declare global {
         stateCode: string
         countryCode: string
         phone: string
+        billingInfo: string
         accessToken?: string
       }): Chainable<Subject>
       getTokenCustomer(options: {
