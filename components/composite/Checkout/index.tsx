@@ -3,8 +3,6 @@ import { useContext } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
-import { PaymentContainer } from "../StepPayment/PaymentContainer"
-
 import { CheckoutSkeleton } from "components/composite/CheckoutSkeleton"
 import { MainHeader } from "components/composite/MainHeader"
 import { OrderSummary } from "components/composite/OrderSummary"
@@ -18,6 +16,7 @@ import {
   StepPayment,
   StepHeaderPayment,
 } from "components/composite/StepPayment"
+import { PaymentContainer } from "components/composite/StepPayment/PaymentContainer"
 import StepPlaceOrder from "components/composite/StepPlaceOrder"
 import {
   StepShipping,
