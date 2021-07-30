@@ -40,7 +40,7 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
     isStepRequired && setActiveStep && setActiveStep(step)
   }
 
-  const checkIfCanGoNext = () => {
+  const checkIfCannotGoNext = () => {
     const indexCurrent = STEPS.indexOf(step)
     const indexLastActivable = STEPS.indexOf(lastActivableStep)
     return indexCurrent >= indexLastActivable
@@ -58,13 +58,13 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
       return
     }
 
-    setCannotGoNext(checkIfCanGoNext())
+    setCannotGoNext(checkIfCannotGoNext())
 
     if (isActive) {
       setStatus("edit")
       return
     }
-    if (checkIfCanGoNext()) {
+    if (checkIfCannotGoNext()) {
       setStatus("disabled")
       return
     }
