@@ -10,7 +10,16 @@ interface UseActiveStep {
   steps: SingleStepEnum[]
 }
 
-export const STEPS: SingleStepEnum[] = ["Customer", "Shipping", "Payment"]
+const STEPS: SingleStepEnum[] = ["Customer", "Shipping", "Payment"]
+
+export function checkIfCannotGoNext(
+  step: SingleStepEnum,
+  lastActivableStep: SingleStepEnum
+) {
+  const indexCurrent = STEPS.indexOf(step)
+  const indexLastActivable = STEPS.indexOf(lastActivableStep)
+  return indexCurrent >= indexLastActivable
+}
 
 export const useActiveStep = (): UseActiveStep => {
   const [activeStep, setActiveStep] = useState<SingleStepEnum>("Customer")

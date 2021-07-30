@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react"
 
-import { STEPS } from "components/hooks/useActiveStep"
+import { checkIfCannotGoNext } from "components/hooks/useActiveStep"
 
 interface AccordionProviderData {
   isActive: boolean
@@ -40,12 +40,6 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
     isStepRequired && setActiveStep && setActiveStep(step)
   }
 
-  const checkIfCannotGoNext = () => {
-    const indexCurrent = STEPS.indexOf(step)
-    const indexLastActivable = STEPS.indexOf(lastActivableStep)
-    return indexCurrent >= indexLastActivable
-  }
-
   const closeStep = () => setActiveStep && setActiveStep(lastActivableStep)
 
   useEffect(() => {
@@ -53,24 +47,26 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   }, [activeStep])
 
   useEffect(() => {
+    return setCannotGoNext(checkIfCannotGoNext(step, lastActivableStep))
+  }, [step, lastActivableStep])
+
+  useEffect(() => {
     if (!isStepRequired) {
       setStatus("disabled")
       return
     }
 
-    setCannotGoNext(checkIfCannotGoNext())
-
     if (isActive) {
       setStatus("edit")
       return
     }
-    if (checkIfCannotGoNext()) {
+    if (checkIfCannotGoNext(step, lastActivableStep)) {
       setStatus("disabled")
       return
     }
 
     setStatus("done")
-  }, [isActive, lastActivableStep])
+  }, [isActive, step, lastActivableStep])
 
   return (
     <AccordionContext.Provider
