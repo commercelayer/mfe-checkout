@@ -1,8 +1,4 @@
-import {
-  CustomerContainer,
-  CustomerInput,
-  Errors,
-} from "@commercelayer/react-components"
+import { CustomerInput, Errors } from "@commercelayer/react-components"
 import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
@@ -46,7 +42,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
             {emailAddress}
           </ReadOnlyEmail>
         ) : (
-          <CustomerContainer isGuest>
+          <>
             <StyledCustomInput
               className="form-input"
               data-cy="customer_email"
@@ -63,7 +59,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
               field="customer_email"
               messages={messages}
             />
-          </CustomerContainer>
+          </>
         )}
         <Label htmlFor="customer_email">
           {t("addressForm.customer_email")}

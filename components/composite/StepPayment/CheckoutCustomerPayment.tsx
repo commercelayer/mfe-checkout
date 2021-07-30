@@ -1,8 +1,4 @@
-import {
-  PaymentMethod,
-  PaymentSource,
-  CustomerContainer,
-} from "@commercelayer/react-components"
+import { PaymentMethod, PaymentSource } from "@commercelayer/react-components"
 import {
   CustomerCardsProps,
   CustomerSaveToWalletProps,
@@ -61,35 +57,33 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   )
 
   return (
-    <CustomerContainer>
-      <PaymentContainer handleSave={handleSave}>
-        <PaymentMethod
-          activeClass="active"
-          className="payment"
-          loader={PaymentSkeleton}
-        >
-          <PaymentWrapper>
-            <PaymentSummaryList />
-            <PaymentSourceContainer data-cy="payment-source">
-              <PaymentSource
-                className="flex flex-col"
-                onClickCustomerCards={handleSave}
-                templateCustomerCards={(props) => (
-                  <TemplateCustomerCards {...props} />
-                )}
-                templateCustomerSaveToWallet={(props) => (
-                  <TemplateSaveToWalletCheckbox {...props} />
-                )}
-                loader={PaymentSkeleton}
-              >
-                <PaymentDetailsWrapper>
-                  <PaymentDetails hasEditButton />
-                </PaymentDetailsWrapper>
-              </PaymentSource>
-            </PaymentSourceContainer>
-          </PaymentWrapper>
-        </PaymentMethod>
-      </PaymentContainer>
-    </CustomerContainer>
+    <PaymentContainer handleSave={handleSave}>
+      <PaymentMethod
+        activeClass="active"
+        className="payment"
+        loader={PaymentSkeleton}
+      >
+        <PaymentWrapper>
+          <PaymentSummaryList />
+          <PaymentSourceContainer data-cy="payment-source">
+            <PaymentSource
+              className="flex flex-col"
+              onClickCustomerCards={handleSave}
+              templateCustomerCards={(props) => (
+                <TemplateCustomerCards {...props} />
+              )}
+              templateCustomerSaveToWallet={(props) => (
+                <TemplateSaveToWalletCheckbox {...props} />
+              )}
+              loader={PaymentSkeleton}
+            >
+              <PaymentDetailsWrapper>
+                <PaymentDetails hasEditButton />
+              </PaymentDetailsWrapper>
+            </PaymentSource>
+          </PaymentSourceContainer>
+        </PaymentWrapper>
+      </PaymentMethod>
+    </PaymentContainer>
   )
 }
