@@ -9,7 +9,6 @@ import "twin.macro"
 
 import { Label } from "components/ui/Label"
 
-import { PaymentContainer } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 import { PaymentSummaryList } from "./PaymentSummaryList"
@@ -58,7 +57,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   )
 
   return (
-    <PaymentContainer>
+    <>
       <PaymentMethod
         activeClass="active"
         className="payment"
@@ -86,6 +85,6 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
           </PaymentSourceContainer>
         </PaymentWrapper>
       </PaymentMethod>
-    </PaymentContainer>
+    </>
   )
 }

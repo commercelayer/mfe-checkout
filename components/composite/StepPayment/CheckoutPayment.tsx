@@ -2,7 +2,6 @@ import { PaymentMethod, PaymentSource } from "@commercelayer/react-components"
 
 import "twin.macro"
 
-import { PaymentContainer } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 import { PaymentSummaryList } from "./PaymentSummaryList"
@@ -14,7 +13,7 @@ import {
 
 export const CheckoutPayment: React.FC = () => {
   return (
-    <PaymentContainer>
+    <>
       <PaymentMethod
         activeClass="active"
         className="payment"
@@ -32,6 +31,6 @@ export const CheckoutPayment: React.FC = () => {
           </PaymentSourceContainer>
         </PaymentWrapper>
       </PaymentMethod>
-    </PaymentContainer>
+    </>
   )
 }
