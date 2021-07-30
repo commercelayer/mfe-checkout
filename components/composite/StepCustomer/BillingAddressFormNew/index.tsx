@@ -4,7 +4,6 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 import { AddressInputGroup } from "components/composite/StepCustomer/AddressInputGroup"
-import { AppContext } from "components/data/AppProvider"
 
 interface Props {
   billingAddress: AddressCollection | null
@@ -13,14 +12,6 @@ interface Props {
 export const BillingAddressFormNew: React.FC<Props> = ({
   billingAddress,
 }: Props) => {
-  const appCtx = useContext(AppContext)
-
-  if (!appCtx) {
-    return null
-  }
-
-  const { requiresBillingInfo } = appCtx
-
   return (
     <Wrapper>
       <Grid>
@@ -77,14 +68,6 @@ export const BillingAddressFormNew: React.FC<Props> = ({
         type="tel"
         value={billingAddress?.phone || ""}
       />
-      {requiresBillingInfo && (
-        <AddressInputGroup
-          fieldName="billing_address_billing_info"
-          resource="billingAddress"
-          type="text"
-          value={billingAddress?.billingInfo || ""}
-        />
-      )}
     </Wrapper>
   )
 }
