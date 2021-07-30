@@ -1,7 +1,6 @@
 import { PaymentMethod, PaymentSource } from "@commercelayer/react-components"
 
 import "twin.macro"
-import StepPlaceOrder from "../StepPlaceOrder"
 
 import { PaymentContainer } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
@@ -13,12 +12,7 @@ import {
   PaymentDetailsWrapper,
 } from "./styled"
 
-interface Props {
-  termsUrl: string
-  privacyUrl: string
-}
-
-export const CheckoutPayment: React.FC<Props> = ({ privacyUrl, termsUrl }) => {
+export const CheckoutPayment: React.FC = () => {
   return (
     <PaymentContainer>
       <PaymentMethod
@@ -38,7 +32,6 @@ export const CheckoutPayment: React.FC<Props> = ({ privacyUrl, termsUrl }) => {
           </PaymentSourceContainer>
         </PaymentWrapper>
       </PaymentMethod>
-      <StepPlaceOrder termsUrl={termsUrl} privacyUrl={privacyUrl} />
     </PaymentContainer>
   )
 }

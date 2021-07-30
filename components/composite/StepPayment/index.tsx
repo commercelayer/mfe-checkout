@@ -88,15 +88,7 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
   )
 }
 
-interface PaymentProps {
-  privacyUrl: string
-  termsUrl: string
-}
-
-export const StepPayment: React.FC<PaymentProps> = ({
-  privacyUrl,
-  termsUrl,
-}) => {
+export const StepPayment: React.FC = () => {
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
   const accordionCtx = useContext(AccordionContext)
@@ -129,16 +121,9 @@ export const StepPayment: React.FC<PaymentProps> = ({
             {accordionCtx.isActive && (
               <>
                 {isGuest ? (
-                  <CheckoutPayment
-                    privacyUrl={privacyUrl}
-                    termsUrl={termsUrl}
-                  />
+                  <CheckoutPayment />
                 ) : (
-                  <CheckoutCustomerPayment
-                    handleSave={handleSave}
-                    privacyUrl={privacyUrl}
-                    termsUrl={termsUrl}
-                  />
+                  <CheckoutCustomerPayment handleSave={handleSave} />
                 )}
               </>
             )}

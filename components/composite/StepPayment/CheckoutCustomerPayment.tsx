@@ -1,8 +1,4 @@
-import {
-  PaymentMethod,
-  PaymentSource,
-  CustomerContainer,
-} from "@commercelayer/react-components"
+import { PaymentMethod, PaymentSource } from "@commercelayer/react-components"
 import {
   CustomerCardsProps,
   CustomerSaveToWalletProps,
@@ -10,7 +6,6 @@ import {
 import { useTranslation } from "react-i18next"
 
 import "twin.macro"
-import StepPlaceOrder from "../StepPlaceOrder"
 
 import { Label } from "components/ui/Label"
 
@@ -26,14 +21,10 @@ import {
 } from "./styled"
 
 interface Props {
-  termsUrl: string
-  privacyUrl: string
   handleSave: () => void
 }
 
 export const CheckoutCustomerPayment: React.FC<Props> = ({
-  termsUrl,
-  privacyUrl,
   handleSave,
 }: Props) => {
   const { t } = useTranslation()
@@ -67,37 +58,34 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   )
 
   return (
-    <CustomerContainer>
-      <PaymentContainer>
-        <PaymentMethod
-          activeClass="active"
-          className="payment"
-          loader={PaymentSkeleton}
-          clickableContainer
-        >
-          <PaymentWrapper>
-            <PaymentSummaryList />
-            <PaymentSourceContainer data-cy="payment-source">
-              <PaymentSource
-                className="flex flex-col"
-                onClickCustomerCards={handleSave}
-                templateCustomerCards={(props) => (
-                  <TemplateCustomerCards {...props} />
-                )}
-                templateCustomerSaveToWallet={(props) => (
-                  <TemplateSaveToWalletCheckbox {...props} />
-                )}
-                loader={PaymentSkeleton}
-              >
-                <PaymentDetailsWrapper>
-                  <PaymentDetails hasEditButton />
-                </PaymentDetailsWrapper>
-              </PaymentSource>
-            </PaymentSourceContainer>
-          </PaymentWrapper>
-        </PaymentMethod>
-        <StepPlaceOrder termsUrl={termsUrl} privacyUrl={privacyUrl} />
-      </PaymentContainer>
-    </CustomerContainer>
+    <PaymentContainer>
+      <PaymentMethod
+        activeClass="active"
+        className="payment"
+        loader={PaymentSkeleton}
+        clickableContainer
+      >
+        <PaymentWrapper>
+          <PaymentSummaryList />
+          <PaymentSourceContainer data-cy="payment-source">
+            <PaymentSource
+              className="flex flex-col"
+              onClickCustomerCards={handleSave}
+              templateCustomerCards={(props) => (
+                <TemplateCustomerCards {...props} />
+              )}
+              templateCustomerSaveToWallet={(props) => (
+                <TemplateSaveToWalletCheckbox {...props} />
+              )}
+              loader={PaymentSkeleton}
+            >
+              <PaymentDetailsWrapper>
+                <PaymentDetails hasEditButton />
+              </PaymentDetailsWrapper>
+            </PaymentSource>
+          </PaymentSourceContainer>
+        </PaymentWrapper>
+      </PaymentMethod>
+    </PaymentContainer>
   )
 }
