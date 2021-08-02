@@ -13,7 +13,7 @@ import { CheckIcon } from "./CheckIcon"
 import { SupportMessage } from "./SupportMessage"
 
 interface Props {
-  logoUrl: string
+  logoUrl?: string
   companyName: string
   supportEmail: string
   supportPhone: string
