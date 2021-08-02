@@ -35,6 +35,7 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
       className={classNames("group", {
         active: ctx.isActive,
         disabled: ctx.status === "disabled",
+        cannotGoNext: ctx.cannotGoNext,
       })}
     >
       <AccordionTabHeader className="group" onClick={handleSelection}>
@@ -72,6 +73,10 @@ const AccordionTab = styled.div`
 const AccordionTabHeader = styled.div`
   ${tw`relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease duration-500 focus:bg-gray-500 md:pt-6 md:pb-0`}
   .disabled & {
+    ${tw`pointer-events-none`}
+  }
+
+  .cannotGoNext & {
     ${tw`pointer-events-none`}
   }
 `

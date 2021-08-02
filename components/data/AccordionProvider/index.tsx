@@ -1,7 +1,10 @@
 import { createContext, useState, useEffect } from "react"
 
+import { checkIfCannotGoNext } from "components/hooks/useActiveStep"
+
 interface AccordionProviderData {
   isActive: boolean
+  cannotGoNext: boolean
   status: "edit" | "done" | "disabled"
   step: SingleStepEnum
   setStep: () => void
@@ -29,6 +32,8 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   isStepRequired = true,
 }) => {
   const [isActive, setIsActive] = useState(false)
+  // state to disable pointer on open accordion if cannot progress
+  const [cannotGoNext, setCannotGoNext] = useState(true)
   const [status, setStatus] = useState<"done" | "edit" | "disabled">("disabled")
 
   const setStep = () => {
@@ -42,47 +47,32 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   }, [activeStep])
 
   useEffect(() => {
+    return setCannotGoNext(checkIfCannotGoNext(step, lastActivableStep))
+  }, [step, lastActivableStep])
+
+  useEffect(() => {
     if (!isStepRequired) {
       setStatus("disabled")
       return
     }
+
     if (isActive) {
       setStatus("edit")
       return
     }
-    if (step === "Customer") {
-      if (lastActivableStep === "Customer") {
-        setStatus("disabled")
-        return
-      }
-    }
-    if (step === "Shipping") {
-      if (
-        lastActivableStep === "Customer" ||
-        lastActivableStep === "Shipping"
-      ) {
-        setStatus("disabled")
-        return
-      }
-    }
-    if (step === "Payment") {
-      if (
-        lastActivableStep === "Customer" ||
-        lastActivableStep === "Shipping" ||
-        lastActivableStep === "Payment"
-      ) {
-        setStatus("disabled")
-        return
-      }
+    if (checkIfCannotGoNext(step, lastActivableStep)) {
+      setStatus("disabled")
+      return
     }
 
     setStatus("done")
-  }, [isActive, lastActivableStep])
+  }, [isActive, step, lastActivableStep])
 
   return (
     <AccordionContext.Provider
       value={{
         isActive,
+        cannotGoNext,
         step,
         setStep,
         closeStep,
