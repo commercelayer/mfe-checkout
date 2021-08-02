@@ -2,7 +2,6 @@ import {
   PaymentSourceBrandName,
   PaymentSourceDetail,
   PaymentSource,
-  PaymentMethodsContainer,
   PaymentSourceBrandIcon,
 } from "@commercelayer/react-components"
 import "twin.macro"
@@ -54,24 +53,22 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
     return (
       <>
         <div className="flex">
-          <PaymentMethodsContainer>
-            <PaymentSource readonly loader={<PaymentSkeleton />}>
-              <PaymentSourceBrandIcon className="mr-2" />
-              <PaymentSourceBrandName className="mr-1">
-                {({ brand }) => {
-                  if (isCreditCard()) {
-                    return (
-                      <Trans t={t} i18nKey="stepPayment.endingIn">
-                        {brand}
-                        <PaymentSourceDetail className="ml-1" type="last4" />
-                      </Trans>
-                    )
-                  }
-                  return brand
-                }}
-              </PaymentSourceBrandName>
-            </PaymentSource>
-          </PaymentMethodsContainer>
+          <PaymentSource readonly loader={<PaymentSkeleton />}>
+            <PaymentSourceBrandIcon className="mr-2" />
+            <PaymentSourceBrandName className="mr-1">
+              {({ brand }) => {
+                if (isCreditCard()) {
+                  return (
+                    <Trans t={t} i18nKey="stepPayment.endingIn">
+                      {brand}
+                      <PaymentSourceDetail className="ml-1" type="last4" />
+                    </Trans>
+                  )
+                }
+                return brand
+              }}
+            </PaymentSourceBrandName>
+          </PaymentSource>
         </div>
       </>
     )
@@ -121,7 +118,7 @@ export const StepPayment: React.FC = () => {
             {accordionCtx.isActive && (
               <>
                 {isGuest ? (
-                  <CheckoutPayment handleSave={handleSave} />
+                  <CheckoutPayment />
                 ) : (
                   <CheckoutCustomerPayment handleSave={handleSave} />
                 )}

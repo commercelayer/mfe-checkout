@@ -1,7 +1,7 @@
 import { PaymentMethod, PaymentSource } from "@commercelayer/react-components"
 
 import "twin.macro"
-import { PaymentContainer } from "./PaymentContainer"
+
 import { PaymentDetails } from "./PaymentDetails"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 import { PaymentSummaryList } from "./PaymentSummaryList"
@@ -11,17 +11,14 @@ import {
   PaymentDetailsWrapper,
 } from "./styled"
 
-interface Props {
-  handleSave: () => void
-}
-
-export const CheckoutPayment: React.FC<Props> = ({ handleSave }: Props) => {
+export const CheckoutPayment: React.FC = () => {
   return (
-    <PaymentContainer handleSave={handleSave}>
+    <>
       <PaymentMethod
         activeClass="active"
         className="payment"
         loader={PaymentSkeleton}
+        clickableContainer
       >
         <PaymentWrapper>
           <PaymentSummaryList />
@@ -34,6 +31,6 @@ export const CheckoutPayment: React.FC<Props> = ({ handleSave }: Props) => {
           </PaymentSourceContainer>
         </PaymentWrapper>
       </PaymentMethod>
-    </PaymentContainer>
+    </>
   )
 }

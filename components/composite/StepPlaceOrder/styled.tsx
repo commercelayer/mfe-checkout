@@ -34,6 +34,7 @@ export const ErrorsContainer = styled.div`
 `
 export const StyledPlaceOrderButton = styled(PlaceOrderButton)`
   ${ButtonCss}
+  ${tw`mx-5 mt-3.5 md:mx-0 md:mt-0`}
 `
 export const StyledPrivacyAndTermsCheckbox = styled(PrivacyAndTermsCheckbox)`
   ${CheckCss}

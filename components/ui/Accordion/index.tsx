@@ -66,8 +66,8 @@ const Wrapper = styled.div`
 const AccordionTab = styled.div`
   ${tw`outline-none bg-white shadow-bottom mb-2 px-5 md:px-0 md:mb-0 md:shadow-none md:border-b`}
 
-  &:last-of-type {
-    ${tw`mb-5`}
+  &[tabindex='3'] {
+    ${tw`md:mb-5`}
   }
 `
 const AccordionTabHeader = styled.div`

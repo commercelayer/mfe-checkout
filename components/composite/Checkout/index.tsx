@@ -1,7 +1,4 @@
-import {
-  CustomerContainer,
-  PaymentMethodsContainer,
-} from "@commercelayer/react-components"
+import { CustomerContainer } from "@commercelayer/react-components"
 import { useContext } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -19,6 +16,7 @@ import {
   StepPayment,
   StepHeaderPayment,
 } from "components/composite/StepPayment"
+import { PaymentContainer } from "components/composite/StepPayment/PaymentContainer"
 import StepPlaceOrder from "components/composite/StepPlaceOrder"
 import {
   StepShipping,
@@ -139,7 +137,7 @@ const Checkout: React.FC<Props> = ({
                   step="Payment"
                   isStepRequired={ctx.isPaymentRequired}
                 >
-                  <PaymentMethodsContainer>
+                  <PaymentContainer>
                     <AccordionItem
                       index={3}
                       header={<StepHeaderPayment step={3} />}
@@ -150,7 +148,7 @@ const Checkout: React.FC<Props> = ({
                       termsUrl={termsUrl}
                       privacyUrl={privacyUrl}
                     />
-                  </PaymentMethodsContainer>
+                  </PaymentContainer>
                 </AccordionProvider>
               </Accordion>
             </div>
