@@ -84,13 +84,13 @@ export const StepComplete: React.FC<Props> = ({
 }
 
 const ContainerFlex = styled.div`
-  ${tw`w-full min-h-full flex min-h-inherit`}
+  ${tw`w-full min-h-full flex min-h-inherit 2xl:max-w-screen-2xl 2xl:mx-auto`}
 `
 const Main = styled.div`
   ${tw`flex flex-col flex-1 justify-center items-center text-center`}
 `
 const Wrapper = styled.div`
-  ${tw`flex flex-col flex-1 p-5 md:p-10 lg:px-20 lg:pb-10`}
+  ${tw`flex flex-col flex-1 p-5 md:p-10 lg:px-20 lg:pb-10 2xl:px-0`}
 `
 const Title = styled.h1`
   ${tw`text-2xl lg:text-4xl font-semibold mb-4`}
