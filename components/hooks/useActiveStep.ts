@@ -16,6 +16,9 @@ export function checkIfCannotGoNext(
   step: SingleStepEnum,
   lastActivableStep: SingleStepEnum
 ) {
+  if (lastActivableStep === "Complete") {
+    return false
+  }
   const indexCurrent = STEPS.indexOf(step)
   const indexLastActivable = STEPS.indexOf(lastActivableStep)
   return indexCurrent >= indexLastActivable
