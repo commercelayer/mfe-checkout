@@ -97,9 +97,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     orderNumber: order.number,
     orderId: order.id,
     validCheckout: true,
-    logoUrl:
-      organization?.logoUrl ||
-      "https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png",
+    logoUrl: organization?.logoUrl,
     companyName: organization?.name || "Test company",
     language: order.languageCode,
     primaryColor: hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,

@@ -31,7 +31,7 @@ import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 
 interface Props {
-  logoUrl: string
+  logoUrl?: string
   orderNumber: number
   companyName: string
   supportEmail: string

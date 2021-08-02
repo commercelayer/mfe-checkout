@@ -10,7 +10,7 @@ interface CheckoutSettings {
   orderNumber: number
   validCheckout: boolean
   endpoint: string
-  logoUrl: string
+  logoUrl?: string
   companyName: string
   language: string
   primaryColor: HSLProps
