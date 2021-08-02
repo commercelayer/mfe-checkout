@@ -100,6 +100,9 @@ const Text = styled.p`
 `
 const Message = styled.div`
   ${tw`my-8 text-gray-500`}
+  > br {
+    ${tw`hidden md:block`}
+  }
 `
 const WrapperButton = styled.div`
   ${tw`flex items-center justify-center pt-5`}
