@@ -293,6 +293,16 @@
   resolved "https://registry.yarnpkg.com/@braintree/wrap-promise/-/wrap-promise-2.1.0.tgz#7e27ffc5dacd2d71533b0c42506eea8e7c2e50fa"
   integrity sha512-UIrJB+AfKU0CCfbMoWrsGpd2D/hBpY/SGgFI6WRHPOwhaZ3g9rz1weiJ6eb6L9KgVyunT7s2tckcPkbHw+NzeA==
 
+"@commercelayer/active-resource@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@commercelayer/active-resource/-/active-resource-1.0.2.tgz#6415103274060952a6db4d4206927d10b5755343"
+  integrity sha512-VHtudZmOyBmPhkeCZpX08U+c2vd5UbETWPNaGSNmcuQqudZpcvyNVDclJDwHaFV8DZ7IIBy4unTNh+5YIdjruA==
+  dependencies:
+    axios "^0.21.1"
+    es6-promise "^4.1.1"
+    pluralize-js "^8.0.1"
+    qs "^6.5.0"
+
 "@commercelayer/cypress-vcr@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@commercelayer/cypress-vcr/-/cypress-vcr-1.1.0.tgz#435583d5cd79c3375b49d441778aec399ffca44a"
@@ -300,12 +310,22 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-sdk@^3.10.0", "@commercelayer/js-sdk@^3.9.2":
+"@commercelayer/js-sdk@^3.9.2":
   version "3.10.0"
   resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-3.10.0.tgz#a9d04da56d833b2f60f861a5d007db832360b97e"
   integrity sha512-LAQ0Y74Ao6gKJj5PwEW7Iwpxtm+8+HXG1EszQJ9aPJL7euMkEJfHkywV43ypnhUFXfueQaK8UmErSRQBVWTCVQ==
   dependencies:
     active-resource "^1.0.0-beta.7"
+    axios "^0.21.1"
+    lodash "^4.17.21"
+    lodash-es "^4.17.21"
+
+"@commercelayer/js-sdk@^4.1.4":
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/@commercelayer/js-sdk/-/js-sdk-4.1.4.tgz#2d58799e75703499adc7b7b30f13194e0cbd3cf9"
+  integrity sha512-lFkbxr1VG33Yfah44Y4ki58SnCw2iqIfRqwaUHUahpWy7PcTn5ed0yIQh9vsIG++DJvoDbNTTbaxrftYFbf//A==
+  dependencies:
+    "@commercelayer/active-resource" "^1.0.2"
     axios "^0.21.1"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
@@ -4603,6 +4623,11 @@ platform@1.3.6:
   version "1.3.6"
   resolved "https://registry.yarnpkg.com/platform/-/platform-1.3.6.tgz#48b4ce983164b209c2d45a107adb31f473a6e7a7"
   integrity sha512-fnWVljUchTro6RiCFvCXBbNhJc2NijN7oIQxbwsyL0buWJPG85v81ehlHI9fXrJsMNgTofEoWIQeClKpgxFLrg==
+
+pluralize-js@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/pluralize-js/-/pluralize-js-8.0.1.tgz#8bf30c88d70c0385cfa0ad2b9db64d39820c3ec9"
+  integrity sha512-BYdyDHr+quw2JcvZrWrJTXf+sPjuhGbl7dZPnDsSDqqwGOMlTc+Laqg6sDaspvoikuOs+KbedSEJra5B0LOZDA==
 
 pnp-webpack-plugin@1.6.4:
   version "1.6.4"
