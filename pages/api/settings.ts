@@ -91,6 +91,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.json({ validCheckout: false })
   }
 
+  const lineItemsCount = (
+    await order
+      .withCredentials({
+        accessToken,
+        endpoint,
+      })
+      .lineItems()
+      .where({ itemTypeMatchesAny: "skus,bundle,gift_card" }) //, "bundle", "gift_card"] })
+      .select("item_type")
+      .all()
+  ).toArray().length
+
+  // If there are no items to buy we redirect to the invalid page
+  if (lineItemsCount === 0) {
+    res.statusCode = 200
+    return res.json({ validCheckout: false })
+  }
+
   const appSettings: CheckoutSettings = {
     accessToken,
     endpoint,
