@@ -19,13 +19,7 @@ import {
   WalletCheckbox,
 } from "./styled"
 
-interface Props {
-  handleSave: () => void
-}
-
-export const CheckoutCustomerPayment: React.FC<Props> = ({
-  handleSave,
-}: Props) => {
+export const CheckoutCustomerPayment: React.FC = () => {
   const { t } = useTranslation()
 
   const TemplateCustomerCards = ({ handleClick }: CustomerCardsProps) => (
@@ -69,7 +63,6 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
           <PaymentSourceContainer data-cy="payment-source">
             <PaymentSource
               className="flex flex-col"
-              onClickCustomerCards={handleSave}
               templateCustomerCards={(props) => (
                 <TemplateCustomerCards {...props} />
               )}

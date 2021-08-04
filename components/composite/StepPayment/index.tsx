@@ -11,7 +11,6 @@ import { Trans, useTranslation } from "react-i18next"
 
 import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
-import { GTMContext } from "components/data/GTMProvider"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
@@ -87,7 +86,6 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
 
 export const StepPayment: React.FC = () => {
   const appCtx = useContext(AppContext)
-  const gtmCtx = useContext(GTMContext)
   const accordionCtx = useContext(AccordionContext)
 
   // if (!appCtx || !appCtx.hasShippingMethod) {
@@ -96,14 +94,7 @@ export const StepPayment: React.FC = () => {
     return null
   }
 
-  const { refetchOrder, isGuest, isPaymentRequired } = appCtx
-
-  const handleSave = async () => {
-    if (gtmCtx?.fireAddPaymentInfo) {
-      gtmCtx.fireAddPaymentInfo()
-    }
-    await refetchOrder()
-  }
+  const { isGuest, isPaymentRequired } = appCtx
 
   return (
     <StepContainer
@@ -116,13 +107,7 @@ export const StepPayment: React.FC = () => {
         {isPaymentRequired && (
           <div>
             {accordionCtx.isActive && (
-              <>
-                {isGuest ? (
-                  <CheckoutPayment />
-                ) : (
-                  <CheckoutCustomerPayment handleSave={handleSave} />
-                )}
-              </>
+              <>{isGuest ? <CheckoutPayment /> : <CheckoutCustomerPayment />}</>
             )}
           </div>
         )}
