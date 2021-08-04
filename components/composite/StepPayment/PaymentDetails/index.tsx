@@ -25,7 +25,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
 
   const { paymentMethod } = appCtx
 
-  const isCreditCard = async () => {
+  const isCreditCard = () => {
     return paymentMethod?.paymentSourceType === "stripe_payments"
   }
 
