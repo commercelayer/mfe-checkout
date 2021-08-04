@@ -78,7 +78,8 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
 
   const handlePlaceOrder = async () => {
     setIsPlacingOrder(true)
-    if (gtmCtx?.firePurchase) {
+    if (gtmCtx?.firePurchase && gtmCtx?.fireAddPaymentInfo) {
+      gtmCtx.fireAddPaymentInfo()
       gtmCtx.firePurchase()
     }
     await refetchOrder()
