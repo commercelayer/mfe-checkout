@@ -27,7 +27,7 @@ describe("check Data Layers GTM", () => {
         .as("newOrder")
         .then((order) => {
           cy.createSkuLineItems({
-            orderId: order.id,
+            orderId: order?.id,
             accessToken: this.tokenObj.access_token,
             attributes: {
               quantity: "1",
@@ -38,8 +38,8 @@ describe("check Data Layers GTM", () => {
             orderId: order.id,
             accessToken: this.tokenObj.access_token,
             attributes: {
-              quantity: "5",
-              sku_code: "BABYONBU000000E63E7412MX",
+              quantity: "4",
+              sku_code: "SWEETHMUB7B7B7000000MXXX",
             },
           })
           cy.createAddress({
@@ -208,10 +208,7 @@ describe("check Data Layers GTM", () => {
           "@getShippingMethods",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@availablePaymentMethods",
           "@retrieveLineItems",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
         ],
         {
           timeout: 100000,
@@ -262,7 +259,7 @@ describe("check Data Layers GTM", () => {
           "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
-          "@availablePaymentMethods",
+          "@getOrderShipments",
           "@availableCustomerPaymentSources",
         ],
         {
@@ -332,7 +329,6 @@ describe("check Data Layers GTM", () => {
           "@getShippingMethods",
           "@getOrderShipments",
           "@getCustomerAddresses",
-          "@availablePaymentMethods",
           "@availableCustomerPaymentSources",
           "@getOrderShipments",
         ],
@@ -432,8 +428,6 @@ describe("check Data Layers GTM", () => {
           "@retrieveLineItems",
           "@getOrders",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
           "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
@@ -453,10 +447,10 @@ describe("check Data Layers GTM", () => {
     })
 
     it("select payment method credit card", () => {
-      cy.dataCy("payment-method-radio-button").each((e, i) => {
-        cy.wrap(e).as(`paymentMethodRadioButton${i}`)
+      cy.dataCy("payment-method-item").each((e, i) => {
+        cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodRadioButton1").click()
+      cy.get("@paymentMethodItem1").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -492,29 +486,33 @@ describe("check Data Layers GTM", () => {
         .each((e, i) => {
           cy.wrap(e).as(`paymentSourceButton${i}`)
         })
-      cy.get("@paymentSourceButton1").click()
+      cy.dataCy("place-order-button").click()
       cy.wait(
         [
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@retrieveLineItems",
+          "@availableCustomerPaymentSources",
+          "@updateOrder",
+          "@getOrderShipments",
+          "@getShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getShippingMethods",
+          "@getOrderShipments",
         ],
-        { timeout: 100000 }
+        {
+          timeout: 100000,
+        }
       )
-
-      cy.dataCy("payment-method-amount").should("contain.text", "10,00")
       cy.getDataLayer({ gtm: "add_payment_info" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 1)
         assert.equal(dataLayer[0].ecommerce.currency, "EUR")
         assert.equal(dataLayer[0].ecommerce.value, 10)
         assert.equal(dataLayer[0].ecommerce.payment_type, "Stripe Payment")
         assert.equal(dataLayer[0].ecommerce.items.length, 2)
-      })
-      cy.wait(2000)
-      cy.dataCy("place-order-button").click()
-      cy.wait(["@retrieveLineItems", "@getOrders", "@updateOrder"], {
-        timeout: 100000,
       })
       cy.getDataLayer({ gtm: "purchase" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 1)

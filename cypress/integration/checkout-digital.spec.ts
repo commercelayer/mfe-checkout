@@ -119,10 +119,10 @@ describe("Checkout Checkout-Digital", () => {
     })
 
     it("select payment method credit card", () => {
-      cy.dataCy("payment-method-radio-button").each((e, i) => {
-        cy.wrap(e).as(`paymentMethodRadioButton${i}`)
+      cy.dataCy("payment-method-item").each((e, i) => {
+        cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodRadioButton1").click()
+      cy.get("@paymentMethodItem1").click({ force: true })
       cy.wait(
         [
           "@getOrderShipments",
@@ -136,6 +136,7 @@ describe("Checkout Checkout-Digital", () => {
         ],
         { timeout: 100000 }
       )
+      cy.dataCy("payment-method-amount").should("contain.text", "10,00")
     })
 
     it("insert data credit card and check data", () => {
@@ -147,25 +148,6 @@ describe("Checkout Checkout-Digital", () => {
         cy.fillElementsInput("cardExpiry", "3333")
         cy.fillElementsInput("cardCvc", "333")
       })
-      cy.get("@paymentSource0")
-        .get("button")
-        .each((e, i) => {
-          cy.wrap(e).as(`paymentSourceButton${i}`)
-        })
-
-      cy.get("@paymentSourceButton1").click()
-
-      cy.wait(
-        [
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-        ],
-        { timeout: 100000 }
-      )
-
-      cy.dataCy("payment-method-amount").should("contain.text", "10,00")
     })
 
     it("check step header badge", () => {
@@ -180,9 +162,17 @@ describe("Checkout Checkout-Digital", () => {
     it("place order and redirect", () => {
       cy.wait(2000)
       cy.dataCy("place-order-button").click()
-      cy.wait(["@retrieveLineItems", "@getOrders", "@updateOrder"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+        ],
+        { timeout: 100000 }
+      )
       cy.dataCy("button-continue-to-shop").click()
       cy.wait(2000)
       cy.url().should("eq", returnUrl)

@@ -96,21 +96,14 @@ describe("Checkout Shipments", () => {
       )
       cy.dataCy("save-shipments-button").click()
       cy.wait(
-        [
-          "@getShippingMethods",
-          "@getShipments",
-          "@getOrderShipments",
-          "@availablePaymentMethods",
-          "@retrieveLineItems",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
-        ],
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
         { timeout: 100000 }
       )
+      cy.wait(3000)
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"])
+
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -144,17 +137,15 @@ describe("Checkout Shipments", () => {
           "@getShippingMethods",
           "@getShipments",
           "@getOrderShipments",
-          "@availablePaymentMethods",
           "@retrieveLineItems",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )
+      cy.wait(3000)
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"])
+
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -181,7 +172,7 @@ describe("Checkout Shipments", () => {
             accessToken: this.tokenObj.access_token,
             attributes: {
               quantity: "5",
-              sku_code: "BABYONBU000000E63E7412MX",
+              sku_code: "TSHIRTMMFFFFFF000000XLXX",
             },
           })
           cy.createAddress({
@@ -271,17 +262,15 @@ describe("Checkout Shipments", () => {
           "@getShippingMethods",
           "@getShipments",
           "@getOrderShipments",
-          "@availablePaymentMethods",
           "@retrieveLineItems",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )
+      cy.wait(3000)
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"])
+
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -334,17 +323,14 @@ describe("Checkout Shipments", () => {
           "@getShippingMethods",
           "@getShipments",
           "@getOrderShipments",
-          "@availablePaymentMethods",
           "@retrieveLineItems",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"])
+
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -383,17 +369,15 @@ describe("Checkout Shipments", () => {
           "@getShippingMethods",
           "@getShipments",
           "@getOrderShipments",
-          "@availablePaymentMethods",
           "@retrieveLineItems",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )
+      cy.wait(3000)
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"])
+
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -432,17 +416,13 @@ describe("Checkout Shipments", () => {
           "@getShippingMethods",
           "@getShipments",
           "@getOrderShipments",
-          "@availablePaymentMethods",
           "@retrieveLineItems",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"])
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -518,8 +498,6 @@ describe("Checkout Shipments", () => {
           "@retrieveLineItems",
           "@getOrders",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
           "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
@@ -532,7 +510,7 @@ describe("Checkout Shipments", () => {
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"])
+
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -610,8 +588,6 @@ describe("Checkout Shipments", () => {
           "@retrieveLineItems",
           "@getOrders",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
           "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
@@ -624,7 +600,7 @@ describe("Checkout Shipments", () => {
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"])
+
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -652,7 +628,7 @@ describe("Checkout Shipments", () => {
             accessToken: this.tokenObj.access_token,
             attributes: {
               quantity: "5",
-              sku_code: "BABYONBU000000E63E7412MX",
+              sku_code: "TSHIRTMMFFFFFF000000XLXX",
             },
           })
           cy.createAddress({
@@ -712,8 +688,6 @@ describe("Checkout Shipments", () => {
           "@retrieveLineItems",
           "@getOrders",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
           "@availableCustomerPaymentSources",
         ],
         { timeout: 1000000 }
@@ -726,7 +700,7 @@ describe("Checkout Shipments", () => {
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"])
+
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -755,7 +729,7 @@ describe("Checkout Shipments", () => {
             accessToken: this.tokenObj.access_token,
             attributes: {
               quantity: "5",
-              sku_code: "BABYONBU000000E63E7412MX",
+              sku_code: "TSHIRTMMFFFFFF000000XLXX",
             },
           })
           cy.createAddress({
@@ -815,8 +789,6 @@ describe("Checkout Shipments", () => {
           "@retrieveLineItems",
           "@getOrders",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
           "@availableCustomerPaymentSources",
         ],
         { timeout: 1000000 }
@@ -829,7 +801,7 @@ describe("Checkout Shipments", () => {
       cy.dataCy("step_shipping")
         .click()
         .should("have.attr", "data-status", "true")
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"])
+
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
@@ -863,7 +835,7 @@ describe("Checkout Shipments", () => {
               accessToken: this.tokenObj.access_token,
               attributes: {
                 quantity: "5",
-                sku_code: "BABYONBU000000E63E7412MX",
+                sku_code: "TSHIRTMMFFFFFF000000XLXX",
               },
             })
             cy.createAddress({
@@ -925,8 +897,6 @@ describe("Checkout Shipments", () => {
             "@retrieveLineItems",
             "@getOrders",
             "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@availableCustomerPaymentSources",
             "@availableCustomerPaymentSources",
           ],
           { timeout: 1000000 }
@@ -939,7 +909,7 @@ describe("Checkout Shipments", () => {
         cy.dataCy("step_shipping")
           .click()
           .should("have.attr", "data-status", "true")
-        cy.wait(["@getOrderShipments", "@retrieveLineItems"])
+
         cy.dataCy("shipping-method-button").each((e, i) => {
           cy.wrap(e).as(`shippingMethodButton${i}`)
         })

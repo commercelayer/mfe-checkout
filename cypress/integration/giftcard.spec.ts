@@ -3,7 +3,7 @@ import { internet } from "faker"
 import { euAddress } from "../support/utils"
 
 describe("Checkout GiftCard", () => {
-  const filename = "giftcard"
+  const filename = "giftcdard"
 
   const email = internet.email().toLocaleLowerCase()
   const password = internet.password()
@@ -36,7 +36,7 @@ describe("Checkout GiftCard", () => {
             accessToken: this.tokenObj.access_token,
             attributes: {
               quantity: "5",
-              sku_code: "BABYONBU000000E63E7412MX",
+              sku_code: "TSHIRTMMFFFFFF000000XLXX",
             },
           })
           cy.createAddress({
@@ -151,7 +151,7 @@ describe("Checkout GiftCard", () => {
             accessToken: this.tokenObj.access_token,
             attributes: {
               quantity: "5",
-              sku_code: "BABYONBU000000E63E7412MX",
+              sku_code: "TSHIRTMMFFFFFF000000XLXX",
             },
           })
           cy.createAddress({

@@ -105,4 +105,43 @@ describe("Checkout entrypoint", () => {
       })
     })
   })
+
+  context("missing line items", () => {
+    const filename = "entrypoint"
+
+    before(function () {
+      cy.createOrder("draft", {
+        languageCode: "en",
+        customerEmail: "alessani@gmail.com",
+      }).as("newOrder")
+    })
+
+    describe("with single order", function () {
+      beforeEach(function () {
+        cy.setRoutes({
+          endpoint: Cypress.env("apiEndpoint"),
+          routes: Cypress.env("requests"),
+          record: Cypress.env("record"), // @default false
+          filename,
+        })
+      })
+
+      after(() => {
+        if (Cypress.env("record")) {
+          cy.saveRequests(filename)
+        }
+      })
+
+      it("redirect to invalid", function () {
+        cy.visit(
+          `/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`
+        )
+        cy.wait(5000)
+        cy.dataCy("invalid-checkout").should(
+          "have.text",
+          "This order is no longer accessible."
+        )
+      })
+    })
+  })
 })

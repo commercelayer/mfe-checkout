@@ -5,7 +5,8 @@ describe("Checkout guest address", () => {
   const emailCustomer = "gigi@buffon.it"
 
   context("initial order empty", () => {
-    beforeEach(function () {
+    let requires_billing_info = false
+    before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: "alessani@gmail.tk",
@@ -52,6 +53,8 @@ describe("Checkout guest address", () => {
       )
 
       cy.dataCy("customer_email").should("contain.value", "alessani@gmail.tk")
+
+      requires_billing_info = this.newOrder.attributes.requires_billing_info
     })
 
     it("change customer email", () => {
@@ -78,7 +81,7 @@ describe("Checkout guest address", () => {
       cy.dataCy("input_billing_address_zip_code").type(euAddress.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress.phone)
 
-      if (this.newOrder.attributes.requires_billing_info) {
+      if (requires_billing_info) {
         cy.dataCy("input_billing_address_billing_info").type(
           euAddress.billingInfo
         )
@@ -188,14 +191,8 @@ describe("Checkout guest address", () => {
             orderId: order.id,
           })
           cy.createAddress({
-            firstName: euAddress.firstName,
-            lastName: euAddress.lastName,
-            city: euAddress.city,
-            countryCode: euAddress.countryCode,
-            line1: euAddress.line1,
-            phone: euAddress.phone,
-            stateCode: euAddress.stateCode,
-            zipCode: euAddress.zipCode,
+            ...euAddress,
+            accessToken: this.newOrder.access_token,
           }).then((address) => {
             cy.setSameAddress(order.id, address.id)
           })
@@ -258,24 +255,12 @@ describe("Checkout guest address", () => {
             orderId: order.id,
           })
           cy.createAddress({
-            firstName: euAddress.firstName,
-            lastName: euAddress.lastName,
-            city: euAddress.city,
-            countryCode: euAddress.countryCode,
-            line1: euAddress.line1,
-            phone: euAddress.phone,
-            stateCode: euAddress.stateCode,
-            zipCode: euAddress.zipCode,
+            ...euAddress,
+            accessToken: this.newOrder.access_token,
           }).then((billingAddress) => {
             cy.createAddress({
-              firstName: euAddress2.firstName,
-              lastName: euAddress2.lastName,
-              city: euAddress2.city,
-              countryCode: euAddress2.countryCode,
-              line1: euAddress2.line1,
-              phone: euAddress2.phone,
-              stateCode: euAddress2.stateCode,
-              zipCode: euAddress2.zipCode,
+              ...euAddress2,
+              accessToken: this.newOrder.access_token,
             }).then((shippingAddress) => {
               cy.setDifferentAddress(
                 order.id,

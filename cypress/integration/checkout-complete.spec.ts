@@ -2,7 +2,7 @@ import { internet } from "faker"
 
 import { euAddress } from "../support/utils"
 
-describe("Checkout Checkout Complete", () => {
+describe("Checkout Complete", () => {
   const filename = "checkout-complete"
 
   const email = internet.email().toLocaleLowerCase()
@@ -89,8 +89,6 @@ describe("Checkout Checkout Complete", () => {
           "@retrieveLineItems",
           "@getOrders",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
           "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
@@ -100,10 +98,10 @@ describe("Checkout Checkout Complete", () => {
     })
 
     it("select payment method credit card", () => {
-      cy.dataCy("payment-method-radio-button").each((e, i) => {
-        cy.wrap(e).as(`paymentMethodRadioButton${i}`)
+      cy.dataCy("payment-method-item").each((e, i) => {
+        cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodRadioButton1").click()
+      cy.get("@paymentMethodItem1").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -123,6 +121,7 @@ describe("Checkout Checkout Complete", () => {
         ],
         { timeout: 100000 }
       )
+      cy.dataCy("payment-method-amount").should("contain.text", "10,00")
     })
 
     it("insert data credit card and check data", () => {
@@ -134,14 +133,11 @@ describe("Checkout Checkout Complete", () => {
         cy.fillElementsInput("cardExpiry", "3333")
         cy.fillElementsInput("cardCvc", "333")
       })
-      cy.get("@paymentSource0")
-        .get("button")
-        .each((e, i) => {
-          cy.wrap(e).as(`paymentSourceButton${i}`)
-        })
+    })
 
-      cy.get("@paymentSourceButton1").click()
-
+    it("place order and redirect", () => {
+      cy.wait(2000)
+      cy.dataCy("place-order-button").click()
       cy.wait(
         [
           "@getShippingMethods",
@@ -151,24 +147,10 @@ describe("Checkout Checkout Complete", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@getOrders",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
-        ],
-        { timeout: 100000 }
-      )
-      cy.dataCy("payment-method-amount").should("contain.text", "10,00")
-    })
-
-    it("place order and redirect", () => {
-      cy.wait(2000)
-      cy.dataCy("place-order-button").click()
-      cy.wait(
-        [
-          "@getShippingMethods",
-          "@getOrderShipments",
-          "@retrieveLineItems",
           "@getOrders",
           "@updateOrder",
+          "@getCustomerAddresses",
+          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )

@@ -11,7 +11,11 @@ import {
   PaymentDetailsWrapper,
 } from "./styled"
 
-export const CheckoutPayment: React.FC = () => {
+interface Props {
+  refetchOrder: () => Promise<void>
+}
+
+export const CheckoutPayment: React.FC<Props> = ({ refetchOrder }) => {
   return (
     <>
       <PaymentMethod
@@ -19,6 +23,7 @@ export const CheckoutPayment: React.FC = () => {
         className="payment"
         loader={PaymentSkeleton}
         clickableContainer
+        onClick={refetchOrder}
       >
         <PaymentWrapper>
           <PaymentSummaryList />

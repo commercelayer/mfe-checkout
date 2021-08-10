@@ -8,6 +8,8 @@ describe("Checkout customer address", () => {
   const email = internet.email().toLocaleLowerCase()
   const password = internet.password()
 
+  let requires_billing_info = false
+
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
       cy.getTokenCustomer({
@@ -18,7 +20,7 @@ describe("Checkout customer address", () => {
   })
 
   context("initial order empty", () => {
-    beforeEach(function () {
+    before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: email,
@@ -65,9 +67,10 @@ describe("Checkout customer address", () => {
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
+      requires_billing_info = this.newOrder.attributes.requires_billing_info
     })
 
-    it("fill billing form and save", function () {
+    it("fill billing form and save", () => {
       cy.dataCy("input_billing_address_first_name").type(euAddress.firstName)
       cy.dataCy("input_billing_address_last_name").type(euAddress.lastName)
       cy.dataCy("input_billing_address_line_1").type(euAddress.line1)
@@ -79,7 +82,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_zip_code").type(euAddress.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress.phone)
 
-      if (this.newOrder.attributes.requires_billing_info) {
+      if (requires_billing_info) {
         cy.dataCy("input_billing_address_billing_info").type(
           euAddress.billingInfo
         )
@@ -121,9 +124,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -186,9 +187,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("input_billing_address_first_name").type(
         `{selectall}{backspace}${euAddress3.firstName}`
@@ -215,7 +214,7 @@ describe("Checkout customer address", () => {
         `{selectall}{backspace}${euAddress3.phone}`
       )
 
-      if (this.newOrder.attributes.requires_billing_info) {
+      if (requires_billing_info) {
         cy.dataCy("input_billing_address_billing_info").type(
           euAddress3.billingInfo
         )
@@ -251,6 +250,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
         .and("contain", euAddress3.stateCode)
+        .and("contain", euAddress3.billingInfo)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress2.firstName)
@@ -267,9 +267,7 @@ describe("Checkout customer address", () => {
         .click({ force: true })
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -306,11 +304,13 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
         .and("contain", euAddress3.stateCode)
+        .and("contain", euAddress3.billingInfo)
     })
   })
 
   context("initial order with same address", () => {
-    before(function () {
+    let requires_billing_info = false
+    beforeEach(function () {
       cy.getTokenCustomer({
         username: email,
         password: password,
@@ -371,9 +371,10 @@ describe("Checkout customer address", () => {
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
+      requires_billing_info = this.newOrder.attributes.requires_billing_info
     })
 
-    it("check information", function () {
+    it("check information", () => {
       cy.dataCy("full-billing-information")
         .should("contain", euAddress.firstName)
         .and("contain", euAddress.lastName)
@@ -384,14 +385,12 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.stateCode)
     })
 
-    it("edit billing address, fill billing form and save", function () {
+    it("edit billing address, fill billing form and save", () => {
       cy.dataCy("step_customer")
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("input_billing_address_first_name").type(
         `{selectall}{backspace}${euAddress3.firstName}`
@@ -418,9 +417,9 @@ describe("Checkout customer address", () => {
         `{selectall}{backspace}${euAddress3.phone}`
       )
 
-      if (this.newOrder.attributes.requires_billing_info) {
+      if (requires_billing_info) {
         cy.dataCy("input_billing_address_billing_info").type(
-          euAddress3.billingInfo
+          `{selectall}{backspace}${euAddress3.billingInfo}`
         )
       }
 
@@ -453,6 +452,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
         .and("contain", euAddress3.stateCode)
+        .and("contain", euAddress3.billingInfo)
     })
 
     it("ship to different address, fill shipping form and save", () => {
@@ -460,9 +460,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -509,6 +507,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
         .and("contain", euAddress3.stateCode)
+        .and("contain", euAddress3.billingInfo)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress2.firstName)
@@ -525,9 +524,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -562,6 +559,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
         .and("contain", euAddress3.stateCode)
+        .and("contain", euAddress3.billingInfo)
     })
   })
 
@@ -657,7 +655,8 @@ describe("Checkout customer address", () => {
   })
 
   context("initial order empty with one address on book", () => {
-    before(function () {
+    let requires_billing_info = false
+    beforeEach(function () {
       cy.getTokenCustomer({
         username: email,
         password: password,
@@ -724,6 +723,7 @@ describe("Checkout customer address", () => {
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
+      requires_billing_info = this.newOrder.attributes.requires_billing_info
     })
 
     it("check information", () => {
@@ -740,9 +740,7 @@ describe("Checkout customer address", () => {
     it("add custom billing address and save", function () {
       cy.dataCy("step_customer").click()
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("add_new_billing_address").click()
 
@@ -757,7 +755,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
 
-      if (this.newOrder.attributes.requires_billing_info) {
+      if (requires_billing_info) {
         cy.dataCy("input_billing_address_billing_info").type(
           euAddress2.billingInfo
         )
@@ -791,6 +789,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
         .and("contain", euAddress2.stateCode)
+        .and("contain", euAddress2.billingInfo)
     })
 
     it("add custom shipping address and save", () => {
@@ -798,9 +797,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -848,6 +845,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
         .and("contain", euAddress2.stateCode)
+        .and("contain", euAddress2.billingInfo)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress3.firstName)
@@ -864,9 +862,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("customer-shipping-address")
         .contains("p", euAddress.firstName)
@@ -902,6 +898,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
         .and("contain", euAddress2.stateCode)
+        .and("contain", euAddress2.billingInfo)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress.firstName)
@@ -918,9 +915,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress.firstName)
@@ -964,9 +959,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("button-ship-to-different-address").should(
         "have.attr",
@@ -1025,6 +1018,8 @@ describe("Checkout customer address", () => {
       )
     })
 
+    let requires_billing_info = false
+
     beforeEach(function () {
       console.log(emailTemp, passwordTemp)
       cy.setRoutes({
@@ -1058,6 +1053,7 @@ describe("Checkout customer address", () => {
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
+      requires_billing_info = this.newOrder.attributes.requires_billing_info
     })
 
     it("select first address and save", () => {
@@ -1105,9 +1101,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress2.firstName)
@@ -1146,6 +1140,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
         .and("contain", euAddress2.stateCode)
+        .and("contain", euAddress2.billingInfo)
     })
 
     it("add custom billing address and save", function () {
@@ -1153,9 +1148,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("add_new_billing_address").click()
 
@@ -1170,7 +1163,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
 
-      if (this.newOrder.attributes.requires_billing_info) {
+      if (requires_billing_info) {
         cy.dataCy("input_billing_address_billing_info").type(
           euAddress2.billingInfo
         )
@@ -1205,6 +1198,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
         .and("contain", euAddress2.stateCode)
+        .and("contain", euAddress2.billingInfo)
     })
 
     it("add custom shipping address and save", () => {
@@ -1212,9 +1206,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -1264,6 +1256,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
         .and("contain", euAddress2.stateCode)
+        .and("contain", euAddress2.billingInfo)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress3.firstName)
@@ -1280,9 +1273,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("customer-shipping-address")
         .contains("p", euAddress2.firstName)
@@ -1322,6 +1313,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
         .and("contain", euAddress2.stateCode)
+        .and("contain", euAddress2.billingInfo)
     })
 
     it("select first billing address and save", () => {
@@ -1329,9 +1321,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress.firstName)
@@ -1374,6 +1364,7 @@ describe("Checkout customer address", () => {
   })
 
   context("initial order empty with country lock", () => {
+    let requires_billing_info = false
     const emailTemp = internet.email().toLocaleLowerCase()
     const passwordTemp = internet.password()
     const countryCode = "IT"
@@ -1459,6 +1450,7 @@ describe("Checkout customer address", () => {
       )
 
       cy.url().should("contain", this.tokenObj.access_token)
+      requires_billing_info = this.newOrder.attributes.requires_billing_info
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
@@ -1507,9 +1499,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress2.firstName)
@@ -1536,7 +1526,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
 
-      if (this.newOrder.attributes.requires_billing_info) {
+      if (requires_billing_info) {
         cy.dataCy("input_billing_address_billing_info").type(
           euAddress2.billingInfo
         )
@@ -1579,6 +1569,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.zipCode)
         .and("contain", euAddress2.stateCode)
         .and("contain", countryCode)
+        .and("contain", euAddress2.billingInfo)
     })
 
     it("add custom shipping address and save", () => {
@@ -1586,9 +1577,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("button-ship-to-different-address")
         .click()
@@ -1636,6 +1625,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
         .and("contain", euAddress2.stateCode)
+        .and("contain", euAddress2.billingInfo)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress3.firstName)
@@ -1652,9 +1642,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("customer-shipping-address")
         .contains("p", euAddress2.firstName)
@@ -1702,6 +1690,7 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
         .and("contain", euAddress2.stateCode)
+        .and("contain", euAddress2.billingInfo)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress.firstName)
@@ -1718,9 +1707,7 @@ describe("Checkout customer address", () => {
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(["@getCustomerAddresses", "@availableCustomerPaymentSources"], {
-        timeout: 100000,
-      })
+      cy.wait(1500)
 
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress.firstName)

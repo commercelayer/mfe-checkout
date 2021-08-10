@@ -38,8 +38,8 @@ describe("Checkout Coupon", () => {
             orderId: order.id,
             accessToken: this.tokenObj.access_token,
             attributes: {
-              quantity: "5",
-              sku_code: "BABYONBU000000E63E7412MX",
+              quantity: "9",
+              sku_code: "SWEETSMUB7B7B7E63E74LXXX",
             },
           })
           cy.createAddress({
@@ -96,6 +96,8 @@ describe("Checkout Coupon", () => {
       cy.wait(
         [
           "@getShippingMethods",
+          "@getShipments",
+          "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@availablePaymentMethods",
@@ -103,8 +105,6 @@ describe("Checkout Coupon", () => {
           "@retrieveLineItems",
           "@getOrders",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
           "@availableCustomerPaymentSources",
         ],
         {
@@ -117,8 +117,8 @@ describe("Checkout Coupon", () => {
 
     it("check coupon", function () {
       cy.dataCy("code-coupon").should("contain", "testcoupon")
-      cy.dataCy("discount-amount").should("contain", "73,20")
-      cy.dataCy("total-amount").should("contain", "182,80")
+      cy.dataCy("discount-amount").should("contain", "124,20")
+      cy.dataCy("total-amount").should("contain", "301,80")
     })
   })
 
@@ -143,8 +143,8 @@ describe("Checkout Coupon", () => {
             orderId: order.id,
             accessToken: this.tokenObj.access_token,
             attributes: {
-              quantity: "5",
-              sku_code: "BABYONBU000000E63E7412MX",
+              quantity: "9",
+              sku_code: "SWEETSMUB7B7B7E63E74LXXX",
             },
           })
           cy.createAddress({
@@ -196,6 +196,8 @@ describe("Checkout Coupon", () => {
       cy.wait(
         [
           "@getShippingMethods",
+          "@getShipments",
+          "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@availablePaymentMethods",
@@ -203,8 +205,6 @@ describe("Checkout Coupon", () => {
           "@retrieveLineItems",
           "@getOrders",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
           "@availableCustomerPaymentSources",
         ],
         {
@@ -216,7 +216,7 @@ describe("Checkout Coupon", () => {
     })
 
     it("check amount", () => {
-      cy.dataCy("total-amount").should("contain", "256,00")
+      cy.dataCy("total-amount").should("contain", "426,00")
     })
 
     it("set coupon and check amount", () => {
@@ -241,8 +241,8 @@ describe("Checkout Coupon", () => {
         }
       )
       cy.dataCy("code-coupon").should("contain", "testcoupon")
-      cy.dataCy("discount-amount").should("contain", "73,20")
-      cy.dataCy("total-amount").should("contain", "182,80")
+      cy.dataCy("discount-amount").should("contain", "124,20")
+      cy.dataCy("total-amount").should("contain", "301,80")
     })
     it("remove coupon and check amount", () => {
       cy.dataCy("remove_coupon").click({ force: true })
@@ -264,7 +264,7 @@ describe("Checkout Coupon", () => {
           timeout: 100000,
         }
       )
-      cy.dataCy("total-amount").should("contain", "256,00")
+      cy.dataCy("total-amount").should("contain", "426,00")
     })
   })
 })

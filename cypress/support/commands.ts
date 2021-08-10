@@ -71,6 +71,8 @@ Cypress.Commands.add("createOrder", (template, options) => {
             shipping_country_code_lock: options.shipping_country_code_lock,
             return_url: options.return_url,
             reference: options.reference || null,
+            terms_url: options.terms_url || null,
+            privacy_url: options.privacy_url || null,
           },
         },
       },

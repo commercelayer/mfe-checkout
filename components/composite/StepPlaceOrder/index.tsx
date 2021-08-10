@@ -122,6 +122,7 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
                 <StyledPrivacyAndTermsCheckbox
                   id="privacy-terms"
                   className="form-checkbox"
+                  data-cy="checkbox-privacy-and-terms"
                 />
               </CheckboxWrapper>
               <Label htmlFor="privacy-terms">

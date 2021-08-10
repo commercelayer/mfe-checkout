@@ -1,10 +1,14 @@
 /// <reference types="cypress" />
-
 import {
   SetRoutes,
   NewStubData,
   SaveRequests,
 } from "@commercelayer/cypress-vcr"
+import {
+  OrderCollection,
+  AddressCollection,
+  ShipmentCollection,
+} from "@commercelayer/js-sdk"
 
 declare global {
   namespace Cypress {
@@ -41,8 +45,10 @@ declare global {
           return_url?: string
           reference?: string
           accessToken?: any
+          terms_url?: string
+          privacy_url?: string
         }
-      ): Chainable<Subject>
+      ): Chainable<OrderCollection>
       setSameAddress(
         orderId: string,
         addressId: string,
@@ -61,7 +67,7 @@ declare global {
           | "Express Delivery EU"
           | "Express Delivery US"
           | "Standard Shipping"
-      }): Chainable<Subject>
+      }): Chainable<ShipmentCollection[]>
       createAddress(options: {
         firstName: string
         lastName: string
@@ -73,7 +79,7 @@ declare global {
         phone: string
         billingInfo: string
         accessToken?: string
-      }): Chainable<Subject>
+      }): Chainable<AddressCollection>
       getTokenCustomer(options: {
         username: string
         password: string

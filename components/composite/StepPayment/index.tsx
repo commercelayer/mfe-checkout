@@ -94,7 +94,7 @@ export const StepPayment: React.FC = () => {
     return null
   }
 
-  const { isGuest, isPaymentRequired } = appCtx
+  const { isGuest, isPaymentRequired, refetchOrder } = appCtx
 
   return (
     <StepContainer
@@ -107,7 +107,13 @@ export const StepPayment: React.FC = () => {
         {isPaymentRequired && (
           <div>
             {accordionCtx.isActive && (
-              <>{isGuest ? <CheckoutPayment /> : <CheckoutCustomerPayment />}</>
+              <>
+                {isGuest ? (
+                  <CheckoutPayment refetchOrder={refetchOrder} />
+                ) : (
+                  <CheckoutCustomerPayment refetchOrder={refetchOrder} />
+                )}
+              </>
             )}
           </div>
         )}

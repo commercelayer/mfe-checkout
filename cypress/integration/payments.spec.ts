@@ -37,7 +37,7 @@ describe("Checkout Payments", () => {
                   accessToken: this.tokenObj.access_token,
                   attributes: {
                     quantity: "5",
-                    sku_code: "BABYONBU000000E63E7412MX",
+                    sku_code: "TSHIRTMMFFFFFF000000XLXX",
                   },
                 })
                 cy.createAddress({
@@ -53,6 +53,7 @@ describe("Checkout Payments", () => {
                       accessToken: this.tokenObj.access_token,
                       orderId: order.id,
                     }).then((shipments) => {
+                      console.log(shipments)
                       cy.setShipmentMethod({
                         type: "Standard Shipping",
                         id: shipments[0].id,
@@ -100,8 +101,6 @@ describe("Checkout Payments", () => {
           "@retrieveLineItems",
           "@getOrders",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
           "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
@@ -111,10 +110,10 @@ describe("Checkout Payments", () => {
     })
 
     it("select payment method credit card", () => {
-      cy.dataCy("payment-method-radio-button").each((e, i) => {
-        cy.wrap(e).as(`paymentMethodRadioButton${i}`)
+      cy.dataCy("payment-method-item").each((e, i) => {
+        cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodRadioButton1").click()
+      cy.get("@paymentMethodItem1").click({ force: true })
       cy.wait(
         [
           "@getOrderShipments",
@@ -144,28 +143,6 @@ describe("Checkout Payments", () => {
         cy.fillElementsInput("cardExpiry", "3333")
         cy.fillElementsInput("cardCvc", "333")
       })
-      cy.get("@paymentSource0")
-        .get("button")
-        .each((e, i) => {
-          cy.wrap(e).as(`paymentSourceButton${i}`)
-        })
-
-      cy.get("@paymentSourceButton1").click()
-
-      cy.wait(
-        [
-          "@getShippingMethods",
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
-        ],
-        { timeout: 100000 }
-      )
       cy.dataCy("payment-method-amount").should("contain.text", "10,00")
     })
   })
@@ -189,7 +166,7 @@ describe("Checkout Payments", () => {
             orderId: order.id,
             attributes: {
               quantity: "5",
-              sku_code: "BABYONBU000000E63E7412MX",
+              sku_code: "TSHIRTMMFFFFFF000000XLXX",
             },
           })
           cy.createAddress({
@@ -253,10 +230,10 @@ describe("Checkout Payments", () => {
     })
 
     it("select payment method credit card", () => {
-      cy.dataCy("payment-method-radio-button").each((e, i) => {
-        cy.wrap(e).as(`paymentMethodRadioButton${i}`)
+      cy.dataCy("payment-method-item").each((e, i) => {
+        cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodRadioButton1").click()
+      cy.get("@paymentMethodItem1").click({ force: true })
       cy.wait(
         [
           "@getOrderShipments",
@@ -281,14 +258,70 @@ describe("Checkout Payments", () => {
         cy.fillElementsInput("cardExpiry", "3333")
         cy.fillElementsInput("cardCvc", "333")
       })
-      cy.get("@paymentSource0")
-        .get("button")
-        .each((e, i) => {
-          cy.wrap(e).as(`paymentSourceButton${i}`)
+      cy.dataCy("payment-method-amount").should("contain.text", "10,00")
+    })
+  })
+
+  context("select one method and change immediately", () => {
+    before(function () {
+      cy.createOrder("draft", {
+        languageCode: "en",
+        customerEmail: email,
+      })
+        .as("newOrder")
+        .then((order) => {
+          cy.createSkuLineItems({
+            orderId: order.id,
+            attributes: {
+              quantity: "1",
+              sku_code: "CANVASAU000000FFFFFF1824",
+            },
+          })
+          cy.createSkuLineItems({
+            orderId: order.id,
+            attributes: {
+              quantity: "5",
+              sku_code: "TSHIRTMMFFFFFF000000XLXX",
+            },
+          })
+          cy.createAddress({
+            ...euAddress,
+          }).then((address) => {
+            cy.setSameAddress(order.id, address.id).then(() => {
+              cy.getShipments({
+                orderId: order.id,
+              }).then((shipments) => {
+                cy.setShipmentMethod({
+                  type: "Standard Shipping",
+                  id: shipments[0].id,
+                })
+                cy.setShipmentMethod({
+                  type: "Express Delivery EU",
+                  id: shipments[1].id,
+                })
+              })
+            })
+          })
         })
+    })
 
-      cy.get("@paymentSourceButton1").click()
+    beforeEach(function () {
+      cy.setRoutes({
+        endpoint: Cypress.env("apiEndpoint"),
+        routes: Cypress.env("requests"),
+        record: Cypress.env("record"), // @default false
+        filename,
+      })
+    })
 
+    after(() => {
+      if (Cypress.env("record")) {
+        cy.saveRequests(filename)
+      }
+    })
+
+    it("valid customer token", function () {
+      cy.visit(`/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`)
       cy.wait(
         [
           "@getShippingMethods",
@@ -303,7 +336,69 @@ describe("Checkout Payments", () => {
         ],
         { timeout: 100000 }
       )
+      cy.url().should("contain", Cypress.env("accessToken"))
+    })
+
+    it("check if not avaible save to wallet", () => {
+      cy.wait(5000)
+      cy.dataCy("payment-save-wallet").should("not.exist")
+    })
+
+    it("select payment method credit card", () => {
+      cy.dataCy("payment-method-item").each((e, i) => {
+        cy.wrap(e).as(`paymentMethodItem${i}`)
+      })
+      cy.get("@paymentMethodItem1").click({ force: true })
+      cy.wait(
+        [
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@stripePayments",
+        ],
+        { timeout: 100000 }
+      )
+    })
+
+    it("insert data credit card and check data", () => {
+      cy.dataCy("payment-source").each((e, i) => {
+        cy.wrap(e).as(`paymentSource${i}`)
+      })
+      cy.get("@paymentSource1").within(() => {
+        cy.fillElementsInput("cardNumber", "4242424242424242")
+        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardCvc", "333")
+      })
       cy.dataCy("payment-method-amount").should("contain.text", "10,00")
+    })
+
+    it("change payment method to wire transfer", () => {
+      cy.dataCy("payment-method-item").each((e, i) => {
+        cy.wrap(e).as(`paymentMethodItem${i}`)
+      })
+      cy.get("@paymentMethodItem2").click({ force: true })
+      cy.dataCy("place-order-button").should("be.disabled")
+      cy.wait(
+        [
+          "@getShipments",
+          "@getShipments",
+          "@getShipments",
+          "@getShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+        ],
+        { timeout: 100000 }
+      )
+      cy.dataCy("place-order-button").should("be.enabled")
     })
   })
 })

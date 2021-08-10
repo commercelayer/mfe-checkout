@@ -19,7 +19,11 @@ import {
   WalletCheckbox,
 } from "./styled"
 
-export const CheckoutCustomerPayment: React.FC = () => {
+interface Props {
+  refetchOrder: () => Promise<void>
+}
+
+export const CheckoutCustomerPayment: React.FC<Props> = ({ refetchOrder }) => {
   const { t } = useTranslation()
 
   const TemplateCustomerCards = ({ handleClick }: CustomerCardsProps) => (
@@ -57,6 +61,7 @@ export const CheckoutCustomerPayment: React.FC = () => {
         className="payment"
         loader={PaymentSkeleton}
         clickableContainer
+        onClick={refetchOrder}
       >
         <PaymentWrapper>
           <PaymentSummaryList />
