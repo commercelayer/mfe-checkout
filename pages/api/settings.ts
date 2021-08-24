@@ -16,15 +16,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const accessToken = req.query.accessToken as string
   const orderId = req.query.orderId as string
 
-  if (!accessToken || !orderId) {
+  function invalidateCheckout() {
     res.statusCode = 200
     return res.json({ validCheckout: false })
+  }
+
+  if (!accessToken || !orderId) {
+    return invalidateCheckout()
   }
 
   let endpoint: string
   try {
     const slug = (jwt_decode(accessToken) as JWTProps).organization.slug
-    if (slug) {
+    const subdomain = req.headers.host?.split(":")[0].split(".")[0]
+
+    if (subdomain !== slug) {
+      return invalidateCheckout()
+    } else if (slug) {
       endpoint = `https://${slug}.${
         process.env.NEXT_PUBLIC_CLAYER_HOSTNAME as string
       }`
@@ -33,14 +41,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   } catch (e) {
     console.log(`error decoding access token: ${e}`)
-    res.statusCode = 200
-    return res.json({ validCheckout: false })
+    return invalidateCheckout()
   }
-
-  // CLayer.init({
-  //   accessToken,
-  //   endpoint,
-  // })
 
   let order
 
@@ -87,8 +89,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (!order?.id || !organization?.id) {
-    res.statusCode = 200
-    return res.json({ validCheckout: false })
+    return invalidateCheckout()
   }
 
   const lineItemsCount = (
@@ -105,8 +106,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   // If there are no items to buy we redirect to the invalid page
   if (lineItemsCount === 0) {
-    res.statusCode = 200
-    return res.json({ validCheckout: false })
+    return invalidateCheckout()
   }
 
   const appSettings: CheckoutSettings = {
