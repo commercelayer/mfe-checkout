@@ -29,6 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const slug = (jwt_decode(accessToken) as JWTProps).organization.slug
     const subdomain = req.headers.host?.split(":")[0].split(".")[0]
+
     if (subdomain !== slug) {
       return invalidateCheckout()
     } else if (slug) {
@@ -42,11 +43,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(`error decoding access token: ${e}`)
     return invalidateCheckout()
   }
-
-  // CLayer.init({
-  //   accessToken,
-  //   endpoint,
-  // })
 
   let order
 
