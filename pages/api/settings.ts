@@ -28,7 +28,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let endpoint: string
   try {
     const slug = (jwt_decode(accessToken) as JWTProps).organization.slug
-    const subdomain = req.headers.host?.split(":")[0].split(".")[1]
+    const subdomain = req.headers.host?.split(":")[0].split(".")[0]
     if (subdomain !== slug) {
       return invalidateCheckout()
     } else if (slug) {
