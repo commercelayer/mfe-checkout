@@ -24,7 +24,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let endpoint: string
   try {
     const slug = (jwt_decode(accessToken) as JWTProps).organization.slug
-    if (slug) {
+    if (req.headers.host?.split(":")[0].split(".")[0] !== slug) {
+      res.statusCode = 200
+      return res.json({ validCheckout: false })
+    } else if (slug) {
       endpoint = `https://${slug}.${
         process.env.NEXT_PUBLIC_CLAYER_HOSTNAME as string
       }`
@@ -116,7 +119,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     orderId: order.id,
     validCheckout: true,
     logoUrl: organization?.logoUrl,
-    slug: organization?.slug || "Test slug",
     companyName: organization?.name || "Test company",
     language: order.languageCode,
     primaryColor: hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,
