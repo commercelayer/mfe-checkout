@@ -116,6 +116,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     orderId: order.id,
     validCheckout: true,
     logoUrl: organization?.logoUrl,
+    slug: organization?.slug || "Test slug",
     companyName: organization?.name || "Test company",
     language: order.languageCode,
     primaryColor: hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,

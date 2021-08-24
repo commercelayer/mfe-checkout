@@ -11,6 +11,7 @@ interface CheckoutSettings {
   validCheckout: boolean
   endpoint: string
   logoUrl?: string
+  slug: string
   companyName: string
   language: string
   primaryColor: HSLProps
@@ -27,6 +28,7 @@ type CheckoutPageContextProps = Pick<
   | "accessToken"
   | "orderId"
   | "logoUrl"
+  | "slug"
   | "companyName"
   | "endpoint"
   | "language"

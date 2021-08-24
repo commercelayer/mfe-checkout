@@ -23,7 +23,11 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
     return { isLoading: true, settings: undefined }
   }
 
-  if (error || (data && !data.validCheckout)) {
+  if (
+    error ||
+    (data && !data.validCheckout) ||
+    data.slug !== window.location.host.split(":")[0].split(".")[0]
+  ) {
     router.push("/invalid")
     return { settings: undefined, isLoading: false }
   }
