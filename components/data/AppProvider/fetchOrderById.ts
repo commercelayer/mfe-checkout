@@ -191,7 +191,7 @@ async function checkIfShipmentRequired(
     return false
   }
   // riguardare
-  return lineItems?.length > 0
+  return lineItems.length > 0
 }
 
 export const fetchOrderById = async ({
