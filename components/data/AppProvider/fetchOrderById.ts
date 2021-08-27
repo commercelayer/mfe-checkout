@@ -14,6 +14,7 @@ import CLayer, {
   AdyenPaymentCollection,
 } from "@commercelayer/js-sdk"
 import {
+  Collection,
   CollectionResponse,
   JSONAPIResponse,
   SingleRelationship,
@@ -170,21 +171,27 @@ async function checkIfShipmentRequired(
   order: OrderCollection
 ): Promise<boolean> {
   const lineItems:
-    | Partial<
-        LineItemCollection &
-          CollectionResponse<LineItemCollection> &
-          JSONAPIResponse & { length: number }
-      >
-    | undefined = await order
-    .lineItems()
-    ?.where({ itemTypeCont: "skus" })
-    .select("item_type")
-    .last(1)
+    | Collection<
+        Partial<
+          LineItemCollection &
+            CollectionResponse<LineItemCollection> &
+            JSONAPIResponse & { length: number }
+        >
+      >[]
+    | undefined = (
+    await order
+      .lineItems()
+      ?.where({ itemTypeCont: "skus" })
+      ?.includes("item")
+      ?.select("item_type")
+      ?.all()
+  )?.__collection?.filter((e) => !e?.association("item")?.target?.doNotShip)
+
   if (lineItems?.length === undefined) {
     return false
   }
   // riguardare
-  return lineItems.length > 0
+  return lineItems?.length > 0
 }
 
 export const fetchOrderById = async ({
