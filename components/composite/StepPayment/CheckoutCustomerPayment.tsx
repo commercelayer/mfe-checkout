@@ -38,7 +38,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ refetchOrder }) => {
   const TemplateSaveToWalletCheckbox = ({
     name,
   }: CustomerSaveToWalletProps) => (
-    <div className="flex mt-4 flex-center">
+    <div className="flex items-center mt-4">
       <WalletCheckbox
         name={name}
         id={name}

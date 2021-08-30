@@ -40,5 +40,5 @@ export const StyledPrivacyAndTermsCheckbox = styled(PrivacyAndTermsCheckbox)`
   ${CheckCss}
 `
 export const CheckboxWrapper = styled.div`
-  ${tw`w-6 h-6 flex justify-center items-center rounded bg-gray-100`}
+  ${tw`flex justify-center items-center`}
 `
