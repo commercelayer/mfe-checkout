@@ -8,6 +8,28 @@ export const PaymentContainer: React.FC = ({ children }) => {
   return (
     <PaymentMethodsContainer
       config={{
+        braintreePayment: {
+          styles: {
+            // Style all elements
+            input: {
+              color: "green",
+              "font-size": "1px",
+            },
+
+            "iframe[name^='braintree-hosted-field-number']": {
+              height: "1px",
+            },
+
+            // Media queries
+            // Note that these apply to the iframe, not the root window.
+            "@media screen and (max-width: 700px)": {
+              // @ts-ignore
+              input: {
+                "font-size": "14px",
+              },
+            },
+          },
+        },
         stripePayment: {
           fonts: [
             {
