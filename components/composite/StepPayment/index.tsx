@@ -33,13 +33,9 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
     return null
   }
 
-  const { hasPaymentMethod, isPaymentRequired, paymentMethod } = appCtx
+  const { hasPaymentMethod, isPaymentRequired, isCreditCard } = appCtx
 
   const { t } = useTranslation()
-
-  const isCreditCard = () => {
-    return paymentMethod?.paymentSourceType === "stripe_payments"
-  }
 
   const recapText = () => {
     if (!isPaymentRequired) {
@@ -56,7 +52,7 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
             <PaymentSourceBrandIcon className="mr-2" />
             <PaymentSourceBrandName className="mr-1">
               {({ brand }) => {
-                if (isCreditCard()) {
+                if (isCreditCard) {
                   return (
                     <Trans t={t} i18nKey="stepPayment.endingIn">
                       {brand}

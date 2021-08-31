@@ -23,11 +23,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
     return null
   }
 
-  const { paymentMethod } = appCtx
-
-  const isCreditCard = () => {
-    return paymentMethod?.paymentSourceType === "stripe_payments"
-  }
+  const { isCreditCard } = appCtx
 
   return (
     <Fragment>
@@ -36,7 +32,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
           <PaymentSourceBrandIcon className="mr-2" />
           <PaymentSourceBrandName className="mr-1">
             {({ brand }) => {
-              if (isCreditCard()) {
+              if (isCreditCard) {
                 return (
                   <Trans t={t} i18nKey="stepPayment.endingIn">
                     {brand}
@@ -48,7 +44,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
             }}
           </PaymentSourceBrandName>
         </div>
-        {isCreditCard() && (
+        {isCreditCard && (
           <div className="pl-10 text-gray-500 lg:pl-2">
             {t("stepPayment.expires")} <PaymentSourceDetail type="expMonth" />
             /
@@ -56,7 +52,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
           </div>
         )}
       </div>
-      {isCreditCard() && hasEditButton && (
+      {isCreditCard && hasEditButton && (
         <div className="ml-10 lg:ml-3">
           <PaymentSourceEditButton
             label={t("general.edit")}
