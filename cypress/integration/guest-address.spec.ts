@@ -77,7 +77,7 @@ describe("Checkout guest address", () => {
       cy.dataCy("input_billing_address_country_code").select(
         euAddress.countryCode
       )
-      cy.dataCy("input_billing_address_state_code").type(euAddress.stateCode)
+      cy.dataCy("input_billing_address_state_code").select(euAddress.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress.phone)
 
@@ -135,7 +135,9 @@ describe("Checkout guest address", () => {
       cy.dataCy("input_shipping_address_country_code").select(
         euAddress2.countryCode
       )
-      cy.dataCy("input_shipping_address_state_code").type(euAddress2.stateCode)
+      cy.dataCy("input_shipping_address_state_code").select(
+        euAddress2.stateCode
+      )
       cy.dataCy("input_shipping_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_shipping_address_phone").type(euAddress2.phone)
 
