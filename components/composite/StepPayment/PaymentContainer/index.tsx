@@ -12,23 +12,16 @@ export const PaymentContainer: React.FC = ({ children }) => {
           styles: {
             // Style all elements
             input: {
-              color: "green",
-              "font-size": "1px",
-            },
-
-            "iframe[name^='braintree-hosted-field-number']": {
-              height: "1px",
-            },
-
-            // Media queries
-            // Note that these apply to the iframe, not the root window.
-            "@media screen and (max-width: 700px)": {
-              // @ts-ignore
-              input: {
-                "font-size": "14px",
-              },
+              "font-size": "16px",
+              "font-family": "monospace",
+              padding: "15px 10px",
             },
           },
+          cardFieldsContainerClassName: "flex mb-2",
+          containerClassName: "flex",
+          fieldContainerClassName: "flex-1",
+          inputWrapperClassName: "h-8 border rounded mr-1",
+          fieldLabelClassName: "text-xs text-gray-500",
         },
         stripePayment: {
           fonts: [
