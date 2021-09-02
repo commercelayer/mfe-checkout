@@ -5,6 +5,8 @@ import tw from "twin.macro"
 
 import { Base } from "components/ui/Base"
 import { Container } from "components/ui/Container"
+import { Footer } from "components/ui/Footer"
+import { Logo } from "components/ui/Footer/cl"
 
 const Invalid: NextPage = () => {
   const { t } = useTranslation()
@@ -13,12 +15,16 @@ const Invalid: NextPage = () => {
     <Base>
       <Container>
         <Wrapper>
+          <LogoWrapper>
+            <Logo tw="text-black md:pl-4 self-center md:self-auto" />
+          </LogoWrapper>
           <Main>
             <Error>
               <ErrorCode>404</ErrorCode>
               <Text data-cy="invalid-checkout">{t("general.invalid")}</Text>
             </Error>
           </Main>
+          <Footer />
         </Wrapper>
       </Container>
     </Base>
@@ -32,13 +38,16 @@ const Wrapper = styled.div`
   ${tw`flex flex-wrap justify-end items-stretch flex-col h-screen p-5 md:p-10 lg:px-20 lg:pb-10`}
 `
 const Text = styled.p`
-  ${tw`p-4 text-base font-normal`}
+  ${tw`p-4 text-sm font-normal text-gray-600`}
 `
 const Error = styled.div`
   ${tw`flex flex-col items-center md:(flex-row)`}
 `
 const ErrorCode = styled.p`
-  ${tw`p-4 text-2xl font-bold border-gray-600 border-b  md:(border-r border-b-0)`}
+  ${tw`p-4 text-xl font-bold border-gray-400 text-gray-800 border-b  md:(border-r border-b-0)`}
+`
+const LogoWrapper = styled.div`
+  ${tw`md:max-w-xs`}
 `
 
 export default Invalid
