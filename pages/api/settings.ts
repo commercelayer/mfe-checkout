@@ -10,6 +10,9 @@ interface JWTProps {
     slug: string
     id: string
   }
+  application: {
+    kind: string
+  }
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -27,10 +30,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   let endpoint: string
   try {
-    const slug = (jwt_decode(accessToken) as JWTProps).organization.slug
+    const {
+      organization: { slug },
+    } = jwt_decode(accessToken) as JWTProps
+    const {
+      application: { kind },
+    } = jwt_decode(accessToken) as JWTProps
+
     const subdomain = req.headers.host?.split(":")[0].split(".")[0]
 
-    if (subdomain !== slug) {
+    if (subdomain !== slug || kind !== "sales_channel") {
       return invalidateCheckout()
     } else if (slug) {
       endpoint = `https://${slug}.${
