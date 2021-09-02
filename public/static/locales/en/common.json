@@ -6,7 +6,7 @@
         "no": "No",
         "cancel": "Cancel",
         "systemError": "We're sorry but something went wrong!",
-        "invalid": "This order is no longer accessible.",
+        "invalid": "This order is not accessible.",
         "save": "Save",
         "edit": "Edit",
         "delete": "Delete",

@@ -4,7 +4,7 @@ describe("Checkout entrypoint", () => {
       cy.visit(`/`)
       cy.dataCy("invalid-checkout").should(
         "have.text",
-        "This order is no longer accessible."
+        "This order is not accessible."
       )
     })
   })
@@ -14,7 +14,7 @@ describe("Checkout entrypoint", () => {
       cy.visit(`/?accessToken=123123`)
       cy.dataCy("invalid-checkout").should(
         "have.text",
-        "This order is no longer accessible."
+        "This order is not accessible."
       )
     })
   })
@@ -24,7 +24,7 @@ describe("Checkout entrypoint", () => {
       cy.visit(`/abc123`)
       cy.dataCy("invalid-checkout").should(
         "have.text",
-        "This order is no longer accessible."
+        "This order is not accessible."
       )
     })
   })
@@ -41,7 +41,7 @@ describe("Checkout entrypoint", () => {
     it("redirect to invalid", () => {
       cy.dataCy("invalid-checkout").should(
         "have.text",
-        "This order is no longer accessible."
+        "This order is not accessible."
       )
     })
   })
@@ -139,7 +139,7 @@ describe("Checkout entrypoint", () => {
         cy.wait(5000)
         cy.dataCy("invalid-checkout").should(
           "have.text",
-          "This order is no longer accessible."
+          "This order is not accessible."
         )
       })
     })
