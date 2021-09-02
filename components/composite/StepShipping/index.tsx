@@ -207,7 +207,7 @@ export const StepShipping: React.FC<Props> = () => {
                       <LineItem>
                         <ShippingLineItem>
                           <LineItemImage
-                            className="p-1 border rounded"
+                            className="self-start p-1 border rounded"
                             width={50}
                           />
                           <ShippingLineItemDescription>
