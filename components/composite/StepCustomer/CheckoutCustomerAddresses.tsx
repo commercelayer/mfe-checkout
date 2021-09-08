@@ -156,7 +156,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               onChange={handleToggle}
             />
 
-            <div className={`${shipToDifferentAddress ? "" : "hidden"} p-2`}>
+            <div className={`${shipToDifferentAddress ? "" : "hidden"} mb-2`}>
               <AddressSectionTitle>
                 {t(`addressForm.shipping_address_title`)}
               </AddressSectionTitle>
@@ -168,7 +168,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               }`}
             >
               <ShippingAddressContainer>
-                <GridContainer className="mb-6">
+                <GridContainer className="mb-8">
                   <CustomerAddressCard
                     addressType="shipping"
                     deselect={showShippingAddressForm}
@@ -188,11 +188,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               </ShippingAddressContainer>
             </div>
 
-            <div className={showShippingAddressForm ? "" : "hidden"}>
+            <div className={showShippingAddressForm ? "mt-4" : "hidden"}>
               <ShippingAddressForm
                 autoComplete="on"
                 hidden={!shipToDifferentAddress}
-                className="p-2"
                 reset={!showShippingAddressForm}
                 errorClassName="hasError"
               >
@@ -201,7 +200,9 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                     <ShippingAddressFormNew
                       shippingAddress={shippingAddressFill}
                     />
-                    <AddressSectionSaveOnAddressBook addressType="shipping" />
+                    <div className="mb-4">
+                      <AddressSectionSaveOnAddressBook addressType="shipping" />
+                    </div>
                   </>
                 ) : (
                   <Fragment />
@@ -210,19 +211,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             </div>
           </>
         )}
-        <div>
-          {(showBillingAddressForm && !isUsingNewBillingAddress) ||
-          (showShippingAddressForm && !isUsingNewShippingAddress) ? (
-            <AddressButtonAddNew
-              onClick={() => {
-                setShowBillingAddressForm(isUsingNewBillingAddress)
-                setShowShippingAddressForm(isUsingNewShippingAddress)
-              }}
-            >
-              {t("general.discard")}
-            </AddressButtonAddNew>
-          ) : null}
-        </div>
         <AddressSectionSaveForm>
           <ButtonWrapper>
             <StyledSaveAddressesButton

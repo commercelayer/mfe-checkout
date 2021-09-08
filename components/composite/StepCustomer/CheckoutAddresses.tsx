@@ -87,7 +87,6 @@ export const CheckoutAddresses: React.FC<Props> = ({
           <ShippingAddressForm
             autoComplete="on"
             hidden={!shipToDifferentAddress}
-            className="p-2"
             errorClassName="hasError"
           >
             <AddressSectionTitle>
