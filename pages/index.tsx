@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   const router = useRouter()
 
   useEffect(() => {
-    router.push("/invalid")
+    router.push("/404")
   }, [])
 
   return <SpinnerLoader />
