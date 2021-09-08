@@ -9,10 +9,11 @@ export const PaymentMethodNameWithStripe: React.FC = () => {
   const formatLabel = (value: string) => {
     switch (value) {
       case "Stripe Payment":
+      case "Braintree Payment":
         return t("stepPayment.creditCard")
 
       case "Paypal Payment":
-        return "Paypal"
+        return "PayPal"
 
       default:
         return value
