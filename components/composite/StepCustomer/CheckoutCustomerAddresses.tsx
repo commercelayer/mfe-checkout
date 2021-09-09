@@ -19,7 +19,6 @@ import { GridContainer } from "components/ui/GridContainer"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { Toggle } from "components/ui/Toggle"
 
-import { AddressButtonAddNew } from "./AddressButtonAddNew"
 import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
 import { AddressSectionSaveOnAddressBook } from "./AddressSectionSaveOnAddressBook"
