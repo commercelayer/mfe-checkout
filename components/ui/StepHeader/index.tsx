@@ -4,7 +4,7 @@ import tw from "twin.macro"
 import { Badge } from "../Badge"
 
 interface Props {
-  status: "edit" | "done" | "disabled"
+  status: "edit" | "done" | "disabled" | "skip"
   label: string
   info: string | Element | JSX.Element
   stepNumber?: number
