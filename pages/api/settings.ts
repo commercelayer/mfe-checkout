@@ -42,9 +42,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (subdomain !== slug || kind !== "sales_channel") {
       return invalidateCheckout()
     } else if (slug) {
-      endpoint = `https://${slug}.${
-        process.env.NEXT_PUBLIC_CLAYER_HOSTNAME as string
-      }`
+      endpoint = `https://${slug}.commercelayer.io`
     } else {
       endpoint = process.env.NEXT_PUBLIC_CLAYER_DOMAIN as string
     }
