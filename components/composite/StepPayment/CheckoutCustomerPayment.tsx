@@ -3,6 +3,7 @@ import {
   CustomerCardsProps,
   CustomerSaveToWalletProps,
 } from "@commercelayer/react-components/dist/components/PaymentSource"
+import { MouseEvent, MouseEventHandler, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import "twin.macro"
@@ -37,22 +38,35 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ refetchOrder }) => {
 
   const TemplateSaveToWalletCheckbox = ({
     name,
-  }: CustomerSaveToWalletProps) => (
-    <div className="flex items-center mt-4">
-      <WalletCheckbox
-        name={name}
-        id={name}
-        data-cy="save-to-wallet"
-        type="checkbox"
-        className="form-checkbox"
-      />
-      <Label
-        htmlFor={name}
-        dataCy="payment-save-wallet"
-        textLabel={t("stepPayment.saveToWallet")}
-      />
-    </div>
-  )
+  }: CustomerSaveToWalletProps) => {
+    const [checked, setChecked] = useState(false)
+    const handleClick = (
+      e: MouseEvent<HTMLInputElement, globalThis.MouseEvent>
+    ) => e?.stopPropagation()
+    const handleChange = () => {
+      setChecked(!checked)
+    }
+
+    return (
+      <div className="flex items-center mt-4">
+        <WalletCheckbox
+          name={name}
+          id={name}
+          data-cy="save-to-wallet"
+          type="checkbox"
+          className="form-checkbox"
+          checked={checked}
+          onClick={handleClick}
+          onChange={handleChange}
+        />
+        <Label
+          htmlFor={name}
+          dataCy="payment-save-wallet"
+          textLabel={t("stepPayment.saveToWallet")}
+        />
+      </div>
+    )
+  }
 
   return (
     <>
