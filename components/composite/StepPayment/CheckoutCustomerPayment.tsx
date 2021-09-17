@@ -3,7 +3,7 @@ import {
   CustomerCardsProps,
   CustomerSaveToWalletProps,
 } from "@commercelayer/react-components/dist/components/PaymentSource"
-import { MouseEvent, MouseEventHandler, useState } from "react"
+import { MouseEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import "twin.macro"
