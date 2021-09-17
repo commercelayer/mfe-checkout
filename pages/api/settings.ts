@@ -69,9 +69,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .find(orderId)
 
     if (orderFetched.status === "draft" || orderFetched.status === "pending") {
-      order = await orderFetched
-        ?.withCredentials({ accessToken, endpoint })
-        .update({ _refresh: true })
+      order = orderFetched?.withCredentials({ accessToken, endpoint })
     } else if (orderFetched.status === "placed") {
       order = orderFetched?.withCredentials({ accessToken, endpoint })
     }
@@ -108,10 +106,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         endpoint,
       })
       .lineItems()
-      .where({ itemTypeMatchesAny: "skus,bundle,gift_card" }) //, "bundle", "gift_card"] })
+      ?.where({ itemTypeMatchesAny: "skus,bundle,gift_card" }) //, "bundle", "gift_card"] })
       .select("item_type")
       .all()
-  ).toArray().length
+  )?.toArray().length
 
   // If there are no items to buy we redirect to the invalid page
   if (lineItemsCount === 0) {
