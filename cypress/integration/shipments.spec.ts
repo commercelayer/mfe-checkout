@@ -918,4 +918,203 @@ describe("Checkout Shipments", () => {
       })
     }
   )
+
+  context("order with one shipment (do not ship) not selected", () => {
+    before(function () {
+      cy.createOrder("draft", {
+        languageCode: "en",
+        customerEmail: email,
+        accessToken: this.tokenObj.access_token,
+      })
+        .as("newOrder")
+        .then((order) => {
+          cy.createSkuLineItems({
+            orderId: order.id,
+            accessToken: this.tokenObj.access_token,
+            attributes: {
+              sku_code: "SWEETHMUB7B7B7E63E74MXXX",
+              quantity: "1",
+            },
+          })
+          cy.createAddress({
+            ...euAddress,
+            accessToken: this.tokenObj.access_token,
+          }).then((address) => {
+            cy.setSameAddress(order.id, address.id, this.tokenObj.access_token)
+          })
+        })
+    })
+
+    beforeEach(function () {
+      cy.setRoutes({
+        endpoint: Cypress.env("apiEndpoint"),
+        routes: Cypress.env("requests"),
+        record: Cypress.env("record"), // @default false
+        filename,
+      })
+    })
+
+    after(() => {
+      if (Cypress.env("record")) {
+        cy.saveRequests(filename)
+      }
+    })
+
+    it("valid customer token", function () {
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
+      cy.wait(
+        [
+          "@getOrderShipments",
+          "@availablePaymentMethods",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@availableCustomerPaymentSources",
+        ],
+        { timeout: 100000 }
+      )
+      cy.url().should("contain", this.tokenObj.access_token)
+      cy.url().should("not.contain", Cypress.env("accessToken"))
+    })
+
+    it("check if step deplivery is disabled", () => {
+      cy.dataCy("step-header-info").should(
+        "contain.text",
+        "This order does not require shipping"
+      )
+    })
+  })
+
+  context.only(
+    "order with two shipment, but one do not ship, both not selected",
+    () => {
+      before(function () {
+        cy.createOrder("draft", {
+          languageCode: "en",
+          customerEmail: email,
+          accessToken: this.tokenObj.access_token,
+        })
+          .as("newOrder")
+          .then((order) => {
+            cy.createSkuLineItems({
+              orderId: order.id,
+              accessToken: this.tokenObj.access_token,
+              attributes: {
+                sku_code: "SWEETHMUB7B7B7E63E74MXXX",
+                quantity: "1",
+              },
+            })
+            cy.createSkuLineItems({
+              orderId: order.id,
+              accessToken: this.tokenObj.access_token,
+            })
+            cy.createAddress({
+              ...euAddress,
+              accessToken: this.tokenObj.access_token,
+            }).then((address) => {
+              cy.setSameAddress(
+                order.id,
+                address.id,
+                this.tokenObj.access_token
+              )
+            })
+          })
+      })
+
+      beforeEach(function () {
+        cy.setRoutes({
+          endpoint: Cypress.env("apiEndpoint"),
+          routes: Cypress.env("requests"),
+          record: Cypress.env("record"), // @default false
+          filename,
+        })
+      })
+
+      after(() => {
+        if (Cypress.env("record")) {
+          cy.saveRequests(filename)
+        }
+      })
+
+      it("valid customer token", function () {
+        cy.visit(
+          `/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`
+        )
+        cy.wait(
+          [
+            "@getShippingMethods",
+            "@getShipments",
+            "@getOrderShipments",
+            "@getOrderShipments",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@getOrders",
+            "@getCustomerAddresses",
+            "@availableCustomerPaymentSources",
+          ],
+          { timeout: 100000 }
+        )
+        cy.url().should("contain", this.tokenObj.access_token)
+        cy.url().should("not.contain", Cypress.env("accessToken"))
+      })
+
+      it("select Standard Shipping and save", () => {
+        cy.dataCy("shipping-method-button").each((e, i) => {
+          cy.wrap(e).as(`shippingMethodButton${i}`)
+        })
+        cy.get("@shippingMethodButton0").click()
+        cy.wait(["@getShipments"], {
+          timeout: 100000,
+        })
+        cy.dataCy("save-shipments-button").click()
+        cy.wait(
+          ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+          { timeout: 100000 }
+        )
+        cy.wait(3000)
+        cy.dataCy("step_shipping")
+          .click()
+          .should("have.attr", "data-status", "true")
+
+        cy.dataCy("shipping-method-button").each((e, i) => {
+          cy.wrap(e).as(`shippingMethodButton${i}`)
+        })
+        cy.get("@shippingMethodButton0").should("be.checked")
+      })
+
+      it("edit Delivery, select Express Delivery and save", () => {
+        cy.dataCy("step_shipping")
+          .click()
+          .should("have.attr", "data-status", "true")
+        cy.dataCy("shipping-method-button").each((e, i) => {
+          cy.wrap(e).as(`shippingMethodButton${i}`)
+        })
+        cy.get("@shippingMethodButton1").click()
+        cy.wait(["@getShipments"], {
+          timeout: 100000,
+        })
+        cy.dataCy("save-shipments-button").click()
+        cy.wait(
+          [
+            "@getShippingMethods",
+            "@getShipments",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+          ],
+          { timeout: 100000 }
+        )
+        cy.wait(3000)
+        cy.dataCy("step_shipping")
+          .click()
+          .should("have.attr", "data-status", "true")
+
+        cy.dataCy("shipping-method-button").each((e, i) => {
+          cy.wrap(e).as(`shippingMethodButton${i}`)
+        })
+        cy.get("@shippingMethodButton1").should("be.checked")
+      })
+    }
+  )
 })
