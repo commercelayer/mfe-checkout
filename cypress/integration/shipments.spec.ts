@@ -985,7 +985,7 @@ describe("Checkout Shipments", () => {
     })
   })
 
-  context.only(
+  context(
     "order with two shipment, but one do not ship, both not selected",
     () => {
       before(function () {

@@ -113,7 +113,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
 
     it("click to customer tab", () => {
@@ -168,7 +167,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress2.firstName)
@@ -177,7 +175,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
     })
   })
 
@@ -241,7 +238,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
   })
 
@@ -314,7 +310,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress2.firstName)
@@ -323,7 +318,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
     })
   })
 })
