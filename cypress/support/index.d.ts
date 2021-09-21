@@ -101,7 +101,13 @@ declare global {
           | "purchase"
       }): Chainable<Subject>
       fillElementsInput(
-        field: "cardCvc" | "cardNumber" | "cardExpiry",
+        field:
+          | "cardCvc"
+          | "cardNumber"
+          | "cardExpiry"
+          | "cvc"
+          | "number"
+          | "expirationDate",
         value: string
       ): Chainable<Subject>
       setCoupon(options: {

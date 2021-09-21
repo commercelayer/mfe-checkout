@@ -60,6 +60,7 @@ export interface FetchOrderByIdResponse {
   isPaymentRequired: boolean
   isComplete: boolean
   returnUrl: string
+  isCreditCard: boolean
 }
 
 async function isNewAddress({
@@ -356,6 +357,10 @@ export const fetchOrderById = async ({
       hasPaymentMethod = true
     }
 
+    const isCreditCard =
+      paymentMethod?.paymentSourceType === "stripe_payments" ||
+      paymentMethod?.paymentSourceType === "braintree_payments"
+
     const allAvailablePaymentMethods = (await PaymentMethod.all())
       .toArray()
       .filter(({ disabledAt }) => disabledAt === null)
@@ -432,6 +437,7 @@ export const fetchOrderById = async ({
       shippingCountryCodeLock,
       isShipmentRequired,
       isPaymentRequired,
+      isCreditCard,
       isComplete,
       returnUrl,
     }
@@ -457,6 +463,7 @@ export const fetchOrderById = async ({
       shippingCountryCodeLock: "",
       isShipmentRequired: true,
       isPaymentRequired: true,
+      isCreditCard: false,
       isComplete: false,
       returnUrl: "",
     }
