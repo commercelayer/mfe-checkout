@@ -1,6 +1,9 @@
+import { useContext } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
+
+import { AppContext } from "components/data/AppProvider"
 
 import { Step } from "./Step"
 
@@ -19,14 +22,19 @@ export const StepNav: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
 
+  const ctx = useContext(AppContext)
+
   return (
     <Wrapper aria-label="Breadcrumb">
       <StepList>
         {(steps || []).map((step, index) => {
           const isActive = step === activeStep
           const isLocked =
-            steps.indexOf(step) > steps.indexOf(lastActivable) &&
-            lastActivable !== "Complete"
+            (step === "Shipping" && !ctx?.isShipmentRequired) ||
+            (step === "Payment" && !ctx?.isPaymentRequired) ||
+            (steps.indexOf(step) > steps.indexOf(lastActivable) &&
+              lastActivable !== "Complete")
+
           return (
             <Step
               key={index}

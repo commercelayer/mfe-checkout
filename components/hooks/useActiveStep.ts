@@ -52,11 +52,20 @@ export const useActiveStep = (): UseActiveStep => {
       //   setSteps(['Customer', 'Payment'])
       // }
 
+      const canSelectCustomerAddress =
+        ctx.hasShippingAddress && ctx.hasBillingAddress
       const canSelectShippingMethod =
-        ctx.hasShippingAddress || !ctx.isShipmentRequired
-      const canSelectPayment = canSelectShippingMethod && ctx.hasShippingMethod
+        canSelectCustomerAddress &&
+        (ctx.hasShippingAddress || !ctx.isShipmentRequired)
+      const canSelectPayment =
+        canSelectCustomerAddress &&
+        canSelectShippingMethod &&
+        ctx.hasShippingMethod
       const canPlaceOrder =
-        canSelectShippingMethod && canSelectPayment && ctx.hasPaymentMethod
+        canSelectCustomerAddress &&
+        canSelectShippingMethod &&
+        canSelectPayment &&
+        ctx.hasPaymentMethod
 
       if (canPlaceOrder) {
         setActiveStep("Complete")
