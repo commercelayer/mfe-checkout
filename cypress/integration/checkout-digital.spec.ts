@@ -109,13 +109,14 @@ describe("Checkout Checkout-Digital", () => {
       )
     })
 
-    it("check step header badge", () => {
+    it("check step header badge and check if step_shipping is disable", () => {
       cy.dataCy("step-header-badge").each((e, i) => {
         cy.wrap(e).as(`stepHeaderBadge${i}`)
       })
       cy.get("@stepHeaderBadge0").get("svg")
       cy.get("@stepHeaderBadge1").get("svg")
       cy.get("@stepHeaderBadge2").should("contain.text", "3")
+      cy.dataCy("step_shipping").should("have.attr", "data-status", "false")
     })
 
     it("select payment method credit card", () => {

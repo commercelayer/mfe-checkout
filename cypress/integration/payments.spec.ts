@@ -5,7 +5,7 @@ import { euAddress } from "../support/utils"
 describe("Checkout Payments", () => {
   const filename = "payments"
 
-  const email = String(new Date().getMilliseconds()).concat(
+  const email = String(Math.random()).concat(
     internet.email().toLocaleLowerCase()
   )
   const password = internet.password()
@@ -405,17 +405,21 @@ describe("Checkout Payments", () => {
   })
 
   context("customer order and braintree select method", () => {
+    const tempEmail = String(Math.random()).concat(email)
     before(function () {
-      cy.createCustomer({ email: email, password: password }).then(() => {
+      cy.createCustomer({
+        email: tempEmail,
+        password: password,
+      }).then(() => {
         cy.getTokenCustomer({
-          username: email,
+          username: tempEmail,
           password: password,
         })
           .as("tokenObj")
           .then(() => {
             cy.createOrder("draft", {
               languageCode: "en",
-              customerEmail: email,
+              customerEmail: tempEmail,
               accessToken: this.tokenObj.access_token,
             })
               .as("newOrder")
