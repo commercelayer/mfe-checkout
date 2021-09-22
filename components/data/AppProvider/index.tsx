@@ -37,6 +37,7 @@ const initialState: AppStateData = {
   paymentMethod: null,
   hasPaymentMethod: false,
   isPaymentRequired: true,
+  isCreditCard: false,
   shippingCountryCodeLock: "",
   isComplete: false,
   returnUrl: "",

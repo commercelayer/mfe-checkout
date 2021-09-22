@@ -107,7 +107,7 @@ describe("Checkout Complete with terms and privacy", () => {
         cy.dataCy("payment-method-item").each((e, i) => {
           cy.wrap(e).as(`paymentMethodItem${i}`)
         })
-        cy.get("@paymentMethodItem0").click({ force: true })
+        cy.get("@paymentMethodItem1").click({ force: true })
         cy.wait(
           [
             "@getShipments",

@@ -369,9 +369,18 @@ Cypress.Commands.add("getDataLayer", (options) => {
 })
 
 const getSelectorForField = (
-  name: "cardCvc" | "cardNumber" | "cardExpiry"
+  name:
+    | "cardCvc"
+    | "cardNumber"
+    | "cardExpiry"
+    | "cvc"
+    | "number"
+    | "expirationDate"
 ): string => {
-  return `input[data-elements-stable-field-name="${name}"]`
+  if (name === ("cardCvc" || "cardNumber" || "cardExpiry")) {
+    return `input[data-elements-stable-field-name="${name}"]`
+  }
+  return `input[data-braintree-name="${name}"]`
 }
 
 Cypress.Commands.add("fillElementsInput", (field, value): void => {
@@ -385,12 +394,14 @@ Cypress.Commands.add("fillElementsInput", (field, value): void => {
 
   const selector = getSelectorForField(field)
 
-  cy.get("iframe")
-    .should((iframe) => expect(iframe.contents().find(selector)).to.exist)
-    .then((iframe) => cy.wrap(iframe.contents().find(selector)))
-    .within((input) => {
-      cy.wrap(input).type(value)
-    })
+  if (field === ("cardCvc" || "cardNumber" || "cardExpiry")) {
+    cy.get("iframe")
+      .should((iframe) => expect(iframe.contents().find(selector)).to.exist)
+      .then((iframe) => cy.wrap(iframe.contents().find(selector)))
+      .within((input) => {
+        cy.wrap(input).type(value)
+      })
+  }
 })
 
 Cypress.Commands.add("createGiftCard", (options) => {

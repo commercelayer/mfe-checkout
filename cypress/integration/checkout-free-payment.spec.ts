@@ -144,18 +144,17 @@ describe("Checkout Free Payment", () => {
 
     it("place order and redirect", () => {
       cy.wait(3000)
-      cy.dataCy("place-order-button").click({ force: true })
+      cy.dataCy("place-order-button").click()
       cy.wait(
         [
           "@getShippingMethods",
           "@getOrderShipments",
           "@retrieveLineItems",
-          "@getOrders",
           "@updateOrder",
         ],
         { timeout: 100000 }
       )
-      cy.dataCy("button-continue-to-shop").click({ force: true })
+      cy.dataCy("button-continue-to-shop").click()
       cy.wait(2000)
       cy.url().should("eq", returnUrl)
     })
@@ -269,8 +268,8 @@ describe("Checkout Free Payment", () => {
 
     it("place order and redirect", () => {
       cy.wait(3000)
-      cy.dataCy("place-order-button").click({ force: true })
-      cy.wait(["@retrieveLineItems", "@getOrders", "@updateOrder"], {
+      cy.dataCy("place-order-button").click()
+      cy.wait(["@retrieveLineItems", "@updateOrder"], {
         timeout: 100000,
       })
       cy.dataCy("button-continue-to-shop").click()
