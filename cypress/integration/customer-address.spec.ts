@@ -78,7 +78,8 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_country_code").select(
         euAddress.countryCode
       )
-      cy.dataCy("input_billing_address_state_code").type(euAddress.stateCode)
+      cy.wait(2000)
+      cy.dataCy("input_billing_address_state_code").select(euAddress.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress.phone)
 
@@ -116,7 +117,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
 
     it("ship to different address, fill shipping form and save", function () {
@@ -137,7 +137,10 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_shipping_address_country_code").select(
         euAddress2.countryCode
       )
-      cy.dataCy("input_shipping_address_state_code").type(euAddress2.stateCode)
+      cy.wait(2000)
+      cy.dataCy("input_shipping_address_state_code").select(
+        euAddress2.stateCode
+      )
       cy.dataCy("input_shipping_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_shipping_address_phone").type(euAddress2.phone)
 
@@ -170,7 +173,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress2.firstName)
@@ -179,7 +181,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
     })
 
     it("edit billing address, fill billing form and save", function () {
@@ -204,9 +205,8 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_country_code").select(
         euAddress3.countryCode
       )
-      cy.dataCy("input_billing_address_state_code").type(
-        `{selectall}{backspace}${euAddress3.stateCode}`
-      )
+      cy.wait(2000)
+      cy.dataCy("input_billing_address_state_code").select(euAddress3.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(
         `{selectall}{backspace}${euAddress3.zipCode}`
       )
@@ -249,7 +249,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.phone)
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
-        .and("contain", euAddress3.stateCode)
         .and("contain", euAddress3.billingInfo)
 
       cy.dataCy("full-shipping-information")
@@ -259,7 +258,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
     })
 
     it("ship to different address disable and save", () => {
@@ -303,7 +301,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.phone)
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
-        .and("contain", euAddress3.stateCode)
         .and("contain", euAddress3.billingInfo)
     })
   })
@@ -382,7 +379,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
 
     it("edit billing address, fill billing form and save", () => {
@@ -407,9 +403,8 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_country_code").select(
         euAddress3.countryCode
       )
-      cy.dataCy("input_billing_address_state_code").type(
-        `{selectall}{backspace}${euAddress3.stateCode}`
-      )
+      cy.wait(2000)
+      cy.dataCy("input_billing_address_state_code").select(euAddress3.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(
         `{selectall}{backspace}${euAddress3.zipCode}`
       )
@@ -451,7 +446,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.phone)
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
-        .and("contain", euAddress3.stateCode)
         .and("contain", euAddress3.billingInfo)
     })
 
@@ -473,7 +467,10 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_shipping_address_country_code").select(
         euAddress2.countryCode
       )
-      cy.dataCy("input_shipping_address_state_code").type(euAddress2.stateCode)
+      cy.wait(2000)
+      cy.dataCy("input_shipping_address_state_code").select(
+        euAddress2.stateCode
+      )
       cy.dataCy("input_shipping_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_shipping_address_phone").type(euAddress2.phone)
 
@@ -506,7 +503,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.phone)
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
-        .and("contain", euAddress3.stateCode)
         .and("contain", euAddress3.billingInfo)
 
       cy.dataCy("full-shipping-information")
@@ -516,7 +512,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
     })
 
     it("ship to different address disable and save", () => {
@@ -558,7 +553,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.phone)
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
-        .and("contain", euAddress3.stateCode)
         .and("contain", euAddress3.billingInfo)
     })
   })
@@ -643,14 +637,12 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress2.line1)
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
     })
   })
 
@@ -734,7 +726,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
 
     it("add custom billing address and save", function () {
@@ -751,7 +742,8 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_country_code").select(
         euAddress2.countryCode
       )
-      cy.dataCy("input_billing_address_state_code").type(euAddress2.stateCode)
+      cy.wait(2000)
+      cy.dataCy("input_billing_address_state_code").select(euAddress2.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
 
@@ -788,7 +780,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
         .and("contain", euAddress2.billingInfo)
     })
 
@@ -812,7 +803,10 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_shipping_address_country_code").select(
         euAddress3.countryCode
       )
-      cy.dataCy("input_shipping_address_state_code").type(euAddress3.stateCode)
+      cy.wait(2000)
+      cy.dataCy("input_shipping_address_state_code").select(
+        euAddress3.stateCode
+      )
       cy.dataCy("input_shipping_address_zip_code").type(euAddress3.zipCode)
       cy.dataCy("input_shipping_address_phone").type(euAddress3.phone)
 
@@ -844,7 +838,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
         .and("contain", euAddress2.billingInfo)
 
       cy.dataCy("full-shipping-information")
@@ -854,7 +847,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.phone)
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
-        .and("contain", euAddress3.stateCode)
     })
 
     it("select first shipping address and save", () => {
@@ -897,7 +889,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
         .and("contain", euAddress2.billingInfo)
 
       cy.dataCy("full-shipping-information")
@@ -907,7 +898,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
 
     it("select first billing address and save", () => {
@@ -951,7 +941,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
 
     it("ship to different address is disable", () => {
@@ -1093,7 +1082,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
 
     it("select second address and save", () => {
@@ -1139,7 +1127,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
         .and("contain", euAddress2.billingInfo)
     })
 
@@ -1159,7 +1146,8 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_country_code").select(
         euAddress2.countryCode
       )
-      cy.dataCy("input_billing_address_state_code").type(euAddress2.stateCode)
+      cy.wait(2000)
+      cy.dataCy("input_billing_address_state_code").select(euAddress2.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
 
@@ -1197,7 +1185,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
         .and("contain", euAddress2.billingInfo)
     })
 
@@ -1221,7 +1208,10 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_shipping_address_country_code").select(
         euAddress3.countryCode
       )
-      cy.dataCy("input_shipping_address_state_code").type(euAddress3.stateCode)
+      cy.wait(2000)
+      cy.dataCy("input_shipping_address_state_code").select(
+        euAddress3.stateCode
+      )
       cy.dataCy("input_shipping_address_zip_code").type(euAddress3.zipCode)
       cy.dataCy("input_shipping_address_phone").type(euAddress3.phone)
 
@@ -1255,7 +1245,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
         .and("contain", euAddress2.billingInfo)
 
       cy.dataCy("full-shipping-information")
@@ -1265,7 +1254,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.phone)
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
-        .and("contain", euAddress3.stateCode)
     })
 
     it("select second shipping address and save", () => {
@@ -1312,7 +1300,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
         .and("contain", euAddress2.billingInfo)
     })
 
@@ -1359,7 +1346,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
   })
 
@@ -1491,7 +1477,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
 
     it("select second address and save is disabled", () => {
@@ -1522,7 +1507,8 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_billing_address_country_code").select(
         euAddress2.countryCode
       )
-      cy.dataCy("input_billing_address_state_code").type(euAddress2.stateCode)
+      cy.wait(2000)
+      cy.dataCy("input_billing_address_state_code").select(euAddress2.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
 
@@ -1537,6 +1523,8 @@ describe("Checkout customer address", () => {
 
     it("change billing address country code and save", () => {
       cy.dataCy("input_billing_address_country_code").select(countryCode)
+      cy.wait(3000)
+      cy.dataCy("input_billing_address_state_code").select(euAddress2.stateCode)
 
       cy.dataCy("save-addresses-button").click()
 
@@ -1567,7 +1555,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
         .and("contain", countryCode)
         .and("contain", euAddress2.billingInfo)
     })
@@ -1590,7 +1577,10 @@ describe("Checkout customer address", () => {
       cy.dataCy("input_shipping_address_line_1").type(euAddress3.line1)
       cy.dataCy("input_shipping_address_city").type(euAddress3.city)
       cy.dataCy("input_shipping_address_country_code").should("be.disabled")
-      cy.dataCy("input_shipping_address_state_code").type(euAddress3.stateCode)
+      cy.wait(3000)
+      cy.dataCy("input_shipping_address_state_code").select(
+        euAddress3.stateCode
+      )
       cy.dataCy("input_shipping_address_zip_code").type(euAddress3.zipCode)
       cy.dataCy("input_shipping_address_phone").type(euAddress3.phone)
 
@@ -1624,7 +1614,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
         .and("contain", euAddress2.billingInfo)
 
       cy.dataCy("full-shipping-information")
@@ -1634,7 +1623,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress3.phone)
         .and("contain", euAddress3.city)
         .and("contain", euAddress3.zipCode)
-        .and("contain", euAddress3.stateCode)
     })
 
     it("select second shipping address and save", () => {
@@ -1689,7 +1677,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
         .and("contain", euAddress2.billingInfo)
 
       cy.dataCy("full-shipping-information")
@@ -1699,7 +1686,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
 
     it("select first billing address, ship to same address and save", () => {
@@ -1749,7 +1735,6 @@ describe("Checkout customer address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
   })
 })

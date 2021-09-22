@@ -2,10 +2,12 @@ import {
   Errors,
   AddressInput,
   AddressCountrySelector,
+  AddressStateSelector,
 } from "@commercelayer/react-components"
 import {
   AddressCountrySelectName,
   AddressInputName,
+  AddressStateSelectName,
   BaseInputType,
 } from "@commercelayer/react-components/dist/typings"
 import {
@@ -80,48 +82,71 @@ export const AddressInputGroup: React.FC<Props> = ({
     fieldName === "shipping_address_country_code" ||
     fieldName === "billing_address_country_code"
 
+  const isState =
+    fieldName === "shipping_address_state_code" ||
+    fieldName === "billing_address_state_code"
+
   useEffect(() => {
     setValueStatus(value || "")
   }, [value])
 
+  function renderInput() {
+    if (isCountry) {
+      return (
+        <StyledAddressCountrySelector
+          className="form-select"
+          data-cy={`input_${fieldName}`}
+          name={fieldName as AddressCountrySelectName}
+          placeholder={{
+            label: t(`addressForm.${fieldName}_placeholder`),
+            value: "",
+          }}
+          value={
+            shippingCountryCodeLock &&
+            fieldName === "shipping_address_country_code"
+              ? shippingCountryCodeLock
+              : value
+          }
+          disabled={Boolean(
+            shippingCountryCodeLock &&
+              fieldName === "shipping_address_country_code"
+          )}
+        />
+      )
+    } else if (isState) {
+      return (
+        <StyledAddressStateSelector
+          className="form-select"
+          data-cy={`input_${fieldName}`}
+          name={fieldName as AddressStateSelectName}
+          placeholder={{
+            label: t(`addressForm.${fieldName}_placeholder`),
+            value: "",
+          }}
+          value={value}
+        />
+      )
+    } else {
+      return (
+        <>
+          <StyledAddressInput
+            id={fieldName}
+            data-cy={`input_${fieldName}`}
+            name={fieldName as AddressInputName}
+            type={type}
+            value={valueStatus}
+            className="form-input"
+          />
+          <Label htmlFor={fieldName}>{label}</Label>
+        </>
+      )
+    }
+  }
+
   return (
     <div className="mb-8">
       <Wrapper>
-        <div className="relative h-10">
-          {isCountry ? (
-            <StyledAddressCountrySelector
-              className="form-select"
-              data-cy={`input_${fieldName}`}
-              name={fieldName as AddressCountrySelectName}
-              placeholder={{
-                label: t(`addressForm.${fieldName}_placeholder`),
-                value: "",
-              }}
-              value={
-                shippingCountryCodeLock &&
-                fieldName === "shipping_address_country_code"
-                  ? shippingCountryCodeLock
-                  : value
-              }
-              disabled={Boolean(
-                shippingCountryCodeLock &&
-                  fieldName === "shipping_address_country_code"
-              )}
-            />
-          ) : (
-            <>
-              <StyledAddressInput
-                id={fieldName}
-                data-cy={`input_${fieldName}`}
-                name={fieldName as AddressInputName}
-                type={type}
-                value={valueStatus}
-                className="form-input"
-              />
-              <Label htmlFor={fieldName}>{label}</Label>
-            </>
-          )}
-        </div>
+        <div className="relative h-10">{renderInput()}</div>
       </Wrapper>
       <StyledErrors
         data-cy={`error_${fieldName}`}
@@ -147,6 +172,11 @@ const StyledAddressInput = styled(AddressInput)`
 const StyledAddressCountrySelector = styled(AddressCountrySelector)`
   ${InputCss}
 `
+
+const StyledAddressStateSelector = styled(AddressStateSelector)`
+  ${InputCss}
+`
+
 const StyledErrors = styled(Errors)`
   ${ErrorCss}
 `

@@ -77,7 +77,7 @@ describe("Checkout guest address", () => {
       cy.dataCy("input_billing_address_country_code").select(
         euAddress.countryCode
       )
-      cy.dataCy("input_billing_address_state_code").type(euAddress.stateCode)
+      cy.dataCy("input_billing_address_state_code").select(euAddress.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress.phone)
 
@@ -113,7 +113,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
 
     it("click to customer tab", () => {
@@ -135,7 +134,9 @@ describe("Checkout guest address", () => {
       cy.dataCy("input_shipping_address_country_code").select(
         euAddress2.countryCode
       )
-      cy.dataCy("input_shipping_address_state_code").type(euAddress2.stateCode)
+      cy.dataCy("input_shipping_address_state_code").select(
+        euAddress2.stateCode
+      )
       cy.dataCy("input_shipping_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_shipping_address_phone").type(euAddress2.phone)
 
@@ -166,7 +167,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress2.firstName)
@@ -175,7 +175,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
     })
   })
 
@@ -239,7 +238,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
     })
   })
 
@@ -312,7 +310,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress.phone)
         .and("contain", euAddress.city)
         .and("contain", euAddress.zipCode)
-        .and("contain", euAddress.stateCode)
 
       cy.dataCy("full-shipping-information")
         .should("contain", euAddress2.firstName)
@@ -321,7 +318,6 @@ describe("Checkout guest address", () => {
         .and("contain", euAddress2.phone)
         .and("contain", euAddress2.city)
         .and("contain", euAddress2.zipCode)
-        .and("contain", euAddress2.stateCode)
     })
   })
 })

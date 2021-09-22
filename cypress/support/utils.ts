@@ -27,7 +27,7 @@ export const euAddress2 = {
   lastName: "Man",
   line1: "Ragnatela, 99",
   phone: "+39 010 010101010",
-  stateCode: "RN",
+  stateCode: "RE",
   zipCode: "32100",
   billingInfo: "0ABCDEFGHIJKLMNOPQRSTUVWYX",
 }

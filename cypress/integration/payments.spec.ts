@@ -5,7 +5,9 @@ import { euAddress } from "../support/utils"
 describe("Checkout Payments", () => {
   const filename = "payments"
 
-  const email = internet.email().toLocaleLowerCase()
+  const email = String(new Date().getMilliseconds()).concat(
+    internet.email().toLocaleLowerCase()
+  )
   const password = internet.password()
 
   context("customer order with one payment method not selected", () => {
@@ -402,7 +404,7 @@ describe("Checkout Payments", () => {
     })
   })
 
-  context.only("customer order and braintree select method", () => {
+  context("customer order and braintree select method", () => {
     before(function () {
       cy.createCustomer({ email: email, password: password }).then(() => {
         cy.getTokenCustomer({

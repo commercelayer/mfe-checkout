@@ -109,6 +109,7 @@
         "billing_address_country_code_placeholder": "Select a country",
         "billing_address_country_code": "Country",
         "billing_address_state_code": "State",
+        "billing_address_state_code_placeholder": "Select a state",
         "billing_address_zip_code": "Zip Code",
         "billing_address_phone": "Phone",
         "billing_address_billing_info": "Billing info",
@@ -123,6 +124,7 @@
         "shipping_address_country_code": "Country",
         "shipping_address_country_code_placeholder": "Select a country",
         "shipping_address_state_code": "State",
+        "shipping_address_state_code_placeholder": "Select a state",
         "shipping_address_zip_code": "Zip Code",
         "shipping_address_phone": "Phone"
     },
