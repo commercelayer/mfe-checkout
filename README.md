@@ -52,7 +52,7 @@ To set up and configure the checkout application for your digital store, here ar
 
 2. Build your sales channel with your favorite technologies and frameworks by leveraging our [developer resources](https://commercelayer.io/developers/) and [API reference](https://docs.commercelayer.io/api/).
 
-3. Fork [this repository](https://github.com/commercelayer/commercelayer-cli) (you can learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
+3. Fork [this repository](https://github.com/commercelayer/commercelayer-react-checkout) (you can learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
 
 4. Deploy the forked repository to your preferred cloud service or host it yourself. You can deploy the checkout application with one click by clicking the buttons below for your preferred cloud services.
 
@@ -66,7 +66,7 @@ We will be supporting more payment gateways and launching a hosted checkout feat
 
 ## Contributors guide
 
-1. Fork [this repository](https://github.com/commercelayer/commercelayer-cli) (you can learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
+1. Fork [this repository](https://github.com/commercelayer/commercelayer-react-checkout) (you can learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
 
 2. Clone the forked repository like so:
 
