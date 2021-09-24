@@ -1,6 +1,6 @@
 # Commerce Layer React Checkout
 
-The Commerce Layer checkout application (React) provides you with a PCI-compliant, PSD2-compliant, and production-ready checkout flow powered by Commerce Layer APIs.
+The Commerce Layer checkout application (React) provides you with a PCI-compliant, PSD2-compliant, and production-ready checkout flow powered by Commerce Layer APIs. You can fork this repository and deploy it to any hosting service or use it as a reference application to build your own.
 
 ![Commerce Layer checkout demo](./public/demo.gif)
 
@@ -10,7 +10,6 @@ The Commerce Layer checkout application (React) provides you with a PCI-complian
 
 ## Table of contents
 
-- [How it works](#how-it-works)
 - [Getting started](#getting-started)
 - [Future updates](#future-updates)
 - [Contributors guide](#contributors-guide)
@@ -19,46 +18,23 @@ The Commerce Layer checkout application (React) provides you with a PCI-complian
 
 ---
 
-## How it works
-
-The Commerce Layer checkout provides you with an external application to successfully checkout your customer's order(s). Once deployed, you can access your checkout as an external application or a page in your sales channel using the URL format: `<your-deployed-checkout-url>/:order_id?accessToken=<token>`. For example, `https://checkout.cl-shop.com/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9` or `https://cl-shop.com/checkout/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`.
-
-All you need to configure this checkout application is an [order id](https://docs.commercelayer.io/api/resources/orders) (associated with some line items) and a sales channel application [access token](https://docs.commercelayer.io/api/authentication) (associated with your organization). Generally, your token is what you use to validate your interaction with all Commerce Layer APIs from your sales channel or integrations. You should generate this in real-time in your sales channel application and use it as required in the checkout application. For example, you can use our JavaScript [authentication library](https://github.com/commercelayer/commercelayer-js-auth) to generate an access token like so:
-
-```js
-import { getSalesChannelToken } from "@commercelayer/js-auth";
-
-const CLIENT_ID = "<your-client-id>";
-const ENDPOINT = "<your-organization-slug>.commercelayer.io";
-const SCOPE = "<your-market-scope>";
-
-async function getToken() {
-  const token = await getSalesChannelToken({
-    endpoint: ENDPOINT,
-    clientId: CLIENT_ID,
-    scope: SCOPE
-  });
-  console.log(token.accessToken);
-}
-
-getToken();
-```
-
 ## Getting started
 
-To set up and configure the checkout application for your digital store, here are a couple of steps to follow:
-
-1. Create your organization and configure by following this [getting started guide](https://docs.commercelayer.io/api/getting-started).
-
-2. Build your sales channel with your favorite technologies and frameworks by leveraging our [developer resources](https://commercelayer.io/developers/) and [API reference](https://docs.commercelayer.io/api/).
-
-3. Fork [this repository](https://github.com/commercelayer/commercelayer-react-checkout) (you can learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
-
-4. Deploy the forked repository to your preferred cloud service or host it yourself. You can deploy the checkout application with one click by clicking the buttons below for your preferred cloud services.
+1. Deploy the forked repository to your preferred hosting service or host it yourself. You can deploy with one click below:
 
 [<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" height="35">](https://app.netlify.com/start/deploy?repository=https://github.com/commercelayer/commercelayer-react-checkout) [<img src="https://vercel.com/button" alt="Deploy to Vercel" height="35">](https://vercel.com/new/clone?repository-url=https://github.com/commercelayer/commercelayer-react-checkout) [<img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" height="35">](https://heroku.com/deploy?template=https://github.com/commercelayer/commercelayer-react-checkout) [<img src="https://www.deploytodo.com/do-btn-blue.svg" alt="Deploy to Digital Ocean" height="35">](https://cloud.digitalocean.com/apps/new?repo=https://github.com/commercelayer/commercelayer-react-checkout) [<img src="https://oneclick.amplifyapp.com/button.svg" alt="Deploy to Amplify" height="35">](https://console.aws.amazon.com/amplify/home#/deploy?repo=https://github.com/commercelayer/commercelayer-react-checkout)
 
-> NB: You do not need to add any environment variables with your credentials to the application. All required information about your organization will be determined automatically by introspecting the access token you provide in the URL.
+2. Create your organization and get your credentials by following this [getting started guide](https://docs.commercelayer.io/api/getting-started).
+
+3. Customize your organization by adding a logo_url and primary_color which will automatically be used in your application. (draft)
+
+4. Build your sales channel with your favorite technologies and frameworks by leveraging our [developer resources](https://commercelayer.io/developers/) and [API reference](https://docs.commercelayer.io/api/).
+
+5. Get an [access token](https://docs.commercelayer.io/api/authentication) for your application. You should generate this in your sales channel or use our JavaScript [authentication library](https://github.com/commercelayer/commercelayer-js-auth).
+
+6. Create an [order](https://docs.commercelayer.io/api/resources/orders) associated with some line items.
+
+7. Access your checkout as an external application or a page in your sales channel using the URL format: `<your-deployed-checkout-url>/:order_id?accessToken=<token>`. For example, `https://checkout.cl-shop.com/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9` or `https://cl-shop.com/checkout/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`.
 
 ## Future updates
 
