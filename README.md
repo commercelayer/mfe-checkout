@@ -6,7 +6,7 @@ The Commerce Layer checkout application (React) provides you with a PCI-complian
 
 ## What is Commerce Layer?
 
-[Commerce Layer](https://commercelayer.io) is a headless commerce platform and order management system that lets you add global shopping capabilities to any website, mobile app, chatbot, or IoT device, with ease. Perfect fit for the best-of-breed CMSs, static site generators, and any other tools you already master and love, our blazing-fast and secure API will help you make your content shoppable on a global scale.
+[Commerce Layer](https://commercelayer.io) is a multi-market commerce API and order management system that lets you add global shopping capabilities to any website, mobile app, chatbot, wearable, voice, or IoT device, with ease. Compose your stack with the best-of-breed tools you already mastered and love. Make any experience shoppable, anywhere, through a blazing-fast, enterprise-grade, and secure API.
 
 ## Table of contents
 
@@ -26,19 +26,19 @@ The Commerce Layer checkout application (React) provides you with a PCI-complian
 
 2. Create your organization and get your credentials by following this [getting started guide](https://docs.commercelayer.io/api/getting-started).
 
-3. Customize your organization by adding a logo_url and primary_color which will automatically be used in your application. (draft)
+3. Build your sales channel with your favorite technologies and frameworks by leveraging our [developer resources](https://commercelayer.io/developers/) and [API reference](https://docs.commercelayer.io/api/).
 
-4. Build your sales channel with your favorite technologies and frameworks by leveraging our [developer resources](https://commercelayer.io/developers/) and [API reference](https://docs.commercelayer.io/api/).
+4. Get an [access token](https://docs.commercelayer.io/api/authentication) for your application. You should generate this in your sales channel or use our JavaScript [authentication library](https://github.com/commercelayer/commercelayer-js-auth).
 
-5. Get an [access token](https://docs.commercelayer.io/api/authentication) for your application. You should generate this in your sales channel or use our JavaScript [authentication library](https://github.com/commercelayer/commercelayer-js-auth).
+5. Create an [order](https://docs.commercelayer.io/api/resources/orders) associated with some line items.
 
-6. Create an [order](https://docs.commercelayer.io/api/resources/orders) associated with some line items.
-
-7. Access your checkout as an external application or a page in your sales channel using the URL format: `<your-deployed-checkout-url>/:order_id?accessToken=<token>`. For example, `https://checkout.cl-shop.com/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9` or `https://cl-shop.com/checkout/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`.
+6. Checkout the previously created order using the URL format: `<your-deployed-checkout-url>/:order_id?accessToken=<token>`. For example: `https://checkout.yourbrand.com/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`.
 
 ## Future updates
 
-We will be supporting more payment gateways and launching a hosted checkout feature to the Commerce Layer dashboard soon. With the hosted checkout feature, you can install the checkout application to your organization and customize your logo or primary colors. Then, the application gets deployed and hosted automatically by Commerce Layer.
+We will be launching a (free) hosted version of this checkout application and a new dashboard soon. With the hosted checkout feature enabled, you can install the checkout application with a single click, customize your organization logo and primary colors, and automatically deploy the application from the dashboard.
+
+Kindly reach out to support@commercelayer.io or the chat on [our website](https://commercelayer.io) if you're interested in becoming an early user.
 
 ## Contributors guide
 
