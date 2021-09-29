@@ -277,4 +277,118 @@ describe("Checkout Free Payment", () => {
       cy.url().should("eq", returnUrl)
     })
   })
+
+  context("order with free sku, with shipment and free payment", () => {
+    before(function () {
+      cy.createOrder("draft", {
+        languageCode: "en",
+        customerEmail: email,
+        return_url: returnUrl,
+        accessToken: this.tokenObj.access_token,
+      })
+        .as("newOrder")
+        .then((order) => {
+          cy.createSkuLineItems({
+            orderId: order.id,
+            accessToken: this.tokenObj.access_token,
+            attributes: {
+              quantity: "1",
+              sku_code: "TESLAFREE",
+            },
+          })
+          cy.createAddress({
+            ...euAddress,
+            accessToken: this.tokenObj.access_token,
+          }).then((address) => {
+            cy.setSameAddress(
+              order.id,
+              address.id,
+              this.tokenObj.access_token
+            ).then(() => {
+              cy.getShipments({
+                accessToken: this.tokenObj.access_token,
+                orderId: order.id,
+              }).then((shipments) => {
+                cy.setShipmentMethod({
+                  type: "Standard Shipping",
+                  id: shipments[0].id,
+                  accessToken: this.tokenObj.access_token,
+                })
+              })
+            })
+          })
+        })
+    })
+
+    beforeEach(function () {
+      cy.setRoutes({
+        endpoint: Cypress.env("apiEndpoint"),
+        routes: Cypress.env("requests"),
+        record: Cypress.env("record"), // @default false
+        filename,
+      })
+    })
+
+    after(() => {
+      if (Cypress.env("record")) {
+        cy.saveRequests(filename)
+      }
+    })
+
+    it("valid customer token and check giftcard", function () {
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getShipments",
+          "@getOrderShipments",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@availableCustomerPaymentSources",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.url().should("contain", this.tokenObj.access_token)
+      cy.url().should("not.contain", Cypress.env("accessToken"))
+      cy.dataCy("total-amount").should("contain", "0,00")
+      cy.dataCy("step-header-info").each((e, i) => {
+        cy.wrap(e).as(`stepHeaderInfo${i}`)
+      })
+      cy.get("@stepHeaderInfo2").should(
+        "contain.text",
+        "This order does not require payment"
+      )
+    })
+
+    it("check step header badge", () => {
+      cy.dataCy("step-header-badge").each((e, i) => {
+        cy.wrap(e).as(`stepHeaderBadge${i}`)
+      })
+      cy.get("@stepHeaderBadge0").get("svg")
+      cy.get("@stepHeaderBadge1").get("svg")
+      cy.get("@stepHeaderBadge2").get("svg")
+    })
+
+    it("place order and redirect", () => {
+      cy.wait(3000)
+      cy.dataCy("place-order-button").click()
+      cy.wait(
+        [
+          "@getShippingMethods",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@updateOrder",
+        ],
+        { timeout: 100000 }
+      )
+      cy.dataCy("button-continue-to-shop").click()
+      cy.wait(2000)
+      cy.url().should("eq", returnUrl)
+    })
+  })
 })

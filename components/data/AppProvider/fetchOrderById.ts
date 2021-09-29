@@ -294,7 +294,7 @@ export const fetchOrderById = async ({
       (a: ShipmentSelected) => a.shippingMethodId
     )
 
-    let hasShippingMethod = isShipmentRequired
+    const hasShippingMethod = isShipmentRequired
       ? Boolean(
           shippingMethods?.length && !shippingMethods?.includes(undefined)
         )
@@ -304,7 +304,7 @@ export const fetchOrderById = async ({
     // a shipping method per shipment, we set it to all shipments.
     // If all promises are successful, we set hasShippingMethod
     // to true to skip the shipping step
-    if (
+    /* if (
       isShipmentRequired &&
       hasBillingAddress &&
       hasShippingAddress &&
@@ -324,7 +324,7 @@ export const fetchOrderById = async ({
       } catch {
         console.log("error updating shipments")
       }
-    }
+    } */
 
     const paymentMethod = order.paymentMethod()
     const paymentSource: SingleRelationship<
