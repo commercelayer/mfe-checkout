@@ -16,7 +16,8 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
     router.isReady
       ? `/api/settings?accessToken=${accessToken}&orderId=${orderId}`
       : null,
-    fetcher
+    fetcher,
+    { revalidateOnFocus: false }
   )
 
   if (!data && !error) {

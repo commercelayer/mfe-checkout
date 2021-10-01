@@ -67,7 +67,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .find(orderId)
 
     if (orderFetched.status === "draft" || orderFetched.status === "pending") {
-      order = orderFetched?.withCredentials({ accessToken, endpoint })
+      order = await orderFetched
+        ?.withCredentials({ accessToken, endpoint })
+        .update({ _refresh: true })
     } else if (orderFetched.status === "placed") {
       order = orderFetched?.withCredentials({ accessToken, endpoint })
     }
