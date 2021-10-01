@@ -115,6 +115,45 @@ describe("Checkout Coupon", () => {
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
+    it("select shipment and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
+      })
+      cy.get("@shippingMethodButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.get("@shippingMethodButton3").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+        { timeout: 100000 }
+      )
+    })
+
     it("check coupon", function () {
       cy.dataCy("code-coupon").should("contain", "testcoupon")
       cy.dataCy("discount-amount").should("contain", "124,20")
@@ -213,6 +252,45 @@ describe("Checkout Coupon", () => {
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
+    })
+
+    it("select shipment and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
+      })
+      cy.get("@shippingMethodButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.get("@shippingMethodButton3").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+        { timeout: 100000 }
+      )
     })
 
     it("check amount", () => {

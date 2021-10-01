@@ -436,6 +436,31 @@ describe("check Data Layers GTM", () => {
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
+    it("select Standard Shipping and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
+      })
+      cy.get("@shippingMethodButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+        { timeout: 100000 }
+      )
+    })
+
     it("check begin_checkout GTM without add_shipping_info GTM", () => {
       cy.getDataLayer({ gtm: "begin_checkout" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 1)

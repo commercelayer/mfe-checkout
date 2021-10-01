@@ -111,6 +111,45 @@ describe("Checkout Payments", () => {
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
+    it("select shipment and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
+      })
+      cy.get("@shippingMethodButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.get("@shippingMethodButton3").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+        { timeout: 100000 }
+      )
+    })
+
     it("select payment method credit card", () => {
       cy.dataCy("payment-method-item").each((e, i) => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
@@ -224,6 +263,45 @@ describe("Checkout Payments", () => {
         { timeout: 100000 }
       )
       cy.url().should("contain", Cypress.env("accessToken"))
+    })
+
+    it("select shipment and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
+      })
+      cy.get("@shippingMethodButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.get("@shippingMethodButton3").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+        { timeout: 100000 }
+      )
     })
 
     it("check if not avaible save to wallet", () => {
@@ -341,6 +419,45 @@ describe("Checkout Payments", () => {
       cy.url().should("contain", Cypress.env("accessToken"))
     })
 
+    it("select shipment and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
+      })
+      cy.get("@shippingMethodButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.get("@shippingMethodButton3").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+        { timeout: 100000 }
+      )
+    })
+
     it("check if not avaible save to wallet", () => {
       cy.wait(5000)
       cy.dataCy("payment-save-wallet").should("not.exist")
@@ -405,71 +522,65 @@ describe("Checkout Payments", () => {
   })
 
   context("customer order and braintree select method", () => {
-    const tempEmail = String(Math.random()).concat(email)
     before(function () {
-      cy.createCustomer({
-        email: tempEmail,
+      cy.getTokenCustomer({
+        username: email,
         password: password,
-      }).then(() => {
-        cy.getTokenCustomer({
-          username: tempEmail,
-          password: password,
-        })
-          .as("tokenObj")
-          .then(() => {
-            cy.createOrder("draft", {
-              languageCode: "en",
-              customerEmail: tempEmail,
-              accessToken: this.tokenObj.access_token,
-            })
-              .as("newOrder")
-              .then((order) => {
-                cy.createSkuLineItems({
-                  orderId: order.id,
-                  accessToken: this.tokenObj.access_token,
-                  attributes: {
-                    quantity: "1",
-                    sku_code: "CANVASAU000000FFFFFF1824",
-                  },
-                })
-                cy.createSkuLineItems({
-                  orderId: order.id,
-                  accessToken: this.tokenObj.access_token,
-                  attributes: {
-                    quantity: "5",
-                    sku_code: "TSHIRTMMFFFFFF000000XLXX",
-                  },
-                })
-                cy.createAddress({
-                  ...euAddress,
-                  accessToken: this.tokenObj.access_token,
-                }).then((address) => {
-                  cy.setSameAddress(
-                    order.id,
-                    address.id,
-                    this.tokenObj.access_token
-                  ).then(() => {
-                    cy.getShipments({
+      })
+        .as("tokenObj")
+        .then(() => {
+          cy.createOrder("draft", {
+            languageCode: "en",
+            customerEmail: email,
+            accessToken: this.tokenObj.access_token,
+          })
+            .as("newOrder")
+            .then((order) => {
+              cy.createSkuLineItems({
+                orderId: order.id,
+                accessToken: this.tokenObj.access_token,
+                attributes: {
+                  quantity: "1",
+                  sku_code: "CANVASAU000000FFFFFF1824",
+                },
+              })
+              cy.createSkuLineItems({
+                orderId: order.id,
+                accessToken: this.tokenObj.access_token,
+                attributes: {
+                  quantity: "5",
+                  sku_code: "TSHIRTMMFFFFFF000000XLXX",
+                },
+              })
+              cy.createAddress({
+                ...euAddress,
+                accessToken: this.tokenObj.access_token,
+              }).then((address) => {
+                cy.setSameAddress(
+                  order.id,
+                  address.id,
+                  this.tokenObj.access_token
+                ).then(() => {
+                  cy.getShipments({
+                    accessToken: this.tokenObj.access_token,
+                    orderId: order.id,
+                  }).then((shipments) => {
+                    console.log(shipments)
+                    cy.setShipmentMethod({
+                      type: "Standard Shipping",
+                      id: shipments[0].id,
                       accessToken: this.tokenObj.access_token,
-                      orderId: order.id,
-                    }).then((shipments) => {
-                      console.log(shipments)
-                      cy.setShipmentMethod({
-                        type: "Standard Shipping",
-                        id: shipments[0].id,
-                        accessToken: this.tokenObj.access_token,
-                      })
-                      cy.setShipmentMethod({
-                        type: "Express Delivery EU",
-                        id: shipments[1].id,
-                        accessToken: this.tokenObj.access_token,
-                      })
+                    })
+                    cy.setShipmentMethod({
+                      type: "Express Delivery EU",
+                      id: shipments[1].id,
+                      accessToken: this.tokenObj.access_token,
                     })
                   })
                 })
               })
-          })
-      })
+            })
+        })
     })
 
     beforeEach(function () {
@@ -507,6 +618,45 @@ describe("Checkout Payments", () => {
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
+    })
+
+    it("select shipment and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
+      })
+      cy.get("@shippingMethodButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.get("@shippingMethodButton3").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+        { timeout: 100000 }
+      )
     })
 
     it("select payment method credit card", () => {
@@ -557,4 +707,358 @@ describe("Checkout Payments", () => {
       cy.dataCy("place-order-button").should("be.enabled")
     })
   })
+
+  context(
+    "save card to customer wallet, customer order with one payment method not selected",
+    () => {
+      before(function () {
+        cy.getTokenCustomer({
+          username: email,
+          password: password,
+        })
+          .as("tokenObj")
+          .then(() => {
+            cy.createOrder("draft", {
+              languageCode: "en",
+              customerEmail: email,
+              accessToken: this.tokenObj.access_token,
+            })
+              .as("newOrder")
+              .then((order) => {
+                cy.createSkuLineItems({
+                  orderId: order.id,
+                  accessToken: this.tokenObj.access_token,
+                  attributes: {
+                    quantity: "1",
+                    sku_code: "SWEETHMUB7B7B7000000XLXX",
+                  },
+                })
+                cy.createAddress({
+                  ...euAddress,
+                  accessToken: this.tokenObj.access_token,
+                }).then((address) => {
+                  cy.setSameAddress(
+                    order.id,
+                    address.id,
+                    this.tokenObj.access_token
+                  ).then(() => {
+                    cy.getShipments({
+                      accessToken: this.tokenObj.access_token,
+                      orderId: order.id,
+                    }).then((shipments) => {
+                      console.log(shipments)
+                      cy.setShipmentMethod({
+                        type: "Standard Shipping",
+                        id: shipments[0].id,
+                        accessToken: this.tokenObj.access_token,
+                      })
+                    })
+                  })
+                })
+              })
+          })
+      })
+
+      beforeEach(function () {
+        cy.setRoutes({
+          endpoint: Cypress.env("apiEndpoint"),
+          routes: Cypress.env("requests"),
+          record: Cypress.env("record"), // @default false
+          filename,
+        })
+      })
+
+      after(() => {
+        if (Cypress.env("record")) {
+          cy.saveRequests(filename)
+        }
+      })
+
+      it("valid customer token", function () {
+        cy.visit(
+          `/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`
+        )
+        cy.wait(
+          [
+            "@getShippingMethods",
+            "@getShipments",
+            "@getOrderShipments",
+            "@getOrderShipments",
+            "@availablePaymentMethods",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@getOrders",
+            "@getCustomerAddresses",
+            "@availableCustomerPaymentSources",
+          ],
+          { timeout: 100000 }
+        )
+        cy.url().should("contain", this.tokenObj.access_token)
+        cy.url().should("not.contain", Cypress.env("accessToken"))
+      })
+
+      it("select shipment and save", () => {
+        cy.dataCy("shipping-method-button").each((e, i) => {
+          cy.wrap(e).as(`shippingMethodButton${i}`)
+        })
+        cy.get("@shippingMethodButton0").click()
+        cy.wait(
+          [
+            "@getShipments",
+            "@getOrders",
+            "@retrieveLineItems",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+            "@getOrderShipments",
+          ],
+          {
+            timeout: 100000,
+          }
+        )
+        cy.dataCy("save-shipments-button").click()
+        cy.wait(
+          ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+          { timeout: 100000 }
+        )
+      })
+
+      it("select payment method credit card", () => {
+        cy.dataCy("payment-method-item").each((e, i) => {
+          cy.wrap(e).as(`paymentMethodItem${i}`)
+        })
+        cy.get("@paymentMethodItem2").click({ force: true })
+        cy.wait(
+          [
+            "@getOrderShipments",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@getOrders",
+            "@getOrders",
+            "@updateOrder",
+            "@stripePayments",
+          ],
+          { timeout: 100000 }
+        )
+      })
+
+      it("check if avaible save to wallet", () => {
+        cy.wait(5000)
+        cy.dataCy("payment-save-wallet").should("exist")
+      })
+
+      it("insert data credit card and check data", () => {
+        cy.dataCy("payment-source").each((e, i) => {
+          cy.wrap(e).as(`paymentSource${i}`)
+        })
+        cy.get("@paymentSource2").within(() => {
+          cy.fillElementsInput("cardNumber", "4242424242424242")
+          cy.fillElementsInput("cardExpiry", "3333")
+          cy.fillElementsInput("cardCvc", "333")
+        })
+        cy.dataCy("save-to-wallet").click()
+        cy.dataCy("payment-method-amount").should("contain.text", "10,00")
+      })
+
+      it("place order and redirect", () => {
+        cy.wait(2000)
+        cy.dataCy("place-order-button").click()
+        cy.wait(
+          [
+            "@getShippingMethods",
+            "@getShipments",
+            "@getOrderShipments",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@getOrders",
+            "@updateOrder",
+            "@getCustomerAddresses",
+            "@availableCustomerPaymentSources",
+          ],
+          { timeout: 100000 }
+        )
+      })
+    }
+  )
+
+  context(
+    "use card to customer wallet, customer order with one payment method not selected",
+    () => {
+      before(function () {
+        cy.getTokenCustomer({
+          username: email,
+          password: password,
+        })
+          .as("tokenObj")
+          .then(() => {
+            cy.createOrder("draft", {
+              languageCode: "en",
+              customerEmail: email,
+              accessToken: this.tokenObj.access_token,
+            })
+              .as("newOrder")
+              .then((order) => {
+                cy.createSkuLineItems({
+                  orderId: order.id,
+                  accessToken: this.tokenObj.access_token,
+                  attributes: {
+                    quantity: "1",
+                    sku_code: "SWEETHMUB7B7B7000000XLXX",
+                  },
+                })
+                cy.createAddress({
+                  ...euAddress,
+                  accessToken: this.tokenObj.access_token,
+                }).then((address) => {
+                  cy.setSameAddress(
+                    order.id,
+                    address.id,
+                    this.tokenObj.access_token
+                  ).then(() => {
+                    cy.getShipments({
+                      accessToken: this.tokenObj.access_token,
+                      orderId: order.id,
+                    }).then((shipments) => {
+                      console.log(shipments)
+                      cy.setShipmentMethod({
+                        type: "Standard Shipping",
+                        id: shipments[0].id,
+                        accessToken: this.tokenObj.access_token,
+                      })
+                    })
+                  })
+                })
+              })
+          })
+      })
+
+      beforeEach(function () {
+        cy.setRoutes({
+          endpoint: Cypress.env("apiEndpoint"),
+          routes: Cypress.env("requests"),
+          record: Cypress.env("record"), // @default false
+          filename,
+        })
+      })
+
+      after(() => {
+        if (Cypress.env("record")) {
+          cy.saveRequests(filename)
+        }
+      })
+
+      it("valid customer token", function () {
+        cy.visit(
+          `/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`
+        )
+        cy.wait(
+          [
+            "@getShippingMethods",
+            "@getShipments",
+            "@getOrderShipments",
+            "@getOrderShipments",
+            "@availablePaymentMethods",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@getOrders",
+            "@getCustomerAddresses",
+            "@availableCustomerPaymentSources",
+          ],
+          { timeout: 100000 }
+        )
+        cy.url().should("contain", this.tokenObj.access_token)
+        cy.url().should("not.contain", Cypress.env("accessToken"))
+      })
+
+      it("select shipment and save", () => {
+        cy.dataCy("shipping-method-button").each((e, i) => {
+          cy.wrap(e).as(`shippingMethodButton${i}`)
+        })
+        cy.get("@shippingMethodButton0").click()
+        cy.wait(
+          [
+            "@getShipments",
+            "@getOrders",
+            "@retrieveLineItems",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+            "@getOrderShipments",
+          ],
+          {
+            timeout: 100000,
+          }
+        )
+        cy.dataCy("save-shipments-button").click()
+        cy.wait(
+          ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+          { timeout: 100000 }
+        )
+      })
+
+      it("select payment method credit card", () => {
+        cy.dataCy("payment-method-item").each((e, i) => {
+          cy.wrap(e).as(`paymentMethodItem${i}`)
+        })
+        cy.get("@paymentMethodItem2").click({ force: true })
+        cy.wait(
+          [
+            "@getOrderShipments",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@getOrders",
+            "@getOrders",
+            "@updateOrder",
+            "@stripePayments",
+          ],
+          { timeout: 100000 }
+        )
+      })
+
+      it("check if avaible save to wallet", () => {
+        cy.wait(5000)
+        cy.dataCy("payment-save-wallet").should("exist")
+      })
+
+      it("select a card saved into wallet", () => {
+        cy.dataCy("customer-card").each((e, i) => {
+          cy.wrap(e).as(`customerCard${i}`)
+        })
+        cy.get("@customerCard0").dblclick()
+        cy.wait(
+          [
+            "@getShippingMethods",
+            "@getShipments",
+            "@getOrderShipments",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@retrieveLineItems",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
+          ],
+          { timeout: 100000 }
+        )
+      })
+
+      it("place order and redirect", () => {
+        cy.wait(2000)
+        cy.dataCy("place-order-button").click()
+        cy.wait(
+          [
+            "@getShippingMethods",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+            "@updateOrder",
+          ],
+          { timeout: 100000 }
+        )
+      })
+    }
+  )
 })

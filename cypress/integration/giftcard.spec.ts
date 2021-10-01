@@ -10,7 +10,11 @@ describe("Checkout GiftCard", () => {
 
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
-      cy.getTokenSuperuser().as("tokenObj")
+      cy.getTokenCustomer({
+        username: email,
+        password: password,
+      }).as("tokenObj")
+      cy.getTokenSuperuser().as("tokenObjSuperuser")
     })
   })
 
@@ -65,19 +69,19 @@ describe("Checkout GiftCard", () => {
                 cy.createGiftCard({
                   balanceCents: 10000,
                   recipientEmail: email,
-                  accessToken: this.tokenObj.access_token,
+                  accessToken: this.tokenObjSuperuser.access_token,
                 }).then((e) =>
                   cy
                     .activeGiftCard({
                       giftcardId: e.id,
-                      accessToken: this.tokenObj.access_token,
+                      accessToken: this.tokenObjSuperuser.access_token,
                     })
                     .as("newGiftCardCode")
                     .then(() => {
                       cy.setGiftCard({
                         orderId: order.id,
                         giftCardCode: this.newGiftCardCode.attributes.code,
-                        accessToken: this.tokenObj.access_token,
+                        accessToken: this.tokenObjSuperuser.access_token,
                       })
                     })
                 )
@@ -124,6 +128,48 @@ describe("Checkout GiftCard", () => {
         "contain",
         this.newGiftCardCode.attributes.code
       )
+    })
+
+    it("select shipment and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
+      })
+      cy.get("@shippingMethodButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.get("@shippingMethodButton3").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+        { timeout: 100000 }
+      )
+    })
+
+    it("check total", () => {
       cy.dataCy("giftcard-amount").should("contain", "100,00")
       cy.dataCy("total-amount").should("contain", "156,00")
     })
@@ -180,12 +226,12 @@ describe("Checkout GiftCard", () => {
                 cy.createGiftCard({
                   balanceCents: 10000,
                   recipientEmail: email,
-                  accessToken: this.tokenObj.access_token,
+                  accessToken: this.tokenObjSuperuser.access_token,
                 }).then((e) =>
                   cy
                     .activeGiftCard({
                       giftcardId: e.id,
-                      accessToken: this.tokenObj.access_token,
+                      accessToken: this.tokenObjSuperuser.access_token,
                     })
                     .as("newGiftCardCode")
                 )
@@ -247,6 +293,45 @@ describe("Checkout GiftCard", () => {
         {
           timeout: 100000,
         }
+      )
+    })
+
+    it("select shipment and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
+      })
+      cy.get("@shippingMethodButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.get("@shippingMethodButton3").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+        { timeout: 100000 }
       )
     })
 

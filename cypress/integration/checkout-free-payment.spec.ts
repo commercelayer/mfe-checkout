@@ -142,6 +142,31 @@ describe("Checkout Free Payment", () => {
       cy.get("@stepHeaderBadge2").get("svg")
     })
 
+    it("select Standard Shipping and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
+      })
+      cy.get("@shippingMethodButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+        { timeout: 100000 }
+      )
+    })
+
     it("place order and redirect", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
@@ -372,6 +397,31 @@ describe("Checkout Free Payment", () => {
       cy.get("@stepHeaderBadge0").get("svg")
       cy.get("@stepHeaderBadge1").get("svg")
       cy.get("@stepHeaderBadge2").get("svg")
+    })
+
+    it("select Standard Shipping and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
+      })
+      cy.get("@shippingMethodButton0").click()
+      cy.wait(
+        [
+          "@getShipments",
+          "@getOrders",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+          "@retrieveLineItems",
+          "@getOrderShipments",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(
+        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+        { timeout: 100000 }
+      )
     })
 
     it("place order and redirect", () => {

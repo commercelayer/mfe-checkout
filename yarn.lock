@@ -264,7 +264,12 @@
   dependencies:
     promise-polyfill "^8.1.3"
 
-"@braintree/browser-detection@1.12.0", "@braintree/browser-detection@^1.12.0":
+"@braintree/browser-detection@1.12.1":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@braintree/browser-detection/-/browser-detection-1.12.1.tgz#917af7834ea37615957f0e1eef67def9d0b142db"
+  integrity sha512-i/54qrax5o/WbJJhsE/7qqKE594/kGhR+xSu/w13rT7Mlr/uITkWDXzxffcKQ6l6FQxK0IG0EfgT6TJpWgZcUQ==
+
+"@braintree/browser-detection@^1.12.0":
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/@braintree/browser-detection/-/browser-detection-1.12.0.tgz#f848b8a48e8ab34c7ff2dd420335973db190bf06"
   integrity sha512-fmZcaXYkXr9b0J+3HwXLQogIYV+xSS6aBG7LGu0OjLkSD/k62EAu2xLGEDFHUu6siH/I7vvGoC0/Ds3f3RnS6g==
@@ -321,20 +326,20 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@commercelayer/react-components@^2.41.0":
-  version "2.41.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.41.0.tgz#5545314543d048869c64e85894631f7a24896ca4"
-  integrity sha512-ZkOch/Yse8w6ipgAEf463vfHg3/DYcfBIN+CUSJqi3r88LGAYVBdK/gMcqva6kybYKHAfG8Delo+kjha350MFw==
+"@commercelayer/react-components@^2.42.0":
+  version "2.42.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.42.0.tgz#e57b7553970b68aab7a06370faa64eae833ac2ed"
+  integrity sha512-BK8TrknOB6Dglh9MKRSi6yP0G/G1wz4kIRkszvWkSW748xnUKVnhukaoodsuI/kfzCxht9Aw76SGAkGdWdVgSA==
   dependencies:
     "@commercelayer/js-sdk" "^3.9.2"
-    "@stripe/react-stripe-js" "^1.4.1"
-    "@stripe/stripe-js" "^1.17.1"
-    braintree-web "^3.81.0"
+    "@stripe/react-stripe-js" "^1.5.0"
+    "@stripe/stripe-js" "^1.18.0"
+    braintree-web "^3.82.0"
     countries-states-cities-service "^1.0.1"
     deps "^1.0.0"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
-    rapid-form "^1.5.3"
+    rapid-form "^1.6.0"
 
 "@cypress/request@^2.88.6":
   version "2.88.6"
@@ -570,14 +575,14 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.0.6.tgz#023d72a5c4531b4ce204528971700a78a85a0c50"
   integrity sha512-Myxw//kzromB9yWgS8qYGuGVf91oBUUJpNvy5eM50sqvmKLbKjwLxohJnkWGTeeI9v9IBMtPLxz5Gc60FIfvCA==
 
-"@stripe/react-stripe-js@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.4.1.tgz#884d59286fff00ba77389b32c045516f65d7a340"
-  integrity sha512-FjcVrhf72+9fUL3Lz3xi02ni9tzH1A1x6elXlr6tvBDgSD55oPJuodoP8eC7xTnBIKq0olF5uJvgtkJyDCdzjA==
+"@stripe/react-stripe-js@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.5.0.tgz#7e4d80077e88e1f2c1f10ac255f2838d7c9488c2"
+  integrity sha512-A7+bNeb0O/kw3JdtMeiB6frokPcks5obi+TIjuFRXUMZ5o/o1Qe7eLgLnsb0KOO/g3KJqNCpHiYcKCLESZJJbQ==
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^1.17.1":
+"@stripe/stripe-js@^1.18.0":
   version "1.18.0"
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.18.0.tgz#687268d7cd68b44b92b86300d7c7f2a6e4df0b98"
   integrity sha512-yBRHAMKHnF3kbzv0tpKB82kSow43wW5qXLK8ofg3V9NaaCyObSTO7wJfktWAtG/NBgkJOdUL+pV8dHBj0qvDkQ==
@@ -703,10 +708,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@^17.0.25":
-  version "17.0.25"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.25.tgz#8b88c226e54910762decc9de2aa36b4dc9240503"
-  integrity sha512-IXrzSOr3CVbEQgmjEdCWF57J7CVaJ7lL/n4penxHm8h0XIcr0AxqGucogh2zj3qRxgk4M4JImOP/MfomkPOhvQ==
+"@types/react@^17.0.26":
+  version "17.0.26"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.26.tgz#960ea4b3518cc154ed7df3b35656c508df653331"
+  integrity sha512-MXxuXrH2xOcv5cp/su4oz69dNQnSA90JjFw5HBd5wifw6Ihi94j7dRJm7qNsB30tnruXSCPc9qmlhGop4nh9Hw==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -1308,13 +1313,13 @@ braces@^3.0.1, braces@~3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
-braintree-web@^3.81.0:
-  version "3.81.0"
-  resolved "https://registry.yarnpkg.com/braintree-web/-/braintree-web-3.81.0.tgz#64ff8efa7a076391e72fbc86ac98215848b80368"
-  integrity sha512-7hFfmYBIrx8JspJ+tliBNKjoo2uKlY4isvOjDUHkioWdPxizywaJ8vZNllvB9PWySAFjTXdPKtoZfpkY7mzk5A==
+braintree-web@^3.82.0:
+  version "3.82.0"
+  resolved "https://registry.yarnpkg.com/braintree-web/-/braintree-web-3.82.0.tgz#3109840bf011ae4339a5abc1af564879373dc875"
+  integrity sha512-3qb0kGJPEoVgXVHBoSVnG3tZ6rK7R59xvw3ohKNv43B/pgSM2ZJWOmGQfqs4TAs+l+N5sLSkhbauxNNWcFPD6A==
   dependencies:
     "@braintree/asset-loader" "0.4.4"
-    "@braintree/browser-detection" "1.12.0"
+    "@braintree/browser-detection" "1.12.1"
     "@braintree/class-list" "0.2.0"
     "@braintree/event-emitter" "0.4.1"
     "@braintree/extended-promise" "0.4.1"
@@ -1325,7 +1330,7 @@ braintree-web@^3.81.0:
     card-validator "8.1.1"
     credit-card-type "9.1.0"
     framebus "5.1.2"
-    inject-stylesheet "4.0.0"
+    inject-stylesheet "5.0.0"
     promise-polyfill "8.2.0"
     restricted-input "3.0.4"
 
@@ -3548,10 +3553,10 @@ ini@^1.3.5:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
-inject-stylesheet@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/inject-stylesheet/-/inject-stylesheet-4.0.0.tgz#9c2080b227fe17e7f8d5c0aabc42130de4f415c0"
-  integrity sha512-EULSmN+gdAMR4w9kk57HJ1Lz6Xp+9OGgTbxpNV2QSncG+LWlihH1d/Clm8ui6b+LAqmIVcrtWfwDrMEgDiUpjg==
+inject-stylesheet@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/inject-stylesheet/-/inject-stylesheet-5.0.0.tgz#bb34acf05ca6ed86e5763d886cd6c9b19f360ab1"
+  integrity sha512-GzncrJP8E/pavMQzoO93CXoYCfTttwVm2cX2TyXJdgtVE0cCvWSFCn1/uMsM6ZkEg7LUsOcKuamcLiGWlv2p9A==
 
 inquirer@^6.2.2:
   version "6.5.2"
@@ -5256,10 +5261,10 @@ randomfill@^1.0.3:
     randombytes "^2.0.5"
     safe-buffer "^5.1.0"
 
-rapid-form@^1.5.3:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/rapid-form/-/rapid-form-1.5.3.tgz#1c65017b6b59807a737ca24fe72b97f7b94ebe76"
-  integrity sha512-atX7RvWGVz6QvavKENTB6uUPXotMde41XuyGYxMzZSmxMMIrTLkQjFExTjomE3OjMstlHMKW61cAGTvf3yPrNw==
+rapid-form@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/rapid-form/-/rapid-form-1.6.0.tgz#960bf5b6ebac8a54385c69a068bb1f5e86a9367f"
+  integrity sha512-wrKsaBOowwUISlRA5ws7Bhee6kfiyZDqQNplhS9Dj56uQy86wIxe9tL7rkqmLxY3ocLjhYzJMKS5QLfV5m+gPQ==
 
 raw-body@2.4.1:
   version "2.4.1"

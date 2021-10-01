@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@commercelayer/js-sdk": "^3.10.0",
-    "@commercelayer/react-components": "^2.41.0",
+    "@commercelayer/react-components": "^2.42.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@commercelayer/cypress-vcr": "^1.1.0",
     "@types/node": "^16.10.2",
-    "@types/react": "^17.0.25",
+    "@types/react": "^17.0.26",
     "@types/react-gtm-module": "^2.0.1",
     "@types/styled-components": "^5.1.14",
     "@typescript-eslint/eslint-plugin": "^4.32.0",

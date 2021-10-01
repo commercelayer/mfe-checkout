@@ -134,9 +134,7 @@ describe("Checkout guest address", () => {
       cy.dataCy("input_shipping_address_country_code").select(
         euAddress2.countryCode
       )
-      cy.dataCy("input_shipping_address_state_code").select(
-        euAddress2.stateCode
-      )
+      cy.dataCy("input_shipping_address_state_code").type(euAddress2.stateCode)
       cy.dataCy("input_shipping_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_shipping_address_phone").type(euAddress2.phone)
 

@@ -29,6 +29,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ refetchOrder }) => {
 
   const TemplateCustomerCards = ({ handleClick }: CustomerCardsProps) => (
     <div
+      data-cy="customer-card"
       onClick={handleClick}
       className="flex flex-col items-start p-3 mb-4 text-sm border rounded cursor-pointer lg:flex-row lg:items-center shadow-sm hover:border-primary"
     >

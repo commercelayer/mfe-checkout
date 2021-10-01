@@ -138,9 +138,7 @@ describe("Checkout customer address", () => {
         euAddress2.countryCode
       )
       cy.wait(2000)
-      cy.dataCy("input_shipping_address_state_code").select(
-        euAddress2.stateCode
-      )
+      cy.dataCy("input_shipping_address_state_code").type(euAddress2.stateCode)
       cy.dataCy("input_shipping_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_shipping_address_phone").type(euAddress2.phone)
 
@@ -468,9 +466,7 @@ describe("Checkout customer address", () => {
         euAddress2.countryCode
       )
       cy.wait(2000)
-      cy.dataCy("input_shipping_address_state_code").select(
-        euAddress2.stateCode
-      )
+      cy.dataCy("input_shipping_address_state_code").type(euAddress2.stateCode)
       cy.dataCy("input_shipping_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_shipping_address_phone").type(euAddress2.phone)
 
@@ -743,7 +739,7 @@ describe("Checkout customer address", () => {
         euAddress2.countryCode
       )
       cy.wait(2000)
-      cy.dataCy("input_billing_address_state_code").select(euAddress2.stateCode)
+      cy.dataCy("input_billing_address_state_code").type(euAddress2.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
 
@@ -1147,7 +1143,7 @@ describe("Checkout customer address", () => {
         euAddress2.countryCode
       )
       cy.wait(2000)
-      cy.dataCy("input_billing_address_state_code").select(euAddress2.stateCode)
+      cy.dataCy("input_billing_address_state_code").type(euAddress2.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
 
@@ -1508,7 +1504,7 @@ describe("Checkout customer address", () => {
         euAddress2.countryCode
       )
       cy.wait(2000)
-      cy.dataCy("input_billing_address_state_code").select(euAddress2.stateCode)
+      cy.dataCy("input_billing_address_state_code").type(euAddress2.stateCode)
       cy.dataCy("input_billing_address_zip_code").type(euAddress2.zipCode)
       cy.dataCy("input_billing_address_phone").type(euAddress2.phone)
 
@@ -1524,7 +1520,7 @@ describe("Checkout customer address", () => {
     it("change billing address country code and save", () => {
       cy.dataCy("input_billing_address_country_code").select(countryCode)
       cy.wait(3000)
-      cy.dataCy("input_billing_address_state_code").select(euAddress2.stateCode)
+      cy.dataCy("input_billing_address_state_code").select(euAddress.stateCode)
 
       cy.dataCy("save-addresses-button").click()
 

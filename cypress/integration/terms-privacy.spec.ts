@@ -103,6 +103,31 @@ describe("Checkout Complete with terms and privacy", () => {
         cy.url().should("not.contain", Cypress.env("accessToken"))
       })
 
+      it("select shipment and save", () => {
+        cy.dataCy("shipping-method-button").each((e, i) => {
+          cy.wrap(e).as(`shippingMethodButton${i}`)
+        })
+        cy.get("@shippingMethodButton0").click()
+        cy.wait(
+          [
+            "@getShipments",
+            "@getOrders",
+            "@retrieveLineItems",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+            "@getOrderShipments",
+          ],
+          {
+            timeout: 100000,
+          }
+        )
+        cy.dataCy("save-shipments-button").click()
+        cy.wait(
+          ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
+          { timeout: 100000 }
+        )
+      })
+
       it("select payment method paypal", () => {
         cy.dataCy("payment-method-item").each((e, i) => {
           cy.wrap(e).as(`paymentMethodItem${i}`)
@@ -157,6 +182,31 @@ describe("Checkout Complete with terms and privacy", () => {
             "@getCustomerAddresses",
             "@availableCustomerPaymentSources",
           ],
+          { timeout: 100000 }
+        )
+      })
+
+      it("select shipment and save", () => {
+        cy.dataCy("shipping-method-button").each((e, i) => {
+          cy.wrap(e).as(`shippingMethodButton${i}`)
+        })
+        cy.get("@shippingMethodButton0").click()
+        cy.wait(
+          [
+            "@getShipments",
+            "@getOrders",
+            "@retrieveLineItems",
+            "@getOrderShipments",
+            "@retrieveLineItems",
+            "@getOrderShipments",
+          ],
+          {
+            timeout: 100000,
+          }
+        )
+        cy.dataCy("save-shipments-button").click()
+        cy.wait(
+          ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
           { timeout: 100000 }
         )
       })
