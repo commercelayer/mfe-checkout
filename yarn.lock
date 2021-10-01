@@ -326,16 +326,16 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@commercelayer/react-components@^2.42.0":
-  version "2.42.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.42.0.tgz#e57b7553970b68aab7a06370faa64eae833ac2ed"
-  integrity sha512-BK8TrknOB6Dglh9MKRSi6yP0G/G1wz4kIRkszvWkSW748xnUKVnhukaoodsuI/kfzCxht9Aw76SGAkGdWdVgSA==
+"@commercelayer/react-components@^2.42.2":
+  version "2.42.2"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.42.2.tgz#88163efd6fbf85f3cec0a99fe59377d4de91e25c"
+  integrity sha512-GACC8Xj0/9Q3p7PnOkvWtTK6oli/DLNM/bc6BBELBcMbp6mdzEy1Zi292RGK++TGcmRhMHw4JXz784rwHln1zA==
   dependencies:
     "@commercelayer/js-sdk" "^3.9.2"
     "@stripe/react-stripe-js" "^1.5.0"
     "@stripe/stripe-js" "^1.18.0"
     braintree-web "^3.82.0"
-    countries-states-cities-service "^1.0.1"
+    countries-states-cities-service "^1.1.0"
     deps "^1.0.0"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
@@ -1850,10 +1850,10 @@ cosmiconfig@^7.0.0, cosmiconfig@^7.0.1:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
-countries-states-cities-service@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/countries-states-cities-service/-/countries-states-cities-service-1.0.1.tgz#94b943ca1c620b2e02b8f3d0adbb93b5b5e6089e"
-  integrity sha512-XsoxViL/meKjV2rPimT8dqUbvEDjg1paY/LW/25zcDlRMeFZnGfRbeTZnEG5adm0aLhBTlNGGzvQRB2FatZYfQ==
+countries-states-cities-service@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/countries-states-cities-service/-/countries-states-cities-service-1.1.0.tgz#9ae75626176d4bf9ecac15548a987bc776cc25db"
+  integrity sha512-0WN3AK3CGbww1xwB6ba+g8hYzy24e8PwtDSOjGhJBwr37JzaeM9jn8p2AFF511W/O4nc/ispLotLjb09Y3saUw==
 
 create-ecdh@^4.0.0:
   version "4.0.4"
