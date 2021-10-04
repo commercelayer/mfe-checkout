@@ -49,7 +49,6 @@ export const AddressSectionEmail: React.FC<Props> = ({
               id="customer_email"
               errorClassName="hasError"
               // tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-              placeholder="E-mail"
               saveOnBlur={true}
               value={emailAddress}
             />
