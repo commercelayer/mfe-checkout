@@ -93,25 +93,29 @@ export const AddressInputGroup: React.FC<Props> = ({
   function renderInput() {
     if (isCountry) {
       return (
-        <StyledAddressCountrySelector
-          className="form-select"
-          data-cy={`input_${fieldName}`}
-          name={fieldName as AddressCountrySelectName}
-          placeholder={{
-            label: t(`addressForm.${fieldName}_placeholder`),
-            value: "",
-          }}
-          value={
-            shippingCountryCodeLock &&
-            fieldName === "shipping_address_country_code"
-              ? shippingCountryCodeLock
-              : value
-          }
-          disabled={Boolean(
-            shippingCountryCodeLock &&
+        <>
+          <StyledAddressCountrySelector
+            id={fieldName}
+            className="form-select"
+            data-cy={`input_${fieldName}`}
+            name={fieldName as AddressCountrySelectName}
+            placeholder={{
+              label: t(`addressForm.${fieldName}_placeholder`),
+              value: "",
+            }}
+            value={
+              shippingCountryCodeLock &&
               fieldName === "shipping_address_country_code"
-          )}
-        />
+                ? shippingCountryCodeLock
+                : value
+            }
+            disabled={Boolean(
+              shippingCountryCodeLock &&
+                fieldName === "shipping_address_country_code"
+            )}
+          />
+          <Label htmlFor={fieldName}>{label}</Label>
+        </>
       )
     } else if (isState) {
       return (
@@ -122,10 +126,6 @@ export const AddressInputGroup: React.FC<Props> = ({
             inputClassName="form-input AddressInputGroup__StyledAddressStateSelector-sc-8zexlr-3 YFJoH"
             data-cy={`input_${fieldName}`}
             name={fieldName as AddressStateSelectName}
-            placeholder={{
-              label: t(`addressForm.${fieldName}_placeholder`),
-              value: "",
-            }}
             value={value}
           />
           <Label htmlFor={fieldName}>{label}</Label>
