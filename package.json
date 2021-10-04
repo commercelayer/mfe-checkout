@@ -36,6 +36,8 @@
   },
   "devDependencies": {
     "@commercelayer/cypress-vcr": "^1.1.0",
+    "@tailwindcss/forms": "^0.3.4",
+    "@tailwindcss/line-clamp": "^0.2.2",
     "@types/node": "^16.10.2",
     "@types/react": "^17.0.27",
     "@types/react-gtm-module": "^2.0.1",
@@ -60,8 +62,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "tailwindcss": "^2.2.16",
-    "@tailwindcss/forms": "^0.3.4",
-    "@tailwindcss/line-clamp": "^0.2.2",
+    "tailwindcss-shadow-fill": "^0.1.0",
     "typescript": "^4.4.3"
   },
   "babelMacros": {

@@ -3025,6 +3025,11 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.2.tgz#64bfed5cb68fe3ca78b3eb214ad97b63bedce561"
   integrity sha512-JaTY/wtrcSyvXJl4IMFHPKyFur1sE9AUqc0QnhOaJ0CxHtAoIV8pYDzeEfAaNEtGkOfq4gr3LBFmdXW5mOQFnA==
 
+flatten-tailwindcss-theme@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/flatten-tailwindcss-theme/-/flatten-tailwindcss-theme-0.1.1.tgz#c74a06aeb98e110b8f711ec26a973be74fc62a0b"
+  integrity sha512-H4VV6pXPVX+NZMy4Ddky+Ae3y8hRrDmYn1piauHx3nPWa/4YS6ufL2G4crxqisGawHGztSTJ5TjZkmiyTA035Q==
+
 follow-redirects@^1.14.0, follow-redirects@^1.2.3:
   version "1.14.4"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.4.tgz#838fdf48a8bbdd79e52ee51fb1c94e3ed98b9379"
@@ -6203,6 +6208,13 @@ table@^6.0.9, table@^6.6.0:
     slice-ansi "^4.0.0"
     string-width "^4.2.0"
     strip-ansi "^6.0.0"
+
+tailwindcss-shadow-fill@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/tailwindcss-shadow-fill/-/tailwindcss-shadow-fill-0.1.0.tgz#25f1427639fae588aad6832e57e425a76ed0b000"
+  integrity sha512-td+BBkMQuHFdsUKXRGogk8YfS3ptCK84zZFuDrlhNgWls6UIGUI7w+GaMTKleL1PthTZJqf0L2xmQOUxuEEM0A==
+  dependencies:
+    flatten-tailwindcss-theme "^0.1.1"
 
 tailwindcss@^2.1.0:
   version "2.2.15"
