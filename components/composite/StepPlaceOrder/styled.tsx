@@ -10,6 +10,10 @@ import { ButtonCss } from "components/ui/Button"
 import { CheckCss } from "components/ui/form/CheckBox"
 import { ErrorCss } from "components/ui/form/Error"
 
+interface StyledPlaceOrderButtonProps {
+  isActive: boolean
+}
+
 export const ErrorWrapper = styled.div`
   ${tw`bg-red-50 flex justify-center border border-2 border-red-300 `}
   & + & {
@@ -32,9 +36,12 @@ export const ErrorsContainer = styled.div`
     ${tw`mb-10`}
   }
 `
-export const StyledPlaceOrderButton = styled(PlaceOrderButton)`
+export const StyledPlaceOrderButton = styled<any & StyledPlaceOrderButtonProps>(
+  PlaceOrderButton
+)`
   ${ButtonCss}
-  ${tw`mx-5 mt-3.5 md:mx-0 md:mt-0`}
+  ${({ isActive }) => (isActive ? null : tw`hidden`)}
+  ${tw`mx-5 mt-3.5 md:mx-0 md:mt-0 active:hidden`}
 `
 export const StyledPrivacyAndTermsCheckbox = styled(PrivacyAndTermsCheckbox)`
   ${CheckCss}

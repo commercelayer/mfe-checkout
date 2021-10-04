@@ -24,11 +24,16 @@ import {
 } from "./styled"
 
 interface Props {
+  isActive: boolean
   termsUrl: string
   privacyUrl: string
 }
 
-const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
+const StepPlaceOrder: React.FC<Props> = ({
+  isActive,
+  termsUrl,
+  privacyUrl,
+}) => {
   const { t } = useTranslation()
   const { query } = useRouter()
 
@@ -150,6 +155,7 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
           <ButtonWrapper>
             <StyledPlaceOrderButton
               data-cy="place-order-button"
+              isActive={isActive}
               onClick={handlePlaceOrder}
               label={
                 <>
