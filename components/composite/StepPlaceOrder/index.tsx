@@ -4,7 +4,6 @@ import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
-import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { ButtonWrapper } from "components/ui/Button"
@@ -25,18 +24,22 @@ import {
 } from "./styled"
 
 interface Props {
+  isActive: boolean
   termsUrl: string
   privacyUrl: string
 }
 
-const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
+const StepPlaceOrder: React.FC<Props> = ({
+  isActive,
+  termsUrl,
+  privacyUrl,
+}) => {
   const { t } = useTranslation()
   const { query } = useRouter()
 
   const [isPlacingOrder, setIsPlacingOrder] = useState(false)
 
   const appCtx = useContext(AppContext)
-  const accordionCtx = useContext(AccordionContext)
   const gtmCtx = useContext(GTMContext)
 
   if (!appCtx) {
@@ -146,7 +149,7 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
           <ButtonWrapper>
             <StyledPlaceOrderButton
               data-cy="place-order-button"
-              isActive={accordionCtx?.isActive}
+              isActive={isActive}
               onClick={handlePlaceOrder}
               label={
                 <>
