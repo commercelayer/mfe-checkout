@@ -75,6 +75,5 @@ module.exports = {
       strategy: 'class',
     }),
     require('@tailwindcss/line-clamp'),
-    require('tailwindcss-shadow-fill'),
   ],
 }
