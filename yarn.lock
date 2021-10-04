@@ -326,10 +326,10 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@commercelayer/react-components@^2.42.2":
-  version "2.42.2"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.42.2.tgz#88163efd6fbf85f3cec0a99fe59377d4de91e25c"
-  integrity sha512-GACC8Xj0/9Q3p7PnOkvWtTK6oli/DLNM/bc6BBELBcMbp6mdzEy1Zi292RGK++TGcmRhMHw4JXz784rwHln1zA==
+"@commercelayer/react-components@^2.42.3":
+  version "2.42.3"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.42.3.tgz#df2b0bed9a3b66196d94fa304a6816c6764becab"
+  integrity sha512-yPLmyXNqwrUq8Tjum86go5g7pvhJYSSaILy3ILRD4yfNH/nO/OJ2HUG8dvv3FB1geskf9FHae0YCxRE7n8Incw==
   dependencies:
     "@commercelayer/js-sdk" "^3.9.2"
     "@stripe/react-stripe-js" "^1.5.0"
@@ -609,10 +609,10 @@
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
-"@tailwindcss/line-clamp@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/line-clamp/-/line-clamp-0.2.1.tgz#efafe556719c26a3926f0679a98307c4bc9270d2"
-  integrity sha512-Hq2KJY1+T2v7jw/mnT3mnC7CKbp5kj1XTqzSb2xbEt1j+JkxIR6N3ijsN/WevZtsKJfVE1KOejA/3IRKuhZEsQ==
+"@tailwindcss/line-clamp@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/line-clamp/-/line-clamp-0.2.2.tgz#05843c004bf069353a0c43f9df8cc3a6016252b8"
+  integrity sha512-NgA4Ds+/eCiO+6O3SooRsfJ8m7M2+QvNvHwOjBQq7FIYoWwAV4I4Wu4fjHeuO9Yi6p47ceHUKEGGEBh0ozQodg==
 
 "@types/glob@^7.1.1":
   version "7.1.4"
@@ -708,10 +708,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@^17.0.26":
-  version "17.0.26"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.26.tgz#960ea4b3518cc154ed7df3b35656c508df653331"
-  integrity sha512-MXxuXrH2xOcv5cp/su4oz69dNQnSA90JjFw5HBd5wifw6Ihi94j7dRJm7qNsB30tnruXSCPc9qmlhGop4nh9Hw==
+"@types/react@^17.0.27":
+  version "17.0.27"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.27.tgz#6498ed9b3ad117e818deb5525fa1946c09f2e0e6"
+  integrity sha512-zgiJwtsggVGtr53MndV7jfiUESTqrbxOcBvwfe6KS/9bzaVPCTDieTWnFNecVNx6EAaapg5xsLLWFfHHR437AA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
