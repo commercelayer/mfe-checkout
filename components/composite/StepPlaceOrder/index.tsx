@@ -74,6 +74,12 @@ const StepPlaceOrder: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
       field: "base",
       message: t("error.resourceID"),
     },
+    {
+      code: "EMPTY_ERROR",
+      resource: "order",
+      field: "customer_email",
+      message: " ",
+    },
   ]
 
   const handlePlaceOrder = async () => {
