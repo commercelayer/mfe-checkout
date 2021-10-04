@@ -115,17 +115,21 @@ export const AddressInputGroup: React.FC<Props> = ({
       )
     } else if (isState) {
       return (
-        <StyledAddressStateSelector
-          className="form-select"
-          inputClassName="form-input"
-          data-cy={`input_${fieldName}`}
-          name={fieldName as AddressStateSelectName}
-          placeholder={{
-            label: t(`addressForm.${fieldName}_placeholder`),
-            value: "",
-          }}
-          value={value}
-        />
+        <>
+          <StyledAddressStateSelector
+            id={fieldName}
+            className="form-select"
+            inputClassName="form-input AddressInputGroup__StyledAddressStateSelector-sc-8zexlr-3 YFJoH"
+            data-cy={`input_${fieldName}`}
+            name={fieldName as AddressStateSelectName}
+            placeholder={{
+              label: t(`addressForm.${fieldName}_placeholder`),
+              value: "",
+            }}
+            value={value}
+          />
+          <Label htmlFor={fieldName}>{label}</Label>
+        </>
       )
     } else {
       return (
