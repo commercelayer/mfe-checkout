@@ -117,6 +117,7 @@ export const AddressInputGroup: React.FC<Props> = ({
       return (
         <StyledAddressStateSelector
           className="form-select"
+          inputClassName="form-input"
           data-cy={`input_${fieldName}`}
           name={fieldName as AddressStateSelectName}
           placeholder={{
