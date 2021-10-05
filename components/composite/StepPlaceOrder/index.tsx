@@ -85,6 +85,12 @@ const StepPlaceOrder: React.FC<Props> = ({
       field: "customer_email",
       message: " ",
     },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "order",
+      field: "customer_email",
+      message: " ",
+    },
   ]
 
   const handlePlaceOrder = async () => {
