@@ -41,7 +41,7 @@ export const StyledPlaceOrderButton = styled<any & StyledPlaceOrderButtonProps>(
 )`
   ${ButtonCss}
   ${({ isActive }) => (isActive ? null : tw`hidden`)}
-  ${tw`mx-5 mt-3.5 md:mx-0 md:mt-0 active:hidden`}
+  ${tw`mx-5 mt-3.5 md:mx-0 md:mt-0`}
 `
 export const StyledPrivacyAndTermsCheckbox = styled(PrivacyAndTermsCheckbox)`
   ${CheckCss}
