@@ -64,6 +64,12 @@ export const AddressInputGroup: React.FC<Props> = ({
       field: fieldName,
       message: t("input.cantBlank"),
     },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "order",
+      field: "customer_email",
+      message: " ",
+    },
   ]
 
   const appCtx = useContext(AppContext)
