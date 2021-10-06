@@ -180,6 +180,9 @@ const StyledAddressCountrySelector = styled(AddressCountrySelector)`
 
 const StyledAddressStateSelector = styled(AddressStateSelector)`
   ${InputCss}
+  &.hasError {
+    ${tw`border-red-400 border-2 focus:ring-offset-0 focus:ring-red-400 focus:ring-opacity-50`}
+  }
 `
 
 const StyledErrors = styled(Errors)`
