@@ -129,6 +129,15 @@ export const StepCustomer: React.FC<Props> = () => {
   const handleSave = async () => {
     setIsLocalLoader(true)
     await refetchOrder()
+
+    // it is used temporarily to scroll
+    // to the next step and fix
+    // the mobile and desktop bug that led to the bottom of the page
+    const tab = document.querySelector('div[tabindex="2"]')
+    const top = tab?.scrollLeft as number
+    const left = tab?.scrollTop as number
+    window.scrollTo({ left, top: top, behavior: "smooth" })
+
     setIsLocalLoader(false)
   }
 

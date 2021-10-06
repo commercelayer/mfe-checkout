@@ -122,8 +122,8 @@ export const AddressInputGroup: React.FC<Props> = ({
         <>
           <StyledAddressStateSelector
             id={fieldName}
-            className="form-select"
-            inputClassName="form-input block w-full border-gray-400 border rounded-md p-3 transition duration-500 ease-in-out focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary-light focus:ring-opacity-50 sm:text-sm shadow-inner focus:shadow-inner"
+            selectClassName="form-select"
+            inputClassName="form-input"
             data-cy={`input_${fieldName}`}
             name={fieldName as AddressStateSelectName}
             value={value}
@@ -180,6 +180,9 @@ const StyledAddressCountrySelector = styled(AddressCountrySelector)`
 
 const StyledAddressStateSelector = styled(AddressStateSelector)`
   ${InputCss}
+  &.hasError {
+    ${tw`border-red-400 border-2 focus:ring-offset-0 focus:ring-red-400 focus:ring-opacity-50`}
+  }
 `
 
 const StyledErrors = styled(Errors)`
