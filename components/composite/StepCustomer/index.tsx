@@ -136,7 +136,7 @@ export const StepCustomer: React.FC<Props> = () => {
     const tab = document.querySelector('div[tabindex="2"]')
     const top = tab?.scrollLeft as number
     const left = tab?.scrollTop as number
-    window.scrollTo({ left, top: top + 300, behavior: "smooth" })
+    window.scrollTo({ left, top: top, behavior: "smooth" })
 
     setIsLocalLoader(false)
   }
