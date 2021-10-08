@@ -8,7 +8,7 @@ interface StepProps {
 
 export const Step = styled.li<StepProps>`
   position: relative;
-  ${tw`flex items-center`}
+  ${tw`flex items-center last:pointer-events-none`}
 
   ${({ isActive }) =>
     isActive
