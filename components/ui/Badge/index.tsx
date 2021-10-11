@@ -13,6 +13,7 @@ export const Badge: React.FC<Props> = ({ status, stepNumber }) => (
     data-cy="step-header-badge"
     active={status === "edit"}
     done={status === "done"}
+    skip={status === "skip"}
   >
     {status === "done" || status === "skip" ? <CheckmarkIcon /> : stepNumber}
   </StepBadge>
@@ -21,11 +22,12 @@ export const Badge: React.FC<Props> = ({ status, stepNumber }) => (
 interface BadgeProps {
   active: boolean
   done: boolean
+  skip: boolean
 }
 
-const StepBadge = styled.div<BadgeProps>(({ active, done }) => [
+const StepBadge = styled.div<BadgeProps>(({ active, done, skip }) => [
   tw`rounded-full text-contrast flex justify-center items-center w-6 h-6 text-xs font-bold`,
   active && tw`bg-primary`,
-  !active && tw`bg-gray-400`,
+  (!active || skip) && tw`bg-gray-400`,
   done && tw`bg-green-400`,
 ])

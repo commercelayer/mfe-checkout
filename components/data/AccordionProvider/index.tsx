@@ -21,6 +21,7 @@ interface AccordionProviderProps {
   lastActivableStep: SingleStepEnum
   setActiveStep?: (step: SingleStepEnum) => void
   isStepRequired?: boolean
+  isStepDone?: boolean
 }
 
 export const AccordionProvider: React.FC<AccordionProviderProps> = ({
@@ -30,6 +31,7 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   lastActivableStep,
   setActiveStep,
   isStepRequired = true,
+  isStepDone = false,
 }) => {
   const [isActive, setIsActive] = useState(false)
   // state to disable pointer on open accordion if cannot progress
@@ -53,7 +55,7 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   }, [step, lastActivableStep])
 
   useEffect(() => {
-    if (!isStepRequired) {
+    if (!isStepRequired && checkIfCannotGoNext(step, lastActivableStep)) {
       setStatus("skip")
       return
     }
@@ -62,6 +64,12 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
       setStatus("edit")
       return
     }
+
+    if (isStepDone) {
+      setStatus("done")
+      return
+    }
+
     if (checkIfCannotGoNext(step, lastActivableStep)) {
       setStatus("disabled")
       return
