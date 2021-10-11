@@ -44,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     } else if (slug) {
       endpoint = `https://${slug}.commercelayer.io`
     } else {
-      endpoint = process.env.NEXT_PUBLIC_CLAYER_DOMAIN as string
+      return invalidateCheckout()
     }
   } catch (e) {
     console.log(`error decoding access token: ${e}`)
