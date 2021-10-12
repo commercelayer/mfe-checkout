@@ -2,7 +2,7 @@
 
 The Commerce Layer checkout application (React) provides you with a PCI-compliant, PSD2-compliant, and production-ready checkout flow powered by Commerce Layer APIs. You can fork this repository and deploy it to any hosting service or use it as a reference application to build your own.
 
-![Commerce Layer checkout demo](./public/demo.gif)
+![Commerce Layer React Checkout demo](./public/demo.gif)
 
 ## What is Commerce Layer?
 
@@ -28,7 +28,7 @@ The Commerce Layer checkout application (React) provides you with a PCI-complian
 
 3. Build your sales channel with your favorite technologies and frameworks by leveraging our [developer resources](https://commercelayer.io/developers/) and [API reference](https://docs.commercelayer.io/api/).
 
-4. Get an [access token](https://docs.commercelayer.io/api/authentication) for your application. You should generate this in your sales channel or use our JavaScript [authentication library](https://github.com/commercelayer/commercelayer-js-auth).
+4. Get an [access token](https://docs.commercelayer.io/api/authentication) for your application. You should generate this in your sales channel or use our Javascript [authentication library](https://github.com/commercelayer/commercelayer-js-auth).
 
 5. Create an [order](https://docs.commercelayer.io/api/resources/orders) associated with some line items.
 
