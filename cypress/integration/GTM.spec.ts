@@ -459,7 +459,7 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("payment-method-item").each((e, i) => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodItem2").click({ force: true })
+      cy.get("@paymentMethodItem3").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -485,12 +485,12 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
       })
-      cy.get("@paymentSource2").within(() => {
+      cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
         cy.fillElementsInput("cardExpiry", "1025")
         cy.fillElementsInput("cardCvc", "123")
       })
-      cy.get("@paymentSource1")
+      cy.get("@paymentSource2")
         .get("button")
         .each((e, i) => {
           cy.wrap(e).as(`paymentSourceButton${i}`)

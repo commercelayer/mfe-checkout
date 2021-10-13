@@ -150,7 +150,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("payment-method-item").each((e, i) => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodItem2").click({ force: true })
+      cy.get("@paymentMethodItem3").click({ force: true })
       cy.wait(
         [
           "@getOrderShipments",
@@ -175,7 +175,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
       })
-      cy.get("@paymentSource2").within(() => {
+      cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
         cy.fillElementsInput("cardExpiry", "3333")
         cy.fillElementsInput("cardCvc", "333")
@@ -305,7 +305,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("payment-method-item").each((e, i) => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodItem2").click({ force: true })
+      cy.get("@paymentMethodItem3").click({ force: true })
       cy.wait(
         [
           "@getOrderShipments",
@@ -325,7 +325,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
       })
-      cy.get("@paymentSource2").within(() => {
+      cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
         cy.fillElementsInput("cardExpiry", "3333")
         cy.fillElementsInput("cardCvc", "333")
@@ -455,7 +455,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("payment-method-item").each((e, i) => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodItem2").click({ force: true })
+      cy.get("@paymentMethodItem3").click({ force: true })
       cy.wait(
         [
           "@getOrderShipments",
@@ -475,7 +475,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
       })
-      cy.get("@paymentSource2").within(() => {
+      cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
         cy.fillElementsInput("cardExpiry", "3333")
         cy.fillElementsInput("cardCvc", "333")
@@ -487,7 +487,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("payment-method-item").each((e, i) => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodItem3").click({ force: true })
+      cy.get("@paymentMethodItem4").click({ force: true })
       cy.dataCy("place-order-button").should("be.disabled")
       cy.wait(
         [
@@ -647,7 +647,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("payment-method-item").each((e, i) => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodItem0").click({ force: true })
+      cy.get("@paymentMethodItem1").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -807,7 +807,7 @@ describe("Checkout Payments", () => {
         cy.dataCy("payment-method-item").each((e, i) => {
           cy.wrap(e).as(`paymentMethodItem${i}`)
         })
-        cy.get("@paymentMethodItem2").click({ force: true })
+        cy.get("@paymentMethodItem3").click({ force: true })
         cy.wait(
           [
             "@getOrderShipments",
@@ -832,7 +832,7 @@ describe("Checkout Payments", () => {
         cy.dataCy("payment-source").each((e, i) => {
           cy.wrap(e).as(`paymentSource${i}`)
         })
-        cy.get("@paymentSource2").within(() => {
+        cy.get("@paymentSource3").within(() => {
           cy.fillElementsInput("cardNumber", "4242424242424242")
           cy.fillElementsInput("cardExpiry", "3333")
           cy.fillElementsInput("cardCvc", "333")
@@ -978,7 +978,7 @@ describe("Checkout Payments", () => {
         cy.dataCy("payment-method-item").each((e, i) => {
           cy.wrap(e).as(`paymentMethodItem${i}`)
         })
-        cy.get("@paymentMethodItem2").click({ force: true })
+        cy.get("@paymentMethodItem3").click({ force: true })
         cy.wait(
           [
             "@getOrderShipments",

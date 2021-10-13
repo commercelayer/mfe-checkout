@@ -122,7 +122,7 @@ describe("Checkout Complete", () => {
       cy.dataCy("payment-method-item").each((e, i) => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
-      cy.get("@paymentMethodItem2").click({ force: true })
+      cy.get("@paymentMethodItem3").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -149,7 +149,7 @@ describe("Checkout Complete", () => {
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
       })
-      cy.get("@paymentSource2").within(() => {
+      cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
         cy.fillElementsInput("cardExpiry", "3333")
         cy.fillElementsInput("cardCvc", "333")
