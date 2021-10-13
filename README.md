@@ -50,9 +50,23 @@ Kindly reach out to support@commercelayer.io or the chat on [our website](https:
 git clone https://github.com/<your username>/commercelayer-react-checkout.git && cd commercelayer-react-checkout
 ```
 
-3. Make your changes and create a pull request ([learn how to do this](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)).
+3. First, run the development server:
 
-4. Someone will attend to your pull request and provide some feedback.
+```
+yarn dev
+```
+
+4. Set your environment with `.env.local` starting from `.env.local.sample`.
+
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can use the following format to open the checkout: `http://localhost:3000/?accessToken=...&orderId=...`.
+
+6. Make your changes and create a pull request ([learn how to do this](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)).
+
+7. Someone will attend to your pull request and provide some feedback.
+
+## Rollbar token
+
+There are many access tokens on rollbar settings, we need to use one related to post client items.
 
 ## Need help?
 
