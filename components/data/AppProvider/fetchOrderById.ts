@@ -359,6 +359,7 @@ export const fetchOrderById = async ({
     }
 
     const isCreditCard =
+      paymentMethod?.paymentSourceType === "adyen_payments" ||
       paymentMethod?.paymentSourceType === "stripe_payments" ||
       paymentMethod?.paymentSourceType === "braintree_payments"
 
