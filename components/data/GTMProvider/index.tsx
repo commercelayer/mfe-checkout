@@ -37,7 +37,7 @@ interface PushDataLayerProps {
     items?: (ItemProps | null)[]
     value?: number
     shipping_tier?: string
-    transaction_id?: null
+    transaction_id?: number
     payment_type?: string
     tax?: number
   }
@@ -72,6 +72,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
 
     return Order.select(
+      "number",
       "coupon_code",
       "currency_code",
       "total_amount_with_taxes_float",
@@ -223,7 +224,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         coupon: order?.couponCode,
         currency: order?.currencyCode,
         items: lineItems?.toArray().map(mapItemsToGTM),
-        transaction_id: null, // es. "T_12345",
+        transaction_id: order?.number,
         shipping: order?.shippingAmountFloat,
         value: order?.totalAmountWithTaxesFloat,
         tax: order?.totalTaxAmountFloat,

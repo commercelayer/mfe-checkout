@@ -339,6 +339,7 @@ describe("check Data Layers GTM", () => {
   })
 
   context("starting from the payment step", () => {
+    let orderId: number
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
@@ -403,6 +404,7 @@ describe("check Data Layers GTM", () => {
     })
 
     it("valid customer token", function () {
+      orderId = this.newOrder.attributes.number
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
@@ -528,7 +530,7 @@ describe("check Data Layers GTM", () => {
         assert.equal(dataLayer[0].ecommerce.value, 254)
         assert.equal(dataLayer[0].ecommerce.shipping, 0)
         assert.equal(dataLayer[0].ecommerce.tax, 0)
-        // assert.equal(dataLayer[0].ecommerce.transaction_id, null)
+        assert.equal(dataLayer[0].ecommerce.transaction_id, orderId)
         assert.equal(dataLayer[0].ecommerce.items.length, 2)
       })
     })
