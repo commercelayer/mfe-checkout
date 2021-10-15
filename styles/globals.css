@@ -1,17 +1,8 @@
-@tailwind base;
-@tailwind components;
+/*
+ * This is our global css include, imported once in _app file
+ * Don't add extra css here, since this is being used only to global import tailwind Preflight styles
+ */
 
-html,
-body {
-  @apply bg-gray-50;
-}
-
-/* Write your own custom component styles here */
-.btn-blue {
-  @apply px-4 py-2 font-bold text-white bg-blue-500 rounded;
-}
-
-/* Start purging... */
-@tailwind utilities;
-
-/* Your own custom utilities */
+ @tailwind base;
+ @tailwind components;
+ @tailwind utilities;

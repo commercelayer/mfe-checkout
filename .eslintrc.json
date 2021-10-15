@@ -12,8 +12,7 @@
     "plugin:import/warnings",
     "plugin:import/typescript",
     "plugin:tailwind/recommended",
-    "prettier",
-    "prettier/@typescript-eslint"
+    "prettier"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -44,12 +43,12 @@
       "error",
       {
         "newlines-between": "always",
-        "groups": ["builtin", "external", "parent", "sibling", "index"],
+        "groups": ["external", "builtin", "parent", "sibling", "index"],
         "pathGroups": [
           {
-            "pattern": "src/**",
+            "pattern": "components/**",
             "group": "parent",
-            "position": "before"
+            "position": "after"
           }
         ],
         "pathGroupsExcludedImportTypes": ["parent"],
@@ -64,5 +63,10 @@
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/prefer-readonly": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off"
+  },
+  "settings": {
+    "react": {
+        "version": "detect"
+    }
   }
 }

@@ -1,0 +1,141 @@
+{
+
+    "general": {
+        "title": "{{companyName}} - Checkout",
+        "yes": "Yes",
+        "no": "No",
+        "cancel": "Cancel",
+        "systemError": "We're sorry but something went wrong!",
+        "invalid": "This order is not accessible.",
+        "save": "Save",
+        "edit": "Edit",
+        "delete": "Delete",
+        "done": "Done",
+        "free" : "Free",
+        "complete": "Complete",
+        "apply": "Apply",
+        "discard": "Discard changes",
+        "privacy_link": "Privacy",
+        "terms_link": "Terms",
+        "privacy_and_terms": "By clicking the checkbox you agree to <bold><termsUrl>terms</termsUrl></bold> and <bold><privacyUrl>privacy</privacyUrl></bold>.",
+        "checkoutTitle": "Checkout"
+    },
+
+    "error": {
+        "general": "General error",
+        "shipments": "Some shipments are missing the shipping method",
+        "paymentMethod": "Step payment can't be blank",
+        "transition": "Transition is not permitted",
+        "payer": "Payer has not approved payment",
+        "resourceID": "The requested resource ID was not found"
+    },
+
+    "input":{
+        "cantBlank" : "Can't be blank",
+        "mustBeValidFormat" : "Must be valid format",
+        "mustBeValidEmail":"Must be valid email",
+        "mustBeValidCouponOrGiftCard":"Doesn't match any active gift card or coupon"
+    },
+
+    "orderRecap": {
+        "order_summary": "Order summary",
+        "cartContains": "Your shopping cart contains {{count}} item",
+        "cartContains_plural": "Your shopping cart contains {{count}} items",
+        "couponCode": "Coupon code",
+        "quantity": "Quantity: {{count}}",
+        "quantity_plural": "Quantity: {{count}}",
+        "discount_amount": "Discount",
+        "giftcard_amount": "Gift card",
+        "tax_amount": "Tax",
+        "shipping_amount": "Shipping",
+        "payment_method_amount": "Payment method",
+        "subtotal_amount": "Subtotal",
+        "total_amount": "Total"
+    },
+
+    "stepCustomer": {
+        "title": "Customer",
+        "summary" : "Customer billing and shipping information summary",
+        "information": "Your billing information and shipping address",
+        "addNewAddress": "New address",
+        "saveAddressBook": "Save this address in your account",
+        "addNewBillingAddress": "Add new billing address",
+        "addNewShippingAddress": "Add new shipping address",
+        "continueToDelivery": "Continue to delivery",
+        "notSet": "No Billing / Shipping Address set"
+    },
+
+    "stepShipping": {
+        "title": "Delivery",
+        "summary": "Shipment summary and delivery methods",
+        "shipment": "Shipment #<0/>",
+        "notAvaible": "There are not any shipping method available",
+        "stockTransfer": "<0/> of <1/> items will undergo a transfer",
+        "methodSelected": "Your order contains {{count}} shipment",
+        "methodSelected_plural": "Your order contains {{count}} shipments",
+        "methodUnselected": "Shipping method to select",
+        "addShippingMethod": "Add customer data before shipping",
+        "deliveryLeadTime" : "<0/> - <1/> days",
+        "continueToPayment": "Continue to payment",
+        "notRequired": "This order does not require shipping"
+    },
+
+    "stepPayment": {
+        "title": "Payment",
+        "summary": "Payment summary",
+        "methodSelected": "Payment method selected",
+        "methodUnselected": "Payment method to select",
+        "paymentMethod": "You have a payment method set",
+        "creditCard": "Credit card",
+        "wireTransfer": "Wire transfer",
+        "wireTransferDescription": "After placing the order, you will need to manually complete the payment with your bank",
+        "paypalDescription": "After placing the order, you will be redirected to the PayPal website to sign in and authorize the payment",
+        "addPaymentMethod": "Add shipping method before payment",
+        "setPaymentMethod": "Set payment method",
+        "endingIn": "<0/> ending in <1/>",
+        "submit": "Place order",
+        "notRequired": "This order does not require payment",
+        "saveToWallet": "Save new card on your wallet",
+        "expires": "Expires"
+    },
+
+    "addressForm" : {
+        "customer_email" : "Your email address",
+        "billing_address_title": "Billing Address",
+        "billing_address_first_name": "First name",
+        "billing_address_last_name": "Last name",
+        "billing_address_line_1": "Address",
+        "billing_address_city": "City",
+        "billing_address_country_code_placeholder": "Select a country",
+        "billing_address_country_code": "Country",
+        "billing_address_state_code": "State",
+        "billing_address_state_code_placeholder": "Select a state",
+        "billing_address_zip_code": "Zip Code",
+        "billing_address_phone": "Phone",
+        "billing_address_billing_info": "Billing info",
+        "ship_to_different_address": "Ship to different address",
+        "shipping_address_title": "Shipping Address",
+        "shipped_to": "Ship to:",
+        "billed_to": "Billed to:",
+        "shipping_address_first_name": "First name",
+        "shipping_address_last_name": "Last name",
+        "shipping_address_line_1": "Address",
+        "shipping_address_city": "City",
+        "shipping_address_country_code": "Country",
+        "shipping_address_country_code_placeholder": "Select a country",
+        "shipping_address_state_code": "State",
+        "shipping_address_state_code_placeholder": "Select a state",
+        "shipping_address_zip_code": "Zip Code",
+        "shipping_address_phone": "Phone"
+    },
+
+    "stepComplete": {
+        "title": "Order successfully placed!",
+        "summary": "Your order No: <WrapperOrderId>#{{orderNumber}}</WrapperOrderId>",
+        "continue": "Continue shopping",
+        "supportEmail": "If you have any questions about your order, you can email us at <br /><WrapperEmail>{{email}}</WrapperEmail>",
+        "supportPhone": "If you have any questions about your order, you can call us at <br /><WrapperPhone>{{phone}}</WrapperPhone>",
+        "fullSupport": "If you have any questions about your order, you can email us at <br /><WrapperEmail>{{email}}</WrapperEmail> or call us at <WrapperPhone>{{phone}}</WrapperPhone>"
+    }
+
+}

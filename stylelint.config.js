@@ -14,6 +14,8 @@ module.exports = {
       },
     ],
     "declaration-block-trailing-semicolon": null,
+    "declaration-colon-newline-after": null,
     "no-descending-specificity": null,
+    "value-keyword-case": null,
   },
 }
