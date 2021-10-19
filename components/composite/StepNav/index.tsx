@@ -32,8 +32,7 @@ export const StepNav: React.FC<Props> = ({
           const isLocked =
             (step === "Shipping" && !ctx?.isShipmentRequired) ||
             (step === "Payment" && !ctx?.isPaymentRequired) ||
-            (steps.indexOf(step) > steps.indexOf(lastActivable) &&
-              lastActivable !== "Complete")
+            steps.indexOf(step) > steps.indexOf(lastActivable)
 
           return (
             <Step
@@ -49,28 +48,23 @@ export const StepNav: React.FC<Props> = ({
               isLocked={isLocked}
             >
               {t(`step${step}.title`)}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-3 h-3 mx-3 fill-current"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              {step !== "Payment" && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-3 h-3 mx-3 fill-current"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              )}
             </Step>
           )
         })}
-
-        <Step
-          isLocked={activeStep !== "Complete"}
-          isActive={activeStep === "Complete"}
-        >
-          {t("general.complete")}
-        </Step>
       </StepList>
     </Wrapper>
   )
