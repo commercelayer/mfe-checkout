@@ -107,7 +107,10 @@ declare global {
           | "cardExpiry"
           | "cvc"
           | "number"
-          | "expirationDate",
+          | "expirationDate"
+          | "encryptedCardNumber"
+          | "encryptedExpiryDate"
+          | "encryptedSecurityCode",
         value: string
       ): Chainable<Subject>
       setCoupon(options: {

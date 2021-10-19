@@ -376,7 +376,17 @@ const getSelectorForField = (
     | "cvc"
     | "number"
     | "expirationDate"
+    | "encryptedCardNumber"
+    | "encryptedExpiryDate"
+    | "encryptedSecurityCode"
 ): string => {
+  if (
+    name === "encryptedSecurityCode" ||
+    name === "encryptedCardNumber" ||
+    name === "encryptedExpiryDate"
+  ) {
+    return `input[data-fieldtype="${name}"]`
+  }
   if (name === "cardCvc" || name === "cardNumber" || name === "cardExpiry") {
     return `input[data-elements-stable-field-name="${name}"]`
   }
@@ -394,7 +404,14 @@ Cypress.Commands.add("fillElementsInput", (field, value): void => {
 
   const selector = getSelectorForField(field)
 
-  if (field === "cardCvc" || field === "cardNumber" || field === "cardExpiry") {
+  if (
+    field === "cardCvc" ||
+    field === "cardNumber" ||
+    field === "cardExpiry" ||
+    field === "encryptedSecurityCode" ||
+    field === "encryptedCardNumber" ||
+    field === "encryptedExpiryDate"
+  ) {
     cy.get("iframe")
       .should((iframe) => expect(iframe.contents().find(selector)).to.exist)
       .then((iframe) => cy.wrap(iframe.contents().find(selector)))
