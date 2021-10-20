@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Order, Organization } from "@commercelayer/js-sdk"
+import { Order, OrderCollection, Organization } from "@commercelayer/js-sdk"
+import { JSONAPIResponse } from "@commercelayer/js-sdk/dist/typings/Library"
 import jwt_decode from "jwt-decode"
 import type { NextApiRequest, NextApiResponse } from "next"
 
@@ -54,9 +55,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let order
 
   try {
-    const orderFetched = await Order.withCredentials({ accessToken, endpoint })
+    const orderFetched: OrderCollection &
+      JSONAPIResponse & { autorefresh?: boolean } = await Order.withCredentials(
+      {
+        accessToken,
+        endpoint,
+      }
+    )
       .select(
         "id",
+        "autorefresh",
         "status",
         "number",
         "guest",
@@ -69,7 +77,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (orderFetched.status === "draft" || orderFetched.status === "pending") {
       order = await orderFetched
         ?.withCredentials({ accessToken, endpoint })
-        .update({ _refresh: true })
+        .update(
+          orderFetched.autorefresh ? { _refresh: true } : { autorefresh: true }
+        )
     } else if (orderFetched.status === "placed") {
       order = orderFetched?.withCredentials({ accessToken, endpoint })
     }
