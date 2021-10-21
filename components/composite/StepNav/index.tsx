@@ -32,7 +32,8 @@ export const StepNav: React.FC<Props> = ({
           const isLocked =
             (step === "Shipping" && !ctx?.isShipmentRequired) ||
             (step === "Payment" && !ctx?.isPaymentRequired) ||
-            steps.indexOf(step) > steps.indexOf(lastActivable)
+            (lastActivable !== "Complete" &&
+              steps.indexOf(step) > steps.indexOf(lastActivable))
 
           return (
             <Step
