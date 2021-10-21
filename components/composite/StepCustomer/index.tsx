@@ -1,4 +1,4 @@
-import { Address, AddressField } from "@commercelayer/react-components"
+// import { Address, AddressField } from "@commercelayer/react-components"
 import classNames from "classnames"
 import { Fragment, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -26,12 +26,13 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
   }
 
   const {
-    billingAddress,
-    shippingAddress,
+    // billingAddress,
+    // shippingAddress,
+    // hasSameAddresses,
+    // isShipmentRequired,
     hasShippingAddress,
     hasBillingAddress,
-    hasSameAddresses,
-    isShipmentRequired,
+    emailAddress,
   } = appCtx
 
   const { t } = useTranslation()
@@ -40,57 +41,60 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
     if (!hasShippingAddress && !hasBillingAddress) {
       return <p>{t("stepCustomer.notSet")}</p>
     }
-    if (billingAddress && (hasSameAddresses || !isShipmentRequired)) {
-      return (
-        <Address addresses={[billingAddress]}>
-          {
-            <AddressField>
-              {({ address }) => (
-                <p data-cy="full-billing-information">
-                  {address.name}
-                  {address.billingInfo && `, ${address.billingInfo}`}
-                </p>
-              )}
-            </AddressField>
-          }
-        </Address>
-      )
-    }
-    return (
-      (billingAddress && shippingAddress && (
-        <>
-          <Address addresses={[billingAddress]} className="mb-1">
-            {
-              <AddressField>
-                {({ address }) => (
-                  <>
-                    <p data-cy="full-billing-information">
-                      {address.name}
-                      {address.billingInfo && `, ${address.billingInfo}`}
-                    </p>
-                  </>
-                )}
-              </AddressField>
-            }
-          </Address>
-          <Address addresses={[shippingAddress]}>
-            {
-              <AddressField>
-                {({ address }) => (
-                  <p data-cy="full-shipping-information">
-                    <span className="font-semibold text-black">
-                      {t(`addressForm.shipped_to`)}
-                    </span>{" "}
-                    {address.name}{" "}
-                  </p>
-                )}
-              </AddressField>
-            }
-          </Address>
-        </>
-      )) ||
-      ""
-    )
+
+    return <p data-cy="customer-email-step-header">{emailAddress}</p>
+
+    // if (billingAddress && (hasSameAddresses || !isShipmentRequired)) {
+    //   return (
+    //     <Address addresses={[billingAddress]}>
+    //       {
+    //         <AddressField>
+    //           {({ address }) => (
+    //             <p data-cy="full-billing-information">
+    //               {address.name}
+    //               {address.billingInfo && `, ${address.billingInfo}`}
+    //             </p>
+    //           )}
+    //         </AddressField>
+    //       }
+    //     </Address>
+    //   )
+    // }
+    // return (
+    //   (billingAddress && shippingAddress && (
+    //     <>
+    //       <Address addresses={[billingAddress]} className="mb-1">
+    //         {
+    //           <AddressField>
+    //             {({ address }) => (
+    //               <>
+    //                 <p data-cy="full-billing-information">
+    //                   {address.name}
+    //                   {address.billingInfo && `, ${address.billingInfo}`}
+    //                 </p>
+    //               </>
+    //             )}
+    //           </AddressField>
+    //         }
+    //       </Address>
+    //       <Address addresses={[shippingAddress]}>
+    //         {
+    //           <AddressField>
+    //             {({ address }) => (
+    //               <p data-cy="full-shipping-information">
+    //                 <span className="font-semibold text-black">
+    //                   {t(`addressForm.shipped_to`)}
+    //                 </span>{" "}
+    //                 {address.name}{" "}
+    //               </p>
+    //             )}
+    //           </AddressField>
+    //         }
+    //       </Address>
+    //     </>
+    //   )) ||
+    //   ""
+    // )
   }
 
   return (

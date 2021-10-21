@@ -62,7 +62,7 @@
         "addNewBillingAddress": "Add new billing address",
         "addNewShippingAddress": "Add new shipping address",
         "continueToDelivery": "Continue to delivery",
-        "notSet": "No Billing / Shipping Address set"
+        "notSet": "Fill in your Billing/Shipping Address"
     },
 
     "stepShipping": {
