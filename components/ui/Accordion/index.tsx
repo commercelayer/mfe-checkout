@@ -28,7 +28,19 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
       (ctx.step === "Shipping" && appCtx.hasPaymentMethod) ||
       ctx.status !== "disabled"
     ) {
-      return ctx.isActive ? ctx.closeStep() : ctx.setStep()
+      return ctx.isActive
+        ? [
+            // provisionally, because when you have
+            // one shipment selected and edit, choose another shipment and
+            // close accordion without click save shipment, the StepHeader info
+            // does not undergo changes, but there are changes to order
+            ctx.step === "Shipping" &&
+              appCtx.shipments.length === 1 &&
+              appCtx.refetchOrder(),
+
+            ctx.closeStep(),
+          ]
+        : ctx.setStep()
     }
   }
 

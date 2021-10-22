@@ -38,7 +38,10 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
   const { t } = useTranslation()
 
   const recapText = () => {
-    if (!hasShippingAddress && !hasBillingAddress) {
+    if (
+      (!hasShippingAddress && !hasBillingAddress) ||
+      accordionCtx.status === "edit"
+    ) {
       return <p>{t("stepCustomer.notSet")}</p>
     }
 

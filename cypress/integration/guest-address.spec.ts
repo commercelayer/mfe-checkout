@@ -42,7 +42,6 @@ describe("Checkout guest address", () => {
 
       cy.wait(
         [
-          "@getShippingMethods",
           "@getOrderShipments",
           "@getOrderShipments",
           "@retrieveLineItems",
@@ -91,7 +90,6 @@ describe("Checkout guest address", () => {
 
       cy.wait(
         [
-          "@getShippingMethods",
           "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
@@ -144,7 +142,6 @@ describe("Checkout guest address", () => {
 
       cy.wait(
         [
-          "@getShippingMethods",
           "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
@@ -218,7 +215,6 @@ describe("Checkout guest address", () => {
 
       cy.wait(
         [
-          "@getShippingMethods",
           "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
@@ -295,7 +291,6 @@ describe("Checkout guest address", () => {
 
       cy.wait(
         [
-          "@getShippingMethods",
           "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",

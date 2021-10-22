@@ -86,7 +86,6 @@ describe("Checkout Complete with terms and privacy", () => {
         )
         cy.wait(
           [
-            "@getShippingMethods",
             "@getShipments",
             "@getOrderShipments",
             "@getOrderShipments",
@@ -122,10 +121,9 @@ describe("Checkout Complete with terms and privacy", () => {
           }
         )
         cy.dataCy("save-shipments-button").click()
-        cy.wait(
-          ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
-          { timeout: 100000 }
-        )
+        cy.wait(["@getOrderShipments", "@retrieveLineItems"], {
+          timeout: 100000,
+        })
       })
 
       it("select payment method paypal", () => {
@@ -171,7 +169,6 @@ describe("Checkout Complete with terms and privacy", () => {
         cy.go("back")
         cy.wait(
           [
-            "@getShippingMethods",
             "@getShipments",
             "@getOrderShipments",
             "@getOrderShipments",
@@ -205,10 +202,9 @@ describe("Checkout Complete with terms and privacy", () => {
           }
         )
         cy.dataCy("save-shipments-button").click()
-        cy.wait(
-          ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
-          { timeout: 100000 }
-        )
+        cy.wait(["@getOrderShipments", "@retrieveLineItems"], {
+          timeout: 100000,
+        })
       })
 
       it("check if checkbox is checked", () => {
@@ -237,7 +233,6 @@ describe("Checkout Complete with terms and privacy", () => {
         cy.go("back")
         cy.wait(
           [
-            "@getShippingMethods",
             "@getShipments",
             "@getOrderShipments",
             "@getOrderShipments",

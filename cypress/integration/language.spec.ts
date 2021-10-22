@@ -33,7 +33,6 @@ describe("Checkout language", () => {
 
         cy.wait(
           [
-            "@getShippingMethods",
             "@getOrderShipments",
             "@getOrderShipments",
             "@retrieveLineItems",
@@ -83,7 +82,6 @@ describe("Checkout language", () => {
 
         cy.wait(
           [
-            "@getShippingMethods",
             "@getOrderShipments",
             "@getOrderShipments",
             "@retrieveLineItems",

@@ -3,7 +3,7 @@ import CLayer, {
   Order,
   OrderCollection,
   CustomerAddressCollection,
-  ShippingMethod,
+  // ShippingMethod,
   PaymentMethodCollection,
   PaymentMethod,
   LineItemCollection,
@@ -279,14 +279,15 @@ export const fetchOrderById = async ({
     const hasEmailAddress = Boolean(order.customerEmail)
     const emailAddress = order.customerEmail
 
-    const shippingMethodsAvailable = isShipmentRequired
-      ? (await ShippingMethod.all()).toArray()
-      : []
+    // const shippingMethodsAvailable = isShipmentRequired
+    //   ? (await ShippingMethod.all()).toArray()
+    //   : []
     const shipments = isShipmentRequired ? await fetchShipments() : []
     const shipmentsSelected = shipments?.map((a) => {
       return {
         shipmentId: a.id,
         shippingMethodId: a.shippingMethod()?.id,
+        shippingMethodName: a.shippingMethod()?.name,
       }
     })
 

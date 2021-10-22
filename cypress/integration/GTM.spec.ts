@@ -79,7 +79,6 @@ describe("check Data Layers GTM", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getShippingMethods",
           "@getShipments",
           "@getShipments",
           "@getOrderShipments",
@@ -133,12 +132,7 @@ describe("check Data Layers GTM", () => {
       )
       cy.dataCy("save-shipments-button").click()
       cy.wait(
-        [
-          "@getShippingMethods",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-        ],
+        ["@getOrderShipments", "@getOrderShipments", "@retrieveLineItems"],
         {
           timeout: 100000,
         }
@@ -204,12 +198,7 @@ describe("check Data Layers GTM", () => {
       )
       cy.dataCy("save-shipments-button").click()
       cy.wait(
-        [
-          "@getShippingMethods",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-        ],
+        ["@getOrderShipments", "@getOrderShipments", "@retrieveLineItems"],
         {
           timeout: 100000,
         }
@@ -247,7 +236,6 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("save-shipments-button").click()
       cy.wait(
         [
-          "@getShippingMethods",
           "@getShipments",
           "@getShipments",
           "@getShipments",
@@ -326,7 +314,7 @@ describe("check Data Layers GTM", () => {
           "@getShipments",
           "@getShipments",
           "@retrieveLineItems",
-          "@getShippingMethods",
+
           "@getOrderShipments",
           "@getCustomerAddresses",
           "@availableCustomerPaymentSources",
@@ -418,7 +406,6 @@ describe("check Data Layers GTM", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getShippingMethods",
           "@getShipments",
           "@getOrderShipments",
           "@getOrderShipments",
@@ -455,10 +442,7 @@ describe("check Data Layers GTM", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(
-        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getOrderShipments", "@retrieveLineItems"], { timeout: 100000 })
     })
 
     it("check begin_checkout GTM without add_shipping_info GTM", () => {
@@ -524,7 +508,7 @@ describe("check Data Layers GTM", () => {
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
-          "@getShippingMethods",
+
           "@getOrderShipments",
         ],
         {

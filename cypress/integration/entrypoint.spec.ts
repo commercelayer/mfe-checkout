@@ -89,7 +89,6 @@ describe("Checkout entrypoint", () => {
 
         cy.wait(
           [
-            "@getShippingMethods",
             "@getOrderShipments",
             "@getOrderShipments",
             "@retrieveLineItems",
