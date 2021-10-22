@@ -274,10 +274,6 @@ describe("Checkout Free Payment", () => {
       })
       cy.get("@stepHeaderInfo1").should(
         "contain.text",
-        "This order does not require shipping"
-      )
-      cy.get("@stepHeaderInfo2").should(
-        "contain.text",
         "This order does not require payment"
       )
     })
@@ -288,7 +284,6 @@ describe("Checkout Free Payment", () => {
       })
       cy.get("@stepHeaderBadge0").get("svg")
       cy.get("@stepHeaderBadge1").get("svg")
-      cy.get("@stepHeaderBadge2").get("svg")
     })
 
     it("place order and redirect", () => {

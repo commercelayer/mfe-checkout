@@ -28,7 +28,7 @@ export const useActiveStep = (): UseActiveStep => {
   const [activeStep, setActiveStep] = useState<SingleStepEnum>("Customer")
   const [lastActivableStep, setLastActivableStep] =
     useState<SingleStepEnum>("Customer")
-  const [steps] = useState<SingleStepEnum[]>(STEPS)
+  const [steps, setSteps] = useState<SingleStepEnum[]>(STEPS)
 
   const ctx = useContext(AppContext)
 
@@ -46,11 +46,11 @@ export const useActiveStep = (): UseActiveStep => {
   useEffect(() => {
     if (ctx && (isFirstLoading || !ctx.isLoading)) {
       // Use it to alter steps of checkout
-      // if (ctx.isShipmentRequired) {
-      //   setSteps(['Customer', 'Shipping', 'Payment'])
-      // } else {
-      //   setSteps(['Customer', 'Payment'])
-      // }
+      if (ctx.isShipmentRequired) {
+        setSteps(["Customer", "Shipping", "Payment"])
+      } else {
+        setSteps(["Customer", "Payment"])
+      }
 
       const canSelectCustomerAddress =
         ctx.hasShippingAddress && ctx.hasBillingAddress

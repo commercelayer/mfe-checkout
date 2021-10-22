@@ -54,6 +54,10 @@ const Checkout: React.FC<Props> = ({
   const { activeStep, lastActivableStep, setActiveStep, steps } =
     useActiveStep()
 
+  const getStepNumber = (stepName: SingleStepEnum) => {
+    return steps.indexOf(stepName) + 1
+  }
+
   if (!ctx || ctx.isFirstLoading) {
     return <CheckoutSkeleton />
   }
@@ -112,25 +116,31 @@ const Checkout: React.FC<Props> = ({
                 >
                   <AccordionItem
                     index={1}
-                    header={<StepHeaderCustomer step={1} />}
+                    header={
+                      <StepHeaderCustomer step={getStepNumber("Customer")} />
+                    }
                   >
                     <StepCustomer tw="mb-6" step={1} />
                   </AccordionItem>
                 </AccordionProvider>
-                <AccordionProvider
-                  activeStep={activeStep}
-                  lastActivableStep={lastActivableStep}
-                  setActiveStep={setActiveStep}
-                  step="Shipping"
-                  isStepRequired={ctx.isShipmentRequired}
-                >
-                  <AccordionItem
-                    index={2}
-                    header={<StepHeaderShipping step={2} />}
+                {ctx.isShipmentRequired && (
+                  <AccordionProvider
+                    activeStep={activeStep}
+                    lastActivableStep={lastActivableStep}
+                    setActiveStep={setActiveStep}
+                    step="Shipping"
+                    isStepRequired={ctx.isShipmentRequired}
                   >
-                    <StepShipping tw="mb-6" step={2} />
-                  </AccordionItem>
-                </AccordionProvider>
+                    <AccordionItem
+                      index={2}
+                      header={
+                        <StepHeaderShipping step={getStepNumber("Shipping")} />
+                      }
+                    >
+                      <StepShipping tw="mb-6" step={2} />
+                    </AccordionItem>
+                  </AccordionProvider>
+                )}
                 <AccordionProvider
                   activeStep={activeStep}
                   lastActivableStep={lastActivableStep}
@@ -142,7 +152,9 @@ const Checkout: React.FC<Props> = ({
                   <PaymentContainer>
                     <AccordionItem
                       index={3}
-                      header={<StepHeaderPayment step={3} />}
+                      header={
+                        <StepHeaderPayment step={getStepNumber("Payment")} />
+                      }
                     >
                       <StepPayment tw="mb-6" />
                     </AccordionItem>

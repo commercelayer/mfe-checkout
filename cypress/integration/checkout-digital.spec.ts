@@ -107,10 +107,6 @@ describe("Checkout Checkout-Digital", () => {
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
-      cy.dataCy("step-header-info").should(
-        "contain.text",
-        "This order does not require shipping"
-      )
     })
 
     it("check step header badge and check if step_shipping is disable", () => {
@@ -118,9 +114,7 @@ describe("Checkout Checkout-Digital", () => {
         cy.wrap(e).as(`stepHeaderBadge${i}`)
       })
       cy.get("@stepHeaderBadge0").get("svg")
-      cy.get("@stepHeaderBadge1").get("svg")
-      cy.get("@stepHeaderBadge2").should("contain.text", "3")
-      cy.dataCy("step_shipping").should("have.attr", "data-status", "false")
+      cy.get("@stepHeaderBadge1").should("contain.text", "2")
     })
 
     it("select payment method credit card", () => {
@@ -161,7 +155,6 @@ describe("Checkout Checkout-Digital", () => {
       })
       cy.get("@stepHeaderBadge0").get("svg")
       cy.get("@stepHeaderBadge1").get("svg")
-      cy.get("@stepHeaderBadge2").get("svg")
     })
 
     it("place order and redirect", () => {

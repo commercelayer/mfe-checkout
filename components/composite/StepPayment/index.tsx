@@ -84,6 +84,8 @@ export const StepPayment: React.FC = () => {
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
 
+  const { t } = useTranslation()
+
   // if (!appCtx || !appCtx.hasShippingMethod) {
   // this exit on shippingMethod is causing an error in useEffect to enable button
   if (!appCtx || !accordionCtx) {
@@ -100,16 +102,16 @@ export const StepPayment: React.FC = () => {
       })}
     >
       <StepContent>
-        {isPaymentRequired && (
+        {accordionCtx.isActive && (
           <div>
-            {accordionCtx.isActive && (
-              <>
-                {isGuest ? (
-                  <CheckoutPayment refetchOrder={refetchOrder} />
-                ) : (
-                  <CheckoutCustomerPayment refetchOrder={refetchOrder} />
-                )}
-              </>
+            {isPaymentRequired ? (
+              isGuest ? (
+                <CheckoutPayment refetchOrder={refetchOrder} />
+              ) : (
+                <CheckoutCustomerPayment refetchOrder={refetchOrder} />
+              )
+            ) : (
+              <p>{t("stepPayment.amountZero")}</p>
             )}
           </div>
         )}

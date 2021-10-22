@@ -1144,11 +1144,11 @@ describe("Checkout Shipments", () => {
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
-    it("check if step deplivery is disabled", () => {
-      cy.dataCy("step-header-info").should(
-        "contain.text",
-        "This order does not require shipping"
-      )
+    it("check if step deplivery is not visible", () => {
+      cy.dataCy("step-header-badge").each((e, i) => {
+        cy.wrap(e).as(`stepHeaderBadge${i}`)
+      })
+      cy.get("@stepHeaderBadge1").should("contain.text", "2")
     })
   })
 

@@ -95,6 +95,7 @@
         "endingIn": "<0/> finisce con <1/>",
         "submit": "Invia l'ordine",
         "notRequired": "Questo ordine non necessita di pagamento",
+        "amountZero": "L'importo totale dell'ordine è zero, puoi effettuare l'ordine così com'è adesso",
         "saveToWallet": "Salva la nuova carta sul tuo portafoglio",
         "expires": "Scadenza"
     },

@@ -41,7 +41,7 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   )
 
   const setStep = () => {
-    isStepRequired && setActiveStep && setActiveStep(step)
+    setActiveStep && setActiveStep(step)
   }
 
   const closeStep = () => setActiveStep && setActiveStep(lastActivableStep)

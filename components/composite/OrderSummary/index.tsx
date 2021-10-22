@@ -72,8 +72,19 @@ export const OrderSummary: React.FC = () => {
             </DiscountAmount>
           </RecapLine>
           <RecapLine>
-            <RecapLineItem>{t("orderRecap.shipping_amount")}</RecapLineItem>
-            <ShippingAmount />
+            <ShippingAmount>
+              {(props) => {
+                if (props.priceCents === 0) return <></>
+                return (
+                  <>
+                    <RecapLineItem>
+                      {t("orderRecap.shipping_amount")}
+                    </RecapLineItem>
+                    {props.price}
+                  </>
+                )
+              }}
+            </ShippingAmount>
           </RecapLine>
           <RecapLine data-cy="payment-method-amount">
             <PaymentMethodAmount>
