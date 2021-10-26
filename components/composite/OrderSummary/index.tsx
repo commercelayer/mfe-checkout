@@ -27,7 +27,11 @@ import {
   RecapLineItem,
 } from "./styled"
 
-export const OrderSummary: React.FC = () => {
+interface Props {
+  isShipmentRequired: boolean
+}
+
+export const OrderSummary: React.FC<Props> = ({ isShipmentRequired }) => {
   const { t } = useTranslation()
 
   return (
@@ -74,7 +78,7 @@ export const OrderSummary: React.FC = () => {
           <RecapLine>
             <ShippingAmount>
               {(props) => {
-                if (props.priceCents === 0) return <></>
+                if (!isShipmentRequired) return <></>
                 return (
                   <>
                     <RecapLineItem>
