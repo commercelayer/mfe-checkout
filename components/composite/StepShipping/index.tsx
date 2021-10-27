@@ -172,7 +172,7 @@ export const StepShipping: React.FC<Props> = () => {
                     <ShippingMethod emptyText={t("stepShipping.notAvaible")}>
                       <ShippingSummary>
                         <StyledShippingMethodRadioButton
-                          className="form-radio"
+                          className="form-radio mt-0.5 md:mt-0"
                           data-cy="shipping-method-button"
                           onChange={(
                             shippingMethod:
