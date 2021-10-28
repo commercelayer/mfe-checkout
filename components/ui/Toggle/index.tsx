@@ -29,7 +29,7 @@ export const Toggle: React.FC<Props> = ({
 }
 
 const Wrapper = styled.div`
-  ${tw`mt-6 py-4 border-t`}
+  ${tw`mt-5 py-4 border-t`}
 `
 
 const ButtonTrack = styled.button`

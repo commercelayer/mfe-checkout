@@ -10,5 +10,5 @@ export const GridContainer: React.FC<Props> = ({ children, className }) => (
 )
 
 const Wrapper = styled.div`
-  ${tw`grid lg:grid-cols-2 lg:gap-4`}
+  ${tw`grid gap-y-4 lg:grid-cols-2 lg:gap-4`}
 `

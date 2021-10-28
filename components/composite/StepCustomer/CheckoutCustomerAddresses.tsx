@@ -104,25 +104,26 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             {t(`addressForm.billing_address_title`)}
           </AddressSectionTitle>
           {hasCustomerAddresses && (
-            <GridContainer className="mb-8">
-              <BillingAddressContainer>
-                <CustomerAddressCard
-                  addressType="billing"
-                  deselect={showBillingAddressForm}
-                  onSelect={() =>
-                    showBillingAddressForm && setShowBillingAddressForm(false)
-                  }
-                />
-              </BillingAddressContainer>
-              <>
-                {!showBillingAddressForm && hasCustomerAddresses && (
-                  <AddButton
-                    dataCy="add_new_billing_address"
-                    action={handleShowBillingForm}
+            <>
+              <GridContainer className="mb-4">
+                <BillingAddressContainer>
+                  <CustomerAddressCard
+                    addressType="billing"
+                    deselect={showBillingAddressForm}
+                    onSelect={() =>
+                      showBillingAddressForm && setShowBillingAddressForm(false)
+                    }
                   />
-                )}
-              </>
-            </GridContainer>
+                </BillingAddressContainer>
+              </GridContainer>
+
+              {!showBillingAddressForm && hasCustomerAddresses && (
+                <AddButton
+                  dataCy="add_new_billing_address"
+                  action={handleShowBillingForm}
+                />
+              )}
+            </>
           )}
         </>
         <div
@@ -163,11 +164,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
             <div
               className={`${
-                shipToDifferentAddress && hasCustomerAddresses ? "" : "hidden"
+                shipToDifferentAddress && hasCustomerAddresses
+                  ? "mb-4"
+                  : "hidden"
               }`}
             >
               <ShippingAddressContainer>
-                <GridContainer className="mb-8">
+                <GridContainer className="mb-4">
                   <CustomerAddressCard
                     addressType="shipping"
                     deselect={showShippingAddressForm}
@@ -176,14 +179,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                       setShowShippingAddressForm(false)
                     }
                   />
-
-                  {!showShippingAddressForm && (
-                    <AddButton
-                      dataCy="add_new_shipping_address"
-                      action={handleShowShippingForm}
-                    />
-                  )}
                 </GridContainer>
+
+                {!showShippingAddressForm && (
+                  <AddButton
+                    dataCy="add_new_shipping_address"
+                    action={handleShowShippingForm}
+                  />
+                )}
               </ShippingAddressContainer>
             </div>
 
@@ -193,6 +196,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 hidden={!shipToDifferentAddress}
                 reset={!showShippingAddressForm}
                 errorClassName="hasError"
+                className="pt-2"
               >
                 {showShippingAddressForm ? (
                   <>
