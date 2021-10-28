@@ -1,11 +1,10 @@
 import { PaymentMethod, PaymentSource } from "@commercelayer/react-components"
-import {
-  CustomerCardsProps,
-  CustomerSaveToWalletProps,
-} from "@commercelayer/react-components/dist/components/PaymentSource"
+import { CustomerSaveToWalletProps } from "@commercelayer/react-components/dist/components/PaymentSource"
 import { MouseEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
-
+import { Swiper, SwiperSlide } from "swiper/react"
+import "swiper/css"
+import "swiper/css/pagination"
 import "twin.macro"
 
 import { Label } from "components/ui/Label"
@@ -26,16 +25,36 @@ interface Props {
 
 export const CheckoutCustomerPayment: React.FC<Props> = ({ refetchOrder }) => {
   const { t } = useTranslation()
-
-  const TemplateCustomerCards = ({ handleClick }: CustomerCardsProps) => (
-    <div
-      data-cy="customer-card"
-      onClick={handleClick}
-      className="flex flex-col items-start p-3 mb-4 text-sm border rounded cursor-pointer lg:flex-row lg:items-center shadow-sm hover:border-primary"
-    >
-      <PaymentDetails />
-    </div>
-  )
+  const TemplateCustomerCards = ({
+    customerPayments,
+    PaymentSourceProvider,
+  }: any) => {
+    const components = customerPayments.map((p, k) => {
+      return (
+        <SwiperSlide
+          data-cy="customer-card"
+          key={k}
+          onClick={p.handleClick}
+          className="p-3 ml-2 text-sm bg-red-100 border cursor-pointer hover:border-blue-500"
+        >
+          <PaymentSourceProvider value={{ ...p.card }}>
+            <PaymentDetails />
+          </PaymentSourceProvider>
+        </SwiperSlide>
+      )
+    })
+    return (
+      <Swiper
+        slidesPerView={2}
+        spaceBetween={30}
+        pagination={{
+          clickable: true,
+        }}
+      >
+        {components}
+      </Swiper>
+    )
+  }
 
   const TemplateSaveToWalletCheckbox = ({
     name,
