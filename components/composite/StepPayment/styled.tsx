@@ -40,12 +40,21 @@ export const PaymentSummaryValue = styled.p`
 `
 export const PaymentSourceContainer = styled.div`
   ${tw`mt-2`}
-  .StripeElement {
+  .StripeElement, .adyen-checkout__input {
     ${tw`px-2 py-3 border rounded shadow-sm bg-gradient-to-b from-gray-100 transition duration-500 ease-in-out`}
   }
 
-  .StripeElement--focus {
+  .adyen-checkout__input {
+    ${tw`p-0 border-gray-200`}
+  }
+
+  .StripeElement--focus,
+  .adyen-checkout__input--focus {
     ${tw`border-gray-400 bg-gradient-to-t`}
+  }
+
+  .adyen-checkout__label__text {
+    ${tw`transition-none text-gray-600`}
   }
 `
 export const PaymentDetailsWrapper = styled.div`

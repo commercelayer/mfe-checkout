@@ -8,6 +8,15 @@ export const PaymentContainer: React.FC = ({ children }) => {
   return (
     <PaymentMethodsContainer
       config={{
+        adyenPayment: {
+          styles: {
+            base: {
+              fontSize: "16px",
+              padding: "12px",
+              fontFamily: "monospace",
+            },
+          },
+        },
         braintreePayment: {
           styles: {
             // Style all elements
