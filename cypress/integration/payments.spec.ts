@@ -10,68 +10,68 @@ describe("Checkout Payments", () => {
   )
   const password = internet.password()
 
+  before(() => cy.createCustomer({ email: email, password: password }))
+
   context("customer order with one payment method not selected", () => {
     before(function () {
-      cy.createCustomer({ email: email, password: password }).then(() => {
-        cy.getTokenCustomer({
-          username: email,
-          password: password,
-        })
-          .as("tokenObj")
-          .then(() => {
-            cy.createOrder("draft", {
-              languageCode: "en",
-              customerEmail: email,
-              accessToken: this.tokenObj.access_token,
-            })
-              .as("newOrder")
-              .then((order) => {
-                cy.createSkuLineItems({
-                  orderId: order.id,
-                  accessToken: this.tokenObj.access_token,
-                  attributes: {
-                    quantity: "1",
-                    sku_code: "CANVASAU000000FFFFFF1824",
-                  },
-                })
-                cy.createSkuLineItems({
-                  orderId: order.id,
-                  accessToken: this.tokenObj.access_token,
-                  attributes: {
-                    quantity: "5",
-                    sku_code: "TSHIRTMMFFFFFF000000XLXX",
-                  },
-                })
-                cy.createAddress({
-                  ...euAddress,
-                  accessToken: this.tokenObj.access_token,
-                }).then((address) => {
-                  cy.setSameAddress(
-                    order.id,
-                    address.id,
-                    this.tokenObj.access_token
-                  ).then(() => {
-                    cy.getShipments({
+      cy.getTokenCustomer({
+        username: email,
+        password: password,
+      })
+        .as("tokenObj")
+        .then(() => {
+          cy.createOrder("draft", {
+            languageCode: "en",
+            customerEmail: email,
+            accessToken: this.tokenObj.access_token,
+          })
+            .as("newOrder")
+            .then((order) => {
+              cy.createSkuLineItems({
+                orderId: order.id,
+                accessToken: this.tokenObj.access_token,
+                attributes: {
+                  quantity: "1",
+                  sku_code: "CANVASAU000000FFFFFF1824",
+                },
+              })
+              cy.createSkuLineItems({
+                orderId: order.id,
+                accessToken: this.tokenObj.access_token,
+                attributes: {
+                  quantity: "5",
+                  sku_code: "TSHIRTMMFFFFFF000000XLXX",
+                },
+              })
+              cy.createAddress({
+                ...euAddress,
+                accessToken: this.tokenObj.access_token,
+              }).then((address) => {
+                cy.setSameAddress(
+                  order.id,
+                  address.id,
+                  this.tokenObj.access_token
+                ).then(() => {
+                  cy.getShipments({
+                    accessToken: this.tokenObj.access_token,
+                    orderId: order.id,
+                  }).then((shipments) => {
+                    console.log(shipments)
+                    cy.setShipmentMethod({
+                      type: "Standard Shipping",
+                      id: shipments[0].id,
                       accessToken: this.tokenObj.access_token,
-                      orderId: order.id,
-                    }).then((shipments) => {
-                      console.log(shipments)
-                      cy.setShipmentMethod({
-                        type: "Standard Shipping",
-                        id: shipments[0].id,
-                        accessToken: this.tokenObj.access_token,
-                      })
-                      cy.setShipmentMethod({
-                        type: "Express Delivery EU",
-                        id: shipments[1].id,
-                        accessToken: this.tokenObj.access_token,
-                      })
+                    })
+                    cy.setShipmentMethod({
+                      type: "Express Delivery EU",
+                      id: shipments[1].id,
+                      accessToken: this.tokenObj.access_token,
                     })
                   })
                 })
               })
-          })
-      })
+            })
+        })
     })
 
     beforeEach(function () {
