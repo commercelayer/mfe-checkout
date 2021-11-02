@@ -10,6 +10,8 @@ import {
   GiftCardAmount,
 } from "@commercelayer/react-components"
 import { useTranslation } from "react-i18next"
+
+import { AppProviderData } from "components/data/AppProvider"
 import "twin.macro"
 
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
@@ -28,10 +30,10 @@ import {
 } from "./styled"
 
 interface Props {
-  isShipmentRequired: boolean
+  appCtx: AppProviderData
 }
 
-export const OrderSummary: React.FC<Props> = ({ isShipmentRequired }) => {
+export const OrderSummary: React.FC<Props> = ({ appCtx }) => {
   const { t } = useTranslation()
 
   return (
@@ -78,13 +80,19 @@ export const OrderSummary: React.FC<Props> = ({ isShipmentRequired }) => {
           <RecapLine>
             <ShippingAmount>
               {(props) => {
-                if (!isShipmentRequired) return <></>
+                if (!appCtx.isShipmentRequired) return <></>
                 return (
                   <>
                     <RecapLineItem>
                       {t("orderRecap.shipping_amount")}
                     </RecapLineItem>
-                    {props.price}
+                    <div data-cy="shipping-amount">
+                      {!appCtx.hasShippingMethod
+                        ? t("orderRecap.notSet")
+                        : props.priceCents === 0
+                        ? t("general.free")
+                        : props.price}
+                    </div>
                   </>
                 )
               }}
@@ -106,8 +114,20 @@ export const OrderSummary: React.FC<Props> = ({ isShipmentRequired }) => {
             </PaymentMethodAmount>
           </RecapLine>
           <RecapLine>
-            <RecapLineItem>{t("orderRecap.tax_amount")}</RecapLineItem>
-            <TaxesAmount />
+            <TaxesAmount>
+              {(props) => {
+                return (
+                  <>
+                    <RecapLineItem>{t("orderRecap.tax_amount")}</RecapLineItem>
+                    <div data-cy="tax-amount">
+                      {appCtx.hasShippingAddress && appCtx.hasShippingMethod
+                        ? props.price
+                        : t("orderRecap.notSet")}
+                    </div>
+                  </>
+                )
+              }}
+            </TaxesAmount>
           </RecapLine>
           <RecapLine>
             <GiftCardAmount>

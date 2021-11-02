@@ -50,7 +50,8 @@
         "shipping_amount": "Shipping",
         "payment_method_amount": "Payment method",
         "subtotal_amount": "Subtotal",
-        "total_amount": "Total"
+        "total_amount": "Total",
+        "notSet": "To be calculated"
     },
 
     "stepCustomer": {

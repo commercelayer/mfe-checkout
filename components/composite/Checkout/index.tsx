@@ -87,7 +87,7 @@ const Checkout: React.FC<Props> = ({
                 className="hidden md:block"
               />
               <SummaryWrapper>
-                <OrderSummary isShipmentRequired={ctx.isShipmentRequired} />
+                <OrderSummary appCtx={ctx} />
               </SummaryWrapper>
               <Footer termsUrl={termsUrl} privacyUrl={privacyUrl} />
             </Sidebar>

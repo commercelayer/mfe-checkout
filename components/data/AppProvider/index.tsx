@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from "react"
 
 import { fetchOrderById, FetchOrderByIdResponse } from "./fetchOrderById"
 
-interface AppProviderData extends FetchOrderByIdResponse {
+export interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
   orderId: string
   accessToken: string
