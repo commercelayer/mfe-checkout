@@ -42,7 +42,7 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
     if (!isPaymentRequired) {
       return t("stepPayment.notRequired")
     }
-    if (!hasPaymentMethod) {
+    if (!hasPaymentMethod || accordionCtx.status === "edit") {
       return t("stepPayment.methodUnselected")
     }
 
