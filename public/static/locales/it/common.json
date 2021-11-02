@@ -73,7 +73,7 @@
         "stockTransfer": "<0/> di <1/> articoli verranno trasferiti",
         "methodSelected": "Il tuo ordine contiene {{count}} spedizione",
         "methodSelected_plural": "Il tuo ordine contiene {{count}} spedizioni",
-        "methodUnselected": "Metodo di spedizione da selezionare",
+        "methodUnselected": "Seleziona un metodo di spedizione",
         "addShippingMethod": "Aggiungi i dati del cliente prima della spedizione",
         "deliveryLeadTime" : "<0/> - <1/> giorni",
         "continueToPayment": "Continuare al pagamento",
