@@ -61,6 +61,7 @@ export interface FetchOrderByIdResponse {
   isComplete: boolean
   returnUrl: string
   isCreditCard: boolean
+  taxIncluded: boolean
 }
 
 async function isNewAddress({
@@ -413,6 +414,8 @@ export const fetchOrderById = async ({
 
     const returnUrl = order.returnUrl
 
+    const taxIncluded = order.taxIncluded
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const requiresBillingInfo = order.requiresBillingInfo
@@ -442,6 +445,7 @@ export const fetchOrderById = async ({
       isCreditCard,
       isComplete,
       returnUrl,
+      taxIncluded,
     }
   } catch (e) {
     console.log(`error on retrieving order: ${e}`)
@@ -468,6 +472,7 @@ export const fetchOrderById = async ({
       isCreditCard: false,
       isComplete: false,
       returnUrl: "",
+      taxIncluded: false,
     }
   }
 }

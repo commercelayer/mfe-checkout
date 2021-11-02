@@ -9,7 +9,7 @@ import {
   DiscountAmount,
   GiftCardAmount,
 } from "@commercelayer/react-components"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 
 import { AppProviderData } from "components/data/AppProvider"
 import "twin.macro"
@@ -116,9 +116,32 @@ export const OrderSummary: React.FC<Props> = ({ appCtx }) => {
           <RecapLine>
             <TaxesAmount>
               {(props) => {
+                const isTaxIncluded =
+                  appCtx.hasShippingAddress && appCtx.hasShippingMethod
                 return (
                   <>
-                    <RecapLineItem>{t("orderRecap.tax_amount")}</RecapLineItem>
+                    <RecapLineItem>
+                      <Trans
+                        i18nKey={
+                          isTaxIncluded
+                            ? "orderRecap.tax_included_amount"
+                            : "orderRecap.tax_amount"
+                        }
+                        components={
+                          isTaxIncluded
+                            ? {
+                                style: (
+                                  <span
+                                    className={
+                                      !appCtx.taxIncluded ? "text-gray-600" : ""
+                                    }
+                                  />
+                                ),
+                              }
+                            : {}
+                        }
+                      />
+                    </RecapLineItem>
                     <div data-cy="tax-amount">
                       {appCtx.hasShippingAddress && appCtx.hasShippingMethod
                         ? props.price

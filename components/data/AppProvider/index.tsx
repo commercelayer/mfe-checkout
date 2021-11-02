@@ -42,6 +42,7 @@ const initialState: AppStateData = {
   shippingCountryCodeLock: "",
   isComplete: false,
   returnUrl: "",
+  taxIncluded: false,
 }
 
 export const AppContext = createContext<AppProviderData | null>(null)

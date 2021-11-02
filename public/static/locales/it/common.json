@@ -47,6 +47,7 @@
         "discount_amount": "Sconto",
         "giftcard_amount": "Gift card",
         "tax_amount": "Tasse",
+        "tax_included_amount": "Tasse <style>incluse</style>",
         "shipping_amount": "Spedizione",
         "payment_method_amount": "Metodo di pagamento",
         "subtotal_amount": "Subtotale",
