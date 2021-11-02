@@ -84,7 +84,7 @@
         "title": "Pagamento",
         "summary": "Riepilogo del pagamento",
         "methodSelected": "Metodo di pagamento selezionato",
-        "methodUnselected": "Metodo di pagamento da selezionare",
+        "methodUnselected": "Seleziona un metodo di pagamento",
         "paymentMethod": "Hai impostato un metodo di pagamento",
         "creditCard": "Carta di credito",
         "wireTransfer": "Bonifico bancario",

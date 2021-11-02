@@ -84,7 +84,7 @@
         "title": "Payment",
         "summary": "Payment summary",
         "methodSelected": "Payment method selected",
-        "methodUnselected": "Payment method to select",
+        "methodUnselected": "Select a payment method",
         "paymentMethod": "You have a payment method set",
         "creditCard": "Credit card",
         "wireTransfer": "Wire transfer",
