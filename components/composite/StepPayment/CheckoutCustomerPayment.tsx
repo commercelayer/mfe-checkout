@@ -1,4 +1,8 @@
-import { PaymentMethod, PaymentSource } from "@commercelayer/react-components"
+import {
+  CustomerCardsTemplate,
+  PaymentMethod,
+  PaymentSource,
+} from "@commercelayer/react-components"
 import { CustomerSaveToWalletProps } from "@commercelayer/react-components/dist/components/PaymentSource"
 import { MouseEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -25,7 +29,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ refetchOrder }) => {
   const TemplateCustomerCards = ({
     customerPayments,
     PaymentSourceProvider,
-  }: any) => {
+  }: CustomerCardsTemplate) => {
     return (
       <>
         {customerPayments.map((p, k) => {
