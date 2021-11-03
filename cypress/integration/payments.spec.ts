@@ -1011,11 +1011,6 @@ describe("Checkout Payments", () => {
             "@getOrderShipments",
             "@retrieveLineItems",
             "@retrieveLineItems",
-            "@retrieveLineItems",
-            "@retrieveLineItems",
-            "@retrieveLineItems",
-            "@getOrders",
-            "@getOrders",
             "@getOrders",
             "@getOrders",
           ],
@@ -1114,12 +1109,13 @@ describe("Checkout Payments", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getShippingMethods",
           "@getShipments",
-          "@getShipments",
+          "@getOrderShipments",
           "@getOrderShipments",
           "@getOrderShipments",
           "@availablePaymentMethods",
+          "@retrieveLineItems",
+          "@retrieveLineItems",
           "@retrieveLineItems",
           "@retrieveLineItems",
           "@getOrders",
@@ -1165,10 +1161,7 @@ describe("Checkout Payments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(
-        ["@getShippingMethods", "@getOrderShipments", "@retrieveLineItems"],
-        { timeout: 100000 }
-      )
+      cy.wait("@retrieveLineItems", { timeout: 100000 })
     })
 
     it("select payment method credit card Adyen", () => {
