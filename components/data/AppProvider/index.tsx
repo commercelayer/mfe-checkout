@@ -9,6 +9,7 @@ interface AppProviderData extends FetchOrderByIdResponse {
   endpoint: string
   isFirstLoading: boolean
   refetchOrder: () => Promise<void>
+  refetchShipments: () => Promise<void>
 }
 
 interface AppStateData extends FetchOrderByIdResponse {
@@ -72,9 +73,35 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     )
   }
 
+  const fetchShipmentsHandle = async (
+    orderId?: string,
+    accessToken?: string
+  ) => {
+    if (!orderId || !accessToken) {
+      return
+    }
+    setState({ ...state, isLoading: true })
+
+    return await fetchOrderById({ orderId, accessToken, endpoint }).then(
+      (newState) => {
+        setState({
+          ...state,
+          isLoading: false,
+          isFirstLoading: false,
+          paymentMethod: newState.paymentMethod,
+          isPaymentRequired: newState.isPaymentRequired,
+          hasPaymentMethod: newState.hasPaymentMethod,
+          isShipmentRequired: newState.isShipmentRequired,
+          shipments: newState.shipments,
+        })
+      }
+    )
+  }
+
   useEffect(() => {
     const unsubscribe = () => {
       fetchOrderHandle(orderId, accessToken)
+      fetchShipmentsHandle(orderId, accessToken)
     }
     return unsubscribe()
   }, [orderId, accessToken])
@@ -88,6 +115,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         endpoint,
         refetchOrder: async () => {
           return await fetchOrderHandle(orderId, accessToken)
+        },
+        refetchShipments: async () => {
+          return await fetchShipmentsHandle(orderId, accessToken)
         },
       }}
     >

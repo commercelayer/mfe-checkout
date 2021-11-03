@@ -30,13 +30,9 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
     ) {
       return ctx.isActive
         ? [
-            // provisionally, because when you have
-            // one shipment selected and edit, choose another shipment and
-            // close accordion without click save shipment, the StepHeader info
-            // does not undergo changes, but there are changes to order
             ctx.step === "Shipping" &&
               appCtx.shipments.length === 1 &&
-              appCtx.refetchOrder(),
+              appCtx.refetchShipments(),
 
             ctx.closeStep(),
           ]
