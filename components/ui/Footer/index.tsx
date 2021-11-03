@@ -20,7 +20,7 @@ export const Footer: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
         className="group"
       >
         <LogoWrapper>
-          Powered by <Logo width="114" height="19" tw="pl-2" />
+          Powered by <Logo width="135" height="22" tw="pl-2" />
         </LogoWrapper>
       </a>
       {(termsUrl || privacyUrl) && (
@@ -48,10 +48,16 @@ export const Footer: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
 }
 
 const Wrapper = styled.div`
-  ${tw`flex justify-between mt-20 border-t pt-3 text-xs text-gray-500`}
+  ${tw`flex justify-between items-center mt-20 border-t pt-3 text-xs text-gray-500 relative md:(z-20 bottom-0 sticky pb-3 bg-gray-100)`}
+
+  &::before {
+    ${tw`md:(top-0 absolute left-0 w-full z-10 h-2 shadow-top)`}
+
+    content: "";
+  }
 `
 const LogoWrapper = styled.div`
-  ${tw`flex`}
+  ${tw`flex items-center`}
 `
 const ListWrapper = styled.div`
   ${tw`overflow-hidden`}
