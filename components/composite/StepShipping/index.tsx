@@ -183,9 +183,9 @@ export const StepShipping: React.FC<Props> = () => {
                         />
                         <ShippingSummaryItem>
                           <label htmlFor="">
-                            <h6>
-                              <ShippingMethodName data-cy="shipping-method-name" />
-                            </h6>
+                            <ShippingMethodName data-cy="shipping-method-name">
+                              {(props) => <h6>{props.label}</h6>}
+                            </ShippingMethodName>
                             <p>
                               <ShippingSummaryItemDescription>
                                 <Trans
