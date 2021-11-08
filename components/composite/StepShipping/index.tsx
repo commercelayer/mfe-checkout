@@ -182,37 +182,39 @@ export const StepShipping: React.FC<Props> = () => {
                           ) => handleChange(shippingMethod)}
                         />
                         <ShippingSummaryItem>
-                          <label htmlFor="">
-                            <ShippingMethodName data-cy="shipping-method-name">
-                              {(props) => <h6>{props.label}</h6>}
-                            </ShippingMethodName>
-                            <p>
-                              <ShippingSummaryItemDescription>
-                                <Trans
-                                  t={t}
-                                  i18nKey="stepShipping.deliveryLeadTime"
-                                >
-                                  <DeliveryLeadTime
-                                    type="minDays"
-                                    data-cy="delivery-lead-time-min-days"
-                                  />
-                                  <DeliveryLeadTime
-                                    type="maxDays"
-                                    data-cy="delivery-lead-time-max-days"
-                                    className="mr-1"
-                                  />
-                                </Trans>
-                              </ShippingSummaryItemDescription>
-                            </p>
-                            <small>
-                              <ShippingSummaryValue>
-                                <ShippingMethodPrice
-                                  data-cy="shipping-method-price"
-                                  labelFreeOver={t("general.free")}
-                                />
-                              </ShippingSummaryValue>
-                            </small>
-                          </label>
+                          <ShippingMethodName data-cy="shipping-method-name">
+                            {(props) => (
+                              <label htmlFor={props.shippingMethod.id}>
+                                <h6>{props.label}</h6>
+                                <p>
+                                  <ShippingSummaryItemDescription>
+                                    <Trans
+                                      t={t}
+                                      i18nKey="stepShipping.deliveryLeadTime"
+                                    >
+                                      <DeliveryLeadTime
+                                        type="minDays"
+                                        data-cy="delivery-lead-time-min-days"
+                                      />
+                                      <DeliveryLeadTime
+                                        type="maxDays"
+                                        data-cy="delivery-lead-time-max-days"
+                                        className="mr-1"
+                                      />
+                                    </Trans>
+                                  </ShippingSummaryItemDescription>
+                                </p>
+                                <small>
+                                  <ShippingSummaryValue>
+                                    <ShippingMethodPrice
+                                      data-cy="shipping-method-price"
+                                      labelFreeOver={t("general.free")}
+                                    />
+                                  </ShippingSummaryValue>
+                                </small>
+                              </label>
+                            )}
+                          </ShippingMethodName>
                         </ShippingSummaryItem>
                       </ShippingSummary>
                     </ShippingMethod>
