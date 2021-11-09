@@ -166,6 +166,7 @@ export const StepShipping: React.FC<Props> = () => {
                       <ShippingTitle>
                         <Trans t={t} i18nKey="stepShipping.shipment">
                           <ShipmentField name="keyNumber" />
+                          {shipments.length.toString()}
                         </Trans>
                       </ShippingTitle>
                     )}
