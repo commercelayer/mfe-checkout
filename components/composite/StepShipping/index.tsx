@@ -23,6 +23,7 @@ import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { Button, ButtonWrapper } from "components/ui/Button"
+import { GridContainer } from "components/ui/GridContainer"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
@@ -162,64 +163,63 @@ export const StepShipping: React.FC<Props> = () => {
                   }
                 >
                   <ShippingWrapper>
-                    <ShippingTitle>
-                      {shipments.length > 1 && (
+                    {shipments.length > 1 && (
+                      <ShippingTitle>
                         <Trans t={t} i18nKey="stepShipping.shipment">
                           <ShipmentField name="keyNumber" />
                         </Trans>
-                      )}
-                    </ShippingTitle>
-                    <ShippingMethod emptyText={t("stepShipping.notAvaible")}>
-                      <ShippingSummary>
-                        <StyledShippingMethodRadioButton
-                          className="form-radio mt-0.5 md:mt-0"
-                          data-cy="shipping-method-button"
-                          onChange={(
-                            shippingMethod:
-                              | ShippingMethodCollection
-                              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                              | Record<string, any>
-                          ) => handleChange(shippingMethod)}
-                        />
-                        <ShippingSummaryItem>
+                      </ShippingTitle>
+                    )}
+                    <GridContainer className="mb-6">
+                      <ShippingMethod emptyText={t("stepShipping.notAvaible")}>
+                        <ShippingSummary>
+                          <StyledShippingMethodRadioButton
+                            className="form-radio mt-0.5 md:mt-0"
+                            data-cy="shipping-method-button"
+                            onChange={(
+                              shippingMethod:
+                                | ShippingMethodCollection
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                | Record<string, any>
+                            ) => handleChange(shippingMethod)}
+                          />
                           <ShippingMethodName data-cy="shipping-method-name">
                             {(props) => (
                               <label
+                                className="flex flex-col p-3 border rounded cursor-pointer hover:border-primary transition duration-200 ease-in"
                                 htmlFor={`shipment-${props.shippingMethod.shipmentId}-${props.shippingMethod.id}`}
                               >
-                                <h6>{props.label}</h6>
-                                <p>
-                                  <ShippingSummaryItemDescription>
-                                    <Trans
-                                      t={t}
-                                      i18nKey="stepShipping.deliveryLeadTime"
-                                    >
-                                      <DeliveryLeadTime
-                                        type="minDays"
-                                        data-cy="delivery-lead-time-min-days"
-                                      />
-                                      <DeliveryLeadTime
-                                        type="maxDays"
-                                        data-cy="delivery-lead-time-max-days"
-                                        className="mr-1"
-                                      />
-                                    </Trans>
-                                  </ShippingSummaryItemDescription>
-                                </p>
-                                <small>
-                                  <ShippingSummaryValue>
-                                    <ShippingMethodPrice
-                                      data-cy="shipping-method-price"
-                                      labelFreeOver={t("general.free")}
+                                <ShippingLineItemTitle>
+                                  {props.label}
+                                </ShippingLineItemTitle>
+                                <ShippingSummaryItemDescription>
+                                  <Trans
+                                    t={t}
+                                    i18nKey="stepShipping.deliveryLeadTime"
+                                  >
+                                    <DeliveryLeadTime
+                                      type="minDays"
+                                      data-cy="delivery-lead-time-min-days"
                                     />
-                                  </ShippingSummaryValue>
-                                </small>
+                                    <DeliveryLeadTime
+                                      type="maxDays"
+                                      data-cy="delivery-lead-time-max-days"
+                                      className="mr-1"
+                                    />
+                                  </Trans>
+                                </ShippingSummaryItemDescription>
+                                <ShippingSummaryValue>
+                                  <ShippingMethodPrice
+                                    data-cy="shipping-method-price"
+                                    labelFreeOver={t("general.free")}
+                                  />
+                                </ShippingSummaryValue>
                               </label>
                             )}
                           </ShippingMethodName>
-                        </ShippingSummaryItem>
-                      </ShippingSummary>
-                    </ShippingMethod>
+                        </ShippingSummary>
+                      </ShippingMethod>
+                    </GridContainer>
                     <LineItemsContainer>
                       <LineItem>
                         <ShippingLineItem>
