@@ -145,7 +145,7 @@ describe("Checkout Free Payment", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton0").click()
+      cy.get("@shippingMethodButton0").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -387,7 +387,7 @@ describe("Checkout Free Payment", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton0").click()
+      cy.get("@shippingMethodButton0").click({ force: true })
       cy.wait(
         [
           "@getShipments",

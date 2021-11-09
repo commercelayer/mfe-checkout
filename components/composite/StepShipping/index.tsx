@@ -33,7 +33,6 @@ import {
   ShippingWrapper,
   ShippingTitle,
   ShippingSummary,
-  ShippingSummaryItem,
   ShippingSummaryItemDescription,
   ShippingSummaryValue,
   ShippingLineItem,
@@ -184,38 +183,46 @@ export const StepShipping: React.FC<Props> = () => {
                             ) => handleChange(shippingMethod)}
                           />
                           <ShippingMethodName data-cy="shipping-method-name">
-                            {(props) => (
-                              <label
-                                className="flex flex-col p-3 border rounded cursor-pointer hover:border-primary transition duration-200 ease-in"
-                                htmlFor={`shipment-${props.shippingMethod.shipmentId}-${props.shippingMethod.id}`}
-                              >
-                                <ShippingLineItemTitle>
-                                  {props.label}
-                                </ShippingLineItemTitle>
-                                <ShippingSummaryItemDescription>
-                                  <Trans
-                                    t={t}
-                                    i18nKey="stepShipping.deliveryLeadTime"
-                                  >
-                                    <DeliveryLeadTime
-                                      type="minDays"
-                                      data-cy="delivery-lead-time-min-days"
+                            {(props) => {
+                              const deliveryLeadTime =
+                                props.shippingMethod.deliveryLeadTimeForShipment()
+
+                              return (
+                                <label
+                                  className="flex flex-col p-3 border rounded cursor-pointer hover:border-primary transition duration-200 ease-in"
+                                  htmlFor={`shipment-${props.shippingMethod.shipmentId}-${props.shippingMethod.id}`}
+                                >
+                                  <ShippingLineItemTitle>
+                                    {props.label}
+                                  </ShippingLineItemTitle>
+                                  {deliveryLeadTime?.minDays &&
+                                    deliveryLeadTime.maxDays && (
+                                      <ShippingSummaryItemDescription>
+                                        <Trans
+                                          t={t}
+                                          i18nKey="stepShipping.deliveryLeadTime"
+                                        >
+                                          <DeliveryLeadTime
+                                            type="minDays"
+                                            data-cy="delivery-lead-time-min-days"
+                                          />
+                                          <DeliveryLeadTime
+                                            type="maxDays"
+                                            data-cy="delivery-lead-time-max-days"
+                                            className="mr-1"
+                                          />
+                                        </Trans>
+                                      </ShippingSummaryItemDescription>
+                                    )}
+                                  <ShippingSummaryValue>
+                                    <ShippingMethodPrice
+                                      data-cy="shipping-method-price"
+                                      labelFreeOver={t("general.free")}
                                     />
-                                    <DeliveryLeadTime
-                                      type="maxDays"
-                                      data-cy="delivery-lead-time-max-days"
-                                      className="mr-1"
-                                    />
-                                  </Trans>
-                                </ShippingSummaryItemDescription>
-                                <ShippingSummaryValue>
-                                  <ShippingMethodPrice
-                                    data-cy="shipping-method-price"
-                                    labelFreeOver={t("general.free")}
-                                  />
-                                </ShippingSummaryValue>
-                              </label>
-                            )}
+                                  </ShippingSummaryValue>
+                                </label>
+                              )
+                            }}
                           </ShippingMethodName>
                         </ShippingSummary>
                       </ShippingMethod>

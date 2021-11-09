@@ -114,7 +114,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton0").click()
+      cy.get("@shippingMethodButton0").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -128,7 +128,7 @@ describe("Checkout Payments", () => {
           timeout: 100000,
         }
       )
-      cy.get("@shippingMethodButton3").click()
+      cy.get("@shippingMethodButton3").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -264,7 +264,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton0").click()
+      cy.get("@shippingMethodButton0").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -278,7 +278,7 @@ describe("Checkout Payments", () => {
           timeout: 100000,
         }
       )
-      cy.get("@shippingMethodButton3").click()
+      cy.get("@shippingMethodButton3").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -414,7 +414,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton0").click()
+      cy.get("@shippingMethodButton0").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -428,7 +428,7 @@ describe("Checkout Payments", () => {
           timeout: 100000,
         }
       )
-      cy.get("@shippingMethodButton3").click()
+      cy.get("@shippingMethodButton3").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -611,7 +611,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton0").click()
+      cy.get("@shippingMethodButton0").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -625,7 +625,7 @@ describe("Checkout Payments", () => {
           timeout: 100000,
         }
       )
-      cy.get("@shippingMethodButton3").click()
+      cy.get("@shippingMethodButton3").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -783,7 +783,7 @@ describe("Checkout Payments", () => {
         cy.dataCy("shipping-method-button").each((e, i) => {
           cy.wrap(e).as(`shippingMethodButton${i}`)
         })
-        cy.get("@shippingMethodButton0").click()
+        cy.get("@shippingMethodButton0").click({ force: true })
         cy.wait(
           [
             "@getShipments",
@@ -954,7 +954,7 @@ describe("Checkout Payments", () => {
         cy.dataCy("shipping-method-button").each((e, i) => {
           cy.wrap(e).as(`shippingMethodButton${i}`)
         })
-        cy.get("@shippingMethodButton0").click()
+        cy.get("@shippingMethodButton0").click({ force: true })
         cy.wait(
           [
             "@getShipments",
@@ -1132,7 +1132,7 @@ describe("Checkout Payments", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton0").click()
+      cy.get("@shippingMethodButton0").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -1146,7 +1146,7 @@ describe("Checkout Payments", () => {
           timeout: 100000,
         }
       )
-      cy.get("@shippingMethodButton3").click()
+      cy.get("@shippingMethodButton3").click({ force: true })
       cy.wait(
         [
           "@getShipments",

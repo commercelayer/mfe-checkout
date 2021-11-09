@@ -111,8 +111,8 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton0").click()
-      cy.get("@shippingMethodButton2").click()
+      cy.get("@shippingMethodButton0").click({ force: true })
+      cy.get("@shippingMethodButton2").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -162,7 +162,7 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton1").click()
+      cy.get("@shippingMethodButton1").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -179,7 +179,7 @@ describe("check Data Layers GTM", () => {
           timeout: 100000,
         }
       )
-      cy.get("@shippingMethodButton3").click()
+      cy.get("@shippingMethodButton3").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -231,8 +231,8 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton1").click()
-      cy.get("@shippingMethodButton2").click()
+      cy.get("@shippingMethodButton1").click({ force: true })
+      cy.get("@shippingMethodButton2").click({ force: true })
       cy.dataCy("save-shipments-button").click()
       cy.wait(
         [
@@ -280,7 +280,7 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton0").click()
+      cy.get("@shippingMethodButton0").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -291,7 +291,7 @@ describe("check Data Layers GTM", () => {
         ],
         { timeout: 100000 }
       )
-      cy.get("@shippingMethodButton3").click()
+      cy.get("@shippingMethodButton3").click({ force: true })
       cy.wait(
         [
           "@getShipments",
@@ -429,7 +429,7 @@ describe("check Data Layers GTM", () => {
       cy.dataCy("shipping-method-button").each((e, i) => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@shippingMethodButton0").click()
+      cy.get("@shippingMethodButton0").click({ force: true })
       cy.wait(
         [
           "@getShipments",

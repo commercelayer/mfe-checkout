@@ -106,7 +106,7 @@ describe("Checkout Complete with terms and privacy", () => {
         cy.dataCy("shipping-method-button").each((e, i) => {
           cy.wrap(e).as(`shippingMethodButton${i}`)
         })
-        cy.get("@shippingMethodButton0").click()
+        cy.get("@shippingMethodButton0").click({ force: true })
         cy.wait(
           [
             "@getShipments",
@@ -181,30 +181,6 @@ describe("Checkout Complete with terms and privacy", () => {
           ],
           { timeout: 100000 }
         )
-      })
-
-      it("select shipment and save", () => {
-        cy.dataCy("shipping-method-button").each((e, i) => {
-          cy.wrap(e).as(`shippingMethodButton${i}`)
-        })
-        cy.get("@shippingMethodButton0").click()
-        cy.wait(
-          [
-            "@getShipments",
-            "@getOrders",
-            "@retrieveLineItems",
-            "@getOrderShipments",
-            "@retrieveLineItems",
-            "@getOrderShipments",
-          ],
-          {
-            timeout: 100000,
-          }
-        )
-        cy.dataCy("save-shipments-button").click()
-        cy.wait(["@getOrderShipments", "@retrieveLineItems"], {
-          timeout: 100000,
-        })
       })
 
       it("check if checkbox is checked", () => {

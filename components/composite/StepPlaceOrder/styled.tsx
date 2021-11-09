@@ -36,9 +36,9 @@ export const ErrorsContainer = styled.div`
     ${tw`mb-10`}
   }
 `
-export const StyledPlaceOrderButton = styled<any & StyledPlaceOrderButtonProps>(
+export const StyledPlaceOrderButton = styled(
   PlaceOrderButton
-)`
+)<StyledPlaceOrderButtonProps>`
   ${ButtonCss}
   ${({ isActive }) => (isActive ? null : tw`hidden`)}
   ${tw`mx-5 mt-3.5 md:mx-0 md:mt-0`}
