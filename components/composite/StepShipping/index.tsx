@@ -164,10 +164,17 @@ export const StepShipping: React.FC<Props> = () => {
                   <ShippingWrapper>
                     {shipments.length > 1 && (
                       <ShippingTitle>
-                        <Trans t={t} i18nKey="stepShipping.shipment">
-                          <ShipmentField name="keyNumber" />
-                          {shipments.length.toString()}
-                        </Trans>
+                        <Trans
+                          t={t}
+                          i18nKey="stepShipping.shipment"
+                          components={{
+                            FirstWrap: <ShipmentField name="keyNumber" />,
+                            SecondWrap: <span />,
+                          }}
+                          values={{
+                            2: shipments.length.toString(),
+                          }}
+                        ></Trans>
                       </ShippingTitle>
                     )}
                     <GridContainer className="mb-6">
