@@ -164,17 +164,29 @@ export const StepShipping: React.FC<Props> = () => {
                   <ShippingWrapper>
                     {shipments.length > 1 && (
                       <ShippingTitle>
-                        <Trans
-                          t={t}
-                          i18nKey="stepShipping.shipment"
-                          components={{
-                            FirstWrap: <ShipmentField name="keyNumber" />,
-                            SecondWrap: <span />,
+                        <ShipmentField name="keyNumber">
+                          {(props) => {
+                            const index = shipments.findIndex(
+                              (item) => item.shipmentId === props.shipment.id
+                            )
+
+                            return (
+                              <Trans
+                                t={t}
+                                i18nKey="stepShipping.shipment"
+                                components={{
+                                  Wrap: (
+                                    <span className="font-medium text-gray-500" />
+                                  ),
+                                }}
+                                values={{
+                                  current: index + 1,
+                                  total: shipments.length.toString(),
+                                }}
+                              />
+                            )
                           }}
-                          values={{
-                            2: shipments.length.toString(),
-                          }}
-                        ></Trans>
+                        </ShipmentField>
                       </ShippingTitle>
                     )}
                     <GridContainer className="mb-6">

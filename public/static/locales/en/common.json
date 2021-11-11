@@ -70,7 +70,7 @@
     "stepShipping": {
         "title": "Delivery",
         "summary": "Shipment summary and delivery methods",
-        "shipment": "Shipment <FirstWrap/> di <SecondWrap>{{2}}</SecondWrap>",
+        "shipment": "Shipment <Wrap>{{current}} of {{total}}</Wrap>",
         "notAvaible": "There are not any shipping method available",
         "stockTransfer": "<0/> of <1/> items will undergo a transfer",
         "methodSelected": "Your order contains {{count}} shipment",

@@ -70,7 +70,7 @@
     "stepShipping": {
         "title": "Consegna",
         "summary": "Riepilogo della spedizione e modalità di consegna",
-        "shipment": "Spedizione <FirstWrap/> di <SecondWrap>{{2}}</SecondWrap>",
+        "shipment": "Spedizione <Wrap>{{current}} di {{total}}</Wrap>",
         "notAvaible": "Non sono disponibili metodi di spedizione",
         "stockTransfer": "<0/> di <1/> articoli verranno trasferiti",
         "methodSelected": "Il tuo ordine contiene {{count}} spedizione",
