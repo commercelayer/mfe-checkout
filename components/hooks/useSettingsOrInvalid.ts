@@ -8,13 +8,15 @@ interface UseSettingsOrInvalid {
   isLoading: boolean
 }
 
+const timestamp = Date.now().toString()
+
 export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const router = useRouter()
   const { orderId, accessToken } = router.query
 
   const { data, error } = useSWR(
     router.isReady
-      ? `/api/settings?accessToken=${accessToken}&orderId=${orderId}`
+      ? `/api/settings?accessToken=${accessToken}&orderId=${orderId}&timestamp=${timestamp}`
       : null,
     fetcher,
     { revalidateOnFocus: false }
