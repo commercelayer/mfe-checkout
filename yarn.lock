@@ -339,10 +339,10 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@commercelayer/react-components@^2.46.4":
-  version "2.46.4"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.46.4.tgz#3252bb8dcb0ad920b64851334499c9d98ee9ff25"
-  integrity sha512-5VDQHfqmLPFlpDJENcUgCbeS1dOo0g2dwLxZBcp6wcqrj/wCR4VPXzk5YTmPbxoQWI2CzGiD28dOCsXwoTFVRg==
+"@commercelayer/react-components@^2.46.5":
+  version "2.46.5"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.46.5.tgz#3dd68e4dd5baa48aac14e7df766eca21e1e4ff29"
+  integrity sha512-5y7q5wNFeWpWxSr44X+SfdzfitoJZ5KRfv++vzWohHMTfwNoLjgKAs5g5oxjK0YhAjcKkG2MFWA/yNxcBAmCQA==
   dependencies:
     "@adyen/adyen-web" "^5.2.0"
     "@commercelayer/js-auth" "^2.1.0"
