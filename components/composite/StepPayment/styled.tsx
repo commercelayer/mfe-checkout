@@ -33,7 +33,7 @@ export const PaymentSummaryItem = styled.div`
   ${tw`flex flex-1 font-bold leading-none`}
 `
 export const PaymentRadioContainer = styled.div`
-  ${tw`mr-2`}
+  ${tw`hidden`}
 `
 export const PaymentSummaryValue = styled.p`
   ${tw`flex font-bold uppercase text-ss leading-8`}
