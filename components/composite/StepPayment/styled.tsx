@@ -6,7 +6,7 @@ import { CheckCss } from "components/ui/form/CheckBox"
 import { RadioCss } from "components/ui/form/RadioButton"
 
 export const PaymentWrapper = styled.div`
-  ${tw`border border-gray-300 mb-5 p-3 rounded bg-gray-50 relative transition duration-200 ease-in`}
+  ${tw`border border-gray-300 mb-5 p-3 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-primary`}
 
   .payment:last-of-type & {
     ${tw`mb-0`}
