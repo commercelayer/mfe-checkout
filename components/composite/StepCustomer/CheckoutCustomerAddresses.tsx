@@ -66,7 +66,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   const [showBillingAddressForm, setShowBillingAddressForm] = useState<boolean>(
     isUsingNewBillingAddress
   )
+
+  const [mountBillingAddressForm, setMountBillingAddressForm] =
+    useState<boolean>(isUsingNewBillingAddress)
+
   const [showShippingAddressForm, setShowShippingAddressForm] =
+    useState<boolean>(isUsingNewShippingAddress)
+
+  const [mountShippingAddressForm, setMountShippingAddressForm] =
     useState<boolean>(isUsingNewShippingAddress)
 
   useEffect(() => {
@@ -84,6 +91,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   const handleShowShippingForm = () => {
     setShippingAddressFill(null)
     setShowShippingAddressForm(!showShippingAddressForm)
+  }
+
+  const handleMountBillingForm = () => {
+    setMountBillingAddressForm(showBillingAddressForm)
+  }
+
+  const handleMountShippingForm = () => {
+    setMountShippingAddressForm(showShippingAddressForm)
   }
 
   const handleToggle = () => {
@@ -130,34 +145,26 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   action={handleShowBillingForm}
                 />
               )}
-              <div
-                className={
-                  !isShipmentRequired || !hasCustomerAddresses
-                    ? "mt-4"
-                    : "hidden"
-                }
-              ></div>
             </>
           )}
         </>
-        <div
-          className={
-            showBillingAddressForm || !hasCustomerAddresses ? "mt-4" : "hidden"
-          }
-        >
-          <Transition show={showBillingAddressForm} {...formTransition}>
+        <div className="mt-4">
+          <Transition
+            show={showBillingAddressForm}
+            beforeEnter={handleMountBillingForm}
+            afterLeave={handleMountBillingForm}
+            {...formTransition}
+          >
             <BillingAddressForm
               autoComplete="on"
               reset={!showBillingAddressForm}
               errorClassName="hasError"
             >
-              {showBillingAddressForm ? (
+              {mountBillingAddressForm ? (
                 <>
                   <BillingAddressFormNew billingAddress={billingAddressFill} />
                   <AddressSectionSaveOnAddressBook addressType="billing" />
-                  <label onClick={() => setShowBillingAddressForm(false)}>
-                    Chiudi
-                  </label>
+                  <label onClick={handleShowBillingForm}>Chiudi</label>
                 </>
               ) : (
                 <Fragment />
@@ -211,8 +218,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 </ShippingAddressContainer>
               </Transition>
             </div>
-            <div className={showShippingAddressForm ? "mt-4" : "hidden"}>
-              <Transition show={showShippingAddressForm} {...formTransition}>
+            <div className="mt-4">
+              <Transition
+                show={showShippingAddressForm}
+                beforeEnter={handleMountShippingForm}
+                afterLeave={handleMountShippingForm}
+                {...formTransition}
+              >
                 <ShippingAddressForm
                   autoComplete="on"
                   hidden={!shipToDifferentAddress}
@@ -220,7 +232,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   errorClassName="hasError"
                   className="pt-2"
                 >
-                  {showShippingAddressForm ? (
+                  {mountShippingAddressForm ? (
                     <>
                       <ShippingAddressFormNew
                         shippingAddress={shippingAddressFill}
@@ -228,9 +240,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                       <div className="mb-4">
                         <AddressSectionSaveOnAddressBook addressType="shipping" />
                       </div>
-                      <label onClick={() => setShowShippingAddressForm(false)}>
-                        Chiudi
-                      </label>
+                      <label onClick={handleShowShippingForm}>Chiudi</label>
                     </>
                   ) : (
                     <Fragment />
