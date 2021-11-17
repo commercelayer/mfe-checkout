@@ -205,8 +205,9 @@ export const StepShipping: React.FC<Props> = () => {
                           <ShippingMethodName data-cy="shipping-method-name">
                             {(props) => {
                               const deliveryLeadTime =
-                                props.shippingMethod.deliveryLeadTimeForShipment()
-
+                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                // @ts-ignore
+                                props?.deliveryLeadTimeForShipment
                               return (
                                 <label
                                   className="flex flex-col p-3 border rounded cursor-pointer hover:border-primary transition duration-200 ease-in"
@@ -216,7 +217,9 @@ export const StepShipping: React.FC<Props> = () => {
                                     {props.label}
                                   </ShippingLineItemTitle>
                                   {deliveryLeadTime?.minDays &&
-                                    deliveryLeadTime.maxDays && (
+                                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                    // @ts-ignore
+                                    deliveryLeadTime?.maxDays && (
                                       <ShippingSummaryItemDescription>
                                         <Trans
                                           t={t}
