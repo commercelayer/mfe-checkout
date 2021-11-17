@@ -7,6 +7,7 @@ import {
   BillingAddressContainer,
   ShippingAddressContainer,
 } from "@commercelayer/react-components"
+import { Transition } from "@headlessui/react"
 import { useState, Fragment, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
@@ -105,17 +106,28 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           </AddressSectionTitle>
           {hasCustomerAddresses && (
             <>
-              <GridContainer className="mb-4">
-                <BillingAddressContainer>
-                  <CustomerAddressCard
-                    addressType="billing"
-                    deselect={showBillingAddressForm}
-                    onSelect={() =>
-                      showBillingAddressForm && setShowBillingAddressForm(false)
-                    }
-                  />
-                </BillingAddressContainer>
-              </GridContainer>
+              <Transition
+                show={!showBillingAddressForm}
+                enter="transition-opacity duration-75"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="transition-opacity duration-150"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <GridContainer className="mb-4">
+                  <BillingAddressContainer>
+                    <CustomerAddressCard
+                      addressType="billing"
+                      deselect={showBillingAddressForm}
+                      onSelect={() =>
+                        showBillingAddressForm &&
+                        setShowBillingAddressForm(false)
+                      }
+                    />
+                  </BillingAddressContainer>
+                </GridContainer>
+              </Transition>
 
               {!showBillingAddressForm && hasCustomerAddresses && (
                 <AddButton
@@ -131,20 +143,33 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             showBillingAddressForm || !hasCustomerAddresses ? "mt-4" : "hidden"
           }
         >
-          <BillingAddressForm
-            autoComplete="on"
-            reset={!showBillingAddressForm}
-            errorClassName="hasError"
+          <Transition
+            show={showBillingAddressForm}
+            enter="transition-opacity duration-75"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-150"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            {showBillingAddressForm ? (
-              <>
-                <BillingAddressFormNew billingAddress={billingAddressFill} />
-                <AddressSectionSaveOnAddressBook addressType="billing" />
-              </>
-            ) : (
-              <Fragment />
-            )}
-          </BillingAddressForm>
+            <BillingAddressForm
+              autoComplete="on"
+              reset={!showBillingAddressForm}
+              errorClassName="hasError"
+            >
+              {showBillingAddressForm ? (
+                <>
+                  <BillingAddressFormNew billingAddress={billingAddressFill} />
+                  <AddressSectionSaveOnAddressBook addressType="billing" />
+                  <label onClick={() => setShowBillingAddressForm(false)}>
+                    Chiudi
+                  </label>
+                </>
+              ) : (
+                <Fragment />
+              )}
+            </BillingAddressForm>
+          </Transition>
         </div>
         {isShipmentRequired && (
           <>
@@ -169,48 +194,71 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   : "hidden"
               }`}
             >
-              <ShippingAddressContainer>
-                <GridContainer className="mb-4">
-                  <CustomerAddressCard
-                    addressType="shipping"
-                    deselect={showShippingAddressForm}
-                    onSelect={() =>
-                      showShippingAddressForm &&
-                      setShowShippingAddressForm(false)
-                    }
-                  />
-                </GridContainer>
+              <Transition
+                show={!showShippingAddressForm}
+                enter="transition-opacity duration-75"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="transition-opacity duration-150"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <ShippingAddressContainer>
+                  <GridContainer className="mb-4">
+                    <CustomerAddressCard
+                      addressType="shipping"
+                      deselect={showShippingAddressForm}
+                      onSelect={() =>
+                        showShippingAddressForm &&
+                        setShowShippingAddressForm(false)
+                      }
+                    />
+                  </GridContainer>
 
-                {!showShippingAddressForm && (
-                  <AddButton
-                    dataCy="add_new_shipping_address"
-                    action={handleShowShippingForm}
-                  />
-                )}
-              </ShippingAddressContainer>
+                  {!showShippingAddressForm && (
+                    <AddButton
+                      dataCy="add_new_shipping_address"
+                      action={handleShowShippingForm}
+                    />
+                  )}
+                </ShippingAddressContainer>
+              </Transition>
             </div>
 
             <div className={showShippingAddressForm ? "mt-4" : "hidden"}>
-              <ShippingAddressForm
-                autoComplete="on"
-                hidden={!shipToDifferentAddress}
-                reset={!showShippingAddressForm}
-                errorClassName="hasError"
-                className="pt-2"
+              <Transition
+                show={showShippingAddressForm}
+                enter="transition-opacity duration-75"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="transition-opacity duration-150"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
               >
-                {showShippingAddressForm ? (
-                  <>
-                    <ShippingAddressFormNew
-                      shippingAddress={shippingAddressFill}
-                    />
-                    <div className="mb-4">
-                      <AddressSectionSaveOnAddressBook addressType="shipping" />
-                    </div>
-                  </>
-                ) : (
-                  <Fragment />
-                )}
-              </ShippingAddressForm>
+                <ShippingAddressForm
+                  autoComplete="on"
+                  hidden={!shipToDifferentAddress}
+                  reset={!showShippingAddressForm}
+                  errorClassName="hasError"
+                  className="pt-2"
+                >
+                  {showShippingAddressForm ? (
+                    <>
+                      <ShippingAddressFormNew
+                        shippingAddress={shippingAddressFill}
+                      />
+                      <div className="mb-4">
+                        <AddressSectionSaveOnAddressBook addressType="shipping" />
+                      </div>
+                      <label onClick={() => setShowShippingAddressForm(false)}>
+                        Chiudi
+                      </label>
+                    </>
+                  ) : (
+                    <Fragment />
+                  )}
+                </ShippingAddressForm>
+              </Transition>
             </div>
           </>
         )}
