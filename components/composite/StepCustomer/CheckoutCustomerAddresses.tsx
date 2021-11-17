@@ -163,8 +163,15 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               {mountBillingAddressForm ? (
                 <>
                   <BillingAddressFormNew billingAddress={billingAddressFill} />
-                  <AddressSectionSaveOnAddressBook addressType="billing" />
-                  <label onClick={handleShowBillingForm}>Chiudi</label>
+                  <div className="flex justify-between" key="actionsWrapper">
+                    <AddressSectionSaveOnAddressBook addressType="billing" />
+                    <p
+                      className="font-extrabold text-red-400 border-b border-red-100 cursor-pointer text-ss"
+                      onClick={handleShowBillingForm}
+                    >
+                      Close
+                    </p>
+                  </div>
                 </>
               ) : (
                 <Fragment />
@@ -237,10 +244,15 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                       <ShippingAddressFormNew
                         shippingAddress={shippingAddressFill}
                       />
-                      <div className="mb-4">
+                      <div className="flex justify-between mb-4">
                         <AddressSectionSaveOnAddressBook addressType="shipping" />
+                        <p
+                          className="font-extrabold text-red-400 border-b border-red-100 cursor-pointer text-ss"
+                          onClick={handleShowShippingForm}
+                        >
+                          Close
+                        </p>
                       </div>
-                      <label onClick={handleShowShippingForm}>Chiudi</label>
                     </>
                   ) : (
                     <Fragment />
@@ -285,9 +297,9 @@ const formTransition = {
   enter: "transform transition duration-300",
   enterFrom: "opacity-0 translate-y-full",
   enterTo: "opacity-100 translate-y-0",
-  leave: "transform duration-200 transition",
+  leave: "transform duration-300 transition",
   leaveFrom: "opacity-100 translate-y-0",
-  leaveTo: "opacity-0 translate-y-full",
+  leaveTo: "opacity-0 -translate-y-full",
 }
 
 const StyledSaveAddressesButton = styled(SaveAddressesButton)`
