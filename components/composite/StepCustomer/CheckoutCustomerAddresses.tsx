@@ -108,12 +108,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             <>
               <Transition
                 show={!showBillingAddressForm}
-                enter="transition-opacity duration-75"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition-opacity duration-150"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
+                {...addressesTransition}
               >
                 <GridContainer className="mb-4">
                   <BillingAddressContainer>
@@ -135,6 +130,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   action={handleShowBillingForm}
                 />
               )}
+              <div
+                className={
+                  !isShipmentRequired || !hasCustomerAddresses
+                    ? "mt-4"
+                    : "hidden"
+                }
+              ></div>
             </>
           )}
         </>
@@ -143,15 +145,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             showBillingAddressForm || !hasCustomerAddresses ? "mt-4" : "hidden"
           }
         >
-          <Transition
-            show={showBillingAddressForm}
-            enter="transition-opacity duration-75"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity duration-150"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
+          <Transition show={showBillingAddressForm} {...formTransition}>
             <BillingAddressForm
               autoComplete="on"
               reset={!showBillingAddressForm}
@@ -180,13 +174,11 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               checked={shipToDifferentAddress}
               onChange={handleToggle}
             />
-
             <div className={`${shipToDifferentAddress ? "" : "hidden"} mb-2`}>
               <AddressSectionTitle>
                 {t(`addressForm.shipping_address_title`)}
               </AddressSectionTitle>
             </div>
-
             <div
               className={`${
                 shipToDifferentAddress && hasCustomerAddresses
@@ -196,12 +188,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             >
               <Transition
                 show={!showShippingAddressForm}
-                enter="transition-opacity duration-75"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition-opacity duration-150"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
+                {...addressesTransition}
               >
                 <ShippingAddressContainer>
                   <GridContainer className="mb-4">
@@ -224,17 +211,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 </ShippingAddressContainer>
               </Transition>
             </div>
-
             <div className={showShippingAddressForm ? "mt-4" : "hidden"}>
-              <Transition
-                show={showShippingAddressForm}
-                enter="transition-opacity duration-75"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition-opacity duration-150"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
+              <Transition show={showShippingAddressForm} {...formTransition}>
                 <ShippingAddressForm
                   autoComplete="on"
                   hidden={!shipToDifferentAddress}
@@ -282,6 +260,24 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
       </AddressesContainer>
     </Fragment>
   )
+}
+
+const addressesTransition = {
+  enter: "transform transition duration-300",
+  enterFrom: "opacity-0 scale-75",
+  enterTo: "opacity-100 scale-100",
+  leave: "transform duration-200 transition ease-out",
+  leaveFrom: "opacity-100 scale-100 ",
+  leaveTo: "opacity-0 scale-75",
+}
+
+const formTransition = {
+  enter: "transform transition duration-300",
+  enterFrom: "opacity-0 translate-y-full",
+  enterTo: "opacity-100 translate-y-0",
+  leave: "transform duration-200 transition",
+  leaveFrom: "opacity-100 translate-y-0",
+  leaveTo: "opacity-0 translate-y-full",
 }
 
 const StyledSaveAddressesButton = styled(SaveAddressesButton)`
