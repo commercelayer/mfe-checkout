@@ -64,7 +64,8 @@
         "addNewBillingAddress": "Aggiungi nuovo indirizzo di fatturazione",
         "addNewShippingAddress": "Aggiungi un nuovo indirizzo di spedizione",
         "continueToDelivery": "Continuare alla consegna",
-        "notSet": "Inserisci il tuo indirizzo di fatturazione/spedizione"
+        "notSet": "Inserisci il tuo indirizzo di fatturazione/spedizione",
+        "closeForm": "Scegli indirizzo"
     },
 
     "stepShipping": {

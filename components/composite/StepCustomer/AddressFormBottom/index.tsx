@@ -1,0 +1,28 @@
+import { useTranslation } from "react-i18next"
+
+import { AddressSectionSaveOnAddressBook } from "../AddressSectionSaveOnAddressBook"
+
+import { LinkButton } from "components/ui/LinkButton"
+
+import { Wrapper } from "./styled"
+
+interface Props {
+  addressType: "billing" | "shipping"
+  onClick?: () => void
+  className?: string
+}
+
+export const AddressFormBottom: React.FC<Props> = ({
+  addressType,
+  onClick,
+  className,
+}) => {
+  const { t } = useTranslation()
+
+  return (
+    <Wrapper className={className}>
+      <AddressSectionSaveOnAddressBook addressType={addressType} />
+      <LinkButton label={t("stepCustomer.closeForm")} onClick={onClick} />
+    </Wrapper>
+  )
+}

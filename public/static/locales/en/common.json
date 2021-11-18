@@ -64,7 +64,8 @@
         "addNewBillingAddress": "Add new billing address",
         "addNewShippingAddress": "Add new shipping address",
         "continueToDelivery": "Continue to delivery",
-        "notSet": "Fill in your Billing/Shipping Address"
+        "notSet": "Fill in your Billing/Shipping Address",
+        "closeForm": "Choose address"
     },
 
     "stepShipping": {

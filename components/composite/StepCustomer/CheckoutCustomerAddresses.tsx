@@ -20,9 +20,9 @@ import { GridContainer } from "components/ui/GridContainer"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { Toggle } from "components/ui/Toggle"
 
+import { AddressFormBottom } from "./AddressFormBottom"
 import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
-import { AddressSectionSaveOnAddressBook } from "./AddressSectionSaveOnAddressBook"
 import { AddressSectionTitle } from "./AddressSectionTitle"
 import { BillingAddressFormNew } from "./BillingAddressFormNew"
 import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
@@ -163,15 +163,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               {mountBillingAddressForm ? (
                 <>
                   <BillingAddressFormNew billingAddress={billingAddressFill} />
-                  <div className="flex justify-between" key="actionsWrapper">
-                    <AddressSectionSaveOnAddressBook addressType="billing" />
-                    <p
-                      className="font-extrabold text-red-400 border-b border-red-100 cursor-pointer text-ss"
-                      onClick={handleShowBillingForm}
-                    >
-                      Close
-                    </p>
-                  </div>
+                  <AddressFormBottom
+                    addressType="billing"
+                    onClick={handleShowBillingForm}
+                  />
                 </>
               ) : (
                 <Fragment />
@@ -244,15 +239,11 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                       <ShippingAddressFormNew
                         shippingAddress={shippingAddressFill}
                       />
-                      <div className="flex justify-between mb-4">
-                        <AddressSectionSaveOnAddressBook addressType="shipping" />
-                        <p
-                          className="font-extrabold text-red-400 border-b border-red-100 cursor-pointer text-ss"
-                          onClick={handleShowShippingForm}
-                        >
-                          Close
-                        </p>
-                      </div>
+                      <AddressFormBottom
+                        addressType="shipping"
+                        onClick={handleShowShippingForm}
+                        className="mb-4"
+                      />
                     </>
                   ) : (
                     <Fragment />
