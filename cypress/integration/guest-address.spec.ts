@@ -69,22 +69,11 @@ describe("Checkout guest address", () => {
     })
 
     it("fill billing form and save", function () {
-      cy.dataCy("input_billing_address_first_name").type(euAddress.firstName)
-      cy.dataCy("input_billing_address_last_name").type(euAddress.lastName)
-      cy.dataCy("input_billing_address_line_1").type(euAddress.line1)
-      cy.dataCy("input_billing_address_city").type(euAddress.city)
-      cy.dataCy("input_billing_address_country_code").select(
-        euAddress.countryCode
-      )
-      cy.dataCy("input_billing_address_state_code").select(euAddress.stateCode)
-      cy.dataCy("input_billing_address_zip_code").type(euAddress.zipCode)
-      cy.dataCy("input_billing_address_phone").type(euAddress.phone)
-
-      if (requires_billing_info) {
-        cy.dataCy("input_billing_address_billing_info").type(
-          euAddress.billingInfo
-        )
-      }
+      cy.fillForm({
+        type: "billing",
+        address: euAddress,
+        requiresBillingInfo: requires_billing_info,
+      })
 
       cy.dataCy("save-addresses-button").click()
 
@@ -105,14 +94,14 @@ describe("Checkout guest address", () => {
       )
 
       cy.dataCy("customer-email-step-header").should("contain", emailCustomer)
+    })
 
-      // cy.dataCy("full-billing-information")
-      //   .should("contain", euAddress.firstName)
-      //   .and("contain", euAddress.lastName)
-      //   .and("contain", euAddress.line1)
-      //   .and("contain", euAddress.phone)
-      //   .and("contain", euAddress.city)
-      //   .and("contain", euAddress.zipCode)
+    it("check billing information", () => {
+      cy.wait(1500)
+      cy.checkForm({
+        type: "billing",
+        address: euAddress,
+      })
     })
 
     it("click to customer tab", () => {
@@ -127,16 +116,7 @@ describe("Checkout guest address", () => {
     })
 
     it("fill shipping form and save", () => {
-      cy.dataCy("input_shipping_address_first_name").type(euAddress2.firstName)
-      cy.dataCy("input_shipping_address_last_name").type(euAddress2.lastName)
-      cy.dataCy("input_shipping_address_line_1").type(euAddress2.line1)
-      cy.dataCy("input_shipping_address_city").type(euAddress2.city)
-      cy.dataCy("input_shipping_address_country_code").select(
-        euAddress2.countryCode
-      )
-      cy.dataCy("input_shipping_address_state_code").type(euAddress2.stateCode)
-      cy.dataCy("input_shipping_address_zip_code").type(euAddress2.zipCode)
-      cy.dataCy("input_shipping_address_phone").type(euAddress2.phone)
+      cy.fillForm({ type: "shipping", address: euAddress2 })
 
       cy.dataCy("save-addresses-button").click()
 
@@ -156,22 +136,18 @@ describe("Checkout guest address", () => {
         ],
         { timeout: 100000 }
       )
+    })
 
-      // cy.dataCy("full-billing-information")
-      //   .should("contain", euAddress.firstName)
-      //   .and("contain", euAddress.lastName)
-      //   .and("contain", euAddress.line1)
-      //   .and("contain", euAddress.phone)
-      //   .and("contain", euAddress.city)
-      //   .and("contain", euAddress.zipCode)
-
-      // cy.dataCy("full-shipping-information")
-      //   .should("contain", euAddress2.firstName)
-      //   .and("contain", euAddress2.lastName)
-      //   .and("contain", euAddress2.line1)
-      //   .and("contain", euAddress2.phone)
-      //   .and("contain", euAddress2.city)
-      //   .and("contain", euAddress2.zipCode)
+    it("check billing and shipping information", () => {
+      cy.wait(1500)
+      cy.checkForm({
+        type: "billing",
+        address: euAddress,
+      })
+      cy.checkForm({
+        type: "shipping",
+        address: euAddress2,
+      })
     })
   })
 
@@ -232,13 +208,7 @@ describe("Checkout guest address", () => {
         "alessani@gmail.thk"
       )
 
-      // cy.dataCy("full-billing-information")
-      //   .should("contain", euAddress.firstName)
-      //   .and("contain", euAddress.lastName)
-      //   .and("contain", euAddress.line1)
-      //   .and("contain", euAddress.phone)
-      //   .and("contain", euAddress.city)
-      //   .and("contain", euAddress.zipCode)
+      cy.checkForm({ address: euAddress, type: "billing" })
     })
   })
 
@@ -307,22 +277,18 @@ describe("Checkout guest address", () => {
         "contain",
         "alessani@gmail.thk"
       )
+    })
 
-      // cy.dataCy("full-billing-information")
-      //   .should("contain", euAddress.firstName)
-      //   .and("contain", euAddress.lastName)
-      //   .and("contain", euAddress.line1)
-      //   .and("contain", euAddress.phone)
-      //   .and("contain", euAddress.city)
-      //   .and("contain", euAddress.zipCode)
-
-      // cy.dataCy("full-shipping-information")
-      //   .should("contain", euAddress2.firstName)
-      //   .and("contain", euAddress2.lastName)
-      //   .and("contain", euAddress2.line1)
-      //   .and("contain", euAddress2.phone)
-      //   .and("contain", euAddress2.city)
-      //   .and("contain", euAddress2.zipCode)
+    it("check billing and shipping information", () => {
+      cy.wait(1500)
+      cy.checkForm({
+        type: "billing",
+        address: euAddress,
+      })
+      cy.checkForm({
+        type: "shipping",
+        address: euAddress2,
+      })
     })
   })
 })

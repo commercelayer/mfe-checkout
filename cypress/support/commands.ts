@@ -145,6 +145,7 @@ Cypress.Commands.add("createAddress", (options) => {
           first_name: options.firstName,
           last_name: options.lastName,
           line_1: options.line1,
+          line_2: options.line2,
           city: options.city,
           zip_code: options.zipCode,
           state_code: options.stateCode,
@@ -531,4 +532,98 @@ Cypress.Commands.add("setCoupon", (options) => {
     .then((order) => {
       return order
     })
+})
+
+Cypress.Commands.add("fillForm", (options) => {
+  cy.wait(1500)
+
+  Object.keys(options.address).forEach((key) => {
+    if (!options.requiresBillingInfo && key === "billingInfo") {
+      return
+    }
+
+    const camelToSnakeCase = key.replace(
+      /[A-Z]|[0-9]/g,
+      (letter: string) => `_${letter.toLowerCase()}`
+    )
+
+    const dataSelect = cy.dataCy(
+      `input_${options.type}_address_${camelToSnakeCase}`
+    )
+
+    if (
+      camelToSnakeCase === "country_code" &&
+      options.type === "shipping" &&
+      options.countryCodeLock
+    ) {
+      return
+    }
+
+    if (camelToSnakeCase === "country_code") {
+      dataSelect.select(options.address[key])
+    } else if (camelToSnakeCase === "state_code") {
+      if (options.address.countryCode === "IT") {
+        dataSelect.select(options.address[key])
+      } else {
+        dataSelect.type(`{selectall}{backspace}${options.address[key]}`)
+      }
+    } else {
+      dataSelect.type(`{selectall}{backspace}${options.address[key]}`)
+    }
+  })
+})
+
+Cypress.Commands.add("checkForm", (options) => {
+  cy.dataCy("step_customer").click().should("have.attr", "data-status", "true")
+
+  cy.wait(1500)
+
+  Object.keys(options.address).forEach((key) => {
+    const camelToSnakeCase = key.replace(
+      /[A-Z]|[0-9]/g,
+      (letter: string) => `_${letter.toLowerCase()}`
+    )
+
+    if (!options.requiresBillingInfo && key === "billingInfo") {
+      return
+    }
+
+    const dataSelect = cy.dataCy(
+      `input_${options.type}_address_${camelToSnakeCase}`
+    )
+
+    dataSelect.should("have.value", options.address[key])
+  })
+
+  cy.dataCy("step_shipping").click().should("have.attr", "data-status", "true")
+})
+
+Cypress.Commands.add("checkAddressBook", (options) => {
+  cy.dataCy("step_customer").click().should("have.attr", "data-status", "true")
+
+  cy.wait(1500)
+
+  cy.dataCy(`customer-${options.type}-address`).each((e, i) => {
+    cy.wrap(e).as(
+      `customer${
+        String(options.type).charAt(0).toUpperCase() +
+        String(options.type).slice(1)
+      }Address${i}`
+    )
+  })
+
+  Object.keys(options.address).forEach((key) => {
+    if (key === "billingInfo") {
+      return
+    }
+
+    cy.get(
+      `@customer${
+        String(options.type).charAt(0).toUpperCase() +
+        String(options.type).slice(1)
+      }Address${String(options.index || "0")}`
+    ).contains("p", options.address[key])
+  })
+
+  cy.dataCy("step_shipping").click().should("have.attr", "data-status", "true")
 })

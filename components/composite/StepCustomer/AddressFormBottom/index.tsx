@@ -8,12 +8,14 @@ import { Wrapper } from "./styled"
 
 interface Props {
   addressType: "billing" | "shipping"
+  hasCustomerAddresses: boolean
   onClick?: () => void
   className?: string
 }
 
 export const AddressFormBottom: React.FC<Props> = ({
   addressType,
+  hasCustomerAddresses,
   onClick,
   className,
 }) => {
@@ -22,7 +24,13 @@ export const AddressFormBottom: React.FC<Props> = ({
   return (
     <Wrapper className={className}>
       <AddressSectionSaveOnAddressBook addressType={addressType} />
-      <LinkButton label={t("stepCustomer.closeForm")} onClick={onClick} />
+      {hasCustomerAddresses && (
+        <LinkButton
+          data-cy={`close-${addressType}-form`}
+          label={t("stepCustomer.closeForm")}
+          onClick={onClick}
+        />
+      )}
     </Wrapper>
   )
 }

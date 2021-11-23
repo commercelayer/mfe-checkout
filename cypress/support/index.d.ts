@@ -72,6 +72,7 @@ declare global {
         firstName: string
         lastName: string
         line1: string
+        line2?: string
         city: string
         zipCode: string
         stateCode: string
@@ -132,6 +133,55 @@ declare global {
       activeGiftCard(options: {
         giftcardId: string
         accessToken?: string
+      }): Chainable<Subject>
+      fillForm(options: {
+        type: "shipping" | "billing"
+        address: {
+          firstName: string
+          lastName: string
+          line1: string
+          line2: string
+          city: string
+          countryCode: string
+          stateCode: string
+          zipCode: string
+          phone: string
+          billingInfo?: string
+        }
+        requiresBillingInfo?: boolean
+        countryCodeLock?: boolean
+      }): Chainable<Subject>
+      checkForm(options: {
+        type: "shipping" | "billing"
+        address: {
+          firstName: string
+          lastName: string
+          line1: string
+          line2: string
+          city: string
+          countryCode: string
+          stateCode: string
+          zipCode: string
+          phone: string
+          billingInfo?: string
+        }
+        requiresBillingInfo?: boolean
+      }): Chainable<Subject>
+      checkAddressBook(options: {
+        index?: number
+        type: "shipping" | "billing"
+        address: {
+          firstName: string
+          lastName: string
+          line1: string
+          line2: string
+          city: string
+          countryCode: string
+          stateCode: string
+          zipCode: string
+          phone: string
+          billingInfo?: string
+        }
       }): Chainable<Subject>
     }
   }

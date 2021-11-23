@@ -40,6 +40,8 @@ interface Props {
   handleSave: () => void
 }
 
+type AddressTypeEnum = "shipping" | "billing"
+
 export const CheckoutCustomerAddresses: React.FC<Props> = ({
   billingAddress,
   shippingAddress,
@@ -80,25 +82,29 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     if (shipToDifferentAddress && !hasCustomerAddresses) {
       setShippingAddressFill(null)
       setShowShippingAddressForm(true)
+      setMountShippingAddressForm(true)
     }
   }, [shipToDifferentAddress])
+
+  const handleScroll = (type: AddressTypeEnum) => {
+    const tab = document
+      .querySelector(`h3[data-cy="${type}-address"]`)
+      ?.getBoundingClientRect()
+    const top = window.scrollY + (tab?.top as number)
+    const left = window.scrollX + (tab?.left as number)
+    window.scrollTo({ left, top: top, behavior: "smooth" })
+  }
 
   const handleShowBillingForm = () => {
     setBillingAddressFill(null)
     setShowBillingAddressForm(!showBillingAddressForm)
+    handleScroll("billing")
   }
 
   const handleShowShippingForm = () => {
     setShippingAddressFill(null)
     setShowShippingAddressForm(!showShippingAddressForm)
-  }
-
-  const handleMountBillingForm = () => {
-    setMountBillingAddressForm(showBillingAddressForm)
-  }
-
-  const handleMountShippingForm = () => {
-    setMountShippingAddressForm(showShippingAddressForm)
+    handleScroll("shipping")
   }
 
   const handleToggle = () => {
@@ -106,6 +112,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
       handleShowShippingForm()
     }
     if (hasCustomerAddresses) {
+      setMountShippingAddressForm(false)
       setShowShippingAddressForm(false)
     }
     setShipToDifferentAddress(!shipToDifferentAddress)
@@ -116,7 +123,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
       <AddressSectionEmail readonly emailAddress={emailAddress} />
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
         <>
-          <AddressSectionTitle>
+          <AddressSectionTitle data-cy="billing-address">
             {t(`addressForm.billing_address_title`)}
           </AddressSectionTitle>
           {hasCustomerAddresses && (
@@ -151,8 +158,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
         <div className="mt-4">
           <Transition
             show={showBillingAddressForm}
-            beforeEnter={handleMountBillingForm}
-            afterLeave={handleMountBillingForm}
+            beforeEnter={() => setMountBillingAddressForm(true)}
+            afterLeave={() => setMountBillingAddressForm(false)}
             {...formTransition}
           >
             <BillingAddressForm
@@ -160,12 +167,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               reset={!showBillingAddressForm}
               errorClassName="hasError"
             >
-              {mountBillingAddressForm ? (
+              {mountBillingAddressForm || !hasCustomerAddresses ? (
                 <>
                   <BillingAddressFormNew billingAddress={billingAddressFill} />
                   <AddressFormBottom
                     addressType="billing"
                     onClick={handleShowBillingForm}
+                    hasCustomerAddresses={hasCustomerAddresses}
                   />
                 </>
               ) : (
@@ -184,7 +192,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               onChange={handleToggle}
             />
             <div className={`${shipToDifferentAddress ? "" : "hidden"} mb-2`}>
-              <AddressSectionTitle>
+              <AddressSectionTitle data-cy="shipping-address">
                 {t(`addressForm.shipping_address_title`)}
               </AddressSectionTitle>
             </div>
@@ -199,8 +207,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 show={!showShippingAddressForm}
                 {...addressesTransition}
               >
-                <ShippingAddressContainer>
-                  <GridContainer className="mb-4">
+                <GridContainer className="mb-4">
+                  <ShippingAddressContainer>
                     <CustomerAddressCard
                       addressType="shipping"
                       deselect={showShippingAddressForm}
@@ -209,28 +217,28 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                         setShowShippingAddressForm(false)
                       }
                     />
-                  </GridContainer>
-
-                  {!showShippingAddressForm && (
-                    <AddButton
-                      dataCy="add_new_shipping_address"
-                      action={handleShowShippingForm}
-                    />
-                  )}
-                </ShippingAddressContainer>
+                  </ShippingAddressContainer>
+                </GridContainer>
               </Transition>
+
+              {!showShippingAddressForm && (
+                <AddButton
+                  dataCy="add_new_shipping_address"
+                  action={handleShowShippingForm}
+                />
+              )}
             </div>
             <div className="mt-4">
               <Transition
                 show={showShippingAddressForm}
-                beforeEnter={handleMountShippingForm}
-                afterLeave={handleMountShippingForm}
+                beforeEnter={() => setMountShippingAddressForm(true)}
+                beforeLeave={() => setMountShippingAddressForm(false)}
                 {...formTransition}
               >
                 <ShippingAddressForm
                   autoComplete="on"
                   hidden={!shipToDifferentAddress}
-                  reset={!showShippingAddressForm}
+                  reset={!mountShippingAddressForm}
                   errorClassName="hasError"
                   className="pt-2"
                 >
@@ -240,9 +248,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                         shippingAddress={shippingAddressFill}
                       />
                       <AddressFormBottom
+                        className="mb-4"
                         addressType="shipping"
                         onClick={handleShowShippingForm}
-                        className="mb-4"
+                        hasCustomerAddresses={hasCustomerAddresses}
                       />
                     </>
                   ) : (
@@ -276,19 +285,19 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 }
 
 const addressesTransition = {
-  enter: "transform transition duration-300",
+  enter: "transform transition duration-[300ms]",
   enterFrom: "opacity-0 scale-75",
   enterTo: "opacity-100 scale-100",
-  leave: "transform duration-200 transition ease-out",
+  leave: "transform duration-[200ms] transition ease-out",
   leaveFrom: "opacity-100 scale-100 ",
   leaveTo: "opacity-0 scale-75",
 }
 
 const formTransition = {
-  enter: "transform transition duration-300",
+  enter: "transform transition duration-[300ms]",
   enterFrom: "opacity-0 translate-y-full",
   enterTo: "opacity-100 translate-y-0",
-  leave: "transform duration-300 transition",
+  leave: "transform duration-[300ms] transition",
   leaveFrom: "opacity-100 translate-y-0",
   leaveTo: "opacity-0 -translate-y-full",
 }
