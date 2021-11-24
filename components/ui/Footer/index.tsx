@@ -25,15 +25,3 @@ const Wrapper = styled.div`
 const LogoWrapper = styled.div`
   ${tw`flex items-center`}
 `
-// const ListWrapper = styled.div`
-//   ${tw`overflow-hidden`}
-// `
-// const ListLink = styled.ul`
-//   ${tw`flex flex-row flex-wrap justify-between -ml-0.5`}
-// `
-// const ListItem = styled.li`
-//   ${tw`flex-grow px-1.5 md:px-4 border-l font-medium`}
-//   &:last-child {
-//     ${tw`pr-0`}
-//   }
-// `
