@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 
 import "twin.macro"
-import useDeviceDetect from "components/hooks/useDeviceDetect"
 import { AddButton } from "components/ui/AddButton"
 import { ButtonCss, ButtonWrapper } from "components/ui/Button"
 import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
@@ -55,8 +54,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   isLocalLoader,
   handleSave,
 }: Props) => {
-  const { isMobile } = useDeviceDetect()
-
   const { t } = useTranslation()
 
   const [billingAddressFill, setBillingAddressFill] =
@@ -90,9 +87,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   }, [shipToDifferentAddress])
 
   const handleScroll = (type: AddressTypeEnum) => {
-    if (!isMobile) {
-      return
-    }
     const tab = document
       .querySelector(`h3[data-cy="${type}-address"]`)
       ?.getBoundingClientRect()
