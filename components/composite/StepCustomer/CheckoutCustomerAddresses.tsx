@@ -128,65 +128,69 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     <Fragment>
       <AddressSectionEmail readonly emailAddress={emailAddress} />
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
-        <>
-          <AddressSectionTitle data-cy="billing-address">
-            {t(`addressForm.billing_address_title`)}
-          </AddressSectionTitle>
-          {hasCustomerAddresses && (
-            <>
-              <Transition
-                show={!showBillingAddressForm}
-                {...addressesTransition}
-              >
-                <GridContainer className="mb-4">
-                  <BillingAddressContainer>
-                    <CustomerAddressCard
-                      addressType="billing"
-                      deselect={showBillingAddressForm}
-                      onSelect={() =>
-                        showBillingAddressForm &&
-                        setShowBillingAddressForm(false)
-                      }
-                    />
-                  </BillingAddressContainer>
-                </GridContainer>
-              </Transition>
+        <AddressSectionTitle data-cy="billing-address">
+          {t(`addressForm.billing_address_title`)}
+        </AddressSectionTitle>
+        <div className="relative overflow-hidden">
+          <>
+            {hasCustomerAddresses && (
+              <>
+                <Transition
+                  show={!showBillingAddressForm}
+                  {...addressesTransition}
+                >
+                  <GridContainer className="mb-4">
+                    <BillingAddressContainer>
+                      <CustomerAddressCard
+                        addressType="billing"
+                        deselect={showBillingAddressForm}
+                        onSelect={() =>
+                          showBillingAddressForm &&
+                          setShowBillingAddressForm(false)
+                        }
+                      />
+                    </BillingAddressContainer>
+                  </GridContainer>
+                </Transition>
 
-              {!showBillingAddressForm && hasCustomerAddresses && (
-                <AddButton
-                  dataCy="add_new_billing_address"
-                  action={handleShowBillingForm}
-                />
-              )}
-            </>
-          )}
-        </>
-        <div className="mt-4">
-          <Transition
-            show={showBillingAddressForm}
-            beforeEnter={() => setMountBillingAddressForm(true)}
-            afterLeave={() => setMountBillingAddressForm(false)}
-            {...formTransition}
-          >
-            <BillingAddressForm
-              autoComplete="on"
-              reset={!showBillingAddressForm}
-              errorClassName="hasError"
-            >
-              {mountBillingAddressForm || !hasCustomerAddresses ? (
-                <>
-                  <BillingAddressFormNew billingAddress={billingAddressFill} />
-                  <AddressFormBottom
-                    addressType="billing"
-                    onClick={handleShowBillingForm}
-                    hasCustomerAddresses={hasCustomerAddresses}
+                {!showBillingAddressForm && hasCustomerAddresses && (
+                  <AddButton
+                    dataCy="add_new_billing_address"
+                    action={handleShowBillingForm}
                   />
-                </>
-              ) : (
-                <Fragment />
-              )}
-            </BillingAddressForm>
-          </Transition>
+                )}
+              </>
+            )}
+          </>
+          <div className="top-0 mt-4">
+            <Transition
+              show={showBillingAddressForm}
+              beforeEnter={() => setMountBillingAddressForm(true)}
+              afterLeave={() => setMountBillingAddressForm(false)}
+              {...formTransition}
+            >
+              <BillingAddressForm
+                autoComplete="on"
+                reset={!showBillingAddressForm}
+                errorClassName="hasError"
+              >
+                {mountBillingAddressForm || !hasCustomerAddresses ? (
+                  <>
+                    <BillingAddressFormNew
+                      billingAddress={billingAddressFill}
+                    />
+                    <AddressFormBottom
+                      addressType="billing"
+                      onClick={handleShowBillingForm}
+                      hasCustomerAddresses={hasCustomerAddresses}
+                    />
+                  </>
+                ) : (
+                  <Fragment />
+                )}
+              </BillingAddressForm>
+            </Transition>
+          </div>
         </div>
         {isShipmentRequired && (
           <>
@@ -291,21 +295,22 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 }
 
 const addressesTransition = {
-  enter: "transform transition duration-[300ms]",
-  enterFrom: "opacity-0 scale-75",
-  enterTo: "opacity-100 scale-100",
-  leave: "transform duration-[200ms] transition ease-out",
-  leaveFrom: "opacity-100 scale-100 ",
-  leaveTo: "opacity-0 scale-75",
+  enter: "transform transition duration-400",
+  enterFrom: "opacity-0  -translate-y-full",
+  enterTo: "opacity-100 translate-y-0",
+  leave: "transform duration-400 transition ease-out absolute top-0 w-full",
+  leaveFrom: "opacity-100 translate-y-0 ",
+  leaveTo: "opacity-0 -translate-y-full",
 }
 
 const formTransition = {
-  enter: "transform transition duration-[300ms]",
+  enter: "transform transition duration-400",
   enterFrom: "opacity-0 translate-y-full",
   enterTo: "opacity-100 translate-y-0",
-  leave: "transform duration-[300ms] transition",
+  leave:
+    "transform duration-400 transition ease-out absolute top-0 w-full min-h-full",
   leaveFrom: "opacity-100 translate-y-0",
-  leaveTo: "opacity-0 -translate-y-full",
+  leaveTo: "opacity-0 translate-y-full",
 }
 
 const StyledSaveAddressesButton = styled(SaveAddressesButton)`
