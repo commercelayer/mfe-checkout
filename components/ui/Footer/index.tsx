@@ -7,12 +7,13 @@ import { Logo } from "./cl"
 interface Props {
   termsUrl?: string
   privacyUrl?: string
+  onMobile?: boolean
 }
 
-export const Footer: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
+export const Footer: React.FC<Props> = ({ termsUrl, privacyUrl, onMobile }) => {
   const { t } = useTranslation()
   return (
-    <Wrapper>
+    <Wrapper onMobile={onMobile}>
       <a
         target="_blank"
         href="https://commercelayer.io/"
@@ -47,8 +48,13 @@ export const Footer: React.FC<Props> = ({ termsUrl, privacyUrl }) => {
   )
 }
 
-const Wrapper = styled.div`
-  ${tw`flex justify-between items-center mt-10 border-t pt-3 text-xs text-gray-500 relative md:(z-20 bottom-0 sticky pb-3 bg-gray-100)`}
+interface FooterProps {
+  onMobile?: boolean
+}
+
+const Wrapper = styled.div<FooterProps>`
+  ${({ onMobile }) => (onMobile ? tw`flex md:hidden` : tw`hidden md:flex `)}
+  ${tw`justify-between items-center border-t m-5 mt-0 pt-5 text-xs text-gray-500 relative md:(z-20 bottom-0 sticky p-0 py-3 m-0 mt-20 bg-gray-100)`}
 
   &::before {
     ${tw`hidden md:(block top-0 absolute left-0 w-full z-10 h-2 shadow-top)`}

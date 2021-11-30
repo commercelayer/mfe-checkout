@@ -27,6 +27,7 @@ import { AppContext } from "components/data/AppProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
+import { Button, ButtonWrapper } from "components/ui/Button"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 
@@ -170,6 +171,14 @@ const Checkout: React.FC<Props> = ({
               </Accordion>
             </div>
           }
+          footer={
+            <>
+              <MobileStickyButton>
+                <Button>Place order test</Button>
+              </MobileStickyButton>
+              <Footer termsUrl={termsUrl} privacyUrl={privacyUrl} onMobile />
+            </>
+          }
         />
       </CustomerContainer>
     )
@@ -184,4 +193,13 @@ const Sidebar = styled.div`
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}
 `
+const MobileStickyButton = styled(ButtonWrapper)`
+  ${tw`sticky bottom-0 p-5 bg-gray-100 z-50 border-t md:hidden`}
+  &::before {
+    ${tw`top-0 absolute left-0 w-full z-10 h-2 shadow-top md:hidden`}
+
+    content: "";
+  }
+`
+
 export default Checkout
