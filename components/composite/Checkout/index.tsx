@@ -173,9 +173,6 @@ const Checkout: React.FC<Props> = ({
           }
           footer={
             <>
-              <MobileStickyButton>
-                <Button>Place order test</Button>
-              </MobileStickyButton>
               <Footer termsUrl={termsUrl} privacyUrl={privacyUrl} onMobile />
             </>
           }

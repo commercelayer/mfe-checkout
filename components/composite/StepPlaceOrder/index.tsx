@@ -159,17 +159,19 @@ const StepPlaceOrder: React.FC<Props> = ({
             </FlexContainer>
           )}
           <ButtonWrapper>
-            <StyledPlaceOrderButton
-              data-cy="place-order-button"
-              isActive={isActive}
-              onClick={handlePlaceOrder}
-              label={
-                <>
-                  {isPlacingOrder && <SpinnerIcon />}
-                  {t("stepPayment.submit")}
-                </>
-              }
-            />
+            <div className="fixed bottom-0 z-50 flex w-full py-4 bg-gray-100 md:w-min md:static md:z-auto md:py-0 md:bg-white">
+              <StyledPlaceOrderButton
+                data-cy="place-order-button"
+                isActive={isActive}
+                onClick={handlePlaceOrder}
+                label={
+                  <>
+                    {isPlacingOrder && <SpinnerIcon />}
+                    {t("stepPayment.submit")}
+                  </>
+                }
+              />
+            </div>
           </ButtonWrapper>
         </>
       </PlaceOrderContainer>
