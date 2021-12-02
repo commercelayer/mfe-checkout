@@ -6,7 +6,6 @@ import { Trans, useTranslation } from "react-i18next"
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
-import { ButtonWrapper } from "components/ui/Button"
 import { FlexContainer } from "components/ui/FlexContainer"
 import { Label } from "components/ui/Label"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
@@ -21,6 +20,7 @@ import {
   StyledPlaceOrderButton,
   StyledPrivacyAndTermsCheckbox,
   CheckboxWrapper,
+  PlaceOrderButtonWrapper,
 } from "./styled"
 
 interface Props {
@@ -158,21 +158,19 @@ const StepPlaceOrder: React.FC<Props> = ({
               </Label>
             </FlexContainer>
           )}
-          <ButtonWrapper>
-            <div className="fixed bottom-0 z-50 flex w-full py-4 bg-gray-100 md:w-min md:static md:z-auto md:py-0 md:bg-white">
-              <StyledPlaceOrderButton
-                data-cy="place-order-button"
-                isActive={isActive}
-                onClick={handlePlaceOrder}
-                label={
-                  <>
-                    {isPlacingOrder && <SpinnerIcon />}
-                    {t("stepPayment.submit")}
-                  </>
-                }
-              />
-            </div>
-          </ButtonWrapper>
+          <PlaceOrderButtonWrapper>
+            <StyledPlaceOrderButton
+              data-cy="place-order-button"
+              isActive={isActive}
+              onClick={handlePlaceOrder}
+              label={
+                <>
+                  {isPlacingOrder && <SpinnerIcon />}
+                  {t("stepPayment.submit")}
+                </>
+              }
+            />
+          </PlaceOrderButtonWrapper>
         </>
       </PlaceOrderContainer>
     </>

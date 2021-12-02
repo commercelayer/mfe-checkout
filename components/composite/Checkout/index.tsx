@@ -90,7 +90,7 @@ const Checkout: React.FC<Props> = ({
               <SummaryWrapper>
                 <OrderSummary appCtx={ctx} />
               </SummaryWrapper>
-              <Footer termsUrl={termsUrl} privacyUrl={privacyUrl} />
+              <Footer />
             </Sidebar>
           }
           main={
@@ -173,7 +173,7 @@ const Checkout: React.FC<Props> = ({
           }
           footer={
             <>
-              <Footer termsUrl={termsUrl} privacyUrl={privacyUrl} onMobile />
+              <Footer onMobile />
             </>
           }
         />
@@ -190,13 +190,4 @@ const Sidebar = styled.div`
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}
 `
-const MobileStickyButton = styled(ButtonWrapper)`
-  ${tw`sticky bottom-0 p-5 bg-gray-100 z-50 border-t md:hidden`}
-  &::before {
-    ${tw`top-0 absolute left-0 w-full z-10 h-2 shadow-top md:hidden`}
-
-    content: "";
-  }
-`
-
 export default Checkout

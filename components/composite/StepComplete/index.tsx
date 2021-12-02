@@ -76,7 +76,7 @@ export const StepComplete: React.FC<Props> = ({
               </WrapperButton>
             )}
           </Main>
-          <Footer termsUrl={termsUrl} privacyUrl={privacyUrl} />
+          <Footer />
         </Wrapper>
       </ContainerFlex>
     </Base>

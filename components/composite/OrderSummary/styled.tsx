@@ -14,7 +14,7 @@ export const TotalWrapper = styled.div`
   ${tw`flex flex-row`}
 `
 export const AmountWrapper = styled.div`
-  ${tw`flex flex-col flex-1 lg:pl-8`}
+  ${tw`flex flex-col flex-1 pb-32 md:pb-0 lg:pl-8`}
 `
 export const AmountSpacer = styled.div`
   ${tw`hidden lg:flex lg:flex-85`}
