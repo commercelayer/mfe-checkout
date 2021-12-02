@@ -13,13 +13,8 @@ export const Footer: React.FC = () => {
   )
 }
 
-interface FooterProps {
-  onMobile?: boolean
-}
-
-// ${({ onMobile }) => (onMobile ? tw`fixed md:hidden` : tw`hidden md:flex `)}
-const Wrapper = styled.div<FooterProps>`
-  ${tw`md:flex w-full bottom-0 justify-start items-center border-t px-5 py-2 text-xs text-gray-500 bg-gray-100 z-30 md:(bottom-0 sticky p-0 py-3 m-0 mt-20)`}
+const Wrapper = styled.div`
+  ${tw`md:flex fixed w-full bottom-0 justify-start items-center border-t px-5 py-2 text-xs text-gray-500 bg-gray-100 z-30 md:(bottom-0 sticky p-0 py-3 m-0 mt-20)`}
 
   &::before {
     ${tw`hidden md:(block top-0 absolute left-0 w-full z-10 h-2 shadow-top)`}
