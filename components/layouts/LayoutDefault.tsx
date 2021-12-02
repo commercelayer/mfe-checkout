@@ -8,10 +8,9 @@ import { Container } from "components/ui/Container"
 interface Props {
   aside: React.ReactNode
   main: React.ReactNode
-  footer: React.ReactNode
 }
 
-export const LayoutDefault: React.FC<Props> = ({ main, aside, footer }) => {
+export const LayoutDefault: React.FC<Props> = ({ main, aside }) => {
   return (
     <Base>
       <Container>
@@ -20,7 +19,6 @@ export const LayoutDefault: React.FC<Props> = ({ main, aside, footer }) => {
           <Main>
             <Card fullHeight>{main}</Card>
           </Main>
-          {footer}
         </Wrapper>
       </Container>
     </Base>

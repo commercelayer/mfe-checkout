@@ -27,7 +27,6 @@ import { AppContext } from "components/data/AppProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
-import { Button, ButtonWrapper } from "components/ui/Button"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 
@@ -170,11 +169,6 @@ const Checkout: React.FC<Props> = ({
                 </AccordionProvider>
               </Accordion>
             </div>
-          }
-          footer={
-            <>
-              <Footer onMobile />
-            </>
           }
         />
       </CustomerContainer>
