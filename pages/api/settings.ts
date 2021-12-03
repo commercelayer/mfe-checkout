@@ -148,7 +148,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     termsUrl: order.termsUrl,
     privacyUrl: order.privacyUrl,
   }
-  res.statusCode = 200
 
-  return res.json(appSettings)
+  return res
+    .setHeader("Cache-Control", "s-maxage=1, stale-while-revalidate")
+    .status(200)
+    .json(appSettings)
 }
