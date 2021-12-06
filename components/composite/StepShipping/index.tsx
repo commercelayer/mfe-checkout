@@ -191,11 +191,6 @@ export const StepShipping: React.FC<Props> = () => {
                     )}
                     <GridContainer className="mb-6">
                       <ShippingMethod emptyText={t("stepShipping.notAvaible")}>
-                        {() => {
-                          return props
-                        }}
-                      </ShippingMethod>
-                      <ShippingMethod emptyText={t("stepShipping.notAvaible")}>
                         <ShippingSummary>
                           <StyledShippingMethodRadioButton
                             className="form-radio mt-0.5 md:mt-0"
@@ -207,8 +202,6 @@ export const StepShipping: React.FC<Props> = () => {
                                 | Record<string, any>
                             ) => handleChange(shippingMethod)}
                           />
-                          <ShippingMethodName data-cy="shipping-method-name" />
-
                           <ShippingMethodName data-cy="shipping-method-name">
                             {(props) => {
                               const deliveryLeadTime =
@@ -219,7 +212,7 @@ export const StepShipping: React.FC<Props> = () => {
                               return (
                                 <label
                                   className="flex flex-col p-3 border rounded cursor-pointer hover:border-primary transition duration-200 ease-in"
-                                  htmlFor={`shipment-${props.shippingMethod.id}-${props.shippingMethod.id}`}
+                                  // htmlFor={`shipment-${props.shippingMethod.id}-${props.shippingMethod.id}`}
                                 >
                                   <ShippingLineItemTitle>
                                     {props.label}
