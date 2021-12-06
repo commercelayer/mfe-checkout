@@ -9,11 +9,11 @@ import {
   AddressInputName,
   AddressStateSelectName,
   BaseInputType,
-} from "@commercelayer/react-components/dist/typings"
+} from "@commercelayer/react-components/lib/cjs/typings"
 import {
-  ResourceErrorType,
   ErrorComponentProps,
-} from "@commercelayer/react-components/dist/typings/errors"
+  ResourceErrorType,
+} from "@commercelayer/react-components/lib/cjs/typings/errors"
 import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
@@ -42,25 +42,25 @@ export const AddressInputGroup: React.FC<Props> = ({
   const messages: ErrorComponentProps["messages"] = [
     {
       code: "VALIDATION_ERROR",
-      resource: "billingAddress",
+      resource: "billing_address",
       field: fieldName,
       message: t("input.mustBeValidFormat"),
     },
     {
       code: "VALIDATION_ERROR",
-      resource: "shippingAddress",
+      resource: "shipping_address",
       field: fieldName,
       message: t("input.mustBeValidFormat"),
     },
     {
       code: "EMPTY_ERROR",
-      resource: "billingAddress",
+      resource: "billing_address",
       field: fieldName,
       message: t("input.cantBlank"),
     },
     {
       code: "EMPTY_ERROR",
-      resource: "shippingAddress",
+      resource: "shipping_address",
       field: fieldName,
       message: t("input.cantBlank"),
     },

@@ -10,6 +10,7 @@ interface CheckoutSettings {
   orderNumber: number
   validCheckout: boolean
   endpoint: string
+  slug: string
   logoUrl?: string
   companyName: string
   language: string

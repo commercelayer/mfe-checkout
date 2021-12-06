@@ -1,41 +1,36 @@
-import CLayer, {
-  AddressCollection,
+import CommerceLayer, {
   Order,
-  OrderCollection,
-  CustomerAddressCollection,
-  // ShippingMethod,
-  PaymentMethodCollection,
+  Address,
+  CustomerAddress,
   PaymentMethod,
-  LineItemCollection,
-  StripePaymentCollection,
-  WireTransferCollection,
-  PaypalPaymentCollection,
-  BraintreePaymentCollection,
-  AdyenPaymentCollection,
-} from "@commercelayer/js-sdk"
-import {
-  Collection,
-  CollectionResponse,
-  JSONAPIResponse,
-  SingleRelationship,
-} from "@commercelayer/js-sdk/dist/typings/Library"
+  CommerceLayerClient,
+  OrderUpdate,
+  StripePayment,
+  WireTransfer,
+  AdyenPayment,
+  BraintreePayment,
+  CheckoutComPayment,
+  ExternalPayment,
+  PaypalPayment,
+} from "@commercelayer/sdk"
 import i18n from "i18next"
 
 interface FetchOrderByIdProps {
   orderId: string
   accessToken: string
-  endpoint: string
+  slug: string
 }
 
 interface IsNewAddressProps {
-  address: AddressCollection | null
-  customerAddresses: Array<CustomerAddressCollection> | undefined
+  address: Address | undefined
+  customerAddresses: Array<CustomerAddress> | undefined
   isGuest: boolean
 }
 
 interface CheckAndSetDefaultAddressForOrderProps {
-  order: OrderCollection
-  customerAddresses: Array<CustomerAddressCollection>
+  cl: CommerceLayerClient
+  order: Order
+  customerAddresses: Array<CustomerAddress>
 }
 
 export interface FetchOrderByIdResponse {
@@ -44,24 +39,24 @@ export interface FetchOrderByIdResponse {
   isUsingNewShippingAddress: boolean
   hasSameAddresses: boolean
   hasEmailAddress: boolean
-  emailAddress: string
+  emailAddress: string | undefined
   hasShippingAddress: boolean
-  shippingAddress: AddressCollection | null
+  shippingAddress: Address | undefined
   hasBillingAddress: boolean
-  billingAddress: AddressCollection | null
+  billingAddress: Address | undefined
   requiresBillingInfo: boolean
   hasShippingMethod: boolean
-  paymentMethod: PaymentMethodCollection | null
+  paymentMethod: PaymentMethod | undefined
   shipments: Array<ShipmentSelected>
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
-  shippingCountryCodeLock: string
+  shippingCountryCodeLock: string | undefined
   isShipmentRequired: boolean
   isPaymentRequired: boolean
   isComplete: boolean
-  returnUrl: string
+  returnUrl: string | undefined
   isCreditCard: boolean
-  taxIncluded: boolean
+  taxIncluded: boolean | undefined
 }
 
 async function isNewAddress({
@@ -97,40 +92,47 @@ async function isNewAddress({
 }
 
 async function checkAndSetDefaultAddressForOrder({
+  cl,
   order,
   customerAddresses,
 }: CheckAndSetDefaultAddressForOrderProps) {
   if (
-    !!order.shippingCountryCodeLock &&
-    order.shippingCountryCodeLock !==
-      customerAddresses[0].address()?.countryCode
+    !!order.shipping_country_code_lock &&
+    order.shipping_country_code_lock !==
+      customerAddresses[0].address?.country_code
   ) {
     return
   }
 
-  const addressId = customerAddresses[0].address()?.id
+  const addressId = customerAddresses[0].address?.id
   const customerAddressId = customerAddresses[0].id
 
-  const updateObjet: Partial<Record<string, string>> = {
-    _billingAddressCloneId: addressId,
-    _shippingAddressCloneId: addressId,
+  const updateObjet: OrderUpdate = {
+    id: order.id,
+    _billing_address_clone_id: addressId,
+    _shipping_address_clone_id: addressId,
   }
   try {
-    await order
-      .update(updateObjet)
-      .then(async function (orderObj: OrderCollection) {
-        const billingAddressToUpdate = await orderObj.billingAddress()
-        const shippingAddressToUpdate = orderObj.shippingAddress()
-        if (billingAddressToUpdate) {
-          await billingAddressToUpdate.update({
-            reference: customerAddressId,
-          })
-        }
-        if (shippingAddressToUpdate) {
-          await shippingAddressToUpdate.update({
-            reference: customerAddressId,
-          })
-        }
+    await cl.orders
+      .update(updateObjet, { include: ["billing_address", "shipping_address"] })
+      .then(async function (orderObj: Order) {
+        const billingAddressToUpdate = orderObj.billing_address?.id
+        const shippingAddressToUpdate = orderObj.shipping_address?.id
+        await cl.orders.update({
+          id: order.id,
+          ...(billingAddressToUpdate && {
+            billing_address: {
+              id: customerAddressId,
+              type: "addresses",
+            },
+          }),
+          ...(shippingAddressToUpdate && {
+            shipping_address: {
+              id: customerAddressId,
+              type: "addresses",
+            },
+          }),
+        })
       })
   } catch (error) {
     console.log(error)
@@ -138,8 +140,8 @@ async function checkAndSetDefaultAddressForOrder({
 }
 
 interface IsBillingAddresSameAsShippingAddressProps {
-  billingAddress: AddressCollection | null
-  shippingAddress: AddressCollection | null
+  billingAddress: Address | undefined
+  shippingAddress: Address | undefined
 }
 
 function isBillingAddresSameAsShippingAddress({
@@ -170,24 +172,26 @@ function isBillingAddresSameAsShippingAddress({
 }
 
 async function checkIfShipmentRequired(
-  order: OrderCollection
+  cl: CommerceLayerClient,
+  orderId: string
 ): Promise<boolean> {
-  const lineItems:
-    | Collection<
-        Partial<
-          LineItemCollection &
-            CollectionResponse<LineItemCollection> &
-            JSONAPIResponse & { length: number }
-        >
-      >[]
-    | undefined = (
-    await order
-      .lineItems()
-      ?.where({ itemTypeCont: "skus" })
-      ?.includes("item")
-      ?.select("item_type")
-      ?.all()
-  )?.__collection?.filter((e) => !e?.association("item")?.target?.doNotShip)
+  const lineItems = (
+    await cl.orders.retrieve(orderId, {
+      fields: {
+        line_items: ["item_type"],
+      },
+      include: ["line_items"],
+    })
+  ).line_items?.filter((line_item) => line_item.item_type === "skus")
+
+  // const lineItems: "interface" = (
+  //   await order
+  //     .lineItems()
+  //     ?.where({ itemTypeCont: "skus" })
+  //     ?.includes("item")
+  //     ?.select("item_type")
+  //     ?.all()
+  // )?.__collection?.filter((e) => !e?.association("item")?.target?.doNotShip)
 
   if (lineItems?.length === undefined) {
     return false
@@ -199,72 +203,71 @@ async function checkIfShipmentRequired(
 export const fetchOrderById = async ({
   orderId,
   accessToken,
-  endpoint,
+  slug,
 }: FetchOrderByIdProps): Promise<FetchOrderByIdResponse> => {
-  CLayer.init({
-    accessToken,
-    endpoint,
+  const cl = CommerceLayer({
+    organization: slug,
+    accessToken: accessToken,
   })
 
   try {
     const fetchOrder = async () => {
-      return Order.includes(
-        "shipping_address",
-        "billing_address",
-        "shipments",
-        "shipments.shipping_method",
-        "payment_method",
-        "payment_source",
-        "customer",
-        "customer.customer_addresses",
-        "customer.customer_addresses.address"
-      ).find(orderId)
+      return cl.orders.retrieve(orderId, {
+        include: [
+          "shipping_address",
+          "billing_address",
+          "shipments",
+          "shipments.shipping_method",
+          "payment_method",
+          "payment_source",
+          "customer",
+          "customer.customer_addresses",
+          "customer.customer_addresses.address",
+        ],
+      })
     }
 
-    let order: OrderCollection = await fetchOrder()
+    let order: Order = await fetchOrder()
 
-    const isShipmentRequired = await checkIfShipmentRequired(order)
+    const isShipmentRequired = await checkIfShipmentRequired(cl, order.id)
 
     const fetchShipments = async () => {
-      return (
-        await order.shipments()?.includes("shipping_method").load()
-      )?.toArray()
+      return order.shipments
     }
 
-    const isPaymentRequired = !(order.totalAmountWithTaxesFloat === 0)
+    const isPaymentRequired = !(order.total_amount_with_taxes_float === 0)
 
     const isGuest = Boolean(order.guest)
 
-    const customer = isGuest ? undefined : order.customer()
-    const addresses = customer && customer.customerAddresses()
-    const arrayAddresses = addresses?.toArray()
+    const customer = isGuest ? undefined : order.customer
+    const addresses = customer && customer.customer_addresses
 
-    let billingAddress = await order.billingAddress()
-    let shippingAddress = order.shippingAddress()
+    let billingAddress = order.billing_address
+    let shippingAddress = order.shipping_address
 
-    const shippingCountryCodeLock = order.shippingCountryCodeLock
+    const shippingCountryCodeLock = order.shipping_country_code_lock
 
     // If we have a customer with a single customer address and
     // the order has no billing or shipping address, we are going
     // to assume the customer address as the default one
     if (
       !isGuest &&
-      arrayAddresses &&
-      arrayAddresses.length === 1 &&
+      addresses &&
+      addresses.length === 1 &&
       !shippingAddress &&
       !billingAddress
     ) {
       try {
         await checkAndSetDefaultAddressForOrder({
+          cl,
           order: order,
-          customerAddresses: arrayAddresses,
+          customerAddresses: addresses,
         })
-        const orderUpdated = await Order.includes(
-          "shipping_address",
-          "billing_address"
-        ).find(orderId)
-        shippingAddress = orderUpdated.shippingAddress()
-        billingAddress = await orderUpdated.billingAddress()
+        const orderUpdated = await cl.orders.retrieve(order.id, {
+          include: ["shipping_address", "billing_address"],
+        })
+        shippingAddress = orderUpdated.shipping_address
+        billingAddress = orderUpdated.billing_address
         order = await fetchOrder()
       } catch {
         console.log("error updating customer address as default for order")
@@ -274,11 +277,10 @@ export const fetchOrderById = async ({
     const hasShippingAddress = Boolean(shippingAddress)
     const hasBillingAddress = Boolean(billingAddress)
 
-    const hasCustomerAddresses =
-      (arrayAddresses && arrayAddresses.length >= 1) || false
+    const hasCustomerAddresses = (addresses && addresses.length >= 1) || false
 
-    const hasEmailAddress = Boolean(order.customerEmail)
-    const emailAddress = order.customerEmail
+    const hasEmailAddress = Boolean(order.customer_email)
+    const emailAddress = order.customer_email
 
     // const shippingMethodsAvailable = isShipmentRequired
     //   ? (await ShippingMethod.all()).toArray()
@@ -287,8 +289,8 @@ export const fetchOrderById = async ({
     const shipmentsSelected = shipments?.map((a) => {
       return {
         shipmentId: a.id,
-        shippingMethodId: a.shippingMethod()?.id,
-        shippingMethodName: a.shippingMethod()?.name,
+        shippingMethodId: a.shipping_method?.id,
+        shippingMethodName: a.shipping_method?.name,
       }
     })
 
@@ -328,29 +330,36 @@ export const fetchOrderById = async ({
       }
     } */
 
-    const paymentMethod = order.paymentMethod()
-    const paymentSource: SingleRelationship<
-      | (StripePaymentCollection & {
+    const paymentMethod = order.payment_method
+    const paymentSource:
+      | (AdyenPayment & {
           options?: { card?: string }
           metadata: { card?: string }
         })
-      | (WireTransferCollection & {
+      | (BraintreePayment & {
           options?: { card?: string }
           metadata: { card?: string }
         })
-      | (PaypalPaymentCollection & {
+      | (CheckoutComPayment & {
           options?: { card?: string }
           metadata: { card?: string }
         })
-      | (BraintreePaymentCollection & {
+      | (ExternalPayment & {
+          options?: { card?: string }
+        })
+      | (PaypalPayment & {
           options?: { card?: string }
           metadata: { card?: string }
         })
-      | (AdyenPaymentCollection & {
+      | (StripePayment & {
           options?: { card?: string }
           metadata: { card?: string }
         })
-    > = order.paymentSource()
+      | (WireTransfer & {
+          options?: { card?: string }
+          metadata: { card?: string }
+        })
+      | undefined = order.payment_source
     let hasPaymentMethod = Boolean(
       paymentSource?.metadata?.card || paymentSource?.options?.card
     )
@@ -360,13 +369,13 @@ export const fetchOrderById = async ({
     }
 
     const isCreditCard =
-      paymentMethod?.paymentSourceType === "adyen_payments" ||
-      paymentMethod?.paymentSourceType === "stripe_payments" ||
-      paymentMethod?.paymentSourceType === "braintree_payments"
+      paymentMethod?.payment_source_type === "adyen_payments" ||
+      paymentMethod?.payment_source_type === "stripe_payments" ||
+      paymentMethod?.payment_source_type === "braintree_payments"
 
-    const allAvailablePaymentMethods = (await PaymentMethod.all())
-      .toArray()
-      .filter(({ disabledAt }) => disabledAt === null)
+    const allAvailablePaymentMethods = (await cl.payment_methods.list()).filter(
+      ({ disabled_at }) => disabled_at === null
+    )
 
     // If we have a customer with a single payment method
     // the payment method is automatically selected
@@ -378,14 +387,12 @@ export const fetchOrderById = async ({
       allAvailablePaymentMethods.length === 1
     ) {
       try {
-        const paymentMethod = PaymentMethod.build({
-          id: allAvailablePaymentMethods[0].id,
-        })
-
-        await (
-          await Order.find(order.id)
-        ).update({
-          paymentMethod,
+        await cl.orders.update({
+          id: order.id,
+          payment_method: {
+            id: allAvailablePaymentMethods[0].id,
+            type: "payment_methods",
+          },
         })
 
         // order.available_Customer_payment_sources
@@ -396,12 +403,12 @@ export const fetchOrderById = async ({
 
     const isUsingNewBillingAddress = await isNewAddress({
       address: billingAddress,
-      customerAddresses: arrayAddresses,
+      customerAddresses: addresses,
       isGuest,
     })
     const isUsingNewShippingAddress = await isNewAddress({
       address: shippingAddress,
-      customerAddresses: arrayAddresses,
+      customerAddresses: addresses,
       isGuest,
     })
 
@@ -412,15 +419,15 @@ export const fetchOrderById = async ({
 
     const isComplete = order.status === "placed"
 
-    const returnUrl = order.returnUrl
+    const returnUrl = order.return_url
 
-    const taxIncluded = order.taxIncluded
+    const taxIncluded = order.tax_included
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const requiresBillingInfo = order.requiresBillingInfo
 
-    await i18n.changeLanguage(order.languageCode)
+    await i18n.changeLanguage(order.language_code)
 
     return {
       isGuest,
@@ -458,13 +465,13 @@ export const fetchOrderById = async ({
       hasEmailAddress: false,
       emailAddress: "",
       hasShippingAddress: false,
-      shippingAddress: null,
+      shippingAddress: undefined,
       hasBillingAddress: false,
-      billingAddress: null,
+      billingAddress: undefined,
       requiresBillingInfo: false,
       hasShippingMethod: false,
       shipments: [],
-      paymentMethod: null,
+      paymentMethod: undefined,
       hasPaymentMethod: false,
       shippingCountryCodeLock: "",
       isShipmentRequired: true,

@@ -19,7 +19,7 @@ export const Toggle: React.FC<Props> = ({
     <Wrapper>
       <ButtonToggle className={className} checked={checked}>
         <ButtonTrack {...rest} type="button" onClick={onChange}>
-          <span tw="sr-only">Use setting</span>
+          <span className="sr-only">Use setting</span>
           <Dot aria-hidden="true" />
         </ButtonTrack>
         <Label>{label}</Label>

@@ -36,7 +36,7 @@ export const StepComplete: React.FC<Props> = ({
   const ctx = useContext(AppContext)
 
   const handleClick = () => {
-    return ctx?.returnUrl && (document.location.href = ctx?.returnUrl)
+    ctx?.returnUrl && (document.location.href = ctx?.returnUrl)
   }
 
   return (
@@ -46,14 +46,14 @@ export const StepComplete: React.FC<Props> = ({
           <Logo
             logoUrl={logoUrl}
             companyName={companyName}
-            tw="pt-10 mb-10 pl-4 self-center md:self-auto"
+            className="self-center pt-10 pl-4 mb-10 md:self-auto"
           />
           <Main>
             <div className="p-8">
               <CheckIcon />
             </div>
             <Title>{t("stepComplete.title")}</Title>
-            <Text data-cy="complete-checkout-summary" tw="text-gray-500">
+            <Text data-cy="complete-checkout-summary" className="text-gray-500">
               <Trans
                 i18nKey={"stepComplete.summary"}
                 values={{ orderNumber: orderNumber }}
@@ -73,6 +73,8 @@ export const StepComplete: React.FC<Props> = ({
                 <Button data-cy="button-continue-to-shop" onClick={handleClick}>
                   {t("stepComplete.continue")}
                 </Button>
+
+                {""}
               </WrapperButton>
             )}
           </Main>

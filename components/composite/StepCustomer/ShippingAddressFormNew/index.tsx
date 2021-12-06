@@ -1,4 +1,4 @@
-import { AddressCollection } from "@commercelayer/js-sdk"
+import { Address } from "@commercelayer/sdk"
 import { Fragment } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -6,7 +6,7 @@ import tw from "twin.macro"
 import { AddressInputGroup } from "components/composite/StepCustomer/AddressInputGroup"
 
 interface Props {
-  shippingAddress: AddressCollection | null
+  shippingAddress: Address | null
 }
 
 export const ShippingAddressFormNew: React.FC<Props> = ({
@@ -17,24 +17,24 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
       <Grid>
         <AddressInputGroup
           fieldName="shipping_address_first_name"
-          resource="shippingAddress"
+          resource="shipping_address"
           type="text"
-          value={shippingAddress?.firstName || ""}
+          value={shippingAddress?.first_name || ""}
         />
 
         <AddressInputGroup
           fieldName="shipping_address_last_name"
-          resource="shippingAddress"
+          resource="shipping_address"
           type="text"
-          value={shippingAddress?.lastName || ""}
+          value={shippingAddress?.last_name || ""}
         />
       </Grid>
 
       <AddressInputGroup
         fieldName="shipping_address_line_1"
-        resource="shippingAddress"
+        resource="shipping_address"
         type="text"
-        value={shippingAddress?.line1 || ""}
+        value={shippingAddress?.line_1 || ""}
       />
 
       <AddressInputGroup
@@ -47,38 +47,38 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
       <Grid>
         <AddressInputGroup
           fieldName="shipping_address_city"
-          resource="shippingAddress"
+          resource="shipping_address"
           type="text"
           value={shippingAddress?.city || ""}
         />
 
         <AddressInputGroup
           fieldName="shipping_address_country_code"
-          resource="shippingAddress"
+          resource="shipping_address"
           type="text"
-          value={shippingAddress?.countryCode || ""}
+          value={shippingAddress?.country_code || ""}
         />
       </Grid>
 
       <Grid>
         <AddressInputGroup
           fieldName="shipping_address_state_code"
-          resource="shippingAddress"
+          resource="shipping_address"
           type="text"
-          value={shippingAddress?.stateCode || ""}
+          value={shippingAddress?.state_code || ""}
         />
 
         <AddressInputGroup
           fieldName="shipping_address_zip_code"
-          resource="shippingAddress"
+          resource="shipping_address"
           type="text"
-          value={shippingAddress?.zipCode || ""}
+          value={shippingAddress?.zip_code || ""}
         />
       </Grid>
 
       <AddressInputGroup
         fieldName="shipping_address_phone"
-        resource="shippingAddress"
+        resource="shipping_address"
         type="tel"
         value={shippingAddress?.phone || ""}
       />

@@ -4,11 +4,11 @@ import {
   LineItemName,
   LineItemQuantity,
   LineItemAmount,
-  LineItemSkuCode,
   LineItemOptions,
   LineItemOption,
+  LineItemCode,
 } from "@commercelayer/react-components"
-import { LineItemType } from "@commercelayer/react-components/dist/typings"
+import { LineItemType } from "@commercelayer/react-components/lib/cjs/typings"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -62,7 +62,7 @@ const LineItemTitle = styled.div`
 const LineItemQty = styled.div`
   ${tw`text-xs uppercase mt-1 bg-gray-300 max-w-max py-1 px-2.5 rounded-full tracking-wider text-gray-500 font-bold`}
 `
-const StyledLineItemSkuCode = styled(LineItemSkuCode)`
+const StyledLineItemSkuCode = styled(LineItemCode)`
   ${tw`text-xxs uppercase text-gray-500 font-bold`}
 `
 const StyledLineItemOption = styled(LineItemOption)`

@@ -1,4 +1,3 @@
-import { ShippingMethodCollection } from "@commercelayer/js-sdk"
 import {
   LineItem,
   Shipment,
@@ -15,6 +14,7 @@ import {
   DeliveryLeadTime,
   ShipmentField,
 } from "@commercelayer/react-components"
+import { ShippingMethod as ShippingMethodCollection } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { useTranslation, Trans } from "next-i18next"
 import { useContext, useState, useEffect } from "react"
@@ -121,7 +121,7 @@ export const StepShipping: React.FC<Props> = () => {
   ): void => {
     setShipmentsSelected((shipmentsSelected) =>
       shipmentsSelected?.map((shipment) => {
-        return shipment.shipmentId === shippingMethod.shipmentId
+        return shipment.shipmentId === shippingMethod.id
           ? {
               ...shipment,
               shippingMethodId: shippingMethod.id,
@@ -164,7 +164,7 @@ export const StepShipping: React.FC<Props> = () => {
                   <ShippingWrapper>
                     {shipments.length > 1 && (
                       <ShippingTitle>
-                        <ShipmentField name="keyNumber">
+                        <ShipmentField name="key_number">
                           {(props) => {
                             const index = shipments.findIndex(
                               (item) => item.shipmentId === props.shipment.id
@@ -191,6 +191,11 @@ export const StepShipping: React.FC<Props> = () => {
                     )}
                     <GridContainer className="mb-6">
                       <ShippingMethod emptyText={t("stepShipping.notAvaible")}>
+                        {() => {
+                          return props
+                        }}
+                      </ShippingMethod>
+                      <ShippingMethod emptyText={t("stepShipping.notAvaible")}>
                         <ShippingSummary>
                           <StyledShippingMethodRadioButton
                             className="form-radio mt-0.5 md:mt-0"
@@ -202,35 +207,38 @@ export const StepShipping: React.FC<Props> = () => {
                                 | Record<string, any>
                             ) => handleChange(shippingMethod)}
                           />
+                          <ShippingMethodName data-cy="shipping-method-name" />
+
                           <ShippingMethodName data-cy="shipping-method-name">
                             {(props) => {
                               const deliveryLeadTime =
                                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                 // @ts-ignore
                                 props?.deliveryLeadTimeForShipment
+                              console.log(props)
                               return (
                                 <label
                                   className="flex flex-col p-3 border rounded cursor-pointer hover:border-primary transition duration-200 ease-in"
-                                  htmlFor={`shipment-${props.shippingMethod.shipmentId}-${props.shippingMethod.id}`}
+                                  htmlFor={`shipment-${props.shippingMethod.id}-${props.shippingMethod.id}`}
                                 >
                                   <ShippingLineItemTitle>
                                     {props.label}
                                   </ShippingLineItemTitle>
-                                  {deliveryLeadTime?.minDays &&
+                                  {deliveryLeadTime?.min_days &&
                                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                     // @ts-ignore
-                                    deliveryLeadTime?.maxDays && (
+                                    deliveryLeadTime?.max_days && (
                                       <ShippingSummaryItemDescription>
                                         <Trans
                                           t={t}
                                           i18nKey="stepShipping.deliveryLeadTime"
                                         >
                                           <DeliveryLeadTime
-                                            type="minDays"
+                                            type="min_days"
                                             data-cy="delivery-lead-time-min-days"
                                           />
                                           <DeliveryLeadTime
-                                            type="maxDays"
+                                            type="max_days"
                                             data-cy="delivery-lead-time-max-days"
                                             className="mr-1"
                                           />

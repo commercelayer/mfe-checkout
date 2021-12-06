@@ -16,7 +16,7 @@ const Invalid: NextPage = () => {
       <Container>
         <Wrapper>
           <LogoWrapper>
-            <Logo tw="text-black md:pl-4 self-center md:self-auto" />
+            <Logo className="self-center text-black md:pl-4 md:self-auto" />
           </LogoWrapper>
           <Main>
             <Error>

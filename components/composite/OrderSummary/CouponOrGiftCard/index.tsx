@@ -3,7 +3,7 @@ import {
   GiftCardOrCouponSubmit,
   GiftCardOrCouponForm,
 } from "@commercelayer/react-components"
-import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
+import { ErrorComponentProps } from "@commercelayer/react-components/lib/cjs/typings/errors"
 import { useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -50,7 +50,7 @@ export const CouponOrGiftCard: React.FC = () => {
   const messages: ErrorComponentProps["messages"] = [
     {
       code: "VALIDATION_ERROR",
-      resource: "order",
+      resource: "orders",
       field: "giftCardOrCouponCode",
       message: t("input.mustBeValidCouponOrGiftCard"),
     },
@@ -73,7 +73,7 @@ export const CouponOrGiftCard: React.FC = () => {
             />
           </CouponFieldWrapper>
           <StyledErrors
-            resource="order"
+            resource="orders"
             field="giftCardOrCouponCode"
             messages={messages}
           />
@@ -99,7 +99,7 @@ export const CouponOrGiftCard: React.FC = () => {
         }}
       </GiftCardOrCouponCode>
       <GiftCardOrCouponCode
-        type="giftCard"
+        type="gift_card"
         className="inline-flex items-center text-sm font-medium"
       >
         {(props) => {
@@ -110,7 +110,7 @@ export const CouponOrGiftCard: React.FC = () => {
                 {code}
                 <StyledGiftCardOrCouponRemoveButton
                   data-cy="remove_giftcard"
-                  type="giftCard"
+                  type="gift_card"
                   className=""
                   label="Remove"
                   onClick={refetchOrder}

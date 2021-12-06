@@ -41,13 +41,13 @@ export const SupportMessage: React.FC<Props> = ({
       components={{
         WrapperEmail: (
           <strong
-            tw="cursor-pointer text-black border-b border-gray-400"
+            className="text-black border-b border-gray-400 cursor-pointer"
             onClick={handleEmail}
           />
         ),
         WrapperPhone: (
           <strong
-            tw="cursor-pointer text-black border-b border-gray-400"
+            className="text-black border-b border-gray-400 cursor-pointer"
             onClick={handlePhone}
           />
         ),

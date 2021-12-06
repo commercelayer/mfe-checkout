@@ -1,5 +1,5 @@
-import { AddressCollection } from "@commercelayer/js-sdk"
 import { Address, AddressField } from "@commercelayer/react-components"
+import { Address as AddressCollection } from "@commercelayer/sdk"
 
 interface AddressCardProps {
   addressType: "shipping" | "billing"
@@ -34,14 +34,14 @@ export const CustomerAddressCard: React.FC<AddressCardProps> = ({
         <AddressField>
           {({ address }) => (
             <CustomAddress
-              firstName={address.firstName}
-              lastName={address.lastName}
+              firstName={address.first_name}
+              lastName={address.last_name}
               city={address.city}
-              line1={address.line1}
-              line2={address.line2}
-              zipCode={address.zipCode}
-              stateCode={address.stateCode}
-              countryCode={address.countryCode}
+              line1={address.line_1}
+              line2={address.line_2}
+              zipCode={address.zip_code}
+              stateCode={address.state_code}
+              countryCode={address.country_code}
               phone={address.phone}
               addressType={addressType}
             />
@@ -53,15 +53,15 @@ export const CustomerAddressCard: React.FC<AddressCardProps> = ({
 }
 
 interface AddressProps {
-  firstName: string
-  lastName: string
-  city: string
-  line1: string
-  line2: string
-  zipCode: string
-  stateCode: string
-  countryCode: string
-  phone: string
+  firstName?: string
+  lastName?: string
+  city?: string
+  line1?: string
+  line2?: string
+  zipCode?: string
+  stateCode?: string
+  countryCode?: string
+  phone?: string
   addressType: string
 }
 

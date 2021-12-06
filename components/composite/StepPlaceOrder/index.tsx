@@ -1,5 +1,5 @@
 import { PlaceOrderContainer } from "@commercelayer/react-components"
-import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
+import { ErrorComponentProps } from "@commercelayer/react-components/lib/cjs/typings/errors"
 import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -51,43 +51,43 @@ const StepPlaceOrder: React.FC<Props> = ({
   const messages: ErrorComponentProps["messages"] = [
     {
       code: "VALIDATION_ERROR",
-      resource: "order",
+      resource: "orders",
       field: "status",
       message: t("error.transition"),
     },
     {
       code: "VALIDATION_ERROR",
-      resource: "order",
+      resource: "orders",
       field: "paymentMethod",
       message: t("error.paymentMethod"),
     },
     {
       code: "VALIDATION_ERROR",
-      resource: "order",
+      resource: "orders",
       field: "giftCardOrCouponCode",
       message: " ",
     },
     {
       code: "PAYMENT_NOT_APPROVED_FOR_EXECUTION",
-      resource: "order",
+      resource: "orders",
       field: "base",
       message: t("error.payer"),
     },
     {
       code: "INVALID_RESOURCE_ID",
-      resource: "order",
+      resource: "orders",
       field: "base",
       message: t("error.resourceID"),
     },
     {
       code: "EMPTY_ERROR",
-      resource: "order",
+      resource: "orders",
       field: "customer_email",
       message: " ",
     },
     {
       code: "VALIDATION_ERROR",
-      resource: "order",
+      resource: "orders",
       field: "customer_email",
       message: " ",
     },
@@ -106,7 +106,7 @@ const StepPlaceOrder: React.FC<Props> = ({
   return (
     <>
       <ErrorsContainer>
-        <StyledErrors resource="order" messages={messages}>
+        <StyledErrors resource="orders" messages={messages}>
           {(props) => {
             if (props.errors.length === 0) {
               return null

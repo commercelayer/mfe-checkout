@@ -29,7 +29,7 @@ export const PaymentSummaryList = () => {
           <PaymentMethodPrice labelFree={t("general.free")} />
         </PaymentSummaryValue>
       </PaymentSummary>
-      <StyledErrors resource="paymentMethod" />
+      <StyledErrors resource="payment_methods" />
     </>
   )
 }

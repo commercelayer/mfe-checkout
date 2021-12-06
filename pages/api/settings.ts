@@ -1,6 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Order, OrderCollection, Organization } from "@commercelayer/js-sdk"
-import { JSONAPIResponse } from "@commercelayer/js-sdk/dist/typings/Library"
+import CommerceLayer, { Order } from "@commercelayer/sdk"
 import jwt_decode from "jwt-decode"
 import type { NextApiRequest, NextApiResponse } from "next"
 
@@ -21,6 +20,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const orderId = req.query.orderId as string
   const paymentReturn = req.query.paymentReturn === "true"
 
+  let cl
+  let slug_cl
+
   function invalidateCheckout() {
     res.statusCode = 200
     return res.json({ validCheckout: false })
@@ -39,6 +41,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       application: { kind },
     } = jwt_decode(accessToken) as JWTProps
 
+    slug_cl = slug
+
+    cl = CommerceLayer({
+      organization: slug,
+      accessToken: accessToken,
+    })
+
     const subdomain = req.headers.host?.split(":")[0].split(".")[0]
 
     if (subdomain !== slug || kind !== "sales_channel") {
@@ -56,33 +65,31 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let order
 
   try {
-    const orderFetched: OrderCollection &
-      JSONAPIResponse & { autorefresh?: boolean } = await Order.withCredentials(
-      {
-        accessToken,
-        endpoint,
-      }
-    )
-      .select(
-        "id",
-        "autorefresh",
-        "status",
-        "number",
-        "guest",
-        "language_code",
-        "terms_url",
-        "privacy_url"
-      )
-      .find(orderId)
+    const orderFetched: Order = await cl.orders.retrieve(orderId, {
+      fields: {
+        orders: [
+          "id",
+          "autorefresh",
+          "status",
+          "number",
+          "guest",
+          "language_code",
+          "terms_url",
+          "privacy_url",
+        ],
+      },
+      include: ["line_items"],
+    })
 
     if (orderFetched.status === "draft" || orderFetched.status === "pending") {
       const _refresh = !paymentReturn
 
-      order = await orderFetched
-        ?.withCredentials({ accessToken, endpoint })
-        .update(orderFetched.autorefresh ? { _refresh } : { autorefresh: true })
+      order = await cl.orders.update({
+        id: orderFetched.id,
+        ...(!orderFetched.autorefresh && { autorefresh: true }),
+      })
     } else if (orderFetched.status === "placed") {
-      order = orderFetched?.withCredentials({ accessToken, endpoint })
+      order = await cl.orders.retrieve(orderId)
     }
   } catch (e) {
     console.log("error on retrieving order:")
@@ -97,10 +104,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   let organization
   try {
-    organization = await Organization.withCredentials({
-      accessToken,
-      endpoint,
-    }).all()
+    organization = await cl.organization.retrieve()
   } catch (e) {
     console.log("error on retrieving organization:")
     console.log(e)
@@ -111,16 +115,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const lineItemsCount = (
-    await order
-      .withCredentials({
-        accessToken,
-        endpoint,
-      })
-      .lineItems()
-      ?.where({ itemTypeMatchesAny: "skus,bundle,gift_card" }) //, "bundle", "gift_card"] })
-      .select("item_type")
-      .all()
-  )?.toArray().length
+    await cl.orders.retrieve(orderId, {
+      fields: {
+        line_items: ["item_type"],
+      },
+      include: ["line_items"],
+    })
+  ).line_items?.filter(
+    (line_item) => line_item.item_type === ("skus" || "bundle" || "gift_card")
+  ).length
 
   // If there are no items to buy we redirect to the invalid page
   if (lineItemsCount === 0) {
@@ -130,23 +133,28 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const appSettings: CheckoutSettings = {
     accessToken,
     endpoint,
-    orderNumber: order.number,
+    slug: slug_cl,
+    orderNumber: order.number || 0,
     orderId: order.id,
     validCheckout: true,
-    logoUrl: organization?.logoUrl,
+    logoUrl: organization.logo_url,
     companyName: organization?.name || "Test company",
-    language: order.languageCode,
-    primaryColor: hex2hsl(organization?.primaryColor as string) || BLACK_COLOR,
-    favicon: organization?.faviconUrl || "/favicon.png",
-    gtmId: organization?.gtmId,
+    language: order.language_code || "en",
+    primaryColor: hex2hsl(organization.primary_color as string) || BLACK_COLOR,
+    favicon: organization?.favicon_url || "/favicon.png",
+    gtmId: organization?.gtm_id,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore: Organization type not updated on sdk v3
-    supportEmail: organization?.supportEmail,
+    supportEmail: organization?.support_email,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore: Organization type not updated on sdk v3
-    supportPhone: organization?.supportPhone,
-    termsUrl: order.termsUrl,
-    privacyUrl: order.privacyUrl,
+    supportPhone: organization?.support_phone,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: Organization type not updated on sdk v3
+    termsUrl: order.terms_url,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: Organization type not updated on sdk v3
+    privacyUrl: order.privacy_url,
   }
 
   return res

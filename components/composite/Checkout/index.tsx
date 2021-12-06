@@ -120,7 +120,7 @@ const Checkout: React.FC<Props> = ({
                       <StepHeaderCustomer step={getStepNumber("Customer")} />
                     }
                   >
-                    <StepCustomer tw="mb-6" step={1} />
+                    <StepCustomer className="mb-6" step={1} />
                   </AccordionItem>
                 </AccordionProvider>
                 {ctx.isShipmentRequired && (
@@ -137,7 +137,7 @@ const Checkout: React.FC<Props> = ({
                         <StepHeaderShipping step={getStepNumber("Shipping")} />
                       }
                     >
-                      <StepShipping tw="mb-6" step={2} />
+                      <StepShipping className="mb-6" step={2} />
                     </AccordionItem>
                   </AccordionProvider>
                 )}
@@ -156,7 +156,9 @@ const Checkout: React.FC<Props> = ({
                         <StepHeaderPayment step={getStepNumber("Payment")} />
                       }
                     >
-                      <StepPayment tw="mb-6" />
+                      <div className="mb-6">
+                        <StepPayment />
+                      </div>
                     </AccordionItem>
                     <StepPlaceOrder
                       isActive={

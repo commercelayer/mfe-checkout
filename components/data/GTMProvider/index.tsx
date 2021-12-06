@@ -1,4 +1,4 @@
-import CLayer, { LineItemCollection, Order } from "@commercelayer/js-sdk"
+import CommerceLayer, { LineItem } from "@commercelayer/sdk"
 import { createContext, useEffect, useContext } from "react"
 import TagManager from "react-gtm-module"
 
@@ -17,11 +17,11 @@ interface GTMProviderProps {
   gtmId?: string
 }
 interface ItemProps {
-  item_id: string
-  item_name: string
+  item_id: string | undefined
+  item_name: string | undefined
   price: number | undefined
-  currency: string
-  quantity: number
+  currency: string | undefined
+  quantity: number | undefined
 }
 
 interface PushDataLayerProps {
@@ -32,9 +32,9 @@ interface PushDataLayerProps {
     | "purchase"
   dataLayer: {
     coupon?: string
-    currency: string
+    currency: string | undefined
     shipping?: number
-    items?: (ItemProps | null)[]
+    items?: (ItemProps | undefined)[]
     value?: number
     shipping_tier?: string
     transaction_id?: number
@@ -56,7 +56,12 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     return <>{children}</>
   }
 
-  const { accessToken, orderId, endpoint } = ctx
+  const { accessToken, orderId, slug } = ctx
+
+  const cl = CommerceLayer({
+    organization: slug,
+    accessToken: accessToken,
+  })
 
   useEffect(() => {
     if (gtmId) {
@@ -66,26 +71,22 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   }, [])
 
   const fetchOrder = async () => {
-    CLayer.init({
-      accessToken,
-      endpoint,
-    })
-
-    return Order.select(
-      "number",
-      "coupon_code",
-      "currency_code",
-      "total_amount_with_taxes_float",
-      "shipping_amount_float",
-      "total_tax_amount_float"
-    )
-      .includes(
+    return cl.orders.retrieve(orderId, {
+      include: [
         "line_items",
         "shipments",
         "shipments.shipping_method",
-        "payment_method"
-      )
-      .find(orderId)
+        "payment_method",
+      ],
+      fields: {
+        number: ["number"],
+        coupon_code: ["coupon_code"],
+        currency_code: ["currency_code"],
+        total_amount_with_taxes_float: ["total_amount_with_taxes_float"],
+        shipping_amount_float: ["shipping_amount_float"],
+        total_tax_amount_float: ["total_tax_amount_float"],
+      },
+    })
   }
 
   const pushDataLayer = ({ eventName, dataLayer }: PushDataLayerProps) => {
@@ -103,133 +104,134 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
 
   const mapItemsToGTM = ({
     name,
-    currencyCode,
-    skuCode,
+    currency_code,
+    sku_code,
     quantity,
-    totalAmountFloat,
-  }: LineItemCollection) => {
+    total_amount_float,
+  }: LineItem): ItemProps => {
     return {
-      item_id: skuCode,
+      item_id: sku_code,
       item_name: name,
-      price: totalAmountFloat,
-      currency: currencyCode,
+      price: total_amount_float,
+      currency: currency_code,
       quantity: quantity,
     }
   }
 
   const fireBeginCheckout = async () => {
     const order = await fetchOrder()
-    const lineItems = await order
-      .lineItems()
-      ?.where({ itemTypeCont: "skus" })
-      .select(
-        "sku_code",
-        "name",
-        "total_amount_float",
-        "currency_code",
-        "quantity"
-      )
-      .all()
+    const lineItems = (
+      await cl.orders.retrieve(orderId, {
+        fields: {
+          sku_code: ["sku_code"],
+          name: ["name"],
+          total_amount_float: ["total_amount_float"],
+          currency_code: ["currency_code"],
+          quantity: ["quantity"],
+        },
+        include: ["line_items"],
+      })
+    ).line_items
 
     return pushDataLayer({
       eventName: "begin_checkout",
       dataLayer: {
-        coupon: order?.couponCode,
-        currency: order?.currencyCode,
-        items: lineItems?.toArray().map(mapItemsToGTM),
-        value: order?.totalAmountWithTaxesFloat,
+        coupon: order?.coupon_code,
+        currency: order?.currency_code,
+        items: lineItems?.map(mapItemsToGTM),
+        value: order?.total_amount_with_taxes_float,
       },
     })
   }
 
   const fireAddShippingInfo = async () => {
     const order = await fetchOrder()
-    const shipments =
-      (
-        await order
-          .shipments()
-          ?.includes(
-            "shipping_method",
-            "shipment_line_items",
-            "shipment_line_items.line_item"
-          )
-          .load()
-      )?.toArray() || []
-
-    shipments.forEach(async (shipment) => {
-      const lineItems = shipment
-        .shipmentLineItems()
-        ?.toArray()
-        ?.map((item) => item?.lineItem())
-        .map((e) => e && mapItemsToGTM(e))
-
-      return pushDataLayer({
-        eventName: "add_shipping_info",
-        dataLayer: {
-          coupon: order?.couponCode,
-          currency: order?.currencyCode,
-          items: lineItems,
-          value: shipment.shippingMethod()?.priceAmountForShipmentFloat,
-          shipping_tier: shipment.shippingMethod()?.name,
-        },
+    const shipments = (
+      await cl.orders.retrieve(orderId, {
+        include: [
+          "shipping_method",
+          "shipment_line_items",
+          "shipment_line_items.line_item",
+        ],
       })
+    ).shipments
+
+    shipments?.forEach(async (shipment) => {
+      const lineItems = shipment
+      // .map((e) => e && mapItemsToGTM(e))
+
+      console.log(lineItems)
+
+      return null
+      // pushDataLayer({
+      //   eventName: "add_shipping_info",
+      //   dataLayer: {
+      //     coupon: order?.coupon_code,
+      //     currency: order?.currency_code,
+      //     items: lineItems,
+      //     value: shipment.shippingMethod()?.priceAmountForShipmentFloat,
+      //     shipping_tier: shipment.shippingMethod()?.name,
+      //   },
+      // })
     })
   }
 
   const fireAddPaymentInfo = async () => {
     const order = await fetchOrder()
-    const lineItems = await order
-      .lineItems()
-      ?.where({ itemTypeCont: "skus" })
-      .select(
-        "sku_code",
-        "name",
-        "total_amount_float",
-        "currency_code",
-        "quantity"
-      )
-      .all()
+    // const lineItems = await order
+    //   .lineItems()
+    //   ?.where({ itemTypeCont: "skus" })
+    //   .select(
+    //     "sku_code",
+    //     "name",
+    //     "total_amount_float",
+    //     "currency_code",
+    //     "quantity"
+    //   )
+    //   .all()
 
-    const paymentMethod = order.paymentMethod()
+    // const paymentMethod = order.paymentMethod()
 
-    return pushDataLayer({
-      eventName: "add_payment_info",
-      dataLayer: {
-        coupon: order?.couponCode,
-        currency: order?.currencyCode,
-        items: lineItems?.toArray().map(mapItemsToGTM),
-        value: paymentMethod?.priceAmountFloat,
-        payment_type: paymentMethod?.name,
-      },
-    })
+    // return pushDataLayer({
+    //   eventName: "add_payment_info",
+    //   dataLayer: {
+    //     coupon: order?.coupon_code,
+    //     currency: order?.currency_code,
+    //     items: lineItems?.toArray().map(mapItemsToGTM),
+    //     value: paymentMethod?.priceAmountFloat,
+    //     payment_type: paymentMethod?.name,
+    //   },
+    // })
+    return null
   }
 
   const firePurchase = async () => {
     const order = await fetchOrder()
-    const lineItems = await order
-      .lineItems()
-      ?.where({ itemTypeCont: "skus" })
-      .select(
-        "sku_code",
-        "name",
-        "total_amount_float",
-        "currency_code",
-        "quantity"
-      )
-      .all()
+    // const lineItems = await order
+    //   .lineItems()
+    //   ?.where({ itemTypeCont: "skus" })
+    //   .select(
+    //     "sku_code",
+    //     "name",
+    //     "total_amount_float",
+    //     "currency_code",
+    //     "quantity"
+    //   )
+    //   .all()
 
-    return pushDataLayer({
-      eventName: "purchase",
-      dataLayer: {
-        coupon: order?.couponCode,
-        currency: order?.currencyCode,
-        items: lineItems?.toArray().map(mapItemsToGTM),
-        transaction_id: order?.number,
-        shipping: order?.shippingAmountFloat,
-        value: order?.totalAmountWithTaxesFloat,
-        tax: order?.totalTaxAmountFloat,
-      },
-    })
+    // return pushDataLayer({
+    //   eventName: "purchase",
+    //   dataLayer: {
+    //     coupon: order?.coupon_code,
+    //     currency: order?.currency_code,
+    //     items: lineItems?.toArray().map(mapItemsToGTM),
+    //     transaction_id: order?.number,
+    //     shipping: order?.shipping_amount_float,
+    //     value: order?.total_amount_with_taxes_float,
+    //     tax: order?.total_tax_amount_float,
+    //   },
+    // })
+    return null
   }
 
   return (

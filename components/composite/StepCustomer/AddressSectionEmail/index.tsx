@@ -1,5 +1,5 @@
 import { CustomerInput, Errors } from "@commercelayer/react-components"
-import { ErrorComponentProps } from "@commercelayer/react-components/dist/typings/errors"
+import { ErrorComponentProps } from "@commercelayer/react-components/lib/cjs/typings/errors"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -22,13 +22,13 @@ export const AddressSectionEmail: React.FC<Props> = ({
   const messages: ErrorComponentProps["messages"] = [
     {
       code: "EMPTY_ERROR",
-      resource: "order",
+      resource: "orders",
       field: "customer_email",
       message: t("input.cantBlank"),
     },
     {
       code: "VALIDATION_ERROR",
-      resource: "order",
+      resource: "orders",
       field: "customer_email",
       message: t("input.mustBeValidEmail"),
     },
@@ -44,17 +44,16 @@ export const AddressSectionEmail: React.FC<Props> = ({
         ) : (
           <>
             <StyledCustomInput
-              className="form-input"
+              className="block w-full border-gray-300 form-input shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
               data-cy="customer_email"
               id="customer_email"
               errorClassName="hasError"
-              // tw="block w-full border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
               saveOnBlur={true}
               value={emailAddress}
             />
             <StyledErrors
               data-cy="customer_email_error"
-              resource="order"
+              resource="orders"
               field="customer_email"
               messages={messages}
             />

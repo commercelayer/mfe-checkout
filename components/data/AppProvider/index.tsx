@@ -6,7 +6,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
   orderId: string
   accessToken: string
-  endpoint: string
+  slug: string
   isFirstLoading: boolean
   refetchOrder: () => Promise<void>
   refetchShipments: () => Promise<void>
@@ -28,14 +28,14 @@ const initialState: AppStateData = {
   hasEmailAddress: false,
   emailAddress: "",
   hasBillingAddress: false,
-  billingAddress: null,
+  billingAddress: undefined,
   requiresBillingInfo: false,
   isShipmentRequired: true,
-  shippingAddress: null,
+  shippingAddress: undefined,
   hasShippingMethod: false,
   hasShippingAddress: false,
   shipments: [],
-  paymentMethod: null,
+  paymentMethod: undefined,
   hasPaymentMethod: false,
   isPaymentRequired: true,
   isCreditCard: false,
@@ -48,7 +48,7 @@ const initialState: AppStateData = {
 export const AppContext = createContext<AppProviderData | null>(null)
 
 interface AppProviderProps {
-  endpoint: string
+  slug: string
   orderId: string
   accessToken: string
 }
@@ -57,7 +57,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   children,
   orderId,
   accessToken,
-  endpoint,
+  slug,
 }) => {
   const [state, setState] = useState(initialState)
 
@@ -67,7 +67,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     }
     setState({ ...state, isLoading: true })
 
-    return await fetchOrderById({ orderId, accessToken, endpoint }).then(
+    return await fetchOrderById({ orderId, accessToken, slug }).then(
       (newState) => {
         setState({ ...newState, isLoading: false, isFirstLoading: false })
       }
@@ -83,7 +83,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     }
     setState({ ...state, isLoading: true })
 
-    return await fetchOrderById({ orderId, accessToken, endpoint }).then(
+    return await fetchOrderById({ orderId, accessToken, slug }).then(
       (newState) => {
         setState({
           ...state,
@@ -112,7 +112,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         ...state,
         orderId,
         accessToken,
-        endpoint,
+        slug,
         refetchOrder: async () => {
           return await fetchOrderHandle(orderId, accessToken)
         },

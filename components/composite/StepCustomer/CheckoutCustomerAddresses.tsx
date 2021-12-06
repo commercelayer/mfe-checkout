@@ -1,4 +1,3 @@
-import { AddressCollection } from "@commercelayer/js-sdk"
 import {
   AddressesContainer,
   BillingAddressForm,
@@ -7,6 +6,7 @@ import {
   BillingAddressContainer,
   ShippingAddressContainer,
 } from "@commercelayer/react-components"
+import { Address } from "@commercelayer/sdk"
 import { Transition } from "@headlessui/react"
 import { useState, Fragment, useEffect } from "react"
 import { useTranslation } from "react-i18next"
@@ -28,8 +28,8 @@ import { BillingAddressFormNew } from "./BillingAddressFormNew"
 import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
 
 interface Props {
-  billingAddress: AddressCollection | null
-  shippingAddress: AddressCollection | null
+  billingAddress: Address | null
+  shippingAddress: Address | null
   hasSameAddresses: boolean
   isShipmentRequired: boolean
   isUsingNewBillingAddress: boolean
@@ -56,10 +56,11 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation()
 
-  const [billingAddressFill, setBillingAddressFill] =
-    useState<AddressCollection | null>(billingAddress)
+  const [billingAddressFill, setBillingAddressFill] = useState<Address | null>(
+    billingAddress
+  )
   const [shippingAddressFill, setShippingAddressFill] =
-    useState<AddressCollection | null>(shippingAddress)
+    useState<Address | null>(shippingAddress)
 
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState<boolean>(
     !hasSameAddresses
