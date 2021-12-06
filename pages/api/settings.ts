@@ -19,6 +19,7 @@ interface JWTProps {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const accessToken = req.query.accessToken as string
   const orderId = req.query.orderId as string
+  const paymentReturn = req.query.paymentReturn === "true"
 
   function invalidateCheckout() {
     res.statusCode = 200
@@ -75,11 +76,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .find(orderId)
 
     if (orderFetched.status === "draft" || orderFetched.status === "pending") {
+      const _refresh = !paymentReturn
+
       order = await orderFetched
         ?.withCredentials({ accessToken, endpoint })
-        .update(
-          orderFetched.autorefresh ? { _refresh: true } : { autorefresh: true }
-        )
+        .update(orderFetched.autorefresh ? { _refresh } : { autorefresh: true })
     } else if (orderFetched.status === "placed") {
       order = orderFetched?.withCredentials({ accessToken, endpoint })
     }
