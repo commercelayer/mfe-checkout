@@ -1,11 +1,20 @@
+import {
+  PaymentSource,
+  PaymentSourceBrandIcon,
+  PaymentSourceBrandName,
+  PaymentSourceDetail,
+} from "@commercelayer/react-components"
 import { useContext } from "react"
 import { useTranslation, Trans } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import { OrderSummary } from "components/composite/OrderSummary"
+import { PaymentContainer } from "components/composite/StepPayment/PaymentContainer"
 import { AppContext } from "components/data/AppProvider"
 import { Base } from "components/ui/Base"
 import { Button } from "components/ui/Button"
+import { CustomAddress } from "components/ui/CustomerAddressCard"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 
@@ -30,6 +39,8 @@ export const StepComplete: React.FC<Props> = ({
   const { t } = useTranslation()
 
   const ctx = useContext(AppContext)
+
+  if (!ctx) return null
 
   const handleClick = () => {
     ctx?.returnUrl && (document.location.href = ctx?.returnUrl)
@@ -80,8 +91,64 @@ export const StepComplete: React.FC<Props> = ({
       <Bottom>
         <Wrapper>
           <Recap>
-            <RecapSummary>Summary</RecapSummary>
-            <RecapCustomer>Customer</RecapCustomer>
+            <RecapSummary>
+              <RecapSummary>Summary</RecapSummary>
+              <OrderSummary appCtx={ctx} readonly />
+            </RecapSummary>
+            <RecapCustomer>
+              Customer
+              <div>{ctx.emailAddress}</div>
+              <div className="flex flex-row">
+                <CustomAddress
+                  firstName={ctx.billingAddress?.name}
+                  lastName={ctx.billingAddress?.last_name}
+                  city={ctx.billingAddress?.city}
+                  line1={ctx.billingAddress?.line_1}
+                  line2={ctx.billingAddress?.line_2}
+                  zipCode={ctx.billingAddress?.zip_code}
+                  stateCode={ctx.billingAddress?.state_code}
+                  countryCode={ctx.billingAddress?.country_code}
+                  phone={ctx.billingAddress?.phone}
+                  addressType="billing"
+                />
+                <CustomAddress
+                  firstName={ctx.shippingAddress?.name}
+                  lastName={ctx.shippingAddress?.last_name}
+                  city={ctx.shippingAddress?.city}
+                  line1={ctx.shippingAddress?.line_1}
+                  line2={ctx.shippingAddress?.line_2}
+                  zipCode={ctx.shippingAddress?.zip_code}
+                  stateCode={ctx.shippingAddress?.state_code}
+                  countryCode={ctx.shippingAddress?.country_code}
+                  phone={ctx.shippingAddress?.phone}
+                  addressType="shipping"
+                />
+              </div>
+              <div className="flex">
+                <PaymentContainer>
+                  <PaymentSource readonly>
+                    <PaymentSourceBrandIcon className="mr-2" />
+                    <PaymentSourceBrandName className="mr-1">
+                      {({ brand }) => {
+                        console.log("dsa")
+                        if (ctx.isCreditCard) {
+                          return (
+                            <Trans t={t} i18nKey="stepPayment.endingIn">
+                              {brand}
+                              <PaymentSourceDetail
+                                className="ml-1"
+                                type="last4"
+                              />
+                            </Trans>
+                          )
+                        }
+                        return brand
+                      }}
+                    </PaymentSourceBrandName>
+                  </PaymentSource>
+                </PaymentContainer>
+              </div>
+            </RecapCustomer>
           </Recap>
           <Footer />
         </Wrapper>
@@ -90,9 +157,6 @@ export const StepComplete: React.FC<Props> = ({
   )
 }
 
-const ContainerFlex = styled.div`
-  ${tw`w-full min-h-full flex min-h-inherit 2xl:max-w-screen-2xl 2xl:mx-auto`}
-`
 const Top = styled.div`
   ${tw`bg-white`}
 `

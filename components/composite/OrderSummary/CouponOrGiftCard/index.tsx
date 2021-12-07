@@ -21,7 +21,11 @@ import {
 
 import "twin.macro"
 
-export const CouponOrGiftCard: React.FC = () => {
+interface Props {
+  readonly?: boolean
+}
+
+export const CouponOrGiftCard: React.FC<Props> = ({ readonly }) => {
   const { t } = useTranslation()
 
   const appCtx = useContext(AppContext)
@@ -58,27 +62,29 @@ export const CouponOrGiftCard: React.FC = () => {
 
   return (
     <>
-      <GiftCardOrCouponForm onSubmit={handleSubmit}>
-        <CouponFormWrapper>
-          <CouponFieldWrapper>
-            <StyledGiftCardOrCouponInput
-              data-cy="input_giftcard_coupon"
-              className={`form-input ${classError}`}
-              placeholder={t("orderRecap.couponCode")}
+      {!readonly && (
+        <GiftCardOrCouponForm onSubmit={handleSubmit}>
+          <CouponFormWrapper>
+            <CouponFieldWrapper>
+              <StyledGiftCardOrCouponInput
+                data-cy="input_giftcard_coupon"
+                className={`form-input ${classError}`}
+                placeholder={t("orderRecap.couponCode")}
+              />
+              <GiftCardOrCouponSubmit
+                data-cy="submit_giftcard_coupon"
+                label={t("general.apply")}
+                className={`w-auto -ml-px relative inline-flex items-center space-x-2 px-8 py-3 text-xs font-extrabold text-contrast bg-primary border border-transparent rounded-r-md hover:opacity-80 focus:outline-none`}
+              />
+            </CouponFieldWrapper>
+            <StyledErrors
+              resource="orders"
+              field="giftCardOrCouponCode"
+              messages={messages}
             />
-            <GiftCardOrCouponSubmit
-              data-cy="submit_giftcard_coupon"
-              label={t("general.apply")}
-              className={`w-auto -ml-px relative inline-flex items-center space-x-2 px-8 py-3 text-xs font-extrabold text-contrast bg-primary border border-transparent rounded-r-md hover:opacity-80 focus:outline-none`}
-            />
-          </CouponFieldWrapper>
-          <StyledErrors
-            resource="orders"
-            field="giftCardOrCouponCode"
-            messages={messages}
-          />
-        </CouponFormWrapper>
-      </GiftCardOrCouponForm>
+          </CouponFormWrapper>
+        </GiftCardOrCouponForm>
+      )}
 
       <GiftCardOrCouponCode type="coupon" className="inline-flex items-center">
         {(props) => {

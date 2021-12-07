@@ -65,7 +65,7 @@ interface AddressProps {
   addressType: string
 }
 
-const CustomAddress = ({
+export const CustomAddress = ({
   firstName,
   lastName,
   city,
