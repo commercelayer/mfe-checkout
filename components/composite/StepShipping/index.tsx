@@ -117,11 +117,12 @@ export const StepShipping: React.FC<Props> = () => {
 
   const handleChange = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    shippingMethod: ShippingMethodCollection | Record<string, any>
+    shippingMethod: ShippingMethodCollection | Record<string, any>,
+    shipmentId: string
   ): void => {
     setShipmentsSelected((shipmentsSelected) =>
       shipmentsSelected?.map((shipment) => {
-        return shipment.shipmentId === shippingMethod.id
+        return shipment.shipmentId === shipmentId
           ? {
               ...shipment,
               shippingMethodId: shippingMethod.id,
@@ -136,7 +137,7 @@ export const StepShipping: React.FC<Props> = () => {
     await refetchOrder()
     setIsLocalLoader(false)
     if (gtmCtx?.fireAddShippingInfo) {
-      gtmCtx.fireAddShippingInfo()
+      await gtmCtx.fireAddShippingInfo()
     }
   }
 
@@ -193,14 +194,11 @@ export const StepShipping: React.FC<Props> = () => {
                       <ShippingMethod emptyText={t("stepShipping.notAvaible")}>
                         <ShippingSummary>
                           <StyledShippingMethodRadioButton
-                            className="form-radio mt-0.5 md:mt-0"
                             data-cy="shipping-method-button"
-                            onChange={(
-                              shippingMethod:
-                                | ShippingMethodCollection
-                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                | Record<string, any>
-                            ) => handleChange(shippingMethod)}
+                            className="form-radio mt-0.5 md:mt-0"
+                            onChange={(shippingMethod, shipmentId) =>
+                              handleChange(shippingMethod, shipmentId)
+                            }
                           />
                           <ShippingMethodName data-cy="shipping-method-name">
                             {(props) => {
@@ -208,11 +206,10 @@ export const StepShipping: React.FC<Props> = () => {
                                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                 // @ts-ignore
                                 props?.deliveryLeadTimeForShipment
-                              console.log(props)
                               return (
                                 <label
                                   className="flex flex-col p-3 border rounded cursor-pointer hover:border-primary transition duration-200 ease-in"
-                                  // htmlFor={`shipment-${props.shippingMethod.id}-${props.shippingMethod.id}`}
+                                  htmlFor={props.htmlFor}
                                 >
                                   <ShippingLineItemTitle>
                                     {props.label}

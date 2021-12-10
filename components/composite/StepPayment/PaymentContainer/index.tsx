@@ -72,8 +72,8 @@ export const PaymentContainer: React.FC = ({ children }) => {
           },
         },
         paypalPayment: {
-          cancelUrl: `${window.location.href}&paymentReturn=true`,
-          returnUrl: `${window.location.href}&paymentReturn=true`,
+          cancel_url: `${window.location.href}&paymentReturn=true`,
+          return_url: `${window.location.href}&paymentReturn=true`,
           infoMessage: {
             text: t("stepPayment.paypalDescription"),
             className: "text-sm text-gray-500",

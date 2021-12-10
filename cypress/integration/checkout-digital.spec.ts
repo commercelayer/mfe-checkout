@@ -37,7 +37,9 @@ describe("Checkout Checkout-Digital", () => {
           }).then((e) =>
             cy
               .activeGiftCard({
-                giftcardId: e.id,
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                giftcardId: e?.id,
                 accessToken: this.tokenObjSuperuser.access_token,
               })
               .as("newGiftCardCode")
@@ -95,15 +97,22 @@ describe("Checkout Checkout-Digital", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getOrderShipments",
-          "@availablePaymentMethods",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
         ],
-        {
-          timeout: 100000,
-        }
+        { timeout: 100000 }
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
@@ -122,19 +131,9 @@ describe("Checkout Checkout-Digital", () => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
       cy.get("@paymentMethodItem3").click({ force: true })
-      cy.wait(
-        [
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@stripePayments",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
       cy.dataCy("payment-method-amount").should("contain.text", "10,00")
     })
 
@@ -162,13 +161,19 @@ describe("Checkout Checkout-Digital", () => {
       cy.dataCy("place-order-button").click()
       cy.wait(
         [
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
           "@updateOrder",
+          "@getCustomerAddresses",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
         ],
-        { timeout: 100000 }
+        {
+          timeout: 100000,
+        }
       )
       cy.dataCy("button-continue-to-shop").click()
       cy.wait(2000)

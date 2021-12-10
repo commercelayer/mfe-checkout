@@ -89,10 +89,10 @@ describe("Checkout entrypoint", () => {
 
         cy.wait(
           [
-            "@getOrderShipments",
-            "@getOrderShipments",
-            "@retrieveLineItems",
-            "@retrieveLineItems",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
             "@getOrders",
           ],
           {

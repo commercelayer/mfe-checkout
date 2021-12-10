@@ -161,7 +161,26 @@ Cypress.Commands.add("createAddress", (options) => {
   })
     .its("body.data")
     .then((address) => {
-      return address
+      cy.request({
+        url: Cypress.env("apiEndpoint") + `/api/addresses/${address.id}`,
+        method: "PATCH",
+        body: {
+          data: {
+            type: "addresses",
+            id: address.id,
+            attributes: {
+              reference: address.id,
+            },
+          },
+        },
+        headers: options.accessToken
+          ? apiRequestHeaders(options.accessToken)
+          : apiRequestHeaders(Cypress.env("accessToken")),
+      })
+        .its("body.data")
+        .then((address) => {
+          return address
+        })
     })
 })
 
@@ -574,6 +593,8 @@ Cypress.Commands.add("fillForm", (options) => {
 })
 
 Cypress.Commands.add("checkForm", (options) => {
+  cy.wait(1800)
+
   cy.dataCy("step_customer").click().should("have.attr", "data-status", "true")
 
   cy.wait(1500)

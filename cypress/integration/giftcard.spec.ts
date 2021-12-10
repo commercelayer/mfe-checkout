@@ -110,11 +110,12 @@ describe("Checkout GiftCard", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@availablePaymentMethods",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
         ],
         {
@@ -134,35 +135,17 @@ describe("Checkout GiftCard", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click({ force: true })
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
       cy.get("@shippingMethodButton3").click({ force: true })
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"], { timeout: 100000 })
+      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
     })
 
     it("check total", () => {
@@ -256,13 +239,13 @@ describe("Checkout GiftCard", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getShipments",
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@availablePaymentMethods",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
         ],
         {
@@ -271,19 +254,18 @@ describe("Checkout GiftCard", () => {
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
+      console.log(this.newGiftCardCode.attributes.code)
       cy.dataCy("input_giftcard_coupon").type(
         this.newGiftCardCode.attributes.code
       )
       cy.dataCy("submit_giftcard_coupon").click()
       cy.wait(
         [
-          "@getShipments",
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@updateOrder",
         ],
         {
           timeout: 100000,
@@ -296,35 +278,18 @@ describe("Checkout GiftCard", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click({ force: true })
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
       cy.get("@shippingMethodButton3").click({ force: true })
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
+      cy.wait(3000)
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"], { timeout: 100000 })
+      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
     })
 
     it("check amount", () => {
@@ -335,15 +300,7 @@ describe("Checkout GiftCard", () => {
     it("remove Gift Card and check amount", () => {
       cy.dataCy("remove_giftcard").click()
       cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-        ],
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
         {
           timeout: 100000,
         }

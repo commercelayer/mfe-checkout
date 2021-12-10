@@ -46,9 +46,9 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
         </div>
         {isCreditCard && (
           <div className="pl-10 text-gray-500 lg:pl-2">
-            {t("stepPayment.expires")} <PaymentSourceDetail type="expMonth" />
+            {t("stepPayment.expires")} <PaymentSourceDetail type="exp_month" />
             /
-            <PaymentSourceDetail type="expYear" />
+            <PaymentSourceDetail type="exp_year" />
           </div>
         )}
       </div>

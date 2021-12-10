@@ -5,9 +5,9 @@ import TagManager from "react-gtm-module"
 import { AppContext } from "components/data/AppProvider"
 
 interface GTMProviderData {
-  fireAddShippingInfo: () => void
-  fireAddPaymentInfo: () => void
-  firePurchase: () => void
+  fireAddShippingInfo: () => Promise<void>
+  fireAddPaymentInfo: () => Promise<void>
+  firePurchase: () => Promise<void>
 }
 
 export const GTMContext = createContext<GTMProviderData | null>(null)
@@ -79,12 +79,15 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         "payment_method",
       ],
       fields: {
-        number: ["number"],
-        coupon_code: ["coupon_code"],
-        currency_code: ["currency_code"],
-        total_amount_with_taxes_float: ["total_amount_with_taxes_float"],
-        shipping_amount_float: ["shipping_amount_float"],
-        total_tax_amount_float: ["total_tax_amount_float"],
+        orders: [
+          "number",
+          "coupon_code",
+          "currency_code",
+          "total_amount_with_taxes_float",
+          "shipping_amount_float",
+          "total_tax_amount_float",
+          "payment_method",
+        ],
       },
     })
   }
@@ -122,16 +125,26 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     const order = await fetchOrder()
     const lineItems = (
       await cl.orders.retrieve(orderId, {
-        fields: {
-          sku_code: ["sku_code"],
-          name: ["name"],
-          total_amount_float: ["total_amount_float"],
-          currency_code: ["currency_code"],
-          quantity: ["quantity"],
-        },
         include: ["line_items"],
+        fields: {
+          orders: ["line_items"],
+          line_items: [
+            "sku_code",
+            "name",
+            "total_amount_float",
+            "currency_code",
+            "quantity",
+            "item_type",
+          ],
+        },
       })
-    ).line_items
+    ).line_items?.filter((line_item) => {
+      return (
+        line_item.item_type === "skus" ||
+        line_item.item_type === "bundle" ||
+        line_item.item_type === "gift_cards"
+      )
+    })
 
     return pushDataLayer({
       eventName: "begin_checkout",
@@ -149,89 +162,123 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     const shipments = (
       await cl.orders.retrieve(orderId, {
         include: [
-          "shipping_method",
-          "shipment_line_items",
-          "shipment_line_items.line_item",
+          "shipments.shipping_method",
+          "shipments.shipment_line_items",
+          "shipments.shipment_line_items.line_item",
         ],
+        fields: {
+          orders: ["shipments"],
+          shipments: ["shipping_method", "shipment_line_items"],
+          shipping_method: ["name", "price_amount_for_shipment_float"],
+          shipment_line_items: ["line_item"],
+          line_item: [
+            "sku_code",
+            "name",
+            "total_amount_float",
+            "currency_code",
+            "quantity",
+            "item_type",
+          ],
+        },
       })
     ).shipments
 
     shipments?.forEach(async (shipment) => {
-      const lineItems = shipment
-      // .map((e) => e && mapItemsToGTM(e))
+      const lineItems = shipment.shipment_line_items?.map(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        (e) => e && mapItemsToGTM(e.line_item)
+      )
 
-      console.log(lineItems)
-
-      return null
-      // pushDataLayer({
-      //   eventName: "add_shipping_info",
-      //   dataLayer: {
-      //     coupon: order?.coupon_code,
-      //     currency: order?.currency_code,
-      //     items: lineItems,
-      //     value: shipment.shippingMethod()?.priceAmountForShipmentFloat,
-      //     shipping_tier: shipment.shippingMethod()?.name,
-      //   },
-      // })
+      pushDataLayer({
+        eventName: "add_shipping_info",
+        dataLayer: {
+          coupon: order?.coupon_code,
+          currency: order?.currency_code,
+          items: lineItems,
+          value: shipment.shipping_method?.price_amount_for_shipment_float,
+          shipping_tier: shipment.shipping_method?.name,
+        },
+      })
     })
   }
 
   const fireAddPaymentInfo = async () => {
     const order = await fetchOrder()
-    // const lineItems = await order
-    //   .lineItems()
-    //   ?.where({ itemTypeCont: "skus" })
-    //   .select(
-    //     "sku_code",
-    //     "name",
-    //     "total_amount_float",
-    //     "currency_code",
-    //     "quantity"
-    //   )
-    //   .all()
+    const lineItems = (
+      await cl.orders.retrieve(orderId, {
+        include: ["line_items"],
+        fields: {
+          orders: ["line_items"],
+          line_items: [
+            "sku_code",
+            "name",
+            "total_amount_float",
+            "currency_code",
+            "quantity",
+            "item_type",
+          ],
+        },
+      })
+    ).line_items?.filter((line_item) => {
+      return (
+        line_item.item_type === "skus" ||
+        line_item.item_type === "bundle" ||
+        line_item.item_type === "gift_cards"
+      )
+    })
 
-    // const paymentMethod = order.paymentMethod()
+    const paymentMethod = order.payment_method
 
-    // return pushDataLayer({
-    //   eventName: "add_payment_info",
-    //   dataLayer: {
-    //     coupon: order?.coupon_code,
-    //     currency: order?.currency_code,
-    //     items: lineItems?.toArray().map(mapItemsToGTM),
-    //     value: paymentMethod?.priceAmountFloat,
-    //     payment_type: paymentMethod?.name,
-    //   },
-    // })
-    return null
+    return pushDataLayer({
+      eventName: "add_payment_info",
+      dataLayer: {
+        coupon: order?.coupon_code,
+        currency: order?.currency_code,
+        items: lineItems?.map(mapItemsToGTM),
+        value: paymentMethod?.price_amount_float,
+        payment_type: paymentMethod?.name,
+      },
+    })
   }
 
   const firePurchase = async () => {
     const order = await fetchOrder()
-    // const lineItems = await order
-    //   .lineItems()
-    //   ?.where({ itemTypeCont: "skus" })
-    //   .select(
-    //     "sku_code",
-    //     "name",
-    //     "total_amount_float",
-    //     "currency_code",
-    //     "quantity"
-    //   )
-    //   .all()
+    const lineItems = (
+      await cl.orders.retrieve(orderId, {
+        include: ["line_items"],
+        fields: {
+          orders: ["line_items"],
+          line_items: [
+            "sku_code",
+            "name",
+            "total_amount_float",
+            "currency_code",
+            "quantity",
+            "item_type",
+          ],
+        },
+      })
+    ).line_items?.filter((line_item) => {
+      return (
+        line_item.item_type === "skus" ||
+        line_item.item_type === "bundle" ||
+        line_item.item_type === "gift_cards"
+      )
+    })
 
-    // return pushDataLayer({
-    //   eventName: "purchase",
-    //   dataLayer: {
-    //     coupon: order?.coupon_code,
-    //     currency: order?.currency_code,
-    //     items: lineItems?.toArray().map(mapItemsToGTM),
-    //     transaction_id: order?.number,
-    //     shipping: order?.shipping_amount_float,
-    //     value: order?.total_amount_with_taxes_float,
-    //     tax: order?.total_tax_amount_float,
-    //   },
-    // })
-    return null
+    return pushDataLayer({
+      eventName: "purchase",
+      dataLayer: {
+        coupon: order?.coupon_code,
+        currency: order?.currency_code,
+        items: lineItems?.map(mapItemsToGTM),
+        transaction_id: order?.number,
+        shipping: order?.shipping_amount_float,
+        value: order?.total_amount_with_taxes_float,
+        tax: order?.total_tax_amount_float,
+      },
+    })
   }
 
   return (

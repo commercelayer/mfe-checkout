@@ -86,6 +86,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       order = await cl.orders.update({
         id: orderFetched.id,
+        _refresh,
         ...(!orderFetched.autorefresh && { autorefresh: true }),
       })
     } else if (orderFetched.status === "placed") {
@@ -121,9 +122,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
       include: ["line_items"],
     })
-  ).line_items?.filter(
-    (line_item) => line_item.item_type === ("skus" || "bundle" || "gift_card")
-  ).length
+  ).line_items?.filter((line_item) => {
+    return (
+      line_item.item_type === "skus" ||
+      line_item.item_type === "bundle" ||
+      line_item.item_type === "gift_cards"
+    )
+  }).length
 
   // If there are no items to buy we redirect to the invalid page
   if (lineItemsCount === 0) {

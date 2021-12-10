@@ -68,7 +68,7 @@ export const AddressInputGroup: React.FC<Props> = ({
 
   const appCtx = useContext(AppContext)
 
-  let shippingCountryCodeLock = ""
+  let shippingCountryCodeLock: string | undefined = ""
 
   if (appCtx) {
     shippingCountryCodeLock = appCtx.shippingCountryCodeLock

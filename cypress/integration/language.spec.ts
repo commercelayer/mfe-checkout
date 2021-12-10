@@ -33,10 +33,10 @@ describe("Checkout language", () => {
 
         cy.wait(
           [
-            "@getOrderShipments",
-            "@getOrderShipments",
-            "@retrieveLineItems",
-            "@retrieveLineItems",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
             "@getOrders",
           ],
           {
@@ -82,10 +82,10 @@ describe("Checkout language", () => {
 
         cy.wait(
           [
-            "@getOrderShipments",
-            "@getOrderShipments",
-            "@retrieveLineItems",
-            "@retrieveLineItems",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
             "@getOrders",
           ],
           { timeout: 100000 }

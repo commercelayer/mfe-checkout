@@ -54,13 +54,20 @@ describe("Checkout customer address", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
         ],
         { timeout: 100000 }
       )
@@ -79,20 +86,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
-        ],
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
         { timeout: 100000 }
       )
 
@@ -126,21 +120,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@createAddress",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
-        ],
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
         { timeout: 100000 }
       )
     })
@@ -168,21 +148,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@createAddress",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
-        ],
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
         { timeout: 100000 }
       )
     })
@@ -208,23 +174,8 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
+        { timeout: 100000 }
       )
     })
   })
@@ -278,14 +229,20 @@ describe("Checkout customer address", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
         ],
         { timeout: 100000 }
       )
@@ -319,20 +276,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
-        ],
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
         { timeout: 100000 }
       )
     })
@@ -364,21 +308,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@createAddress",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
-        ],
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
         { timeout: 100000 }
       )
     })
@@ -404,20 +334,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
-        ],
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
         { timeout: 100000 }
       )
     })
@@ -481,14 +398,20 @@ describe("Checkout customer address", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
         ],
         { timeout: 100000 }
       )
@@ -562,18 +485,23 @@ describe("Checkout customer address", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@updateOrder",
-          "@updateAddress",
-          "@updateAddress",
+          "@updateOrder",
           "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
         ],
         { timeout: 100000 }
       )
@@ -605,22 +533,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@availableCustomerPaymentSources",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing information", () => {
@@ -651,23 +566,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@createAddress",
-          "@availableCustomerPaymentSources",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+        timeout: 100000,
+      })
     })
 
     it("check shipping information", () => {
@@ -692,26 +593,13 @@ describe("Checkout customer address", () => {
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait(["@getAddress", "@updateAddress"], { timeout: 100000 })
+      cy.wait("@updateAddress", { timeout: 100000 })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@availableCustomerPaymentSources",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@createAddress", "@updateOrder"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing and shipping information", () => {
@@ -741,27 +629,15 @@ describe("Checkout customer address", () => {
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait("@getAddress", {
+      cy.wait("@updateAddress", {
         timeout: 100000,
       })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@availableCustomerPaymentSources",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing information", () => {
@@ -857,13 +733,11 @@ describe("Checkout customer address", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
         ],
         { timeout: 100000 }
       )
@@ -877,25 +751,23 @@ describe("Checkout customer address", () => {
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait(["@getAddress", "@updateAddress"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@availableCustomerPaymentSources",
-        ],
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
         {
           timeout: 100000,
         }
@@ -923,29 +795,15 @@ describe("Checkout customer address", () => {
         .contains("p", euAddress2.firstName)
         .click()
 
-      cy.wait(["@getAddress", "@updateAddress"], {
+      cy.wait("@updateAddress", {
         timeout: 100000,
       })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing information", () => {
@@ -974,23 +832,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@createAddress", "@updateOrder"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing information", () => {
@@ -1021,25 +865,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@createAddress",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@createAddress", "@updateOrder"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing and shipping information", () => {
@@ -1069,30 +897,15 @@ describe("Checkout customer address", () => {
         .contains("p", euAddress2.firstName)
         .click()
 
-      cy.wait(["@getAddress"], {
+      cy.wait(["@updateAddress"], {
         timeout: 100000,
       })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing information", () => {
@@ -1118,29 +931,15 @@ describe("Checkout customer address", () => {
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait(["@getAddress"], {
+      cy.wait(["@updateAddress"], {
         timeout: 100000,
       })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing information", () => {
@@ -1225,17 +1024,15 @@ describe("Checkout customer address", () => {
 
       cy.wait(
         [
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
+          "@getCustomerAddresses",
         ],
-        {
-          timeout: 100000,
-        }
+        { timeout: 100000 }
       )
 
       cy.url().should("contain", this.tokenObj.access_token)
@@ -1248,287 +1045,273 @@ describe("Checkout customer address", () => {
         .contains("p", euAddress.firstName)
         .click()
 
-      cy.wait(["@getAddress", "@updateAddress"], {
+      cy.wait("@updateAddress", {
         timeout: 100000,
       })
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-email-step-header").should("contain", emailTemp)
     })
 
-    it("check billing information", () => {
-      cy.wait(1500)
-      cy.checkAddressBook({
-        type: "billing",
-        address: euAddress,
-      })
-    })
+    // it("check billing information", () => {
+    //   cy.wait(1500)
+    //   cy.checkAddressBook({
+    //     type: "billing",
+    //     address: euAddress,
+    //   })
+    // })
 
-    it("select second address and save is disabled", () => {
-      cy.dataCy("step_customer")
-        .click()
-        .should("have.attr", "data-status", "true")
+    // it("select second address and save is disabled", () => {
+    //   cy.dataCy("step_customer")
+    //     .click()
+    //     .should("have.attr", "data-status", "true")
 
-      cy.wait(1500)
+    //   cy.wait(1500)
 
-      cy.dataCy("customer-billing-address")
-        .contains("p", euAddress2.firstName)
-        .click()
+    //   cy.dataCy("customer-billing-address")
+    //     .contains("p", euAddress2.firstName)
+    //     .click()
 
-      cy.wait(["@getAddress", "@updateAddress"], {
-        timeout: 100000,
-      })
+    //   cy.wait(["@getAddress", "@updateAddress"], {
+    //     timeout: 100000,
+    //   })
 
-      cy.dataCy("save-addresses-button").should("be.disabled")
-    })
+    //   cy.dataCy("save-addresses-button").should("be.disabled")
+    // })
 
-    it("check billing information", () => {
-      cy.wait(1500)
-      cy.checkAddressBook({
-        type: "billing",
-        address: euAddress2,
-        index: 1,
-      })
-    })
+    // it("check billing information", () => {
+    //   cy.wait(1500)
+    //   cy.checkAddressBook({
+    //     type: "billing",
+    //     address: euAddress2,
+    //     index: 1,
+    //   })
+    // })
 
-    it("add custom billing address and save is disabled", function () {
-      cy.dataCy("step_customer")
-        .click()
-        .should("have.attr", "data-status", "true")
+    // it("add custom billing address and save is disabled", function () {
+    //   cy.dataCy("step_customer")
+    //     .click()
+    //     .should("have.attr", "data-status", "true")
 
-      cy.wait(1500)
+    //   cy.wait(1500)
 
-      cy.dataCy("add_new_billing_address").click()
+    //   cy.dataCy("add_new_billing_address").click()
 
-      cy.fillForm({
-        type: "billing",
-        address: euAddress2,
-        requiresBillingInfo: requires_billing_info,
-      })
+    //   cy.fillForm({
+    //     type: "billing",
+    //     address: euAddress2,
+    //     requiresBillingInfo: requires_billing_info,
+    //   })
 
-      cy.dataCy("save-addresses-button").should("be.disabled")
-    })
+    //   cy.dataCy("save-addresses-button").should("be.disabled")
+    // })
 
-    it("change billing address country code and save", () => {
-      cy.dataCy("input_billing_address_country_code").select(countryCode)
-      cy.wait(3000)
-      cy.dataCy("input_billing_address_state_code").select(euAddress.stateCode)
+    // it("change billing address country code and save", () => {
+    //   cy.dataCy("input_billing_address_country_code").select(countryCode)
+    //   cy.wait(3000)
+    //   cy.dataCy("input_billing_address_state_code").select(euAddress.stateCode)
 
-      cy.dataCy("save-addresses-button").click()
+    //   cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+    //   cy.wait(
+    //     [
+    //       "@getShipments",
+    //       "@getOrderShipments",
+    //       "@getOrderShipments",
+    //       "@getOrderShipments",
+    //       "@retrieveLineItems",
+    //       "@retrieveLineItems",
+    //       "@retrieveLineItems",
+    //       "@getOrders",
+    //       "@updateOrder",
+    //       "@createAddress",
+    //       "@availableCustomerPaymentSources",
+    //     ],
+    //     {
+    //       timeout: 100000,
+    //     }
+    //   )
 
-      // cy.dataCy("full-billing-information")
-      //   .should("contain", euAddress2.firstName)
-      //   .and("contain", euAddress2.lastName)
-      //   .and("contain", euAddress2.line1)
-      //   .and("contain", euAddress2.phone)
-      //   .and("contain", euAddress2.city)
-      //   .and("contain", euAddress2.zipCode)
-      //   .and("contain", countryCode)
-      //   .and("contain", euAddress2.billingInfo)
-    })
+    //   // cy.dataCy("full-billing-information")
+    //   //   .should("contain", euAddress2.firstName)
+    //   //   .and("contain", euAddress2.lastName)
+    //   //   .and("contain", euAddress2.line1)
+    //   //   .and("contain", euAddress2.phone)
+    //   //   .and("contain", euAddress2.city)
+    //   //   .and("contain", euAddress2.zipCode)
+    //   //   .and("contain", countryCode)
+    //   //   .and("contain", euAddress2.billingInfo)
+    // })
 
-    it("add custom shipping address and save", () => {
-      cy.dataCy("step_customer")
-        .click()
-        .should("have.attr", "data-status", "true")
+    // it("add custom shipping address and save", () => {
+    //   cy.dataCy("step_customer")
+    //     .click()
+    //     .should("have.attr", "data-status", "true")
 
-      cy.wait(1500)
+    //   cy.wait(1500)
 
-      cy.dataCy("button-ship-to-different-address")
-        .click()
-        .should("have.attr", "data-status", "true")
+    //   cy.dataCy("button-ship-to-different-address")
+    //     .click()
+    //     .should("have.attr", "data-status", "true")
 
-      cy.dataCy("add_new_shipping_address").click()
+    //   cy.dataCy("add_new_shipping_address").click()
 
-      cy.fillForm({
-        type: "shipping",
-        address: euAddress3,
-        countryCodeLock: true,
-      })
+    //   cy.fillForm({
+    //     type: "shipping",
+    //     address: euAddress3,
+    //     countryCodeLock: true,
+    //   })
 
-      cy.dataCy("save-addresses-button").click()
+    //   cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@createAddress",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
-    })
+    //   cy.wait(
+    //     [
+    //       "@getShipments",
+    //       "@getOrderShipments",
+    //       "@getOrderShipments",
+    //       "@getOrderShipments",
+    //       "@retrieveLineItems",
+    //       "@retrieveLineItems",
+    //       "@retrieveLineItems",
+    //       "@getOrders",
+    //       "@updateOrder",
+    //       "@createAddress",
+    //       "@createAddress",
+    //       "@availableCustomerPaymentSources",
+    //     ],
+    //     {
+    //       timeout: 100000,
+    //     }
+    //   )
+    // })
 
-    it("check shipping information", () => {
-      cy.checkForm({
-        type: "shipping",
-        address: euAddress3,
-      })
-    })
+    // it("check shipping information", () => {
+    //   cy.checkForm({
+    //     type: "shipping",
+    //     address: euAddress3,
+    //   })
+    // })
 
-    it("select second shipping address and save", () => {
-      cy.dataCy("step_customer")
-        .click()
-        .should("have.attr", "data-status", "true")
+    // it("select second shipping address and save", () => {
+    //   cy.dataCy("step_customer")
+    //     .click()
+    //     .should("have.attr", "data-status", "true")
 
-      cy.wait(1500)
+    //   cy.wait(1500)
 
-      cy.dataCy("close-shipping-form").click()
+    //   cy.dataCy("close-shipping-form").click()
 
-      cy.wait(1500)
+    //   cy.wait(1500)
 
-      cy.dataCy("customer-shipping-address")
-        .contains("p", euAddress2.firstName)
-        .click()
+    //   cy.dataCy("customer-shipping-address")
+    //     .contains("p", euAddress2.firstName)
+    //     .click()
 
-      cy.dataCy("save-addresses-button").should("be.disabled")
-    })
+    //   cy.dataCy("save-addresses-button").should("be.disabled")
+    // })
 
-    it("select first shipping address and save", () => {
-      cy.dataCy("customer-shipping-address")
-        .contains("p", euAddress.firstName)
-        .click()
+    // it("select first shipping address and save", () => {
+    //   cy.dataCy("customer-shipping-address")
+    //     .contains("p", euAddress.firstName)
+    //     .click()
 
-      cy.wait(["@getAddress"], {
-        timeout: 100000,
-      })
+    //   cy.wait(["@getAddress"], {
+    //     timeout: 100000,
+    //   })
 
-      cy.wait(2000)
+    //   cy.wait(2000)
 
-      cy.dataCy("save-addresses-button").click()
+    //   cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
-    })
+    //   cy.wait(
+    //     [
+    //       "@getShipments",
+    //       "@getOrderShipments",
+    //       "@getOrderShipments",
+    //       "@getOrderShipments",
+    //       "@retrieveLineItems",
+    //       "@retrieveLineItems",
+    //       "@retrieveLineItems",
+    //       "@getOrders",
+    //       "@updateOrder",
+    //       "@createAddress",
+    //       "@availableCustomerPaymentSources",
+    //     ],
+    //     {
+    //       timeout: 100000,
+    //     }
+    //   )
+    // })
 
-    it("check shipping information", () => {
-      cy.checkAddressBook({
-        type: "shipping",
-        address: euAddress,
-      })
-    })
+    // it("check shipping information", () => {
+    //   cy.checkAddressBook({
+    //     type: "shipping",
+    //     address: euAddress,
+    //   })
+    // })
 
-    it("select first billing address, ship to same address and save", () => {
-      cy.dataCy("step_customer")
-        .click()
-        .should("have.attr", "data-status", "true")
+    // it("select first billing address, ship to same address and save", () => {
+    //   cy.dataCy("step_customer")
+    //     .click()
+    //     .should("have.attr", "data-status", "true")
 
-      cy.wait(1500)
+    //   cy.wait(1500)
 
-      cy.dataCy("close-billing-form").click()
+    //   cy.dataCy("close-billing-form").click()
 
-      cy.wait(1500)
+    //   cy.wait(1500)
 
-      cy.dataCy("customer-billing-address")
-        .contains("p", euAddress.firstName)
-        .click()
+    //   cy.dataCy("customer-billing-address")
+    //     .contains("p", euAddress.firstName)
+    //     .click()
 
-      cy.wait(["@getAddress"], {
-        timeout: 100000,
-      })
+    //   cy.wait(["@getAddress"], {
+    //     timeout: 100000,
+    //   })
 
-      cy.dataCy("button-ship-to-different-address")
-        .click()
-        .should("have.attr", "data-status", "false")
+    //   cy.dataCy("button-ship-to-different-address")
+    //     .click()
+    //     .should("have.attr", "data-status", "false")
 
-      cy.dataCy("save-addresses-button").click()
+    //   cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+    //   cy.wait(
+    //     [
+    //       "@getShipments",
+    //       "@getOrderShipments",
+    //       "@getOrderShipments",
+    //       "@getOrderShipments",
+    //       "@retrieveLineItems",
+    //       "@retrieveLineItems",
+    //       "@retrieveLineItems",
+    //       "@getOrders",
+    //       "@updateOrder",
+    //       "@availableCustomerPaymentSources",
+    //     ],
+    //     {
+    //       timeout: 100000,
+    //     }
+    //   )
 
-      // cy.dataCy("full-billing-information")
-      //   .should("contain", euAddress.firstName)
-      //   .and("contain", euAddress.lastName)
-      //   .and("contain", euAddress.line1)
-      //   .and("contain", euAddress.phone)
-      //   .and("contain", euAddress.city)
-      //   .and("contain", euAddress.zipCode)
-    })
+    //   // cy.dataCy("full-billing-information")
+    //   //   .should("contain", euAddress.firstName)
+    //   //   .and("contain", euAddress.lastName)
+    //   //   .and("contain", euAddress.line1)
+    //   //   .and("contain", euAddress.phone)
+    //   //   .and("contain", euAddress.city)
+    //   //   .and("contain", euAddress.zipCode)
+    // })
 
-    it("check billing information", () => {
-      cy.checkAddressBook({
-        type: "billing",
-        address: euAddress,
-      })
-    })
+    // it("check billing information", () => {
+    //   cy.checkAddressBook({
+    //     type: "billing",
+    //     address: euAddress,
+    //   })
+    // })
   })
 })

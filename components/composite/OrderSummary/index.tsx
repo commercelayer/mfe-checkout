@@ -80,8 +80,6 @@ export const OrderSummary: React.FC<Props> = ({ appCtx }) => {
           <RecapLine>
             <ShippingAmount>
               {(props) => {
-                console.log(props)
-
                 if (!appCtx.isShipmentRequired) return <></>
                 return (
                   <>

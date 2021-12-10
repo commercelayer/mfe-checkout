@@ -1,5 +1,5 @@
 import {
-  CustomerCardsTemplate,
+  CustomerCardsType,
   PaymentMethod,
   PaymentSource,
 } from "@commercelayer/react-components"
@@ -26,10 +26,14 @@ interface Props {
 
 export const CheckoutCustomerPayment: React.FC<Props> = ({ refetchOrder }) => {
   const { t } = useTranslation()
+
+  // TemplateSaveToWalletCheckbox
+  const [checked, setChecked] = useState(false)
+
   const TemplateCustomerCards = ({
     customerPayments,
     PaymentSourceProvider,
-  }: CustomerCardsTemplate) => {
+  }: CustomerCardsType) => {
     return (
       <>
         {customerPayments.map((p, k) => {
@@ -53,7 +57,6 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ refetchOrder }) => {
   const TemplateSaveToWalletCheckbox = ({
     name,
   }: CustomerSaveToWalletProps) => {
-    const [checked, setChecked] = useState(false)
     const handleClick = (
       e: MouseEvent<HTMLInputElement, globalThis.MouseEvent>
     ) => e?.stopPropagation()

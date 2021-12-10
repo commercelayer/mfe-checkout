@@ -39,9 +39,9 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
 
       <AddressInputGroup
         fieldName="shipping_address_line_2"
-        resource="shippingAddress"
+        resource="shipping_address"
         type="text"
-        value={shippingAddress?.line2 || ""}
+        value={shippingAddress?.line_2 || ""}
       />
 
       <Grid>

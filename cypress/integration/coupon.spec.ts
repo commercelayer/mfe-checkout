@@ -95,20 +95,22 @@ describe("Checkout Coupon", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getShipments",
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@availablePaymentMethods",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
         ],
-        {
-          timeout: 100000,
-        }
+        { timeout: 100000 }
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
@@ -119,35 +121,17 @@ describe("Checkout Coupon", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click({ force: true })
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
       cy.get("@shippingMethodButton3").click({ force: true })
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"], { timeout: 100000 })
+      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
     })
 
     it("check coupon", function () {
@@ -230,20 +214,22 @@ describe("Checkout Coupon", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getShipments",
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@availablePaymentMethods",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
           "@getOrders",
           "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
         ],
-        {
-          timeout: 100000,
-        }
+        { timeout: 100000 }
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
@@ -254,35 +240,17 @@ describe("Checkout Coupon", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click({ force: true })
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
       cy.get("@shippingMethodButton3").click({ force: true })
-      cy.wait(
-        [
-          "@getShipments",
-          "@getOrders",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@getOrderShipments",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrderShipments", "@retrieveLineItems"], { timeout: 100000 })
+      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
     })
 
     it("check amount", () => {
@@ -292,23 +260,9 @@ describe("Checkout Coupon", () => {
     it("set coupon and check amount", () => {
       cy.dataCy("input_giftcard_coupon").type("testcoupon")
       cy.dataCy("submit_giftcard_coupon").click()
-      cy.wait(
-        [
-          "@getShipments",
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
-          "@getOrders",
-          "@updateOrder",
-          "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
       cy.dataCy("code-coupon").should("contain", "testcoupon")
       cy.dataCy("discount-amount").should("contain", "124,20")
       cy.dataCy("total-amount").should("contain", "301,80")
@@ -317,16 +271,11 @@ describe("Checkout Coupon", () => {
       cy.dataCy("remove_coupon").click({ force: true })
       cy.wait(
         [
-          "@getShipments",
-          "@getShipments",
-          "@getOrderShipments",
-          "@getOrderShipments",
-          "@retrieveLineItems",
-          "@retrieveLineItems",
           "@getOrders",
-          "@updateOrder",
+          "@getOrders",
+          "@getOrders",
           "@getCustomerAddresses",
-          "@availableCustomerPaymentSources",
+          "@updateOrder",
         ],
         {
           timeout: 100000,

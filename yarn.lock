@@ -322,32 +322,40 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-auth@^2.2.4":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-auth/-/js-auth-2.2.4.tgz#2522b40edbd578ebd82041fc28ca10b80833b734"
-  integrity sha512-Fc9fOvMv404AMTBy+kaK8qcBnAHSrksaQ3ZyoVUZkHyBcDkPK5t1EJ/ggZXbc2VTco+CVoMdoCUetozeRYZ9EQ==
+"@commercelayer/js-auth@^2.2.6":
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/@commercelayer/js-auth/-/js-auth-2.2.6.tgz#e2219152f3d9016e1d4a41c272acfe809af9f241"
+  integrity sha512-vYwXRyfa+X3QHdCn/HidDzJi2NImxsQOrUSPZPqSBowK13E++kNrQo0fOvqE2uDiNXznRdAle45nItg6HJuHug==
   dependencies:
     client-oauth2 "^4.3.3"
+    tslib "^2.3.1"
 
-"@commercelayer/react-components@^2.49.7":
-  version "2.49.7"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.49.7.tgz#67b29563a74e5b8f869a401695d47b755bde0729"
-  integrity sha512-7bZND6IprEx5svfMqy2TExSHvQ4ELs68jHxofNwXwyZJ+HnpUUaCzBHyfuGlD1EJf8QoPfbSdUYlT3GL4N+/pA==
+"@commercelayer/react-components@^2.50.5":
+  version "2.50.5"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.50.5.tgz#1a8abff340c1cbcfa837522a3fb90bce4b21b06b"
+  integrity sha512-cGcLMVDjCWPIGtmtrekLUaeOOAhNGAeUgiWWQFFvnZX5huLrG/qHBZ6GUcWE1od9INivKTqN4b501/3iPEfk+A==
   dependencies:
     "@adyen/adyen-web" "^5.3.1"
-    "@commercelayer/js-auth" "^2.2.4"
-    "@commercelayer/sdk" "^2.3.10"
+    "@commercelayer/js-auth" "^2.2.6"
+    "@commercelayer/sdk" "^2.3.11"
     "@stripe/react-stripe-js" "^1.6.0"
-    "@stripe/stripe-js" "^1.21.1"
+    "@stripe/stripe-js" "^1.21.2"
     axios "^0.24.0"
-    braintree-web "^3.83.0"
+    braintree-web "^3.84.0"
     countries-states-cities-service "^1.3.0"
     jwt-decode "^3.1.2"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
     rapid-form "^1.6.0"
 
-"@commercelayer/sdk@^2.3.10", "@commercelayer/sdk@^2.3.9":
+"@commercelayer/sdk@^2.3.11":
+  version "2.3.11"
+  resolved "https://registry.yarnpkg.com/@commercelayer/sdk/-/sdk-2.3.11.tgz#17a0c698cc98214e5f90ef958a91213faef52bb8"
+  integrity sha512-kY6SRsqfT1Yic/dy5a2aAJF0zc/58GATgblz+TWQWj4QKrcnD8C9PpJzVhFWBVHkhK2kbs6znvvStHEGbB86ag==
+  dependencies:
+    axios "^0.24.0"
+
+"@commercelayer/sdk@^2.3.9":
   version "2.3.10"
   resolved "https://registry.yarnpkg.com/@commercelayer/sdk/-/sdk-2.3.10.tgz#bbb2f93cd7fa367efb190ff799450cd3b3edebd5"
   integrity sha512-qqgW0EBYHTDHkp+8OqyzL/M3bbd7EVmJHNal5tDTe4gaDUxl2jHGY4JTtGhDAhyZcwC4dfRR7eKnP+laboa3XQ==
@@ -646,10 +654,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^1.21.1":
-  version "1.21.1"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.21.1.tgz#e56cd01f889dc06af4a68ebf61d2492a87e80da1"
-  integrity sha512-/HhRol0Bia/6L7JstXUOpg3m0U3nBW8c2tvaBE6QdonN+OMusYT9AIqCMR/PyzoF3ROifFJ2kbWT7xQjbKN3tw==
+"@stripe/stripe-js@^1.21.2":
+  version "1.21.2"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.21.2.tgz#3501100a1dcd34bbf6d97c5d3e97b18eaa43c242"
+  integrity sha512-iIXe+XF9XdyO4/1i+TPRdsjy4rFOkYLeCsmB/uuSrCVs+Y0nxCdaRK3oD6n7c7lEi1sxDbAQX615wlt9E4EqWQ==
 
 "@stylelint/postcss-css-in-js@^0.37.2":
   version "0.37.2"
@@ -1273,10 +1281,10 @@ braces@^3.0.1, braces@~3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
-braintree-web@^3.83.0:
-  version "3.83.0"
-  resolved "https://registry.yarnpkg.com/braintree-web/-/braintree-web-3.83.0.tgz#490c40afa6dd35029309057fad618f008124deb2"
-  integrity sha512-i8kbZRRJ0P3ADKTXNveFjA5AE74bNTHvmERA91t8HTY19aPkuDzyAs4/InEzxdsBeLByZzyDu4ldw5MAuAkGHg==
+braintree-web@^3.84.0:
+  version "3.84.0"
+  resolved "https://registry.yarnpkg.com/braintree-web/-/braintree-web-3.84.0.tgz#6f6608bc6c0423b871261868fde8f3a7f26d054f"
+  integrity sha512-OKx9JD43IFc4TTXtMDxlr/u7WS2KEYh2vAWkUd1p6zDR7EzpNywOMzk8/PrXx7pHDihi+nVp06RLxDfKzjRZhw==
   dependencies:
     "@braintree/asset-loader" "0.4.4"
     "@braintree/browser-detection" "1.12.1"
@@ -6143,6 +6151,11 @@ tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
+
+tslib@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
+  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
 
 tslib@~2.1.0:
   version "2.1.0"

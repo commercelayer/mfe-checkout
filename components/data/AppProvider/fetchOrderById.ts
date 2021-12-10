@@ -44,7 +44,7 @@ export interface FetchOrderByIdResponse {
   shippingAddress: Address | undefined
   hasBillingAddress: boolean
   billingAddress: Address | undefined
-  requiresBillingInfo: boolean
+  requiresBillingInfo: boolean | undefined
   hasShippingMethod: boolean
   paymentMethod: PaymentMethod | undefined
   shipments: Array<ShipmentSelected>
@@ -69,7 +69,10 @@ async function isNewAddress({
   }
 
   const hasAddressIntoAddresses = Boolean(
-    customerAddresses?.find(({ id }) => id === address?.reference)
+    customerAddresses?.find(
+      (customerAddress) =>
+        customerAddress.address?.reference === address?.reference
+    )
   )
 
   if (
@@ -104,8 +107,16 @@ async function checkAndSetDefaultAddressForOrder({
     return
   }
 
-  const addressId = customerAddresses[0].address?.id
-  const customerAddressId = customerAddresses[0].id
+  let addressId = customerAddresses[0].address?.id
+
+  if (addressId) {
+    addressId = (
+      await cl.addresses.update({
+        id: addressId,
+        reference: addressId,
+      })
+    ).id
+  }
 
   const updateObjet: OrderUpdate = {
     id: order.id,
@@ -120,18 +131,20 @@ async function checkAndSetDefaultAddressForOrder({
         const shippingAddressToUpdate = orderObj.shipping_address?.id
         await cl.orders.update({
           id: order.id,
-          ...(billingAddressToUpdate && {
-            billing_address: {
-              id: customerAddressId,
-              type: "addresses",
-            },
-          }),
-          ...(shippingAddressToUpdate && {
-            shipping_address: {
-              id: customerAddressId,
-              type: "addresses",
-            },
-          }),
+          ...(billingAddressToUpdate &&
+            addressId && {
+              billing_address: {
+                id: addressId,
+                type: "addresses",
+              },
+            }),
+          ...(shippingAddressToUpdate &&
+            addressId && {
+              shipping_address: {
+                id: addressId,
+                type: "addresses",
+              },
+            }),
         })
       })
   } catch (error) {
@@ -178,20 +191,17 @@ async function checkIfShipmentRequired(
   const lineItems = (
     await cl.orders.retrieve(orderId, {
       fields: {
-        line_items: ["item_type"],
+        line_items: ["item_type", "item"],
       },
-      include: ["line_items"],
+      include: ["line_items", "line_items.item"],
     })
-  ).line_items?.filter((line_item) => line_item.item_type === "skus")
-
-  // const lineItems: "interface" = (
-  //   await order
-  //     .lineItems()
-  //     ?.where({ itemTypeCont: "skus" })
-  //     ?.includes("item")
-  //     ?.select("item_type")
-  //     ?.all()
-  // )?.__collection?.filter((e) => !e?.association("item")?.target?.doNotShip)
+  ).line_items?.filter(
+    (line_item) =>
+      line_item.item_type === "skus" &&
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      !line_item.item?.do_not_ship
+  )
 
   if (lineItems?.length === undefined) {
     return false
@@ -247,6 +257,17 @@ export const fetchOrderById = async ({
 
     const shippingCountryCodeLock = order.shipping_country_code_lock
 
+    let isUsingNewBillingAddress = await isNewAddress({
+      address: billingAddress,
+      customerAddresses: addresses,
+      isGuest,
+    })
+    let isUsingNewShippingAddress = await isNewAddress({
+      address: shippingAddress,
+      customerAddresses: addresses,
+      isGuest,
+    })
+
     // If we have a customer with a single customer address and
     // the order has no billing or shipping address, we are going
     // to assume the customer address as the default one
@@ -263,6 +284,18 @@ export const fetchOrderById = async ({
           order: order,
           customerAddresses: addresses,
         })
+        // temp fix to resolve flag bug
+        localStorage.setItem(
+          "_save_billing_address_to_customer_address_book",
+          "false"
+        )
+        localStorage.setItem(
+          "_save_shipping_address_to_customer_address_book",
+          "false"
+        )
+        // --
+        isUsingNewBillingAddress = false
+        isUsingNewShippingAddress = false
         const orderUpdated = await cl.orders.retrieve(order.id, {
           include: ["shipping_address", "billing_address"],
         })
@@ -401,17 +434,6 @@ export const fetchOrderById = async ({
       }
     }
 
-    const isUsingNewBillingAddress = await isNewAddress({
-      address: billingAddress,
-      customerAddresses: addresses,
-      isGuest,
-    })
-    const isUsingNewShippingAddress = await isNewAddress({
-      address: shippingAddress,
-      customerAddresses: addresses,
-      isGuest,
-    })
-
     const hasSameAddresses = isBillingAddresSameAsShippingAddress({
       billingAddress,
       shippingAddress,
@@ -425,7 +447,7 @@ export const fetchOrderById = async ({
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const requiresBillingInfo = order.requiresBillingInfo
+    const requiresBillingInfo = order.requires_billing_info
 
     await i18n.changeLanguage(order.language_code)
 
