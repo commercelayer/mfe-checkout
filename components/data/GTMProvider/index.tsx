@@ -56,11 +56,12 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     return <>{children}</>
   }
 
-  const { accessToken, orderId, slug } = ctx
+  const { accessToken, orderId, slug, domain } = ctx
 
   const cl = CommerceLayer({
     organization: slug,
     accessToken: accessToken,
+    domain,
   })
 
   useEffect(() => {

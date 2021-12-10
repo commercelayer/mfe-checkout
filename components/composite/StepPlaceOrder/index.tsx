@@ -112,7 +112,7 @@ const StepPlaceOrder: React.FC<Props> = ({
               return null
             }
             return props.errors.map((error, index) => {
-              if (error.trim().length === 0) {
+              if (error?.trim().length === 0) {
                 return null
               }
               return (

@@ -19,6 +19,7 @@ interface FetchOrderByIdProps {
   orderId: string
   accessToken: string
   slug: string
+  domain: string
 }
 
 interface IsNewAddressProps {
@@ -214,10 +215,12 @@ export const fetchOrderById = async ({
   orderId,
   accessToken,
   slug,
+  domain,
 }: FetchOrderByIdProps): Promise<FetchOrderByIdResponse> => {
   const cl = CommerceLayer({
     organization: slug,
     accessToken: accessToken,
+    domain,
   })
 
   try {

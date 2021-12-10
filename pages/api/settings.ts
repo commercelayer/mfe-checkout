@@ -18,6 +18,7 @@ interface JWTProps {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const accessToken = req.query.accessToken as string
   const orderId = req.query.orderId as string
+  const domain = "commercelayer.io"
   const paymentReturn = req.query.paymentReturn === "true"
 
   let cl
@@ -43,20 +44,21 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     slug_cl = slug
 
-    cl = CommerceLayer({
-      organization: slug,
-      accessToken: accessToken,
-    })
-
     const subdomain = req.headers.host?.split(":")[0].split(".")[0]
 
     if (subdomain !== slug || kind !== "sales_channel") {
       return invalidateCheckout()
     } else if (slug) {
-      endpoint = `https://${slug}.commercelayer.io`
+      endpoint = `https://${slug}.${domain}`
     } else {
       return invalidateCheckout()
     }
+
+    cl = CommerceLayer({
+      organization: slug,
+      accessToken: accessToken,
+      domain,
+    })
   } catch (e) {
     console.log(`error decoding access token: ${e}`)
     return invalidateCheckout()
@@ -138,6 +140,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const appSettings: CheckoutSettings = {
     accessToken,
     endpoint,
+    domain,
     slug: slug_cl,
     orderNumber: order.number || 0,
     orderId: order.id,

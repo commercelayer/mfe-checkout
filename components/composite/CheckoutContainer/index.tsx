@@ -44,6 +44,7 @@ const CheckoutContainer: React.FC<Props> = ({ settings, children }) => {
               orderId={settings.orderId}
               accessToken={settings.accessToken}
               slug={settings.slug}
+              domain={settings.domain}
             >
               <GTMProvider gtmId={settings.gtmId}>{children}</GTMProvider>
             </AppProvider>

@@ -7,6 +7,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   orderId: string
   accessToken: string
   slug: string
+  domain: string
   isFirstLoading: boolean
   refetchOrder: () => Promise<void>
   refetchShipments: () => Promise<void>
@@ -48,6 +49,7 @@ const initialState: AppStateData = {
 export const AppContext = createContext<AppProviderData | null>(null)
 
 interface AppProviderProps {
+  domain: string
   slug: string
   orderId: string
   accessToken: string
@@ -58,6 +60,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   orderId,
   accessToken,
   slug,
+  domain,
 }) => {
   const [state, setState] = useState(initialState)
 
@@ -67,7 +70,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     }
     setState({ ...state, isLoading: true })
 
-    return await fetchOrderById({ orderId, accessToken, slug }).then(
+    return await fetchOrderById({ orderId, accessToken, slug, domain }).then(
       (newState) => {
         setState({ ...newState, isLoading: false, isFirstLoading: false })
       }
@@ -83,7 +86,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     }
     setState({ ...state, isLoading: true })
 
-    return await fetchOrderById({ orderId, accessToken, slug }).then(
+    return await fetchOrderById({ orderId, accessToken, slug, domain }).then(
       (newState) => {
         setState({
           ...state,
@@ -113,6 +116,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         orderId,
         accessToken,
         slug,
+        domain,
         refetchOrder: async () => {
           return await fetchOrderHandle(orderId, accessToken)
         },
