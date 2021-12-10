@@ -10,7 +10,7 @@ import { Label } from "components/ui/form/Label"
 
 interface Props {
   readonly?: boolean
-  emailAddress: string
+  emailAddress: string | undefined
 }
 
 export const AddressSectionEmail: React.FC<Props> = ({

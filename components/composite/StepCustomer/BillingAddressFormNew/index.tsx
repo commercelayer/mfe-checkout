@@ -7,7 +7,7 @@ import { AddressInputGroup } from "components/composite/StepCustomer/AddressInpu
 import { AppContext } from "components/data/AppProvider"
 
 interface Props {
-  billingAddress: Address | null
+  billingAddress: Address | undefined
 }
 
 export const BillingAddressFormNew: React.FC<Props> = ({

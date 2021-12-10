@@ -190,7 +190,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 {mountBillingAddressForm || !hasCustomerAddresses ? (
                   <>
                     <BillingAddressFormNew
-                      billingAddress={billingAddressFill as Address}
+                      billingAddress={billingAddressFill}
                     />
                     <AddressFormBottom
                       addressType="billing"
@@ -268,7 +268,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   {mountShippingAddressForm ? (
                     <>
                       <ShippingAddressFormNew
-                        shippingAddress={shippingAddressFill as Address}
+                        shippingAddress={shippingAddressFill}
                       />
                       <AddressFormBottom
                         className="mb-4"

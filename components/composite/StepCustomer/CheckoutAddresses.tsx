@@ -62,7 +62,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
 
   return (
     <Fragment>
-      <AddressSectionEmail emailAddress={emailAddress as string} />
+      <AddressSectionEmail emailAddress={emailAddress} />
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
         <div className="mt-4">
           <AddressSectionTitle>
@@ -71,7 +71,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
         </div>
         <BillingAddressForm autoComplete="on" errorClassName="hasError">
           <div className="mt-4">
-            <BillingAddressFormNew billingAddress={billingAddress as Address} />
+            <BillingAddressFormNew billingAddress={billingAddress} />
           </div>
         </BillingAddressForm>
         {isShipmentRequired && (
@@ -94,9 +94,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
               {t(`addressForm.shipping_address_title`)}
             </AddressSectionTitle>
             <div className="mt-4">
-              <ShippingAddressFormNew
-                shippingAddress={shippingAddressFill as Address}
-              />
+              <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
             </div>
           </ShippingAddressForm>
         )}
