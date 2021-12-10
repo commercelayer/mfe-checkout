@@ -21,9 +21,9 @@ import { BillingAddressFormNew } from "./BillingAddressFormNew"
 import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
 
 interface Props {
-  billingAddress: Address | null
-  shippingAddress: Address | null
-  emailAddress: string
+  billingAddress: Address | undefined
+  shippingAddress: Address | undefined
+  emailAddress: string | undefined
   hasSameAddresses: boolean
   isShipmentRequired: boolean
   isLocalLoader: boolean
@@ -41,8 +41,9 @@ export const CheckoutAddresses: React.FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation()
 
-  const [shippingAddressFill, setShippingAddressFill] =
-    useState<Address | null>(shippingAddress)
+  const [shippingAddressFill, setShippingAddressFill] = useState<
+    Address | undefined
+  >(shippingAddress)
 
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
     !hasSameAddresses
@@ -50,18 +51,18 @@ export const CheckoutAddresses: React.FC<Props> = ({
 
   const handleToggleDifferentAddress = () => [
     setShipToDifferentAddress(!shipToDifferentAddress),
-    setShippingAddressFill(null),
+    setShippingAddressFill(undefined),
   ]
 
   useEffect(() => {
     if (shipToDifferentAddress) {
-      setShippingAddressFill(null)
+      setShippingAddressFill(undefined)
     }
   }, [shipToDifferentAddress])
 
   return (
     <Fragment>
-      <AddressSectionEmail emailAddress={emailAddress} />
+      <AddressSectionEmail emailAddress={emailAddress as string} />
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
         <div className="mt-4">
           <AddressSectionTitle>
@@ -70,7 +71,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
         </div>
         <BillingAddressForm autoComplete="on" errorClassName="hasError">
           <div className="mt-4">
-            <BillingAddressFormNew billingAddress={billingAddress} />
+            <BillingAddressFormNew billingAddress={billingAddress as Address} />
           </div>
         </BillingAddressForm>
         {isShipmentRequired && (
@@ -93,7 +94,9 @@ export const CheckoutAddresses: React.FC<Props> = ({
               {t(`addressForm.shipping_address_title`)}
             </AddressSectionTitle>
             <div className="mt-4">
-              <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
+              <ShippingAddressFormNew
+                shippingAddress={shippingAddressFill as Address}
+              />
             </div>
           </ShippingAddressForm>
         )}

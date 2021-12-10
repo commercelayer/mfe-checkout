@@ -17,8 +17,6 @@ interface Props {
   companyName: string
   supportEmail: string
   supportPhone: string
-  termsUrl: string
-  privacyUrl: string
   orderNumber: number
 }
 
@@ -27,8 +25,6 @@ export const StepComplete: React.FC<Props> = ({
   companyName,
   supportEmail,
   supportPhone,
-  termsUrl,
-  privacyUrl,
   orderNumber,
 }) => {
   const { t } = useTranslation()

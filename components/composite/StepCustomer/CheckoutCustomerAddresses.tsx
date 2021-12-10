@@ -28,14 +28,14 @@ import { BillingAddressFormNew } from "./BillingAddressFormNew"
 import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
 
 interface Props {
-  billingAddress: Address | null
-  shippingAddress: Address | null
+  billingAddress: Address | undefined
+  shippingAddress: Address | undefined
   hasSameAddresses: boolean
   isShipmentRequired: boolean
   isUsingNewBillingAddress: boolean
   isUsingNewShippingAddress: boolean
   hasCustomerAddresses: boolean
-  emailAddress: string
+  emailAddress: string | undefined
   isLocalLoader: boolean
   handleSave: () => void
 }
@@ -56,11 +56,12 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation()
 
-  const [billingAddressFill, setBillingAddressFill] = useState<Address | null>(
-    billingAddress
-  )
-  const [shippingAddressFill, setShippingAddressFill] =
-    useState<Address | null>(shippingAddress)
+  const [billingAddressFill, setBillingAddressFill] = useState<
+    Address | undefined
+  >(billingAddress)
+  const [shippingAddressFill, setShippingAddressFill] = useState<
+    Address | undefined
+  >(shippingAddress)
 
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState<boolean>(
     !hasSameAddresses
@@ -81,7 +82,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
   useEffect(() => {
     if (shipToDifferentAddress && !hasCustomerAddresses) {
-      setShippingAddressFill(null)
+      setShippingAddressFill(undefined)
       setShowShippingAddressForm(true)
       setMountShippingAddressForm(true)
     }
@@ -114,13 +115,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   }
 
   const handleShowBillingForm = () => {
-    setBillingAddressFill(null)
+    setBillingAddressFill(undefined)
     setShowBillingAddressForm(!showBillingAddressForm)
     handleScroll("billing")
   }
 
   const handleShowShippingForm = () => {
-    setShippingAddressFill(null)
+    setShippingAddressFill(undefined)
     setShowShippingAddressForm(!showShippingAddressForm)
     handleScroll("shipping")
   }
@@ -138,7 +139,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
   return (
     <Fragment>
-      <AddressSectionEmail readonly emailAddress={emailAddress} />
+      <AddressSectionEmail readonly emailAddress={emailAddress as string} />
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
         <AddressSectionTitle data-cy="billing-address">
           {t(`addressForm.billing_address_title`)}
@@ -189,7 +190,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 {mountBillingAddressForm || !hasCustomerAddresses ? (
                   <>
                     <BillingAddressFormNew
-                      billingAddress={billingAddressFill}
+                      billingAddress={billingAddressFill as Address}
                     />
                     <AddressFormBottom
                       addressType="billing"
@@ -267,7 +268,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   {mountShippingAddressForm ? (
                     <>
                       <ShippingAddressFormNew
-                        shippingAddress={shippingAddressFill}
+                        shippingAddress={shippingAddressFill as Address}
                       />
                       <AddressFormBottom
                         className="mb-4"
