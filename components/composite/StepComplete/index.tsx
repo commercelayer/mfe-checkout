@@ -14,8 +14,13 @@ import { PaymentContainer } from "components/composite/StepPayment/PaymentContai
 import { AppContext } from "components/data/AppProvider"
 import { Base } from "components/ui/Base"
 import { Button } from "components/ui/Button"
-import { CustomAddress } from "components/ui/CustomerAddressCard"
+import {
+  CustomAddress,
+  CustomerAddressCard,
+} from "components/ui/CustomerAddressCard"
+import { FlexContainer } from "components/ui/FlexContainer"
 import { Footer } from "components/ui/Footer"
+import { GridContainer } from "components/ui/GridContainer"
 import { Logo } from "components/ui/Logo"
 
 import { CheckIcon } from "./CheckIcon"
@@ -92,62 +97,82 @@ export const StepComplete: React.FC<Props> = ({
         <Wrapper>
           <Recap>
             <RecapSummary>
-              <RecapSummary>Summary</RecapSummary>
+              <RecapTitle>Summary</RecapTitle>
               <OrderSummary appCtx={ctx} readonly />
             </RecapSummary>
             <RecapCustomer>
-              Customer
-              <div>{ctx.emailAddress}</div>
-              <div className="flex flex-row">
-                <CustomAddress
-                  firstName={ctx.billingAddress?.name}
-                  lastName={ctx.billingAddress?.last_name}
-                  city={ctx.billingAddress?.city}
-                  line1={ctx.billingAddress?.line_1}
-                  line2={ctx.billingAddress?.line_2}
-                  zipCode={ctx.billingAddress?.zip_code}
-                  stateCode={ctx.billingAddress?.state_code}
-                  countryCode={ctx.billingAddress?.country_code}
-                  phone={ctx.billingAddress?.phone}
-                  addressType="billing"
-                />
-                <CustomAddress
-                  firstName={ctx.shippingAddress?.name}
-                  lastName={ctx.shippingAddress?.last_name}
-                  city={ctx.shippingAddress?.city}
-                  line1={ctx.shippingAddress?.line_1}
-                  line2={ctx.shippingAddress?.line_2}
-                  zipCode={ctx.shippingAddress?.zip_code}
-                  stateCode={ctx.shippingAddress?.state_code}
-                  countryCode={ctx.shippingAddress?.country_code}
-                  phone={ctx.shippingAddress?.phone}
-                  addressType="shipping"
-                />
-              </div>
-              <div className="flex">
-                <PaymentContainer>
-                  <PaymentSource readonly>
-                    <PaymentSourceBrandIcon className="mr-2" />
-                    <PaymentSourceBrandName className="mr-1">
-                      {({ brand }) => {
-                        console.log("dsa")
-                        if (ctx.isCreditCard) {
-                          return (
-                            <Trans t={t} i18nKey="stepPayment.endingIn">
-                              {brand}
-                              <PaymentSourceDetail
-                                className="ml-1"
-                                type="last4"
-                              />
-                            </Trans>
-                          )
-                        }
-                        return brand
-                      }}
-                    </PaymentSourceBrandName>
-                  </PaymentSource>
-                </PaymentContainer>
-              </div>
+              <RecapTitle>Customer</RecapTitle>
+              <RecapCol>
+                <RecapItemTitle>E-mail:</RecapItemTitle>
+                <RecapItem>{ctx.emailAddress}</RecapItem>
+              </RecapCol>
+              <RecapCol>
+                <GridContainer className="lg:!grid-cols-1 xl:!grid-cols-2">
+                  <div>
+                    <RecapItemTitle>Billed to:</RecapItemTitle>
+                    <RecapBox>
+                      <CustomAddress
+                        firstName={ctx.billingAddress?.first_name}
+                        lastName={ctx.billingAddress?.last_name}
+                        city={ctx.billingAddress?.city}
+                        line1={ctx.billingAddress?.line_1}
+                        line2={ctx.billingAddress?.line_2}
+                        zipCode={ctx.billingAddress?.zip_code}
+                        stateCode={ctx.billingAddress?.state_code}
+                        countryCode={ctx.billingAddress?.country_code}
+                        phone={ctx.billingAddress?.phone}
+                        addressType="billing"
+                      />
+                    </RecapBox>
+                  </div>
+                  <div>
+                    <RecapItemTitle>Shipped to:</RecapItemTitle>
+                    <RecapBox>
+                      <CustomAddress
+                        firstName={ctx.shippingAddress?.first_name}
+                        lastName={ctx.shippingAddress?.last_name}
+                        city={ctx.shippingAddress?.city}
+                        line1={ctx.shippingAddress?.line_1}
+                        line2={ctx.shippingAddress?.line_2}
+                        zipCode={ctx.shippingAddress?.zip_code}
+                        stateCode={ctx.shippingAddress?.state_code}
+                        countryCode={ctx.shippingAddress?.country_code}
+                        phone={ctx.shippingAddress?.phone}
+                        addressType="shipping"
+                      />
+                    </RecapBox>
+                  </div>
+                </GridContainer>
+              </RecapCol>
+              <RecapCol>
+                <RecapItemTitle>Payment:</RecapItemTitle>
+                <RecapBox>
+                  <FlexContainer className="font-bold text-md">
+                    <PaymentContainer>
+                      <PaymentSource readonly>
+                        <PaymentSourceBrandIcon className="mr-2" />
+                        <PaymentSourceBrandName className="mr-1">
+                          {({ brand }) => {
+                            console.log("dsa")
+                            if (ctx.isCreditCard) {
+                              return (
+                                <Trans t={t} i18nKey="stepPayment.endingIn">
+                                  {brand}
+                                  <PaymentSourceDetail
+                                    className="ml-1 font-normal"
+                                    type="last4"
+                                  />
+                                </Trans>
+                              )
+                            }
+                            return brand
+                          }}
+                        </PaymentSourceBrandName>
+                      </PaymentSource>
+                    </PaymentContainer>
+                  </FlexContainer>
+                </RecapBox>
+              </RecapCol>
             </RecapCustomer>
           </Recap>
           <Footer />
@@ -165,7 +190,7 @@ const Bottom = styled.div`
 `
 
 const Main = styled.div`
-  ${tw`flex flex-col flex-1 justify-center items-center text-center pb-8`}
+  ${tw`flex flex-col justify-center items-center text-center`}
 `
 const Wrapper = styled.div`
   ${tw`flex flex-col p-5 md:p-10 lg:px-20 2xl:(max-w-screen-2xl mx-auto)`}
@@ -186,11 +211,26 @@ const WrapperButton = styled.div`
   ${tw`flex items-center justify-center`}
 `
 const Recap = styled.div`
-  ${tw`md:(grid auto-cols-fr grid-flow-col gap-4)`}
+  ${tw`grid md:(auto-cols-fr grid-flow-col gap-16) lg:gap-32`}
 `
 const RecapSummary = styled.div`
-  ${tw``}
+  ${tw`order-last border-t border-dashed border-t-2 pt-6 md:(order-first border-0 p-0)`}
 `
 const RecapCustomer = styled.div`
-  ${tw``}
+  ${tw`order-1 md:order-2 mb-5 md:mb-0`}
+`
+const RecapTitle = styled.h2`
+  ${tw`text-lg font-semibold leading-none mb-8 md:mb-16`}
+`
+const RecapCol = styled.div`
+  ${tw`mb-4 md:mb-8`}
+`
+const RecapItemTitle = styled.h3`
+  ${tw`font-normal text-sm mb-2`}
+`
+const RecapItem = styled.p`
+  ${tw`text-md font-bold`}
+`
+const RecapBox = styled.div`
+  ${tw`p-3 rounded border`}
 `
