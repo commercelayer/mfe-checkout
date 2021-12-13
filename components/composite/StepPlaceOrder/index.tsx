@@ -108,10 +108,10 @@ const StepPlaceOrder: React.FC<Props> = ({
       <ErrorsContainer>
         <StyledErrors resource="orders" messages={messages}>
           {(props) => {
-            if (props.errors.length === 0) {
+            if (props.errors?.length === 0) {
               return null
             }
-            return props.errors.map((error, index) => {
+            return props.errors?.map((error, index) => {
               if (error?.trim().length === 0) {
                 return null
               }

@@ -98,8 +98,6 @@ describe("Checkout Coupon", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -109,6 +107,8 @@ describe("Checkout Coupon", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
+          "@deliveryLeadTimes",
+          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -121,15 +121,31 @@ describe("Checkout Coupon", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click({ force: true })
-      cy.wait(["@getOrders", "@getCustomerAddresses"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@patchShipments",
+          "@getOrders",
+          "@deliveryLeadTimes",
+          "@getCustomerAddresses",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.get("@shippingMethodButton3").click({ force: true })
-      cy.wait(["@getOrders", "@getCustomerAddresses"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@patchShipments",
+          "@getOrders",
+          "@deliveryLeadTimes",
+          "@getCustomerAddresses",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders", "@getOrders"], {
         timeout: 100000,
       })
     })
@@ -217,8 +233,6 @@ describe("Checkout Coupon", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -228,6 +242,8 @@ describe("Checkout Coupon", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
+          "@paymentMethods",
+          "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
       )
@@ -240,15 +256,31 @@ describe("Checkout Coupon", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click({ force: true })
-      cy.wait(["@getOrders", "@getCustomerAddresses"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@patchShipments",
+          "@deliveryLeadTimes",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.get("@shippingMethodButton3").click({ force: true })
-      cy.wait(["@getOrders", "@getCustomerAddresses"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@patchShipments",
+          "@deliveryLeadTimes",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
         timeout: 100000,
       })
     })
@@ -260,9 +292,18 @@ describe("Checkout Coupon", () => {
     it("set coupon and check amount", () => {
       cy.dataCy("input_giftcard_coupon").type("testcoupon")
       cy.dataCy("submit_giftcard_coupon").click()
-      cy.wait(["@getOrders", "@getCustomerAddresses"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@updateOrder",
+          "@paymentMethods",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("code-coupon").should("contain", "testcoupon")
       cy.dataCy("discount-amount").should("contain", "124,20")
       cy.dataCy("total-amount").should("contain", "301,80")
@@ -273,9 +314,9 @@ describe("Checkout Coupon", () => {
         [
           "@getOrders",
           "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@updateOrder",
+          "@paymentMethods",
         ],
         {
           timeout: 100000,

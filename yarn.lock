@@ -330,10 +330,10 @@
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^2.50.5":
-  version "2.50.5"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.50.5.tgz#1a8abff340c1cbcfa837522a3fb90bce4b21b06b"
-  integrity sha512-cGcLMVDjCWPIGtmtrekLUaeOOAhNGAeUgiWWQFFvnZX5huLrG/qHBZ6GUcWE1od9INivKTqN4b501/3iPEfk+A==
+"@commercelayer/react-components@^2.50.7":
+  version "2.50.7"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-2.50.7.tgz#c1620edfad30354ef4c3cb605073ddb067b76494"
+  integrity sha512-yul/2X6SBePpiIbY+9ffk8TwUVd2KmPeoBoHH39z/vW9Srhm3dmunZYBWH+Pz+aJqQ2s/gZGve1TL/QdRI4EQQ==
   dependencies:
     "@adyen/adyen-web" "^5.3.1"
     "@commercelayer/js-auth" "^2.2.6"

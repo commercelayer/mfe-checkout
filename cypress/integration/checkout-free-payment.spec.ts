@@ -103,8 +103,6 @@ describe("Checkout Free Payment", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -114,6 +112,8 @@ describe("Checkout Free Payment", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
+          "@deliveryLeadTimes",
+          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -150,11 +150,19 @@ describe("Checkout Free Payment", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click({ force: true })
-      cy.wait(["@getOrders", "@getCustomerAddresses"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@patchShipments",
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@deliveryLeadTimes",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
         timeout: 100000,
       })
     })
@@ -162,20 +170,9 @@ describe("Checkout Free Payment", () => {
     it("place order and redirect", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@updateOrder", "@getOrders", "@paymentMethods"], {
+        timeout: 100000,
+      })
       cy.dataCy("button-continue-to-shop").click()
       cy.wait(2000)
       cy.url().should("eq", returnUrl)
@@ -255,8 +252,6 @@ describe("Checkout Free Payment", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -266,6 +261,7 @@ describe("Checkout Free Payment", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
+          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -292,20 +288,9 @@ describe("Checkout Free Payment", () => {
     it("place order and redirect", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
-      cy.wait(
-        [
-          "@updateOrder",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@updateOrder", "@getOrders", "@getOrders", "@paymentMethods"], {
+        timeout: 100000,
+      })
       cy.dataCy("button-continue-to-shop").click()
       cy.wait(2000)
       cy.url().should("eq", returnUrl)
@@ -376,8 +361,6 @@ describe("Checkout Free Payment", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -387,6 +370,8 @@ describe("Checkout Free Payment", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
+          "@deliveryLeadTimes",
+          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -416,11 +401,19 @@ describe("Checkout Free Payment", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click({ force: true })
-      cy.wait(["@getOrders", "@getCustomerAddresses"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@getOrders",
+          "@patchShipments",
+          "@deliveryLeadTimes",
+          "@getCustomerAddresses",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
         timeout: 100000,
       })
     })
@@ -428,20 +421,9 @@ describe("Checkout Free Payment", () => {
     it("place order and redirect", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
-      cy.wait(
-        [
-          "@updateOrder",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@updateOrder", "@getOrders", "@getOrders", "@paymentMethods"], {
+        timeout: 100000,
+      })
       cy.dataCy("button-continue-to-shop").click()
       cy.wait(2000)
       cy.url().should("eq", returnUrl)

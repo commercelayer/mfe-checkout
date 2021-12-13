@@ -100,8 +100,6 @@ describe("Checkout Checkout-Digital", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -111,6 +109,7 @@ describe("Checkout Checkout-Digital", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
+          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -131,9 +130,21 @@ describe("Checkout Checkout-Digital", () => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
       cy.get("@paymentMethodItem3").click({ force: true })
-      cy.wait(["@getOrders", "@getCustomerAddresses"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@stripePayments",
+          "@paymentMethods",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("payment-method-amount").should("contain.text", "10,00")
     })
 
@@ -162,14 +173,11 @@ describe("Checkout Checkout-Digital", () => {
       cy.wait(
         [
           "@getOrders",
+          "@getOrders",
           "@updateOrder",
           "@getCustomerAddresses",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
+          "@paymentMethods",
         ],
         {
           timeout: 100000,

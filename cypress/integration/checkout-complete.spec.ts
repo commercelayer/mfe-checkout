@@ -83,8 +83,6 @@ describe("Checkout Complete", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -94,6 +92,8 @@ describe("Checkout Complete", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
+          "@paymentMethods",
+          "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
       )
@@ -106,11 +106,19 @@ describe("Checkout Complete", () => {
         cy.wrap(e).as(`shippingMethodButton${i}`)
       })
       cy.get("@shippingMethodButton0").click({ force: true })
-      cy.wait(["@getOrders", "@getCustomerAddresses"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@patchShipments",
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@deliveryLeadTimes",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
         timeout: 100000,
       })
     })
@@ -120,7 +128,21 @@ describe("Checkout Complete", () => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
       cy.get("@paymentMethodItem3").click({ force: true })
-      cy.wait(["@getOrders", "@getCustomerAddresses"], { timeout: 100000 })
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@stripePayments",
+          "@paymentMethods",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
       cy.dataCy("payment-method-amount").should("contain.text", "10,00")
     })
 
@@ -145,10 +167,7 @@ describe("Checkout Complete", () => {
           "@getCustomerAddresses",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
+          "@paymentMethods",
         ],
         {
           timeout: 100000,
