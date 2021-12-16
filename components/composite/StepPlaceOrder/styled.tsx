@@ -36,8 +36,15 @@ export const ErrorsContainer = styled.div`
     ${tw`mb-10`}
   }
 `
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CustomPlaceOrderButton = (props: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { isActive, ...rest } = props
+  return <PlaceOrderButton {...rest} />
+}
+
 export const StyledPlaceOrderButton = styled(
-  PlaceOrderButton
+  CustomPlaceOrderButton
 )<StyledPlaceOrderButtonProps>`
   ${ButtonCss}
   ${({ isActive }) => (isActive ? null : tw`md:hidden`)}

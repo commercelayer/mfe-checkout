@@ -495,14 +495,6 @@ describe("Checkout Payments", () => {
                   sku_code: "CANVASAU000000FFFFFF1824",
                 },
               })
-              cy.createSkuLineItems({
-                orderId: order.id,
-                accessToken: this.tokenObj.access_token,
-                attributes: {
-                  quantity: "5",
-                  sku_code: "TSHIRTMMFFFFFF000000XLXX",
-                },
-              })
               cy.createAddress({
                 ...euAddress,
                 accessToken: this.tokenObj.access_token,
@@ -520,11 +512,6 @@ describe("Checkout Payments", () => {
                     cy.setShipmentMethod({
                       type: "Standard Shipping",
                       id: shipments[0].id,
-                      accessToken: this.tokenObj.access_token,
-                    })
-                    cy.setShipmentMethod({
-                      type: "Express Delivery EU",
-                      id: shipments[1].id,
                       accessToken: this.tokenObj.access_token,
                     })
                   })
@@ -553,8 +540,6 @@ describe("Checkout Payments", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@getOrders",
           "@getOrders",
@@ -592,20 +577,8 @@ describe("Checkout Payments", () => {
           timeout: 100000,
         }
       )
-      cy.get("@shippingMethodButton3").click({ force: true })
-      cy.wait(
-        [
-          "@patchShipments",
-          "@getOrders",
-          "@getCustomerAddresses",
-          "@deliveryLeadTimes",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
         timeout: 100000,
       })
     })
@@ -637,13 +610,21 @@ describe("Checkout Payments", () => {
       cy.dataCy("payment-source").each((e, i) => {
         cy.wrap(e).as(`paymentSource${i}`)
       })
-      cy.get("@paymentSource0").within(() => {
+      cy.wait(3000)
+      cy.get("@paymentSource1").within(() => {
         cy.fillElementsInput("number", "4111111111111111")
-        cy.fillElementsInput("expirationDate", "022022")
-        cy.fillElementsInput("cvc", "123")
+        cy.fillElementsInput("expirationDate", "102022")
+        cy.fillElementsInput("cvv", "123")
       })
-      cy.wait(2000)
       cy.dataCy("place-order-button").should("be.enabled")
+    })
+
+    it("place order and check", () => {
+      cy.dataCy("place-order-button").click()
+      cy.wait(5000)
+      cy.get('input[name="challengeDataEntry"]').type("1234")
+      cy.get('input[value="SUBMIT"]').click()
+      cy.wait(5000)
     })
   })
 

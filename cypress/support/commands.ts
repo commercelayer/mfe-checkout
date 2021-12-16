@@ -405,7 +405,7 @@ const getSelectorForField = (
     | "cardCvc"
     | "cardNumber"
     | "cardExpiry"
-    | "cvc"
+    | "cvv"
     | "number"
     | "expirationDate"
     | "encryptedCardNumber"
@@ -437,21 +437,12 @@ Cypress.Commands.add("fillElementsInput", (field, value): void => {
 
   const selector = getSelectorForField(field)
 
-  if (
-    field === "cardCvc" ||
-    field === "cardNumber" ||
-    field === "cardExpiry" ||
-    field === "encryptedSecurityCode" ||
-    field === "encryptedCardNumber" ||
-    field === "encryptedExpiryDate"
-  ) {
-    cy.get("iframe")
-      .should((iframe) => expect(iframe.contents().find(selector)).to.exist)
-      .then((iframe) => cy.wrap(iframe.contents().find(selector)))
-      .within((input) => {
-        cy.wrap(input).type(value)
-      })
-  }
+  cy.get("iframe")
+    .should((iframe) => expect(iframe.contents().find(selector)).to.exist)
+    .then((iframe) => cy.wrap(iframe.contents().find(selector)))
+    .within((input) => {
+      cy.wrap(input).type(value)
+    })
 })
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

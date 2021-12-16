@@ -102,7 +102,7 @@ declare global {
           | "cardCvc"
           | "cardNumber"
           | "cardExpiry"
-          | "cvc"
+          | "cvv"
           | "number"
           | "expirationDate"
           | "encryptedCardNumber"
