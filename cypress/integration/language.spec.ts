@@ -31,18 +31,9 @@ describe("Checkout language", () => {
 
         cy.visit(`/${order.id}?accessToken=${Cypress.env("accessToken")}`)
 
-        cy.wait(
-          [
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-          ],
-          {
-            timeout: 100000,
-          }
-        )
+        cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
+          timeout: 100000,
+        })
       })
       cy.dataCy("step-header-customer").should("contain.text", "Customer")
     })
@@ -80,16 +71,9 @@ describe("Checkout language", () => {
 
         cy.visit(`/${order.id}?accessToken=${Cypress.env("accessToken")}`)
 
-        cy.wait(
-          [
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-          ],
-          { timeout: 100000 }
-        )
+        cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
+          timeout: 100000,
+        })
       })
       cy.dataCy("step-header-customer").should("contain.text", "Cliente")
     })

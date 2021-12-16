@@ -19,7 +19,7 @@ describe("Checkout Complete with terms and privacy", () => {
     })
   })
 
-  context.only(
+  context(
     "create order and place order with checkbox privacy and terms",
     () => {
       before(function () {
@@ -94,6 +94,14 @@ describe("Checkout Complete with terms and privacy", () => {
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@paymentMethods",
+            "@deliveryLeadTimes",
           ],
           { timeout: 100000 }
         )
@@ -106,11 +114,19 @@ describe("Checkout Complete with terms and privacy", () => {
           cy.wrap(e).as(`shippingMethodButton${i}`)
         })
         cy.get("@shippingMethodButton0").click({ force: true })
-        cy.wait(["@getOrders", "@getCustomerAddresses"], {
-          timeout: 100000,
-        })
+        cy.wait(
+          [
+            "@patchShipments",
+            "@getOrders",
+            "@getCustomerAddresses",
+            "@deliveryLeadTimes",
+          ],
+          {
+            timeout: 100000,
+          }
+        )
         cy.dataCy("save-shipments-button").click()
-        cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+        cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
           timeout: 100000,
         })
       })
@@ -121,7 +137,13 @@ describe("Checkout Complete with terms and privacy", () => {
         })
         cy.get("@paymentMethodItem2").click({ force: true })
         cy.wait(
-          ["@updateOrder", "@getCustomerAddresses", "@getOrders", "@getOrders"],
+          [
+            "@updateOrder",
+            "@getCustomerAddresses",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
+          ],
           { timeout: 100000 }
         )
       })
@@ -152,6 +174,10 @@ describe("Checkout Complete with terms and privacy", () => {
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@deliveryLeadTimes",
+            "@paymentMethods",
           ],
           { timeout: 100000 }
         )
@@ -163,6 +189,28 @@ describe("Checkout Complete with terms and privacy", () => {
         cy.wait(1000)
         cy.dataCy("checkbox-privacy-and-terms").should("not.be.checked")
         cy.dataCy("place-order-button").should("not.be.enabled")
+      })
+
+      it("select shipment and save", () => {
+        cy.dataCy("shipping-method-button").each((e, i) => {
+          cy.wrap(e).as(`shippingMethodButton${i}`)
+        })
+        cy.get("@shippingMethodButton0").click({ force: true })
+        cy.wait(
+          [
+            "@patchShipments",
+            "@getOrders",
+            "@getCustomerAddresses",
+            "@deliveryLeadTimes",
+          ],
+          {
+            timeout: 100000,
+          }
+        )
+        cy.dataCy("save-shipments-button").click()
+        cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
+          timeout: 100000,
+        })
       })
 
       it("set checkbox to checked", () => {

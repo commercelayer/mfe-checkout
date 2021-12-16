@@ -36,7 +36,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ refetchOrder }) => {
   }: CustomerCardsType) => {
     return (
       <>
-        {customerPayments.map((p, k) => {
+        {customerPayments?.map((p, k) => {
           return (
             <div
               key={k}

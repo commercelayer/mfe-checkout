@@ -40,10 +40,9 @@ describe("Checkout guest address", () => {
         cy.newStubData("getOrders1", filename)
       }
 
-      cy.wait(
-        ["@getOrders", "@getOrders", "@getOrders", "@getOrders", "@getOrders"],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer_email").should("contain.value", "alessani@gmail.tk")
 
@@ -71,9 +70,18 @@ describe("Checkout guest address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@createAddress",
+          "@paymentMethods",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
 
       cy.dataCy("customer-email-step-header").should("contain", emailCustomer)
     })
@@ -83,6 +91,9 @@ describe("Checkout guest address", () => {
       cy.checkForm({
         type: "billing",
         address: euAddress,
+      })
+      cy.wait("@deliveryLeadTimes", {
+        timeout: 100000,
       })
     })
 
@@ -102,9 +113,18 @@ describe("Checkout guest address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
-        timeout: 100000,
-      })
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@createAddress",
+          "@paymentMethods",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
     })
 
     it("check billing and shipping information", () => {
@@ -116,6 +136,9 @@ describe("Checkout guest address", () => {
       cy.checkForm({
         type: "shipping",
         address: euAddress2,
+      })
+      cy.wait("@deliveryLeadTimes", {
+        timeout: 100000,
       })
     })
   })
@@ -159,8 +182,18 @@ describe("Checkout guest address", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`)
 
       cy.wait(
-        ["@getOrders", "@getOrders", "@getOrders", "@getOrders", "@getOrders"],
-        { timeout: 100000 }
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@deliveryLeadTimes",
+          "@paymentMethods",
+        ],
+        {
+          timeout: 100000,
+        }
       )
 
       cy.dataCy("customer-email-step-header").should(
@@ -220,8 +253,18 @@ describe("Checkout guest address", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`)
 
       cy.wait(
-        ["@getOrders", "@getOrders", "@getOrders", "@getOrders", "@getOrders"],
-        { timeout: 100000 }
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@deliveryLeadTimes",
+          "@paymentMethods",
+        ],
+        {
+          timeout: 100000,
+        }
       )
 
       cy.dataCy("customer-email-step-header").should(
@@ -239,6 +282,9 @@ describe("Checkout guest address", () => {
       cy.checkForm({
         type: "shipping",
         address: euAddress2,
+      })
+      cy.wait("@deliveryLeadTimes", {
+        timeout: 100000,
       })
     })
   })

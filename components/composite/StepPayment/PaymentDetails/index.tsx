@@ -31,16 +31,16 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
         <div className="flex items-center font-bold">
           <PaymentSourceBrandIcon className="mr-2" />
           <PaymentSourceBrandName className="mr-1">
-            {({ brand }) => {
+            {(p) => {
               if (isCreditCard) {
                 return (
                   <Trans t={t} i18nKey="stepPayment.endingIn">
-                    {brand}
+                    <>{p?.brand}</>
                     <PaymentSourceDetail className="ml-1" type="last4" />
                   </Trans>
                 )
               }
-              return brand
+              return <>{p?.brand}</>
             }}
           </PaymentSourceBrandName>
         </div>

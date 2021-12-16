@@ -87,18 +87,9 @@ describe("Checkout entrypoint", () => {
           cy.newStubData(["getOrders1"], filename)
         }
 
-        cy.wait(
-          [
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-          ],
-          {
-            timeout: 100000,
-          }
-        )
+        cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
+          timeout: 100000,
+        })
 
         cy.dataCy("test-summary").should("have.text", "Order summary")
       })
