@@ -14,13 +14,9 @@ import { PaymentContainer } from "components/composite/StepPayment/PaymentContai
 import { AppContext } from "components/data/AppProvider"
 import { Base } from "components/ui/Base"
 import { Button } from "components/ui/Button"
-import {
-  CustomAddress,
-  CustomerAddressCard,
-} from "components/ui/CustomerAddressCard"
+import { CustomAddress } from "components/ui/CustomerAddressCard"
 import { FlexContainer } from "components/ui/FlexContainer"
 import { Footer } from "components/ui/Footer"
-import { GridContainer } from "components/ui/GridContainer"
 import { Logo } from "components/ui/Logo"
 
 import { CheckIcon } from "./CheckIcon"
@@ -107,7 +103,7 @@ export const StepComplete: React.FC<Props> = ({
                 <RecapItem>{ctx.emailAddress}</RecapItem>
               </RecapCol>
               <RecapCol>
-                <GridContainer className="lg:!grid-cols-1 xl:!grid-cols-2">
+                <AddressContainer className="lg:!grid-cols-1 xl:!grid-cols-2">
                   <div>
                     <RecapItemTitle>Billed to:</RecapItemTitle>
                     <RecapBox>
@@ -142,7 +138,7 @@ export const StepComplete: React.FC<Props> = ({
                       />
                     </RecapBox>
                   </div>
-                </GridContainer>
+                </AddressContainer>
               </RecapCol>
               <RecapCol>
                 <RecapItemTitle>Payment:</RecapItemTitle>
@@ -233,4 +229,10 @@ const RecapItem = styled.p`
 `
 const RecapBox = styled.div`
   ${tw`p-3 rounded border`}
+`
+const AddressContainer = styled(FlexContainer)`
+  ${tw`flex-col gap-y-4 xl:(flex-row gap-4 justify-between)`}
+  > div {
+    ${tw`flex-1`}
+  }
 `
