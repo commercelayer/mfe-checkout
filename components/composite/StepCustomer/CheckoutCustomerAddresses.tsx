@@ -158,8 +158,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                         addressType="billing"
                         deselect={showBillingAddressForm}
                         onSelect={() =>
-                          showBillingAddressForm &&
-                          setShowBillingAddressForm(false)
+                          localStorage.setItem(
+                            "_save_billing_address_to_customer_address_book",
+                            "false"
+                          )
                         }
                       />
                     </BillingAddressContainer>
@@ -236,8 +238,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                       addressType="shipping"
                       deselect={showShippingAddressForm}
                       onSelect={() =>
-                        showShippingAddressForm &&
-                        setShowShippingAddressForm(false)
+                        localStorage.setItem(
+                          "_save_shipping_address_to_customer_address_book",
+                          "false"
+                        )
                       }
                     />
                   </ShippingAddressContainer>
