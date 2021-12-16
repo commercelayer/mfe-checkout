@@ -32,7 +32,8 @@ import { apiRequestHeaders } from "./utils"
 Cypress.Commands.add("dataCy", (value) => {
   return cy.get(`[data-cy=${value}]`, { timeout: 100000 })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("createCustomer", (options) => {
   cy.request({
     url: Cypress.env("apiEndpoint") + "/api/customers",
@@ -53,7 +54,8 @@ Cypress.Commands.add("createCustomer", (options) => {
       return customer
     })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("createOrder", (template, options) => {
   const hash = md5(JSON.stringify(options))
   const filename = `${template}_${hash}.json`
@@ -90,7 +92,8 @@ Cypress.Commands.add("createOrder", (template, options) => {
     return cy.readFile(`cypress/fixtures/orders/${filename}`)
   }
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("createSkuLineItems", (options) => {
   const hash = md5(JSON.stringify(options))
   const filename = `line_items_${hash}.json`
@@ -133,7 +136,8 @@ Cypress.Commands.add("createSkuLineItems", (options) => {
     return cy.readFile(`cypress/fixtures/orders/${filename}`)
   }
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("createAddress", (options) => {
   cy.request({
     url: Cypress.env("apiEndpoint") + "/api/addresses",
@@ -183,7 +187,8 @@ Cypress.Commands.add("createAddress", (options) => {
         })
     })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("addAddressToBook", (idAddress, accessToken) => {
   cy.request({
     url: Cypress.env("apiEndpoint") + `/api/customer_addresses`,
@@ -216,7 +221,8 @@ Cypress.Commands.add("addAddressToBook", (idAddress, accessToken) => {
       return customer_addresses
     })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("setSameAddress", (orderId, addressId, accessToken) => {
   cy.request({
     url: Cypress.env("apiEndpoint") + `/api/orders/${orderId}`,
@@ -250,6 +256,8 @@ Cypress.Commands.add("setSameAddress", (orderId, addressId, accessToken) => {
 
 Cypress.Commands.add(
   "setDifferentAddress",
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   (orderId, billingAddressId, shippingAddressId, accessToken) => {
     cy.request({
       url: Cypress.env("apiEndpoint") + `/api/orders/${orderId}`,
@@ -284,7 +292,8 @@ Cypress.Commands.add(
       })
   }
 )
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("getShipments", (options) => {
   cy.request({
     url:
@@ -300,7 +309,8 @@ Cypress.Commands.add("getShipments", (options) => {
       return idShipment
     })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("setShipmentMethod", (options) => {
   let type
   switch (options.type) {
@@ -343,7 +353,8 @@ Cypress.Commands.add("setShipmentMethod", (options) => {
       return idShipment
     })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("getTokenCustomer", (options) => {
   cy.request({
     url: Cypress.env("apiEndpoint") + `/oauth/token`,
@@ -362,7 +373,8 @@ Cypress.Commands.add("getTokenCustomer", (options) => {
       return tokenObj
     })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("getTokenSuperuser", () => {
   cy.request({
     url: Cypress.env("apiEndpoint") + `/oauth/token`,
@@ -412,7 +424,8 @@ const getSelectorForField = (
   }
   return `input[data-braintree-name="${name}"]`
 }
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("fillElementsInput", (field, value): void => {
   if (Cypress.config("chromeWebSecurity")) {
     throw new Error(
@@ -440,7 +453,8 @@ Cypress.Commands.add("fillElementsInput", (field, value): void => {
       })
   }
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("createGiftCard", (options) => {
   cy.request({
     url: Cypress.env("apiEndpoint") + `/api/gift_cards`,
@@ -464,7 +478,8 @@ Cypress.Commands.add("createGiftCard", (options) => {
       return giftCard
     })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("activeGiftCard", (options) => {
   cy.request({
     url: Cypress.env("apiEndpoint") + `/api/gift_cards/${options.giftcardId}`,
@@ -506,7 +521,8 @@ Cypress.Commands.add("activeGiftCard", (options) => {
       return giftCard
     })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("setGiftCard", (options) => {
   cy.request({
     url: Cypress.env("apiEndpoint") + `/api/orders/${options.orderId}`,
@@ -529,7 +545,8 @@ Cypress.Commands.add("setGiftCard", (options) => {
       return order
     })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("setCoupon", (options) => {
   cy.request({
     url: Cypress.env("apiEndpoint") + `/api/orders/${options.orderId}`,
@@ -552,7 +569,8 @@ Cypress.Commands.add("setCoupon", (options) => {
       return order
     })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("fillForm", (options) => {
   cy.wait(1500)
 
@@ -579,19 +597,28 @@ Cypress.Commands.add("fillForm", (options) => {
     }
 
     if (camelToSnakeCase === "country_code") {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       dataSelect.select(options.address[key])
     } else if (camelToSnakeCase === "state_code") {
       if (options.address.countryCode === "IT") {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         dataSelect.select(options.address[key])
       } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         dataSelect.type(`{selectall}{backspace}${options.address[key]}`)
       }
     } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       dataSelect.type(`{selectall}{backspace}${options.address[key]}`)
     }
   })
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("checkForm", (options) => {
   cy.wait(1800)
 
@@ -612,13 +639,15 @@ Cypress.Commands.add("checkForm", (options) => {
     const dataSelect = cy.dataCy(
       `input_${options.type}_address_${camelToSnakeCase}`
     )
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     dataSelect.should("have.value", options.address[key])
   })
 
   cy.dataCy("step_shipping").click().should("have.attr", "data-status", "true")
 })
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 Cypress.Commands.add("checkAddressBook", (options) => {
   cy.dataCy("step_customer").click().should("have.attr", "data-status", "true")
 
@@ -643,6 +672,8 @@ Cypress.Commands.add("checkAddressBook", (options) => {
         String(options.type).charAt(0).toUpperCase() +
         String(options.type).slice(1)
       }Address${String(options.index || "0")}`
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
     ).contains("p", options.address[key])
   })
 

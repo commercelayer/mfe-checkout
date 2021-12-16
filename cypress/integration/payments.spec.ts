@@ -10,7 +10,7 @@ describe("Checkout Payments", () => {
 
   before(() => cy.createCustomer({ email: email, password: password }))
 
-  context.skip("customer order with one payment method not selected", () => {
+  context("customer order with one payment method not selected", () => {
     before(function () {
       cy.getTokenCustomer({
         username: email,
@@ -185,7 +185,7 @@ describe("Checkout Payments", () => {
     })
   })
 
-  context.skip("guest order with one payment method not selected", () => {
+  context("guest order with one payment method not selected", () => {
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
@@ -322,7 +322,7 @@ describe("Checkout Payments", () => {
     })
   })
 
-  context.skip("select one method and change immediately", () => {
+  context("select one method and change immediately", () => {
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
@@ -472,7 +472,7 @@ describe("Checkout Payments", () => {
     })
   })
 
-  context.skip("customer order and braintree select method", () => {
+  context("customer order and braintree select method", () => {
     before(function () {
       cy.getTokenCustomer({
         username: email,
@@ -897,11 +897,17 @@ describe("Checkout Payments", () => {
             "@getOrders",
             "@getOrders",
             "@getOrders",
-            "@getOrders",
-            "@getOrders",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@paymentMethods",
+            "@deliveryLeadTimes",
           ],
           { timeout: 100000 }
         )
@@ -916,17 +922,17 @@ describe("Checkout Payments", () => {
         cy.get("@shippingMethodButton0").click({ force: true })
         cy.wait(
           [
+            "@patchShipments",
             "@getOrders",
             "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@getCustomerAddresses",
+            "@deliveryLeadTimes",
           ],
           {
             timeout: 100000,
           }
         )
         cy.dataCy("save-shipments-button").click()
-        cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+        cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
           timeout: 100000,
         })
       })
@@ -938,13 +944,14 @@ describe("Checkout Payments", () => {
         cy.get("@paymentMethodItem3").click({ force: true })
         cy.wait(
           [
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
             "@updateOrder",
-            "@getCustomerAddresses",
-            "@getCustomerAddresses",
             "@stripePayments",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getOrders",
+            "@getOrders",
+            "@getOrders",
+            "@paymentMethods",
           ],
           { timeout: 100000 }
         )
@@ -960,7 +967,6 @@ describe("Checkout Payments", () => {
           cy.wrap(e).as(`customerCard${i}`)
         })
         cy.get("@customerCard0").click({ force: true })
-        cy.wait(["@updateOrder", "@getCustomerAddresses"], { timeout: 100000 })
         cy.wait(3000)
       })
 
@@ -969,13 +975,12 @@ describe("Checkout Payments", () => {
         cy.dataCy("place-order-button").click()
         cy.wait(
           [
+            "@getOrders",
             "@updateOrder",
+            "@getCustomerAddresses",
             "@getOrders",
             "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
+            "@paymentMethods",
           ],
           {
             timeout: 100000,
@@ -985,7 +990,7 @@ describe("Checkout Payments", () => {
     }
   )
 
-  context.skip("customer order select Adyen payment method", () => {
+  context("customer order select Adyen payment method", () => {
     before(function () {
       cy.getTokenCustomer({
         username: email,
@@ -1153,164 +1158,156 @@ describe("Checkout Payments", () => {
     })
   })
 
-  context.skip(
-    "customer order select card to wallet Adyen payment method",
-    () => {
-      before(function () {
-        cy.getTokenCustomer({
-          username: email,
-          password: password,
-        })
-          .as("tokenObj")
-          .then(() => {
-            cy.createOrder("draft", {
-              languageCode: "en",
-              customerEmail: email,
-              accessToken: this.tokenObj.access_token,
-            })
-              .as("newOrder")
-              .then((order) => {
-                cy.createSkuLineItems({
-                  orderId: order.id,
-                  accessToken: this.tokenObj.access_token,
-                  attributes: {
-                    quantity: "1",
-                    sku_code: "CANVASAU000000FFFFFF1824",
-                  },
-                })
-                cy.createAddress({
-                  ...euAddress,
-                  accessToken: this.tokenObj.access_token,
-                }).then((address) => {
-                  cy.setSameAddress(
-                    order.id,
-                    address.id,
-                    this.tokenObj.access_token
-                  ).then(() => {
-                    cy.getShipments({
+  context("customer order select card to wallet Adyen payment method", () => {
+    before(function () {
+      cy.getTokenCustomer({
+        username: email,
+        password: password,
+      })
+        .as("tokenObj")
+        .then(() => {
+          cy.createOrder("draft", {
+            languageCode: "en",
+            customerEmail: email,
+            accessToken: this.tokenObj.access_token,
+          })
+            .as("newOrder")
+            .then((order) => {
+              cy.createSkuLineItems({
+                orderId: order.id,
+                accessToken: this.tokenObj.access_token,
+                attributes: {
+                  quantity: "1",
+                  sku_code: "CANVASAU000000FFFFFF1824",
+                },
+              })
+              cy.createAddress({
+                ...euAddress,
+                accessToken: this.tokenObj.access_token,
+              }).then((address) => {
+                cy.setSameAddress(
+                  order.id,
+                  address.id,
+                  this.tokenObj.access_token
+                ).then(() => {
+                  cy.getShipments({
+                    accessToken: this.tokenObj.access_token,
+                    orderId: order.id,
+                  }).then((shipments) => {
+                    console.log(shipments)
+                    cy.setShipmentMethod({
+                      type: "Standard Shipping",
+                      id: shipments[0].id,
                       accessToken: this.tokenObj.access_token,
-                      orderId: order.id,
-                    }).then((shipments) => {
-                      console.log(shipments)
-                      cy.setShipmentMethod({
-                        type: "Standard Shipping",
-                        id: shipments[0].id,
-                        accessToken: this.tokenObj.access_token,
-                      })
                     })
                   })
                 })
               })
-          })
-      })
-
-      beforeEach(function () {
-        cy.setRoutes({
-          endpoint: Cypress.env("apiEndpoint"),
-          routes: Cypress.env("requests"),
-          record: Cypress.env("record"), // @default false
-          filename,
+            })
         })
-      })
+    })
 
-      after(() => {
-        if (Cypress.env("record")) {
-          cy.saveRequests(filename)
-        }
+    beforeEach(function () {
+      cy.setRoutes({
+        endpoint: Cypress.env("apiEndpoint"),
+        routes: Cypress.env("requests"),
+        record: Cypress.env("record"), // @default false
+        filename,
       })
+    })
 
-      it("valid customer token", function () {
-        cy.visit(
-          `/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`
-        )
-        cy.wait(
-          [
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@paymentMethods",
-            "@deliveryLeadTimes",
-          ],
-          { timeout: 100000 }
-        )
-        cy.url().should("contain", this.tokenObj.access_token)
-        cy.url().should("not.contain", Cypress.env("accessToken"))
+    after(() => {
+      if (Cypress.env("record")) {
+        cy.saveRequests(filename)
+      }
+    })
+
+    it("valid customer token", function () {
+      cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
+      cy.wait(
+        [
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@paymentMethods",
+          "@deliveryLeadTimes",
+        ],
+        { timeout: 100000 }
+      )
+      cy.url().should("contain", this.tokenObj.access_token)
+      cy.url().should("not.contain", Cypress.env("accessToken"))
+    })
+
+    it("select shipment and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-
-      it("select shipment and save", () => {
-        cy.dataCy("shipping-method-button").each((e, i) => {
-          cy.wrap(e).as(`shippingMethodButton${i}`)
-        })
-        cy.get("@shippingMethodButton0").click({ force: true })
-        cy.wait(
-          [
-            "@patchShipments",
-            "@getOrders",
-            "@getCustomerAddresses",
-            "@deliveryLeadTimes",
-          ],
-          {
-            timeout: 100000,
-          }
-        )
-        cy.dataCy("save-shipments-button").click()
-        cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.get("@shippingMethodButton0").click({ force: true })
+      cy.wait(
+        [
+          "@patchShipments",
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@deliveryLeadTimes",
+        ],
+        {
           timeout: 100000,
-        })
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+        timeout: 100000,
       })
+    })
 
-      it("select payment method credit card Adyen", () => {
-        cy.dataCy("payment-method-item").each((e, i) => {
-          cy.wrap(e).as(`paymentMethodItem${i}`)
-        })
-        cy.get("@paymentMethodItem0").click({ force: true })
-        cy.wait(
-          [
-            "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@getOrders",
-            "@getOrders",
-            "@getOrders",
-            "@updateOrder",
-            "@paymentMethods",
-          ],
-          { timeout: 100000 }
-        )
+    it("select payment method credit card Adyen", () => {
+      cy.dataCy("payment-method-item").each((e, i) => {
+        cy.wrap(e).as(`paymentMethodItem${i}`)
       })
+      cy.get("@paymentMethodItem0").click({ force: true })
+      cy.wait(
+        [
+          "@getCustomerAddresses",
+          "@getCustomerAddresses",
+          "@getOrders",
+          "@getOrders",
+          "@getOrders",
+          "@updateOrder",
+          "@paymentMethods",
+        ],
+        { timeout: 100000 }
+      )
+    })
 
-      it("check if avaible save to wallet", () => {
-        cy.wait(5000)
-        cy.dataCy("payment-save-wallet").should("exist")
-      })
+    it("check if avaible save to wallet", () => {
+      cy.wait(5000)
+      cy.dataCy("payment-save-wallet").should("exist")
+    })
 
-      it("select a card saved into wallet", () => {
-        cy.dataCy("customer-card").each((e, i) => {
-          cy.wrap(e).as(`customerCard${i}`)
-        })
-        cy.get("@customerCard0").click({ force: true })
-        cy.wait(["@updateOrder", "@getCustomerAddresses"], { timeout: 100000 })
-        cy.wait(3000)
+    it("select a card saved into wallet", () => {
+      cy.dataCy("customer-card").each((e, i) => {
+        cy.wrap(e).as(`customerCard${i}`)
       })
+      cy.get("@customerCard0").click({ force: true })
+      cy.wait(["@updateOrder", "@getCustomerAddresses"], { timeout: 100000 })
+      cy.wait(3000)
+    })
 
-      it("place order and redirect", () => {
-        cy.wait(2000)
-        cy.dataCy("place-order-button").click()
-        cy.wait(
-          ["@updateOrder", "@getOrders", "@getOrders", "@paymentMethods"],
-          {
-            timeout: 100000,
-          }
-        )
+    it("place order and redirect", () => {
+      cy.wait(2000)
+      cy.dataCy("place-order-button").click()
+      cy.wait(["@updateOrder", "@getOrders", "@getOrders", "@paymentMethods"], {
+        timeout: 100000,
       })
-    }
-  )
+    })
+  })
 })
