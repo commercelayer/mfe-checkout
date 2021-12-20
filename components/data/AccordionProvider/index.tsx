@@ -17,6 +17,7 @@ export const AccordionContext = createContext<AccordionProviderData | null>(
 
 interface AccordionProviderProps {
   step: SingleStepEnum
+  steps: SingleStepEnum[]
   activeStep: SingleStepEnum
   lastActivableStep: SingleStepEnum
   setActiveStep?: (step: SingleStepEnum) => void
@@ -27,6 +28,7 @@ interface AccordionProviderProps {
 export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   children,
   step,
+  steps,
   activeStep,
   lastActivableStep,
   setActiveStep,
@@ -51,11 +53,14 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   }, [activeStep])
 
   useEffect(() => {
-    return setCannotGoNext(checkIfCannotGoNext(step, lastActivableStep))
+    return setCannotGoNext(checkIfCannotGoNext(step, steps, lastActivableStep))
   }, [step, lastActivableStep])
 
   useEffect(() => {
-    if (!isStepRequired && checkIfCannotGoNext(step, lastActivableStep)) {
+    if (
+      !isStepRequired &&
+      checkIfCannotGoNext(step, steps, lastActivableStep)
+    ) {
       setStatus("skip")
       return
     }
@@ -70,7 +75,7 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
       return
     }
 
-    if (checkIfCannotGoNext(step, lastActivableStep)) {
+    if (checkIfCannotGoNext(step, steps, lastActivableStep)) {
       setStatus("disabled")
       return
     }

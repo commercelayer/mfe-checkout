@@ -12,8 +12,6 @@ interface Props {
 }
 
 export const Accordion: React.FC = ({ children }) => {
-  // const { isMobile } = useDeviceDetect()
-  // return isMobile ? <Wrapper>{children}</Wrapper> : <>{children}</>
   return <Wrapper>{children}</Wrapper>
 }
 
@@ -45,10 +43,7 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
       tabIndex={index}
       className={classNames("group", {
         active: ctx.isActive,
-        disabled: !(
-          (ctx.step === "Shipping" && appCtx.hasPaymentMethod) ||
-          ctx.status !== "disabled"
-        ),
+        disabled: ctx.status === "disabled" || ctx.status === "skip",
       })}
     >
       <AccordionTabHeader className="group" onClick={handleSelection}>

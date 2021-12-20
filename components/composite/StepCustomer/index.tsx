@@ -46,58 +46,6 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
     }
 
     return <p data-cy="customer-email-step-header">{emailAddress}</p>
-
-    // if (billingAddress && (hasSameAddresses || !isShipmentRequired)) {
-    //   return (
-    //     <Address addresses={[billingAddress]}>
-    //       {
-    //         <AddressField>
-    //           {({ address }) => (
-    //             <p data-cy="full-billing-information">
-    //               {address.name}
-    //               {address.billingInfo && `, ${address.billingInfo}`}
-    //             </p>
-    //           )}
-    //         </AddressField>
-    //       }
-    //     </Address>
-    //   )
-    // }
-    // return (
-    //   (billingAddress && shippingAddress && (
-    //     <>
-    //       <Address addresses={[billingAddress]} className="mb-1">
-    //         {
-    //           <AddressField>
-    //             {({ address }) => (
-    //               <>
-    //                 <p data-cy="full-billing-information">
-    //                   {address.name}
-    //                   {address.billingInfo && `, ${address.billingInfo}`}
-    //                 </p>
-    //               </>
-    //             )}
-    //           </AddressField>
-    //         }
-    //       </Address>
-    //       <Address addresses={[shippingAddress]}>
-    //         {
-    //           <AddressField>
-    //             {({ address }) => (
-    //               <p data-cy="full-shipping-information">
-    //                 <span className="font-semibold text-black">
-    //                   {t(`addressForm.shipped_to`)}
-    //                 </span>{" "}
-    //                 {address.name}{" "}
-    //               </p>
-    //             )}
-    //           </AddressField>
-    //         }
-    //       </Address>
-    //     </>
-    //   )) ||
-    //   ""
-    // )
   }
 
   return (

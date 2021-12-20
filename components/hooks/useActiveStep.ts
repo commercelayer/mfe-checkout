@@ -14,13 +14,14 @@ const STEPS: SingleStepEnum[] = ["Customer", "Shipping", "Payment"]
 
 export function checkIfCannotGoNext(
   step: SingleStepEnum,
+  steps: SingleStepEnum[],
   lastActivableStep: SingleStepEnum
 ) {
   if (lastActivableStep === "Complete") {
     return false
   }
-  const indexCurrent = STEPS.indexOf(step)
-  const indexLastActivable = STEPS.indexOf(lastActivableStep)
+  const indexCurrent = steps.indexOf(step)
+  const indexLastActivable = steps.indexOf(lastActivableStep)
   return indexCurrent >= indexLastActivable
 }
 
