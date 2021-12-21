@@ -126,9 +126,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     })
   ).line_items?.filter((line_item) => {
     return (
-      line_item.item_type === "skus" ||
-      line_item.item_type === "bundle" ||
-      line_item.item_type === "gift_cards"
+      line_item.item_type === "skus" || line_item.item_type === "gift_cards"
     )
   }).length
 

@@ -7,6 +7,7 @@ import {
   PaymentMethodAmount,
   SubTotalAmount,
   DiscountAmount,
+  AdjustmentAmount,
   GiftCardAmount,
 } from "@commercelayer/react-components"
 import { Trans, useTranslation } from "react-i18next"
@@ -44,7 +45,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx }) => {
             {t("orderRecap.order_summary")}
           </SummaryTitle>
           <SummarySubTitle>
-            <LineItemsCount>
+            <LineItemsCount typeAccepted={["skus", "gift_cards"]}>
               {(props) =>
                 t("orderRecap.cartContains", { count: props.quantity })
               }
@@ -76,6 +77,21 @@ export const OrderSummary: React.FC<Props> = ({ appCtx }) => {
                 )
               }}
             </DiscountAmount>
+          </RecapLine>
+          <RecapLine>
+            <AdjustmentAmount>
+              {(props) => {
+                if (props.priceCents === 0) return <></>
+                return (
+                  <>
+                    <RecapLineItem>
+                      {t("orderRecap.adjustment_amount")}
+                    </RecapLineItem>
+                    <div data-cy="adjustment-amount">{props.price}</div>
+                  </>
+                )
+              }}
+            </AdjustmentAmount>
           </RecapLine>
           <RecapLine>
             <ShippingAmount>

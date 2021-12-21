@@ -45,6 +45,7 @@
         "quantity": "Quantity: {{count}}",
         "quantity_plural": "Quantity: {{count}}",
         "discount_amount": "Discount",
+        "adjustment_amount": "Adjustments total",
         "giftcard_amount": "Gift card",
         "tax_amount": "Tax",
         "tax_included_amount": "Tax <style>included</style>",
