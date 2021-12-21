@@ -141,9 +141,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       })
     ).line_items?.filter((line_item) => {
       return (
-        line_item.item_type === "skus" ||
-        line_item.item_type === "gift_cards" ||
-        line_item.item_type === "adjustments"
+        line_item.item_type === "skus" || line_item.item_type === "gift_cards"
       )
     })
 
@@ -223,9 +221,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       })
     ).line_items?.filter((line_item) => {
       return (
-        line_item.item_type === "skus" ||
-        line_item.item_type === "gift_cards" ||
-        line_item.item_type === "adjustments"
+        line_item.item_type === "skus" || line_item.item_type === "gift_cards"
       )
     })
 
@@ -262,9 +258,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       })
     ).line_items?.filter((line_item) => {
       return (
-        line_item.item_type === "skus" ||
-        line_item.item_type === "gift_cards" ||
-        line_item.item_type === "adjustments"
+        line_item.item_type === "skus" || line_item.item_type === "gift_cards"
       )
     })
 
