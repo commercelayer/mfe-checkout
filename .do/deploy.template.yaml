@@ -1,6 +1,6 @@
 spec:
  name: Commerce Layer React Checkout
-services:
+ services:
  - name: web
    git:
      branch: main
