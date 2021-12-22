@@ -3,5 +3,5 @@ spec:
  services:
  - name: web
    git:
-     branch: main
+     branch: docs
      repo_clone_url: https://github.com/commercelayer/commercelayer-react-checkout.git
