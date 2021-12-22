@@ -1,0 +1,7 @@
+spec:
+ name: commercelayer-react-checkout
+ services:
+ - name: commercelayer-react-checkout
+   git:
+     branch: main
+     repo_clone_url: https://github.com/commercelayer/commercelayer-react-checkout.git

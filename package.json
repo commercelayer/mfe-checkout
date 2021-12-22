@@ -1,6 +1,6 @@
 {
-  "name": "hosted-checkout",
-  "version": "0.9.0",
+  "name": "commercelayer-react-checkout",
+  "version": "0.0.1",
   "engines": {
     "node": "16.x",
     "yarn": "1.x"
