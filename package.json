@@ -14,6 +14,35 @@
     "lint:fix": "eslint ./ --ext .tsx,.ts --fix",
     "test": "cypress open"
   },
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "main",
+      "next",
+      "next-major",
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git",
+      [
+        "@semantic-release/github",
+        {
+          "addReleases": "top"
+        }
+      ]
+    ]
+  },
   "dependencies": {
     "@commercelayer/react-components": "^2.52.1",
     "@commercelayer/sdk": "^2.3.9",
@@ -47,6 +76,12 @@
     "@types/styled-components": "^5.1.14",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.2",
+    "@semantic-release/npm": "^8.0.3",
+    "@semantic-release/release-notes-generator": "^10.0.3",
     "autoprefixer": "^10.3.6",
     "cypress": "^9.1.1",
     "eslint": "^7.32.0",
