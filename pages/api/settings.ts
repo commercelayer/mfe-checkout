@@ -15,10 +15,17 @@ interface JWTProps {
   }
 }
 
+function isProduction(env: string): boolean {
+  return env === "production"
+}
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const { NODE_ENV, DOMAIN } = process.env
   const accessToken = req.query.accessToken as string
   const orderId = req.query.orderId as string
-  const domain = "commercelayer.io"
+  const domain = isProduction(NODE_ENV)
+    ? "commercelayer.io"
+    : DOMAIN || "commercelayer.io"
   const paymentReturn = req.query.paymentReturn === "true"
 
   let cl
@@ -43,10 +50,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     } = jwt_decode(accessToken) as JWTProps
 
     slug_cl = slug
-
     const subdomain = req.headers.host?.split(":")[0].split(".")[0]
 
-    if (subdomain !== slug || kind !== "sales_channel") {
+    if (
+      isProduction(NODE_ENV) &&
+      (subdomain !== slug || kind !== "sales_channel")
+    ) {
       return invalidateCheckout()
     } else if (slug) {
       endpoint = `https://${slug}.${domain}`
