@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.0.0...v1.0.1) (2021-12-31)
+
+
+### Bug Fixes
+
+* Slug control is actived when the checkout is hosted by Commerce Layer ([b0c6ec7](https://github.com/commercelayer/commercelayer-react-checkout/commit/b0c6ec789ddcd130bd7c65ad56a70d401a6aa048))
+
 # 1.0.0 (2021-12-29)
 
 
