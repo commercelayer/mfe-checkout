@@ -20,7 +20,7 @@ function isProduction(env: string): boolean {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { NODE_ENV, DOMAIN } = process.env
+  const { NODE_ENV, DOMAIN, HOSTED } = process.env
   const accessToken = req.query.accessToken as string
   const orderId = req.query.orderId as string
   const domain = isProduction(NODE_ENV)
@@ -54,10 +54,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (
       isProduction(NODE_ENV) &&
+      !!HOSTED &&
       (subdomain !== slug || kind !== "sales_channel")
     ) {
       return invalidateCheckout()
-    } else if (slug) {
+    } else if (slug && kind === "sales_channel") {
       endpoint = `https://${slug}.${domain}`
     } else {
       return invalidateCheckout()
