@@ -132,7 +132,7 @@
         "summary": "Tilausnumerosi: <WrapperOrderId>#{{orderNumber}}</WrapperOrderId>",
         "continue": "Jatka ostosten tekemistä",
         "supportEmail": "Jos sinulla on kysyttävää tilauksestasi, voit lähettää meille sähköpostia <br /><WrapperEmail>{{email}}</WrapperEmail>",
-        "supportPhone": "If you have any questions about your order, you can call us at <br /><WrapperPhone>{{phone}}</WrapperPhone>",
+        "supportPhone": "Jos sinulla on kysyttävää tilauksestasi, voit lähettää soittaa meille <br /><WrapperPhone>{{phone}}</WrapperPhone>",
         "fullSupport": "Jos sinulla on kysyttävää tilauksestasi, voit lähettää meille sähköpostia <br /><WrapperEmail>{{email}}</WrapperEmail>tai soittaa meille <WrapperPhone>{{phone}}</WrapperPhone>"
     }
 }
