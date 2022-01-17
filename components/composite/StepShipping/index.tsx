@@ -14,6 +14,7 @@ import {
   DeliveryLeadTime,
   ShipmentField,
 } from "@commercelayer/react-components"
+import { LineItemType } from "@commercelayer/react-components/lib/cjs/typings"
 import { ShippingMethod as ShippingMethodCollection } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { useTranslation, Trans } from "next-i18next"
@@ -87,6 +88,8 @@ export const StepHeaderShipping: React.FC<HeaderProps> = ({ step }) => {
     />
   )
 }
+
+const ShippingLineItems: LineItemType[] = ["skus", "bundles"]
 
 export const StepShipping: React.FC<Props> = () => {
   const appCtx = useContext(AppContext)
@@ -249,49 +252,54 @@ export const StepShipping: React.FC<Props> = () => {
                       </ShippingMethod>
                     </GridContainer>
                     <LineItemsContainer>
-                      <LineItem>
-                        <ShippingLineItem>
-                          <LineItemImage
-                            className="self-start p-1 border rounded"
-                            width={50}
-                          />
-                          <ShippingLineItemDescription>
-                            <ShippingLineItemTitle>
-                              <LineItemName data-cy="line-item-name" />
-                            </ShippingLineItemTitle>
-                            <ShippingLineItemQty>
-                              <LineItemQuantity
-                                readonly
-                                data-cy="line-item-quantity"
-                                max={100}
+                      {ShippingLineItems.map((type) => (
+                        <LineItem key={type} type={type}>
+                          <ShippingLineItem>
+                            <LineItemImage
+                              width={50}
+                              className="self-start p-1 border rounded"
+                            />
+                            <ShippingLineItemDescription>
+                              <ShippingLineItemTitle>
+                                <LineItemName data-cy="line-item-name" />
+                              </ShippingLineItemTitle>
+                              <ShippingLineItemQty>
+                                <LineItemQuantity
+                                  readonly
+                                  data-cy="line-item-quantity"
+                                  max={100}
+                                >
+                                  {(props) =>
+                                    !!props.quantity &&
+                                    t("orderRecap.quantity", {
+                                      count: props.quantity,
+                                    })
+                                  }
+                                </LineItemQuantity>
+                              </ShippingLineItemQty>
+                            </ShippingLineItemDescription>
+                          </ShippingLineItem>
+                          <div>
+                            <StockTransfer>
+                              <div
+                                className="flex flex-row"
+                                data-cy="stock-transfer"
                               >
-                                {(props) =>
-                                  !!props.quantity &&
-                                  t("orderRecap.quantity", {
-                                    count: props.quantity,
-                                  })
-                                }
-                              </LineItemQuantity>
-                            </ShippingLineItemQty>
-                          </ShippingLineItemDescription>
-                        </ShippingLineItem>
-                        <div>
-                          <StockTransfer>
-                            <div
-                              className="flex flex-row"
-                              data-cy="stock-transfer"
-                            >
-                              <Trans t={t} i18nKey="stepShipping.stockTransfer">
-                                <StockTransferField
-                                  className="px-1"
-                                  type="quantity"
-                                />
-                                <LineItemQuantity readonly className="px-1" />
-                              </Trans>
-                            </div>
-                          </StockTransfer>
-                        </div>
-                      </LineItem>
+                                <Trans
+                                  t={t}
+                                  i18nKey="stepShipping.stockTransfer"
+                                >
+                                  <StockTransferField
+                                    className="px-1"
+                                    type="quantity"
+                                  />
+                                  <LineItemQuantity readonly className="px-1" />
+                                </Trans>
+                              </div>
+                            </StockTransfer>
+                          </div>
+                        </LineItem>
+                      ))}
                     </LineItemsContainer>
                   </ShippingWrapper>
                 </Shipment>

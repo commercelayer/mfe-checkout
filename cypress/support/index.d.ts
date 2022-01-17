@@ -20,6 +20,7 @@ declare global {
         attributes?: {
           quantity: string
           sku_code?: string
+          bundle_code?: string
         }
         relationships?: any
       }): Chainable<Subject>

@@ -17,6 +17,11 @@ interface Props {
   type: LineItemType
 }
 
+const CODE_LOOKUP: { [k: string]: "sku_code" | "bundle_code" | undefined } = {
+  skus: "sku_code",
+  bundles: "bundle_code",
+}
+
 export const LineItemTypes: React.FC<Props> = ({ type }) => {
   const { t } = useTranslation()
 
@@ -28,7 +33,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
           className="self-start p-1 bg-white border rounded"
         />
         <LineItemDescription>
-          <StyledLineItemSkuCode />
+          <StyledLineItemSkuCode type={CODE_LOOKUP[type]} />
           <LineItemTitle>
             <LineItemName className="font-bold" />
             <LineItemAmount className="pl-2 text-lg font-extrabold" />
