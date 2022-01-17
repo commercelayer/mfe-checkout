@@ -124,6 +124,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (!order?.id || !organization?.id) {
+    console.log("Invalid: no order or organization")
     return invalidateCheckout()
   }
 
@@ -136,12 +137,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     })
   ).line_items?.filter((line_item) => {
     return (
-      line_item.item_type === "skus" || line_item.item_type === "gift_cards"
+      line_item.item_type === "skus" ||
+      line_item.item_type === "gift_cards" ||
+      line_item.item_type === "bundles"
     )
   }).length
 
   // If there are no items to buy we redirect to the invalid page
   if (lineItemsCount === 0) {
+    console.log("Invalid: No line items")
     return invalidateCheckout()
   }
 
