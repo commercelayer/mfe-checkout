@@ -8,7 +8,7 @@ describe("Checkout Only Bundle", () => {
   const email = internet.email().toLocaleLowerCase()
   const password = internet.password()
 
-  const returnUrl = "https://commercelayer.io"
+  const returnUrl = "https://commercelayer.io/"
 
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {

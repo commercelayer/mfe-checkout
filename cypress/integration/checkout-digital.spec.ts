@@ -3,7 +3,7 @@ import { internet } from "faker"
 import { euAddress } from "../support/utils"
 
 describe("Checkout Checkout-Digital", () => {
-  const returnUrl = "https://commercelayer.io"
+  const returnUrl = "https://commercelayer.io/"
 
   const filename = "checkout-digital"
 

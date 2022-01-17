@@ -77,7 +77,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let order
 
   try {
-    const orderFetched: Order = await cl.orders.retrieve(orderId, {
+    order = await cl.orders.retrieve(orderId, {
       fields: {
         orders: [
           "id",
@@ -93,15 +93,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       include: ["line_items"],
     })
 
-    if (orderFetched.status === "draft" || orderFetched.status === "pending") {
+    if (order.status === "draft" || order.status === "pending") {
       const _refresh = !paymentReturn
 
       order = await cl.orders.update({
-        id: orderFetched.id,
+        id: order.id,
         _refresh,
-        ...(!orderFetched.autorefresh && { autorefresh: true }),
+        ...(!order.autorefresh && { autorefresh: true }),
       })
-    } else if (orderFetched.status === "placed") {
+    } else if (order.status === "placed") {
       order = await cl.orders.retrieve(orderId)
     }
   } catch (e) {
