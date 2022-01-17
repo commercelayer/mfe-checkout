@@ -52,6 +52,7 @@ describe("Checkout Only Bundle", () => {
               }).then((shipments) => {
                 cy.setShipmentMethod({
                   type: "Standard Shipping",
+                  // @ts-ignore
                   id: shipments[0].id,
                   accessToken: this.tokenObj.access_token,
                 })
