@@ -133,6 +133,6 @@
         "continue": "Poursuivre vos achats",
         "supportEmail": "Si vous avez des questions sur votre commande, vous pouvez nous envoyer un courriel à <br /><WrapperEmail>{{email}}</WrapperEmail>.",
         "supportPhone": "Si vous avez des questions sur votre commande, vous pouvez nous appeler au <br /><WrapperPhone>{{phone}}</WrapperPhone>.",
-        "fullSupport": "Si vous avez des questions concernant votre commande, vous pouvez nous envoyer un email à <br /><WrapperEmail>{{email}}</WrapperEmail>  ou nous appeler au <WrapperPhone>{{phone}}</WrapperPhone>.",
+        "fullSupport": "Si vous avez des questions concernant votre commande, vous pouvez nous envoyer un email à <br /><WrapperEmail>{{email}}</WrapperEmail>  ou nous appeler au <WrapperPhone>{{phone}}</WrapperPhone>."
     }
 }
