@@ -44,7 +44,7 @@
     ]
   },
   "dependencies": {
-    "@commercelayer/react-components": "^2.53.0",
+    "@commercelayer/react-components": "^2.53.1",
     "@commercelayer/sdk": "^2.3.14",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
