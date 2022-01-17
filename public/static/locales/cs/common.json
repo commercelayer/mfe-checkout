@@ -25,7 +25,7 @@
         "paymentMethod": "Krok \"platba\" nemůže zůstat prázdný",
         "transition": "Transakce není povolena",
         "payer": "Plátce neschválil platbu",
-        "resourceID": "Požadované ID zdroje nebylo nalezeno",
+        "resourceID": "Požadované ID zdroje nebylo nalezeno"
     },
     "input": {
         "cantBlank": "Nemůže zůstat prázdné",
