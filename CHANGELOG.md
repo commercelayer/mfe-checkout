@@ -1,3 +1,18 @@
+# [1.1.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.0.1...v1.1.0) (2022-01-18)
+
+
+### Bug Fixes
+
+* avoid checkout error when refreshing quickly ([9955768](https://github.com/commercelayer/commercelayer-react-checkout/commit/9955768b75f4d54a88b30465fc0724cdc99b59cc))
+* checkout an order with only bundles ([7435acc](https://github.com/commercelayer/commercelayer-react-checkout/commit/7435acc11102d6235d20242c58a42482c51cc243))
+* ignore build error in test files ([1ab6dbf](https://github.com/commercelayer/commercelayer-react-checkout/commit/1ab6dbf6fee77ee3f18aaa0cea9103bfcc234b43))
+* show multiple bundles on the same order ([8219cfb](https://github.com/commercelayer/commercelayer-react-checkout/commit/8219cfb30c2990bc2b225c2c65134f19f53a87a1))
+
+
+### Features
+
+* add support to bundles ([f48b2e1](https://github.com/commercelayer/commercelayer-react-checkout/commit/f48b2e12285fc066f3c0f897fd6cdacd9a2ccdf4))
+
 ## [1.0.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.0.0...v1.0.1) (2021-12-31)
 
 
