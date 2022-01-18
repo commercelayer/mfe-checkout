@@ -28,6 +28,7 @@ import {
   RecapLineTotal,
   RecapLineItemTotal,
   RecapLineItem,
+  Wrapper,
 } from "./styled"
 
 interface Props {
@@ -38,21 +39,28 @@ export const OrderSummary: React.FC<Props> = ({ appCtx }) => {
   const { t } = useTranslation()
 
   return (
-    <>
+    <Wrapper data-cy="order-summary">
       <LineItemsContainer>
         <SummaryHeader>
           <SummaryTitle data-cy="test-summary">
             {t("orderRecap.order_summary")}
           </SummaryTitle>
           <SummarySubTitle>
-            <LineItemsCount typeAccepted={["skus", "gift_cards"]}>
-              {(props) =>
-                t("orderRecap.cartContains", { count: props.quantity })
-              }
+            <LineItemsCount
+              data-cy="items-count"
+              typeAccepted={["skus", "gift_cards", "bundles"]}
+            >
+              {(props) => (
+                <span data-cy="items-count">
+                  {t("orderRecap.cartContains", { count: props.quantity })}
+                </span>
+              )}
             </LineItemsCount>
           </SummarySubTitle>
         </SummaryHeader>
+
         <LineItemTypes type="skus" />
+        <LineItemTypes type="bundles" />
         <LineItemTypes type="gift_cards" />
       </LineItemsContainer>
       <TotalWrapper>
@@ -196,6 +204,6 @@ export const OrderSummary: React.FC<Props> = ({ appCtx }) => {
           </RecapLineTotal>
         </AmountWrapper>
       </TotalWrapper>
-    </>
+    </Wrapper>
   )
 }

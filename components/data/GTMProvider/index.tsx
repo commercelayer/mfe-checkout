@@ -110,11 +110,12 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     name,
     currency_code,
     sku_code,
+    bundle_code,
     quantity,
     total_amount_float,
   }: LineItem): ItemProps => {
     return {
-      item_id: sku_code,
+      item_id: sku_code || bundle_code,
       item_name: name,
       price: total_amount_float,
       currency: currency_code,
@@ -141,7 +142,9 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       })
     ).line_items?.filter((line_item) => {
       return (
-        line_item.item_type === "skus" || line_item.item_type === "gift_cards"
+        line_item.item_type === "skus" ||
+        line_item.item_type === "gift_cards" ||
+        line_item.item_type === "bundles"
       )
     })
 
@@ -221,7 +224,9 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       })
     ).line_items?.filter((line_item) => {
       return (
-        line_item.item_type === "skus" || line_item.item_type === "gift_cards"
+        line_item.item_type === "skus" ||
+        line_item.item_type === "gift_cards" ||
+        line_item.item_type === "bundles"
       )
     })
 
@@ -258,7 +263,9 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       })
     ).line_items?.filter((line_item) => {
       return (
-        line_item.item_type === "skus" || line_item.item_type === "gift_cards"
+        line_item.item_type === "skus" ||
+        line_item.item_type === "gift_cards" ||
+        line_item.item_type === "bundles"
       )
     })
 

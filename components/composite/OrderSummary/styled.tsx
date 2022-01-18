@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
+export const Wrapper = styled.div``
 export const SummaryHeader = styled.div`
   ${tw`mb-12`}
 `

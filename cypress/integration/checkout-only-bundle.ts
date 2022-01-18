@@ -2,13 +2,13 @@ import { internet } from "faker"
 
 import { euAddress } from "../support/utils"
 
-describe("Checkout Checkout-Digital", () => {
-  const returnUrl = "https://commercelayer.io/"
-
-  const filename = "checkout-digital"
+describe("Checkout Only Bundle", () => {
+  const filename = "checkout-only-bundle"
 
   const email = internet.email().toLocaleLowerCase()
   const password = internet.password()
+
+  const returnUrl = "https://commercelayer.io/"
 
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
@@ -16,11 +16,10 @@ describe("Checkout Checkout-Digital", () => {
         username: email,
         password: password,
       }).as("tokenObj")
-      cy.getTokenSuperuser().as("tokenObjSuperuser")
     })
   })
 
-  context("order with digital order", function () {
+  context("create order and place order", () => {
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
@@ -30,51 +29,36 @@ describe("Checkout Checkout-Digital", () => {
       })
         .as("newOrder")
         .then((order) => {
-          cy.createGiftCard({
-            balanceCents: 10000,
-            recipientEmail: email,
-            accessToken: this.tokenObjSuperuser.access_token,
-          }).then((e) =>
-            cy
-              .activeGiftCard({
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                giftcardId: e?.id,
-                accessToken: this.tokenObjSuperuser.access_token,
-              })
-              .as("newGiftCardCode")
-              .then(() => {
-                cy.createSkuLineItems({
-                  orderId: order.id,
-                  attributes: {
-                    quantity: "1",
-                  },
-                  relationships: {
-                    item: {
-                      data: {
-                        type: "gift_card",
-                        id: this.newGiftCardCode.id,
-                      },
-                    },
-                  },
-                })
-                cy.createAddress({
-                  ...euAddress,
+          cy.createSkuLineItems({
+            orderId: order.id,
+            accessToken: this.tokenObj.access_token,
+            attributes: {
+              quantity: "1",
+              bundle_code: "SHIRTSETSINGLE",
+            },
+          })
+          cy.createAddress({
+            ...euAddress,
+            accessToken: this.tokenObj.access_token,
+          }).then((address) => {
+            cy.setSameAddress(
+              order.id,
+              address.id,
+              this.tokenObj.access_token
+            ).then(() => {
+              cy.getShipments({
+                accessToken: this.tokenObj.access_token,
+                orderId: order.id,
+              }).then((shipments) => {
+                cy.setShipmentMethod({
+                  type: "Standard Shipping",
+                  // @ts-ignore
+                  id: shipments[0].id,
                   accessToken: this.tokenObj.access_token,
-                }).then((address) => {
-                  cy.setSameAddress(
-                    order.id,
-                    address.id,
-                    this.tokenObj.access_token
-                  ).then(() => {
-                    cy.getShipments({
-                      accessToken: this.tokenObj.access_token,
-                      orderId: order.id,
-                    })
-                  })
                 })
               })
-          )
+            })
+          })
         })
     })
 
@@ -93,7 +77,7 @@ describe("Checkout Checkout-Digital", () => {
       }
     })
 
-    it("valid customer token and check if digital", function () {
+    it("valid customer token", function () {
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
       cy.wait(
         [
@@ -110,6 +94,7 @@ describe("Checkout Checkout-Digital", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@paymentMethods",
+          "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
       )
@@ -117,12 +102,48 @@ describe("Checkout Checkout-Digital", () => {
       cy.url().should("not.contain", Cypress.env("accessToken"))
     })
 
-    it("check step header badge and check if step_shipping is disable", () => {
-      cy.dataCy("step-header-badge").each((e, i) => {
-        cy.wrap(e).as(`stepHeaderBadge${i}`)
+    it("Count the right items in the summary", () => {
+      cy.dataCy("items-count").should(
+        "contain.text",
+        "Your shopping cart contains 1 item"
+      )
+    })
+
+    it("checks bundle in order summary", () => {
+      cy.dataCy("order-summary")
+        .filter(':contains("Commerce Layer Shirt set single")')
+        .should("have.length", 1)
+      cy.dataCy("order-summary")
+        .filter(':contains("SHIRTSETSINGLE")')
+        .should("have.length", 1)
+    })
+
+    it("shows only bundle as single SKU in shipments", () => {
+      cy.dataCy("line-item-name")
+        .filter(':contains("Commerce Layer Shirt set single")')
+        .should("have.length", 1)
+    })
+
+    it("select Standard Shipping and save", () => {
+      cy.dataCy("shipping-method-button").each((e, i) => {
+        cy.wrap(e).as(`shippingMethodButton${i}`)
       })
-      cy.get("@stepHeaderBadge0").get("svg")
-      cy.get("@stepHeaderBadge1").should("contain.text", "2")
+      cy.get("@shippingMethodButton0").click({ force: true })
+      cy.wait(
+        [
+          "@patchShipments",
+          "@getOrders",
+          "@getCustomerAddresses",
+          "@deliveryLeadTimes",
+        ],
+        {
+          timeout: 100000,
+        }
+      )
+      cy.dataCy("save-shipments-button").click()
+      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+        timeout: 100000,
+      })
     })
 
     it("select payment method credit card", () => {
@@ -159,23 +180,15 @@ describe("Checkout Checkout-Digital", () => {
       })
     })
 
-    it("check step header badge", () => {
-      cy.dataCy("step-header-badge").each((e, i) => {
-        cy.wrap(e).as(`stepHeaderBadge${i}`)
-      })
-      cy.get("@stepHeaderBadge0").get("svg")
-      cy.get("@stepHeaderBadge1").get("svg")
-    })
-
     it("place order and redirect", () => {
       cy.wait(2000)
       cy.dataCy("place-order-button").click()
       cy.wait(
         [
           "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@getCustomerAddresses",
+          "@getOrders",
           "@getOrders",
           "@paymentMethods",
         ],

@@ -198,7 +198,7 @@ async function checkIfShipmentRequired(
     })
   ).line_items?.filter(
     (line_item) =>
-      line_item.item_type === "skus" &&
+      (line_item.item_type === "skus" || line_item.item_type === "bundles") &&
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       !line_item.item?.do_not_ship
