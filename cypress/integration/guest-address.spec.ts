@@ -40,7 +40,7 @@ describe("Checkout guest address", () => {
         cy.newStubData("getOrders1", filename)
       }
 
-      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@getOrders", "@getOrders"], {
         timeout: 100000,
       })
 
@@ -70,18 +70,9 @@ describe("Checkout guest address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@paymentMethods",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-email-step-header").should("contain", emailCustomer)
     })
@@ -113,18 +104,9 @@ describe("Checkout guest address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@paymentMethods",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing and shipping information", () => {
@@ -182,15 +164,7 @@ describe("Checkout guest address", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`)
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@deliveryLeadTimes",
-          "@paymentMethods",
-        ],
+        ["@getOrders", "@getOrders", "@getOrders", "@deliveryLeadTimes"],
         {
           timeout: 100000,
         }
@@ -253,15 +227,7 @@ describe("Checkout guest address", () => {
       cy.visit(`/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`)
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@deliveryLeadTimes",
-          "@paymentMethods",
-        ],
+        ["@getOrders", "@getOrders", "@getOrders", "@deliveryLeadTimes"],
         {
           timeout: 100000,
         }

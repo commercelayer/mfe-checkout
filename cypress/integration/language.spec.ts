@@ -31,7 +31,7 @@ describe("Checkout language", () => {
 
         cy.visit(`/${order.id}?accessToken=${Cypress.env("accessToken")}`)
 
-        cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
+        cy.wait(["@getOrders", "@getOrders", "@getOrders"], {
           timeout: 100000,
         })
       })
@@ -71,7 +71,7 @@ describe("Checkout language", () => {
 
         cy.visit(`/${order.id}?accessToken=${Cypress.env("accessToken")}`)
 
-        cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
+        cy.wait(["@getOrders", "@getOrders", "@getOrders"], {
           timeout: 100000,
         })
       })

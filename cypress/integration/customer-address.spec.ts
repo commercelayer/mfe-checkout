@@ -66,7 +66,6 @@ describe("Checkout customer address", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -92,7 +91,6 @@ describe("Checkout customer address", () => {
           "@updateOrder",
           "@createAddress",
           "@getCustomerAddresses",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -135,7 +133,6 @@ describe("Checkout customer address", () => {
           "@updateOrder",
           "@createAddress",
           "@createAddress",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -172,7 +169,6 @@ describe("Checkout customer address", () => {
           "@updateOrder",
           "@createAddress",
           "@createAddress",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -206,7 +202,6 @@ describe("Checkout customer address", () => {
           "@getCustomerAddresses",
           "@updateOrder",
           "@createAddress",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -275,7 +270,6 @@ describe("Checkout customer address", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@deliveryLeadTimes",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -316,7 +310,6 @@ describe("Checkout customer address", () => {
           "@updateOrder",
           "@createAddress",
           "@getCustomerAddresses",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -357,7 +350,6 @@ describe("Checkout customer address", () => {
           "@createAddress",
           "@createAddress",
           "@getCustomerAddresses",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -392,7 +384,6 @@ describe("Checkout customer address", () => {
           "@createAddress",
           "@deliveryLeadTimes",
           "@getCustomerAddresses",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -469,7 +460,6 @@ describe("Checkout customer address", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -556,7 +546,6 @@ describe("Checkout customer address", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
           "@updateOrder",
           "@updateOrder",
@@ -593,16 +582,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@paymentMethods",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing information", () => {
@@ -634,16 +616,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@paymentMethods",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+        timeout: 100000,
+      })
     })
 
     it("check shipping information", () => {
@@ -673,16 +648,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@paymentMethods",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing and shipping information", () => {
@@ -719,7 +687,7 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@getOrders", "@updateOrder"], {
         timeout: 100000,
       })
     })
@@ -829,7 +797,6 @@ describe("Checkout customer address", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -848,13 +815,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@paymentMethods",
-          "@updateOrder",
-          "@deliveryLeadTimes",
-        ],
+        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
         {
           timeout: 100000,
         }
@@ -888,13 +849,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@paymentMethods",
-          "@updateOrder",
-          "@deliveryLeadTimes",
-        ],
+        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
         {
           timeout: 100000,
         }
@@ -929,13 +884,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@paymentMethods",
-          "@updateOrder",
-          "@deliveryLeadTimes",
-        ],
+        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
         {
           timeout: 100000,
         }
@@ -975,7 +924,6 @@ describe("Checkout customer address", () => {
         [
           "@getOrders",
           "@getOrders",
-          "@paymentMethods",
           "@updateOrder",
           "@createAddress",
           "@createAddress",
@@ -1025,7 +973,6 @@ describe("Checkout customer address", () => {
         [
           "@getOrders",
           "@getOrders",
-          "@paymentMethods",
           "@updateOrder",
           "@createAddress",
           "@deliveryLeadTimes",
@@ -1067,13 +1014,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@paymentMethods",
-          "@updateOrder",
-          "@deliveryLeadTimes",
-        ],
+        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
         {
           timeout: 100000,
         }
@@ -1174,7 +1115,6 @@ describe("Checkout customer address", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -1196,13 +1136,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@deliveryLeadTimes",
-          "@paymentMethods",
-        ],
+        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
         {
           timeout: 100000,
         }
@@ -1280,7 +1214,6 @@ describe("Checkout customer address", () => {
           "@deliveryLeadTimes",
           "@updateOrder",
           "@createAddress",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -1324,7 +1257,6 @@ describe("Checkout customer address", () => {
           "@deliveryLeadTimes",
           "@updateOrder",
           "@createAddress",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -1370,13 +1302,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@deliveryLeadTimes",
-          "@paymentMethods",
-        ],
+        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
         {
           timeout: 100000,
         }
@@ -1417,13 +1343,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@deliveryLeadTimes",
-          "@paymentMethods",
-        ],
+        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
         {
           timeout: 100000,
         }

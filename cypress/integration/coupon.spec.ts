@@ -108,7 +108,6 @@ describe("Checkout Coupon", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@deliveryLeadTimes",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -242,7 +241,6 @@ describe("Checkout Coupon", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
@@ -280,7 +278,7 @@ describe("Checkout Coupon", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@getOrders"], {
         timeout: 100000,
       })
     })
@@ -293,13 +291,7 @@ describe("Checkout Coupon", () => {
       cy.dataCy("input_giftcard_coupon").type("testcoupon")
       cy.dataCy("submit_giftcard_coupon").click()
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getCustomerAddresses",
-          "@updateOrder",
-          "@paymentMethods",
-        ],
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
         {
           timeout: 100000,
         }
@@ -311,13 +303,7 @@ describe("Checkout Coupon", () => {
     it("remove coupon and check amount", () => {
       cy.dataCy("remove_coupon").click({ force: true })
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getCustomerAddresses",
-          "@updateOrder",
-          "@paymentMethods",
-        ],
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
         {
           timeout: 100000,
         }

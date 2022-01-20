@@ -1,5 +1,5 @@
 import { PlaceOrderContainer } from "@commercelayer/react-components"
-import { ErrorComponentProps } from "@commercelayer/react-components/lib/cjs/typings/errors"
+import { ErrorComponentProps } from "@commercelayer/react-components/lib/esm/typings/errors"
 import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"

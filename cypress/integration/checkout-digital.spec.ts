@@ -109,7 +109,7 @@ describe("Checkout Checkout-Digital", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
+          // "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -139,7 +139,7 @@ describe("Checkout Checkout-Digital", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@stripePayments",
-          "@paymentMethods",
+          // "@paymentMethods",
         ],
         {
           timeout: 100000,
@@ -177,7 +177,7 @@ describe("Checkout Checkout-Digital", () => {
           "@updateOrder",
           "@getCustomerAddresses",
           "@getOrders",
-          "@paymentMethods",
+          // "@paymentMethods",
         ],
         {
           timeout: 100000,

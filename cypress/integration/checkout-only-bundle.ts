@@ -93,7 +93,7 @@ describe("Checkout Only Bundle", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
+          // "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
@@ -141,7 +141,7 @@ describe("Checkout Only Bundle", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@getOrders"], {
         timeout: 100000,
       })
     })
@@ -160,7 +160,6 @@ describe("Checkout Only Bundle", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@stripePayments",
-          "@paymentMethods",
         ],
         {
           timeout: 100000,
@@ -190,7 +189,6 @@ describe("Checkout Only Bundle", () => {
           "@getCustomerAddresses",
           "@getOrders",
           "@getOrders",
-          "@paymentMethods",
         ],
         {
           timeout: 100000,

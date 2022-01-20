@@ -11,9 +11,10 @@ import {
   GiftCardAmount,
 } from "@commercelayer/react-components"
 import { Trans, useTranslation } from "react-i18next"
+import "twin.macro"
 
 import { AppProviderData } from "components/data/AppProvider"
-import "twin.macro"
+import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
 import { LineItemTypes } from "./LineItemTypes"
@@ -50,7 +51,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
             <SummarySubTitle>
               <LineItemsCount
                 data-cy="items-count"
-                typeAccepted={["skus", "gift_cards", "bundles"]}
+                typeAccepted={LINE_ITEMS_SHOPPABLE}
               >
                 {(props) => (
                   <span data-cy="items-count">
@@ -61,9 +62,9 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
             </SummarySubTitle>
           </SummaryHeader>
         )}
-        <LineItemTypes type="skus" />
-        <LineItemTypes type="bundles" />
-        <LineItemTypes type="gift_cards" />
+        {LINE_ITEMS_SHOPPABLE.map((type) => (
+          <LineItemTypes type={type} key={type} />
+        ))}
       </LineItemsContainer>
       <TotalWrapper>
         <AmountSpacer />
