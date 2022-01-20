@@ -122,7 +122,6 @@ describe("Checkout GiftCard", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
@@ -148,7 +147,7 @@ describe("Checkout GiftCard", () => {
         timeout: 100000,
       })
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -256,7 +255,6 @@ describe("Checkout GiftCard", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
@@ -269,13 +267,7 @@ describe("Checkout GiftCard", () => {
       )
       cy.dataCy("submit_giftcard_coupon").click()
       cy.wait(
-        [
-          "@updateOrder",
-          "@getOrders",
-          "@getOrders",
-          "@getCustomerAddresses",
-          "@paymentMethods",
-        ],
+        ["@updateOrder", "@getOrders", "@getOrders", "@getCustomerAddresses"],
         {
           timeout: 100000,
         }
@@ -296,7 +288,7 @@ describe("Checkout GiftCard", () => {
       })
       cy.wait(3000)
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -309,13 +301,7 @@ describe("Checkout GiftCard", () => {
     it("remove Gift Card and check amount", () => {
       cy.dataCy("remove_giftcard").click()
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getCustomerAddresses",
-          "@updateOrder",
-          "@paymentMethods",
-        ],
+        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
         {
           timeout: 100000,
         }

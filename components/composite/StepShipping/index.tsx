@@ -14,7 +14,7 @@ import {
   DeliveryLeadTime,
   ShipmentField,
 } from "@commercelayer/react-components"
-import { LineItemType } from "@commercelayer/react-components/lib/cjs/typings"
+import { LineItemType } from "@commercelayer/react-components/lib/esm/typings"
 import { ShippingMethod as ShippingMethodCollection } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { useTranslation, Trans } from "next-i18next"
@@ -29,6 +29,7 @@ import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
+import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
 
 import {
   ShippingWrapper,
@@ -89,7 +90,7 @@ export const StepHeaderShipping: React.FC<HeaderProps> = ({ step }) => {
   )
 }
 
-const ShippingLineItems: LineItemType[] = ["skus", "bundles"]
+const ShippingLineItems: LineItemType[] = LINE_ITEMS_SHIPPABLE
 
 export const StepShipping: React.FC<Props> = () => {
   const appCtx = useContext(AppContext)

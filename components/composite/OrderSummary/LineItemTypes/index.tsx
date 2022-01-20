@@ -8,7 +8,7 @@ import {
   LineItemOption,
   LineItemCode,
 } from "@commercelayer/react-components"
-import { LineItemType } from "@commercelayer/react-components/lib/cjs/typings"
+import { LineItemType } from "@commercelayer/react-components/lib/esm/typings"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
