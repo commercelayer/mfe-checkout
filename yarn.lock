@@ -341,17 +341,17 @@
     lodash-es "^4.17.21"
     rapid-form "^1.6.0"
 
+"@commercelayer/sdk@2.3.14":
+  version "2.3.14"
+  resolved "https://registry.yarnpkg.com/@commercelayer/sdk/-/sdk-2.3.14.tgz#3fd4e9a805e766a0ac80e3cd2de4e3c8db643755"
+  integrity sha512-LzZRx7mNg1nd99uhG2gX5hWILckWsxPx8g/5GURFlaYwuei7WFObifyze0ksokHnBeJZaKywH8IrjTs8W57yWw==
+  dependencies:
+    axios "^0.24.0"
+
 "@commercelayer/sdk@^2.3.11":
   version "2.3.11"
   resolved "https://registry.yarnpkg.com/@commercelayer/sdk/-/sdk-2.3.11.tgz#17a0c698cc98214e5f90ef958a91213faef52bb8"
   integrity sha512-kY6SRsqfT1Yic/dy5a2aAJF0zc/58GATgblz+TWQWj4QKrcnD8C9PpJzVhFWBVHkhK2kbs6znvvStHEGbB86ag==
-  dependencies:
-    axios "^0.24.0"
-
-"@commercelayer/sdk@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/sdk/-/sdk-4.2.0.tgz#198651568b54088131a98fc69bb9d1a340779990"
-  integrity sha512-V3jzcTrAh3x9Lth04A9X83zQmfBsp5CgVY9C+ZoPABp9NJy9QMydXCRv6mcCfx+NQx3zTEo2u5/NCI4iNsfm7g==
   dependencies:
     axios "^0.24.0"
 
