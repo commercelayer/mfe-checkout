@@ -1,4 +1,4 @@
-import { TypeAccepted } from "@commercelayer/react-components/lib/esm/utils/getLineItemsCount"
+import { TypeAccepted } from "@commercelayer/react-components/lib/utils/getLineItemsCount"
 import CommerceLayer, {
   Order,
   Address,
