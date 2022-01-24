@@ -20,6 +20,7 @@ module.exports = {
     ]
   },
   eslint: {},
+  poweredByHeader: false,
   swcMinify: true,
   webpack: (config) => {
     return config
