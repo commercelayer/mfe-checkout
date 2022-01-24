@@ -1,4 +1,4 @@
-import { TypeAccepted } from "@commercelayer/react-components/lib/esm/utils/getLineItemsCount"
+import { TypeAccepted } from "@commercelayer/react-components/lib/utils/getLineItemsCount"
 import CommerceLayer, { LineItem } from "@commercelayer/sdk"
 import { createContext, useEffect, useContext } from "react"
 import TagManager from "react-gtm-module"

@@ -9,11 +9,11 @@ import {
   AddressInputName,
   AddressStateSelectName,
   BaseInputType,
-} from "@commercelayer/react-components/lib/esm/typings"
+} from "@commercelayer/react-components/lib/typings"
 import {
   ErrorComponentProps,
   ResourceErrorType,
-} from "@commercelayer/react-components/lib/esm/typings/errors"
+} from "@commercelayer/react-components/lib/typings/errors"
 import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"

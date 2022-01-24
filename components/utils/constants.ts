@@ -1,4 +1,4 @@
-import { TypeAccepted } from "@commercelayer/react-components/lib/esm/utils/getLineItemsCount"
+import { TypeAccepted } from "@commercelayer/react-components/lib/utils/getLineItemsCount"
 
 export const LINE_ITEMS_SHIPPABLE: TypeAccepted[] = ["skus", "bundles"]
 export const LINE_ITEMS_SHOPPABLE: TypeAccepted[] = [
