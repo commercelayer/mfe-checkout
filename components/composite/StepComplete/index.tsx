@@ -6,8 +6,6 @@ import {
 } from "@commercelayer/react-components"
 import { useContext } from "react"
 import { useTranslation, Trans } from "react-i18next"
-import styled from "styled-components"
-import tw from "twin.macro"
 
 import { OrderSummary } from "components/composite/OrderSummary"
 import { PaymentContainer } from "components/composite/StepPayment/PaymentContainer"
@@ -18,9 +16,29 @@ import { CustomAddress } from "components/ui/CustomerAddressCard"
 import { FlexContainer } from "components/ui/FlexContainer"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
-import { getPaymentTranslations } from "components/utils/lookups"
+import { getTranslations } from "components/utils/payments"
 
 import { CheckIcon } from "./CheckIcon"
+import {
+  AddressContainer,
+  Bottom,
+  Main,
+  Message,
+  Recap,
+  RecapBox,
+  RecapCol,
+  RecapCustomer,
+  RecapItem,
+  RecapItemDescription,
+  RecapItemTitle,
+  RecapSummary,
+  RecapTitle,
+  Title,
+  Top,
+  Text,
+  Wrapper,
+  WrapperButton,
+} from "./styled"
 import { SupportMessage } from "./SupportMessage"
 
 interface Props {
@@ -169,7 +187,7 @@ export const StepComplete: React.FC<Props> = ({
                                   </Trans>
                                 )
                               }
-                              return getPaymentTranslations(brand, t)
+                              return getTranslations(brand, t)
                             }}
                           </PaymentSourceBrandName>
                         </PaymentSource>
@@ -177,9 +195,9 @@ export const StepComplete: React.FC<Props> = ({
                     </FlexContainer>
                   </RecapBox>
                 ) : (
-                  <RecapItemSimpleText>
+                  <RecapItemDescription>
                     {t("stepComplete.free_payment")}
-                  </RecapItemSimpleText>
+                  </RecapItemDescription>
                 )}
               </RecapCol>
             </RecapCustomer>
@@ -190,65 +208,3 @@ export const StepComplete: React.FC<Props> = ({
     </Base>
   )
 }
-
-const Top = styled.div`
-  ${tw`bg-white`}
-`
-const Bottom = styled.div`
-  ${tw`bg-gray-100`}
-`
-
-const Main = styled.div`
-  ${tw`flex flex-col justify-center items-center text-center`}
-`
-const Wrapper = styled.div`
-  ${tw`flex flex-col p-5 md:p-10 lg:px-20 2xl:(max-w-screen-2xl mx-auto)`}
-`
-const Title = styled.h1`
-  ${tw`text-2xl lg:text-4xl font-semibold mb-4`}
-`
-const Text = styled.p`
-  ${tw`py-2`}
-`
-const Message = styled.div`
-  ${tw`my-8 text-gray-500`}
-  > br {
-    ${tw`hidden md:block`}
-  }
-`
-const WrapperButton = styled.div`
-  ${tw`flex items-center justify-center`}
-`
-const Recap = styled.div`
-  ${tw`grid md:(auto-cols-fr grid-flow-col gap-16) lg:gap-32`}
-`
-const RecapSummary = styled.div`
-  ${tw`order-last border-t border-dashed border-t-2 pt-6 md:(order-first border-0 p-0)`}
-`
-const RecapCustomer = styled.div`
-  ${tw`order-1 md:order-2 mb-5 md:mb-0`}
-`
-const RecapTitle = styled.h2`
-  ${tw`text-lg font-semibold leading-none mb-8 md:mb-16`}
-`
-const RecapCol = styled.div`
-  ${tw`mb-4 md:mb-8`}
-`
-const RecapItemTitle = styled.h3`
-  ${tw`font-normal text-sm mb-2`}
-`
-const RecapItem = styled.p`
-  ${tw`text-md font-bold`}
-`
-const RecapItemSimpleText = styled.p`
-  ${tw`text-sm font-semibold`}
-`
-const RecapBox = styled.div`
-  ${tw`p-3 rounded border`}
-`
-const AddressContainer = styled(FlexContainer)`
-  ${tw`flex-col gap-y-4 xl:(flex-row gap-4 justify-between)`}
-  > div {
-    ${tw`flex-1`}
-  }
-`
