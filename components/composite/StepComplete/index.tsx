@@ -18,6 +18,7 @@ import { CustomAddress } from "components/ui/CustomerAddressCard"
 import { FlexContainer } from "components/ui/FlexContainer"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
+import { getPaymentTranslations } from "components/utils/lookups"
 
 import { CheckIcon } from "./CheckIcon"
 import { SupportMessage } from "./SupportMessage"
@@ -63,7 +64,7 @@ export const StepComplete: React.FC<Props> = ({
             <Title>{t("stepComplete.title")}</Title>
             <Text data-cy="complete-checkout-summary" className="text-gray-500">
               <Trans
-                i18nKey={"stepComplete.summary"}
+                i18nKey={"stepComplete.description"}
                 values={{ orderNumber: orderNumber }}
                 components={{
                   WrapperOrderId: <strong className="text-black" />,
@@ -93,19 +94,21 @@ export const StepComplete: React.FC<Props> = ({
         <Wrapper>
           <Recap>
             <RecapSummary>
-              <RecapTitle>Summary</RecapTitle>
+              <RecapTitle>{t("stepComplete.summary_title")}</RecapTitle>
               <OrderSummary appCtx={ctx} readonly />
             </RecapSummary>
             <RecapCustomer>
-              <RecapTitle>Customer</RecapTitle>
+              <RecapTitle>{t("stepComplete.customer_title")}</RecapTitle>
               <RecapCol>
-                <RecapItemTitle>E-mail:</RecapItemTitle>
+                <RecapItemTitle>{t("stepComplete.email")}</RecapItemTitle>
                 <RecapItem>{ctx.emailAddress}</RecapItem>
               </RecapCol>
               <RecapCol>
                 <AddressContainer className="lg:!grid-cols-1 xl:!grid-cols-2">
                   <div>
-                    <RecapItemTitle>Billed to:</RecapItemTitle>
+                    <RecapItemTitle>
+                      {t("stepComplete.billed_to")}
+                    </RecapItemTitle>
                     <RecapBox>
                       <CustomAddress
                         firstName={ctx.billingAddress?.first_name}
@@ -121,53 +124,63 @@ export const StepComplete: React.FC<Props> = ({
                       />
                     </RecapBox>
                   </div>
-                  <div>
-                    <RecapItemTitle>Shipped to:</RecapItemTitle>
-                    <RecapBox>
-                      <CustomAddress
-                        firstName={ctx.shippingAddress?.first_name}
-                        lastName={ctx.shippingAddress?.last_name}
-                        city={ctx.shippingAddress?.city}
-                        line1={ctx.shippingAddress?.line_1}
-                        line2={ctx.shippingAddress?.line_2}
-                        zipCode={ctx.shippingAddress?.zip_code}
-                        stateCode={ctx.shippingAddress?.state_code}
-                        countryCode={ctx.shippingAddress?.country_code}
-                        phone={ctx.shippingAddress?.phone}
-                        addressType="shipping"
-                      />
-                    </RecapBox>
-                  </div>
+                  {ctx.isShipmentRequired && (
+                    <div>
+                      <RecapItemTitle>
+                        {t("stepComplete.ship_to")}
+                      </RecapItemTitle>
+                      <RecapBox>
+                        <CustomAddress
+                          firstName={ctx.shippingAddress?.first_name}
+                          lastName={ctx.shippingAddress?.last_name}
+                          city={ctx.shippingAddress?.city}
+                          line1={ctx.shippingAddress?.line_1}
+                          line2={ctx.shippingAddress?.line_2}
+                          zipCode={ctx.shippingAddress?.zip_code}
+                          stateCode={ctx.shippingAddress?.state_code}
+                          countryCode={ctx.shippingAddress?.country_code}
+                          phone={ctx.shippingAddress?.phone}
+                          addressType="shipping"
+                        />
+                      </RecapBox>
+                    </div>
+                  )}
                 </AddressContainer>
               </RecapCol>
+
               <RecapCol>
-                <RecapItemTitle>Payment:</RecapItemTitle>
-                <RecapBox>
-                  <FlexContainer className="font-bold text-md">
-                    <PaymentContainer>
-                      <PaymentSource readonly>
-                        <PaymentSourceBrandIcon className="mr-2" />
-                        <PaymentSourceBrandName className="mr-1">
-                          {({ brand }) => {
-                            console.log("dsa")
-                            if (ctx.isCreditCard) {
-                              return (
-                                <Trans t={t} i18nKey="stepPayment.endingIn">
-                                  {brand}
-                                  <PaymentSourceDetail
-                                    className="ml-1 font-normal"
-                                    type="last4"
-                                  />
-                                </Trans>
-                              )
-                            }
-                            return brand
-                          }}
-                        </PaymentSourceBrandName>
-                      </PaymentSource>
-                    </PaymentContainer>
-                  </FlexContainer>
-                </RecapBox>
+                <RecapItemTitle>{t("stepComplete.payment")}</RecapItemTitle>
+                {ctx.isPaymentRequired ? (
+                  <RecapBox>
+                    <FlexContainer className="font-bold text-md">
+                      <PaymentContainer>
+                        <PaymentSource readonly>
+                          <PaymentSourceBrandIcon className="mr-2" />
+                          <PaymentSourceBrandName className="mr-1">
+                            {({ brand }) => {
+                              if (ctx.isCreditCard) {
+                                return (
+                                  <Trans t={t} i18nKey="stepPayment.endingIn">
+                                    {brand}
+                                    <PaymentSourceDetail
+                                      className="ml-1 font-normal"
+                                      type="last4"
+                                    />
+                                  </Trans>
+                                )
+                              }
+                              return getPaymentTranslations(brand, t)
+                            }}
+                          </PaymentSourceBrandName>
+                        </PaymentSource>
+                      </PaymentContainer>
+                    </FlexContainer>
+                  </RecapBox>
+                ) : (
+                  <RecapItemSimpleText>
+                    {t("stepComplete.free_payment")}
+                  </RecapItemSimpleText>
+                )}
               </RecapCol>
             </RecapCustomer>
           </Recap>
@@ -226,6 +239,9 @@ const RecapItemTitle = styled.h3`
 `
 const RecapItem = styled.p`
   ${tw`text-md font-bold`}
+`
+const RecapItemSimpleText = styled.p`
+  ${tw`text-sm font-semibold`}
 `
 const RecapBox = styled.div`
   ${tw`p-3 rounded border`}

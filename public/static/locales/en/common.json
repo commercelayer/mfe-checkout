@@ -2,21 +2,11 @@
 
     "general": {
         "title": "{{companyName}} - Checkout",
-        "yes": "Yes",
-        "no": "No",
-        "cancel": "Cancel",
         "systemError": "We're sorry but something went wrong!",
         "invalid": "This order is not accessible.",
-        "save": "Save",
         "edit": "Edit",
-        "delete": "Delete",
-        "done": "Done",
         "free" : "Free",
-        "complete": "Complete",
         "apply": "Apply",
-        "discard": "Discard changes",
-        "privacy_link": "Privacy",
-        "terms_link": "Terms",
         "privacy_and_terms": "By clicking the checkbox you agree to <bold><termsUrl>terms</termsUrl></bold> and <bold><privacyUrl>privacy</privacyUrl></bold>.",
         "checkoutTitle": "Checkout"
     },
@@ -58,12 +48,8 @@
 
     "stepCustomer": {
         "title": "Customer",
-        "summary" : "Customer billing and shipping information summary",
-        "information": "Your billing information and shipping address",
         "addNewAddress": "Add new address",
         "saveAddressBook": "Save this address in your account",
-        "addNewBillingAddress": "Add new billing address",
-        "addNewShippingAddress": "Add new shipping address",
         "continueToDelivery": "Continue to delivery",
         "notSet": "Fill in your Billing/Shipping Address",
         "closeForm": "Choose address"
@@ -71,14 +57,12 @@
 
     "stepShipping": {
         "title": "Delivery",
-        "summary": "Shipment summary and delivery methods",
         "shipment": "Shipment <Wrap>{{current}} of {{total}}</Wrap>",
         "notAvaible": "There are not any shipping method available",
         "stockTransfer": "<0/> of <1/> items will undergo a transfer",
         "methodSelected": "Your order contains {{count}} shipment",
         "methodSelected_plural": "Your order contains {{count}} shipments",
         "methodUnselected": "Select a shipping method",
-        "addShippingMethod": "Add customer data before shipping",
         "deliveryLeadTime" : "<0/> - <1/> days",
         "continueToPayment": "Continue to payment",
         "notRequired": "This order does not require shipping"
@@ -86,16 +70,11 @@
 
     "stepPayment": {
         "title": "Payment",
-        "summary": "Payment summary",
-        "methodSelected": "Payment method selected",
         "methodUnselected": "Select a payment method",
-        "paymentMethod": "You have a payment method set",
         "creditCard": "Credit card",
         "wireTransfer": "Wire transfer",
         "wireTransferDescription": "After placing the order, you will need to manually complete the payment with your bank",
         "paypalDescription": "After placing the order, you will be redirected to the PayPal website to sign in and authorize the payment",
-        "addPaymentMethod": "Add shipping method before payment",
-        "setPaymentMethod": "Set payment method",
         "endingIn": "<0/> ending in <1/>",
         "submit": "Place order",
         "notRequired": "This order does not require payment",
@@ -121,8 +100,6 @@
         "billing_address_billing_info": "Billing info",
         "ship_to_different_address": "Ship to different address",
         "shipping_address_title": "Shipping Address",
-        "shipped_to": "Ship to:",
-        "billed_to": "Billed to:",
         "shipping_address_first_name": "First name",
         "shipping_address_last_name": "Last name",
         "shipping_address_line_1": "Address line 1",
@@ -138,11 +115,18 @@
 
     "stepComplete": {
         "title": "Order successfully placed!",
-        "summary": "Your order No: <WrapperOrderId>#{{orderNumber}}</WrapperOrderId>",
+        "description": "Your order No: <WrapperOrderId>#{{orderNumber}}</WrapperOrderId>",
         "continue": "Continue shopping",
         "supportEmail": "If you have any questions about your order, you can email us at <br /><WrapperEmail>{{email}}</WrapperEmail>",
         "supportPhone": "If you have any questions about your order, you can call us at <br /><WrapperPhone>{{phone}}</WrapperPhone>",
-        "fullSupport": "If you have any questions about your order, you can email us at <br /><WrapperEmail>{{email}}</WrapperEmail> or call us at <WrapperPhone>{{phone}}</WrapperPhone>"
+        "fullSupport": "If you have any questions about your order, you can email us at <br /><WrapperEmail>{{email}}</WrapperEmail> or call us at <WrapperPhone>{{phone}}</WrapperPhone>",
+        "ship_to": "Shipped to:",
+        "billed_to": "Billed to:",
+        "payment": "Payment:",
+        "summary_title": "Summary",
+        "customer_title": "Customer",
+        "email": "E-mail:",
+        "free_payment": "This order did not require a payment"
     }
 
 }
