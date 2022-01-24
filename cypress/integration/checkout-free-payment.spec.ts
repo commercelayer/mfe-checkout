@@ -167,12 +167,27 @@ describe("Checkout Free Payment", () => {
       })
     })
 
-    it("place order and redirect", () => {
+    it("place order and visit thankyou page", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
       cy.wait(["@getOrders", "@updateOrder", "@getOrders", "@paymentMethods"], {
         timeout: 100000,
       })
+      cy.wait(2000)
+      cy.dataCy("order-summary").should("contain", "TESLA5")
+      cy.dataCy("billing-address-recap").should("contain", "Billed to:")
+      cy.dataCy("billing-address-recap").should("contain", euAddress.firstName)
+      cy.dataCy("shipping-address-recap").should("contain", "Shipped to:")
+      cy.dataCy("shipping-address-recap").should("contain", euAddress.firstName)
+      cy.dataCy("payment-recap").should("contain", "Payment")
+      cy.dataCy("payment-recap").should(
+        "contain",
+        "This order did not require a payment"
+      )
+    })
+
+    it("redirect to returnUrl", () => {
+      cy.wait(2000)
       cy.dataCy("button-continue-to-shop").click()
       cy.wait(2000)
       cy.url().should("eq", returnUrl)
@@ -285,12 +300,26 @@ describe("Checkout Free Payment", () => {
       cy.get("@stepHeaderBadge1").get("svg")
     })
 
-    it("place order and redirect", () => {
+    it("place order and visit thankyou page", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
-      cy.wait(["@updateOrder", "@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@updateOrder", "@getOrders", "@paymentMethods"], {
         timeout: 100000,
       })
+      cy.wait(2000)
+      cy.dataCy("order-summary").should("contain", "Gift card: €0,00")
+      cy.dataCy("billing-address-recap").should("contain", "Billed to:")
+      cy.dataCy("billing-address-recap").should("contain", euAddress.firstName)
+      cy.dataCy("shipping-address-recap").should("not.exist")
+      cy.dataCy("payment-recap").should("contain", "Payment")
+      cy.dataCy("payment-recap").should(
+        "contain",
+        "This order did not require a payment"
+      )
+    })
+
+    it("redirect to returnUrl", () => {
+      cy.wait(2000)
       cy.dataCy("button-continue-to-shop").click()
       cy.wait(2000)
       cy.url().should("eq", returnUrl)
@@ -418,12 +447,27 @@ describe("Checkout Free Payment", () => {
       })
     })
 
-    it("place order and redirect", () => {
+    it("place order and visit thankyou page", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
-      cy.wait(["@updateOrder", "@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@updateOrder", "@getOrders", "@paymentMethods"], {
         timeout: 100000,
       })
+      cy.wait(2000)
+      cy.dataCy("order-summary").should("contain", "TESLAFREE")
+      cy.dataCy("billing-address-recap").should("contain", "Billed to:")
+      cy.dataCy("billing-address-recap").should("contain", euAddress.firstName)
+      cy.dataCy("shipping-address-recap").should("contain", "Shipped to:")
+      cy.dataCy("shipping-address-recap").should("contain", euAddress.firstName)
+      cy.dataCy("payment-recap").should("contain", "Payment")
+      cy.dataCy("payment-recap").should(
+        "contain",
+        "This order did not require a payment"
+      )
+    })
+
+    it("redirect to returnUrl", () => {
+      cy.wait(2000)
       cy.dataCy("button-continue-to-shop").click()
       cy.wait(2000)
       cy.url().should("eq", returnUrl)

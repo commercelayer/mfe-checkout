@@ -157,7 +157,7 @@ describe("Checkout Complete", () => {
       })
     })
 
-    it("place order and redirect", () => {
+    it("place order and visit thankyou page", () => {
       cy.wait(2000)
       cy.dataCy("place-order-button").click()
       cy.wait(
@@ -173,6 +173,18 @@ describe("Checkout Complete", () => {
           timeout: 100000,
         }
       )
+      cy.wait(2000)
+      cy.dataCy("order-summary").should("contain", "TESLA5")
+      cy.dataCy("billing-address-recap").should("contain", "Billed to:")
+      cy.dataCy("billing-address-recap").should("contain", euAddress.firstName)
+      cy.dataCy("shipping-address-recap").should("contain", "Shipped to:")
+      cy.dataCy("shipping-address-recap").should("contain", euAddress.firstName)
+      cy.dataCy("payment-recap").should("contain", "Payment")
+      cy.dataCy("payment-recap").should("contain", "Visa ending in")
+    })
+
+    it("redirect to returnUrl", () => {
+      cy.wait(2000)
       cy.dataCy("button-continue-to-shop").click()
       cy.wait(2000)
       cy.url().should("eq", returnUrl)

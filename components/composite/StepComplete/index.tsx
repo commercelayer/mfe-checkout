@@ -123,7 +123,7 @@ export const StepComplete: React.FC<Props> = ({
               </RecapCol>
               <RecapCol>
                 <AddressContainer className="lg:!grid-cols-1 xl:!grid-cols-2">
-                  <div>
+                  <div data-cy="billing-address-recap">
                     <RecapItemTitle>
                       {t("stepComplete.billed_to")}
                     </RecapItemTitle>
@@ -143,7 +143,7 @@ export const StepComplete: React.FC<Props> = ({
                     </RecapBox>
                   </div>
                   {ctx.isShipmentRequired && (
-                    <div>
+                    <div data-cy="shipping-address-recap">
                       <RecapItemTitle>
                         {t("stepComplete.ship_to")}
                       </RecapItemTitle>
@@ -166,7 +166,7 @@ export const StepComplete: React.FC<Props> = ({
                 </AddressContainer>
               </RecapCol>
 
-              <RecapCol>
+              <RecapCol data-cy="payment-recap">
                 <RecapItemTitle>{t("stepComplete.payment")}</RecapItemTitle>
                 {ctx.isPaymentRequired ? (
                   <RecapBox>
