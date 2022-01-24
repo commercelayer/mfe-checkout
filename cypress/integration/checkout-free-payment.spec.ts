@@ -303,7 +303,7 @@ describe("Checkout Free Payment", () => {
     it("place order and visit thankyou page", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
-      cy.wait(["@getOrders", "@updateOrder", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@updateOrder", "@getOrders"], {
         timeout: 100000,
       })
       cy.wait(2000)
@@ -450,7 +450,7 @@ describe("Checkout Free Payment", () => {
     it("place order and visit thankyou page", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
-      cy.wait(["@getOrders", "@updateOrder", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@updateOrder", "@getOrders"], {
         timeout: 100000,
       })
       cy.wait(2000)
