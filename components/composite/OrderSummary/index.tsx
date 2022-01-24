@@ -52,9 +52,11 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                 data-cy="items-count"
                 typeAccepted={["skus", "gift_cards", "bundles"]}
               >
-                <span data-cy="items-count">
-                  {t("orderRecap.cartContains", { count: props.quantity })}
-                </span>
+                {(props) => (
+                  <span data-cy="items-count">
+                    {t("orderRecap.cartContains", { count: props.quantity })}
+                  </span>
+                )}
               </LineItemsCount>
             </SummarySubTitle>
           </SummaryHeader>
