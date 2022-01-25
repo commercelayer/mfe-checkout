@@ -1,3 +1,27 @@
+# [1.2.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.1.0...v1.2.0) (2022-01-25)
+
+
+### Bug Fixes
+
+* add props for line items count ([9fe6148](https://github.com/commercelayer/commercelayer-react-checkout/commit/9fe61481546bf60c4ea67defd1ac156944490436))
+* address card grows into empty space ([704c7a3](https://github.com/commercelayer/commercelayer-react-checkout/commit/704c7a3377444690a3a898e4196f91d0af477442))
+* change type for customer address card ([50a7b7b](https://github.com/commercelayer/commercelayer-react-checkout/commit/50a7b7b2b31d6f58f43cbc319c401b0d3518e30c))
+
+
+### Features
+
+* add components to step complete ([3a1312d](https://github.com/commercelayer/commercelayer-react-checkout/commit/3a1312dcfdfc70e572df13ef9ac1e0f81caf2df9))
+* add wire transfer translation and refactor ([934d545](https://github.com/commercelayer/commercelayer-react-checkout/commit/934d545c6b66dbd78898e2eaf4b075b3b6bbf8a9))
+* improve thank you with translations, free payment, no ship ([5ceb3cc](https://github.com/commercelayer/commercelayer-react-checkout/commit/5ceb3cc5162136dd73b494c50ba88065b29e30e3))
+* New thank you page layout ([cc700ac](https://github.com/commercelayer/commercelayer-react-checkout/commit/cc700ace4ecedfda70e922a31eeeba62720dae30))
+* order recap on thank you page ([e36a544](https://github.com/commercelayer/commercelayer-react-checkout/commit/e36a544d37815d8ddc4d09dad9c2b6cc90a00647))
+
+
+### Performance Improvements
+
+* speed up checkout bootstrap ([b375f19](https://github.com/commercelayer/commercelayer-react-checkout/commit/b375f19687598e7ab9bca42799003f8b57b10f4f))
+* upgrade to react-components v3 without cities.json ([ed3e3bf](https://github.com/commercelayer/commercelayer-react-checkout/commit/ed3e3bf4f009a44f46f89747fd0889129138d754))
+
 # [1.1.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.0.1...v1.1.0) (2022-01-18)
 
 
