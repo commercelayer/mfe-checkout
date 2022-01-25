@@ -3,7 +3,7 @@ import { Address as AddressCollection } from "@commercelayer/sdk"
 
 interface AddressCardProps {
   addressType: "shipping" | "billing"
-  addresses?: [AddressCollection]
+  addresses?: AddressCollection[]
   deselect: boolean
   onSelect?: () => void
 }
@@ -65,7 +65,7 @@ interface AddressProps {
   addressType: string
 }
 
-const CustomAddress = ({
+export const CustomAddress = ({
   firstName,
   lastName,
   city,

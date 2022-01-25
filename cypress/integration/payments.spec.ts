@@ -103,7 +103,6 @@ describe("Checkout Payments", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
@@ -141,7 +140,7 @@ describe("Checkout Payments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@getOrders"], {
         timeout: 100000,
       })
     })
@@ -160,8 +159,6 @@ describe("Checkout Payments", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -246,15 +243,7 @@ describe("Checkout Payments", () => {
     it("valid customer token", function () {
       cy.visit(`/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`)
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@deliveryLeadTimes",
-          "@paymentMethods",
-        ],
+        ["@getOrders", "@getOrders", "@getOrders", "@deliveryLeadTimes"],
         { timeout: 100000 }
       )
       cy.url().should("contain", Cypress.env("accessToken"))
@@ -273,18 +262,9 @@ describe("Checkout Payments", () => {
         timeout: 100000,
       })
       cy.dataCy("save-shipments-button").click()
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@paymentMethods",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders"], {
+        timeout: 100000,
+      })
     })
 
     it("check if not avaible save to wallet", () => {
@@ -383,15 +363,7 @@ describe("Checkout Payments", () => {
     it("valid customer token", function () {
       cy.visit(`/${this.newOrder.id}?accessToken=${Cypress.env("accessToken")}`)
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@deliveryLeadTimes",
-          "@paymentMethods",
-        ],
+        ["@getOrders", "@getOrders", "@getOrders", "@deliveryLeadTimes"],
         { timeout: 100000 }
       )
       cy.url().should("contain", Cypress.env("accessToken"))
@@ -410,18 +382,9 @@ describe("Checkout Payments", () => {
         timeout: 100000,
       })
       cy.dataCy("save-shipments-button").click()
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@paymentMethods",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders"], {
+        timeout: 100000,
+      })
     })
 
     it("check if not avaible save to wallet", () => {
@@ -552,7 +515,6 @@ describe("Checkout Payments", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
@@ -578,7 +540,7 @@ describe("Checkout Payments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -613,7 +575,7 @@ describe("Checkout Payments", () => {
       cy.wait(3000)
       cy.get("@paymentSource1").within(() => {
         cy.fillElementsInput("number", "4111111111111111")
-        cy.fillElementsInput("expirationDate", "102022")
+        cy.fillElementsInput("expirationDate", "102023")
         cy.fillElementsInput("cvv", "123")
       })
       cy.dataCy("place-order-button").should("be.enabled")
@@ -712,7 +674,6 @@ describe("Checkout Payments", () => {
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
-            "@paymentMethods",
             "@deliveryLeadTimes",
           ],
           { timeout: 100000 }
@@ -738,7 +699,7 @@ describe("Checkout Payments", () => {
           }
         )
         cy.dataCy("save-shipments-button").click()
-        cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+        cy.wait(["@getOrders", "@getOrders"], {
           timeout: 100000,
         })
       })
@@ -757,7 +718,6 @@ describe("Checkout Payments", () => {
             "@getOrders",
             "@getOrders",
             "@getOrders",
-            "@paymentMethods",
           ],
           { timeout: 100000 }
         )
@@ -792,7 +752,6 @@ describe("Checkout Payments", () => {
             "@getCustomerAddresses",
             "@getOrders",
             "@getOrders",
-            "@paymentMethods",
           ],
           {
             timeout: 100000,
@@ -886,8 +845,6 @@ describe("Checkout Payments", () => {
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
-            "@getCustomerAddresses",
-            "@paymentMethods",
             "@deliveryLeadTimes",
           ],
           { timeout: 100000 }
@@ -913,7 +870,7 @@ describe("Checkout Payments", () => {
           }
         )
         cy.dataCy("save-shipments-button").click()
-        cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+        cy.wait(["@getOrders", "@getOrders"], {
           timeout: 100000,
         })
       })
@@ -932,7 +889,6 @@ describe("Checkout Payments", () => {
             "@getOrders",
             "@getOrders",
             "@getOrders",
-            "@paymentMethods",
           ],
           { timeout: 100000 }
         )
@@ -954,19 +910,9 @@ describe("Checkout Payments", () => {
       it("place order and redirect", () => {
         cy.wait(2000)
         cy.dataCy("place-order-button").click()
-        cy.wait(
-          [
-            "@getOrders",
-            "@updateOrder",
-            "@getCustomerAddresses",
-            "@getOrders",
-            "@getOrders",
-            "@paymentMethods",
-          ],
-          {
-            timeout: 100000,
-          }
-        )
+        cy.wait(["@getOrders", "@updateOrder", "@getOrders"], {
+          timeout: 100000,
+        })
       })
     }
   )
@@ -1050,8 +996,6 @@ describe("Checkout Payments", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
@@ -1077,7 +1021,7 @@ describe("Checkout Payments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@getOrders"], {
         timeout: 100000,
       })
     })
@@ -1095,7 +1039,6 @@ describe("Checkout Payments", () => {
           "@getOrders",
           "@getOrders",
           "@updateOrder",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -1129,7 +1072,6 @@ describe("Checkout Payments", () => {
           "@getCustomerAddresses",
           "@getOrders",
           "@getOrders",
-          "@paymentMethods",
         ],
         {
           timeout: 100000,
@@ -1218,8 +1160,6 @@ describe("Checkout Payments", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
@@ -1245,7 +1185,7 @@ describe("Checkout Payments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@getOrders"], {
         timeout: 100000,
       })
     })
@@ -1263,7 +1203,6 @@ describe("Checkout Payments", () => {
           "@getOrders",
           "@getOrders",
           "@updateOrder",
-          "@paymentMethods",
         ],
         { timeout: 100000 }
       )
@@ -1286,7 +1225,7 @@ describe("Checkout Payments", () => {
     it("place order and redirect", () => {
       cy.wait(2000)
       cy.dataCy("place-order-button").click()
-      cy.wait(["@updateOrder", "@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@updateOrder", "@getOrders", "@getOrders"], {
         timeout: 100000,
       })
     })

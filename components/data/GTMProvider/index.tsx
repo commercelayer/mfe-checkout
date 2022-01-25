@@ -1,8 +1,10 @@
+import { TypeAccepted } from "@commercelayer/react-components/lib/utils/getLineItemsCount"
 import CommerceLayer, { LineItem } from "@commercelayer/sdk"
 import { createContext, useEffect, useContext } from "react"
 import TagManager from "react-gtm-module"
 
 import { AppContext } from "components/data/AppProvider"
+import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 
 interface GTMProviderData {
   fireAddShippingInfo: () => Promise<void>
@@ -73,12 +75,6 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
 
   const fetchOrder = async () => {
     return cl.orders.retrieve(orderId, {
-      include: [
-        "line_items",
-        "shipments",
-        "shipments.shipping_method",
-        "payment_method",
-      ],
       fields: {
         orders: [
           "number",
@@ -89,7 +85,9 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
           "total_tax_amount_float",
           "payment_method",
         ],
+        payment_method: ["price_amount_float", "name"],
       },
+      include: ["payment_method"],
     })
   }
 
@@ -141,11 +139,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         },
       })
     ).line_items?.filter((line_item) => {
-      return (
-        line_item.item_type === "skus" ||
-        line_item.item_type === "gift_cards" ||
-        line_item.item_type === "bundles"
-      )
+      return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
 
     return pushDataLayer({
@@ -223,11 +217,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         },
       })
     ).line_items?.filter((line_item) => {
-      return (
-        line_item.item_type === "skus" ||
-        line_item.item_type === "gift_cards" ||
-        line_item.item_type === "bundles"
-      )
+      return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
 
     const paymentMethod = order.payment_method
@@ -262,11 +252,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         },
       })
     ).line_items?.filter((line_item) => {
-      return (
-        line_item.item_type === "skus" ||
-        line_item.item_type === "gift_cards" ||
-        line_item.item_type === "bundles"
-      )
+      return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
 
     return pushDataLayer({

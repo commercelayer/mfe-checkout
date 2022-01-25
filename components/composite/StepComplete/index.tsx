@@ -1,15 +1,44 @@
+import {
+  PaymentSource,
+  PaymentSourceBrandIcon,
+  PaymentSourceBrandName,
+  PaymentSourceDetail,
+} from "@commercelayer/react-components"
 import { useContext } from "react"
 import { useTranslation, Trans } from "react-i18next"
-import styled from "styled-components"
-import tw from "twin.macro"
 
+import { OrderSummary } from "components/composite/OrderSummary"
+import { PaymentContainer } from "components/composite/StepPayment/PaymentContainer"
 import { AppContext } from "components/data/AppProvider"
 import { Base } from "components/ui/Base"
 import { Button } from "components/ui/Button"
+import { CustomAddress } from "components/ui/CustomerAddressCard"
+import { FlexContainer } from "components/ui/FlexContainer"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
+import { getTranslations } from "components/utils/payments"
 
 import { CheckIcon } from "./CheckIcon"
+import {
+  AddressContainer,
+  Bottom,
+  Main,
+  Message,
+  Recap,
+  RecapBox,
+  RecapCol,
+  RecapCustomer,
+  RecapItem,
+  RecapItemDescription,
+  RecapItemTitle,
+  RecapSummary,
+  RecapTitle,
+  Title,
+  Top,
+  Text,
+  Wrapper,
+  WrapperButton,
+} from "./styled"
 import { SupportMessage } from "./SupportMessage"
 
 interface Props {
@@ -31,13 +60,15 @@ export const StepComplete: React.FC<Props> = ({
 
   const ctx = useContext(AppContext)
 
+  if (!ctx) return null
+
   const handleClick = () => {
     ctx?.returnUrl && (document.location.href = ctx?.returnUrl)
   }
 
   return (
     <Base>
-      <ContainerFlex>
+      <Top>
         <Wrapper>
           <Logo
             logoUrl={logoUrl}
@@ -51,7 +82,7 @@ export const StepComplete: React.FC<Props> = ({
             <Title>{t("stepComplete.title")}</Title>
             <Text data-cy="complete-checkout-summary" className="text-gray-500">
               <Trans
-                i18nKey={"stepComplete.summary"}
+                i18nKey={"stepComplete.description"}
                 values={{ orderNumber: orderNumber }}
                 components={{
                   WrapperOrderId: <strong className="text-black" />,
@@ -64,6 +95,7 @@ export const StepComplete: React.FC<Props> = ({
                 supportPhone={supportPhone}
               />
             </Message>
+
             {ctx?.returnUrl && (
               <WrapperButton>
                 <Button data-cy="button-continue-to-shop" onClick={handleClick}>
@@ -74,34 +106,105 @@ export const StepComplete: React.FC<Props> = ({
               </WrapperButton>
             )}
           </Main>
+        </Wrapper>
+      </Top>
+      <Bottom>
+        <Wrapper>
+          <Recap>
+            <RecapSummary>
+              <RecapTitle>{t("stepComplete.summary_title")}</RecapTitle>
+              <OrderSummary appCtx={ctx} readonly />
+            </RecapSummary>
+            <RecapCustomer>
+              <RecapTitle>{t("stepComplete.customer_title")}</RecapTitle>
+              <RecapCol>
+                <RecapItemTitle>{t("stepComplete.email")}</RecapItemTitle>
+                <RecapItem>{ctx.emailAddress}</RecapItem>
+              </RecapCol>
+              <RecapCol>
+                <AddressContainer className="lg:!grid-cols-1 xl:!grid-cols-2">
+                  <div data-cy="billing-address-recap">
+                    <RecapItemTitle>
+                      {t("stepComplete.billed_to")}
+                    </RecapItemTitle>
+                    <RecapBox>
+                      <CustomAddress
+                        firstName={ctx.billingAddress?.first_name}
+                        lastName={ctx.billingAddress?.last_name}
+                        city={ctx.billingAddress?.city}
+                        line1={ctx.billingAddress?.line_1}
+                        line2={ctx.billingAddress?.line_2}
+                        zipCode={ctx.billingAddress?.zip_code}
+                        stateCode={ctx.billingAddress?.state_code}
+                        countryCode={ctx.billingAddress?.country_code}
+                        phone={ctx.billingAddress?.phone}
+                        addressType="billing"
+                      />
+                    </RecapBox>
+                  </div>
+                  {ctx.isShipmentRequired && (
+                    <div data-cy="shipping-address-recap">
+                      <RecapItemTitle>
+                        {t("stepComplete.ship_to")}
+                      </RecapItemTitle>
+                      <RecapBox>
+                        <CustomAddress
+                          firstName={ctx.shippingAddress?.first_name}
+                          lastName={ctx.shippingAddress?.last_name}
+                          city={ctx.shippingAddress?.city}
+                          line1={ctx.shippingAddress?.line_1}
+                          line2={ctx.shippingAddress?.line_2}
+                          zipCode={ctx.shippingAddress?.zip_code}
+                          stateCode={ctx.shippingAddress?.state_code}
+                          countryCode={ctx.shippingAddress?.country_code}
+                          phone={ctx.shippingAddress?.phone}
+                          addressType="shipping"
+                        />
+                      </RecapBox>
+                    </div>
+                  )}
+                </AddressContainer>
+              </RecapCol>
+
+              <RecapCol data-cy="payment-recap">
+                <RecapItemTitle>{t("stepComplete.payment")}</RecapItemTitle>
+                {ctx.isPaymentRequired ? (
+                  <RecapBox>
+                    <FlexContainer className="font-bold text-md">
+                      <PaymentContainer>
+                        <PaymentSource readonly>
+                          <PaymentSourceBrandIcon className="mr-2" />
+                          <PaymentSourceBrandName className="mr-1">
+                            {({ brand }) => {
+                              if (ctx.isCreditCard) {
+                                return (
+                                  <Trans t={t} i18nKey="stepPayment.endingIn">
+                                    {brand}
+                                    <PaymentSourceDetail
+                                      className="ml-1 font-normal"
+                                      type="last4"
+                                    />
+                                  </Trans>
+                                )
+                              }
+                              return getTranslations(brand, t)
+                            }}
+                          </PaymentSourceBrandName>
+                        </PaymentSource>
+                      </PaymentContainer>
+                    </FlexContainer>
+                  </RecapBox>
+                ) : (
+                  <RecapItemDescription>
+                    {t("stepComplete.free_payment")}
+                  </RecapItemDescription>
+                )}
+              </RecapCol>
+            </RecapCustomer>
+          </Recap>
           <Footer />
         </Wrapper>
-      </ContainerFlex>
+      </Bottom>
     </Base>
   )
 }
-
-const ContainerFlex = styled.div`
-  ${tw`w-full min-h-full flex min-h-inherit 2xl:max-w-screen-2xl 2xl:mx-auto`}
-`
-const Main = styled.div`
-  ${tw`flex flex-col flex-1 justify-center items-center text-center`}
-`
-const Wrapper = styled.div`
-  ${tw`flex flex-col flex-1 p-5 md:p-10 lg:px-20 lg:pb-10 2xl:px-0`}
-`
-const Title = styled.h1`
-  ${tw`text-2xl lg:text-4xl font-semibold mb-4`}
-`
-const Text = styled.p`
-  ${tw`py-2`}
-`
-const Message = styled.div`
-  ${tw`my-8 text-gray-500`}
-  > br {
-    ${tw`hidden md:block`}
-  }
-`
-const WrapperButton = styled.div`
-  ${tw`flex items-center justify-center pt-5`}
-`

@@ -82,8 +82,6 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -93,7 +91,6 @@ describe("check Data Layers GTM", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
@@ -135,18 +132,9 @@ describe("check Data Layers GTM", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@paymentMethods",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
       cy.getDataLayer({ gtm: "add_shipping_info" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 2)
         assert.equal(dataLayer[0].event, "add_shipping_info")
@@ -194,18 +182,9 @@ describe("check Data Layers GTM", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@paymentMethods",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
       cy.getDataLayer({ gtm: "add_shipping_info" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 4)
         assert.equal(dataLayer[2].event, "add_shipping_info")
@@ -240,7 +219,6 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@getCustomerAddresses",
           "@deliveryLeadTimes",
-          "@paymentMethods",
         ],
         {
           timeout: 100000,
@@ -293,18 +271,9 @@ describe("check Data Layers GTM", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-          "@paymentMethods",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@getOrders"], {
+        timeout: 100000,
+      })
       cy.getDataLayer({ gtm: "add_shipping_info" }).then((dataLayer) => {
         assert.equal(dataLayer.length, 8)
         assert.equal(dataLayer[6].event, "add_shipping_info")
@@ -394,8 +363,6 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -405,7 +372,6 @@ describe("check Data Layers GTM", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
@@ -431,7 +397,7 @@ describe("check Data Layers GTM", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders", "@getOrders"], {
         timeout: 100000,
       })
     })
@@ -489,7 +455,6 @@ describe("check Data Layers GTM", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@paymentMethods",
         ],
         {
           timeout: 100000,
