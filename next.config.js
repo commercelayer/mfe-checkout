@@ -1,3 +1,5 @@
+const shouldAnalyzeBundles = process.env.ANALYZE === "true"
+
 const securityHeaders = [
   {
     key: "X-DNS-Prefetch-Control",
@@ -9,7 +11,7 @@ const securityHeaders = [
   },
 ]
 
-module.exports = {
+let nextConfig = {
   async headers() {
     return [
       {
@@ -26,3 +28,12 @@ module.exports = {
     return config
   },
 }
+
+if (shouldAnalyzeBundles) {
+  const withBundleAnalyzer = require("@next/bundle-analyzer")({
+    enabled: true,
+  })
+  nextConfig = withBundleAnalyzer(nextConfig)
+}
+
+module.exports = nextConfig

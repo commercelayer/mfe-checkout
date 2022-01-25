@@ -14,7 +14,7 @@ import CommerceLayer, {
   ExternalPayment,
   PaypalPayment,
 } from "@commercelayer/sdk"
-import i18n from "i18next"
+import { changeLanguage } from "i18next"
 
 import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
 
@@ -481,7 +481,7 @@ export const fetchOrderById = async ({
     // @ts-ignore
     const requiresBillingInfo = order.requires_billing_info
 
-    await i18n.changeLanguage(order.language_code)
+    await changeLanguage(order.language_code)
 
     return {
       isGuest,
