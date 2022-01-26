@@ -3,17 +3,13 @@ import {
   AddressInput,
   AddressCountrySelector,
   AddressStateSelector,
-} from "@commercelayer/react-components"
-import {
+  ErrorComponentProps,
+  ResourceErrorType,
   AddressCountrySelectName,
   AddressInputName,
   AddressStateSelectName,
   BaseInputType,
-} from "@commercelayer/react-components/lib/typings"
-import {
-  ErrorComponentProps,
-  ResourceErrorType,
-} from "@commercelayer/react-components/lib/typings/errors"
+} from "@commercelayer/react-components"
 import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
