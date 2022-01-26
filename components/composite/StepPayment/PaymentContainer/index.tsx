@@ -29,7 +29,7 @@ export const PaymentContainer: React.FC = ({ children }) => {
           containerClassName: "flex flex-col",
           fieldsContainerClassName: "flex flex-col xl:flex-row",
           cardDetailsContainerClassName: "flex justify-between",
-          cardContainerClassName: "flex-grow mb-3 xl:mb-0",
+          cardContainerClassName: "grow mb-3 xl:mb-0",
           expDateContainerClassName: "flex-none w-2/4 xl:mx-3 xl:w-24",
           cvvContainerClassName: "flex-none w-2/4 pl-3 xl:w-14 xl:pl-0",
           inputWrapperClassName: "h-8 border rounded",

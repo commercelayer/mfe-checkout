@@ -312,20 +312,19 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 }
 
 const addressesTransition = {
-  enter: "transform transition duration-400",
+  enter: "transition duration-400",
   enterFrom: "opacity-0  -translate-y-full",
   enterTo: "opacity-100 translate-y-0",
-  leave: "transform duration-400 transition ease-out absolute top-0 w-full",
+  leave: "duration-400 transition ease-out absolute top-0 w-full",
   leaveFrom: "opacity-100 translate-y-0 ",
   leaveTo: "opacity-0 -translate-y-full",
 }
 
 const formTransition = {
-  enter: "transform transition duration-400",
+  enter: "transition duration-400",
   enterFrom: "opacity-0 translate-y-full",
   enterTo: "opacity-100 translate-y-0",
-  leave:
-    "transform duration-400 transition ease-out absolute top-0 w-full min-h-full",
+  leave: "duration-400 transition ease-out absolute top-0 w-full min-h-full",
   leaveFrom: "opacity-100 translate-y-0",
   leaveTo: "opacity-0 translate-y-full",
 }
