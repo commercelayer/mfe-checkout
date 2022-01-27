@@ -1,6 +1,5 @@
 import { PaymentMethodsContainer } from "@commercelayer/react-components"
 import { useTranslation } from "react-i18next"
-import "twin.macro"
 
 export const PaymentContainer: React.FC = ({ children }) => {
   const { t } = useTranslation()

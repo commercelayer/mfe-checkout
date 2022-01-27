@@ -3,7 +3,6 @@ import classNames from "classnames"
 import { Fragment, useContext, useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import "twin.macro"
 import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
 import { StepContainer } from "components/ui/StepContainer"

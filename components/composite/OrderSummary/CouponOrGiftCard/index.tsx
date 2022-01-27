@@ -19,8 +19,6 @@ import {
   StyledErrors,
 } from "./styled"
 
-import "twin.macro"
-
 interface Props {
   readonly?: boolean
 }

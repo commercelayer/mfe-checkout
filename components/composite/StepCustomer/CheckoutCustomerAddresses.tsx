@@ -12,7 +12,6 @@ import { useState, Fragment, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 
-import "twin.macro"
 import { AddButton } from "components/ui/AddButton"
 import { ButtonCss, ButtonWrapper } from "components/ui/Button"
 import { CustomerAddressCard } from "components/ui/CustomerAddressCard"

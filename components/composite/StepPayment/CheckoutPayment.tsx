@@ -1,7 +1,5 @@
 import { PaymentMethod, PaymentSource } from "@commercelayer/react-components"
 
-import "twin.macro"
-
 import { PaymentDetails } from "./PaymentDetails"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 import { PaymentSummaryList } from "./PaymentSummaryList"

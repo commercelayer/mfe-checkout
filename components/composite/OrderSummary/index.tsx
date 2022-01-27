@@ -11,7 +11,6 @@ import {
   GiftCardAmount,
 } from "@commercelayer/react-components"
 import { Trans, useTranslation } from "react-i18next"
-import "twin.macro"
 
 import { AppProviderData } from "components/data/AppProvider"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"

@@ -7,7 +7,6 @@ import {
 import { Address } from "@commercelayer/sdk"
 import { useState, Fragment, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import "twin.macro"
 import styled from "styled-components"
 
 import { ButtonCss, ButtonWrapper } from "components/ui/Button"
