@@ -144,7 +144,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
         <AddressSectionTitle data-cy="billing-address">
           {t(`addressForm.billing_address_title`)}
         </AddressSectionTitle>
-        <div className="relative overflow-hidden">
+        <div className="relative">
           <>
             {hasCustomerAddresses && (
               <>
@@ -312,19 +312,19 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 }
 
 const addressesTransition = {
-  enter: "transition duration-400",
+  enter: "transition duration-400 ease-in",
   enterFrom: "opacity-0  -translate-y-full",
   enterTo: "opacity-100 translate-y-0",
-  leave: "duration-400 transition ease-out absolute top-0 w-full",
+  leave: "duration-200 transition ease-out absolute top-0 w-full",
   leaveFrom: "opacity-100 translate-y-0 ",
   leaveTo: "opacity-0 -translate-y-full",
 }
 
 const formTransition = {
-  enter: "transition duration-400",
+  enter: "transition duration-400 ease-in",
   enterFrom: "opacity-0 translate-y-full",
   enterTo: "opacity-100 translate-y-0",
-  leave: "duration-400 transition ease-out absolute top-0 w-full min-h-full",
+  leave: "duration-400 transition ease-out absolute top-0 w-full",
   leaveFrom: "opacity-100 translate-y-0",
   leaveTo: "opacity-0 translate-y-full",
 }
