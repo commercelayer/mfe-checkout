@@ -1,12 +1,12 @@
-import { internet } from "faker"
+import { faker } from "@faker-js/faker"
 
 import { euAddress } from "../support/utils"
 
 describe("Checkout Coupon", () => {
   const filename = "coupon"
 
-  const email = internet.email().toLocaleLowerCase()
-  const password = internet.password()
+  const email = faker.internet.email().toLocaleLowerCase()
+  const password = faker.internet.password()
 
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {

@@ -1,12 +1,12 @@
-import { internet } from "faker"
+import { faker } from "@faker-js/faker"
 
 import { euAddress, euAddress2, euAddress3 } from "../support/utils"
 
 describe("Checkout customer address", () => {
   const filename = "customer-addresses"
 
-  const email = internet.email().toLocaleLowerCase()
-  const password = internet.password()
+  const email = faker.internet.email().toLocaleLowerCase()
+  const password = faker.internet.password()
 
   let requires_billing_info = false
 

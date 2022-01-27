@@ -66,7 +66,7 @@
   },
   "devDependencies": {
     "@commercelayer/cypress-vcr": "^1.1.0",
-    "@faker-js/faker": "*",
+    "@faker-js/faker": "6.0.0-alpha.5",
     "@next/bundle-analyzer": "^12.0.8",
     "@next/eslint-plugin-next": "^12.0.8",
     "@semantic-release/changelog": "^6.0.1",
@@ -77,7 +77,6 @@
     "@semantic-release/release-notes-generator": "^10.0.3",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.3.1",
-    "@types/faker": "^5.5.9",
     "@types/node": "^17.0.12",
     "@types/react": "^17.0.38",
     "@types/react-gtm-module": "^2.0.1",
