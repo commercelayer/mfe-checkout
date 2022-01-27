@@ -716,8 +716,8 @@ describe("Checkout customer address", () => {
   })
 
   context("initial order empty with two address on book", () => {
-    const emailTemp = internet.email().toLocaleLowerCase()
-    const passwordTemp = internet.password()
+    const emailTemp = faker.internet.email().toLocaleLowerCase()
+    const passwordTemp = faker.internet.password()
     before(function () {
       cy.createCustomer({ email: emailTemp, password: passwordTemp }).then(
         () => {
@@ -1032,8 +1032,8 @@ describe("Checkout customer address", () => {
 
   context("initial order empty with country lock", () => {
     let requires_billing_info = false
-    const emailTemp = internet.email().toLocaleLowerCase()
-    const passwordTemp = internet.password()
+    const emailTemp = faker.internet.email().toLocaleLowerCase()
+    const passwordTemp = faker.internet.password()
     const countryCode = "IT"
     before(function () {
       cy.createCustomer({ email: emailTemp, password: passwordTemp }).then(
