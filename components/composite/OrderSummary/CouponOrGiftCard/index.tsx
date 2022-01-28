@@ -4,10 +4,8 @@ import {
   GiftCardOrCouponForm,
   ErrorComponentProps,
 } from "@commercelayer/react-components"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
-
-import { AppContext } from "components/data/AppProvider"
 
 import {
   CouponFormWrapper,
@@ -26,24 +24,10 @@ interface Props {
 export const CouponOrGiftCard: React.FC<Props> = ({ readonly }) => {
   const { t } = useTranslation()
 
-  const appCtx = useContext(AppContext)
-
-  if (!appCtx) {
-    return null
-  }
-
-  const { refetchOrder } = appCtx
-
   const [codeError, setCodeError] = useState(false)
 
   const handleSubmit = async ({ success }: { success: boolean }) => {
     if (!success) return setCodeError(true)
-    if (success) {
-      // soluzione momentanea in vista di una risoluzione di @commercelayer/react-components
-      setTimeout(() => {
-        refetchOrder()
-      }, 2000)
-    }
     return setCodeError(false)
   }
 
@@ -95,7 +79,6 @@ export const CouponOrGiftCard: React.FC<Props> = ({ readonly }) => {
                   data-cy="remove_coupon"
                   type="coupon"
                   label="Remove"
-                  onClick={refetchOrder}
                 />
               </span>
             </CouponRecap>
@@ -117,7 +100,6 @@ export const CouponOrGiftCard: React.FC<Props> = ({ readonly }) => {
                   type="gift_card"
                   className=""
                   label="Remove"
-                  onClick={refetchOrder}
                 />
               </span>
             </CouponRecap>
