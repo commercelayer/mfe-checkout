@@ -175,7 +175,7 @@ describe("Checkout Payments", () => {
       })
       cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
-        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardExpiry", "0333")
         cy.fillElementsInput("cardCvc", "333")
       })
       cy.dataCy("payment-method-amount").should("contain.text", "10,00")
@@ -295,7 +295,7 @@ describe("Checkout Payments", () => {
       })
       cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
-        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardExpiry", "0333")
         cy.fillElementsInput("cardCvc", "333")
       })
       cy.dataCy("payment-method-amount").should("contain.text", "10,00")
@@ -415,7 +415,7 @@ describe("Checkout Payments", () => {
       })
       cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
-        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardExpiry", "0333")
         cy.fillElementsInput("cardCvc", "333")
       })
       cy.wait(3000)
@@ -734,7 +734,7 @@ describe("Checkout Payments", () => {
         })
         cy.get("@paymentSource3").within(() => {
           cy.fillElementsInput("cardNumber", "4242424242424242")
-          cy.fillElementsInput("cardExpiry", "3333")
+          cy.fillElementsInput("cardExpiry", "0333")
           cy.fillElementsInput("cardCvc", "333")
         })
         cy.dataCy("save-to-wallet").click()

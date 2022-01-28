@@ -150,7 +150,7 @@ describe("Checkout Complete", () => {
       })
       cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
-        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardExpiry", "0333")
         cy.fillElementsInput("cardCvc", "333")
       })
     })
