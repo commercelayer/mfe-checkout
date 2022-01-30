@@ -58,7 +58,7 @@ yarn dev
 
 4. Set your environment with `.env.local` starting from `.env.local.sample`.
 
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can use the following format to open the checkout: `http://localhost:3000/[:orderId]?accessToken=...`.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can use the following format to open the checkout: `http://localhost:3000/:orderId?accessToken=...`.
 
 6. Make your changes and create a pull request ([learn how to do this](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)).
 
