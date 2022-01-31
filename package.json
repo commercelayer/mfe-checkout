@@ -13,7 +13,8 @@
     "lint": "eslint ./ --ext .js,.jsx,.tsx,.ts",
     "lint:fix": "eslint ./ --ext .tsx,.ts --fix",
     "test": "cypress open",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:e2e:debug": "PWDEBUG=1 playwright test"
   },
   "repository": {
     "type": "git",
