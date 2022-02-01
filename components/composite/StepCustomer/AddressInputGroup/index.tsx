@@ -10,7 +10,7 @@ import {
   AddressStateSelectName,
   BaseInputType,
 } from "@commercelayer/react-components"
-import { useContext, useEffect, useState } from "react"
+import { ChangeEvent, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -25,6 +25,7 @@ interface Props {
   fieldName: AddressInputName | AddressCountrySelectName | "email"
   resource: ResourceErrorType
   value?: string
+  openShippingAddress?: () => void
 }
 
 export const AddressInputGroup: React.FC<Props> = ({
@@ -32,6 +33,7 @@ export const AddressInputGroup: React.FC<Props> = ({
   resource,
   type,
   value,
+  openShippingAddress,
 }) => {
   const { t } = useTranslation()
 
@@ -86,6 +88,23 @@ export const AddressInputGroup: React.FC<Props> = ({
     setValueStatus(value || "")
   }, [value])
 
+  console.log(fieldName, isCountry, isState)
+
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    if (isCountry && fieldName === "billing_address_country_code") {
+      const countryCode = event.target.value
+      if (
+        !!countryCode &&
+        !!shippingCountryCodeLock &&
+        shippingCountryCodeLock !== countryCode &&
+        openShippingAddress
+      ) {
+        console.log("Apri shipping form")
+        openShippingAddress()
+      }
+    }
+  }
+
   function renderInput() {
     if (isCountry) {
       return (
@@ -99,6 +118,7 @@ export const AddressInputGroup: React.FC<Props> = ({
               label: t(`addressForm.${fieldName}_placeholder`),
               value: "",
             }}
+            onChange={handleChange}
             value={
               shippingCountryCodeLock &&
               fieldName === "shipping_address_country_code"

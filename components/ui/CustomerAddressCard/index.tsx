@@ -5,7 +5,7 @@ interface AddressCardProps {
   addressType: "shipping" | "billing"
   addresses?: AddressCollection[]
   deselect: boolean
-  onSelect?: () => void
+  onSelect?: (address: AddressCollection) => void
 }
 
 export const CustomerAddressCard: React.FC<AddressCardProps> = ({

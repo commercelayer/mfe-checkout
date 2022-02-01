@@ -48,16 +48,22 @@ export const CheckoutAddresses: React.FC<Props> = ({
     !hasSameAddresses
   )
 
-  const handleToggleDifferentAddress = () => [
-    setShipToDifferentAddress(!shipToDifferentAddress),
-    setShippingAddressFill(undefined),
-  ]
+  const handleToggleDifferentAddress = () => {
+    return [
+      setShipToDifferentAddress(!shipToDifferentAddress),
+      setShippingAddressFill(undefined),
+    ]
+  }
 
   useEffect(() => {
-    if (shipToDifferentAddress) {
+    if (shipToDifferentAddress && hasSameAddresses) {
       setShippingAddressFill(undefined)
     }
   }, [shipToDifferentAddress])
+
+  const openShippingAddress = () => {
+    setShipToDifferentAddress(true)
+  }
 
   return (
     <Fragment>
@@ -70,7 +76,10 @@ export const CheckoutAddresses: React.FC<Props> = ({
         </div>
         <BillingAddressForm autoComplete="on" errorClassName="hasError">
           <div className="mt-4">
-            <BillingAddressFormNew billingAddress={billingAddress} />
+            <BillingAddressFormNew
+              billingAddress={billingAddress}
+              openShippingAddress={openShippingAddress}
+            />
           </div>
         </BillingAddressForm>
         {isShipmentRequired && (

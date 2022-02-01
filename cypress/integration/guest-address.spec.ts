@@ -179,7 +179,7 @@ describe("Checkout guest address", () => {
     })
   })
 
-  context("initial order with differend address", () => {
+  context("initial order with different address", () => {
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",

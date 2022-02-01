@@ -390,7 +390,7 @@ describe("Checkout customer address", () => {
     })
   })
 
-  context("initial order with differend address", () => {
+  context("initial order with different address", () => {
     before(function () {
       cy.getTokenCustomer({
         username: email,
@@ -1030,7 +1030,7 @@ describe("Checkout customer address", () => {
     })
   })
 
-  context("initial order empty with country lock", () => {
+  context.only("initial order empty with country lock", () => {
     let requires_billing_info = false
     const emailTemp = faker.internet.email().toLocaleLowerCase()
     const passwordTemp = faker.internet.password()
@@ -1125,6 +1125,16 @@ describe("Checkout customer address", () => {
     })
 
     it("select first address and save", () => {
+      cy.dataCy("customer-billing-address").should(
+        "contain.text",
+        `${euAddress.firstName} ${euAddress.lastName}`
+      )
+
+      cy.dataCy("customer-billing-address").should(
+        "contain.text",
+        `${euAddress2.firstName} ${euAddress2.lastName}`
+      )
+
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress.firstName)
         .click()
@@ -1154,12 +1164,12 @@ describe("Checkout customer address", () => {
       cy.wait("@deliveryLeadTimes")
     })
 
-    it("select second address and save is disabled", () => {
+    it("select second address and ship to different address should be enabled", () => {
       cy.dataCy("step_customer")
         .click()
         .should("have.attr", "data-status", "true")
 
-      cy.wait(1500)
+      cy.dataCy("shipping-address").should("not.be.visible")
 
       cy.dataCy("customer-billing-address")
         .contains("p", euAddress2.firstName)
@@ -1168,8 +1178,19 @@ describe("Checkout customer address", () => {
       cy.wait("@updateAddress", {
         timeout: 100000,
       })
+      cy.wait(1500)
+      cy.dataCy("shipping-address").should("be.visible")
+      cy.dataCy("shipping-address").should("contain", "Indirizzo di spedizione")
+      cy.dataCy("customer-shipping-address").should(
+        "contain",
+        `${euAddress.firstName} ${euAddress.lastName}`
+      )
+      cy.dataCy("customer-shipping-address").should(
+        "not.contain",
+        `${euAddress2.firstName} ${euAddress2.lastName}`
+      )
 
-      cy.dataCy("save-addresses-button").should("be.disabled")
+      cy.dataCy("save-addresses-button").should("be.enabled")
     })
 
     it("check billing information", () => {
@@ -1182,7 +1203,7 @@ describe("Checkout customer address", () => {
       cy.wait("@deliveryLeadTimes")
     })
 
-    it("add custom billing address and save is disabled", function () {
+    it("add custom billing address and save is enabled", function () {
       cy.dataCy("step_customer")
         .click()
         .should("have.attr", "data-status", "true")
@@ -1197,7 +1218,10 @@ describe("Checkout customer address", () => {
         requiresBillingInfo: requires_billing_info,
       })
 
-      cy.dataCy("save-addresses-button").should("be.disabled")
+      cy.dataCy("customer-shipping-address").should("contain", "GE (IT)")
+      cy.dataCy("customer-shipping-address").should("not.contain", "RE (FR)")
+
+      cy.dataCy("save-addresses-button").should("be.enabled")
     })
 
     it("change billing address country code and save", () => {

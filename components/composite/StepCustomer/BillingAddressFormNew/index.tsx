@@ -8,10 +8,12 @@ import { AppContext } from "components/data/AppProvider"
 
 interface Props {
   billingAddress: Address | undefined
+  openShippingAddress: () => void
 }
 
 export const BillingAddressFormNew: React.FC<Props> = ({
   billingAddress,
+  openShippingAddress,
 }: Props) => {
   const appCtx = useContext(AppContext)
 
@@ -60,6 +62,7 @@ export const BillingAddressFormNew: React.FC<Props> = ({
           fieldName="billing_address_country_code"
           resource="billing_address"
           type="text"
+          openShippingAddress={openShippingAddress}
           value={billingAddress?.country_code || ""}
         />
       </Grid>

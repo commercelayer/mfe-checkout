@@ -77,6 +77,7 @@ export const StepCustomer: React.FC<Props> = () => {
     isUsingNewBillingAddress,
     isUsingNewShippingAddress,
     hasCustomerAddresses,
+    shippingCountryCodeLock,
     refetchOrder,
   } = appCtx
 
@@ -132,6 +133,7 @@ export const StepCustomer: React.FC<Props> = () => {
                 isUsingNewBillingAddress={isUsingNewBillingAddress}
                 hasSameAddresses={hasSameAddresses}
                 isLocalLoader={isLocalLoader}
+                shippingCountryCodeLock={shippingCountryCodeLock}
                 handleSave={handleSave}
               />
             )}

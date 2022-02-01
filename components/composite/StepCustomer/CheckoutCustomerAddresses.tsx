@@ -36,6 +36,7 @@ interface Props {
   hasCustomerAddresses: boolean
   emailAddress: string | undefined
   isLocalLoader: boolean
+  shippingCountryCodeLock: string | undefined
   handleSave: () => void
 }
 
@@ -51,6 +52,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   hasCustomerAddresses,
   emailAddress,
   isLocalLoader,
+  shippingCountryCodeLock,
   handleSave,
 }: Props) => {
   const { t } = useTranslation()
@@ -81,7 +83,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
   useEffect(() => {
     if (shipToDifferentAddress && !hasCustomerAddresses) {
-      setShippingAddressFill(undefined)
+      // If billing and shipping are equivalent, show form but reset it
+      if (hasSameAddresses) {
+        setShippingAddressFill(undefined)
+      }
       setShowShippingAddressForm(true)
       setMountShippingAddressForm(true)
     }
@@ -136,6 +141,23 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     setShipToDifferentAddress(!shipToDifferentAddress)
   }
 
+  const openShippingAddress = () => {
+    setShipToDifferentAddress(true)
+  }
+
+  const onSelect = (address: Address) => {
+    if (
+      !!shippingCountryCodeLock &&
+      address.country_code !== shippingCountryCodeLock
+    ) {
+      setShipToDifferentAddress(true)
+    }
+    localStorage.setItem(
+      "_save_billing_address_to_customer_address_book",
+      "false"
+    )
+  }
+
   return (
     <Fragment>
       <AddressSectionEmail readonly emailAddress={emailAddress as string} />
@@ -156,12 +178,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                       <CustomerAddressCard
                         addressType="billing"
                         deselect={showBillingAddressForm}
-                        onSelect={() =>
-                          localStorage.setItem(
-                            "_save_billing_address_to_customer_address_book",
-                            "false"
-                          )
-                        }
+                        onSelect={onSelect}
                       />
                     </BillingAddressContainer>
                   </GridContainer>
@@ -192,6 +209,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   <>
                     <BillingAddressFormNew
                       billingAddress={billingAddressFill}
+                      openShippingAddress={openShippingAddress}
                     />
                     <AddressFormBottom
                       addressType="billing"
