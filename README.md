@@ -26,7 +26,7 @@ The Commerce Layer checkout application (React) provides you with a PCI-complian
 
 2. Create your organization and get your credentials by following this [credentials guide](https://docs.commercelayer.io/developers/credentials).
 
-3. Build your sales channel with your favorite technologies and frameworks by leveraging our [developer resources](https://commercelayer.io/developers/) and [API reference](https://docs.commercelayer.io/api/).
+3. Build your sales channel with your favorite technologies and frameworks by leveraging our [developer resources](https://commercelayer.io/developers) and [documentation](https://docs.commercelayer.io/api).
 
 4. Get an [access token](https://docs.commercelayer.io/api/authentication) for your application. You should generate this in your sales channel or use our Javascript [authentication library](https://github.com/commercelayer/commercelayer-js-auth).
 
@@ -70,7 +70,7 @@ There are many access tokens on rollbar settings, we need to use one related to 
 
 ## Need help?
 
-1. Request an invite to join [Commerce Layer's Slack community](https://commercelayer.io/developers).
+1. Join [Commerce Layer's Slack community](https://slack.commercelayer.app).
 
 2. Create an [issue](https://github.com/commercelayer/commercelayer-react-checkout/issues) in this repository.
 
