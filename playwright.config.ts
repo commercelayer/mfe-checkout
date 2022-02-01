@@ -7,7 +7,7 @@ const config: PlaywrightTestConfig = {
   // Test directory
   testDir: "specs/e2e",
   // If a test fails, retry it additional 2 times
-  retries: 2,
+  retries: 0,
   // Artifacts folder where screenshots, videos, and traces are stored.
   outputDir: "test-results/",
 
@@ -46,10 +46,10 @@ const config: PlaywrightTestConfig = {
         // },
       },
     },
-    {
-      name: "Mobile Safari",
-      use: devices["iPhone 12"],
-    },
+    // {
+    //   name: "Mobile Safari",
+    //   use: devices["iPhone 12"],
+    // },
   ],
 }
 export default config
