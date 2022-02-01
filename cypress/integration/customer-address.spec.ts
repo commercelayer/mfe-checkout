@@ -1260,9 +1260,11 @@ describe("Checkout customer address", () => {
 
       cy.wait(1500)
 
-      cy.dataCy("button-ship-to-different-address")
-        .click()
-        .should("have.attr", "data-status", "true")
+      cy.dataCy("button-ship-to-different-address").should(
+        "have.attr",
+        "data-status",
+        "true"
+      )
 
       cy.dataCy("add_new_shipping_address").click()
 
@@ -1294,7 +1296,7 @@ describe("Checkout customer address", () => {
       cy.wait("@deliveryLeadTimes")
     })
 
-    it("select second shipping address and save", () => {
+    it("second shipping address not present", () => {
       cy.dataCy("step_customer")
         .click()
         .should("have.attr", "data-status", "true")
@@ -1305,9 +1307,10 @@ describe("Checkout customer address", () => {
 
       cy.wait(1500)
 
-      cy.dataCy("customer-shipping-address")
-        .contains("p", euAddress2.firstName)
-        .click()
+      cy.dataCy("customer-shipping-address").should(
+        "not.contain",
+        euAddress2.firstName
+      )
 
       cy.dataCy("save-addresses-button").should("be.disabled")
     })
