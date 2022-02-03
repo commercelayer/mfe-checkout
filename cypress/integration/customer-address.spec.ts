@@ -767,7 +767,6 @@ describe("Checkout customer address", () => {
     let requires_billing_info = false
 
     beforeEach(function () {
-      console.log(emailTemp, passwordTemp)
       cy.setRoutes({
         endpoint: Cypress.env("apiEndpoint"),
         routes: Cypress.env("requests"),
@@ -1098,8 +1097,6 @@ describe("Checkout customer address", () => {
     })
 
     it("valid customer token", function () {
-      console.log(email, password, this.newOrder.id)
-
       cy.visit(`/${this.newOrder.id}?accessToken=${this.tokenObj.access_token}`)
 
       cy.wait(

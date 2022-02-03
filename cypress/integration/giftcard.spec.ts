@@ -259,7 +259,6 @@ describe("Checkout GiftCard", () => {
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
-      console.log(this.newGiftCardCode.attributes.code)
       cy.dataCy("input_giftcard_coupon").type(
         this.newGiftCardCode.attributes.code
       )

@@ -56,7 +56,6 @@ describe("Checkout Payments", () => {
                     accessToken: this.tokenObj.access_token,
                     orderId: order.id,
                   }).then((shipments) => {
-                    console.log(shipments)
                     cy.setShipmentMethod({
                       type: "Standard Shipping",
                       id: shipments[0].id,
@@ -473,7 +472,6 @@ describe("Checkout Payments", () => {
                     accessToken: this.tokenObj.access_token,
                     orderId: order.id,
                   }).then((shipments) => {
-                    console.log(shipments)
                     cy.setShipmentMethod({
                       type: "Standard Shipping",
                       id: shipments[0].id,
@@ -630,7 +628,6 @@ describe("Checkout Payments", () => {
                       accessToken: this.tokenObj.access_token,
                       orderId: order.id,
                     }).then((shipments) => {
-                      console.log(shipments)
                       cy.setShipmentMethod({
                         type: "Standard Shipping",
                         id: shipments[0].id,
@@ -802,7 +799,6 @@ describe("Checkout Payments", () => {
                       accessToken: this.tokenObj.access_token,
                       orderId: order.id,
                     }).then((shipments) => {
-                      console.log(shipments)
                       cy.setShipmentMethod({
                         type: "Standard Shipping",
                         id: shipments[0].id,
@@ -955,7 +951,6 @@ describe("Checkout Payments", () => {
                     accessToken: this.tokenObj.access_token,
                     orderId: order.id,
                   }).then((shipments) => {
-                    console.log(shipments)
                     cy.setShipmentMethod({
                       type: "Standard Shipping",
                       id: shipments[0].id,
@@ -1119,7 +1114,6 @@ describe("Checkout Payments", () => {
                     accessToken: this.tokenObj.access_token,
                     orderId: order.id,
                   }).then((shipments) => {
-                    console.log(shipments)
                     cy.setShipmentMethod({
                       type: "Standard Shipping",
                       id: shipments[0].id,
