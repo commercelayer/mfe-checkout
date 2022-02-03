@@ -7,7 +7,6 @@ describe("Checkout GiftCard", () => {
 
   const email = faker.internet.email().toLocaleLowerCase()
   const password = faker.internet.password()
-
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
       cy.getTokenCustomer({
@@ -70,12 +69,11 @@ describe("Checkout GiftCard", () => {
                   balanceCents: 10000,
                   recipientEmail: email,
                   accessToken: this.tokenObjSuperuser.access_token,
-                }).then((e) =>
-                  cy
-                    .activeGiftCard({
-                      giftcardId: e.id,
-                      accessToken: this.tokenObjSuperuser.access_token,
-                    })
+                }).then((e) => {
+                  cy.activeGiftCard({
+                    giftcardId: e.id,
+                    accessToken: this.tokenObjSuperuser.access_token,
+                  })
                     .as("newGiftCardCode")
                     .then(() => {
                       cy.setGiftCard({
@@ -84,7 +82,7 @@ describe("Checkout GiftCard", () => {
                         accessToken: this.tokenObjSuperuser.access_token,
                       })
                     })
-                )
+                })
               })
             })
           })
@@ -266,12 +264,9 @@ describe("Checkout GiftCard", () => {
         this.newGiftCardCode.attributes.code
       )
       cy.dataCy("submit_giftcard_coupon").click()
-      cy.wait(
-        ["@updateOrder", "@getOrders", "@getOrders", "@getCustomerAddresses"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@updateOrder", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
     })
 
     it("select shipment and save", () => {
@@ -300,12 +295,9 @@ describe("Checkout GiftCard", () => {
 
     it("remove Gift Card and check amount", () => {
       cy.dataCy("remove_giftcard").click()
-      cy.wait(
-        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses", "@updateOrder"], {
+        timeout: 100000,
+      })
       cy.dataCy("total-amount").should("contain", "256,00")
     })
   })

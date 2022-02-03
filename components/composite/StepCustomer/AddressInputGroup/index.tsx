@@ -15,6 +15,10 @@ import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import {
+  ShippingToggleProps,
+  evaluateShippingToggle,
+} from "components/composite/StepCustomer"
 import { AppContext } from "components/data/AppProvider"
 import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"
@@ -25,7 +29,7 @@ interface Props {
   fieldName: AddressInputName | AddressCountrySelectName | "email"
   resource: ResourceErrorType
   value?: string
-  openShippingAddress?: () => void
+  openShippingAddress?: (props: ShippingToggleProps) => void
 }
 
 export const AddressInputGroup: React.FC<Props> = ({
@@ -88,20 +92,14 @@ export const AddressInputGroup: React.FC<Props> = ({
     setValueStatus(value || "")
   }, [value])
 
-  console.log(fieldName, isCountry, isState)
-
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     if (isCountry && fieldName === "billing_address_country_code") {
       const countryCode = event.target.value
-      if (
-        !!countryCode &&
-        !!shippingCountryCodeLock &&
-        shippingCountryCodeLock !== countryCode &&
-        openShippingAddress
-      ) {
-        console.log("Apri shipping form")
-        openShippingAddress()
-      }
+
+      openShippingAddress &&
+        openShippingAddress(
+          evaluateShippingToggle({ countryCode, shippingCountryCodeLock })
+        )
     }
   }
 

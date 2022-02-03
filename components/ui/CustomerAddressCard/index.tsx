@@ -27,7 +27,7 @@ export const CustomerAddressCard: React.FC<AddressCardProps> = ({
       } transition duration-200 ease-in`}
       selectedClassName="!border-2 border-primary shadow-md bg-gray-100"
       deselect={deselect}
-      onSelect={onSelect}
+      onSelect={(address) => onSelect && onSelect(address as AddressCollection)}
       disabledClassName="opacity-50 cursor-not-allowed"
     >
       {

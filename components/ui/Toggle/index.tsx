@@ -6,6 +6,7 @@ interface Props {
   checked: boolean
   onChange: () => void
   className?: string
+  disabled: boolean
 }
 
 export const Toggle: React.FC<Props> = ({
@@ -13,12 +14,18 @@ export const Toggle: React.FC<Props> = ({
   checked,
   onChange,
   className,
+  disabled,
   ...rest
 }) => {
   return (
     <Wrapper>
       <ButtonToggle className={className} checked={checked}>
-        <ButtonTrack {...rest} type="button" onClick={onChange}>
+        <ButtonTrack
+          disabled={disabled}
+          {...rest}
+          type="button"
+          onClick={onChange}
+        >
           <span className="sr-only">Use setting</span>
           <Dot aria-hidden="true" />
         </ButtonTrack>

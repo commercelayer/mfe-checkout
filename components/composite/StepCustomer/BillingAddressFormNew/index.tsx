@@ -3,12 +3,13 @@ import { useContext } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import { ShippingToggleProps } from "components/composite/StepCustomer"
 import { AddressInputGroup } from "components/composite/StepCustomer/AddressInputGroup"
 import { AppContext } from "components/data/AppProvider"
 
 interface Props {
   billingAddress: Address | undefined
-  openShippingAddress: () => void
+  openShippingAddress: (props: ShippingToggleProps) => void
 }
 
 export const BillingAddressFormNew: React.FC<Props> = ({

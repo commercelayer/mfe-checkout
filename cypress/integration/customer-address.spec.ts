@@ -1030,7 +1030,7 @@ describe("Checkout customer address", () => {
     })
   })
 
-  context.only("initial order empty with country lock", () => {
+  context("initial order empty with country lock", () => {
     let requires_billing_info = false
     const emailTemp = faker.internet.email().toLocaleLowerCase()
     const passwordTemp = faker.internet.password()
@@ -1180,6 +1180,12 @@ describe("Checkout customer address", () => {
       })
       cy.wait(1500)
       cy.dataCy("shipping-address").should("be.visible")
+      cy.dataCy("button-ship-to-different-address").should(
+        "have.attr",
+        "data-status",
+        "true"
+      )
+      cy.dataCy("button-ship-to-different-address").should("be.disabled")
       cy.dataCy("shipping-address").should("contain", "Indirizzo di spedizione")
       cy.dataCy("customer-shipping-address").should(
         "contain",
@@ -1241,16 +1247,6 @@ describe("Checkout customer address", () => {
         ],
         { timeout: 100000 }
       )
-
-      // cy.dataCy("full-billing-information")
-      //   .should("contain", euAddress2.firstName)
-      //   .and("contain", euAddress2.lastName)
-      //   .and("contain", euAddress2.line1)
-      //   .and("contain", euAddress2.phone)
-      //   .and("contain", euAddress2.city)
-      //   .and("contain", euAddress2.zipCode)
-      //   .and("contain", countryCode)
-      //   .and("contain", euAddress2.billingInfo)
     })
 
     it("add custom shipping address and save", () => {
@@ -1375,14 +1371,6 @@ describe("Checkout customer address", () => {
           timeout: 100000,
         }
       )
-
-      // cy.dataCy("full-billing-information")
-      //   .should("contain", euAddress.firstName)
-      //   .and("contain", euAddress.lastName)
-      //   .and("contain", euAddress.line1)
-      //   .and("contain", euAddress.phone)
-      //   .and("contain", euAddress.city)
-      //   .and("contain", euAddress.zipCode)
     })
 
     it("check billing information", () => {

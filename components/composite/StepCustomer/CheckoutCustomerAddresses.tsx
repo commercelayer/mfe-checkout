@@ -8,10 +8,14 @@ import {
 } from "@commercelayer/react-components"
 import { Address } from "@commercelayer/sdk"
 import { Transition } from "@headlessui/react"
-import { useState, Fragment, useEffect } from "react"
+import { useState, Fragment, useEffect, Dispatch, SetStateAction } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 
+import {
+  evaluateShippingToggle,
+  ShippingToggleProps,
+} from "components/composite/StepCustomer"
 import { AddButton } from "components/ui/AddButton"
 import { ButtonCss, ButtonWrapper } from "components/ui/Button"
 import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
@@ -37,6 +41,10 @@ interface Props {
   emailAddress: string | undefined
   isLocalLoader: boolean
   shippingCountryCodeLock: string | undefined
+  shipToDifferentAddress: boolean
+  setShipToDifferentAddress: Dispatch<SetStateAction<boolean>>
+  openShippingAddress: (props: ShippingToggleProps) => void
+  disabledShipToDifferentAddress: boolean
   handleSave: () => void
 }
 
@@ -53,6 +61,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   emailAddress,
   isLocalLoader,
   shippingCountryCodeLock,
+  shipToDifferentAddress,
+  setShipToDifferentAddress,
+  openShippingAddress,
+  disabledShipToDifferentAddress,
   handleSave,
 }: Props) => {
   const { t } = useTranslation()
@@ -63,10 +75,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   const [shippingAddressFill, setShippingAddressFill] = useState<
     Address | undefined
   >(shippingAddress)
-
-  const [shipToDifferentAddress, setShipToDifferentAddress] = useState<boolean>(
-    !hasSameAddresses
-  )
 
   const [showBillingAddressForm, setShowBillingAddressForm] = useState<boolean>(
     isUsingNewBillingAddress
@@ -141,17 +149,16 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     setShipToDifferentAddress(!shipToDifferentAddress)
   }
 
-  const openShippingAddress = () => {
-    setShipToDifferentAddress(true)
-  }
-
   const onSelect = (address: Address) => {
-    if (
-      !!shippingCountryCodeLock &&
-      address.country_code !== shippingCountryCodeLock
-    ) {
-      setShipToDifferentAddress(true)
+    if (openShippingAddress) {
+      openShippingAddress(
+        evaluateShippingToggle({
+          countryCode: address.country_code,
+          shippingCountryCodeLock,
+        })
+      )
     }
+
     localStorage.setItem(
       "_save_billing_address_to_customer_address_book",
       "false"
@@ -227,6 +234,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
         {isShipmentRequired && (
           <>
             <Toggle
+              disabled={disabledShipToDifferentAddress}
               data-cy="button-ship-to-different-address"
               data-status={shipToDifferentAddress}
               label={t(`addressForm.ship_to_different_address`)}

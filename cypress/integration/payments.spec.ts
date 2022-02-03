@@ -8,7 +8,9 @@ describe("Checkout Payments", () => {
   const email = faker.internet.email().toLocaleLowerCase()
   const password = faker.internet.password()
 
-  before(() => cy.createCustomer({ email: email, password: password }))
+  before(() => {
+    cy.createCustomer({ email: email, password: password })
+  })
 
   context("customer order with one payment method not selected", () => {
     before(function () {

@@ -17,6 +17,11 @@ interface Props {
   step: number
 }
 
+export interface ShippingToggleProps {
+  forceShipping?: boolean
+  disableToggle: boolean
+}
+
 export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
@@ -24,15 +29,7 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
     return null
   }
 
-  const {
-    // billingAddress,
-    // shippingAddress,
-    // hasSameAddresses,
-    // isShipmentRequired,
-    hasShippingAddress,
-    hasBillingAddress,
-    emailAddress,
-  } = appCtx
+  const { hasShippingAddress, hasBillingAddress, emailAddress } = appCtx
 
   const { t } = useTranslation()
 
@@ -81,6 +78,29 @@ export const StepCustomer: React.FC<Props> = () => {
     refetchOrder,
   } = appCtx
 
+  const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
+    !hasSameAddresses
+  )
+
+  const [disabledShipToDifferentAddress, setDisabledShipToDifferentAddress] =
+    useState(
+      !!(
+        shippingCountryCodeLock &&
+        billingAddress?.country_code &&
+        billingAddress?.country_code !== shippingCountryCodeLock
+      )
+    )
+
+  const openShippingAddress = ({
+    forceShipping,
+    disableToggle,
+  }: ShippingToggleProps) => {
+    if (forceShipping) {
+      setShipToDifferentAddress(true)
+    }
+    setDisabledShipToDifferentAddress(disableToggle)
+  }
+
   const handleSave = async () => {
     setIsLocalLoader(true)
     await refetchOrder()
@@ -95,11 +115,6 @@ export const StepCustomer: React.FC<Props> = () => {
 
     setIsLocalLoader(false)
   }
-
-  // todo: logica interna da implementare
-  // se guest e' true: mostrare input email + form indirizzi
-  // altrimenti mostrare elenco indirizzi della rubrica + pulsante aggiungi nuovo indirizzo
-  // se non ci sono indirizzi in rubrica, ma solo l'indirizzo dell'ordine (non ancora salvato in rubrica) si mostra il form con i valori in edit
 
   return (
     <StepContainer
@@ -120,6 +135,10 @@ export const StepCustomer: React.FC<Props> = () => {
                 hasSameAddresses={hasSameAddresses}
                 isShipmentRequired={isShipmentRequired}
                 isLocalLoader={isLocalLoader}
+                openShippingAddress={openShippingAddress}
+                shipToDifferentAddress={shipToDifferentAddress}
+                setShipToDifferentAddress={setShipToDifferentAddress}
+                disabledShipToDifferentAddress={disabledShipToDifferentAddress}
                 handleSave={handleSave}
               />
             ) : (
@@ -134,6 +153,10 @@ export const StepCustomer: React.FC<Props> = () => {
                 hasSameAddresses={hasSameAddresses}
                 isLocalLoader={isLocalLoader}
                 shippingCountryCodeLock={shippingCountryCodeLock}
+                openShippingAddress={openShippingAddress}
+                shipToDifferentAddress={shipToDifferentAddress}
+                setShipToDifferentAddress={setShipToDifferentAddress}
+                disabledShipToDifferentAddress={disabledShipToDifferentAddress}
                 handleSave={handleSave}
               />
             )}
@@ -142,4 +165,23 @@ export const StepCustomer: React.FC<Props> = () => {
       </StepContent>
     </StepContainer>
   )
+}
+
+interface EvaluateConditionsProps {
+  countryCode?: string
+  shippingCountryCodeLock?: string
+}
+
+export function evaluateShippingToggle({
+  countryCode,
+  shippingCountryCodeLock,
+}: EvaluateConditionsProps): ShippingToggleProps {
+  if (
+    !!shippingCountryCodeLock &&
+    countryCode &&
+    countryCode !== shippingCountryCodeLock
+  ) {
+    return { disableToggle: true, forceShipping: true }
+  }
+  return { disableToggle: false }
 }
