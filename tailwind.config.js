@@ -15,7 +15,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ["Manrope", "ui-sans-serif", "sans-serif"],
+      sans: ["Glacial Indifference", "sans-serif"],
     },
     extend: {
       colors: {
