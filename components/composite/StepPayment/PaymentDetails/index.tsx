@@ -10,8 +10,6 @@ import { Trans, useTranslation } from "react-i18next"
 import { AppContext } from "components/data/AppProvider"
 import { getTranslations } from "components/utils/payments"
 
-import "twin.macro"
-
 interface Props {
   hasEditButton?: boolean
 }

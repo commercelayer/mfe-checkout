@@ -1,12 +1,12 @@
-import { internet } from "faker"
+import { faker } from "@faker-js/faker"
 
 import { euAddress } from "../support/utils"
 
 describe("Checkout Only Bundle", () => {
   const filename = "checkout-only-bundle"
 
-  const email = internet.email().toLocaleLowerCase()
-  const password = internet.password()
+  const email = faker.internet.email().toLocaleLowerCase()
+  const password = faker.internet.password()
 
   const returnUrl = "https://commercelayer.io/"
 
@@ -174,7 +174,7 @@ describe("Checkout Only Bundle", () => {
       })
       cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
-        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardExpiry", "0333")
         cy.fillElementsInput("cardCvc", "333")
       })
     })

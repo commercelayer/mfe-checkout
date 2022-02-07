@@ -115,6 +115,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       })
     } else if (order.status === "placed") {
       order = await cl.orders.retrieve(orderId)
+    } else {
+      return invalidateCheckout()
     }
   } catch (e) {
     console.log("error on retrieving or refreshing order:")

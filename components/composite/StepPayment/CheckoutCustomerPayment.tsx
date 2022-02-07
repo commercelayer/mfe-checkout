@@ -6,7 +6,6 @@ import {
 import { CustomerSaveToWalletProps } from "@commercelayer/react-components/lib/components/PaymentSource"
 import { MouseEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
-import "twin.macro"
 
 import { Label } from "components/ui/Label"
 

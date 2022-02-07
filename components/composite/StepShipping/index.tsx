@@ -13,8 +13,8 @@ import {
   StockTransferField,
   DeliveryLeadTime,
   ShipmentField,
+  LineItemType,
 } from "@commercelayer/react-components"
-import { LineItemType } from "@commercelayer/react-components/lib/typings"
 import { ShippingMethod as ShippingMethodCollection } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { useTranslation, Trans } from "next-i18next"

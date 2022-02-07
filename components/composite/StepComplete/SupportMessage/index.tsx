@@ -1,5 +1,4 @@
 import { Trans } from "react-i18next"
-import "twin.macro"
 
 interface Props {
   supportPhone?: string

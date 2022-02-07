@@ -5,11 +5,11 @@ import {
   ShippingAddressForm,
 } from "@commercelayer/react-components"
 import { Address } from "@commercelayer/sdk"
-import { useState, Fragment, useEffect } from "react"
+import { useState, Fragment, useEffect, Dispatch, SetStateAction } from "react"
 import { useTranslation } from "react-i18next"
-import "twin.macro"
 import styled from "styled-components"
 
+import { ShippingToggleProps } from "components/composite/StepCustomer"
 import { ButtonCss, ButtonWrapper } from "components/ui/Button"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 import { Toggle } from "components/ui/Toggle"
@@ -27,6 +27,10 @@ interface Props {
   hasSameAddresses: boolean
   isShipmentRequired: boolean
   isLocalLoader: boolean
+  shipToDifferentAddress: boolean
+  setShipToDifferentAddress: Dispatch<SetStateAction<boolean>>
+  openShippingAddress: (props: ShippingToggleProps) => void
+  disabledShipToDifferentAddress: boolean
   handleSave: () => void
 }
 
@@ -37,6 +41,10 @@ export const CheckoutAddresses: React.FC<Props> = ({
   hasSameAddresses,
   isShipmentRequired,
   isLocalLoader,
+  shipToDifferentAddress,
+  setShipToDifferentAddress,
+  openShippingAddress,
+  disabledShipToDifferentAddress,
   handleSave,
 }: Props) => {
   const { t } = useTranslation()
@@ -45,17 +53,15 @@ export const CheckoutAddresses: React.FC<Props> = ({
     Address | undefined
   >(shippingAddress)
 
-  const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
-    !hasSameAddresses
-  )
-
-  const handleToggleDifferentAddress = () => [
-    setShipToDifferentAddress(!shipToDifferentAddress),
-    setShippingAddressFill(undefined),
-  ]
+  const handleToggleDifferentAddress = () => {
+    return [
+      setShipToDifferentAddress(!shipToDifferentAddress),
+      setShippingAddressFill(undefined),
+    ]
+  }
 
   useEffect(() => {
-    if (shipToDifferentAddress) {
+    if (shipToDifferentAddress && hasSameAddresses) {
       setShippingAddressFill(undefined)
     }
   }, [shipToDifferentAddress])
@@ -71,11 +77,15 @@ export const CheckoutAddresses: React.FC<Props> = ({
         </div>
         <BillingAddressForm autoComplete="on" errorClassName="hasError">
           <div className="mt-4">
-            <BillingAddressFormNew billingAddress={billingAddress} />
+            <BillingAddressFormNew
+              billingAddress={billingAddress}
+              openShippingAddress={openShippingAddress}
+            />
           </div>
         </BillingAddressForm>
         {isShipmentRequired && (
           <Toggle
+            disabled={disabledShipToDifferentAddress}
             data-cy="button-ship-to-different-address"
             data-status={shipToDifferentAddress}
             label={t(`addressForm.ship_to_different_address`)}

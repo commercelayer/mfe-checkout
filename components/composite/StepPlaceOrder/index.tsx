@@ -1,5 +1,7 @@
-import { PlaceOrderContainer } from "@commercelayer/react-components"
-import { ErrorComponentProps } from "@commercelayer/react-components/lib/typings/errors"
+import {
+  PlaceOrderContainer,
+  ErrorComponentProps,
+} from "@commercelayer/react-components"
 import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -112,7 +114,7 @@ const StepPlaceOrder: React.FC<Props> = ({
               return null
             }
             return props.errors?.map((error, index) => {
-              if (error?.trim().length === 0) {
+              if (error?.trim().length === 0 || !error) {
                 return null
               }
               return (

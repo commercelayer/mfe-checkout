@@ -1,12 +1,12 @@
-import { internet } from "faker"
+import { faker } from "@faker-js/faker"
 
 import { euAddress } from "../support/utils"
 
 describe("Checkout Coupon", () => {
   const filename = "coupon"
 
-  const email = internet.email().toLocaleLowerCase()
-  const password = internet.password()
+  const email = faker.internet.email().toLocaleLowerCase()
+  const password = faker.internet.password()
 
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
@@ -290,24 +290,18 @@ describe("Checkout Coupon", () => {
     it("set coupon and check amount", () => {
       cy.dataCy("input_giftcard_coupon").type("testcoupon")
       cy.dataCy("submit_giftcard_coupon").click()
-      cy.wait(
-        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getCustomerAddresses", "@updateOrder"], {
+        timeout: 100000,
+      })
       cy.dataCy("code-coupon").should("contain", "testcoupon")
       cy.dataCy("discount-amount").should("contain", "124,20")
       cy.dataCy("total-amount").should("contain", "301,80")
     })
     it("remove coupon and check amount", () => {
       cy.dataCy("remove_coupon").click({ force: true })
-      cy.wait(
-        ["@getOrders", "@getOrders", "@getCustomerAddresses", "@updateOrder"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getCustomerAddresses", "@updateOrder"], {
+        timeout: 100000,
+      })
       cy.dataCy("total-amount").should("contain", "426,00")
     })
   })

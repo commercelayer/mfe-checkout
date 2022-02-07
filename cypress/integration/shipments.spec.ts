@@ -1,12 +1,12 @@
-import { internet } from "faker"
+import { faker } from "@faker-js/faker"
 
 import { euAddress } from "../support/utils"
 
 describe("Checkout Shipments", () => {
   const filename = "shipments"
 
-  const email = internet.email().toLocaleLowerCase()
-  const password = internet.password()
+  const email = faker.internet.email().toLocaleLowerCase()
+  const password = faker.internet.password()
 
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
@@ -374,7 +374,6 @@ describe("Checkout Shipments", () => {
 
   context("order with a Standard Shipping", () => {
     before(function () {
-      console.log(email, password)
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: email,
@@ -486,7 +485,6 @@ describe("Checkout Shipments", () => {
 
   context("order with a Express Delivery EU", () => {
     before(function () {
-      console.log(email, password)
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: email,
@@ -600,7 +598,6 @@ describe("Checkout Shipments", () => {
 
   context("order with 2 shipments both Standard Shipping", () => {
     before(function () {
-      console.log(email, password)
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: email,
@@ -737,7 +734,6 @@ describe("Checkout Shipments", () => {
 
   context("order with 2 shipments both Express Delivery EU", () => {
     before(function () {
-      console.log(email, password)
       cy.createOrder("draft", {
         languageCode: "en",
         customerEmail: email,
@@ -876,7 +872,6 @@ describe("Checkout Shipments", () => {
     "order with 2 shipments: Standard Shipping and Express Delivery EU",
     () => {
       before(function () {
-        console.log(email, password)
         cy.createOrder("draft", {
           languageCode: "en",
           customerEmail: email,

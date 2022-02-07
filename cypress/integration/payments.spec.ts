@@ -1,14 +1,16 @@
-import { internet } from "faker"
+import { faker } from "@faker-js/faker"
 
 import { euAddress } from "../support/utils"
 
 describe("Checkout Payments", () => {
   const filename = "payments"
 
-  const email = internet.email().toLocaleLowerCase()
-  const password = internet.password()
+  const email = faker.internet.email().toLocaleLowerCase()
+  const password = faker.internet.password()
 
-  before(() => cy.createCustomer({ email: email, password: password }))
+  before(() => {
+    cy.createCustomer({ email: email, password: password })
+  })
 
   context("customer order with one payment method not selected", () => {
     before(function () {
@@ -54,7 +56,6 @@ describe("Checkout Payments", () => {
                     accessToken: this.tokenObj.access_token,
                     orderId: order.id,
                   }).then((shipments) => {
-                    console.log(shipments)
                     cy.setShipmentMethod({
                       type: "Standard Shipping",
                       id: shipments[0].id,
@@ -175,7 +176,7 @@ describe("Checkout Payments", () => {
       })
       cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
-        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardExpiry", "0333")
         cy.fillElementsInput("cardCvc", "333")
       })
       cy.dataCy("payment-method-amount").should("contain.text", "10,00")
@@ -295,7 +296,7 @@ describe("Checkout Payments", () => {
       })
       cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
-        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardExpiry", "0333")
         cy.fillElementsInput("cardCvc", "333")
       })
       cy.dataCy("payment-method-amount").should("contain.text", "10,00")
@@ -415,7 +416,7 @@ describe("Checkout Payments", () => {
       })
       cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
-        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardExpiry", "0333")
         cy.fillElementsInput("cardCvc", "333")
       })
       cy.wait(3000)
@@ -471,7 +472,6 @@ describe("Checkout Payments", () => {
                     accessToken: this.tokenObj.access_token,
                     orderId: order.id,
                   }).then((shipments) => {
-                    console.log(shipments)
                     cy.setShipmentMethod({
                       type: "Standard Shipping",
                       id: shipments[0].id,
@@ -628,7 +628,6 @@ describe("Checkout Payments", () => {
                       accessToken: this.tokenObj.access_token,
                       orderId: order.id,
                     }).then((shipments) => {
-                      console.log(shipments)
                       cy.setShipmentMethod({
                         type: "Standard Shipping",
                         id: shipments[0].id,
@@ -734,7 +733,7 @@ describe("Checkout Payments", () => {
         })
         cy.get("@paymentSource3").within(() => {
           cy.fillElementsInput("cardNumber", "4242424242424242")
-          cy.fillElementsInput("cardExpiry", "3333")
+          cy.fillElementsInput("cardExpiry", "0333")
           cy.fillElementsInput("cardCvc", "333")
         })
         cy.dataCy("save-to-wallet").click()
@@ -800,7 +799,6 @@ describe("Checkout Payments", () => {
                       accessToken: this.tokenObj.access_token,
                       orderId: order.id,
                     }).then((shipments) => {
-                      console.log(shipments)
                       cy.setShipmentMethod({
                         type: "Standard Shipping",
                         id: shipments[0].id,
@@ -953,7 +951,6 @@ describe("Checkout Payments", () => {
                     accessToken: this.tokenObj.access_token,
                     orderId: order.id,
                   }).then((shipments) => {
-                    console.log(shipments)
                     cy.setShipmentMethod({
                       type: "Standard Shipping",
                       id: shipments[0].id,
@@ -1117,7 +1114,6 @@ describe("Checkout Payments", () => {
                     accessToken: this.tokenObj.access_token,
                     orderId: order.id,
                   }).then((shipments) => {
-                    console.log(shipments)
                     cy.setShipmentMethod({
                       type: "Standard Shipping",
                       id: shipments[0].id,

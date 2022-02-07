@@ -1,4 +1,4 @@
-import { internet } from "faker"
+import { faker } from "@faker-js/faker"
 
 import { euAddress } from "../support/utils"
 
@@ -7,8 +7,8 @@ describe("Checkout Checkout-Digital", () => {
 
   const filename = "checkout-digital"
 
-  const email = internet.email().toLocaleLowerCase()
-  const password = internet.password()
+  const email = faker.internet.email().toLocaleLowerCase()
+  const password = faker.internet.password()
 
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
@@ -154,7 +154,7 @@ describe("Checkout Checkout-Digital", () => {
       })
       cy.get("@paymentSource3").within(() => {
         cy.fillElementsInput("cardNumber", "4242424242424242")
-        cy.fillElementsInput("cardExpiry", "3333")
+        cy.fillElementsInput("cardExpiry", "0333")
         cy.fillElementsInput("cardCvc", "333")
       })
     })
