@@ -3,15 +3,18 @@ import { useContext } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
+import { ShippingToggleProps } from "components/composite/StepCustomer"
 import { AddressInputGroup } from "components/composite/StepCustomer/AddressInputGroup"
 import { AppContext } from "components/data/AppProvider"
 
 interface Props {
   billingAddress: Address | undefined
+  openShippingAddress: (props: ShippingToggleProps) => void
 }
 
 export const BillingAddressFormNew: React.FC<Props> = ({
   billingAddress,
+  openShippingAddress,
 }: Props) => {
   const appCtx = useContext(AppContext)
 
@@ -60,6 +63,7 @@ export const BillingAddressFormNew: React.FC<Props> = ({
           fieldName="billing_address_country_code"
           resource="billing_address"
           type="text"
+          openShippingAddress={openShippingAddress}
           value={billingAddress?.country_code || ""}
         />
       </Grid>

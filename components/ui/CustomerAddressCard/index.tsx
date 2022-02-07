@@ -3,9 +3,9 @@ import { Address as AddressCollection } from "@commercelayer/sdk"
 
 interface AddressCardProps {
   addressType: "shipping" | "billing"
-  addresses?: [AddressCollection]
+  addresses?: AddressCollection[]
   deselect: boolean
-  onSelect?: () => void
+  onSelect?: (address: AddressCollection) => void
 }
 
 export const CustomerAddressCard: React.FC<AddressCardProps> = ({
@@ -27,7 +27,7 @@ export const CustomerAddressCard: React.FC<AddressCardProps> = ({
       } transition duration-200 ease-in`}
       selectedClassName="!border-2 border-primary shadow-md bg-gray-100"
       deselect={deselect}
-      onSelect={onSelect}
+      onSelect={(address) => onSelect && onSelect(address as AddressCollection)}
       disabledClassName="opacity-50 cursor-not-allowed"
     >
       {
@@ -65,7 +65,7 @@ interface AddressProps {
   addressType: string
 }
 
-const CustomAddress = ({
+export const CustomAddress = ({
   firstName,
   lastName,
   city,

@@ -1,3 +1,67 @@
+# [1.3.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.2.0...v1.3.0) (2022-02-07)
+
+
+### Bug Fixes
+
+* avoid form rings cut off ([8ae9edc](https://github.com/commercelayer/commercelayer-react-checkout/commit/8ae9edc3974c4e556002e1933a969de2ec2bb60a))
+* enable tailwind base styles ([e2836b8](https://github.com/commercelayer/commercelayer-react-checkout/commit/e2836b883b2b4941fb05db0a5cb2abb4a40783e6))
+* remove error below payment if not available coupon ([8b59f52](https://github.com/commercelayer/commercelayer-react-checkout/commit/8b59f525aa8d40a2bebbf7e37bdada053be648c7))
+* remove useless call for coupon calculations ([bfba97e](https://github.com/commercelayer/commercelayer-react-checkout/commit/bfba97e1ac86aa86f99c5b58b02af7457e73ecd8))
+* styling shipping_address_country_code select when locked ([1800bde](https://github.com/commercelayer/commercelayer-react-checkout/commit/1800bde5882c1f71c87ddf22a7bb1efae4668fa8))
+* tailwind3 unnecessary classes ([82c23a5](https://github.com/commercelayer/commercelayer-react-checkout/commit/82c23a5667fcbff55fe26c338f33903f9d96039f))
+
+
+### Features
+
+* improve order with shipping country code lock ([54171b7](https://github.com/commercelayer/commercelayer-react-checkout/commit/54171b781f910ff27f8cb132489eb58f2b9db61a))
+* improve order with shipping country code lock ([f45ad5d](https://github.com/commercelayer/commercelayer-react-checkout/commit/f45ad5d64f285cb919dfa9e011c92b665fdd55cc))
+
+# [1.2.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.1.0...v1.2.0) (2022-01-25)
+
+
+### Bug Fixes
+
+* add props for line items count ([9fe6148](https://github.com/commercelayer/commercelayer-react-checkout/commit/9fe61481546bf60c4ea67defd1ac156944490436))
+* address card grows into empty space ([704c7a3](https://github.com/commercelayer/commercelayer-react-checkout/commit/704c7a3377444690a3a898e4196f91d0af477442))
+* change type for customer address card ([50a7b7b](https://github.com/commercelayer/commercelayer-react-checkout/commit/50a7b7b2b31d6f58f43cbc319c401b0d3518e30c))
+
+
+### Features
+
+* add components to step complete ([3a1312d](https://github.com/commercelayer/commercelayer-react-checkout/commit/3a1312dcfdfc70e572df13ef9ac1e0f81caf2df9))
+* add wire transfer translation and refactor ([934d545](https://github.com/commercelayer/commercelayer-react-checkout/commit/934d545c6b66dbd78898e2eaf4b075b3b6bbf8a9))
+* improve thank you with translations, free payment, no ship ([5ceb3cc](https://github.com/commercelayer/commercelayer-react-checkout/commit/5ceb3cc5162136dd73b494c50ba88065b29e30e3))
+* New thank you page layout ([cc700ac](https://github.com/commercelayer/commercelayer-react-checkout/commit/cc700ace4ecedfda70e922a31eeeba62720dae30))
+* order recap on thank you page ([e36a544](https://github.com/commercelayer/commercelayer-react-checkout/commit/e36a544d37815d8ddc4d09dad9c2b6cc90a00647))
+
+
+### Performance Improvements
+
+* speed up checkout bootstrap ([b375f19](https://github.com/commercelayer/commercelayer-react-checkout/commit/b375f19687598e7ab9bca42799003f8b57b10f4f))
+* upgrade to react-components v3 without cities.json ([ed3e3bf](https://github.com/commercelayer/commercelayer-react-checkout/commit/ed3e3bf4f009a44f46f89747fd0889129138d754))
+
+# [1.1.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.0.1...v1.1.0) (2022-01-18)
+
+
+### Bug Fixes
+
+* avoid checkout error when refreshing quickly ([9955768](https://github.com/commercelayer/commercelayer-react-checkout/commit/9955768b75f4d54a88b30465fc0724cdc99b59cc))
+* checkout an order with only bundles ([7435acc](https://github.com/commercelayer/commercelayer-react-checkout/commit/7435acc11102d6235d20242c58a42482c51cc243))
+* ignore build error in test files ([1ab6dbf](https://github.com/commercelayer/commercelayer-react-checkout/commit/1ab6dbf6fee77ee3f18aaa0cea9103bfcc234b43))
+* show multiple bundles on the same order ([8219cfb](https://github.com/commercelayer/commercelayer-react-checkout/commit/8219cfb30c2990bc2b225c2c65134f19f53a87a1))
+
+
+### Features
+
+* add support to bundles ([f48b2e1](https://github.com/commercelayer/commercelayer-react-checkout/commit/f48b2e12285fc066f3c0f897fd6cdacd9a2ccdf4))
+
+## [1.0.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.0.0...v1.0.1) (2021-12-31)
+
+
+### Bug Fixes
+
+* Slug control is actived when the checkout is hosted by Commerce Layer ([b0c6ec7](https://github.com/commercelayer/commercelayer-react-checkout/commit/b0c6ec789ddcd130bd7c65ad56a70d401a6aa048))
+
 # 1.0.0 (2021-12-29)
 
 

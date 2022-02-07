@@ -1,8 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import CommerceLayer, { Order } from "@commercelayer/sdk"
+import { TypeAccepted } from "@commercelayer/react-components/lib/utils/getLineItemsCount"
+import CommerceLayer from "@commercelayer/sdk"
 import jwt_decode from "jwt-decode"
 import type { NextApiRequest, NextApiResponse } from "next"
 
+import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 import hex2hsl, { BLACK_COLOR } from "components/utils/hex2hsl"
 
 interface JWTProps {
@@ -20,7 +22,7 @@ function isProduction(env: string): boolean {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { NODE_ENV, DOMAIN } = process.env
+  const { NODE_ENV, DOMAIN, HOSTED } = process.env
   const accessToken = req.query.accessToken as string
   const orderId = req.query.orderId as string
   const domain = isProduction(NODE_ENV)
@@ -54,10 +56,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (
       isProduction(NODE_ENV) &&
+      !!HOSTED &&
       (subdomain !== slug || kind !== "sales_channel")
     ) {
       return invalidateCheckout()
-    } else if (slug) {
+    } else if (slug && kind === "sales_channel") {
       endpoint = `https://${slug}.${domain}`
     } else {
       return invalidateCheckout()
@@ -72,11 +75,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(`error decoding access token: ${e}`)
     return invalidateCheckout()
   }
-
   let order
 
   try {
-    const orderFetched: Order = await cl.orders.retrieve(orderId, {
+    order = await cl.orders.retrieve(orderId, {
       fields: {
         orders: [
           "id",
@@ -87,24 +89,37 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           "language_code",
           "terms_url",
           "privacy_url",
+          "line_items",
         ],
+        line_items: ["item_type"],
       },
       include: ["line_items"],
     })
 
-    if (orderFetched.status === "draft" || orderFetched.status === "pending") {
-      const _refresh = !paymentReturn
+    const lineItemsShoppable = order.line_items?.filter((line_item) => {
+      return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
+    })
 
+    // If there are no shoppable items we redirect to the invalid page
+    if ((lineItemsShoppable || []).length === 0) {
+      console.log("Invalid: No shoppable line items")
+      return invalidateCheckout()
+    }
+
+    if (order.status === "draft" || order.status === "pending") {
+      const _refresh = !paymentReturn
       order = await cl.orders.update({
-        id: orderFetched.id,
+        id: order.id,
         _refresh,
-        ...(!orderFetched.autorefresh && { autorefresh: true }),
+        ...(!order.autorefresh && { autorefresh: true }),
       })
-    } else if (orderFetched.status === "placed") {
+    } else if (order.status === "placed") {
       order = await cl.orders.retrieve(orderId)
+    } else {
+      return invalidateCheckout()
     }
   } catch (e) {
-    console.log("error on retrieving order:")
+    console.log("error on retrieving or refreshing order:")
     console.log(e)
     console.log("access token:")
     console.log(accessToken)
@@ -116,31 +131,27 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   let organization
   try {
-    organization = await cl.organization.retrieve()
+    organization = await cl.organization.retrieve({
+      fields: {
+        organizations: [
+          "id",
+          "logo_url",
+          "name",
+          "primary_color",
+          "favicon_url",
+          "gtm_id",
+          "support_email",
+          "support_phone",
+        ],
+      },
+    })
   } catch (e) {
     console.log("error on retrieving organization:")
     console.log(e)
   }
 
   if (!order?.id || !organization?.id) {
-    return invalidateCheckout()
-  }
-
-  const lineItemsCount = (
-    await cl.orders.retrieve(orderId, {
-      fields: {
-        line_items: ["item_type"],
-      },
-      include: ["line_items"],
-    })
-  ).line_items?.filter((line_item) => {
-    return (
-      line_item.item_type === "skus" || line_item.item_type === "gift_cards"
-    )
-  }).length
-
-  // If there are no items to buy we redirect to the invalid page
-  if (lineItemsCount === 0) {
+    console.log("Invalid: no order or organization")
     return invalidateCheckout()
   }
 

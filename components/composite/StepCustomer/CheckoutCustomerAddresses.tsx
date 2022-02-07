@@ -8,11 +8,14 @@ import {
 } from "@commercelayer/react-components"
 import { Address } from "@commercelayer/sdk"
 import { Transition } from "@headlessui/react"
-import { useState, Fragment, useEffect } from "react"
+import { useState, Fragment, useEffect, Dispatch, SetStateAction } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 
-import "twin.macro"
+import {
+  evaluateShippingToggle,
+  ShippingToggleProps,
+} from "components/composite/StepCustomer"
 import { AddButton } from "components/ui/AddButton"
 import { ButtonCss, ButtonWrapper } from "components/ui/Button"
 import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
@@ -37,6 +40,11 @@ interface Props {
   hasCustomerAddresses: boolean
   emailAddress: string | undefined
   isLocalLoader: boolean
+  shippingCountryCodeLock: string | undefined
+  shipToDifferentAddress: boolean
+  setShipToDifferentAddress: Dispatch<SetStateAction<boolean>>
+  openShippingAddress: (props: ShippingToggleProps) => void
+  disabledShipToDifferentAddress: boolean
   handleSave: () => void
 }
 
@@ -52,6 +60,11 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   hasCustomerAddresses,
   emailAddress,
   isLocalLoader,
+  shippingCountryCodeLock,
+  shipToDifferentAddress,
+  setShipToDifferentAddress,
+  openShippingAddress,
+  disabledShipToDifferentAddress,
   handleSave,
 }: Props) => {
   const { t } = useTranslation()
@@ -62,10 +75,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   const [shippingAddressFill, setShippingAddressFill] = useState<
     Address | undefined
   >(shippingAddress)
-
-  const [shipToDifferentAddress, setShipToDifferentAddress] = useState<boolean>(
-    !hasSameAddresses
-  )
 
   const [showBillingAddressForm, setShowBillingAddressForm] = useState<boolean>(
     isUsingNewBillingAddress
@@ -82,7 +91,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
   useEffect(() => {
     if (shipToDifferentAddress && !hasCustomerAddresses) {
-      setShippingAddressFill(undefined)
+      // If billing and shipping are equivalent, show form but reset it
+      if (hasSameAddresses) {
+        setShippingAddressFill(undefined)
+      }
       setShowShippingAddressForm(true)
       setMountShippingAddressForm(true)
     }
@@ -137,6 +149,22 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     setShipToDifferentAddress(!shipToDifferentAddress)
   }
 
+  const onSelect = (address: Address) => {
+    if (openShippingAddress) {
+      openShippingAddress(
+        evaluateShippingToggle({
+          countryCode: address.country_code,
+          shippingCountryCodeLock,
+        })
+      )
+    }
+
+    localStorage.setItem(
+      "_save_billing_address_to_customer_address_book",
+      "false"
+    )
+  }
+
   return (
     <Fragment>
       <AddressSectionEmail readonly emailAddress={emailAddress as string} />
@@ -144,7 +172,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
         <AddressSectionTitle data-cy="billing-address">
           {t(`addressForm.billing_address_title`)}
         </AddressSectionTitle>
-        <div className="relative overflow-hidden">
+        <div className="relative">
           <>
             {hasCustomerAddresses && (
               <>
@@ -157,12 +185,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                       <CustomerAddressCard
                         addressType="billing"
                         deselect={showBillingAddressForm}
-                        onSelect={() =>
-                          localStorage.setItem(
-                            "_save_billing_address_to_customer_address_book",
-                            "false"
-                          )
-                        }
+                        onSelect={onSelect}
                       />
                     </BillingAddressContainer>
                   </GridContainer>
@@ -193,6 +216,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   <>
                     <BillingAddressFormNew
                       billingAddress={billingAddressFill}
+                      openShippingAddress={openShippingAddress}
                     />
                     <AddressFormBottom
                       addressType="billing"
@@ -210,6 +234,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
         {isShipmentRequired && (
           <>
             <Toggle
+              disabled={disabledShipToDifferentAddress}
               data-cy="button-ship-to-different-address"
               data-status={shipToDifferentAddress}
               label={t(`addressForm.ship_to_different_address`)}
@@ -312,20 +337,19 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 }
 
 const addressesTransition = {
-  enter: "transform transition duration-400",
+  enter: "transition duration-400 ease-in",
   enterFrom: "opacity-0  -translate-y-full",
   enterTo: "opacity-100 translate-y-0",
-  leave: "transform duration-400 transition ease-out absolute top-0 w-full",
+  leave: "duration-200 transition ease-out absolute top-0 w-full",
   leaveFrom: "opacity-100 translate-y-0 ",
   leaveTo: "opacity-0 -translate-y-full",
 }
 
 const formTransition = {
-  enter: "transform transition duration-400",
+  enter: "transition duration-400 ease-in",
   enterFrom: "opacity-0 translate-y-full",
   enterTo: "opacity-100 translate-y-0",
-  leave:
-    "transform duration-400 transition ease-out absolute top-0 w-full min-h-full",
+  leave: "duration-400 transition ease-out absolute top-0 w-full",
   leaveFrom: "opacity-100 translate-y-0",
   leaveTo: "opacity-0 translate-y-full",
 }

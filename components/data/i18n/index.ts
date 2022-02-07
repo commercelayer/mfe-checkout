@@ -1,4 +1,5 @@
-import i18n from "i18next"
+import i18n, { use } from "i18next"
+
 import translationCS from "public/static/locales/cs/common.json"
 import translationDE from "public/static/locales/de/common.json"
 import translationEN from "public/static/locales/en/common.json"
@@ -46,7 +47,7 @@ const resources = {
   },
 }
 
-i18n.use(initReactI18next).init({
+use(initReactI18next).init({
   resources,
   lng: languages[0],
   fallbackLng: languages,

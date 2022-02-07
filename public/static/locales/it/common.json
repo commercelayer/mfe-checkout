@@ -2,21 +2,11 @@
 
     "general": {
         "title": "{{companyName}} - Checkout",
-        "yes": "Si",
-        "no": "No",
-        "cancel": "Cancella",
         "systemError": "Siamo spiacenti ma qualcosa è andato storto!",
         "invalid": "Quest'ordine non è accessibile.",
-        "save": "Salva",
         "edit": "Modifica",
-        "delete": "Elimina",
-        "done": "Fatto",
         "free" : "Gratis",
-        "complete": "Completo",
         "apply": "Applica",
-        "discard": "Non salvare le modifiche",
-        "privacy_link": "Privacy",
-        "terms_link": "Termini",
         "privacy_and_terms": "Spuntando la casella accetti i <bold><termsUrl>termini</termsUrl></bold> e la <bold><privacyUrl>privacy</privacyUrl></bold>.",
         "checkoutTitle": "Checkout"
     },
@@ -40,10 +30,10 @@
     "orderRecap": {
         "order_summary": "Riepilogo ordine",
         "cartContains": "Il tuo carrello contiene {{count}} articolo",
-        "cartContains_plural": "Il tuo carrello contiene {{count}} articoli",
+        "cartContains_other": "Il tuo carrello contiene {{count}} articoli",
         "couponCode": "Codice coupon",
         "quantity": "Quantità: {{count}}",
-        "quantity_plural": "Quantità: {{count}}",
+        "quantity_other": "Quantità: {{count}}",
         "discount_amount": "Sconto",
         "adjustment_amount": "Totale Adjustments",
         "giftcard_amount": "Gift card",
@@ -58,12 +48,8 @@
 
     "stepCustomer": {
         "title": "Cliente",
-        "summary" : "Riepilogo delle informazioni di fatturazione e spedizione del cliente",
-        "information": "Informazioni di fatturazione e indirizzo di spedizione",
         "addNewAddress": "Aggiungi nuovo indirizzo",
         "saveAddressBook": "Salva l'indirizzo sulla tua rubrica",
-        "addNewBillingAddress": "Aggiungi nuovo indirizzo di fatturazione",
-        "addNewShippingAddress": "Aggiungi un nuovo indirizzo di spedizione",
         "continueToDelivery": "Continuare alla consegna",
         "notSet": "Inserisci il tuo indirizzo di fatturazione/spedizione",
         "closeForm": "Scegli indirizzo"
@@ -71,14 +57,12 @@
 
     "stepShipping": {
         "title": "Consegna",
-        "summary": "Riepilogo della spedizione e modalità di consegna",
         "shipment": "Spedizione <Wrap>{{current}} di {{total}}</Wrap>",
         "notAvaible": "Non sono disponibili metodi di spedizione",
         "stockTransfer": "<0/> di <1/> articoli verranno trasferiti",
         "methodSelected": "Il tuo ordine contiene {{count}} spedizione",
-        "methodSelected_plural": "Il tuo ordine contiene {{count}} spedizioni",
+        "methodSelected_other": "Il tuo ordine contiene {{count}} spedizioni",
         "methodUnselected": "Seleziona un metodo di spedizione",
-        "addShippingMethod": "Aggiungi i dati del cliente prima della spedizione",
         "deliveryLeadTime" : "<0/> - <1/> giorni",
         "continueToPayment": "Continuare al pagamento",
         "notRequired": "Questo ordine non necessita di spedizione"
@@ -86,16 +70,11 @@
 
     "stepPayment": {
         "title": "Pagamento",
-        "summary": "Riepilogo del pagamento",
-        "methodSelected": "Metodo di pagamento selezionato",
         "methodUnselected": "Seleziona un metodo di pagamento",
-        "paymentMethod": "Hai impostato un metodo di pagamento",
         "creditCard": "Carta di credito",
         "wireTransfer": "Bonifico bancario",
         "wireTransferDescription": "Dopo aver effettuato l'ordine, dovrai completare manualmente il pagamento con la tua banca",
         "paypalDescription": "Dopo aver effettuato l'ordine, sarai reindirizzato verso il sito PayPal per accedere e autorizzare il pagamento",
-        "addPaymentMethod": "Aggiungi i dati della spedizione prima del pagamento",
-        "setPaymentMethod": "Imposta il metodo di pagamento",
         "endingIn": "<0/> finisce con <1/>",
         "submit": "Invia l'ordine",
         "notRequired": "Questo ordine non necessita di pagamento",
@@ -121,8 +100,6 @@
         "billing_address_billing_info": "Informazioni di fatturazione",
         "ship_to_different_address": "Spedisci ad un altro indirizzo",
         "shipping_address_title": "Indirizzo di spedizione",
-        "shipped_to": "Spedito a:",
-        "billed_to": "Fatturato a:",
         "shipping_address_first_name": "Nome",
         "shipping_address_last_name": "Cognome",
         "shipping_address_line_1": "Indirizzo",
@@ -138,11 +115,18 @@
 
     "stepComplete": {
         "title": "Ordine effettuato con successo!",
-        "summary": "Il tuo ordine No: <WrapperOrderId>#{{orderNumber}}</WrapperOrderId>",
+        "description": "Il tuo ordine No: <WrapperOrderId>#{{orderNumber}}</WrapperOrderId>",
         "continue": "Continua lo shopping",
         "supportEmail": "Se hai domande sul tuo ordine, puoi inviarci un'e-mail a <WrapperEmail>{{email}}</WrapperEmail>",
         "supportPhone": "Se hai domande sul tuo ordine, puoi chiamarci al numero <WrapperPhone>{{phone}}</WrapperPhone>",
-        "fullSupport": "Se hai domande sul tuo ordine, puoi inviarci un'email a <WrapperEmail>{{email}}</WrapperEmail> o chiamarci al <WrapperPhone>{{phone}}</WrapperPhone>"
+        "fullSupport": "Se hai domande sul tuo ordine, puoi inviarci un'email a <WrapperEmail>{{email}}</WrapperEmail> o chiamarci al <WrapperPhone>{{phone}}</WrapperPhone>",
+        "ship_to": "Spedito a:",
+        "billed_to": "Fatturato a:",
+        "payment": "Pagamento:",
+        "summary_title": "Riepilogo",
+        "customer_title": "Cliente",
+        "email": "E-mail:",
+        "free_payment": "Questo ordine non richiede un pagamento"
     }
 
 }

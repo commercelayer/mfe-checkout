@@ -1,13 +1,12 @@
-import { internet } from "faker"
+import { faker } from "@faker-js/faker"
 
 import { euAddress } from "../support/utils"
 
 describe("Checkout GiftCard", () => {
   const filename = "giftcdard"
 
-  const email = internet.email().toLocaleLowerCase()
-  const password = internet.password()
-
+  const email = faker.internet.email().toLocaleLowerCase()
+  const password = faker.internet.password()
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
       cy.getTokenCustomer({
@@ -70,12 +69,11 @@ describe("Checkout GiftCard", () => {
                   balanceCents: 10000,
                   recipientEmail: email,
                   accessToken: this.tokenObjSuperuser.access_token,
-                }).then((e) =>
-                  cy
-                    .activeGiftCard({
-                      giftcardId: e.id,
-                      accessToken: this.tokenObjSuperuser.access_token,
-                    })
+                }).then((e) => {
+                  cy.activeGiftCard({
+                    giftcardId: e.id,
+                    accessToken: this.tokenObjSuperuser.access_token,
+                  })
                     .as("newGiftCardCode")
                     .then(() => {
                       cy.setGiftCard({
@@ -84,7 +82,7 @@ describe("Checkout GiftCard", () => {
                         accessToken: this.tokenObjSuperuser.access_token,
                       })
                     })
-                )
+                })
               })
             })
           })
@@ -122,7 +120,6 @@ describe("Checkout GiftCard", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
@@ -148,7 +145,7 @@ describe("Checkout GiftCard", () => {
         timeout: 100000,
       })
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -256,30 +253,19 @@ describe("Checkout GiftCard", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@paymentMethods",
           "@deliveryLeadTimes",
         ],
         { timeout: 100000 }
       )
       cy.url().should("contain", this.tokenObj.access_token)
       cy.url().should("not.contain", Cypress.env("accessToken"))
-      console.log(this.newGiftCardCode.attributes.code)
       cy.dataCy("input_giftcard_coupon").type(
         this.newGiftCardCode.attributes.code
       )
       cy.dataCy("submit_giftcard_coupon").click()
-      cy.wait(
-        [
-          "@updateOrder",
-          "@getOrders",
-          "@getOrders",
-          "@getCustomerAddresses",
-          "@paymentMethods",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@updateOrder", "@getCustomerAddresses"], {
+        timeout: 100000,
+      })
     })
 
     it("select shipment and save", () => {
@@ -296,7 +282,7 @@ describe("Checkout GiftCard", () => {
       })
       cy.wait(3000)
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@paymentMethods"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -308,18 +294,9 @@ describe("Checkout GiftCard", () => {
 
     it("remove Gift Card and check amount", () => {
       cy.dataCy("remove_giftcard").click()
-      cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@getCustomerAddresses",
-          "@updateOrder",
-          "@paymentMethods",
-        ],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@getCustomerAddresses", "@updateOrder"], {
+        timeout: 100000,
+      })
       cy.dataCy("total-amount").should("contain", "256,00")
     })
   })

@@ -1,14 +1,14 @@
-import { internet } from "faker"
+import { faker } from "@faker-js/faker"
 
 import { euAddress } from "../support/utils"
 
 describe("Checkout Complete with terms and privacy", () => {
   const filename = "terms-privacy"
 
-  const email = internet.email().toLocaleLowerCase()
-  const password = internet.password()
+  const email = faker.internet.email().toLocaleLowerCase()
+  const password = faker.internet.password()
 
-  const returnUrl = "https://www.extendi.it/"
+  const returnUrl = "https://commercelayer.io"
 
   before(function () {
     cy.createCustomer({ email: email, password: password }).then(() => {
@@ -89,8 +89,6 @@ describe("Checkout Complete with terms and privacy", () => {
             "@getOrders",
             "@getOrders",
             "@getOrders",
-            "@getOrders",
-            "@getOrders",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
@@ -100,7 +98,6 @@ describe("Checkout Complete with terms and privacy", () => {
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
-            "@paymentMethods",
             "@deliveryLeadTimes",
           ],
           { timeout: 100000 }
@@ -126,7 +123,7 @@ describe("Checkout Complete with terms and privacy", () => {
           }
         )
         cy.dataCy("save-shipments-button").click()
-        cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
+        cy.wait(["@getOrders", "@getOrders"], {
           timeout: 100000,
         })
       })
@@ -169,15 +166,16 @@ describe("Checkout Complete with terms and privacy", () => {
             "@getOrders",
             "@getOrders",
             "@getOrders",
-            "@getOrders",
-            "@getOrders",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@deliveryLeadTimes",
-            "@paymentMethods",
           ],
           { timeout: 100000 }
         )
@@ -208,7 +206,7 @@ describe("Checkout Complete with terms and privacy", () => {
           }
         )
         cy.dataCy("save-shipments-button").click()
-        cy.wait(["@getOrders", "@getOrders", "@getOrders", "@paymentMethods"], {
+        cy.wait(["@getOrders", "@getOrders"], {
           timeout: 100000,
         })
       })
@@ -234,11 +232,16 @@ describe("Checkout Complete with terms and privacy", () => {
             "@getOrders",
             "@getOrders",
             "@getOrders",
-            "@getOrders",
-            "@getOrders",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
             "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@getCustomerAddresses",
+            "@deliveryLeadTimes",
           ],
           { timeout: 100000 }
         )

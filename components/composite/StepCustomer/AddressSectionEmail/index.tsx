@@ -1,5 +1,8 @@
-import { CustomerInput, Errors } from "@commercelayer/react-components"
-import { ErrorComponentProps } from "@commercelayer/react-components/lib/cjs/typings/errors"
+import {
+  CustomerInput,
+  Errors,
+  ErrorComponentProps,
+} from "@commercelayer/react-components"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"

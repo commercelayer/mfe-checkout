@@ -5,7 +5,6 @@ import {
   PaymentSource,
   PaymentSourceBrandIcon,
 } from "@commercelayer/react-components"
-import "twin.macro"
 import classNames from "classnames"
 import { useContext } from "react"
 import { Trans, useTranslation } from "react-i18next"

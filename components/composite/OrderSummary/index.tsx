@@ -13,7 +13,7 @@ import {
 import { Trans, useTranslation } from "react-i18next"
 
 import { AppProviderData } from "components/data/AppProvider"
-import "twin.macro"
+import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
 import { LineItemTypes } from "./LineItemTypes"
@@ -28,37 +28,47 @@ import {
   RecapLineTotal,
   RecapLineItemTotal,
   RecapLineItem,
+  Wrapper,
 } from "./styled"
 
 interface Props {
   appCtx: AppProviderData
+  readonly?: boolean
 }
 
-export const OrderSummary: React.FC<Props> = ({ appCtx }) => {
+export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
   const { t } = useTranslation()
 
   return (
-    <>
+    <Wrapper data-cy="order-summary">
       <LineItemsContainer>
-        <SummaryHeader>
-          <SummaryTitle data-cy="test-summary">
-            {t("orderRecap.order_summary")}
-          </SummaryTitle>
-          <SummarySubTitle>
-            <LineItemsCount typeAccepted={["skus", "gift_cards"]}>
-              {(props) =>
-                t("orderRecap.cartContains", { count: props.quantity })
-              }
-            </LineItemsCount>
-          </SummarySubTitle>
-        </SummaryHeader>
-        <LineItemTypes type="skus" />
-        <LineItemTypes type="gift_cards" />
+        {!readonly && (
+          <SummaryHeader>
+            <SummaryTitle data-cy="test-summary">
+              {t("orderRecap.order_summary")}
+            </SummaryTitle>
+            <SummarySubTitle>
+              <LineItemsCount
+                data-cy="items-count"
+                typeAccepted={LINE_ITEMS_SHOPPABLE}
+              >
+                {(props) => (
+                  <span data-cy="items-count">
+                    {t("orderRecap.cartContains", { count: props.quantity })}
+                  </span>
+                )}
+              </LineItemsCount>
+            </SummarySubTitle>
+          </SummaryHeader>
+        )}
+        {LINE_ITEMS_SHOPPABLE.map((type) => (
+          <LineItemTypes type={type} key={type} />
+        ))}
       </LineItemsContainer>
       <TotalWrapper>
         <AmountSpacer />
         <AmountWrapper>
-          <CouponOrGiftCard />
+          <CouponOrGiftCard readonly={readonly} />
           <RecapLine>
             <RecapLineItem>{t("orderRecap.subtotal_amount")}</RecapLineItem>
             <SubTotalAmount />
@@ -196,6 +206,6 @@ export const OrderSummary: React.FC<Props> = ({ appCtx }) => {
           </RecapLineTotal>
         </AmountWrapper>
       </TotalWrapper>
-    </>
+    </Wrapper>
   )
 }

@@ -8,7 +8,7 @@ import { Fragment, useContext } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { AppContext } from "components/data/AppProvider"
-import "twin.macro"
+import { getTranslations } from "components/utils/payments"
 
 interface Props {
   hasEditButton?: boolean
@@ -40,7 +40,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
                   </Trans>
                 )
               }
-              return <>{p?.brand}</>
+              return <>{getTranslations(p?.brand, t)}</>
             }}
           </PaymentSourceBrandName>
         </div>

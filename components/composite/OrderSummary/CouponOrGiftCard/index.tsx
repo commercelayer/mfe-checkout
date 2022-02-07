@@ -2,12 +2,10 @@ import {
   GiftCardOrCouponCode,
   GiftCardOrCouponSubmit,
   GiftCardOrCouponForm,
+  ErrorComponentProps,
 } from "@commercelayer/react-components"
-import { ErrorComponentProps } from "@commercelayer/react-components/lib/cjs/typings/errors"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
-
-import { AppContext } from "components/data/AppProvider"
 
 import {
   CouponFormWrapper,
@@ -19,29 +17,17 @@ import {
   StyledErrors,
 } from "./styled"
 
-import "twin.macro"
+interface Props {
+  readonly?: boolean
+}
 
-export const CouponOrGiftCard: React.FC = () => {
+export const CouponOrGiftCard: React.FC<Props> = ({ readonly }) => {
   const { t } = useTranslation()
-
-  const appCtx = useContext(AppContext)
-
-  if (!appCtx) {
-    return null
-  }
-
-  const { refetchOrder } = appCtx
 
   const [codeError, setCodeError] = useState(false)
 
   const handleSubmit = async ({ success }: { success: boolean }) => {
     if (!success) return setCodeError(true)
-    if (success) {
-      // soluzione momentanea in vista di una risoluzione di @commercelayer/react-components
-      setTimeout(() => {
-        refetchOrder()
-      }, 2000)
-    }
     return setCodeError(false)
   }
 
@@ -58,27 +44,29 @@ export const CouponOrGiftCard: React.FC = () => {
 
   return (
     <>
-      <GiftCardOrCouponForm onSubmit={handleSubmit}>
-        <CouponFormWrapper>
-          <CouponFieldWrapper>
-            <StyledGiftCardOrCouponInput
-              data-cy="input_giftcard_coupon"
-              className={`form-input ${classError}`}
-              placeholder={t("orderRecap.couponCode")}
+      {!readonly && (
+        <GiftCardOrCouponForm onSubmit={handleSubmit}>
+          <CouponFormWrapper>
+            <CouponFieldWrapper>
+              <StyledGiftCardOrCouponInput
+                data-cy="input_giftcard_coupon"
+                className={`form-input ${classError}`}
+                placeholder={t("orderRecap.couponCode")}
+              />
+              <GiftCardOrCouponSubmit
+                data-cy="submit_giftcard_coupon"
+                label={t("general.apply")}
+                className={`w-auto -ml-px relative inline-flex items-center space-x-2 px-8 py-3 text-xs font-extrabold text-contrast bg-primary border border-transparent rounded-r-md hover:opacity-80 focus:outline-none`}
+              />
+            </CouponFieldWrapper>
+            <StyledErrors
+              resource="orders"
+              field="giftCardOrCouponCode"
+              messages={messages}
             />
-            <GiftCardOrCouponSubmit
-              data-cy="submit_giftcard_coupon"
-              label={t("general.apply")}
-              className={`w-auto -ml-px relative inline-flex items-center space-x-2 px-8 py-3 text-xs font-extrabold text-contrast bg-primary border border-transparent rounded-r-md hover:opacity-80 focus:outline-none`}
-            />
-          </CouponFieldWrapper>
-          <StyledErrors
-            resource="orders"
-            field="giftCardOrCouponCode"
-            messages={messages}
-          />
-        </CouponFormWrapper>
-      </GiftCardOrCouponForm>
+          </CouponFormWrapper>
+        </GiftCardOrCouponForm>
+      )}
 
       <GiftCardOrCouponCode type="coupon" className="inline-flex items-center">
         {(props) => {
@@ -91,7 +79,6 @@ export const CouponOrGiftCard: React.FC = () => {
                   data-cy="remove_coupon"
                   type="coupon"
                   label="Remove"
-                  onClick={refetchOrder}
                 />
               </span>
             </CouponRecap>
@@ -113,7 +100,6 @@ export const CouponOrGiftCard: React.FC = () => {
                   type="gift_card"
                   className=""
                   label="Remove"
-                  onClick={refetchOrder}
                 />
               </span>
             </CouponRecap>

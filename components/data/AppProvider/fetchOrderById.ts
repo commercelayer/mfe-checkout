@@ -1,3 +1,4 @@
+import { TypeAccepted } from "@commercelayer/react-components/lib/utils/getLineItemsCount"
 import CommerceLayer, {
   Order,
   Address,
@@ -13,7 +14,9 @@ import CommerceLayer, {
   ExternalPayment,
   PaypalPayment,
 } from "@commercelayer/sdk"
-import i18n from "i18next"
+import { changeLanguage } from "i18next"
+
+import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
 
 interface FetchOrderByIdProps {
   orderId: string
@@ -198,7 +201,7 @@ async function checkIfShipmentRequired(
     })
   ).line_items?.filter(
     (line_item) =>
-      line_item.item_type === "skus" &&
+      LINE_ITEMS_SHIPPABLE.includes(line_item.item_type as TypeAccepted) &&
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       !line_item.item?.do_not_ship
@@ -226,6 +229,29 @@ export const fetchOrderById = async ({
   try {
     const fetchOrder = async () => {
       return cl.orders.retrieve(orderId, {
+        fields: {
+          orders: [
+            "id",
+            "guest",
+            "shipping_country_code_lock",
+            "customer_email",
+            "status",
+            "return_url",
+            "tax_included",
+            "requires_billing_info",
+            "total_amount_with_taxes_float",
+            "language_code",
+            "shipping_address",
+            "billing_address",
+            "shipments",
+            "payment_method",
+            "payment_source",
+            "customer",
+          ],
+          shipments: ["shipping_method"],
+          customer: ["customer_addresses"],
+          customer_addresses: ["address"],
+        },
         include: [
           "shipping_address",
           "billing_address",
@@ -409,9 +435,11 @@ export const fetchOrderById = async ({
       paymentMethod?.payment_source_type === "stripe_payments" ||
       paymentMethod?.payment_source_type === "braintree_payments"
 
-    const allAvailablePaymentMethods = (await cl.payment_methods.list()).filter(
-      ({ disabled_at }) => disabled_at === null
-    )
+    const allAvailablePaymentMethods = (
+      await cl.payment_methods.list({
+        fields: { payment_methods: ["disabled_at", "id"] },
+      })
+    ).filter(({ disabled_at }) => disabled_at === null)
 
     // If we have a customer with a single payment method
     // the payment method is automatically selected
@@ -420,7 +448,8 @@ export const fetchOrderById = async ({
       //! isGuest &&
       isPaymentRequired &&
       !hasPaymentMethod &&
-      allAvailablePaymentMethods.length === 1
+      allAvailablePaymentMethods.length === 1 &&
+      !order.payment_method?.id
     ) {
       try {
         await cl.orders.update({
@@ -452,7 +481,7 @@ export const fetchOrderById = async ({
     // @ts-ignore
     const requiresBillingInfo = order.requires_billing_info
 
-    await i18n.changeLanguage(order.language_code)
+    await changeLanguage(order.language_code)
 
     return {
       isGuest,

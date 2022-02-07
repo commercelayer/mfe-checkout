@@ -1,8 +1,6 @@
 import { PaymentMethodPrice } from "@commercelayer/react-components"
 import { useTranslation } from "react-i18next"
 
-import "twin.macro"
-
 import { PaymentMethodNameWithStripe } from "../PaymentMethodNameWithStripe"
 import {
   PaymentSummary,

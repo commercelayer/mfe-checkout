@@ -26,15 +26,7 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
       (ctx.step === "Shipping" && appCtx.hasPaymentMethod) ||
       ctx.status !== "disabled"
     ) {
-      return ctx.isActive
-        ? [
-            ctx.step === "Shipping" &&
-              appCtx.shipments.length === 1 &&
-              appCtx.refetchShipments(),
-
-            ctx.closeStep(),
-          ]
-        : ctx.setStep()
+      return ctx.isActive ? ctx.closeStep() : ctx.setStep()
     }
   }
 
