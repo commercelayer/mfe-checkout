@@ -1,3 +1,21 @@
+# [1.3.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.2.0...v1.3.0) (2022-02-07)
+
+
+### Bug Fixes
+
+* avoid form rings cut off ([8ae9edc](https://github.com/commercelayer/commercelayer-react-checkout/commit/8ae9edc3974c4e556002e1933a969de2ec2bb60a))
+* enable tailwind base styles ([e2836b8](https://github.com/commercelayer/commercelayer-react-checkout/commit/e2836b883b2b4941fb05db0a5cb2abb4a40783e6))
+* remove error below payment if not available coupon ([8b59f52](https://github.com/commercelayer/commercelayer-react-checkout/commit/8b59f525aa8d40a2bebbf7e37bdada053be648c7))
+* remove useless call for coupon calculations ([bfba97e](https://github.com/commercelayer/commercelayer-react-checkout/commit/bfba97e1ac86aa86f99c5b58b02af7457e73ecd8))
+* styling shipping_address_country_code select when locked ([1800bde](https://github.com/commercelayer/commercelayer-react-checkout/commit/1800bde5882c1f71c87ddf22a7bb1efae4668fa8))
+* tailwind3 unnecessary classes ([82c23a5](https://github.com/commercelayer/commercelayer-react-checkout/commit/82c23a5667fcbff55fe26c338f33903f9d96039f))
+
+
+### Features
+
+* improve order with shipping country code lock ([54171b7](https://github.com/commercelayer/commercelayer-react-checkout/commit/54171b781f910ff27f8cb132489eb58f2b9db61a))
+* improve order with shipping country code lock ([f45ad5d](https://github.com/commercelayer/commercelayer-react-checkout/commit/f45ad5d64f285cb919dfa9e011c92b665fdd55cc))
+
 # [1.2.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.1.0...v1.2.0) (2022-01-25)
 
 
