@@ -23,7 +23,7 @@ export const CheckoutPayment: React.FC<Props> = ({ selectPayment }) => {
         clickableContainer
         onClick={selectPayment}
       >
-        <PaymentWrapper>
+        <PaymentWrapper data-cy="payment-sources-container">
           <PaymentSummaryList />
           <PaymentSourceContainer data-cy="payment-source">
             <PaymentSource className="flex flex-col" loader={PaymentSkeleton}>

@@ -40,8 +40,9 @@ const config: PlaywrightTestConfig = {
         browserName: "chromium",
         // Any Chromium-specific options.
         viewport: { width: 1200, height: 800 },
-        baseURL: "http://localhost:3000",
+        baseURL: "http://checkout-test.checkout.test:3000",
         // launchOptions: {
+        //   slowMo: 100,
         //   devtools: true,
         // },
       },

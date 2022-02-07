@@ -44,10 +44,45 @@ export class CheckoutPage {
     await this.page.fill("[data-cy=input_billing_address_phone]", "3331821325")
   }
 
-  async continue() {
-    this.page.click("[data-cy=save-addresses-button]")
+  async checkShippingSummary(text: string) {
     await this.page
-      .locator("[data-cy=step_customer][data-status=false]")
+      .locator(`[data-cy=shipping-amount] >> text=${text}`)
       .waitFor({ state: "visible" })
+  }
+
+  async checkPaymentSummary(text: string) {
+    await this.page
+      .locator(`[data-cy=payment-method-amount] >> text=${text}`)
+      .waitFor({ state: "visible" })
+  }
+
+  async setStripePayment() {
+    const stripeFrame = this.page.frameLocator("iframe").first()
+    await stripeFrame.locator("input[name=cardnumber]").fill("4242424242424242")
+    await stripeFrame.locator("input[name=exp-date]").fill("0231")
+    await stripeFrame.locator("input[name=cvc]").fill("321")
+  }
+
+  async continue(step: SingleStepEnum) {
+    switch (step) {
+      case "Customer":
+        this.page.click("[data-cy=save-addresses-button]")
+        await this.page
+          .locator("[data-cy=step_customer][data-status=false]")
+          .waitFor({ state: "visible" })
+        break
+      case "Shipping":
+        this.page.click("[data-cy=save-shipments-button]")
+        await this.page
+          .locator("[data-cy=step_shipping][data-status=false]")
+          .waitFor({ state: "visible" })
+        break
+      case "Payment":
+        this.page.click("[data-cy=place-order-button]")
+        await this.page
+          .locator("text=Order successfully placed")
+          .waitFor({ state: "visible" })
+        break
+    }
   }
 }

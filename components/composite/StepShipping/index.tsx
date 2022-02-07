@@ -186,7 +186,7 @@ export const StepShipping: React.FC<Props> = () => {
                     )}
                     <GridContainer className="mb-6">
                       <ShippingMethod emptyText={t("stepShipping.notAvaible")}>
-                        <ShippingSummary>
+                        <ShippingSummary data-cy="shipping-methods-container">
                           <StyledShippingMethodRadioButton
                             data-cy="shipping-method-button"
                             className="form-radio mt-0.5 md:mt-0"
