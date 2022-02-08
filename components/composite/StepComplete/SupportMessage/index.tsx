@@ -9,14 +9,6 @@ export const SupportMessage: React.FC<Props> = ({
   supportPhone,
   supportEmail,
 }) => {
-  const handleEmail = () => {
-    return window.open(`mailto:${supportEmail}`)
-  }
-
-  const handlePhone = () => {
-    return window.open(`tel:${supportEmail}`)
-  }
-
   const setI18nKey = () => {
     if (supportPhone && supportEmail) {
       return "stepComplete.fullSupport"
@@ -38,18 +30,11 @@ export const SupportMessage: React.FC<Props> = ({
       i18nKey={setI18nKey()}
       values={{ email: supportEmail, phone: supportPhone }}
       components={{
-        WrapperEmail: (
-          <strong
-            className="text-black border-b border-gray-400 cursor-pointer"
-            onClick={handleEmail}
-          />
+        WrapperStyle: (
+          <strong className="text-black border-b border-gray-400 cursor-pointer" />
         ),
-        WrapperPhone: (
-          <strong
-            className="text-black border-b border-gray-400 cursor-pointer"
-            onClick={handlePhone}
-          />
-        ),
+        WrapperEmail: <a href={`mailto:${supportEmail}`} />,
+        WrapperPhone: <a href={`tel:${supportPhone}`} />,
       }}
     />
   )
