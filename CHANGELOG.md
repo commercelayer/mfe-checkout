@@ -1,3 +1,18 @@
+# [1.1.0](https://github.com/non-stopdogwear/commercelayer-react-checkout/compare/v1.0.0...v1.1.0) (2022-02-08)
+
+
+### Bug Fixes
+
+* :pencil2: fix trailing comma in json ([790dc0e](https://github.com/non-stopdogwear/commercelayer-react-checkout/commit/790dc0e01e7358286e01e97f06dc1a2a48f3731b))
+* :pencil2: fix trailing comma in json file ([d849147](https://github.com/non-stopdogwear/commercelayer-react-checkout/commit/d849147fbc73742b4206466b90cba8d8c5769d8c))
+* :pencil2: fix wrong import ([188115d](https://github.com/non-stopdogwear/commercelayer-react-checkout/commit/188115d8a5b207c3254a0c9883af1893221ba6ef))
+* :rotating_light: fix no empty line ([1bb8348](https://github.com/non-stopdogwear/commercelayer-react-checkout/commit/1bb8348876e007c8c940f4b0ceb3ab84df95008a))
+
+
+### Features
+
+* :globe_with_meridians: import new languages to i18next ([ce8340b](https://github.com/non-stopdogwear/commercelayer-react-checkout/commit/ce8340b8908d7743be2ba50517d4e729ad5ab2f1))
+
 # 1.0.0 (2022-02-07)
 
 
