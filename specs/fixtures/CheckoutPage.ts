@@ -56,11 +56,18 @@ export class CheckoutPage {
       .waitFor({ state: "visible" })
   }
 
-  async setStripePayment() {
-    const stripeFrame = this.page.frameLocator("iframe").first()
-    await stripeFrame.locator("input[name=cardnumber]").fill("4242424242424242")
-    await stripeFrame.locator("input[name=exp-date]").fill("0231")
-    await stripeFrame.locator("input[name=cvc]").fill("321")
+  async setPayment(type: "stripe" | "braintree" | "wiretransfer") {
+    switch (type) {
+      case "stripe": {
+        const stripeFrame = this.page.frameLocator("iframe").first()
+        await stripeFrame
+          .locator("input[name=cardnumber]")
+          .fill("4242424242424242")
+        await stripeFrame.locator("input[name=exp-date]").fill("0231")
+        await stripeFrame.locator("input[name=cvc]").fill("321")
+        break
+      }
+    }
   }
 
   async continue(step: SingleStepEnum) {

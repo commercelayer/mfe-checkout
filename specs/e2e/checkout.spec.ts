@@ -28,6 +28,20 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
   )
   await checkoutPage.checkPaymentSummary("€10,00")
 
-  await checkoutPage.setStripePayment()
+  await checkoutPage.setPayment("stripe")
+  expect(
+    checkoutPage.page.locator("[data-cy=payment-source] >> text=ending in 4242")
+  ).toBeVisible()
+
   await checkoutPage.continue("Payment")
+
+  expect(
+    checkoutPage.page.locator("text=Order successfully placed!")
+  ).toBeVisible()
+
+  expect(
+    checkoutPage.page.locator(
+      "[data-cy=payment-recap] >> text=Visa ending in 4242"
+    )
+  ).toBeVisible()
 })
