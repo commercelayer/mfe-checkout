@@ -7,15 +7,15 @@
   resolved "https://registry.yarnpkg.com/@ac-dev/countries-service/-/countries-service-1.1.3.tgz#819bf00f6dbcdb5069f795c868809b35070ebc2b"
   integrity sha512-vY0vtchj+bxttVsuVpM8VE2CX5i2nz/G1s7uYLIfqIct8F6/SJcI4GNwzVo3DC08WKEy/sG+I8kyV6dXjuJgPg==
 
-"@ac-dev/states-service@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@ac-dev/states-service/-/states-service-1.0.2.tgz#16dd308fee1c88168781c3199d9122a86f6fc07e"
-  integrity sha512-9EdAyKfcBEAtu/MlzRVIbYcWzd/0ZtXFJf+ifvA6qD5bS6qBjXskaVRIF4hmhZ7E1AA74CEAPO4f0um2CDCBtw==
+"@ac-dev/states-service@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@ac-dev/states-service/-/states-service-1.0.3.tgz#53b5d9a40cad40df5ac313d21ce6b3efbbae63ee"
+  integrity sha512-d0uWHRUxqx5wEQ9YrFm8iBkqc/mMxEup3UB0X/YD4BoQvbhz7+Lw7DKo9RqjnpDHmr3m85ecHvWMhCtAtBuU/w==
 
-"@adyen/adyen-web@^5.6.2":
-  version "5.6.2"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.6.2.tgz#b6d07414aecac01c5a9a69f5dd76e52ac7142e1c"
-  integrity sha512-5H2rQCpCvNvXFZQW8a9j4crGxDdcl3h4Dc9SCqnxclFNBfZx0Dd9+L9+uDVaiisyYbnZ8gcClPGJjQdWGQYyZw==
+"@adyen/adyen-web@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.7.0.tgz#a97f34c6a6a52b1dfd09d41c19273d33b73d3645"
+  integrity sha512-rSmzhQ9w507MXpE8DdxxLDhSMCvfu0gVIw52EhOYtQId3DBWXvR5tg7j704/QgWIbZ0cVeHQVjAy9cRNc3bCIw==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@babel/runtime-corejs3" "^7.16.3"
@@ -228,14 +228,14 @@
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^3.2.3":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.2.3.tgz#64b4a639de1658d02ac7b8afa70719cd8b6b34b9"
-  integrity sha512-RWrIIluV2dwDdlJfxiu0EuCRhtwixmts9jH+vSOogOPl8SlZGRqQ2hGTUdV3jRgE9HoTnD6klABbGnDL6aot/Q==
+"@commercelayer/react-components@^3.2.4":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.2.4.tgz#2e5d8681dc279d2718229b212d85be5c3af5ce2c"
+  integrity sha512-VGxoLVV+v3N+3p2qHY8+gShQK7UPZAWLUz+K0H/SMZGNisyxI86MHpXsFesoPWiyLgMb6HFdj49pNMMR9Ee4jQ==
   dependencies:
     "@ac-dev/countries-service" "^1.1.3"
-    "@ac-dev/states-service" "^1.0.2"
-    "@adyen/adyen-web" "^5.6.2"
+    "@ac-dev/states-service" "^1.0.3"
+    "@adyen/adyen-web" "^5.7.0"
     "@commercelayer/js-auth" "^2.2.9"
     "@commercelayer/sdk" "^3.5.0"
     "@stripe/react-stripe-js" "^1.7.0"
@@ -245,7 +245,7 @@
     jwt-decode "^3.1.2"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
-    rapid-form "^1.6.0"
+    rapid-form "^1.6.1"
 
 "@commercelayer/sdk@^3.5.0":
   version "3.5.0"
@@ -2192,6 +2192,11 @@ css-color-names@^0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/css-color-names/-/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
   integrity sha1-gIrcLnnPhHOAabZGyyDsJ762KeA=
+
+css-functions-list@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/css-functions-list/-/css-functions-list-3.0.0.tgz#faa770a0666aea11435efc0889935336cea564be"
+  integrity sha512-rfwhBOvXVFcKrSwmLxD8JQyuEEy/3g3Y9FMI2l6iV558Coeo1ucXypXb4rwrVpk5Osh5ViXp2DTgafw8WxglhQ==
 
 css-to-react-native@^3.0.0:
   version "3.0.0"
@@ -5581,7 +5586,7 @@ postcss-value-parser@^4.0.2, postcss-value-parser@^4.1.0, postcss-value-parser@^
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz#723c09920836ba6d3e5af019f92bc0971c02e514"
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
-postcss@8.4.5, postcss@^8.4.5:
+postcss@8.4.5:
   version "8.4.5"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.5.tgz#bae665764dfd4c6fcc24dc0fdf7e7aa00cc77f95"
   integrity sha512-jBDboWM8qpaqwkMwItqTQTiFikhs/67OYVvblFFTM7MrZjt6yMKd6r2kgXizEbTTljacm4NldIlZnhbjr84QYg==
@@ -5781,10 +5786,10 @@ quick-lru@^5.1.1:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-5.1.1.tgz#366493e6b3e42a3a6885e2e99d18f80fb7a8c932"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
 
-rapid-form@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/rapid-form/-/rapid-form-1.6.0.tgz#960bf5b6ebac8a54385c69a068bb1f5e86a9367f"
-  integrity sha512-wrKsaBOowwUISlRA5ws7Bhee6kfiyZDqQNplhS9Dj56uQy86wIxe9tL7rkqmLxY3ocLjhYzJMKS5QLfV5m+gPQ==
+rapid-form@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/rapid-form/-/rapid-form-1.6.1.tgz#4c19933ee7a3d1de3f5a85b192ca67fae9889d52"
+  integrity sha512-QJYQvJGjO2aKELXB9hVihqAzSrabyCDIMahs6wEyrijk/yQoQgSvx1gXY4TuUBp4VkHBxdrZf5W5CGL668fmSw==
 
 rc@^1.2.8:
   version "1.2.8"
@@ -6553,26 +6558,27 @@ styled-jsx@5.0.0:
   resolved "https://registry.yarnpkg.com/styled-jsx/-/styled-jsx-5.0.0.tgz#816b4b92e07b1786c6b7111821750e0ba4d26e77"
   integrity sha512-qUqsWoBquEdERe10EW8vLp3jT25s/ssG1/qX5gZ4wu15OZpmSMFI2v+fWlRhLfykA5rFtlJ1ME8A8pm/peV4WA==
 
-stylelint-config-recommended@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/stylelint-config-recommended/-/stylelint-config-recommended-6.0.0.tgz#fd2523a322836005ad9bf473d3e5534719c09f9d"
-  integrity sha512-ZorSSdyMcxWpROYUvLEMm0vSZud2uB7tX1hzBZwvVY9SV/uly4AvvJPPhCcymZL3fcQhEQG5AELmrxWqtmzacw==
+stylelint-config-recommended@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/stylelint-config-recommended/-/stylelint-config-recommended-7.0.0.tgz#7497372ae83ab7a6fffc18d7d7b424c6480ae15e"
+  integrity sha512-yGn84Bf/q41J4luis1AZ95gj0EQwRX8lWmGmBwkwBNSkpGSpl66XcPTulxGa/Z91aPoNGuIGBmFkcM1MejMo9Q==
 
-stylelint-config-standard@^24.0.0:
-  version "24.0.0"
-  resolved "https://registry.yarnpkg.com/stylelint-config-standard/-/stylelint-config-standard-24.0.0.tgz#6823f207ab997ae0b641f9a636d007cc44d77541"
-  integrity sha512-+RtU7fbNT+VlNbdXJvnjc3USNPZRiRVp/d2DxOF/vBDDTi0kH5RX2Ny6errdtZJH3boO+bmqIYEllEmok4jiuw==
+stylelint-config-standard@^25.0.0:
+  version "25.0.0"
+  resolved "https://registry.yarnpkg.com/stylelint-config-standard/-/stylelint-config-standard-25.0.0.tgz#2c916984e6655d40d6e8748b19baa8603b680bff"
+  integrity sha512-21HnP3VSpaT1wFjFvv9VjvOGDtAviv47uTp3uFmzcN+3Lt+RYRv6oAplLaV51Kf792JSxJ6svCJh/G18E9VnCA==
   dependencies:
-    stylelint-config-recommended "^6.0.0"
+    stylelint-config-recommended "^7.0.0"
 
-stylelint@^14.3.0:
-  version "14.3.0"
-  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-14.3.0.tgz#26b62730da7b3dc320021fc469d80048d7b77ebe"
-  integrity sha512-PZXSwtJe4f4qBPWBwAbHL0M0Qjrv8iHN+cLpUNsffaVMS3YzpDDRI73+2lsqLAYfQEzxRwpll6BDKImREbpHWA==
+stylelint@^14.4.0:
+  version "14.4.0"
+  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-14.4.0.tgz#9ac2fb3681c5e84046cc0d08b6c60a115d61b5a7"
+  integrity sha512-F6H2frcmdpB5ZXPjvHKSZRmszuYz7bsbl2NXyE+Pn+1P6PMD3dYMKjXci6yEzj9+Yf2ZinxBMaXYvSzYjaHtog==
   dependencies:
     balanced-match "^2.0.0"
     colord "^2.9.2"
     cosmiconfig "^7.0.1"
+    css-functions-list "^3.0.0"
     debug "^4.3.3"
     execall "^2.0.0"
     fast-glob "^3.2.11"
@@ -6594,7 +6600,7 @@ stylelint@^14.3.0:
     normalize-path "^3.0.0"
     normalize-selector "^0.2.0"
     picocolors "^1.0.0"
-    postcss "^8.4.5"
+    postcss "^8.4.6"
     postcss-media-query-parser "^0.2.3"
     postcss-resolve-nested-selector "^0.1.1"
     postcss-safe-parser "^6.0.0"
