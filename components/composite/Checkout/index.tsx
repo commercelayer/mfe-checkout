@@ -34,10 +34,10 @@ interface Props {
   logoUrl?: string
   orderNumber: number
   companyName: string
-  supportEmail: string
-  supportPhone: string
-  termsUrl: string
-  privacyUrl: string
+  supportEmail?: string
+  supportPhone?: string
+  termsUrl?: string
+  privacyUrl?: string
 }
 
 const Checkout: React.FC<Props> = ({
