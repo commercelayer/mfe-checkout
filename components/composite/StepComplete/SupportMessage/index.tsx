@@ -34,7 +34,9 @@ export const SupportMessage: React.FC<Props> = ({
           <strong className="text-black border-b border-gray-400 cursor-pointer" />
         ),
         WrapperEmail: <a href={`mailto:${supportEmail}`} />,
-        WrapperPhone: <a href={`tel:${supportPhone}`} />,
+        WrapperPhone: (
+          <a href={`tel:${supportPhone && supportPhone.replace(/\s+/g, "")}`} />
+        ),
       }}
     />
   )
