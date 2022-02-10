@@ -7,7 +7,7 @@ export const InputCss = css`
   &:-webkit-autofill {
     &,
     &:focus {
-      ${tw`shadow-inner`}
+      ${tw`shadow-inner transition-bg duration-[5000s] ease-in-out delay-[0ms]`}
     }
   }
 `

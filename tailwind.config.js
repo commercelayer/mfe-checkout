@@ -62,9 +62,12 @@ module.exports = {
       },
       boxShadow: {
         bottom: "0 2px 0 0 rgba(0, 0, 0, 0.05)",
-        inner: "0 0 0 1000px rgba(255, 255, 255, 1) inset",
+        inner: "0 0 0px 1000px #fff inset",
         top: "0px -4px 1px 0px rgb(0, 0, 0, 0.025)",
       },
+      transitionProperty: {
+        'bg': 'background',
+      }
     },
   },
   variants: {
