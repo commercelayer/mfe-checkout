@@ -166,11 +166,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (order.status === "draft" || order.status === "pending") {
     const _refresh = !paymentReturn
-    await cl.orders.update({
-      id: order.id,
-      _refresh,
-      ...(!order.autorefresh && { autorefresh: true }),
-    })
+    try {
+      await cl.orders.update({
+        id: order.id,
+        _refresh,
+        ...(!order.autorefresh && { autorefresh: true }),
+      })
+    } catch {
+      console.log("error refreshing order")
+    }
   } else if (order.status !== "placed") {
     return invalidateCheckout()
   }
