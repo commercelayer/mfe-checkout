@@ -52,9 +52,6 @@ export const StyledPlaceOrderButton = styled(
 export const StyledPrivacyAndTermsCheckbox = styled(PrivacyAndTermsCheckbox)`
   ${CheckCss}
 `
-export const CheckboxWrapper = styled.div`
-  ${tw`flex justify-center items-center`}
-`
 export const PlaceOrderButtonWrapper = styled(ButtonWrapper)`
   ${tw`fixed w-full bottom-9 p-5 bg-gray-100 z-20 border-t md:(static flex justify-end z-auto p-0 bg-white border-0)`}
   &::before {
