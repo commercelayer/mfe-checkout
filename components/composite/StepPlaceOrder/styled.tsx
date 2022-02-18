@@ -15,13 +15,13 @@ interface StyledPlaceOrderButtonProps {
 }
 
 export const ErrorWrapper = styled.div`
-  ${tw`bg-red-50 flex justify-center border border-2 border-red-300 `}
+  ${tw`bg-red-50 flex justify-center border border-2 border-red-400 ml-8 `}
   & + & {
     ${tw`mb-10 mt-5`}
   }
 `
 export const ErrorIco = styled.div`
-  ${tw`flex items-center bg-red-300`}
+  ${tw`flex items-center bg-red-400`}
 `
 export const ErrorMessage = styled.div`
   ${ErrorCss}
@@ -53,7 +53,7 @@ export const StyledPrivacyAndTermsCheckbox = styled(PrivacyAndTermsCheckbox)`
   ${CheckCss}
 `
 export const PlaceOrderButtonWrapper = styled(ButtonWrapper)`
-  ${tw`fixed w-full bottom-9 p-5 bg-gray-100 z-20 border-t md:(static flex justify-end z-auto p-0 bg-white border-0)`}
+  ${tw`fixed w-full bottom-9 p-5 bg-gray-50 z-20 border-t md:(static flex justify-end z-auto p-0 bg-white border-0)`}
   &::before {
     ${tw`top-0 absolute left-0 w-full z-10 h-2 shadow-top md:hidden`}
 

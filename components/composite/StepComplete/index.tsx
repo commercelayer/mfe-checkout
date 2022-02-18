@@ -80,7 +80,7 @@ export const StepComplete: React.FC<Props> = ({
               <CheckIcon />
             </div>
             <Title>{t("stepComplete.title")}</Title>
-            <Text data-cy="complete-checkout-summary" className="text-gray-500">
+            <Text data-cy="complete-checkout-summary" className="text-gray-400">
               <Trans
                 i18nKey={"stepComplete.description"}
                 values={{ orderNumber: orderNumber }}

@@ -43,7 +43,7 @@ const Body = styled.div`
 `
 
 const Top = styled.div`
-  ${tw`flex items-center md:items-start mb-0.5`}
+  ${tw`flex items-center mb-0.5`}
 `
 
 const Title = styled.h2`
@@ -51,5 +51,5 @@ const Title = styled.h2`
 `
 
 const Info = styled.div`
-  ${tw`text-gray-500 text-sm pl-8`}
+  ${tw`text-gray-400 text-sm pl-8`}
 `

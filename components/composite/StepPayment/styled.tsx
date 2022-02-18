@@ -6,7 +6,7 @@ import { CheckCss } from "components/ui/form/CheckBox"
 import { RadioCss } from "components/ui/form/RadioButton"
 
 export const PaymentWrapper = styled.div`
-  ${tw`border border-gray-300 mb-5 p-3 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-primary`}
+  ${tw`text-black border border-gray-300 mb-5 p-3 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-primary`}
 
   .payment:last-of-type & {
     ${tw`mb-0`}
@@ -41,7 +41,7 @@ export const PaymentSummaryValue = styled.p`
 export const PaymentSourceContainer = styled.div`
   ${tw`mt-2`}
   .StripeElement, .adyen-checkout__input {
-    ${tw`px-2 py-3 border rounded shadow-sm bg-gradient-to-b from-gray-100 transition duration-500 ease-in-out`}
+    ${tw`px-2 py-3 border rounded shadow-sm bg-gradient-to-b from-gray-50 transition duration-500 ease-in-out`}
   }
 
   .adyen-checkout__input {
@@ -50,11 +50,11 @@ export const PaymentSourceContainer = styled.div`
 
   .StripeElement--focus,
   .adyen-checkout__input--focus {
-    ${tw`border-gray-400 bg-gradient-to-t`}
+    ${tw`border-gray-300 bg-gradient-to-t`}
   }
 
   .adyen-checkout__label__text {
-    ${tw`transition-none text-gray-600`}
+    ${tw`transition-none text-gray-500`}
   }
 `
 export const PaymentDetailsWrapper = styled.div`
@@ -64,7 +64,7 @@ export const PaymentItemTitle = styled.h5`
   ${tw`text-sm font-bold`}
 `
 export const ShippingLineItemQty = styled.p`
-  ${tw`text-xs text-gray-500 uppercase pt-1`}
+  ${tw`text-xs text-gray-400 uppercase pt-1`}
 `
 export const WalletCheckbox = styled.input`
   ${CheckCss}
