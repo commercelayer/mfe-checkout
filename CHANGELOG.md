@@ -1,3 +1,20 @@
+# [1.4.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.3.0...v1.4.0) (2022-02-21)
+
+
+### Bug Fixes
+
+* bump react components for email validation fix ([3f4b163](https://github.com/commercelayer/commercelayer-react-checkout/commit/3f4b163886bcc297af4ad04f279f02909af038ed))
+* keep T&C checkbox on top ([0485a3c](https://github.com/commercelayer/commercelayer-react-checkout/commit/0485a3ce18b4d914bce11c9b399c27e59b9d4519))
+* remove auto-fill background on input fields ([76d021d](https://github.com/commercelayer/commercelayer-react-checkout/commit/76d021df9a90d15e7155920dd4145604744b7d1b))
+* remove blank spaces from support phone ([4c5a15a](https://github.com/commercelayer/commercelayer-react-checkout/commit/4c5a15a7a9c192e4576be6f8d5abe5495dd349c9))
+* support mail and phone clickable on mobile ([37f2d31](https://github.com/commercelayer/commercelayer-react-checkout/commit/37f2d314dd03fbd26b052c65b30ab9bb46a5412d))
+
+
+### Features
+
+* add logic to set gtm id based on test mode ([7a6db70](https://github.com/commercelayer/commercelayer-react-checkout/commit/7a6db701313328a71d82c011e9cce04405b4f8ce))
+* new official CL color palette ([bf3568a](https://github.com/commercelayer/commercelayer-react-checkout/commit/bf3568ac516e632fae3349cac20626e5938913c2))
+
 # [1.3.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.2.0...v1.3.0) (2022-02-07)
 
 
