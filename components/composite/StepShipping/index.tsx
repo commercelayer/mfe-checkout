@@ -103,20 +103,18 @@ export const StepShipping: React.FC<Props> = () => {
     return null
   }
 
-  const { shipments, isShipmentRequired, refetchOrder } = appCtx
+  const { shipments, isShipmentRequired, saveShipments, selectShipment } =
+    appCtx
 
-  const [shipmentsSelected, setShipmentsSelected] = useState(shipments)
   const [canContinue, setCanContinue] = useState(false)
   const [isLocalLoader, setIsLocalLoader] = useState(false)
 
   useEffect(() => {
-    setCanContinue(
-      !shipmentsSelected?.map((s) => s.shippingMethodId).includes(undefined)
-    )
-  }, [shipmentsSelected])
-
-  useEffect(() => {
-    setShipmentsSelected(shipments)
+    if (shipments.length > 0) {
+      setCanContinue(
+        !shipments?.map((s) => s.shippingMethodId).includes(undefined)
+      )
+    }
   }, [shipments])
 
   const handleChange = (
@@ -124,21 +122,14 @@ export const StepShipping: React.FC<Props> = () => {
     shippingMethod: ShippingMethodCollection | Record<string, any>,
     shipmentId: string
   ): void => {
-    setShipmentsSelected((shipmentsSelected) =>
-      shipmentsSelected?.map((shipment) => {
-        return shipment.shipmentId === shipmentId
-          ? {
-              ...shipment,
-              shippingMethodId: shippingMethod.id,
-            }
-          : shipment
-      })
-    )
+    selectShipment(shippingMethod, shipmentId)
   }
 
   const handleSave = async () => {
     setIsLocalLoader(true)
-    await refetchOrder()
+
+    await saveShipments()
+
     setIsLocalLoader(false)
     if (gtmCtx?.fireAddShippingInfo) {
       await gtmCtx.fireAddShippingInfo()

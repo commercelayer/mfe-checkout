@@ -1,6 +1,17 @@
-import { createContext, useState, useEffect } from "react"
+import CommerceLayer, {
+  ShippingMethod as ShippingMethodCollection,
+} from "@commercelayer/sdk"
+import { changeLanguage } from "i18next"
+import { createContext, useEffect, useReducer } from "react"
 
-import { fetchOrderById, FetchOrderByIdResponse } from "./fetchOrderById"
+import {
+  calculateSettings,
+  checkAndSetDefaultAddressForOrder,
+  checkIfShipmentRequired,
+  fetchOrder,
+  FetchOrderByIdResponse,
+} from "./fetchOrderById"
+import { ActionType, reducer } from "./reducer"
 
 export interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
@@ -10,15 +21,24 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   domain: string
   isFirstLoading: boolean
   refetchOrder: () => Promise<void>
-  refetchShipments: () => Promise<void>
+  setAddresses: () => void
+  saveShipments: () => void
+  selectShipment: (
+    shippingMethod: {
+      id: string
+    },
+    shipmentId: string
+  ) => void
 }
 
-interface AppStateData extends FetchOrderByIdResponse {
+export interface AppStateData extends FetchOrderByIdResponse {
+  order: any
   isLoading: boolean
   isFirstLoading: boolean
 }
 
 const initialState: AppStateData = {
+  order: undefined,
   isLoading: true,
   isFirstLoading: true,
   isGuest: false,
@@ -62,44 +82,97 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   slug,
   domain,
 }) => {
-  const [state, setState] = useState(initialState)
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+  const cl = CommerceLayer({
+    organization: slug,
+    accessToken: accessToken,
+    domain,
+  })
 
   const fetchOrderHandle = async (orderId?: string, accessToken?: string) => {
     if (!orderId || !accessToken) {
       return
     }
-    setState({ ...state, isLoading: true })
+    dispatch({ type: ActionType.START_LOADING })
+    const order = await fetchOrder(cl, orderId)
+    const { addresses, ...others } = await calculateSettings(order)
 
-    return await fetchOrderById({ orderId, accessToken, slug, domain }).then(
-      (newState) => {
-        setState({ ...newState, isLoading: false, isFirstLoading: false })
-      }
-    )
+    const addressInfos = await checkAndSetDefaultAddressForOrder({
+      cl,
+      order,
+      customerAddresses: addresses,
+    })
+
+    const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
+
+    // Set shipping method if only one, but defer if not address set
+
+    // Set payment if only one, but defer if not address and shipping method set
+
+    dispatch({
+      type: ActionType.SET_ORDER,
+      payload: {
+        order,
+        others: { isShipmentRequired, ...others, ...addressInfos },
+      },
+    })
+
+    await changeLanguage(order.language_code)
   }
 
-  const fetchShipmentsHandle = async (
-    orderId?: string,
-    accessToken?: string
-  ) => {
-    if (!orderId || !accessToken) {
-      return
-    }
-    setState({ ...state, isLoading: true })
+  const setAddresses = async () => {
+    dispatch({ type: ActionType.START_LOADING })
+    const order = await cl.orders.retrieve(orderId, {
+      fields: {
+        orders: ["shipping_address", "billing_address", "shipments"],
+      },
+      include: ["shipping_address", "billing_address", "shipments"],
+    })
 
-    return await fetchOrderById({ orderId, accessToken, slug, domain }).then(
-      (newState) => {
-        setState({
-          ...state,
-          isLoading: false,
-          isFirstLoading: false,
-          paymentMethod: newState.paymentMethod,
-          isPaymentRequired: newState.isPaymentRequired,
-          hasPaymentMethod: newState.hasPaymentMethod,
-          isShipmentRequired: newState.isShipmentRequired,
-          shipments: newState.shipments,
-        })
-      }
-    )
+    // Set shipping method if only one
+
+    // Set payment if only one, but defer if not shipping method set
+
+    dispatch({
+      type: ActionType.SET_ADDRESSES,
+      payload: {
+        billingAddress: order.billing_address,
+        shippingAddress: order.shipping_address,
+        shipments: order.shipments,
+      },
+    })
+  }
+
+  const selectShipment = async (
+    shippingMethod: ShippingMethodCollection | Record<string, any>,
+    shipmentId: string
+  ) => {
+    dispatch({
+      type: ActionType.SELECT_SHIPMENT,
+      payload: {
+        shippingMethod,
+        shipmentId,
+      },
+    })
+  }
+
+  const saveShipments = async () => {
+    dispatch({ type: ActionType.START_LOADING })
+    const order = await cl.orders.retrieve(orderId, {
+      fields: {
+        orders: ["id", "shipments"],
+        shipments: ["shipping_method"],
+      },
+      include: ["shipments", "shipments.shipping_method"],
+    })
+
+    // Set payment if only one, but defer if not shipping method set
+
+    dispatch({
+      type: ActionType.SAVE_SHIPMENTS,
+      payload: { shipments: order.shipments },
+    })
   }
 
   useEffect(() => {
@@ -117,11 +190,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         accessToken,
         slug,
         domain,
+        setAddresses,
+        selectShipment,
+        saveShipments,
         refetchOrder: async () => {
           return await fetchOrderHandle(orderId, accessToken)
-        },
-        refetchShipments: async () => {
-          return await fetchShipmentsHandle(orderId, accessToken)
         },
       }}
     >

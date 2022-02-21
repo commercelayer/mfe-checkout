@@ -94,6 +94,10 @@ export const StepPayment: React.FC = () => {
 
   const { isGuest, isPaymentRequired, refetchOrder } = appCtx
 
+  const selectPayment = async () => {
+    // refetchOrder()
+  }
+
   return (
     <StepContainer
       className={classNames({
@@ -106,9 +110,9 @@ export const StepPayment: React.FC = () => {
           <div>
             {isPaymentRequired ? (
               isGuest ? (
-                <CheckoutPayment refetchOrder={refetchOrder} />
+                <CheckoutPayment selectPayment={selectPayment} />
               ) : (
-                <CheckoutCustomerPayment refetchOrder={refetchOrder} />
+                <CheckoutCustomerPayment selectPayment={selectPayment} />
               )
             ) : (
               <p className="text-sm text-gray-400">

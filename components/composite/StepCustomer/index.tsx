@@ -75,7 +75,7 @@ export const StepCustomer: React.FC<Props> = () => {
     isUsingNewShippingAddress,
     hasCustomerAddresses,
     shippingCountryCodeLock,
-    refetchOrder,
+    setAddresses,
   } = appCtx
 
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
@@ -103,7 +103,7 @@ export const StepCustomer: React.FC<Props> = () => {
 
   const handleSave = async () => {
     setIsLocalLoader(true)
-    await refetchOrder()
+    await setAddresses()
 
     // it is used temporarily to scroll
     // to the next step and fix
