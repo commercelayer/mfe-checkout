@@ -15,17 +15,17 @@ export const ShippingTitle = styled.h4`
 `
 export const ShippingSummary = styled.div`
   input:checked + label {
-    ${tw`border-2 border-primary shadow-md bg-gray-100`}
+    ${tw`border-2 border-primary shadow-md bg-gray-50`}
   }
 `
 export const ShippingSummaryItem = styled.div`
   ${tw`flex flex-1 font-bold ml-2 flex-col md:flex-row`}
 `
 export const ShippingSummaryItemDescription = styled.p`
-  ${tw`text-gray-600 font-normal text-ss`}
+  ${tw`text-gray-500 font-normal text-ss`}
 `
 export const ShippingSummaryValue = styled.p`
-  ${tw`font-bold uppercase text-sm pt-2`}
+  ${tw`text-black font-bold uppercase text-sm pt-2`}
 `
 export const ShippingLineItem = styled.div`
   ${tw`flex mt-4`}
@@ -34,10 +34,10 @@ export const ShippingLineItemDescription = styled.div`
   ${tw`flex flex-col ml-3`}
 `
 export const ShippingLineItemTitle = styled.h5`
-  ${tw`text-sm font-bold`}
+  ${tw`text-black text-sm font-bold`}
 `
 export const ShippingLineItemQty = styled.p`
-  ${tw`text-xs text-gray-500 uppercase pt-1`}
+  ${tw`text-xs text-gray-400 uppercase pt-1`}
 `
 export const StyledShippingMethodRadioButton = styled(
   ShippingMethodRadioButton

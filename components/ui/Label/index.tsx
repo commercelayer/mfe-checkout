@@ -21,12 +21,12 @@ export const Label: React.FC<Props> = ({
 }
 
 const Wrapper = styled.label`
-  ${tw`ml-2 cursor-pointer text-sm text-gray-600`}
+  ${tw`ml-2 cursor-pointer text-sm text-gray-500`}
   &.hasError {
     ${tw`text-red-400`}
   }
 
   a {
-    ${tw`text-gray-900 border-b border-gray-200 transition ease hover:text-gray-600`}
+    ${tw`text-gray-900 border-b border-gray-200 transition ease hover:text-gray-500`}
   }
 `

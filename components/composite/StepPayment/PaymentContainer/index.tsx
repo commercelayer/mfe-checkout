@@ -32,7 +32,7 @@ export const PaymentContainer: React.FC = ({ children }) => {
           expDateContainerClassName: "flex-none w-2/4 xl:mx-3 xl:w-24",
           cvvContainerClassName: "flex-none w-2/4 pl-3 xl:w-14 xl:pl-0",
           inputWrapperClassName: "h-8 border rounded",
-          fieldLabelClassName: "text-xs text-gray-500",
+          fieldLabelClassName: "text-xs text-gray-400",
         },
         stripePayment: {
           fonts: [
@@ -67,7 +67,7 @@ export const PaymentContainer: React.FC = ({ children }) => {
         wireTransfer: {
           infoMessage: {
             text: t("stepPayment.wireTransferDescription"),
-            className: "text-sm text-gray-500",
+            className: "text-sm text-gray-400",
           },
         },
         paypalPayment: {
@@ -75,7 +75,7 @@ export const PaymentContainer: React.FC = ({ children }) => {
           return_url: `${window.location.href}&paymentReturn=true`,
           infoMessage: {
             text: t("stepPayment.paypalDescription"),
-            className: "text-sm text-gray-500",
+            className: "text-sm text-gray-400",
           },
         },
       }}
