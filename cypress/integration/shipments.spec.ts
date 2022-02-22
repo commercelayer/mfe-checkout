@@ -127,7 +127,7 @@ describe("Checkout Shipments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
       cy.wait(3000)
@@ -325,7 +325,7 @@ describe("Checkout Shipments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
       cy.wait(3000)
@@ -358,7 +358,7 @@ describe("Checkout Shipments", () => {
         timeout: 100000,
       })
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders"], {
+      cy.wait(["@getOrders", "@deliveryLeadTimes", "@getCustomerAddresses"], {
         timeout: 100000,
       })
       cy.dataCy("step_shipping")
@@ -465,7 +465,7 @@ describe("Checkout Shipments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -579,7 +579,7 @@ describe("Checkout Shipments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -714,7 +714,7 @@ describe("Checkout Shipments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -850,7 +850,7 @@ describe("Checkout Shipments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -994,7 +994,7 @@ describe("Checkout Shipments", () => {
           }
         )
         cy.dataCy("save-shipments-button").click()
-        cy.wait(["@getOrders", "@getOrders"], {
+        cy.wait(["@getOrders"], {
           timeout: 100000,
         })
       })
@@ -1177,7 +1177,7 @@ describe("Checkout Shipments", () => {
           }
         )
         cy.dataCy("save-shipments-button").click()
-        cy.wait(["@getOrders", "@getOrders"], {
+        cy.wait(["@getOrders"], {
           timeout: 100000,
         })
         cy.wait(3000)
@@ -1211,7 +1211,7 @@ describe("Checkout Shipments", () => {
           }
         )
         cy.dataCy("save-shipments-button").click()
-        cy.wait(["@getOrders", "@getOrders"], {
+        cy.wait(["@getOrders"], {
           timeout: 100000,
         })
         cy.wait(3000)
