@@ -1,3 +1,5 @@
+import { Address, Order, Shipment, ShippingMethod } from "@commercelayer/sdk"
+
 import { prepareShipments } from "./fetchOrderById"
 
 import { AppStateData } from "."
@@ -15,7 +17,7 @@ export type Action =
   | {
       type: ActionType.SET_ORDER
       payload: {
-        order: any
+        order: Order
         others: Partial<AppStateData>
       }
     }
@@ -23,9 +25,7 @@ export type Action =
       type: ActionType.SELECT_SHIPMENT
       payload: {
         shipmentId: string
-        shippingMethod: {
-          id: string
-        }
+        shippingMethod: ShippingMethod | Record<string, any>
       }
     }
   | { type: ActionType.START_LOADING }
@@ -33,15 +33,15 @@ export type Action =
   | {
       type: ActionType.SAVE_SHIPMENTS
       payload: {
-        shipments: any
+        shipments?: Array<Shipment>
       }
     }
   | {
       type: ActionType.SET_ADDRESSES
       payload: {
-        billingAddress: any
-        shippingAddress: any
-        shipments: any
+        billingAddress?: Address
+        shippingAddress?: Address
+        shipments?: Array<Shipment>
       }
     }
 
@@ -110,7 +110,13 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
   }
 }
 
-function calculateSelectedShipments(shipments, payload) {
+function calculateSelectedShipments(
+  shipments: ShipmentSelected[],
+  payload: {
+    shipmentId: string
+    shippingMethod: ShippingMethod | Record<string, any>
+  }
+) {
   return shipments?.map((shipment) => {
     return shipment.shipmentId === payload.shipmentId
       ? {

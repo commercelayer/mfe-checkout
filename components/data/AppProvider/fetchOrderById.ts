@@ -13,6 +13,7 @@ import CommerceLayer, {
   CheckoutComPayment,
   ExternalPayment,
   PaypalPayment,
+  Shipment,
 } from "@commercelayer/sdk"
 import { changeLanguage } from "i18next"
 
@@ -34,7 +35,7 @@ interface IsNewAddressProps {
 interface CheckAndSetDefaultAddressForOrderProps {
   cl: CommerceLayerClient
   order: Order
-  customerAddresses: Array<CustomerAddress>
+  customerAddresses?: Array<CustomerAddress>
 }
 
 export interface FetchOrderByIdResponse {
@@ -67,7 +68,7 @@ function isNewAddress({
   address,
   customerAddresses,
   isGuest,
-}: IsNewAddressProps): any {
+}: IsNewAddressProps): boolean {
   if (isGuest) {
     return true
   }
@@ -107,6 +108,7 @@ export async function checkAndSetDefaultAddressForOrder({
   console.log(customerAddresses)
   if (
     order.guest ||
+    !customerAddresses ||
     (customerAddresses && customerAddresses.length !== 1) ||
     order.billing_address ||
     order.shipping_address
@@ -607,8 +609,8 @@ export const fetchOrderById = async ({
   }
 }
 
-export function prepareShipments(shipments: any) {
-  return shipments?.map((a) => {
+export function prepareShipments(shipments?: Shipment[]) {
+  return (shipments || []).map((a) => {
     return {
       shipmentId: a.id,
       shippingMethodId: a.shipping_method?.id,
@@ -617,7 +619,7 @@ export function prepareShipments(shipments: any) {
   })
 }
 
-export async function calculateSettings(order) {
+export async function calculateSettings(order: Order) {
   const addresses = order.customer?.customer_addresses
   return {
     isPaymentRequired: !(order.total_amount_with_taxes_float === 0),

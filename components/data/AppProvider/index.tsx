@@ -90,7 +90,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     domain,
   })
 
-  const fetchOrderHandle = async (orderId?: string, accessToken?: string) => {
+  const fetchInitialOrder = async (orderId?: string, accessToken?: string) => {
     if (!orderId || !accessToken) {
       return
     }
@@ -107,6 +107,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     // Set shipping method if only one, but defer if not address set
+    // setAutomatedShippingMethods(order, addresses, )
 
     // Set payment if only one, but defer if not address and shipping method set
 
@@ -177,7 +178,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   useEffect(() => {
     const unsubscribe = () => {
-      fetchOrderHandle(orderId, accessToken)
+      fetchInitialOrder(orderId, accessToken)
     }
     return unsubscribe()
   }, [orderId, accessToken])
@@ -194,7 +195,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         selectShipment,
         saveShipments,
         refetchOrder: async () => {
-          return await fetchOrderHandle(orderId, accessToken)
+          return await fetchInitialOrder(orderId, accessToken)
         },
       }}
     >
