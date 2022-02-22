@@ -76,6 +76,7 @@ export const StepCustomer: React.FC<Props> = () => {
     hasCustomerAddresses,
     shippingCountryCodeLock,
     setAddresses,
+    setCustomerEmail,
   } = appCtx
 
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
@@ -133,6 +134,7 @@ export const StepCustomer: React.FC<Props> = () => {
                 billingAddress={billingAddress}
                 emailAddress={emailAddress}
                 hasSameAddresses={hasSameAddresses}
+                setCustomerEmail={setCustomerEmail}
                 isShipmentRequired={isShipmentRequired}
                 isLocalLoader={isLocalLoader}
                 openShippingAddress={openShippingAddress}

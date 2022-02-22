@@ -144,7 +144,7 @@ describe("Checkout Coupon", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -278,7 +278,7 @@ describe("Checkout Coupon", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })

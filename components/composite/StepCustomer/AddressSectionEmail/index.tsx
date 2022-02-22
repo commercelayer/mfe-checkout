@@ -13,11 +13,13 @@ import { Label } from "components/ui/form/Label"
 
 interface Props {
   readonly?: boolean
+  setCustomerEmail?: () => Promise<void>
   emailAddress: string | undefined
 }
 
 export const AddressSectionEmail: React.FC<Props> = ({
   readonly,
+  setCustomerEmail,
   emailAddress,
 }) => {
   const { t } = useTranslation()
@@ -36,6 +38,12 @@ export const AddressSectionEmail: React.FC<Props> = ({
       message: t("input.mustBeValidEmail"),
     },
   ]
+  const saveEmail = async () => {
+    if (setCustomerEmail) {
+      console.log("before setCustomerEmail")
+      await setCustomerEmail()
+    }
+  }
 
   return (
     <Wrapper>
@@ -52,6 +60,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
               id="customer_email"
               errorClassName="hasError"
               saveOnBlur={true}
+              onBlur={saveEmail}
               value={emailAddress}
             />
             <StyledErrors

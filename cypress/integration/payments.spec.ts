@@ -141,7 +141,7 @@ describe("Checkout Payments", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -157,8 +157,6 @@ describe("Checkout Payments", () => {
           "@stripePayments",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
         ],
         { timeout: 100000 }
@@ -278,16 +276,9 @@ describe("Checkout Payments", () => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
       cy.get("@paymentMethodItem3").click({ force: true })
-      cy.wait(
-        [
-          "@updateOrder",
-          "@stripePayments",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@updateOrder", "@stripePayments", "@getOrders"], {
+        timeout: 100000,
+      })
     })
 
     it("insert data credit card and check data", () => {
@@ -388,7 +379,7 @@ describe("Checkout Payments", () => {
       })
     })
 
-    it("check if not avaible save to wallet", () => {
+    it("check if not available save to wallet", () => {
       cy.wait(5000)
       cy.dataCy("payment-save-wallet").should("not.exist")
     })
@@ -398,16 +389,9 @@ describe("Checkout Payments", () => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
       cy.get("@paymentMethodItem3").click({ force: true })
-      cy.wait(
-        [
-          "@updateOrder",
-          "@stripePayments",
-          "@getOrders",
-          "@getOrders",
-          "@getOrders",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@updateOrder", "@stripePayments", "@getOrders"], {
+        timeout: 100000,
+      })
     })
 
     it("insert data credit card and check data", () => {
@@ -429,7 +413,7 @@ describe("Checkout Payments", () => {
       })
       cy.get("@paymentMethodItem4").click({ force: true })
       cy.dataCy("place-order-button").should("be.disabled")
-      cy.wait(["@getOrders", "@getOrders", "@getOrders", "@updateOrder"], {
+      cy.wait(["@getOrders", "@updateOrder"], {
         timeout: 100000,
       })
       cy.dataCy("place-order-button").should("be.enabled")
@@ -555,8 +539,6 @@ describe("Checkout Payments", () => {
           "@updateOrder",
           "@getCustomerAddresses",
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
         ],
         { timeout: 100000 }
@@ -590,7 +572,7 @@ describe("Checkout Payments", () => {
     })
   })
 
-  context(
+  context.only(
     "save card to customer wallet, customer order with one payment method not selected",
     () => {
       before(function () {

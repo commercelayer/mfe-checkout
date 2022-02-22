@@ -21,6 +21,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   domain: string
   isFirstLoading: boolean
   refetchOrder: () => Promise<void>
+  setCustomerEmail: () => Promise<void>
   setAddresses: () => void
   saveShipments: () => void
   placeOrder: () => Promise<void>
@@ -123,6 +124,19 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     await changeLanguage(order.language_code)
   }
 
+  const setCustomerEmail = async () => {
+    dispatch({ type: ActionType.START_LOADING })
+    const order = await cl.orders.retrieve(orderId, {
+      fields: {
+        orders: ["customer_email"],
+      },
+    })
+    dispatch({
+      type: ActionType.SET_CUSTOMER_EMAIL,
+      payload: { customerEmail: order.customer_email },
+    })
+  }
+
   const setAddresses = async () => {
     dispatch({ type: ActionType.START_LOADING })
     const order = await cl.orders.retrieve(orderId, {
@@ -210,6 +224,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         selectShipment,
         saveShipments,
         placeOrder,
+        setCustomerEmail,
         refetchOrder: async () => {
           return await fetchInitialOrder(orderId, accessToken)
         },

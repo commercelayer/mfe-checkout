@@ -8,6 +8,7 @@ export enum ActionType {
   START_LOADING = "START_LOADING",
   STOP_LOADING = "STOP_LOADING",
   SET_ORDER = "SET_ORDER",
+  SET_CUSTOMER_EMAIL = "SET_CUSTOMER_EMAIL",
   SELECT_SHIPMENT = "SELECT_SHIPMENT",
   SET_ADDRESSES = "SET_ADDRESSES",
   SAVE_SHIPMENTS = "SAVE_SHIPMENTS",
@@ -35,6 +36,12 @@ export type Action =
       type: ActionType.PLACE_ORDER
       payload: {
         order: Order
+      }
+    }
+  | {
+      type: ActionType.SET_CUSTOMER_EMAIL
+      payload: {
+        customerEmail?: string
       }
     }
   | {
@@ -69,7 +76,15 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         ...state,
         order: action.payload.order,
         ...action.payload.others,
+        hasShippingMethod: !action.payload.others.isShipmentRequired,
         isFirstLoading: false,
+        isLoading: false,
+      }
+    case ActionType.SET_CUSTOMER_EMAIL:
+      return {
+        ...state,
+        emailAddress: action.payload.customerEmail,
+        hasEmailAddress: Boolean(action.payload.customerEmail),
         isLoading: false,
       }
     case ActionType.PLACE_ORDER: {
@@ -86,7 +101,6 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         ...action.payload,
         hasBillingAddress: Boolean(action.payload.billingAddress),
         hasShippingAddress: Boolean(action.payload.shippingAddress),
-        hasShippingMethod: !state.isShipmentRequired,
         shipments: state.isShipmentRequired
           ? prepareShipments(action.payload.shipments)
           : [],

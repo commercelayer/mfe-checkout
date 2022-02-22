@@ -294,7 +294,7 @@ describe("Checkout GiftCard", () => {
 
     it("remove Gift Card and check amount", () => {
       cy.dataCy("remove_giftcard").click()
-      cy.wait(["@getOrders", "@getCustomerAddresses", "@updateOrder"], {
+      cy.wait(["@getCustomerAddresses", "@updateOrder"], {
         timeout: 100000,
       })
       cy.dataCy("total-amount").should("contain", "256,00")

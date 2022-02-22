@@ -70,7 +70,7 @@ describe("Checkout guest address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+      cy.wait(["@getOrders", "@updateOrder", "@createAddress"], {
         timeout: 100000,
       })
 
@@ -104,7 +104,7 @@ describe("Checkout guest address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+      cy.wait(["@getOrders", "@updateOrder", "@createAddress"], {
         timeout: 100000,
       })
     })
@@ -377,7 +377,7 @@ describe("Checkout guest address", () => {
         },
       })
       cy.dataCy("save-addresses-button").click()
-      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+      cy.wait(["@getOrders", "@updateOrder", "@createAddress"], {
         timeout: 100000,
       })
     })

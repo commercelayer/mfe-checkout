@@ -133,8 +133,6 @@ describe("Checkout Checkout-Digital", () => {
       cy.wait(
         [
           "@getOrders",
-          "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -171,14 +169,7 @@ describe("Checkout Checkout-Digital", () => {
       cy.wait(2000)
       cy.dataCy("place-order-button").click()
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@getCustomerAddresses",
-          "@getOrders",
-          // "@paymentMethods",
-        ],
+        ["@getOrders", "@getOrders", "@updateOrder", "@getCustomerAddresses"],
         {
           timeout: 100000,
         }
