@@ -40,7 +40,6 @@ export const AddressSectionEmail: React.FC<Props> = ({
   ]
   const saveEmail = async () => {
     if (setCustomerEmail) {
-      console.log("before setCustomerEmail")
       await setCustomerEmail()
     }
   }

@@ -58,6 +58,7 @@ const initialState: AppStateData = {
   hasShippingMethod: false,
   hasShippingAddress: false,
   shipments: [],
+  customerAddresses: [],
   paymentMethod: undefined,
   hasPaymentMethod: false,
   isPaymentRequired: true,
@@ -98,14 +99,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     }
     dispatch({ type: ActionType.START_LOADING })
     const order = await fetchOrder(cl, orderId)
-    const { addresses, ...others } = await calculateSettings(order)
+    const others = calculateSettings(order)
 
     const addressInfos = await checkAndSetDefaultAddressForOrder({
       cl,
       order,
-      customerAddresses: addresses,
     })
-
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     // Set shipping method if only one, but defer if not address set
@@ -153,9 +152,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     dispatch({
       type: ActionType.SET_ADDRESSES,
       payload: {
-        billingAddress: order.billing_address,
-        shippingAddress: order.shipping_address,
-        shipments: order.shipments,
+        order,
       },
     })
   }

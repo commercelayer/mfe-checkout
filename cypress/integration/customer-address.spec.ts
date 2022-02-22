@@ -86,7 +86,6 @@ describe("Checkout customer address", () => {
       cy.wait(
         [
           "@getOrders",
-          "@getOrders",
           "@deliveryLeadTimes",
           "@updateOrder",
           "@createAddress",
@@ -128,7 +127,6 @@ describe("Checkout customer address", () => {
       cy.wait(
         [
           "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@updateOrder",
           "@createAddress",
@@ -164,7 +162,6 @@ describe("Checkout customer address", () => {
       cy.wait(
         [
           "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@updateOrder",
           "@createAddress",
@@ -197,7 +194,6 @@ describe("Checkout customer address", () => {
 
       cy.wait(
         [
-          "@getOrders",
           "@getOrders",
           "@getCustomerAddresses",
           "@updateOrder",
@@ -306,7 +302,6 @@ describe("Checkout customer address", () => {
       cy.wait(
         [
           "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@createAddress",
           "@getCustomerAddresses",
@@ -345,7 +340,6 @@ describe("Checkout customer address", () => {
       cy.wait(
         [
           "@getOrders",
-          "@getOrders",
           "@updateOrder",
           "@createAddress",
           "@createAddress",
@@ -378,7 +372,6 @@ describe("Checkout customer address", () => {
 
       cy.wait(
         [
-          "@getOrders",
           "@getOrders",
           "@updateOrder",
           "@createAddress",
@@ -482,7 +475,7 @@ describe("Checkout customer address", () => {
     })
   })
 
-  context("initial order empty with one address on book", () => {
+  context.only("initial order empty with one address on book", () => {
     let requires_billing_info = false
     beforeEach(function () {
       cy.getTokenCustomer({
@@ -537,7 +530,6 @@ describe("Checkout customer address", () => {
           "@getOrders",
           "@getOrders",
           "@getOrders",
-          "@getOrders",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
@@ -546,7 +538,6 @@ describe("Checkout customer address", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@getCustomerAddresses",
-          "@deliveryLeadTimes",
           "@updateOrder",
           "@updateOrder",
           "@updateAddress",
@@ -582,7 +573,7 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+      cy.wait(["@getOrders", "@updateOrder", "@createAddress"], {
         timeout: 100000,
       })
     })
@@ -616,7 +607,7 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+      cy.wait(["@getOrders", "@updateOrder", "@createAddress"], {
         timeout: 100000,
       })
     })
@@ -648,7 +639,7 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(["@getOrders", "@getOrders", "@updateOrder", "@createAddress"], {
+      cy.wait(["@getOrders", "@updateOrder", "@createAddress"], {
         timeout: 100000,
       })
     })
@@ -687,7 +678,7 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(["@getOrders", "@getOrders", "@updateOrder"], {
+      cy.wait(["@getOrders", "@updateOrder"], {
         timeout: 100000,
       })
     })

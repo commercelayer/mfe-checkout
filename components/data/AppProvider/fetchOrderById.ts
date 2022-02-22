@@ -19,6 +19,8 @@ import { changeLanguage } from "i18next"
 
 import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
 
+import { AppStateData } from "."
+
 interface FetchOrderByIdProps {
   orderId: string
   accessToken: string
@@ -44,6 +46,7 @@ export interface FetchOrderByIdResponse {
   isUsingNewShippingAddress: boolean
   hasSameAddresses: boolean
   hasEmailAddress: boolean
+  customerAddresses: CustomerAddress[]
   emailAddress: string | undefined
   hasShippingAddress: boolean
   shippingAddress: Address | undefined
@@ -102,10 +105,8 @@ function isNewAddress({
 export async function checkAndSetDefaultAddressForOrder({
   cl,
   order,
-  customerAddresses,
 }: CheckAndSetDefaultAddressForOrderProps) {
-  console.log(order)
-  console.log(customerAddresses)
+  const customerAddresses = order?.customer?.customer_addresses
   if (
     order.guest ||
     !customerAddresses ||
@@ -141,47 +142,51 @@ export async function checkAndSetDefaultAddressForOrder({
     _shipping_address_clone_id: addressId,
   }
   try {
-    await cl.orders
-      .update(updateObjet, { include: ["billing_address", "shipping_address"] })
-      .then(async function (orderObj: Order) {
-        const billingAddressToUpdate = orderObj.billing_address?.id
-        const shippingAddressToUpdate = orderObj.shipping_address?.id
-        const updatedOrder = await cl.orders.update({
-          id: order.id,
-          ...(billingAddressToUpdate &&
-            addressId && {
-              billing_address: {
-                id: addressId,
-                type: "addresses",
-              },
-            }),
-          ...(shippingAddressToUpdate &&
-            addressId && {
-              shipping_address: {
-                id: addressId,
-                type: "addresses",
-              },
-            }),
-        })
-        localStorage.setItem(
-          "_save_billing_address_to_customer_address_book",
-          "false"
-        )
-        localStorage.setItem(
-          "_save_shipping_address_to_customer_address_book",
-          "false"
-        )
-        return {
-          hasSameAddresses: true,
-          hasBillingAddress: true,
-          hasShippingAddress: true,
-          isUsingNewBillingAddress: false,
-          isUsingNewShippingAddress: false,
-          billingAddress: updatedOrder.billing_address,
-          shippingAddress: updatedOrder.shipping_address,
-        }
-      })
-    return {}
+    console.log("update order")
+    const orderObj = await cl.orders.update(updateObjet, {
+      include: ["billing_address", "shipping_address"],
+    })
+
+    const billingAddressToUpdate = orderObj.billing_address?.id
+    const shippingAddressToUpdate = orderObj.shipping_address?.id
+    console.log("update Order 2")
+    const updatedOrder = await cl.orders.update(
+      {
+        id: order.id,
+        ...(billingAddressToUpdate &&
+          addressId && {
+            billing_address: {
+              id: addressId,
+              type: "addresses",
+            },
+          }),
+        ...(shippingAddressToUpdate &&
+          addressId && {
+            shipping_address: {
+              id: addressId,
+              type: "addresses",
+            },
+          }),
+      },
+      { include: ["billing_address", "shipping_address"] }
+    )
+    localStorage.setItem(
+      "_save_billing_address_to_customer_address_book",
+      "false"
+    )
+    localStorage.setItem(
+      "_save_shipping_address_to_customer_address_book",
+      "false"
+    )
+    return {
+      hasSameAddresses: true,
+      hasBillingAddress: true,
+      hasShippingAddress: true,
+      isUsingNewBillingAddress: false,
+      isUsingNewShippingAddress: false,
+      billingAddress: updatedOrder.billing_address,
+      shippingAddress: updatedOrder.shipping_address,
+    }
   } catch (error) {
     console.log(error)
     return {}
@@ -291,7 +296,6 @@ export const fetchOrderById = async ({
   slug,
   domain,
 }: FetchOrderByIdProps): Promise<FetchOrderByIdResponse> => {
-  console.log("start fetch order by id")
   const cl = CommerceLayer({
     organization: slug,
     accessToken: accessToken,
@@ -574,6 +578,7 @@ export const fetchOrderById = async ({
       shippingCountryCodeLock,
       isShipmentRequired,
       isPaymentRequired,
+      customerAddresses: [],
       isCreditCard,
       isComplete,
       returnUrl,
@@ -593,6 +598,7 @@ export const fetchOrderById = async ({
       shippingAddress: undefined,
       hasBillingAddress: false,
       billingAddress: undefined,
+      customerAddresses: [],
       requiresBillingInfo: false,
       hasShippingMethod: false,
       shipments: [],
@@ -623,39 +629,51 @@ function isPaymentRequired(order: Order) {
   return !(order.total_amount_with_taxes_float === 0)
 }
 
-export async function calculateSettings(order: Order) {
-  const addresses = order.customer?.customer_addresses
-  return {
-    isPaymentRequired: isPaymentRequired(order),
-    isGuest: Boolean(order.guest),
-    shippingCountryCodeLock: order.shipping_country_code_lock,
-    hasCustomerAddresses: (addresses && addresses.length >= 1) || false,
-    hasEmailAddress: Boolean(order.customer_email),
-    emailAddress: order.customer_email,
+export function calculateAddresses(
+  order: Order,
+  addresses?: CustomerAddress[]
+): Partial<AppStateData> {
+  const cAddresses = addresses || order.customer?.customer_addresses
+  const values = {
+    hasCustomerAddresses: (cAddresses && cAddresses.length >= 1) || false,
     billingAddress: order.billing_address,
     shippingAddress: order.shipping_address,
     hasBillingAddress: Boolean(order.billing_address),
     hasShippingAddress: Boolean(order.shipping_address),
-    isComplete: order.status === "placed",
-    returnUrl: order.return_url,
-    taxIncluded: order.tax_included,
-    requiresBillingInfo: order.requires_billing_info,
-    shipments: prepareShipments(order.shipments),
-    addresses,
+    addresses: cAddresses,
     isUsingNewBillingAddress: isNewAddress({
       address: order.billing_address,
-      customerAddresses: addresses,
+      customerAddresses: cAddresses,
       isGuest: Boolean(order.guest),
     }),
     isUsingNewShippingAddress: isNewAddress({
       address: order.shipping_address,
-      customerAddresses: addresses,
+      customerAddresses: cAddresses,
       isGuest: Boolean(order.guest),
     }),
     hasSameAddresses: isBillingAddresSameAsShippingAddress({
       billingAddress: order.billing_address,
       shippingAddress: order.shipping_address,
     }),
+  }
+  return values
+}
+
+export function calculateSettings(order: Order) {
+  const calculatedAddresses = calculateAddresses(order)
+  return {
+    isPaymentRequired: isPaymentRequired(order),
+    isGuest: Boolean(order.guest),
+    shippingCountryCodeLock: order.shipping_country_code_lock,
+    hasEmailAddress: Boolean(order.customer_email),
+    emailAddress: order.customer_email,
+    customerAddresses: order.customer?.customer_addresses,
+    ...calculatedAddresses,
+    isComplete: order.status === "placed",
+    returnUrl: order.return_url,
+    taxIncluded: order.tax_included,
+    requiresBillingInfo: order.requires_billing_info,
+    shipments: prepareShipments(order.shipments),
   }
 }
 

@@ -1,6 +1,10 @@
-import { Address, Order, Shipment, ShippingMethod } from "@commercelayer/sdk"
+import { Order, Shipment, ShippingMethod } from "@commercelayer/sdk"
 
-import { prepareShipments, checkPaymentMethod } from "./fetchOrderById"
+import {
+  prepareShipments,
+  checkPaymentMethod,
+  calculateAddresses,
+} from "./fetchOrderById"
 
 import { AppStateData } from "."
 
@@ -53,9 +57,7 @@ export type Action =
   | {
       type: ActionType.SET_ADDRESSES
       payload: {
-        billingAddress?: Address
-        shippingAddress?: Address
-        shipments?: Array<Shipment>
+        order: Order
       }
     }
 
@@ -98,11 +100,9 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
       console.log(state.order.shipments)
       return {
         ...state,
-        ...action.payload,
-        hasBillingAddress: Boolean(action.payload.billingAddress),
-        hasShippingAddress: Boolean(action.payload.shippingAddress),
+        ...calculateAddresses(action.payload.order, state.customerAddresses),
         shipments: state.isShipmentRequired
-          ? prepareShipments(action.payload.shipments)
+          ? prepareShipments(action.payload.order.shipments)
           : [],
         isLoading: false,
       }
