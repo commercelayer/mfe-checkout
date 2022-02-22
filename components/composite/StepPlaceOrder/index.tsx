@@ -47,7 +47,7 @@ const StepPlaceOrder: React.FC<Props> = ({
     return null
   }
 
-  const { refetchOrder } = appCtx
+  const { refetchOrder, placeOrder } = appCtx
 
   const messages: ErrorComponentProps["messages"] = [
     {
@@ -100,7 +100,7 @@ const StepPlaceOrder: React.FC<Props> = ({
       await gtmCtx.fireAddPaymentInfo()
       await gtmCtx.firePurchase()
     }
-    await refetchOrder()
+    await placeOrder()
     setIsPlacingOrder(false)
   }
 

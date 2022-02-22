@@ -117,7 +117,7 @@ describe("Checkout Complete", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -129,8 +129,6 @@ describe("Checkout Complete", () => {
       cy.get("@paymentMethodItem3").click({ force: true })
       cy.wait(
         [
-          "@getOrders",
-          "@getOrders",
           "@getOrders",
           "@updateOrder",
           "@getCustomerAddresses",
@@ -159,13 +157,7 @@ describe("Checkout Complete", () => {
       cy.wait(2000)
       cy.dataCy("place-order-button").click()
       cy.wait(
-        [
-          "@getOrders",
-          "@updateOrder",
-          "@getCustomerAddresses",
-          "@getOrders",
-          "@getOrders",
-        ],
+        ["@getOrders", "@updateOrder", "@getCustomerAddresses", "@getOrders"],
         {
           timeout: 100000,
         }

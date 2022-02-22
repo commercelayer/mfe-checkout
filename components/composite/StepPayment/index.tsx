@@ -92,10 +92,10 @@ export const StepPayment: React.FC = () => {
     return null
   }
 
-  const { isGuest, isPaymentRequired, refetchOrder } = appCtx
+  const { isGuest, isPaymentRequired } = appCtx
 
   const selectPayment = async () => {
-    // refetchOrder()
+    // setPayment()
   }
 
   return (

@@ -1,6 +1,6 @@
 import { Address, Order, Shipment, ShippingMethod } from "@commercelayer/sdk"
 
-import { prepareShipments } from "./fetchOrderById"
+import { prepareShipments, checkPaymentMethod } from "./fetchOrderById"
 
 import { AppStateData } from "."
 
@@ -11,6 +11,7 @@ export enum ActionType {
   SELECT_SHIPMENT = "SELECT_SHIPMENT",
   SET_ADDRESSES = "SET_ADDRESSES",
   SAVE_SHIPMENTS = "SAVE_SHIPMENTS",
+  PLACE_ORDER = "PLACE_ORDER",
 }
 
 export type Action =
@@ -30,6 +31,12 @@ export type Action =
     }
   | { type: ActionType.START_LOADING }
   | { type: ActionType.STOP_LOADING }
+  | {
+      type: ActionType.PLACE_ORDER
+      payload: {
+        order: Order
+      }
+    }
   | {
       type: ActionType.SAVE_SHIPMENTS
       payload: {
@@ -65,6 +72,13 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         isFirstLoading: false,
         isLoading: false,
       }
+    case ActionType.PLACE_ORDER: {
+      return {
+        ...state,
+        ...checkPaymentMethod(action.payload.order),
+        isLoading: false,
+      }
+    }
     case ActionType.SET_ADDRESSES:
       console.log(state.order.shipments)
       return {

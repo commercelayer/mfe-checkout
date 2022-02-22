@@ -23,6 +23,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   refetchOrder: () => Promise<void>
   setAddresses: () => void
   saveShipments: () => void
+  placeOrder: () => Promise<void>
   selectShipment: (
     shippingMethod: {
       id: string
@@ -176,6 +177,20 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     })
   }
 
+  const placeOrder = async () => {
+    dispatch({ type: ActionType.START_LOADING })
+    const order = await cl.orders.retrieve(orderId, {
+      fields: {
+        orders: ["id", "status", "payment_method", "payment_source"],
+      },
+      include: ["payment_method", "payment_source"],
+    })
+    dispatch({
+      type: ActionType.PLACE_ORDER,
+      payload: { order },
+    })
+  }
+
   useEffect(() => {
     const unsubscribe = () => {
       fetchInitialOrder(orderId, accessToken)
@@ -194,6 +209,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setAddresses,
         selectShipment,
         saveShipments,
+        placeOrder,
         refetchOrder: async () => {
           return await fetchInitialOrder(orderId, accessToken)
         },

@@ -619,10 +619,14 @@ export function prepareShipments(shipments?: Shipment[]) {
   })
 }
 
+function isPaymentRequired(order: Order) {
+  return !(order.total_amount_with_taxes_float === 0)
+}
+
 export async function calculateSettings(order: Order) {
   const addresses = order.customer?.customer_addresses
   return {
-    isPaymentRequired: !(order.total_amount_with_taxes_float === 0),
+    isPaymentRequired: isPaymentRequired(order),
     isGuest: Boolean(order.guest),
     shippingCountryCodeLock: order.shipping_country_code_lock,
     hasCustomerAddresses: (addresses && addresses.length >= 1) || false,
@@ -653,4 +657,52 @@ export async function calculateSettings(order: Order) {
       shippingAddress: order.shipping_address,
     }),
   }
+}
+
+export function checkPaymentMethod(order: Order) {
+  const paymentMethod = order.payment_method
+  const paymentSource:
+    | (AdyenPayment & {
+        options?: { card?: string }
+        metadata: { card?: string }
+      })
+    | (BraintreePayment & {
+        options?: { card?: string }
+        metadata: { card?: string }
+      })
+    | (CheckoutComPayment & {
+        options?: { card?: string }
+        metadata: { card?: string }
+      })
+    | (ExternalPayment & {
+        options?: { card?: string }
+      })
+    | (PaypalPayment & {
+        options?: { card?: string }
+        metadata: { card?: string }
+      })
+    | (StripePayment & {
+        options?: { card?: string }
+        metadata: { card?: string }
+      })
+    | (WireTransfer & {
+        options?: { card?: string }
+        metadata: { card?: string }
+      })
+    | undefined = order.payment_source
+  let hasPaymentMethod = Boolean(
+    paymentSource?.metadata?.card || paymentSource?.options?.card
+  )
+
+  if (!hasPaymentMethod && !isPaymentRequired(order)) {
+    hasPaymentMethod = true
+  }
+
+  const isComplete = order.status === "placed"
+  const isCreditCard =
+    paymentMethod?.payment_source_type === "adyen_payments" ||
+    paymentMethod?.payment_source_type === "stripe_payments" ||
+    paymentMethod?.payment_source_type === "braintree_payments"
+
+  return { isCreditCard, hasPaymentMethod, paymentMethod, isComplete }
 }
