@@ -475,7 +475,7 @@ describe("Checkout customer address", () => {
     })
   })
 
-  context.only("initial order empty with one address on book", () => {
+  context("initial order empty with one address on book", () => {
     let requires_billing_info = false
     beforeEach(function () {
       cy.getTokenCustomer({
@@ -804,12 +804,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@updateOrder", "@deliveryLeadTimes"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-email-step-header").should("contain", emailTemp)
     })
@@ -838,12 +835,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@updateOrder", "@deliveryLeadTimes"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing information", () => {
@@ -873,12 +867,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@updateOrder", "@deliveryLeadTimes"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing information", () => {
@@ -912,7 +903,6 @@ describe("Checkout customer address", () => {
 
       cy.wait(
         [
-          "@getOrders",
           "@getOrders",
           "@updateOrder",
           "@createAddress",
@@ -960,13 +950,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@updateOrder",
-          "@createAddress",
-          "@deliveryLeadTimes",
-        ],
+        ["@getOrders", "@updateOrder", "@createAddress", "@deliveryLeadTimes"],
         {
           timeout: 100000,
         }
@@ -1003,12 +987,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@updateOrder", "@deliveryLeadTimes"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing information", () => {
@@ -1133,12 +1114,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@updateOrder", "@deliveryLeadTimes"], {
+        timeout: 100000,
+      })
 
       cy.dataCy("customer-email-step-header").should("contain", emailTemp)
     })
@@ -1226,13 +1204,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@deliveryLeadTimes",
-          "@updateOrder",
-          "@createAddress",
-        ],
+        ["@getOrders", "@deliveryLeadTimes", "@updateOrder", "@createAddress"],
         { timeout: 100000 }
       )
     })
@@ -1261,13 +1233,7 @@ describe("Checkout customer address", () => {
       cy.dataCy("save-addresses-button").click()
 
       cy.wait(
-        [
-          "@getOrders",
-          "@getOrders",
-          "@deliveryLeadTimes",
-          "@updateOrder",
-          "@createAddress",
-        ],
+        ["@getOrders", "@deliveryLeadTimes", "@updateOrder", "@createAddress"],
         { timeout: 100000 }
       )
     })
@@ -1312,12 +1278,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@updateOrder", "@deliveryLeadTimes"], {
+        timeout: 100000,
+      })
     })
 
     it("check shipping information", () => {
@@ -1353,12 +1316,9 @@ describe("Checkout customer address", () => {
 
       cy.dataCy("save-addresses-button").click()
 
-      cy.wait(
-        ["@getOrders", "@getOrders", "@updateOrder", "@deliveryLeadTimes"],
-        {
-          timeout: 100000,
-        }
-      )
+      cy.wait(["@getOrders", "@updateOrder", "@deliveryLeadTimes"], {
+        timeout: 100000,
+      })
     })
 
     it("check billing information", () => {
