@@ -5,6 +5,7 @@ import {
   PaymentSource,
   PaymentSourceBrandIcon,
 } from "@commercelayer/react-components"
+import { PaymentMethod } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { useContext } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -92,10 +93,12 @@ export const StepPayment: React.FC = () => {
     return null
   }
 
-  const { isGuest, isPaymentRequired } = appCtx
+  const { isGuest, isPaymentRequired, setPayment } = appCtx
 
-  const selectPayment = async () => {
-    // setPayment()
+  const selectPayment = async (
+    payment?: PaymentMethod | Record<string, any>
+  ) => {
+    setPayment(payment)
   }
 
   return (

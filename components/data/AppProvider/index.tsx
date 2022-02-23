@@ -1,5 +1,6 @@
 import CommerceLayer, {
   ShippingMethod as ShippingMethodCollection,
+  PaymentMethod,
 } from "@commercelayer/sdk"
 import { changeLanguage } from "i18next"
 import { createContext, useEffect, useReducer } from "react"
@@ -25,6 +26,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   setAddresses: () => void
   saveShipments: () => void
   placeOrder: () => Promise<void>
+  setPayment: (payment?: PaymentMethod | Record<string, any>) => void
   selectShipment: (
     shippingMethod: {
       id: string
@@ -188,6 +190,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     })
   }
 
+  const setPayment = (payment?: PaymentMethod) => {
+    dispatch({ type: ActionType.SET_PAYMENT, payload: { payment } })
+  }
+
   const placeOrder = async () => {
     dispatch({ type: ActionType.START_LOADING })
     const order = await cl.orders.retrieve(orderId, {
@@ -220,6 +226,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setAddresses,
         selectShipment,
         saveShipments,
+        setPayment,
         placeOrder,
         setCustomerEmail,
         refetchOrder: async () => {

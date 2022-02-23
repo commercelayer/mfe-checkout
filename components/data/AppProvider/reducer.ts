@@ -1,9 +1,15 @@
-import { Order, Shipment, ShippingMethod } from "@commercelayer/sdk"
+import {
+  Order,
+  Shipment,
+  PaymentMethod,
+  ShippingMethod,
+} from "@commercelayer/sdk"
 
 import {
   prepareShipments,
   checkPaymentMethod,
   calculateAddresses,
+  calculateSelectedShipments,
 } from "./fetchOrderById"
 
 import { AppStateData } from "."
@@ -16,6 +22,7 @@ export enum ActionType {
   SELECT_SHIPMENT = "SELECT_SHIPMENT",
   SET_ADDRESSES = "SET_ADDRESSES",
   SAVE_SHIPMENTS = "SAVE_SHIPMENTS",
+  SET_PAYMENT = "SET_PAYMENT",
   PLACE_ORDER = "PLACE_ORDER",
 }
 
@@ -58,6 +65,12 @@ export type Action =
       type: ActionType.SET_ADDRESSES
       payload: {
         order: Order
+      }
+    }
+  | {
+      type: ActionType.SET_PAYMENT
+      payload: {
+        payment?: PaymentMethod
       }
     }
 
@@ -107,20 +120,9 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         isLoading: false,
       }
     case ActionType.SELECT_SHIPMENT: {
-      const shipmentsSelected = calculateSelectedShipments(
-        state.shipments,
-        action.payload
-      )
-      const shippingMethods = shipmentsSelected?.map(
-        (a: ShipmentSelected) => a.shippingMethodId
-      )
-
       return {
         ...state,
-        shipments: shipmentsSelected,
-        hasShippingMethod: Boolean(
-          shippingMethods?.length && !shippingMethods?.includes(undefined)
-        ),
+        ...calculateSelectedShipments(state.shipments, action.payload),
         isLoading: false,
       }
     }
@@ -132,26 +134,14 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
           ? prepareShipments(action.payload.shipments)
           : [],
       }
+    case ActionType.SET_PAYMENT:
+      return {
+        ...state,
+        isLoading: false,
+        paymentMethod: action.payload.payment,
+      }
 
     default:
       throw new Error(`Unknown action type`)
   }
-}
-
-function calculateSelectedShipments(
-  shipments: ShipmentSelected[],
-  payload: {
-    shipmentId: string
-    shippingMethod: ShippingMethod | Record<string, any>
-  }
-) {
-  return shipments?.map((shipment) => {
-    return shipment.shipmentId === payload.shipmentId
-      ? {
-          ...shipment,
-          shippingMethodId: payload.shippingMethod.id,
-          shippingMethodName: payload.shippingMethod.name,
-        }
-      : shipment
-  })
 }

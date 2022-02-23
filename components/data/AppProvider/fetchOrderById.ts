@@ -13,6 +13,7 @@ import CommerceLayer, {
   CheckoutComPayment,
   ExternalPayment,
   PaypalPayment,
+  ShippingMethod,
   Shipment,
 } from "@commercelayer/sdk"
 import { changeLanguage } from "i18next"
@@ -679,6 +680,7 @@ export function calculateSettings(order: Order) {
 
 export function checkPaymentMethod(order: Order) {
   const paymentMethod = order.payment_method
+
   const paymentSource:
     | (AdyenPayment & {
         options?: { card?: string }
@@ -708,6 +710,7 @@ export function checkPaymentMethod(order: Order) {
         metadata: { card?: string }
       })
     | undefined = order.payment_source
+
   let hasPaymentMethod = Boolean(
     paymentSource?.metadata?.card || paymentSource?.options?.card
   )
@@ -717,10 +720,12 @@ export function checkPaymentMethod(order: Order) {
   }
 
   const isComplete = order.status === "placed"
+
   const isCreditCard =
     paymentMethod?.payment_source_type === "adyen_payments" ||
     paymentMethod?.payment_source_type === "stripe_payments" ||
     paymentMethod?.payment_source_type === "braintree_payments"
+
   return {
     isCreditCard,
     hasPaymentMethod,
@@ -728,4 +733,30 @@ export function checkPaymentMethod(order: Order) {
     isComplete,
     paymentSource,
   }
+}
+
+export function calculateSelectedShipments(
+  shipments: ShipmentSelected[],
+  payload: {
+    shipmentId: string
+    shippingMethod: ShippingMethod | Record<string, any>
+  }
+) {
+  const shipmentsSelected = shipments?.map((shipment) => {
+    return shipment.shipmentId === payload.shipmentId
+      ? {
+          ...shipment,
+          shippingMethodId: payload.shippingMethod.id,
+          shippingMethodName: payload.shippingMethod.name,
+        }
+      : shipment
+  })
+  const shippingMethods = shipmentsSelected?.map(
+    (a: ShipmentSelected) => a.shippingMethodId
+  )
+  const hasShippingMethod = Boolean(
+    shippingMethods?.length && !shippingMethods?.includes(undefined)
+  )
+
+  return { shipments: shipmentsSelected, hasShippingMethod }
 }
