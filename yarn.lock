@@ -936,10 +936,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.17.34.tgz#fe4b38b3f07617c0fa31ae923fca9249641038f0"
   integrity sha512-USUftMYpmuMzeWobskoPfzDi+vkpe0dvcOBRNOscFrGxVp4jomnRxWuVohgqBow2xyIPC0S3gjxV/5079jhmDg==
 
-"@types/node@^17.0.19":
-  version "17.0.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.19.tgz#726171367f404bfbe8512ba608a09ebad810c7e6"
-  integrity sha512-PfeQhvcMR4cPFVuYfBN4ifG7p9c+Dlh3yUZR6k+5yQK7wX3gDgVxBly4/WkBRs9x4dmcy1TVl08SY67wwtEvmA==
+"@types/node@^17.0.21":
+  version "17.0.21"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.21.tgz#864b987c0c68d07b4345845c3e63b75edd143644"
+  integrity sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -4871,10 +4871,10 @@ nerf-dart@^1.0.0:
   resolved "https://registry.yarnpkg.com/nerf-dart/-/nerf-dart-1.0.0.tgz#e6dab7febf5ad816ea81cf5c629c5a0ebde72c1a"
   integrity sha1-5tq3/r9a2Bbqgc9cYpxaDr3nLBo=
 
-next-i18next@^10.3.0:
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-10.3.0.tgz#3ccc360d12c9f1f0596fff1bba36ee4bfa8970c6"
-  integrity sha512-glVigyij3wivFAqGYxgW0w6rQHETpAAKnN5p2Lc//XiSENCbkDRW9a8ApA/c5msAnThzrYXNVu4XcKRfSCWQzA==
+next-i18next@^10.4.0:
+  version "10.4.0"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-10.4.0.tgz#02849352aab4421ffa79d59c4c1ab2a29d3c85fc"
+  integrity sha512-3ShASQiQjEmfpCrghOXnUpq6f3tvp/DWyvL/TOoMiH30ERfpbdv7279m4f08tqwGaWlOukanutvs1s1vrQI3Pw==
   dependencies:
     "@babel/runtime" "^7.13.17"
     "@types/hoist-non-react-statics" "^3.3.1"
@@ -6593,10 +6593,10 @@ stylelint-config-standard@^25.0.0:
   dependencies:
     stylelint-config-recommended "^7.0.0"
 
-stylelint@^14.5.1:
-  version "14.5.1"
-  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-14.5.1.tgz#2b2575ccaf14bb057209d48fc87c17d5b684f8db"
-  integrity sha512-8Hf4HtnhxlWlf7iXF9zFfhSc3X0teRnVzl6PqPs2JEFx+dy/mhMhghZfiTDW4QG0ihDw9+WP7GZw5Nzx7cQF5A==
+stylelint@^14.5.3:
+  version "14.5.3"
+  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-14.5.3.tgz#103b6670128ba3dea69fe3a1a07c4a5d3e0e3450"
+  integrity sha512-omHETL+kGHR+fCXFK1SkZD/A+emCP9esggAdWEl8GPjTNeyRYj+H6uetRDcU+7E451zwWiUYGVAX+lApsAZgsQ==
   dependencies:
     balanced-match "^2.0.0"
     colord "^2.9.2"

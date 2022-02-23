@@ -142,14 +142,12 @@ export async function checkAndSetDefaultAddressForOrder({
     _shipping_address_clone_id: addressId,
   }
   try {
-    console.log("update order")
     const orderObj = await cl.orders.update(updateObjet, {
       include: ["billing_address", "shipping_address"],
     })
 
     const billingAddressToUpdate = orderObj.billing_address?.id
     const shippingAddressToUpdate = orderObj.shipping_address?.id
-    console.log("update Order 2")
     const updatedOrder = await cl.orders.update(
       {
         id: order.id,
@@ -661,8 +659,10 @@ export function calculateAddresses(
 
 export function calculateSettings(order: Order) {
   const calculatedAddresses = calculateAddresses(order)
+  const paymentRequired = isPaymentRequired(order)
   return {
-    isPaymentRequired: isPaymentRequired(order),
+    isPaymentRequired: paymentRequired,
+    hasPaymentMethod: !paymentRequired,
     isGuest: Boolean(order.guest),
     shippingCountryCodeLock: order.shipping_country_code_lock,
     hasEmailAddress: Boolean(order.customer_email),
@@ -721,6 +721,11 @@ export function checkPaymentMethod(order: Order) {
     paymentMethod?.payment_source_type === "adyen_payments" ||
     paymentMethod?.payment_source_type === "stripe_payments" ||
     paymentMethod?.payment_source_type === "braintree_payments"
-
-  return { isCreditCard, hasPaymentMethod, paymentMethod, isComplete }
+  return {
+    isCreditCard,
+    hasPaymentMethod,
+    paymentMethod,
+    isComplete,
+    paymentSource,
+  }
 }

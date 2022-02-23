@@ -94,14 +94,16 @@ const StepPlaceOrder: React.FC<Props> = ({
     },
   ]
 
-  const handlePlaceOrder = async () => {
-    setIsPlacingOrder(true)
-    if (gtmCtx?.firePurchase && gtmCtx?.fireAddPaymentInfo) {
-      await gtmCtx.fireAddPaymentInfo()
-      await gtmCtx.firePurchase()
+  const handlePlaceOrder = async ({ placed }: { placed: boolean }) => {
+    if (placed) {
+      setIsPlacingOrder(true)
+      await placeOrder()
+      if (gtmCtx?.firePurchase && gtmCtx?.fireAddPaymentInfo) {
+        await gtmCtx.fireAddPaymentInfo()
+        await gtmCtx.firePurchase()
+      }
+      setIsPlacingOrder(false)
     }
-    await placeOrder()
-    setIsPlacingOrder(false)
   }
 
   return (

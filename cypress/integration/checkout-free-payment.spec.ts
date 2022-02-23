@@ -170,7 +170,7 @@ describe("Checkout Free Payment", () => {
     it("place order and visit thankyou page", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
-      cy.wait(["@getOrders", "@updateOrder", "@getOrders"], {
+      cy.wait(["@getOrders", "@updateOrder"], {
         timeout: 100000,
       })
       cy.wait(2000)
@@ -303,7 +303,7 @@ describe("Checkout Free Payment", () => {
     it("place order and visit thankyou page", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
-      cy.wait(["@getOrders", "@updateOrder", "@getOrders"], {
+      cy.wait(["@getOrders", "@updateOrder"], {
         timeout: 100000,
       })
       cy.wait(2000)
@@ -442,7 +442,7 @@ describe("Checkout Free Payment", () => {
         }
       )
       cy.dataCy("save-shipments-button").click()
-      cy.wait(["@getOrders", "@getOrders"], {
+      cy.wait(["@getOrders"], {
         timeout: 100000,
       })
     })
@@ -450,7 +450,7 @@ describe("Checkout Free Payment", () => {
     it("place order and visit thankyou page", () => {
       cy.wait(3000)
       cy.dataCy("place-order-button").click()
-      cy.wait(["@getOrders", "@updateOrder", "@getOrders"], {
+      cy.wait(["@getOrders", "@updateOrder"], {
         timeout: 100000,
       })
       cy.wait(2000)
