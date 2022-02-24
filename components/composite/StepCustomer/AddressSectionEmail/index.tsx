@@ -59,7 +59,9 @@ export const AddressSectionEmail: React.FC<Props> = ({
               id="customer_email"
               errorClassName="hasError"
               saveOnBlur={true}
-              onBlur={() => (email: string) => saveEmail(email)}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              onBlur={saveEmail}
               value={emailAddress}
             />
             <StyledErrors
