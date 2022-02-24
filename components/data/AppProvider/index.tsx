@@ -128,7 +128,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }
 
   const setCustomerEmail = (email: string) => {
-    dispatch({ type: ActionType.START_LOADING })
     dispatch({
       type: ActionType.SET_CUSTOMER_EMAIL,
       payload: { customerEmail: email },
