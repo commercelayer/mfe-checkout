@@ -19,15 +19,20 @@ import {
 
 interface Props {
   readonly?: boolean
+  setCouponOrGiftCard: () => void
 }
 
-export const CouponOrGiftCard: React.FC<Props> = ({ readonly }) => {
+export const CouponOrGiftCard: React.FC<Props> = ({
+  readonly,
+  setCouponOrGiftCard,
+}) => {
   const { t } = useTranslation()
 
   const [codeError, setCodeError] = useState(false)
 
   const handleSubmit = async ({ success }: { success: boolean }) => {
     if (!success) return setCodeError(true)
+    setCouponOrGiftCard()
     return setCodeError(false)
   }
 
@@ -76,6 +81,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({ readonly }) => {
               <span data-cy="code-coupon" {...p}>
                 <CouponName>{code}</CouponName>
                 <StyledGiftCardOrCouponRemoveButton
+                  onClick={setCouponOrGiftCard}
                   data-cy="remove_coupon"
                   type="coupon"
                   label="Remove"
@@ -96,6 +102,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({ readonly }) => {
               <span data-cy="code-giftcard" {...p}>
                 {code}
                 <StyledGiftCardOrCouponRemoveButton
+                  onClick={setCouponOrGiftCard}
                   data-cy="remove_giftcard"
                   type="gift_card"
                   className=""

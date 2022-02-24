@@ -25,6 +25,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   refetchOrder: () => Promise<void>
   setCustomerEmail: (email: string) => Promise<void>
   setAddresses: () => void
+  setCouponOrGiftCard: () => void
   saveShipments: () => void
   placeOrder: () => Promise<void>
   setPayment: (payment?: PaymentMethod) => void
@@ -155,6 +156,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     })
   }
 
+  const setCouponOrGiftCard = async () => {
+    console.log(
+      "coupon added: need to check for payement_source total != order total amount or free to payment"
+    )
+  }
+
   const selectShipment = async (
     shippingMethod: ShippingMethodCollection | Record<string, any>,
     shipmentId: string
@@ -223,6 +230,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         selectShipment,
         saveShipments,
         setPayment,
+        setCouponOrGiftCard,
         placeOrder,
         setCustomerEmail,
         refetchOrder: async () => {
