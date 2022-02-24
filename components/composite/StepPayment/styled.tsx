@@ -56,6 +56,16 @@ export const PaymentSourceContainer = styled.div`
   .adyen-checkout__label__text {
     ${tw`transition-none text-gray-500`}
   }
+  .frame--activated {
+    ${tw`h-12 mb-3`}
+    &.expiry-date-frame, 
+    &.cvv-frame {
+      ${tw`inline-block w-1/2 mb-0`}
+    }
+    &:last-of-type {
+      ${tw`pl-3`}
+    }
+  }
 `
 export const PaymentDetailsWrapper = styled.div`
   ${tw`flex flex-row items-start justify-between lg:justify-start lg:items-center text-sm`}
