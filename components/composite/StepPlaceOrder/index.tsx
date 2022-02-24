@@ -47,7 +47,7 @@ const StepPlaceOrder: React.FC<Props> = ({
     return null
   }
 
-  const { refetchOrder, placeOrder } = appCtx
+  const { placeOrder } = appCtx
 
   const messages: ErrorComponentProps["messages"] = [
     {

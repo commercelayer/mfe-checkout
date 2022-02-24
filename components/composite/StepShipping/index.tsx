@@ -118,8 +118,7 @@ export const StepShipping: React.FC<Props> = () => {
   }, [shipments])
 
   const handleChange = (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    shippingMethod: ShippingMethodCollection | Record<string, any>,
+    shippingMethod: ShippingMethodCollection,
     shipmentId: string
   ): void => {
     selectShipment(shippingMethod, shipmentId)

@@ -31,7 +31,7 @@ interface Props {
   setShipToDifferentAddress: Dispatch<SetStateAction<boolean>>
   openShippingAddress: (props: ShippingToggleProps) => void
   disabledShipToDifferentAddress: boolean
-  setCustomerEmail: () => Promise<void>
+  setCustomerEmail: (email: string) => void
   handleSave: () => void
 }
 

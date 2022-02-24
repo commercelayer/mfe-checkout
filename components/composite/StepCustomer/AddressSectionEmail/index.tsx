@@ -13,7 +13,7 @@ import { Label } from "components/ui/form/Label"
 
 interface Props {
   readonly?: boolean
-  setCustomerEmail?: () => Promise<void>
+  setCustomerEmail?: (email: string) => void
   emailAddress: string | undefined
 }
 
@@ -38,9 +38,9 @@ export const AddressSectionEmail: React.FC<Props> = ({
       message: t("input.mustBeValidEmail"),
     },
   ]
-  const saveEmail = async (email: string) => {
+  const saveEmail = (email: string) => {
     if (setCustomerEmail) {
-      await setCustomerEmail(email)
+      setCustomerEmail(email)
     }
   }
 
@@ -59,7 +59,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
               id="customer_email"
               errorClassName="hasError"
               saveOnBlur={true}
-              onBlur={saveEmail}
+              onBlur={() => (email: string) => saveEmail(email)}
               value={emailAddress}
             />
             <StyledErrors

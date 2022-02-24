@@ -23,7 +23,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   domain: string
   isFirstLoading: boolean
   refetchOrder: () => Promise<void>
-  setCustomerEmail: (email: string) => Promise<void>
+  setCustomerEmail: (email: string) => void
   setAddresses: () => void
   setCouponOrGiftCard: () => void
   saveShipments: () => void
@@ -127,7 +127,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     await changeLanguage(order.language_code)
   }
 
-  const setCustomerEmail = async (email: string) => {
+  const setCustomerEmail = (email: string) => {
     dispatch({ type: ActionType.START_LOADING })
     dispatch({
       type: ActionType.SET_CUSTOMER_EMAIL,
