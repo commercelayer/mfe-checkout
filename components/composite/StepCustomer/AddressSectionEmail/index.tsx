@@ -38,9 +38,9 @@ export const AddressSectionEmail: React.FC<Props> = ({
       message: t("input.mustBeValidEmail"),
     },
   ]
-  const saveEmail = async () => {
+  const saveEmail = async (email: string) => {
     if (setCustomerEmail) {
-      await setCustomerEmail()
+      await setCustomerEmail(email)
     }
   }
 

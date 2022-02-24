@@ -110,7 +110,6 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
       }
     }
     case ActionType.SET_ADDRESSES:
-      console.log(state.order.shipments)
       return {
         ...state,
         ...calculateAddresses(action.payload.order, state.customerAddresses),

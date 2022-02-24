@@ -95,9 +95,7 @@ export const StepPayment: React.FC = () => {
 
   const { isGuest, isPaymentRequired, setPayment } = appCtx
 
-  const selectPayment = async (
-    payment?: PaymentMethod | Record<string, any>
-  ) => {
+  const selectPayment = async (payment?: PaymentMethod) => {
     setPayment(payment)
   }
 

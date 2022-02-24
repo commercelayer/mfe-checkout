@@ -1,6 +1,7 @@
 import CommerceLayer, {
   ShippingMethod as ShippingMethodCollection,
   PaymentMethod,
+  Order,
 } from "@commercelayer/sdk"
 import { changeLanguage } from "i18next"
 import { createContext, useEffect, useReducer } from "react"
@@ -22,11 +23,11 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   domain: string
   isFirstLoading: boolean
   refetchOrder: () => Promise<void>
-  setCustomerEmail: () => Promise<void>
+  setCustomerEmail: (email: string) => Promise<void>
   setAddresses: () => void
   saveShipments: () => void
   placeOrder: () => Promise<void>
-  setPayment: (payment?: PaymentMethod | Record<string, any>) => void
+  setPayment: (payment?: PaymentMethod) => void
   selectShipment: (
     shippingMethod: {
       id: string
@@ -36,7 +37,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
 }
 
 export interface AppStateData extends FetchOrderByIdResponse {
-  order: any
+  order?: Order
   isLoading: boolean
   isFirstLoading: boolean
 }
@@ -125,16 +126,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     await changeLanguage(order.language_code)
   }
 
-  const setCustomerEmail = async () => {
+  const setCustomerEmail = async (email: string) => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = await cl.orders.retrieve(orderId, {
-      fields: {
-        orders: ["customer_email"],
-      },
-    })
     dispatch({
       type: ActionType.SET_CUSTOMER_EMAIL,
-      payload: { customerEmail: order.customer_email },
+      payload: { customerEmail: email },
     })
   }
 
