@@ -138,7 +138,6 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
       return {
         ...state,
         ...checkPaymentMethod(action.payload.order),
-        isCreditCard: true,
         isLoading: false,
       }
     }
