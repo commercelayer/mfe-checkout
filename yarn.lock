@@ -13,9 +13,9 @@
   integrity sha512-d0uWHRUxqx5wEQ9YrFm8iBkqc/mMxEup3UB0X/YD4BoQvbhz7+Lw7DKo9RqjnpDHmr3m85ecHvWMhCtAtBuU/w==
 
 "@adyen/adyen-web@^5.8.0":
-  version "5.9.0"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.9.0.tgz#ed25ae2f4424d814b9841938c02f9893b2dd8960"
-  integrity sha512-1QgXu8X6gtKDgevkHAIQh7rDXOlmfqpF8ysHFu5//FQ2zSCxhqNEJmWdc/y21z8F7QWrKSjcq4XEbNLm1p+UiQ==
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.8.0.tgz#4bd8b926fcf2a6cb27a83e7e1c0731d9dac10c5a"
+  integrity sha512-2viN+CoPKhlo/KEuue8dAuUFTZKOmz5HP0Hhkuy8PnfmgS+wdlKweW44sATbmNP2kWsrX+TTsEU+Td5/8caFtg==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@babel/runtime-corejs3" "^7.16.3"
@@ -867,9 +867,9 @@
     prop-types "^15.7.2"
 
 "@stripe/stripe-js@^1.23.0":
-  version "1.24.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.24.0.tgz#d23977f364565981f8ab30b1b540e367f72abc5c"
-  integrity sha512-8CEILOpzoRhGwvgcf6y+BlPyEq1ZqxAv3gsX7LvokFYvbcyH72GRcHQMGXuZS3s7HqfYQuTSFrvZNL/qdkgA9Q==
+  version "1.23.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.23.0.tgz#62eed14e83c63c3e8c27f14f6b1e6feb8496c867"
+  integrity sha512-+7w4rVs71Fk8/8uzyzQB5GotHSH9mjOjxM3EYDq/3MR3I2ewELHtvWVMOqfS/9WSKCaKv7h7eFLsMZGpK5jApQ==
 
 "@tailwindcss/forms@^0.4.0":
   version "0.4.0"
