@@ -46,6 +46,16 @@ const StepPlaceOrder: React.FC<Props> = ({
   if (!appCtx) {
     return null
   }
+  let paypalPayerId = ""
+  let checkoutComSession = ""
+
+  if (query.PayerID) {
+    paypalPayerId = query.PayerID as string
+  }
+
+  if (query["cko-session-id"]) {
+    checkoutComSession = query["cko-session-id"] as string
+  }
 
   const { placeOrder } = appCtx
 
@@ -133,7 +143,8 @@ const StepPlaceOrder: React.FC<Props> = ({
       </ErrorsContainer>
       <PlaceOrderContainer
         options={{
-          paypalPayerId: query?.PayerID as string,
+          paypalPayerId,
+          checkoutCom: { session_id: checkoutComSession },
         }}
       >
         <>
