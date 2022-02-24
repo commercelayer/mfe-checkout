@@ -721,13 +721,7 @@ export function checkPaymentMethod(order: Order) {
 
   const isComplete = order.status === "placed"
 
-  const isCreditCard =
-    paymentMethod?.payment_source_type === "adyen_payments" ||
-    paymentMethod?.payment_source_type === "stripe_payments" ||
-    paymentMethod?.payment_source_type === "braintree_payments"
-
   return {
-    isCreditCard,
     hasPaymentMethod,
     paymentMethod,
     isComplete,
@@ -735,6 +729,13 @@ export function checkPaymentMethod(order: Order) {
   }
 }
 
+export function creditCardPayment(paymentMethod?: PaymentMethod) {
+  return (
+    paymentMethod?.payment_source_type === "adyen_payments" ||
+    paymentMethod?.payment_source_type === "stripe_payments" ||
+    paymentMethod?.payment_source_type === "braintree_payments"
+  )
+}
 export function calculateSelectedShipments(
   shipments: ShipmentSelected[],
   payload: {

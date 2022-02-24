@@ -10,6 +10,7 @@ import {
   checkPaymentMethod,
   calculateAddresses,
   calculateSelectedShipments,
+  creditCardPayment,
 } from "./fetchOrderById"
 
 import { AppStateData } from "."
@@ -102,13 +103,6 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         hasEmailAddress: Boolean(action.payload.customerEmail),
         isLoading: false,
       }
-    case ActionType.PLACE_ORDER: {
-      return {
-        ...state,
-        ...checkPaymentMethod(action.payload.order),
-        isLoading: false,
-      }
-    }
     case ActionType.SET_ADDRESSES:
       return {
         ...state,
@@ -137,9 +131,17 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
       return {
         ...state,
         isLoading: false,
+        isCreditCard: creditCardPayment(action.payload.payment),
         paymentMethod: action.payload.payment,
       }
-
+    case ActionType.PLACE_ORDER: {
+      return {
+        ...state,
+        ...checkPaymentMethod(action.payload.order),
+        isCreditCard: true,
+        isLoading: false,
+      }
+    }
     default:
       throw new Error(`Unknown action type`)
   }
