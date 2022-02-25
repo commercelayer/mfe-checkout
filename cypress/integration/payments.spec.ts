@@ -1000,15 +1000,7 @@ describe("Checkout Payments", () => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
       cy.get("@paymentMethodItem0").click({ force: true })
-      cy.wait(
-        [
-          "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@getOrders",
-          "@updateOrder",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getCustomerAddresses", "@updateOrder"], { timeout: 100000 })
     })
 
     it("check if avaible save to wallet", () => {
@@ -1152,15 +1144,7 @@ describe("Checkout Payments", () => {
         cy.wrap(e).as(`paymentMethodItem${i}`)
       })
       cy.get("@paymentMethodItem0").click({ force: true })
-      cy.wait(
-        [
-          "@getCustomerAddresses",
-          "@getCustomerAddresses",
-          "@getOrders",
-          "@updateOrder",
-        ],
-        { timeout: 100000 }
-      )
+      cy.wait(["@getCustomerAddresses", "@updateOrder"], { timeout: 100000 })
     })
 
     it("check if avaible save to wallet", () => {

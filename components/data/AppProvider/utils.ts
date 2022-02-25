@@ -122,6 +122,8 @@ export async function checkAndSetDefaultAddressForOrder({
     return {}
   }
 
+  // Set reference on original address if not present
+  // doing this we can lookup the cloned address for the same entity
   if (address.id && address.reference !== address.id) {
     await cl.addresses.update({
       id: address.id,
