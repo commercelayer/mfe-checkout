@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.4.0...v1.4.1) (2022-02-25)
+
+
+### Bug Fixes
+
+* nullify payment method with refresh if present ([5efa1a8](https://github.com/commercelayer/commercelayer-react-checkout/commit/5efa1a8b994fac5662c04e921a83522d839bde91))
+
 # [1.4.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.3.0...v1.4.0) (2022-02-21)
 
 
