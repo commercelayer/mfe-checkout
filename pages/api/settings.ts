@@ -170,6 +170,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       await cl.orders.update({
         id: order.id,
         _refresh,
+        payment_method: cl.payment_methods.relationship(null),
         ...(!order.autorefresh && { autorefresh: true }),
       })
     } catch {
