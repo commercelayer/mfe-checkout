@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.4.1...v1.4.2) (2022-02-25)
+
+
+### Bug Fixes
+
+* avoid resetting payment_method on paypal return ([9b0c775](https://github.com/commercelayer/commercelayer-react-checkout/commit/9b0c7752b4bcee856fd5b4b584d2aa27201c5f4d))
+
 ## [1.4.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.4.0...v1.4.1) (2022-02-25)
 
 
