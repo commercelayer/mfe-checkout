@@ -109,57 +109,39 @@ export async function checkAndSetDefaultAddressForOrder({
     return {}
   }
 
+  const address = customerAddresses[0]?.address
+
+  if (!address) {
+    return {}
+  }
+
   if (
     !!order.shipping_country_code_lock &&
-    order.shipping_country_code_lock !==
-      customerAddresses[0].address?.country_code
+    order.shipping_country_code_lock !== address.country_code
   ) {
     return {}
   }
 
-  let addressId = customerAddresses[0].address?.id
-
-  if (addressId) {
-    addressId = (
-      await cl.addresses.update({
-        id: addressId,
-        reference: addressId,
-      })
-    ).id
+  if (address.id && address.reference !== address.id) {
+    await cl.addresses.update({
+      id: address.id,
+      reference: address.id,
+    })
   }
 
   const updateObjet: OrderUpdate = {
     id: order.id,
-    _billing_address_clone_id: addressId,
-    _shipping_address_clone_id: addressId,
+    _billing_address_clone_id: address.id,
+    _shipping_address_clone_id: address.id,
   }
   try {
-    const orderObj = await cl.orders.update(updateObjet, {
-      include: ["billing_address", "shipping_address"],
-    })
-
-    const billingAddressToUpdate = orderObj.billing_address?.id
-    const shippingAddressToUpdate = orderObj.shipping_address?.id
-    const updatedOrder = await cl.orders.update(
+    const { billing_address, shipping_address } = await cl.orders.update(
+      updateObjet,
       {
-        id: order.id,
-        ...(billingAddressToUpdate &&
-          addressId && {
-            billing_address: {
-              id: addressId,
-              type: "addresses",
-            },
-          }),
-        ...(shippingAddressToUpdate &&
-          addressId && {
-            shipping_address: {
-              id: addressId,
-              type: "addresses",
-            },
-          }),
-      },
-      { include: ["billing_address", "shipping_address"] }
+        include: ["billing_address", "shipping_address"],
+      }
     )
+
     localStorage.setItem(
       "_save_billing_address_to_customer_address_book",
       "false"
@@ -174,8 +156,8 @@ export async function checkAndSetDefaultAddressForOrder({
       hasShippingAddress: true,
       isUsingNewBillingAddress: false,
       isUsingNewShippingAddress: false,
-      billingAddress: updatedOrder.billing_address,
-      shippingAddress: updatedOrder.shipping_address,
+      billingAddress: billing_address,
+      shippingAddress: shipping_address,
     }
   } catch (error) {
     console.log(error)

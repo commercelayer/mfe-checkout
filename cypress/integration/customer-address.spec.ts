@@ -539,8 +539,6 @@ describe("Checkout customer address", () => {
           "@getCustomerAddresses",
           "@getCustomerAddresses",
           "@updateOrder",
-          "@updateOrder",
-          "@updateAddress",
         ],
         { timeout: 100000 }
       )
