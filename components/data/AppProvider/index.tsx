@@ -6,14 +6,14 @@ import CommerceLayer, {
 import { changeLanguage } from "i18next"
 import { createContext, useEffect, useReducer } from "react"
 
+import { ActionType, reducer } from "components/data/AppProvider/reducer"
 import {
   calculateSettings,
   checkAndSetDefaultAddressForOrder,
   checkIfShipmentRequired,
   fetchOrder,
   FetchOrderByIdResponse,
-} from "./fetchOrderById"
-import { ActionType, reducer } from "./reducer"
+} from "components/data/AppProvider/utils"
 
 export interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
@@ -22,7 +22,6 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   slug: string
   domain: string
   isFirstLoading: boolean
-  refetchOrder: () => Promise<void>
   setCustomerEmail: (email: string) => void
   setAddresses: () => void
   setCouponOrGiftCard: () => void
@@ -111,10 +110,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     })
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
-    // Set shipping method if only one, but defer if not address set
+    // TODO Set shipping method if only one, but defer if not address set
     // setAutomatedShippingMethods(order, addresses, )
-
-    // Set payment if only one, but defer if not address and shipping method set
 
     dispatch({
       type: ActionType.SET_ORDER,
@@ -143,9 +140,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       include: ["shipping_address", "billing_address", "shipments"],
     })
 
-    // Set shipping method if only one
-
-    // Set payment if only one, but defer if not shipping method set
+    // TODO  Set shipping method if only one
 
     dispatch({
       type: ActionType.SET_ADDRESSES,
@@ -183,8 +178,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       },
       include: ["shipments", "shipments.shipping_method"],
     })
-
-    // Set payment if only one, but defer if not shipping method set
 
     dispatch({
       type: ActionType.SAVE_SHIPMENTS,
@@ -232,9 +225,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setCouponOrGiftCard,
         placeOrder,
         setCustomerEmail,
-        refetchOrder: async () => {
-          return await fetchInitialOrder(orderId, accessToken)
-        },
       }}
     >
       {children}

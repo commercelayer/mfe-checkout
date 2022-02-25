@@ -17,9 +17,8 @@ import {
   Shipment,
 } from "@commercelayer/sdk"
 
+import { AppStateData } from "components/data/AppProvider"
 import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
-
-import { AppStateData } from "."
 
 interface IsNewAddressProps {
   address: Address | undefined
@@ -233,8 +232,6 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
         "shipping_address",
         "billing_address",
         "shipments",
-        "payment_method",
-        "payment_source",
         "customer",
       ],
       shipments: ["shipping_method"],
@@ -246,8 +243,6 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
       "billing_address",
       "shipments",
       "shipments.shipping_method",
-      "payment_method",
-      "payment_source",
       "customer",
       "customer.customer_addresses",
       "customer.customer_addresses.address",
@@ -306,7 +301,7 @@ export function calculateAddresses(
     shippingAddress: order.shipping_address,
     hasBillingAddress: Boolean(order.billing_address),
     hasShippingAddress: Boolean(order.shipping_address),
-    addresses: cAddresses,
+    customerAddresses: cAddresses,
     isUsingNewBillingAddress: isNewAddress({
       address: order.billing_address,
       customerAddresses: cAddresses,
@@ -335,7 +330,6 @@ export function calculateSettings(order: Order) {
     shippingCountryCodeLock: order.shipping_country_code_lock,
     hasEmailAddress: Boolean(order.customer_email),
     emailAddress: order.customer_email,
-    customerAddresses: order.customer?.customer_addresses,
     ...calculatedAddresses,
     isComplete: order.status === "placed",
     returnUrl: order.return_url,
@@ -345,37 +339,24 @@ export function calculateSettings(order: Order) {
   }
 }
 
+interface PaymentOptionsProps {
+  options?: { card?: string }
+}
+interface PaymentProps extends PaymentOptionsProps {
+  metadata: { card?: string }
+}
+
 export function checkPaymentMethod(order: Order) {
   const paymentMethod = order.payment_method
 
   const paymentSource:
-    | (AdyenPayment & {
-        options?: { card?: string }
-        metadata: { card?: string }
-      })
-    | (BraintreePayment & {
-        options?: { card?: string }
-        metadata: { card?: string }
-      })
-    | (CheckoutComPayment & {
-        options?: { card?: string }
-        metadata: { card?: string }
-      })
-    | (ExternalPayment & {
-        options?: { card?: string }
-      })
-    | (PaypalPayment & {
-        options?: { card?: string }
-        metadata: { card?: string }
-      })
-    | (StripePayment & {
-        options?: { card?: string }
-        metadata: { card?: string }
-      })
-    | (WireTransfer & {
-        options?: { card?: string }
-        metadata: { card?: string }
-      })
+    | (AdyenPayment & PaymentProps)
+    | (BraintreePayment & PaymentProps)
+    | (CheckoutComPayment & PaymentProps)
+    | (ExternalPayment & PaymentOptionsProps)
+    | (PaypalPayment & PaymentProps)
+    | (StripePayment & PaymentProps)
+    | (WireTransfer & PaymentProps)
     | undefined = order.payment_source
 
   let hasPaymentMethod = Boolean(

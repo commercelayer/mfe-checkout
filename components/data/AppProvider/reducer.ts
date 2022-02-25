@@ -5,49 +5,35 @@ import {
   ShippingMethod,
 } from "@commercelayer/sdk"
 
+import { AppStateData } from "components/data/AppProvider"
 import {
   prepareShipments,
   checkPaymentMethod,
   calculateAddresses,
   calculateSelectedShipments,
   creditCardPayment,
-} from "./fetchOrderById"
-
-import { AppStateData } from "."
+} from "components/data/AppProvider/utils"
 
 export enum ActionType {
   START_LOADING = "START_LOADING",
   STOP_LOADING = "STOP_LOADING",
   SET_ORDER = "SET_ORDER",
   SET_CUSTOMER_EMAIL = "SET_CUSTOMER_EMAIL",
-  SELECT_SHIPMENT = "SELECT_SHIPMENT",
   SET_ADDRESSES = "SET_ADDRESSES",
+  SELECT_SHIPMENT = "SELECT_SHIPMENT",
   SAVE_SHIPMENTS = "SAVE_SHIPMENTS",
   SET_PAYMENT = "SET_PAYMENT",
   PLACE_ORDER = "PLACE_ORDER",
 }
 
 export type Action =
+  | { type: ActionType.START_LOADING }
+  | { type: ActionType.STOP_LOADING }
   | {
       type: ActionType.SET_ORDER
       payload: {
         order: Order
         others: Partial<AppStateData>
-      }
-    }
-  | {
-      type: ActionType.SELECT_SHIPMENT
-      payload: {
-        shipmentId: string
-        shippingMethod: ShippingMethod | Record<string, any>
-      }
-    }
-  | { type: ActionType.START_LOADING }
-  | { type: ActionType.STOP_LOADING }
-  | {
-      type: ActionType.PLACE_ORDER
-      payload: {
-        order: Order
       }
     }
   | {
@@ -57,21 +43,34 @@ export type Action =
       }
     }
   | {
-      type: ActionType.SAVE_SHIPMENTS
-      payload: {
-        shipments?: Array<Shipment>
-      }
-    }
-  | {
       type: ActionType.SET_ADDRESSES
       payload: {
         order: Order
       }
     }
   | {
+      type: ActionType.SELECT_SHIPMENT
+      payload: {
+        shipmentId: string
+        shippingMethod: ShippingMethod | Record<string, any>
+      }
+    }
+  | {
+      type: ActionType.SAVE_SHIPMENTS
+      payload: {
+        shipments?: Array<Shipment>
+      }
+    }
+  | {
       type: ActionType.SET_PAYMENT
       payload: {
         payment?: PaymentMethod
+      }
+    }
+  | {
+      type: ActionType.PLACE_ORDER
+      payload: {
+        order: Order
       }
     }
 
