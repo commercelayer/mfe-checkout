@@ -101,6 +101,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const domain = isProduction(NODE_ENV)
     ? "commercelayer.io"
     : DOMAIN || "commercelayer.io"
+
   const paymentReturn = req.query.paymentReturn === "true"
 
   function invalidateCheckout() {
@@ -165,16 +166,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (order.status === "draft" || order.status === "pending") {
-    const _refresh = !paymentReturn
-    try {
-      await cl.orders.update({
-        id: order.id,
-        _refresh,
-        payment_method: cl.payment_methods.relationship(null),
-        ...(!order.autorefresh && { autorefresh: true }),
-      })
-    } catch {
-      console.log("error refreshing order")
+    // If returning from payment (PayPal) skip order refresh and payment_method reset
+    if (!paymentReturn) {
+      const _refresh = !paymentReturn
+      try {
+        await cl.orders.update({
+          id: order.id,
+          _refresh,
+          payment_method: cl.payment_methods.relationship(null),
+          ...(!order.autorefresh && { autorefresh: true }),
+        })
+      } catch {
+        console.log("error refreshing order")
+      }
     }
   } else if (order.status !== "placed") {
     return invalidateCheckout()
