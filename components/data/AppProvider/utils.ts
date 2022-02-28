@@ -313,17 +313,16 @@ export function calculateSettings(order: Order) {
   const paymentRequired = isPaymentRequired(order)
   return {
     isPaymentRequired: paymentRequired,
-    hasPaymentMethod: !paymentRequired,
     isGuest: Boolean(order.guest),
     shippingCountryCodeLock: order.shipping_country_code_lock,
     hasEmailAddress: Boolean(order.customer_email),
     emailAddress: order.customer_email,
     ...calculatedAddresses,
-    isComplete: order.status === "placed",
+    ...calculateSelectedShipments(prepareShipments(order.shipments)),
+    ...checkPaymentMethod(order),
     returnUrl: order.return_url,
     taxIncluded: order.tax_included,
     requiresBillingInfo: order.requires_billing_info,
-    shipments: prepareShipments(order.shipments),
   }
 }
 
@@ -374,13 +373,13 @@ export function creditCardPayment(paymentMethod?: PaymentMethod) {
 }
 export function calculateSelectedShipments(
   shipments: ShipmentSelected[],
-  payload: {
+  payload?: {
     shipmentId: string
     shippingMethod: ShippingMethod | Record<string, any>
   }
 ) {
   const shipmentsSelected = shipments?.map((shipment) => {
-    return shipment.shipmentId === payload.shipmentId
+    return shipment.shipmentId === payload?.shipmentId
       ? {
           ...shipment,
           shippingMethodId: payload.shippingMethod.id,
@@ -388,6 +387,7 @@ export function calculateSelectedShipments(
         }
       : shipment
   })
+
   const shippingMethods = shipmentsSelected?.map(
     (a: ShipmentSelected) => a.shippingMethodId
   )

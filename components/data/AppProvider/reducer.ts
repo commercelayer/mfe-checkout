@@ -91,7 +91,6 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         ...state,
         order: action.payload.order,
         ...action.payload.others,
-        hasShippingMethod: !action.payload.others.isShipmentRequired,
         isFirstLoading: false,
         isLoading: false,
       }
