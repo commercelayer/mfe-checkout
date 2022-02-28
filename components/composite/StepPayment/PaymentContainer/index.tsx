@@ -4,10 +4,16 @@ import { useTranslation } from "react-i18next"
 export const PaymentContainer: React.FC = ({ children }) => {
   const { t } = useTranslation()
 
+  const checkoutReturnUrl = `${
+    window.location.href.split("?")[0]
+  }?paymentReturn=true`
+
   return (
     <PaymentMethodsContainer
       config={{
         checkoutComPayment: {
+          success_url: checkoutReturnUrl,
+          failure_url: checkoutReturnUrl,
           options: {
             style: {
               base: {
@@ -99,8 +105,8 @@ export const PaymentContainer: React.FC = ({ children }) => {
           },
         },
         paypalPayment: {
-          cancel_url: `${window.location.href}&paymentReturn=true`,
-          return_url: `${window.location.href}&paymentReturn=true`,
+          cancel_url: checkoutReturnUrl,
+          return_url: checkoutReturnUrl,
           infoMessage: {
             text: t("stepPayment.paypalDescription"),
             className: "text-sm text-gray-400",

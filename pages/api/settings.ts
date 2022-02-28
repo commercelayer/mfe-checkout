@@ -204,6 +204,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (order.status === "draft" || order.status === "pending") {
     // If returning from payment (PayPal) skip order refresh and payment_method reset
+    console.log(
+      !paymentReturn ? "refresh order" : "return from external payment"
+    )
     if (!paymentReturn) {
       const _refresh = !paymentReturn
       try {
