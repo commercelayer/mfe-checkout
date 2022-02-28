@@ -11,7 +11,6 @@ import {
   AdyenPayment,
   BraintreePayment,
   CheckoutComPayment,
-  ExternalPayment,
   PaypalPayment,
   ShippingMethod,
   Shipment,
@@ -31,6 +30,22 @@ interface CheckAndSetDefaultAddressForOrderProps {
   order: Order
   customerAddresses?: Array<CustomerAddress>
 }
+
+interface PaymentSourceProps {
+  options?: { card?: string }
+  metadata?: { card?: string }
+  payment_response?: { source?: string }
+}
+
+type PaymentSourceType = (
+  | AdyenPayment
+  | BraintreePayment
+  | CheckoutComPayment
+  | PaypalPayment
+  | StripePayment
+  | WireTransfer
+) &
+  PaymentSourceProps
 
 export interface FetchOrderByIdResponse {
   isGuest: boolean
@@ -331,28 +346,15 @@ export function calculateSettings(order: Order, isShipmentRequired: boolean) {
   }
 }
 
-interface PaymentOptionsProps {
-  options?: { card?: string }
-}
-interface PaymentProps extends PaymentOptionsProps {
-  metadata: { card?: string }
-}
-
 export function checkPaymentMethod(order: Order) {
   const paymentMethod = order.payment_method
 
-  const paymentSource:
-    | (AdyenPayment & PaymentProps)
-    | (BraintreePayment & PaymentProps)
-    | (CheckoutComPayment & PaymentProps)
-    | (ExternalPayment & PaymentOptionsProps)
-    | (PaypalPayment & PaymentProps)
-    | (StripePayment & PaymentProps)
-    | (WireTransfer & PaymentProps)
-    | undefined = order.payment_source
+  const paymentSource: PaymentSourceType | undefined = order.payment_source
 
   let hasPaymentMethod = Boolean(
-    paymentSource?.metadata?.card || paymentSource?.options?.card
+    paymentSource?.metadata?.card ||
+      paymentSource?.options?.card ||
+      paymentSource?.payment_response?.source
   )
 
   if (!hasPaymentMethod && !isPaymentRequired(order)) {
@@ -365,6 +367,7 @@ export function checkPaymentMethod(order: Order) {
     hasPaymentMethod,
     paymentMethod,
     isComplete,
+    isCreditCard: creditCardPayment(paymentMethod),
     paymentSource,
   }
 }
@@ -373,7 +376,8 @@ export function creditCardPayment(paymentMethod?: PaymentMethod) {
   return (
     paymentMethod?.payment_source_type === "adyen_payments" ||
     paymentMethod?.payment_source_type === "stripe_payments" ||
-    paymentMethod?.payment_source_type === "braintree_payments"
+    paymentMethod?.payment_source_type === "braintree_payments" ||
+    paymentMethod?.payment_source_type === "checkout_com_payments"
   )
 }
 export function calculateSelectedShipments(
