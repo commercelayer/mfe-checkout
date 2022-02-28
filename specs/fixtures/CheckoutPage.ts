@@ -42,6 +42,10 @@ export class CheckoutPage {
     )
     await this.page.fill("[data-cy=input_billing_address_zip_code]", "50123")
     await this.page.fill("[data-cy=input_billing_address_phone]", "3331821325")
+    await this.page.fill(
+      "[data-cy=input_billing_address_billing_info]",
+      "LSSXXX78T33D321W"
+    )
   }
 
   async checkShippingSummary(text: string) {

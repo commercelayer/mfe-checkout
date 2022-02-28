@@ -9,7 +9,7 @@ import { CheckoutPage } from "./CheckoutPage"
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") })
 
-type OrderType = "plain" | "no_line_items"
+type OrderType = "plain" | "no_line_items" | "bundle"
 
 interface DefaultParamsProps {
   token?: string
@@ -41,8 +41,22 @@ const getOrder = async (
 ) => {
   const attributes = { ...params.orderAttributes }
   const order = await cl.orders.create(attributes)
-  if (params.order === "plain") {
-    await createLineItems(cl, order.id)
+  switch (params.order) {
+    case "plain":
+      await createDefaultLineItem(cl, order.id)
+      break
+    case "bundle":
+      await createLineItems({
+        cl,
+        orderId: order.id,
+        items: [
+          {
+            bundle_code: "SHIRTSETSINGLE",
+            quantity: 1,
+          },
+        ],
+      })
+      break
   }
   return { orderId: order.id }
 }
@@ -54,7 +68,39 @@ const getClient = async (token: string) => {
   })
 }
 
-const createLineItems = async (cl: CommerceLayerClient, orderId: string) => {
+type LineItemObject = {
+  quantity: number
+} & ({ sku_code: string } | { bundle_code: string })
+
+const createLineItems = async ({
+  cl,
+  orderId,
+  items,
+}: {
+  cl: CommerceLayerClient
+  orderId: string
+  items: Array<LineItemObject>
+}) => {
+  const lineItems = items.map((item) => {
+    const lineItem = {
+      ...item,
+      order: cl.orders.relationship(orderId),
+    }
+
+    return cl.line_items.create(lineItem)
+  })
+
+  try {
+    await Promise.all(lineItems)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+const createDefaultLineItem = async (
+  cl: CommerceLayerClient,
+  orderId: string
+) => {
   const sku = (await cl.skus.list()).first()
 
   const lineItem = {
@@ -62,7 +108,8 @@ const createLineItems = async (cl: CommerceLayerClient, orderId: string) => {
     quantity: 1,
     order: cl.orders.relationship(orderId),
   }
-  const l = await cl.line_items.create(lineItem)
+
+  await cl.line_items.create(lineItem)
 }
 
 export const test = base.extend<FixtureType>({

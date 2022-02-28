@@ -1,5 +1,11 @@
 import { test, expect } from "../fixtures/tokenizedPage"
 
+test.use({
+  defaultParams: {
+    order: "bundle",
+  },
+})
+
 test("should execute a checkout with valid token", async ({ checkoutPage }) => {
   await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
   await checkoutPage.setCustomerMail("alessani@gmail.com")
@@ -30,6 +36,7 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
     "[data-test-id=stripe_payments] >> text=Credit card",
     { force: true }
   )
+  await checkoutPage.page.pause()
   await checkoutPage.checkPaymentSummary("€10,00")
 
   await checkoutPage.setPayment("stripe")
