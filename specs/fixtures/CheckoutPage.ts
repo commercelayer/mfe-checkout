@@ -1,4 +1,8 @@
-import { Page } from "@playwright/test"
+import { Address } from "@commercelayer/sdk"
+import { faker } from "@faker-js/faker"
+import { Page, expect } from "@playwright/test"
+
+import { euAddress } from "../utils/addresses"
 
 interface GoToProps {
   orderId: string
@@ -29,33 +33,115 @@ export class CheckoutPage {
     return this.attributes?.giftCard
   }
 
-  async setCustomerMail(email: string) {
-    await this.page.fill("[data-cy=customer_email]", email)
+  async setCustomerMail(email?: string) {
+    let customerEmail = email || ""
+    if (!email) {
+      customerEmail = faker.internet.email().toLocaleLowerCase()
+    }
+    await this.page.fill("[data-cy=customer_email]", customerEmail)
   }
 
-  async setBillingAddress() {
-    await this.page.fill("[data-cy=input_billing_address_first_name]", "Mario")
-    await this.page.fill("[data-cy=input_billing_address_last_name]", "Rossi")
+  async blurCustomerEmail() {
+    await this.page
+      .locator("[data-cy=customer_email]")
+      .evaluate((e) => e.blur())
+  }
+
+  async getCustomerMail() {
+    return this.page.locator("input[name=customer_email]")
+  }
+
+  async checkCustomerEmail(text: string) {
+    await this.page
+      .locator(`[data-cy=customer-email-step-header] >> text=${text}`)
+      .waitFor({ state: "visible" })
+  }
+
+  async clickStep(step: "step_customer") {
+    this.page.click(`[data-cy=${step}]`)
+  }
+
+  async setAddress({
+    address,
+    type,
+  }: {
+    address?: Partial<Address>
+    type: "billing_address" | "shipping_address"
+  }) {
+    const addressToFill = address || euAddress
     await this.page.fill(
-      "[data-cy=input_billing_address_line_1]",
-      "Via delle candele 12"
+      `[data-cy=input_${type}_first_name]`,
+      addressToFill.first_name as string
     )
-    await this.page.fill("[data-cy=input_billing_address_line_2]", "Interno 1")
-    await this.page.fill("[data-cy=input_billing_address_city]", "Firenze")
-    await this.page.selectOption(
-      "[data-cy=input_billing_address_country_code]",
-      "IT"
-    )
-    await this.page.selectOption(
-      "[data-cy=input_billing_address_state_code]",
-      "FI"
-    )
-    await this.page.fill("[data-cy=input_billing_address_zip_code]", "50123")
-    await this.page.fill("[data-cy=input_billing_address_phone]", "3331821325")
     await this.page.fill(
-      "[data-cy=input_billing_address_billing_info]",
-      "LSSXXX78T33D321W"
+      `[data-cy=input_${type}_last_name]`,
+      addressToFill.last_name as string
     )
+    await this.page.fill(
+      `[data-cy=input_${type}_line_1]`,
+      addressToFill.line_1 as string
+    )
+    await this.page.fill(
+      `[data-cy=input_${type}_line_2]`,
+      addressToFill.line_2 as string
+    )
+    await this.page.fill(
+      `[data-cy=input_${type}_city]`,
+      addressToFill.city as string
+    )
+    await this.page.selectOption(
+      `[data-cy=input_${type}_country_code]`,
+      addressToFill.country_code as string
+    )
+    await this.page.selectOption(
+      `[data-cy=input_${type}_state_code]`,
+      addressToFill.state_code as string
+    )
+    await this.page.fill(
+      `[data-cy=input_${type}_zip_code]`,
+      addressToFill.zip_code as string
+    )
+    await this.page.fill(
+      `[data-cy=input_${type}_phone]`,
+      addressToFill.phone as string
+    )
+    await this.page.fill(
+      `[data-cy=input_${type}_billing_info]`,
+      addressToFill.billing_info as string
+    )
+
+    // const promises = Object.keys(addressToFill).map(async (key) => {
+    //   const command = ["country_code", "state_code"].includes(key)
+    //     ? "selectOption"
+    //     : "fill"
+    //   return await this.page[command](
+    //     `[data-cy=input_${type}_${key}]`,
+    //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //     // @ts-ignore
+    //     addressToFill[key]
+    //   )
+    // })
+
+    // await Promise.all(promises)
+  }
+
+  async setBillingAddress(address?: Partial<Address>) {
+    await this.setAddress({ address, type: "billing_address" })
+  }
+
+  async checkBillingAddress(address: Partial<Address>) {
+    const promises = Object.keys(address).map(async (key) => {
+      const fieldType = ["country_code", "state_code"].includes(key)
+        ? "select"
+        : "input"
+      const element = this.page.locator(
+        `${fieldType}[name=billing_address_${key}]`
+      )
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return expect(element).toHaveValue(address[key])
+    })
+    await Promise.all(promises)
   }
 
   async setCoupon(code: string) {

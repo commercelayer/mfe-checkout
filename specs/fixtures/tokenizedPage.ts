@@ -36,7 +36,10 @@ interface DefaultParamsProps {
   token?: string
   orderId?: string
   order: OrderType | undefined
-  orderAttributes?: object
+  orderAttributes?: {
+    language_code?: "en" | "it"
+    customer_email?: string
+  }
   lineItemsAttributes?: LineItemObject[]
   giftCardAttributes?: GiftCardProps
   couponCode?: string

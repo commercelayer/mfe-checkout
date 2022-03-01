@@ -10,7 +10,8 @@ test("should execute a giftcard checkout with valid token", async ({
   checkoutPage,
 }) => {
   await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
-  await checkoutPage.setCustomerMail("customer@tk.com")
+  await checkoutPage.setCustomerMail()
+
   await checkoutPage.setBillingAddress()
   let element = await checkoutPage.page.locator("[data-cy=step_customer]")
   expect(element).toHaveAttribute("data-status", "true")
