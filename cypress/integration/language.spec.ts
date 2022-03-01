@@ -20,7 +20,7 @@ describe("Checkout language", () => {
     it("redirect to english checkout order", () => {
       cy.createOrder("draft", {
         languageCode: "en",
-        customerEmail: "alessani@gmail.com",
+        customerEmail: "customer@tk.com",
       }).then((order) => {
         cy.createSkuLineItems({
           orderId: order.id,
@@ -60,7 +60,7 @@ describe("Checkout language", () => {
     it("redirect to italian checkout order", () => {
       cy.createOrder("draft", {
         languageCode: "it",
-        customerEmail: "alessani@gmail.com",
+        customerEmail: "customer@tk.com",
       }).then((order) => {
         cy.createSkuLineItems({
           orderId: order.id,

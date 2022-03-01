@@ -52,7 +52,7 @@ describe("Checkout entrypoint", () => {
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
-        customerEmail: "alessani@gmail.com",
+        customerEmail: "customer@tk.com",
       })
         .as("newOrder")
         .then((order) => {
@@ -102,7 +102,7 @@ describe("Checkout entrypoint", () => {
     before(function () {
       cy.createOrder("draft", {
         languageCode: "en",
-        customerEmail: "alessani@gmail.com",
+        customerEmail: "customer@tk.com",
       }).as("newOrder")
     })
 

@@ -1,4 +1,7 @@
-import { getSalesChannelToken } from "@commercelayer/js-auth"
+import {
+  getIntegrationToken,
+  getSalesChannelToken,
+} from "@commercelayer/js-auth"
 import CommerceLayer, { CommerceLayerClient } from "@commercelayer/sdk"
 import { test as base } from "@playwright/test"
 import dotenv from "dotenv"
@@ -16,17 +19,25 @@ type OrderType =
   | "bundle+skus"
   | "digital"
   | "gift-card"
+  | "with-items"
+
+type LineItemObject = {
+  quantity: number
+} & ({ sku_code: string } | { bundle_code: string })
+
+interface GiftCardProps {
+  currency_code?: "EUR" | "USD"
+  balance_cents?: number
+  customer_email?: string
+}
 
 interface DefaultParamsProps {
   token?: string
   orderId?: string
   order: OrderType | undefined
   orderAttributes?: object
-  giftCardAttributes?: {
-    currency_code?: "EUR" | "USD"
-    balance_cents?: number
-    customer_email?: string
-  }
+  lineItemsAttributes?: LineItemObject[]
+  giftCardAttributes?: GiftCardProps
 }
 
 type FixtureType = {
@@ -46,6 +57,21 @@ const getToken = async () => {
   return accessToken as string
 }
 
+const getSuperToken = async () => {
+  const clientId = process.env.NEXT_PUBLIC_INTEGRATION_CLIENT_ID as string
+  const clientSecret = process.env
+    .NEXT_PUBLIC_INTEGRATION_CLIENT_SECRET as string
+  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
+  const scope = process.env.NEXT_PUBLIC_MARKET_ID as string
+  const { accessToken } = await getIntegrationToken({
+    clientId,
+    clientSecret,
+    endpoint,
+    scope,
+  })
+  return accessToken as string
+}
+
 const getOrder = async (
   cl: CommerceLayerClient,
   params: DefaultParamsProps
@@ -57,6 +83,27 @@ const getOrder = async (
     case "plain":
       await createDefaultLineItem(cl, order.id)
       break
+    case "with-items": {
+      await createLineItems({
+        cl,
+        orderId: order.id,
+        items: params.lineItemsAttributes || [],
+      })
+      if (giftCard) {
+        const superToken = await getSuperToken()
+        const superCl = await getClient(superToken)
+        const card = await createAndPurchaseGiftCard(cl, giftCard)
+        const activeCard = await superCl.gift_cards.update({
+          id: card.id,
+          _activate: true,
+        })
+        await cl.orders.update({
+          id: order.id,
+          gift_card_code: activeCard.code,
+        })
+      }
+      break
+    }
     case "bundle":
       await createLineItems({
         cl,
@@ -100,20 +147,11 @@ const getOrder = async (
       break
     }
     case "gift-card": {
-      const card = await cl.gift_cards.create({
-        currency_code: giftCard.currency_code ? giftCard.currency_code : "EUR",
-        balance_cents: giftCard.balance_cents ? giftCard.balance_cents : 10000,
-        recipient_email: giftCard.customer_email
-          ? giftCard.customer_email
-          : "alessani@gmail.com",
-      })
-      const activeCard = await cl.gift_cards.update({
-        id: card.id,
-        _purchase: true,
-      })
+      const activeCard = await createAndPurchaseGiftCard(cl, giftCard)
+
       const lineItem = {
         quantity: 1,
-        order: cl.orders.relationship(order.id),
+        order: cl.orders.relationship(order),
         item: cl.gift_cards.relationship(activeCard),
       }
 
@@ -125,16 +163,30 @@ const getOrder = async (
   return { orderId: order.id }
 }
 
+const createAndPurchaseGiftCard = async (
+  cl: CommerceLayerClient,
+  props?: GiftCardProps
+) => {
+  const card = await cl.gift_cards.create({
+    currency_code: props?.currency_code ? props.currency_code : "EUR",
+    balance_cents: props?.balance_cents ? props.balance_cents : 10000,
+    recipient_email: props?.customer_email
+      ? props.customer_email
+      : "customer@tk.com",
+  })
+  const activeCard = await cl.gift_cards.update({
+    id: card.id,
+    _purchase: true,
+  })
+  return activeCard
+}
+
 const getClient = async (token: string) => {
   return CommerceLayer({
     organization: process.env.NEXT_PUBLIC_SLUG as string,
     accessToken: token,
   })
 }
-
-type LineItemObject = {
-  quantity: number
-} & ({ sku_code: string } | { bundle_code: string })
 
 const createLineItems = async ({
   cl,
@@ -155,8 +207,7 @@ const createLineItems = async ({
   })
 
   try {
-    const promises = await Promise.all(lineItems)
-    console.log(promises)
+    await Promise.all(lineItems)
   } catch (e) {
     console.log(e)
   }

@@ -8,7 +8,7 @@ test.use({
 
 test("should execute a checkout with valid token", async ({ checkoutPage }) => {
   await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
-  await checkoutPage.setCustomerMail("alessani@gmail.com")
+  await checkoutPage.setCustomerMail("customer@tk.com")
   await checkoutPage.setBillingAddress()
   let element = await checkoutPage.page.locator("[data-cy=step_customer]")
   expect(element).toHaveAttribute("data-status", "true")
@@ -36,13 +36,9 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
     "[data-test-id=stripe_payments] >> text=Credit card",
     { force: true }
   )
-  await checkoutPage.page.pause()
   await checkoutPage.checkPaymentSummary("€10,00")
 
-  // await checkoutPage.setPayment("stripe")
-  // expect(
-  //   checkoutPage.page.locator("[data-cy=payment-source] >> text=ending in 4242")
-  // ).toBeVisible()
+  await checkoutPage.setPayment("stripe")
 
   await checkoutPage.continue("Payment")
 
