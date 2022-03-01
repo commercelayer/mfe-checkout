@@ -9,13 +9,24 @@ import { CheckoutPage } from "./CheckoutPage"
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") })
 
-type OrderType = "plain" | "no_line_items" | "bundle"
+type OrderType =
+  | "plain"
+  | "no_line_items"
+  | "bundle"
+  | "bundle+skus"
+  | "digital"
+  | "gift-card"
 
 interface DefaultParamsProps {
   token?: string
   orderId?: string
   order: OrderType | undefined
   orderAttributes?: object
+  giftCardAttributes?: {
+    currency_code?: "EUR" | "USD"
+    balance_cents?: number
+    customer_email?: string
+  }
 }
 
 type FixtureType = {
@@ -40,6 +51,7 @@ const getOrder = async (
   params: DefaultParamsProps
 ) => {
   const attributes = { ...params.orderAttributes }
+  const giftCard = { ...params.giftCardAttributes }
   const order = await cl.orders.create(attributes)
   switch (params.order) {
     case "plain":
@@ -57,6 +69,58 @@ const getOrder = async (
         ],
       })
       break
+    case "bundle+skus":
+      await createLineItems({
+        cl,
+        orderId: order.id,
+        items: [
+          {
+            bundle_code: "SHIRTSETSINGLE",
+            quantity: 1,
+          },
+          {
+            sku_code: "TESLA5",
+            quantity: 2,
+          },
+        ],
+      })
+      break
+
+    case "digital": {
+      await createLineItems({
+        cl,
+        orderId: order.id,
+        items: [
+          {
+            sku_code: "NFTEBOOK",
+            quantity: 1,
+          },
+        ],
+      })
+      break
+    }
+    case "gift-card": {
+      const card = await cl.gift_cards.create({
+        currency_code: giftCard.currency_code ? giftCard.currency_code : "EUR",
+        balance_cents: giftCard.balance_cents ? giftCard.balance_cents : 10000,
+        recipient_email: giftCard.customer_email
+          ? giftCard.customer_email
+          : "alessani@gmail.com",
+      })
+      const activeCard = await cl.gift_cards.update({
+        id: card.id,
+        _purchase: true,
+      })
+      const lineItem = {
+        quantity: 1,
+        order: cl.orders.relationship(order.id),
+        item: cl.gift_cards.relationship(activeCard),
+      }
+
+      await cl.line_items.create(lineItem)
+
+      break
+    }
   }
   return { orderId: order.id }
 }
@@ -91,7 +155,8 @@ const createLineItems = async ({
   })
 
   try {
-    await Promise.all(lineItems)
+    const promises = await Promise.all(lineItems)
+    console.log(promises)
   } catch (e) {
     console.log(e)
   }

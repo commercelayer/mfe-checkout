@@ -2,7 +2,7 @@ import { test, expect } from "../fixtures/tokenizedPage"
 
 test.use({
   defaultParams: {
-    order: "bundle",
+    order: "bundle+skus",
   },
 })
 
@@ -36,7 +36,6 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
     "[data-test-id=stripe_payments] >> text=Credit card",
     { force: true }
   )
-  await checkoutPage.page.pause()
   await checkoutPage.checkPaymentSummary("€10,00")
 
   // await checkoutPage.setPayment("stripe")

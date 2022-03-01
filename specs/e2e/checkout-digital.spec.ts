@@ -2,11 +2,13 @@ import { test, expect } from "../fixtures/tokenizedPage"
 
 test.use({
   defaultParams: {
-    order: "bundle",
+    order: "digital",
   },
 })
 
-test("should execute a checkout with valid token", async ({ checkoutPage }) => {
+test("should execute a digital checkout with valid token", async ({
+  checkoutPage,
+}) => {
   await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
   await checkoutPage.setCustomerMail("alessani@gmail.com")
   await checkoutPage.setBillingAddress()
@@ -15,16 +17,11 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
   await checkoutPage.continue("Customer")
 
   element = await checkoutPage.page.locator("[data-cy=step_shipping]")
-  expect(element).toHaveAttribute("data-status", "true")
+  expect(element).toHaveCount(0)
 
-  await checkoutPage.checkShippingSummary("To be calculated")
-  expect(checkoutPage.page.locator("text=Standard Shipping")).toBeVisible()
-  await checkoutPage.page.click(
-    "[data-cy=shipping-methods-container] >> text=Standard Shipping"
-  )
+  element = await checkoutPage.page.locator("[data-cy=shipping-amount]")
+  expect(element).toHaveCount(0)
 
-  await checkoutPage.checkShippingSummary("FREE")
-  await checkoutPage.continue("Shipping")
   element = await checkoutPage.page.locator("[data-cy=step_payment]")
   expect(element).toHaveAttribute("data-status", "true")
   expect(
@@ -36,14 +33,9 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
     "[data-test-id=stripe_payments] >> text=Credit card",
     { force: true }
   )
-  await checkoutPage.page.pause()
   await checkoutPage.checkPaymentSummary("€10,00")
 
-  // await checkoutPage.setPayment("stripe")
-  // expect(
-  //   checkoutPage.page.locator("[data-cy=payment-source] >> text=ending in 4242")
-  // ).toBeVisible()
-
+  await checkoutPage.setPayment("stripe")
   await checkoutPage.continue("Payment")
 
   expect(
