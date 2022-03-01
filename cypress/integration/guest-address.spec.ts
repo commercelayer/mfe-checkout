@@ -54,10 +54,6 @@ describe("Checkout guest address", () => {
         .type(`{selectall}{backspace}${emailCustomer}`)
         .blur({ force: true })
 
-      cy.wait(["@updateOrder"], {
-        timeout: 100000,
-      })
-
       cy.dataCy("customer_email").should("contain.value", emailCustomer)
     })
 

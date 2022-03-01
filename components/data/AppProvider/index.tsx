@@ -102,13 +102,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     }
     dispatch({ type: ActionType.START_LOADING })
     const order = await fetchOrder(cl, orderId)
-    const others = calculateSettings(order)
+    const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
+    const others = calculateSettings(order, isShipmentRequired)
 
     const addressInfos = await checkAndSetDefaultAddressForOrder({
       cl,
       order,
     })
-    const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     // TODO Set shipping method if only one, but defer if not address set
     // setAutomatedShippingMethods(order, addresses, )

@@ -308,7 +308,7 @@ export function calculateAddresses(
   return values
 }
 
-export function calculateSettings(order: Order) {
+export function calculateSettings(order: Order, isShipmentRequired: boolean) {
   const calculatedAddresses = calculateAddresses(order)
   const paymentRequired = isPaymentRequired(order)
   return {
@@ -318,7 +318,12 @@ export function calculateSettings(order: Order) {
     hasEmailAddress: Boolean(order.customer_email),
     emailAddress: order.customer_email,
     ...calculatedAddresses,
-    ...calculateSelectedShipments(prepareShipments(order.shipments)),
+    ...(isShipmentRequired
+      ? calculateSelectedShipments(prepareShipments(order.shipments))
+      : {
+          hasShippingMethod: true,
+          shipments: [],
+        }),
     ...checkPaymentMethod(order),
     returnUrl: order.return_url,
     taxIncluded: order.tax_included,

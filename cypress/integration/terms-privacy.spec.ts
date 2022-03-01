@@ -204,6 +204,16 @@ describe("Checkout Complete with terms and privacy", () => {
         })
       })
 
+      it("select payment method paypal", () => {
+        cy.dataCy("payment-method-item").each((e, i) => {
+          cy.wrap(e).as(`paymentMethodItem${i}`)
+        })
+        cy.get("@paymentMethodItem2").click({ force: true })
+        cy.wait(["@updateOrder", "@getCustomerAddresses", "@getOrders"], {
+          timeout: 100000,
+        })
+      })
+
       it("set checkbox to checked", () => {
         cy.wait(2000)
         cy.dataCy("checkbox-privacy-and-terms").check()
