@@ -29,6 +29,7 @@ interface GiftCardProps {
   currency_code?: "EUR" | "USD"
   balance_cents?: number
   customer_email?: string
+  apply?: boolean
 }
 
 interface DefaultParamsProps {
@@ -38,6 +39,7 @@ interface DefaultParamsProps {
   orderAttributes?: object
   lineItemsAttributes?: LineItemObject[]
   giftCardAttributes?: GiftCardProps
+  couponCode?: string
 }
 
 type FixtureType = {
@@ -77,8 +79,10 @@ const getOrder = async (
   params: DefaultParamsProps
 ) => {
   const attributes = { ...params.orderAttributes }
-  const giftCard = { ...params.giftCardAttributes }
+  const giftCard = params.giftCardAttributes
   const order = await cl.orders.create(attributes)
+  let giftCardCode
+
   switch (params.order) {
     case "plain":
       await createDefaultLineItem(cl, order.id)
@@ -97,11 +101,22 @@ const getOrder = async (
           id: card.id,
           _activate: true,
         })
+        if (giftCard.apply) {
+          await cl.orders.update({
+            id: order.id,
+            gift_card_code: activeCard.code,
+          })
+        } else {
+          giftCardCode = activeCard.code
+        }
+      }
+      if (params.couponCode) {
         await cl.orders.update({
           id: order.id,
-          gift_card_code: activeCard.code,
+          coupon_code: params.couponCode,
         })
       }
+
       break
     }
     case "bundle":
@@ -160,7 +175,7 @@ const getOrder = async (
       break
     }
   }
-  return { orderId: order.id }
+  return { orderId: order.id, attributes: { giftCard: giftCardCode } }
 }
 
 const createAndPurchaseGiftCard = async (
@@ -233,8 +248,8 @@ export const test = base.extend<FixtureType>({
   checkoutPage: async ({ page, defaultParams }, use) => {
     const token = await getToken()
     const cl = await getClient(token)
-    const { orderId } = await getOrder(cl, defaultParams)
-    const checkoutPage = new CheckoutPage(page)
+    const { orderId, attributes } = await getOrder(cl, defaultParams)
+    const checkoutPage = new CheckoutPage(page, attributes)
     const id =
       defaultParams.orderId === undefined ? orderId : defaultParams.orderId
     const accessToken =

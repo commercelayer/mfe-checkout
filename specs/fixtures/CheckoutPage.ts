@@ -5,11 +5,17 @@ interface GoToProps {
   token: string
 }
 
+interface AttributesProps {
+  giftCard?: string
+}
+
 export class CheckoutPage {
   readonly page: Page
+  readonly attributes?: AttributesProps
 
-  constructor(page: Page) {
+  constructor(page: Page, attributes?: AttributesProps) {
     this.page = page
+    this.attributes = attributes || {}
   }
 
   async goto({ orderId, token }: GoToProps) {
@@ -17,6 +23,10 @@ export class CheckoutPage {
     await this.page.goto(`${url}`, {
       waitUntil: "networkidle",
     })
+  }
+
+  getGiftCard() {
+    return this.attributes?.giftCard
   }
 
   async setCustomerMail(email: string) {
@@ -48,9 +58,52 @@ export class CheckoutPage {
     )
   }
 
+  async setCoupon(code: string) {
+    await this.page.fill("[data-cy=input_giftcard_coupon]", code)
+    this.page.click("[data-cy=submit_giftcard_coupon]")
+  }
+
+  async removeCoupon() {
+    this.page.click("[data-cy=remove_coupon]")
+  }
+
+  async removeGiftCard() {
+    this.page.click("[data-cy=remove_giftcard]")
+  }
+
   async checkShippingSummary(text: string) {
     await this.page
       .locator(`[data-cy=shipping-amount] >> text=${text}`)
+      .waitFor({ state: "visible" })
+  }
+
+  async checkTaxSummary(text: string) {
+    await this.page
+      .locator(`[data-cy=tax-amount] >> text=${text}`)
+      .waitFor({ state: "visible" })
+  }
+
+  async checkDiscountAmount(text: string) {
+    await this.page
+      .locator(`[data-cy=discount-amount] >> text=${text}`)
+      .waitFor({ state: "visible" })
+  }
+
+  async checkGiftCardAmount(text: string) {
+    await this.page
+      .locator(`[data-cy=giftcard-amount] >> text=${text}`)
+      .waitFor({ state: "visible" })
+  }
+
+  async checkCouponCode(text: string) {
+    await this.page
+      .locator(`[data-cy=code-coupon] >> text=${text}`)
+      .waitFor({ state: "visible" })
+  }
+
+  async checkTotalAmount(text: string) {
+    await this.page
+      .locator(`[data-cy=total-amount] >> text=${text}`)
       .waitFor({ state: "visible" })
   }
 
