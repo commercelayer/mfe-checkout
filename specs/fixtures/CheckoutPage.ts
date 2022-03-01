@@ -2,7 +2,9 @@ import { Address } from "@commercelayer/sdk"
 import { faker } from "@faker-js/faker"
 import { Page, expect } from "@playwright/test"
 
-import { euAddress } from "../utils/addresses"
+import { type } from "os"
+
+import { euAddress, euAddress2 } from "../utils/addresses"
 
 interface GoToProps {
   orderId: string
@@ -61,54 +63,63 @@ export class CheckoutPage {
     this.page.click(`[data-cy=${step}]`)
   }
 
+  async shipToDifferentAddress() {
+    this.page.click(`[data-cy=button-ship-to-different-address]`)
+  }
+
   async setAddress({
     address,
     type,
   }: {
-    address?: Partial<Address>
+    address: Partial<Address>
     type: "billing_address" | "shipping_address"
   }) {
-    const addressToFill = address || euAddress
     await this.page.fill(
       `[data-cy=input_${type}_first_name]`,
-      addressToFill.first_name as string
+      address.first_name as string
     )
     await this.page.fill(
       `[data-cy=input_${type}_last_name]`,
-      addressToFill.last_name as string
+      address.last_name as string
     )
     await this.page.fill(
       `[data-cy=input_${type}_line_1]`,
-      addressToFill.line_1 as string
+      address.line_1 as string
     )
     await this.page.fill(
       `[data-cy=input_${type}_line_2]`,
-      addressToFill.line_2 as string
+      address.line_2 as string
     )
-    await this.page.fill(
-      `[data-cy=input_${type}_city]`,
-      addressToFill.city as string
-    )
+    await this.page.fill(`[data-cy=input_${type}_city]`, address.city as string)
     await this.page.selectOption(
       `[data-cy=input_${type}_country_code]`,
-      addressToFill.country_code as string
+      address.country_code as string
     )
-    await this.page.selectOption(
+
+    const command =
+      address.country_code && ["IT", "US"].includes(address.country_code)
+        ? "selectOption"
+        : "fill"
+
+    await this.page[command](
       `[data-cy=input_${type}_state_code]`,
-      addressToFill.state_code as string
+      address.state_code as string
     )
+
     await this.page.fill(
       `[data-cy=input_${type}_zip_code]`,
-      addressToFill.zip_code as string
+      address.zip_code as string
     )
     await this.page.fill(
       `[data-cy=input_${type}_phone]`,
-      addressToFill.phone as string
+      address.phone as string
     )
-    await this.page.fill(
-      `[data-cy=input_${type}_billing_info]`,
-      addressToFill.billing_info as string
-    )
+    if (address.billing_info) {
+      await this.page.fill(
+        `[data-cy=input_${type}_billing_info]`,
+        address.billing_info as string
+      )
+    }
 
     // const promises = Object.keys(addressToFill).map(async (key) => {
     //   const command = ["country_code", "state_code"].includes(key)
@@ -126,22 +137,47 @@ export class CheckoutPage {
   }
 
   async setBillingAddress(address?: Partial<Address>) {
-    await this.setAddress({ address, type: "billing_address" })
+    const addressToFill = address || euAddress
+    await this.setAddress({ address: addressToFill, type: "billing_address" })
   }
 
-  async checkBillingAddress(address: Partial<Address>) {
+  async setShippingAddress(address?: Partial<Address>) {
+    const { billing_info, ...addressToFill } = address || euAddress2
+    await this.setAddress({ address: addressToFill, type: "shipping_address" })
+  }
+
+  async checkAddress({
+    address,
+    type,
+  }: {
+    address: Partial<Address>
+    type: "billing_address" | "shipping_address"
+  }) {
     const promises = Object.keys(address).map(async (key) => {
-      const fieldType = ["country_code", "state_code"].includes(key)
-        ? "select"
-        : "input"
-      const element = this.page.locator(
-        `${fieldType}[name=billing_address_${key}]`
-      )
+      if (type === "shipping_address" && key === "billing_info") {
+        return
+      }
+      const fieldType =
+        key === "country_code" ||
+        (key === "state_code" &&
+          address.country_code &&
+          ["IT", "US"].includes(address.country_code))
+          ? "select"
+          : "input"
+      const element = this.page.locator(`${fieldType}[name=${type}_${key}]`)
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return expect(element).toHaveValue(address[key])
     })
     await Promise.all(promises)
+  }
+
+  async checkBillingAddress(address: Partial<Address>) {
+    await this.checkAddress({ address, type: "billing_address" })
+  }
+
+  async checkShippingAddress(address: Partial<Address>) {
+    await this.checkAddress({ address, type: "shipping_address" })
   }
 
   async setCoupon(code: string) {
