@@ -265,7 +265,7 @@ export class CheckoutPage {
       .waitFor({ state: "visible" })
   }
 
-  async setPayment(type: "stripe" | "braintree" | "wiretransfer") {
+  async setPayment(type: "stripe" | "braintree" | "wiretransfer" | "paypal") {
     switch (type) {
       case "stripe": {
         const stripeFrame = this.page.frameLocator("iframe").first()
@@ -276,10 +276,15 @@ export class CheckoutPage {
         await stripeFrame.locator("input[name=cvc]").fill("321")
         break
       }
+      case "paypal": {
+        await this.page.click("[data-test-id=paypal_payments] >> text=PayPal", {
+          force: true,
+        })
+      }
     }
   }
 
-  async continue(step: SingleStepEnum) {
+  async continue(step: SingleStepEnum, waitText?: string) {
     switch (step) {
       case "Customer":
         this.page.click("[data-cy=save-addresses-button]")
@@ -293,12 +298,12 @@ export class CheckoutPage {
           .locator("[data-cy=step_shipping][data-status=false]")
           .waitFor({ state: "visible" })
         break
-      case "Payment":
+      case "Payment": {
+        const text = waitText || "Order successfully placed"
         this.page.click("[data-cy=place-order-button]")
-        await this.page
-          .locator("text=Order successfully placed")
-          .waitFor({ state: "visible" })
+        await this.page.locator(`text=${text}`).waitFor({ state: "visible" })
         break
+      }
     }
   }
 }
