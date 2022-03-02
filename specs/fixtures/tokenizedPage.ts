@@ -2,7 +2,11 @@ import {
   getIntegrationToken,
   getSalesChannelToken,
 } from "@commercelayer/js-auth"
-import CommerceLayer, { CommerceLayerClient } from "@commercelayer/sdk"
+import CommerceLayer, {
+  CommerceLayerClient,
+  Address,
+  AddressCreate,
+} from "@commercelayer/sdk"
 import { test as base } from "@playwright/test"
 import dotenv from "dotenv"
 
@@ -39,9 +43,15 @@ interface DefaultParamsProps {
   orderAttributes?: {
     language_code?: "en" | "it"
     customer_email?: string
+    shipping_country_code_lock?: "IT" | "GB" | "US"
   }
   lineItemsAttributes?: LineItemObject[]
   giftCardAttributes?: GiftCardProps
+  addresses?: {
+    billingAddress?: Partial<Address>
+    shippingAddress?: Partial<Address>
+    sameShippingAddress?: boolean
+  }
   couponCode?: string
 }
 
@@ -118,6 +128,27 @@ const getOrder = async (
           id: order.id,
           coupon_code: params.couponCode,
         })
+      }
+      if (params.addresses && params.addresses.billingAddress) {
+        const { billingAddress, shippingAddress, sameShippingAddress } =
+          params.addresses
+        const addressToAttach = await cl.addresses.create(
+          billingAddress as AddressCreate
+        )
+        await cl.orders.update({
+          id: order.id,
+          billing_address: cl.addresses.relationship(addressToAttach),
+          _shipping_address_same_as_billing: sameShippingAddress,
+        })
+        if (!sameShippingAddress && shippingAddress) {
+          const addressToAttach = await cl.addresses.create(
+            shippingAddress as AddressCreate
+          )
+          await cl.orders.update({
+            id: order.id,
+            shipping_address: cl.addresses.relationship(addressToAttach),
+          })
+        }
       }
 
       break

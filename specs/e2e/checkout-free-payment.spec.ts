@@ -62,6 +62,7 @@ test.describe("with digital sku", () => {
       giftCardAttributes: {
         balance_cents: 1500,
         customer_email: "customer@tk.com",
+        apply: true,
       },
     },
   })

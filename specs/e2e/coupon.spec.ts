@@ -27,7 +27,6 @@ test.describe("with coupon code", () => {
     await checkoutPage.page.click(
       "[data-cy=shipping-methods-container] >> text=Standard Shipping"
     )
-    await checkoutPage.page.pause()
 
     await checkoutPage.checkShippingSummary("FREE")
     await checkoutPage.continue("Shipping")

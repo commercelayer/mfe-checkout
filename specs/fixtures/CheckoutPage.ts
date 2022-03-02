@@ -53,6 +53,18 @@ export class CheckoutPage {
     return this.page.locator("input[name=customer_email]")
   }
 
+  async clearInput(name: string) {
+    await this.page.click(name, {
+      clickCount: 3,
+    })
+    await this.page.keyboard.press("Backspace")
+  }
+
+  async changeCustomerEmail(text: string) {
+    await this.clearInput("[data-cy=customer_email]")
+    await this.setCustomerMail(text)
+  }
+
   async checkCustomerEmail(text: string) {
     await this.page
       .locator(`[data-cy=customer-email-step-header] >> text=${text}`)
@@ -65,6 +77,16 @@ export class CheckoutPage {
 
   async shipToDifferentAddress() {
     this.page.click(`[data-cy=button-ship-to-different-address]`)
+  }
+
+  async selectCountry(
+    type: "billing_address" | "shipping_address",
+    country: "IT" | "US" | "GB" | "FR"
+  ) {
+    await this.page.selectOption(
+      `[data-cy=input_${type}_country_code]`,
+      country
+    )
   }
 
   async setAddress({
@@ -91,10 +113,18 @@ export class CheckoutPage {
       address.line_2 as string
     )
     await this.page.fill(`[data-cy=input_${type}_city]`, address.city as string)
-    await this.page.selectOption(
-      `[data-cy=input_${type}_country_code]`,
-      address.country_code as string
+
+    const countrySelect = this.page.locator(
+      `[data-cy=input_${type}_country_code]`
     )
+    const countrySelectEnabled = await countrySelect.isEnabled()
+    if (countrySelectEnabled) {
+      await this.page.selectOption(
+        `[data-cy=input_${type}_country_code]`,
+        address.country_code as string,
+        { force: true }
+      )
+    }
 
     const command =
       address.country_code && ["IT", "US"].includes(address.country_code)
