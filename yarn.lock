@@ -12,10 +12,10 @@
   resolved "https://registry.yarnpkg.com/@ac-dev/states-service/-/states-service-1.0.3.tgz#53b5d9a40cad40df5ac313d21ce6b3efbbae63ee"
   integrity sha512-d0uWHRUxqx5wEQ9YrFm8iBkqc/mMxEup3UB0X/YD4BoQvbhz7+Lw7DKo9RqjnpDHmr3m85ecHvWMhCtAtBuU/w==
 
-"@adyen/adyen-web@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.7.0.tgz#a97f34c6a6a52b1dfd09d41c19273d33b73d3645"
-  integrity sha512-rSmzhQ9w507MXpE8DdxxLDhSMCvfu0gVIw52EhOYtQId3DBWXvR5tg7j704/QgWIbZ0cVeHQVjAy9cRNc3bCIw==
+"@adyen/adyen-web@^5.8.0":
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.9.0.tgz#ed25ae2f4424d814b9841938c02f9893b2dd8960"
+  integrity sha512-1QgXu8X6gtKDgevkHAIQh7rDXOlmfqpF8ysHFu5//FQ2zSCxhqNEJmWdc/y21z8F7QWrKSjcq4XEbNLm1p+UiQ==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@babel/runtime-corejs3" "^7.16.3"
@@ -220,28 +220,29 @@
   dependencies:
     lodash "^4.17.20"
 
-"@commercelayer/js-auth@^2.2.9":
-  version "2.2.9"
-  resolved "https://registry.yarnpkg.com/@commercelayer/js-auth/-/js-auth-2.2.9.tgz#c6610b723d6e7e4628c8ca07c40cf91db80f0192"
-  integrity sha512-G75o9fzZPzrU9evQ1RuBch3qg3uMgjLu28jkOth4RJd3Uc5NvbeuvEyGax4v0z56/zm0m9TQqkNzvPzXW4rwAA==
+"@commercelayer/js-auth@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/js-auth/-/js-auth-3.0.0.tgz#8cde97ade1b5ed1771d76aecc0167b483c50940e"
+  integrity sha512-qOVwGlGpKegwCZKaWCttN1KLVCWiru8yTz/vnfI0GaogwEivsMK+QXyIBqKFTgUclOL5n+1rZ1joeetk1iZzyA==
   dependencies:
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^3.2.4":
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.2.4.tgz#2e5d8681dc279d2718229b212d85be5c3af5ce2c"
-  integrity sha512-VGxoLVV+v3N+3p2qHY8+gShQK7UPZAWLUz+K0H/SMZGNisyxI86MHpXsFesoPWiyLgMb6HFdj49pNMMR9Ee4jQ==
+"@commercelayer/react-components@^3.5.0":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.5.1.tgz#dacf5284c0d460ff16e77c9eb94254d101d8d075"
+  integrity sha512-rCJZfkR/XRE6ZEGeHUJX26sM6W/78v58uAiI57lIAsiSoOxZ+IZJk9tPJw5/wdbBK38N+LvFBGAzxkCdS2y0xA==
   dependencies:
     "@ac-dev/countries-service" "^1.1.3"
     "@ac-dev/states-service" "^1.0.3"
-    "@adyen/adyen-web" "^5.7.0"
-    "@commercelayer/js-auth" "^2.2.9"
+    "@adyen/adyen-web" "^5.8.0"
+    "@commercelayer/js-auth" "^3.0.0"
     "@commercelayer/sdk" "^3.5.0"
     "@stripe/react-stripe-js" "^1.7.0"
-    "@stripe/stripe-js" "^1.22.0"
-    axios "^0.25.0"
+    "@stripe/stripe-js" "^1.23.0"
+    axios "^0.26.0"
     braintree-web "^3.85.2"
+    frames-react "^1.0.3"
     jwt-decode "^3.1.2"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
@@ -865,10 +866,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^1.22.0":
-  version "1.22.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.22.0.tgz#9d3d2f0a1ce81f185ec477fd7cc67544b2b2a00c"
-  integrity sha512-fm8TR8r4LwbXgBIYdPmeMjJJkxxFC66tvoliNnmXOpUgZSgQKoNPW3ON0ZphZIiif1oqWNhAaSrr7tOvGu+AFg==
+"@stripe/stripe-js@^1.23.0":
+  version "1.24.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.24.0.tgz#d23977f364565981f8ab30b1b540e367f72abc5c"
+  integrity sha512-8CEILOpzoRhGwvgcf6y+BlPyEq1ZqxAv3gsX7LvokFYvbcyH72GRcHQMGXuZS3s7HqfYQuTSFrvZNL/qdkgA9Q==
 
 "@tailwindcss/forms@^0.4.0":
   version "0.4.0"
@@ -1498,12 +1499,12 @@ axios@^0.24.0:
   dependencies:
     follow-redirects "^1.14.4"
 
-axios@^0.25.0:
-  version "0.25.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.25.0.tgz#349cfbb31331a9b4453190791760a8d35b093e0a"
-  integrity sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==
+axios@^0.26.0:
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.0.tgz#9a318f1c69ec108f8cd5f3c3d390366635e13928"
+  integrity sha512-lKoGLMYtHvFrPVt3r+RBMp9nh34N0M8zEfCWqdWZx6phynIEhQqAdydpyBAAG211zlhX9Rgu08cOamy6XjE5Og==
   dependencies:
-    follow-redirects "^1.14.7"
+    follow-redirects "^1.14.8"
 
 axobject-query@^2.2.0:
   version "2.2.0"
@@ -1846,7 +1847,7 @@ cidr-regex@^3.1.1:
   dependencies:
     ip-regex "^4.1.0"
 
-classnames@^2.3.1:
+classnames@^2.2.6, classnames@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
   integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
@@ -3237,10 +3238,15 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.4.tgz#28d9969ea90661b5134259f312ab6aa7929ac5e2"
   integrity sha512-8/sOawo8tJ4QOBX8YlQBMxL8+RLZfxMQOif9o0KUKTNTjMYElWPE0r/m5VNFxTRd0NSw8qSy8dajrwX4RYI1Hw==
 
-follow-redirects@^1.14.4, follow-redirects@^1.14.7:
+follow-redirects@^1.14.4:
   version "1.14.7"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
   integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
+
+follow-redirects@^1.14.8:
+  version "1.14.9"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.9.tgz#dd4ea157de7bfaf9ea9b3fbd85aa16951f78d8d7"
+  integrity sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==
 
 forever-agent@~0.6.1:
   version "0.6.1"
@@ -3267,6 +3273,13 @@ framebus@5.1.2:
   integrity sha512-Z/y6/0gHVx4Td4c0jkDiASBo0pXlJ2fKOP6CynSFnxTzqojG9xOKOFOqoYkcBHlz1vP4t4yHHR6Esp+GsYIh/Q==
   dependencies:
     "@braintree/uuid" "^0.1.0"
+
+frames-react@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/frames-react/-/frames-react-1.0.3.tgz#0820c52576d43026c5119950dba60c35f594d266"
+  integrity sha512-U5Dpqry6ma0Xtm10Q9Zct+vm+FOQ7/2gSk8sdMCZpd98wUBeVbSgYvYOnYvWp+zVDZDt+VpQwv4MZhoN6PFTWA==
+  dependencies:
+    classnames "^2.2.6"
 
 from2@^2.3.0:
   version "2.3.0"
