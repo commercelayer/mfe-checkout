@@ -109,6 +109,59 @@ test.describe("customer with Stripe", () => {
 
     await checkoutPage.save("Payment")
   })
+
+  test("Checkout order and save customer wallet", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    let element = await checkoutPage.page.locator("[data-cy=step_shipping]")
+    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
+    )
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-test-id=stripe_payments] >> text=Credit card",
+      { force: true }
+    )
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.checkPaymentSummary("€10,00")
+
+    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    expect(element).toBeVisible()
+    expect(element).not.toBeChecked()
+    await element.check()
+    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    expect(element).toBeChecked()
+
+    await checkoutPage.save("Payment")
+  })
+  test("Checkout order with customer wallet", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    const element = await checkoutPage.page.locator("[data-cy=step_shipping]")
+    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
+    )
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-test-id=stripe_payments] >> text=Credit card",
+      { force: true }
+    )
+
+    await checkoutPage.page.click("[data-cy=customer-card]", { force: true })
+    await checkoutPage.checkPaymentSummary("€10,00")
+
+    await checkoutPage.save("Payment")
+  })
 })
 
 test.describe("guest with Stripe", () => {
@@ -277,5 +330,107 @@ test.describe("customer with Braintree", () => {
     await checkoutPage.page
       .locator(`text=Order successfully placed`)
       .waitFor({ state: "visible", timeout: 100000 })
+  })
+})
+
+test.describe("customer with Adyen", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("Checkout order", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    let element = await checkoutPage.page.locator("[data-cy=step_shipping]")
+    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
+    )
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-test-id=adyen_payments] >> text=Credit card",
+      { force: true }
+    )
+
+    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    expect(element).toBeVisible()
+    expect(element).not.toBeChecked()
+
+    await checkoutPage.setPayment("adyen")
+
+    await checkoutPage.save("Payment")
+  })
+
+  test("Checkout order and save customer wallet", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    let element = await checkoutPage.page.locator("[data-cy=step_shipping]")
+    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
+    )
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-test-id=adyen_payments] >> text=Credit card",
+      { force: true }
+    )
+
+    await checkoutPage.setPayment("adyen")
+
+    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    expect(element).toBeVisible()
+    expect(element).not.toBeChecked()
+    await element.check()
+    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    expect(element).toBeChecked()
+
+    await checkoutPage.save("Payment")
+  })
+
+  test("Checkout order with customer wallet", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    const element = await checkoutPage.page.locator("[data-cy=step_shipping]")
+    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
+    )
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-test-id=adyen_payments] >> text=Credit card",
+      { force: true }
+    )
+
+    await checkoutPage.page.click("[data-cy=customer-card]", { force: true })
+
+    await checkoutPage.save("Payment")
   })
 })

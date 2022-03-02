@@ -274,7 +274,9 @@ export class CheckoutPage {
     }
   }
 
-  async setPayment(type: "stripe" | "braintree" | "wiretransfer" | "paypal") {
+  async setPayment(
+    type: "stripe" | "braintree" | "wiretransfer" | "paypal" | "adyen"
+  ) {
     switch (type) {
       case "stripe": {
         const stripeFrame = this.page.frameLocator("iframe").first()
@@ -299,6 +301,26 @@ export class CheckoutPage {
         await cardFrame.locator("#credit-card-number").fill("4111111111111111")
         await expFrame.locator("#expiration").fill("102030")
         await cvvFrame.locator("#cvv").fill("123")
+        break
+      }
+      case "adyen": {
+        // await this.page.pause()
+        const cardFrame = this.page.frameLocator("iframe >> nth=0")
+        // .first()
+        await cardFrame
+          .locator("[data-fieldtype=encryptedCardNumber]")
+          .fill("4111111111111111")
+
+        const expFrame = this.page.frameLocator("iframe >> nth=1")
+        // .first()
+        await expFrame
+          .locator("[data-fieldtype=encryptedExpiryDate]")
+          .fill("0330")
+        const cvvFrame = this.page.frameLocator("iframe >> nth=2") // .first()
+        await cvvFrame
+          .locator("[data-fieldtype=encryptedSecurityCode]")
+          .fill("737")
+
         break
       }
       case "paypal": {

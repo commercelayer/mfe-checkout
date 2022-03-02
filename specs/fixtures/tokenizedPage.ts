@@ -84,9 +84,17 @@ const getCustomerUserToken = async ({
   email: string
   password: string
 }) => {
-  const token = await getToken()
+  const token = await getSuperToken()
   const cl = await getClient(token)
-  const user = await cl.customers.create({ email, password })
+  const existingUser = await cl.customers.list({
+    filters: {
+      email_eq: email,
+    },
+  })
+
+  if (existingUser.length === 0) {
+    await cl.customers.create({ email, password })
+  }
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID as string
   const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
   const scope = process.env.NEXT_PUBLIC_MARKET_ID as string
