@@ -265,6 +265,15 @@ export class CheckoutPage {
       .waitFor({ state: "visible" })
   }
 
+  async checkPlaceOrder(status: "enabled" | "disabled") {
+    const element = await this.page.locator("[data-cy=place-order-button]")
+    if (status === "disabled") {
+      return expect(element).toBeDisabled()
+    } else {
+      return expect(element).toBeEnabled()
+    }
+  }
+
   async setPayment(type: "stripe" | "braintree" | "wiretransfer" | "paypal") {
     switch (type) {
       case "stripe": {
@@ -276,6 +285,22 @@ export class CheckoutPage {
         await stripeFrame.locator("input[name=cvc]").fill("321")
         break
       }
+      case "braintree": {
+        // await this.page.pause()
+        const cardFrame = this.page.frameLocator(
+          'iframe[name="braintree-hosted-field-number"]'
+        )
+        const expFrame = this.page.frameLocator(
+          'iframe[name="braintree-hosted-field-expirationDate"]'
+        )
+        const cvvFrame = this.page.frameLocator(
+          'iframe[name="braintree-hosted-field-cvv"]'
+        )
+        await cardFrame.locator("#credit-card-number").fill("4111111111111111")
+        await expFrame.locator("#expiration").fill("102030")
+        await cvvFrame.locator("#cvv").fill("123")
+        break
+      }
       case "paypal": {
         await this.page.click("[data-test-id=paypal_payments] >> text=PayPal", {
           force: true,
@@ -284,7 +309,7 @@ export class CheckoutPage {
     }
   }
 
-  async continue(step: SingleStepEnum, waitText?: string) {
+  async save(step: SingleStepEnum, waitText?: string, skipWait?: boolean) {
     switch (step) {
       case "Customer":
         this.page.click("[data-cy=save-addresses-button]")
@@ -301,6 +326,9 @@ export class CheckoutPage {
       case "Payment": {
         const text = waitText || "Order successfully placed"
         this.page.click("[data-cy=place-order-button]")
+        if (skipWait) {
+          return
+        }
         await this.page.locator(`text=${text}`).waitFor({ state: "visible" })
         break
       }

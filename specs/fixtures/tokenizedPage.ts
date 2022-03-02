@@ -1,4 +1,5 @@
 import {
+  getCustomerToken,
   getIntegrationToken,
   getSalesChannelToken,
 } from "@commercelayer/js-auth"
@@ -40,6 +41,10 @@ interface DefaultParamsProps {
   token?: string
   orderId?: string
   order: OrderType | undefined
+  customer?: {
+    email: string
+    password: string
+  }
   orderAttributes?: {
     language_code?: "en" | "it"
     customer_email?: string
@@ -72,6 +77,33 @@ const getToken = async () => {
   return accessToken as string
 }
 
+const getCustomerUserToken = async ({
+  email,
+  password,
+}: {
+  email: string
+  password: string
+}) => {
+  const token = await getToken()
+  const cl = await getClient(token)
+  const user = await cl.customers.create({ email, password })
+  const clientId = process.env.NEXT_PUBLIC_CLIENT_ID as string
+  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
+  const scope = process.env.NEXT_PUBLIC_MARKET_ID as string
+  const { accessToken } = await getCustomerToken(
+    {
+      clientId,
+      endpoint,
+      scope,
+    },
+    {
+      username: email,
+      password: password,
+    }
+  )
+  return accessToken as string
+}
+
 const getSuperToken = async () => {
   const clientId = process.env.NEXT_PUBLIC_INTEGRATION_CLIENT_ID as string
   const clientSecret = process.env
@@ -91,7 +123,8 @@ const getOrder = async (
   cl: CommerceLayerClient,
   params: DefaultParamsProps
 ) => {
-  const attributes = { ...params.orderAttributes }
+  const email = params.customer?.email || params.orderAttributes?.customer_email
+  const attributes = { ...params.orderAttributes, customer_email: email }
   const giftCard = params.giftCardAttributes
   const order = await cl.orders.create(attributes)
   let giftCardCode
@@ -280,7 +313,9 @@ const createDefaultLineItem = async (
 export const test = base.extend<FixtureType>({
   defaultParams: { order: "plain" },
   checkoutPage: async ({ page, defaultParams }, use) => {
-    const token = await getToken()
+    const token = await (defaultParams.customer
+      ? getCustomerUserToken(defaultParams.customer)
+      : getToken())
     const cl = await getClient(token)
     const { orderId, attributes } = await getOrder(cl, defaultParams)
     const checkoutPage = new CheckoutPage(page, attributes)

@@ -14,7 +14,7 @@ test("should execute a digital checkout with valid token", async ({
   await checkoutPage.setBillingAddress()
   let element = await checkoutPage.page.locator("[data-cy=step_customer]")
   expect(element).toHaveAttribute("data-status", "true")
-  await checkoutPage.continue("Customer")
+  await checkoutPage.save("Customer")
 
   element = await checkoutPage.page.locator("[data-cy=step_shipping]")
   expect(element).toHaveCount(0)
@@ -36,7 +36,7 @@ test("should execute a digital checkout with valid token", async ({
   await checkoutPage.checkPaymentSummary("€10,00")
 
   await checkoutPage.setPayment("stripe")
-  await checkoutPage.continue("Payment")
+  await checkoutPage.save("Payment")
 
   expect(
     checkoutPage.page.locator("text=Order successfully placed!")

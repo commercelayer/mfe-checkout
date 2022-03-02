@@ -3,9 +3,8 @@ import { faker } from "@faker-js/faker"
 import { test, expect } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
-
-test.describe("with Paypal", () => {
+test.describe("guest with Paypal", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
   test.use({
     defaultParams: {
       order: "with-items",
@@ -32,11 +31,11 @@ test.describe("with Paypal", () => {
       "[data-cy=shipping-methods-container] >> text=Standard Shipping"
     )
 
-    await checkoutPage.continue("Shipping")
+    await checkoutPage.save("Shipping")
 
     await checkoutPage.setPayment("paypal")
 
-    await checkoutPage.continue("Payment", "Paga con PayPal")
+    await checkoutPage.save("Payment", "Paga con PayPal")
 
     await checkoutPage.page.fill(
       "input[name=login_email]",
@@ -56,5 +55,227 @@ test.describe("with Paypal", () => {
     await checkoutPage.page
       .locator("text=Order succesfully placed")
       .waitFor({ state: "visible" })
+  })
+})
+
+test.describe("customer with Stripe", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("Checkout order", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    let element = await checkoutPage.page.locator("[data-cy=step_shipping]")
+    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
+    )
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-test-id=stripe_payments] >> text=Credit card",
+      { force: true }
+    )
+
+    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    expect(element).toBeVisible()
+    expect(element).not.toBeChecked()
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.checkPaymentSummary("€10,00")
+
+    await checkoutPage.save("Payment")
+  })
+})
+
+test.describe("guest with Stripe", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("Checkout order", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    let element = await checkoutPage.page.locator("[data-cy=step_shipping]")
+    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
+    )
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-test-id=stripe_payments] >> text=Credit card",
+      { force: true }
+    )
+
+    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    expect(element).not.toBeVisible()
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.checkPaymentSummary("€10,00")
+
+    await checkoutPage.save("Payment")
+  })
+})
+
+test.describe("guest with wire transfer", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("Change method and checkout", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
+    )
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-test-id=stripe_payments] >> text=Credit card",
+      { force: true }
+    )
+
+    const element = await checkoutPage.page.locator(
+      "[data-cy=payment-save-wallet]"
+    )
+    expect(element).not.toBeVisible()
+
+    await checkoutPage.checkPlaceOrder("disabled")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.checkPaymentSummary("€10,00")
+
+    await checkoutPage.checkPlaceOrder("enabled")
+
+    await checkoutPage.page.click(
+      "[data-test-id=wire_transfers] >> text=Wire transfer",
+      { force: true }
+    )
+    await checkoutPage.checkPlaceOrder("enabled")
+
+    await checkoutPage.save("Payment")
+  })
+})
+
+test.describe("customer with Braintree", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("Checkout order", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    let element = await checkoutPage.page.locator("[data-cy=step_shipping]")
+    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
+    )
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-test-id=braintree_payments] >> text=Credit card",
+      { force: true }
+    )
+
+    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    expect(element).toBeVisible()
+    expect(element).not.toBeChecked()
+    await checkoutPage.checkPlaceOrder("disabled")
+
+    await checkoutPage.setPayment("braintree")
+    await checkoutPage.checkPlaceOrder("enabled")
+
+    await checkoutPage.save("Payment", undefined, true)
+
+    const cardinalFrame = checkoutPage.page.frameLocator(
+      "text=<head></head> <body> <div></div> </body>"
+    )
+    await cardinalFrame
+      .locator('[placeholder="\\ Enter\\ Code\\ Here"]')
+      .fill("1234")
+
+    await cardinalFrame.locator("text=SUBMIT").click()
+
+    await checkoutPage.page
+      .locator(`text=Order successfully placed`)
+      .waitFor({ state: "visible", timeout: 100000 })
   })
 })

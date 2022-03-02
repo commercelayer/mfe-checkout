@@ -30,7 +30,7 @@ test.describe("with customer email", () => {
 
     let element = await checkoutPage.page.locator("[data-cy=step_customer]")
     expect(element).toHaveAttribute("data-status", "true")
-    await checkoutPage.continue("Customer")
+    await checkoutPage.save("Customer")
 
     await checkoutPage.checkCustomerEmail("customer@example.com")
 
@@ -49,7 +49,7 @@ test.describe("with customer email", () => {
 
     await checkoutPage.setShippingAddress()
 
-    await checkoutPage.continue("Customer")
+    await checkoutPage.save("Customer")
 
     await checkoutPage.clickStep("step_customer")
     await checkoutPage.checkBillingAddress(euAddress)

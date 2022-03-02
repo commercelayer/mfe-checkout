@@ -13,7 +13,7 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
   await checkoutPage.setBillingAddress()
   let element = await checkoutPage.page.locator("[data-cy=step_customer]")
   expect(element).toHaveAttribute("data-status", "true")
-  await checkoutPage.continue("Customer")
+  await checkoutPage.save("Customer")
 
   element = await checkoutPage.page.locator("[data-cy=step_shipping]")
   expect(element).toHaveAttribute("data-status", "true")
@@ -25,7 +25,7 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
   )
 
   await checkoutPage.checkShippingSummary("FREE")
-  await checkoutPage.continue("Shipping")
+  await checkoutPage.save("Shipping")
   element = await checkoutPage.page.locator("[data-cy=step_payment]")
   expect(element).toHaveAttribute("data-status", "true")
   expect(
@@ -41,7 +41,7 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
 
   await checkoutPage.setPayment("stripe")
 
-  await checkoutPage.continue("Payment")
+  await checkoutPage.save("Payment")
 
   expect(
     checkoutPage.page.locator("text=Order successfully placed!")

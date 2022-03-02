@@ -17,7 +17,7 @@ test.describe("with coupon code", () => {
     await checkoutPage.setBillingAddress()
     let element = await checkoutPage.page.locator("[data-cy=step_customer]")
     expect(element).toHaveAttribute("data-status", "true")
-    await checkoutPage.continue("Customer")
+    await checkoutPage.save("Customer")
 
     element = await checkoutPage.page.locator("[data-cy=step_shipping]")
     expect(element).toHaveAttribute("data-status", "true")
@@ -29,7 +29,7 @@ test.describe("with coupon code", () => {
     )
 
     await checkoutPage.checkShippingSummary("FREE")
-    await checkoutPage.continue("Shipping")
+    await checkoutPage.save("Shipping")
     await checkoutPage.checkCouponCode("TESTCOUPON")
     await checkoutPage.checkDiscountAmount("-€94,50")
 
@@ -48,7 +48,7 @@ test.describe("with coupon code", () => {
 
     await checkoutPage.setPayment("stripe")
 
-    await checkoutPage.continue("Payment")
+    await checkoutPage.save("Payment")
 
     expect(
       checkoutPage.page.locator("text=Order successfully placed!")
@@ -78,7 +78,7 @@ test.describe("without coupon code", () => {
     await checkoutPage.setBillingAddress()
     let element = await checkoutPage.page.locator("[data-cy=step_customer]")
     expect(element).toHaveAttribute("data-status", "true")
-    await checkoutPage.continue("Customer")
+    await checkoutPage.save("Customer")
 
     element = await checkoutPage.page.locator("[data-cy=step_shipping]")
     expect(element).toHaveAttribute("data-status", "true")
@@ -90,7 +90,7 @@ test.describe("without coupon code", () => {
     )
 
     await checkoutPage.checkShippingSummary("FREE")
-    await checkoutPage.continue("Shipping")
+    await checkoutPage.save("Shipping")
 
     await checkoutPage.checkTotalAmount("€315,00")
     await checkoutPage.setCoupon("testcoupon")
@@ -117,7 +117,7 @@ test.describe("without coupon code", () => {
 
     await checkoutPage.setPayment("stripe")
 
-    await checkoutPage.continue("Payment")
+    await checkoutPage.save("Payment")
 
     expect(
       checkoutPage.page.locator("text=Order successfully placed!")

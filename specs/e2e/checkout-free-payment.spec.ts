@@ -17,7 +17,7 @@ test.describe("with shippable sku", () => {
     await checkoutPage.setBillingAddress()
     let element = await checkoutPage.page.locator("[data-cy=step_customer]")
     expect(element).toHaveAttribute("data-status", "true")
-    await checkoutPage.continue("Customer")
+    await checkoutPage.save("Customer")
 
     element = await checkoutPage.page.locator("[data-cy=step_shipping]")
     expect(element).toHaveAttribute("data-status", "true")
@@ -29,7 +29,7 @@ test.describe("with shippable sku", () => {
     )
 
     await checkoutPage.checkShippingSummary("FREE")
-    await checkoutPage.continue("Shipping")
+    await checkoutPage.save("Shipping")
 
     element = await checkoutPage.page.locator("[data-cy=step_payment]")
     expect(element).toHaveAttribute("data-status", "false")
@@ -40,7 +40,7 @@ test.describe("with shippable sku", () => {
 
     expect(element).toBeVisible()
 
-    await checkoutPage.continue("Payment")
+    await checkoutPage.save("Payment")
 
     expect(
       checkoutPage.page.locator("text=Order successfully placed!")
@@ -75,7 +75,7 @@ test.describe("with digital sku", () => {
     await checkoutPage.setBillingAddress()
     let element = await checkoutPage.page.locator("[data-cy=step_customer]")
     expect(element).toHaveAttribute("data-status", "true")
-    await checkoutPage.continue("Customer")
+    await checkoutPage.save("Customer")
 
     element = await checkoutPage.page.locator("[data-cy=step_shipping]")
     expect(element).toHaveCount(0)
@@ -92,7 +92,7 @@ test.describe("with digital sku", () => {
 
     expect(element).toBeVisible()
 
-    await checkoutPage.continue("Payment")
+    await checkoutPage.save("Payment")
 
     expect(
       checkoutPage.page.locator("text=Order successfully placed!")
