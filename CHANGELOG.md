@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.4.2...v1.4.3) (2022-03-03)
+
+
+### Bug Fixes
+
+* enable automatic place order for PayPal ([c75c878](https://github.com/commercelayer/commercelayer-react-checkout/commit/c75c87849383c302207be203e04a88675d877480))
+
 ## [1.4.2](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.4.1...v1.4.2) (2022-02-25)
 
 
