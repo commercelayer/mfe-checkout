@@ -32,7 +32,7 @@ test.describe("without addresses", () => {
 
     await checkoutPage.checkStep("Shipping", "open")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkBillingAddress(euAddress)
 
@@ -47,14 +47,14 @@ test.describe("without addresses", () => {
 
     await checkoutPage.save("Customer")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
     await checkoutPage.checkBillingAddress(euAddress)
     await checkoutPage.checkShippingAddress(euAddress2)
 
     await checkoutPage.setBillingAddress(euAddress3)
 
     await checkoutPage.save("Customer")
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkBillingAddress(euAddress3)
     await checkoutPage.checkShippingAddress(euAddress2)
@@ -69,7 +69,7 @@ test.describe("without addresses", () => {
 
     await checkoutPage.save("Customer")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     element = await checkoutPage.page.locator(
       "[data-cy=button-ship-to-different-address]"
@@ -110,7 +110,7 @@ test.describe("same addresses", () => {
 
     await checkoutPage.checkStep("Customer", "close")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkBillingAddress(euAddress)
 
@@ -118,10 +118,10 @@ test.describe("same addresses", () => {
 
     await checkoutPage.save("Customer")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkBillingAddress(euAddress3)
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.shipToDifferentAddress()
 
@@ -129,7 +129,7 @@ test.describe("same addresses", () => {
 
     await checkoutPage.save("Customer")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkShippingAddress(euAddress2)
 
@@ -143,7 +143,7 @@ test.describe("same addresses", () => {
 
     await checkoutPage.save("Customer")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     element = await checkoutPage.page.locator(
       "[data-cy=button-ship-to-different-address]"
@@ -184,7 +184,7 @@ test.describe("different addresses", () => {
 
     await checkoutPage.checkStep("Customer", "close")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkBillingAddress(euAddress)
     await checkoutPage.checkShippingAddress(euAddress2)

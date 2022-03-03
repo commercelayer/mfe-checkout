@@ -19,7 +19,7 @@ import {
 
 interface Props {
   readonly?: boolean
-  setCouponOrGiftCard: () => void
+  setCouponOrGiftCard: () => Promise<void>
 }
 
 export const CouponOrGiftCard: React.FC<Props> = ({
@@ -30,9 +30,9 @@ export const CouponOrGiftCard: React.FC<Props> = ({
 
   const [codeError, setCodeError] = useState(false)
 
-  const handleSubmit = async ({ success }: { success: boolean }) => {
-    if (!success) return setCodeError(true)
-    setCouponOrGiftCard()
+  const handleSubmit = async (success: { success?: any }) => {
+    if (!success && success !== undefined) return setCodeError(true)
+    await setCouponOrGiftCard()
     return setCodeError(false)
   }
 
@@ -81,7 +81,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({
               <span data-cy="code-coupon" {...p}>
                 <CouponName>{code}</CouponName>
                 <StyledGiftCardOrCouponRemoveButton
-                  onClick={setCouponOrGiftCard}
+                  onClick={handleSubmit}
                   data-cy="remove_coupon"
                   type="coupon"
                   label="Remove"

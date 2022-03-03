@@ -140,6 +140,7 @@ test.describe("customer with Stripe", () => {
 
     await checkoutPage.save("Payment")
   })
+
   test("Checkout order with customer wallet", async ({ checkoutPage }) => {
     await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
 
@@ -183,7 +184,7 @@ test.describe("guest with Stripe", () => {
     },
   })
 
-  test("Checkout order", async ({ checkoutPage }) => {
+  test("checkout", async ({ checkoutPage }) => {
     await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
 
     let element = await checkoutPage.page.locator("[data-cy=step_shipping]")
@@ -199,6 +200,7 @@ test.describe("guest with Stripe", () => {
       "[data-test-id=stripe_payments] >> text=Credit card",
       { force: true }
     )
+    await checkoutPage.setPayment("stripe")
 
     element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
     expect(element).not.toBeVisible()
@@ -208,6 +210,40 @@ test.describe("guest with Stripe", () => {
     await checkoutPage.checkPaymentSummary("€10,00")
 
     await checkoutPage.save("Payment")
+  })
+
+  test("checkout changing shipping method", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    const element = await checkoutPage.page.locator("[data-cy=step_shipping]")
+    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
+    )
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-test-id=stripe_payments] >> text=Credit card",
+      { force: true }
+    )
+
+    await checkoutPage.page.waitForTimeout(3000)
+
+    await checkoutPage.checkPaymentSummary("€10,00")
+
+    await checkoutPage.clickStep("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Express Delivery"
+    )
+
+    await checkoutPage.save("Shipping")
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.page.waitForTimeout(100000)
   })
 })
 

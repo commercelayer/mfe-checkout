@@ -11,6 +11,7 @@ import {
   calculateSettings,
   checkAndSetDefaultAddressForOrder,
   checkIfShipmentRequired,
+  cleanPaymentMethod,
   fetchOrder,
   FetchOrderByIdResponse,
 } from "components/data/AppProvider/utils"
@@ -24,7 +25,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   isFirstLoading: boolean
   setCustomerEmail: (email: string) => void
   setAddresses: () => void
-  setCouponOrGiftCard: () => void
+  setCouponOrGiftCard: () => Promise<void>
   saveShipments: () => void
   placeOrder: () => Promise<void>
   setPayment: (payment?: PaymentMethod) => void
@@ -158,9 +159,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }
 
   const setCouponOrGiftCard = async () => {
-    console.log(
-      "coupon added: need to check for payement_source total != order total amount or free to payment"
-    )
+    if (state.paymentMethod) {
+      // dispatch({ type: ActionType.START_LOADING })
+      // fetch new order data
+      // dispatch({
+      //   type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
+      // })
+    }
   }
 
   const selectShipment = async (

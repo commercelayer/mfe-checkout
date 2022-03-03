@@ -81,8 +81,8 @@ export class CheckoutPage {
     )
   }
 
-  async clickStep(step: "step_customer") {
-    this.page.click(`[data-cy=${step}]`)
+  async clickStep(step: SingleStepEnum) {
+    this.page.click(`[data-cy=step_${step.toLocaleLowerCase()}]`)
   }
 
   async shipToDifferentAddress() {

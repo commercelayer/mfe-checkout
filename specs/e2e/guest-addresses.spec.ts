@@ -37,7 +37,7 @@ test.describe("with customer email", () => {
     element = await checkoutPage.page.locator("[data-cy=step_shipping]")
     expect(element).toHaveAttribute("data-status", "true")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkBillingAddress(euAddress)
 
@@ -51,7 +51,7 @@ test.describe("with customer email", () => {
 
     await checkoutPage.save("Customer")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
     await checkoutPage.checkBillingAddress(euAddress)
     await checkoutPage.checkShippingAddress(euAddress2)
   })
@@ -81,7 +81,7 @@ test.describe("with customer email and same addresses", () => {
 
     let element = await checkoutPage.page.locator("[data-cy=step_customer]")
     expect(element).toHaveAttribute("data-status", "false")
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
     expect(element).toHaveAttribute("data-status", "true")
 
     await checkoutPage.checkBillingAddress(euAddress)
@@ -117,7 +117,7 @@ test.describe("with customer email and different addresses", () => {
 
     let element = await checkoutPage.page.locator("[data-cy=step_customer]")
     expect(element).toHaveAttribute("data-status", "false")
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
     expect(element).toHaveAttribute("data-status", "true")
 
     await checkoutPage.checkBillingAddress(euAddress)
@@ -168,7 +168,7 @@ test.describe("with customer email and shipping country code lock", () => {
 
     await checkoutPage.checkCustomerEmail("customer@example.com")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
     expect(element).toHaveAttribute("data-status", "true")
 
     await checkoutPage.checkBillingAddress(euAddress)
@@ -204,7 +204,7 @@ test.describe("with customer email and shipping country code lock", () => {
 
     await checkoutPage.save("Customer")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkBillingAddress({ ...euAddress, country_code: "FR" })
     await checkoutPage.checkShippingAddress(shippingAddress)
@@ -236,7 +236,7 @@ test.describe("with shipping country code lock and different address", () => {
     let element = await checkoutPage.page.locator("[data-cy=step_customer]")
     expect(element).toHaveAttribute("data-status", "false")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkBillingAddress(euAddress2)
     await checkoutPage.checkShippingAddress(euAddress)
@@ -300,7 +300,7 @@ test.describe("without customer email and same addresses", () => {
 
     await checkoutPage.checkStep("Payment", "open")
 
-    await checkoutPage.clickStep("step_customer")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.save("Customer")
 

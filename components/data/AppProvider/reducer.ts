@@ -24,6 +24,7 @@ export enum ActionType {
   SELECT_SHIPMENT = "SELECT_SHIPMENT",
   SAVE_SHIPMENTS = "SAVE_SHIPMENTS",
   SET_PAYMENT = "SET_PAYMENT",
+  CHANGE_COUPON_OR_GIFTCARD = "CHANGE_COUPON_OR_GIFTCARD",
   PLACE_ORDER = "PLACE_ORDER",
 }
 
@@ -67,6 +68,9 @@ export type Action =
       payload: {
         payment?: PaymentMethod
       }
+    }
+  | {
+      type: ActionType.CHANGE_COUPON_OR_GIFTCARD
     }
   | {
       type: ActionType.PLACE_ORDER
@@ -116,6 +120,14 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         isLoading: false,
       }
     }
+    case ActionType.CHANGE_COUPON_OR_GIFTCARD:
+      return {
+        ...state,
+        isLoading: false,
+        paymentMethod: undefined,
+        isCreditCard: false,
+        hasPaymentMethod: false,
+      }
     case ActionType.SELECT_SHIPMENT: {
       return {
         ...state,
