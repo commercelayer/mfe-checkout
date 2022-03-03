@@ -264,16 +264,6 @@ export async function checkIfShipmentRequired(
   return lineItems.length > 0
 }
 
-export function prepareShipments(shipments?: Shipment[]) {
-  return (shipments || []).map((a) => {
-    return {
-      shipmentId: a.id,
-      shippingMethodId: a.shipping_method?.id,
-      shippingMethodName: a.shipping_method?.name,
-    }
-  })
-}
-
 function isPaymentRequired(order: Order) {
   return !(order.total_amount_with_taxes_float === 0)
 }
@@ -392,13 +382,26 @@ export function calculateSelectedShipments(
         }
       : shipment
   })
+  const hasShippingMethod = hasShippingMethodSet(shipmentsSelected)
+  return { shipments: shipmentsSelected, ...hasShippingMethod }
+}
 
-  const shippingMethods = shipmentsSelected?.map(
+export function prepareShipments(shipments?: Shipment[]) {
+  return (shipments || []).map((a) => {
+    return {
+      shipmentId: a.id,
+      shippingMethodId: a.shipping_method?.id,
+      shippingMethodName: a.shipping_method?.name,
+    }
+  })
+}
+
+export function hasShippingMethodSet(shipments: ShipmentSelected[]) {
+  const shippingMethods = shipments?.map(
     (a: ShipmentSelected) => a.shippingMethodId
   )
   const hasShippingMethod = Boolean(
     shippingMethods?.length && !shippingMethods?.includes(undefined)
   )
-
-  return { shipments: shipmentsSelected, hasShippingMethod }
+  return { hasShippingMethod }
 }

@@ -53,7 +53,7 @@ test.describe("guest with Paypal", () => {
     await checkoutPage.page.click('[data-testid="submit-button-initial"]')
 
     await checkoutPage.page
-      .locator("text=Order succesfully placed")
+      .locator("text=Order successfully placed!")
       .waitFor({ state: "visible" })
   })
 })

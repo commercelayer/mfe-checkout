@@ -71,6 +71,16 @@ export class CheckoutPage {
       .waitFor({ state: "visible" })
   }
 
+  async checkStep(step: SingleStepEnum, status: "close" | "open") {
+    const element = await this.page.locator(
+      `[data-cy=step_${step.toLocaleLowerCase()}]`
+    )
+    await expect(element).toHaveAttribute(
+      "data-status",
+      status === "close" ? "false" : "true"
+    )
+  }
+
   async clickStep(step: "step_customer") {
     this.page.click(`[data-cy=${step}]`)
   }

@@ -12,6 +12,7 @@ import {
   calculateAddresses,
   calculateSelectedShipments,
   creditCardPayment,
+  hasShippingMethodSet,
 } from "components/data/AppProvider/utils"
 
 export enum ActionType {
@@ -101,15 +102,20 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         hasEmailAddress: Boolean(action.payload.customerEmail),
         isLoading: false,
       }
-    case ActionType.SET_ADDRESSES:
+    case ActionType.SET_ADDRESSES: {
+      const preparedShipments = prepareShipments(action.payload.order.shipments)
+      let { hasShippingMethod } = hasShippingMethodSet(preparedShipments)
+      if (!state.isShipmentRequired) {
+        hasShippingMethod = true
+      }
       return {
         ...state,
         ...calculateAddresses(action.payload.order, state.customerAddresses),
-        shipments: state.isShipmentRequired
-          ? prepareShipments(action.payload.order.shipments)
-          : [],
+        shipments: state.isShipmentRequired ? preparedShipments : [],
+        hasShippingMethod,
         isLoading: false,
       }
+    }
     case ActionType.SELECT_SHIPMENT: {
       return {
         ...state,

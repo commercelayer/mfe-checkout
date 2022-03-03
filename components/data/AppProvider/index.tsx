@@ -133,14 +133,21 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const setAddresses = async () => {
     dispatch({ type: ActionType.START_LOADING })
+
+    // TODO  Set shipping method if only one
+
     const order = await cl.orders.retrieve(orderId, {
       fields: {
         orders: ["shipping_address", "billing_address", "shipments"],
+        shipments: ["shipping_method"],
       },
-      include: ["shipping_address", "billing_address", "shipments"],
+      include: [
+        "shipping_address",
+        "billing_address",
+        "shipments",
+        "shipments.shipping_method",
+      ],
     })
-
-    // TODO  Set shipping method if only one
 
     dispatch({
       type: ActionType.SET_ADDRESSES,

@@ -249,3 +249,61 @@ test.describe("with shipping country code lock and different address", () => {
     expect(element).toBeDisabled()
   })
 })
+
+test.describe("without customer email and same addresses", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("check initial step", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    const email = await checkoutPage.getCustomerMail()
+    await expect(email).toBeEmpty()
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.checkBillingAddress(euAddress)
+  })
+
+  test("checkout rebuild shipments on guest address change", async ({
+    checkoutPage,
+  }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+
+    const email = await checkoutPage.getCustomerMail()
+    await expect(email).toBeEmpty()
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.setCustomerMail()
+    await checkoutPage.blurCustomerEmail()
+
+    await checkoutPage.checkBillingAddress(euAddress)
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.page.click(
+      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
+    )
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.clickStep("step_customer")
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "open")
+  })
+})
