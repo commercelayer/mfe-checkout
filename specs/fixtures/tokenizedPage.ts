@@ -69,12 +69,13 @@ const getToken = async () => {
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID as string
   const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
   const scope = process.env.NEXT_PUBLIC_MARKET_ID as string
-  const { accessToken } = await getSalesChannelToken({
+
+  const data = await getSalesChannelToken({
     clientId,
     endpoint,
     scope,
   })
-  return accessToken as string
+  return data?.accessToken as string
 }
 
 const getCustomerUserToken = async ({
@@ -98,7 +99,8 @@ const getCustomerUserToken = async ({
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID as string
   const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
   const scope = process.env.NEXT_PUBLIC_MARKET_ID as string
-  const { accessToken } = await getCustomerToken(
+
+  const data = await getCustomerToken(
     {
       clientId,
       endpoint,
@@ -109,7 +111,7 @@ const getCustomerUserToken = async ({
       password: password,
     }
   )
-  return accessToken as string
+  return data?.accessToken as string
 }
 
 const getSuperToken = async () => {
@@ -118,13 +120,13 @@ const getSuperToken = async () => {
     .NEXT_PUBLIC_INTEGRATION_CLIENT_SECRET as string
   const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
   const scope = process.env.NEXT_PUBLIC_MARKET_ID as string
-  const { accessToken } = await getIntegrationToken({
+  const data = await getIntegrationToken({
     clientId,
     clientSecret,
     endpoint,
     scope,
   })
-  return accessToken as string
+  return data?.accessToken as string
 }
 
 const getOrder = async (
