@@ -228,7 +228,7 @@
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^3.5.0":
+"@commercelayer/react-components@^3.5.1":
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.5.1.tgz#dacf5284c0d460ff16e77c9eb94254d101d8d075"
   integrity sha512-rCJZfkR/XRE6ZEGeHUJX26sM6W/78v58uAiI57lIAsiSoOxZ+IZJk9tPJw5/wdbBK38N+LvFBGAzxkCdS2y0xA==
