@@ -38,3 +38,11 @@ export const euAddress3: Partial<Address> = {
   phone: "+39 123 321123123",
   billing_info: "00CDEFGHIJKLMNOPQRSTUVWYXZ",
 }
+
+export function composeForCheck(address: Partial<Address>) {
+  return `${address.first_name} ${address.last_name}${address.line_1}${
+    address.line_2 ? `, ${address.line_2}` : ""
+  }${address.zip_code} ${address.city} - ${address.state_code} (${
+    address.country_code
+  })${address.phone}`
+}
