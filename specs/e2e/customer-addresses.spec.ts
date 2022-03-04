@@ -243,14 +243,80 @@ test.describe("address on wallet", () => {
     await checkoutPage.checkStep("Customer", "close")
     await checkoutPage.checkStep("Shipping", "open")
 
-    await checkoutPage.page.pause()
+    await checkoutPage.clickStep("Customer")
+    await checkoutPage.checkStep("Customer", "open")
 
-    const element = await checkoutPage.page.locator(
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress,
+    })
+
+    let element = await checkoutPage.page.locator(
       "[data-cy=billing_address_save_to_customer_address_book]"
     )
-    await expect(element).not.toBeChecked()
-    await element.check()
+    await expect(element).toHaveCount(0)
 
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress,
+    })
+    await checkoutPage.openNewAddress("billing")
+
+    await checkoutPage.setBillingAddress(euAddress2)
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkBillingAddress(euAddress2)
+
+    await checkoutPage.shipToDifferentAddress()
+
+    await checkoutPage.openNewAddress("shipping")
+
+    await checkoutPage.setShippingAddress(euAddress)
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkShippingAddress(euAddress)
+
+    await checkoutPage.closeNewAddress("shipping")
+
+    await checkoutPage.selectAddressOnBook({ type: "shipping", index: 0 })
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkBillingAddress(euAddress2)
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "shipping",
+      address: euAddress,
+    })
+
+    await checkoutPage.closeNewAddress("billing")
+    await checkoutPage.selectAddressOnBook({ type: "billing", index: 0 })
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress,
+    })
+
+    element = await checkoutPage.page.locator(
+      "[data-cy=button-ship-to-different-address]"
+    )
+
+    await expect(element).toHaveAttribute("data-status", "false")
     await checkoutPage.save("Customer")
 
     await checkoutPage.page.click(

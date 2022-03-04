@@ -2,9 +2,7 @@ import { Address } from "@commercelayer/sdk"
 import { faker } from "@faker-js/faker"
 import { Page, expect } from "@playwright/test"
 
-import { type } from "os"
-
-import { euAddress, euAddress2 } from "../utils/addresses"
+import { composeForCheck, euAddress, euAddress2 } from "../utils/addresses"
 
 interface GoToProps {
   orderId: string
@@ -212,12 +210,47 @@ export class CheckoutPage {
     await Promise.all(promises)
   }
 
+  async openNewAddress(type: "shipping" | "billing") {
+    this.page.click(`[data-cy=add_new_${type}_address]`)
+  }
+
+  async closeNewAddress(type: "shipping" | "billing") {
+    this.page.click(`[data-cy=close-${type}-form]`)
+  }
+
   async checkBillingAddress(address: Partial<Address>) {
     await this.checkAddress({ address, type: "billing_address" })
   }
 
   async checkShippingAddress(address: Partial<Address>) {
     await this.checkAddress({ address, type: "shipping_address" })
+  }
+
+  async selectAddressOnBook({
+    type,
+    index = 0,
+  }: {
+    type: "billing" | "shipping"
+    index: number
+  }) {
+    this.page.click(`[data-cy=customer-${type}-address] >> nth-${index}`)
+  }
+
+  async checkSelectedAddressBook({
+    type,
+    address,
+  }: {
+    type: "billing" | "shipping"
+    address: Partial<Address>
+  }) {
+    const titleizeType = type[0].toLocaleUpperCase() + type.slice(1)
+
+    const element = await this.page.locator(
+      `[data-cy=customer-${type}-address]:near(:text("${titleizeType} Address")) >> text=${composeForCheck(
+        address
+      )}`
+    )
+    await expect(element).toHaveCount(1)
   }
 
   async setCoupon(code: string) {
