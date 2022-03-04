@@ -80,12 +80,14 @@ export const CouponOrGiftCard: React.FC<Props> = ({
             <CouponRecap>
               <span data-cy="code-coupon" {...p}>
                 <CouponName>{code}</CouponName>
-                <StyledGiftCardOrCouponRemoveButton
-                  onClick={handleSubmit}
-                  data-cy="remove_coupon"
-                  type="coupon"
-                  label="Remove"
-                />
+                {!readonly && (
+                  <StyledGiftCardOrCouponRemoveButton
+                    onClick={handleSubmit}
+                    data-cy="remove_coupon"
+                    type="coupon"
+                    label="Remove"
+                  />
+                )}
               </span>
             </CouponRecap>
           )
@@ -101,13 +103,15 @@ export const CouponOrGiftCard: React.FC<Props> = ({
             <CouponRecap>
               <span data-cy="code-giftcard" {...p}>
                 {code}
-                <StyledGiftCardOrCouponRemoveButton
-                  onClick={setCouponOrGiftCard}
-                  data-cy="remove_giftcard"
-                  type="gift_card"
-                  className=""
-                  label="Remove"
-                />
+                {!readonly && (
+                  <StyledGiftCardOrCouponRemoveButton
+                    onClick={setCouponOrGiftCard}
+                    data-cy="remove_giftcard"
+                    type="gift_card"
+                    className=""
+                    label="Remove"
+                  />
+                )}
               </span>
             </CouponRecap>
           )

@@ -1,3 +1,5 @@
+import exp from "constants"
+
 import { test, expect } from "../fixtures/tokenizedPage"
 
 test.describe("with coupon code", () => {
@@ -122,6 +124,9 @@ test.describe("without coupon code", () => {
     expect(
       checkoutPage.page.locator("text=Order successfully placed!")
     ).toBeVisible()
+
+    element = await checkoutPage.page.locator("button >> text=Remove")
+    await expect(element).toHaveCount(0)
 
     expect(
       checkoutPage.page.locator(

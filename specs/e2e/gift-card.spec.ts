@@ -73,6 +73,9 @@ test.describe("with giftcard", () => {
       checkoutPage.page.locator("text=Order successfully placed!")
     ).toBeVisible()
 
+    element = await checkoutPage.page.locator("button >> text=Remove")
+    await expect(element).toHaveCount(0)
+
     expect(
       checkoutPage.page.locator(
         "[data-cy=payment-recap] >> text=Visa ending in 4242"
