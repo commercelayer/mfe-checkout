@@ -233,7 +233,7 @@ export class CheckoutPage {
     type: "billing" | "shipping"
     index: number
   }) {
-    this.page.click(`[data-cy=customer-${type}-address] >> nth-${index}`)
+    this.page.click(`[data-cy=customer-${type}-address] >> nth=${index}`)
   }
 
   async checkSelectedAddressBook({

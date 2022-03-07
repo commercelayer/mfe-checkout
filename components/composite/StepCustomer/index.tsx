@@ -1,6 +1,6 @@
 // import { Address, AddressField } from "@commercelayer/react-components"
 import classNames from "classnames"
-import { Fragment, useContext, useState } from "react"
+import { Fragment, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { AccordionContext } from "components/data/AccordionProvider"
@@ -82,6 +82,10 @@ export const StepCustomer: React.FC<Props> = () => {
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
     !hasSameAddresses
   )
+
+  useEffect(() => {
+    setShipToDifferentAddress(!hasSameAddresses)
+  }, [hasSameAddresses])
 
   const [disabledShipToDifferentAddress, setDisabledShipToDifferentAddress] =
     useState(

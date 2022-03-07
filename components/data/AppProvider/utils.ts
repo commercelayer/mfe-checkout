@@ -173,15 +173,15 @@ export async function checkAndSetDefaultAddressForOrder({
   }
 }
 
-interface IsBillingAddresSameAsShippingAddressProps {
+interface IsBillingAddressSameAsShippingAddressProps {
   billingAddress: Address | undefined
   shippingAddress: Address | undefined
 }
 
-function isBillingAddresSameAsShippingAddress({
+function isBillingAddressSameAsShippingAddress({
   billingAddress,
   shippingAddress,
-}: IsBillingAddresSameAsShippingAddressProps) {
+}: IsBillingAddressSameAsShippingAddressProps) {
   if (shippingAddress && billingAddress) {
     if (
       (shippingAddress.reference === billingAddress.reference &&
@@ -296,7 +296,7 @@ export function calculateAddresses(
       customerAddresses: cAddresses,
       isGuest: Boolean(order.guest),
     }),
-    hasSameAddresses: isBillingAddresSameAsShippingAddress({
+    hasSameAddresses: isBillingAddressSameAsShippingAddress({
       billingAddress: order.billing_address,
       shippingAddress: order.shipping_address,
     }),

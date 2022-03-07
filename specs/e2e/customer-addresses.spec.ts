@@ -290,6 +290,8 @@ test.describe("address on wallet", () => {
 
     await checkoutPage.selectAddressOnBook({ type: "shipping", index: 0 })
 
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.save("Customer")
 
     await checkoutPage.clickStep("Customer")
@@ -303,6 +305,8 @@ test.describe("address on wallet", () => {
 
     await checkoutPage.closeNewAddress("billing")
     await checkoutPage.selectAddressOnBook({ type: "billing", index: 0 })
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.save("Customer")
 
     await checkoutPage.clickStep("Customer")
@@ -324,6 +328,11 @@ test.describe("address on wallet", () => {
     )
 
     await checkoutPage.save("Shipping")
+
+    await checkoutPage.page.click(
+      "[data-test-id=stripe_payments] >> text=Credit card",
+      { force: true }
+    )
 
     await checkoutPage.setPayment("stripe")
 
