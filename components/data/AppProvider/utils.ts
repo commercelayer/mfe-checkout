@@ -153,6 +153,12 @@ export async function checkAndSetDefaultAddressForOrder({
       "false"
     )
     return {
+      customerAddresses: [
+        {
+          ...customerAddresses[0],
+          address: { ...address, reference: address.id },
+        },
+      ],
       hasSameAddresses: true,
       hasBillingAddress: true,
       hasShippingAddress: true,

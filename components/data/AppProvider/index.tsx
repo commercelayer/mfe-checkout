@@ -11,7 +11,6 @@ import {
   calculateSettings,
   checkAndSetDefaultAddressForOrder,
   checkIfShipmentRequired,
-  cleanPaymentMethod,
   fetchOrder,
   FetchOrderByIdResponse,
 } from "components/data/AppProvider/utils"
