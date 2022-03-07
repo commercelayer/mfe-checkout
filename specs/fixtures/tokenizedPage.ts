@@ -10,6 +10,7 @@ import CommerceLayer, {
 } from "@commercelayer/sdk"
 import { test as base } from "@playwright/test"
 import dotenv from "dotenv"
+import jwt_decode from "jwt-decode"
 
 import path from "path"
 
@@ -37,6 +38,12 @@ interface GiftCardProps {
   apply?: boolean
 }
 
+interface JWTProps {
+  owner: {
+    id: string
+  }
+}
+
 interface DefaultParamsProps {
   token?: string
   orderId?: string
@@ -52,6 +59,7 @@ interface DefaultParamsProps {
   }
   lineItemsAttributes?: LineItemObject[]
   giftCardAttributes?: GiftCardProps
+  customerAddresses?: Partial<Address>[]
   addresses?: {
     billingAddress?: Partial<Address>
     shippingAddress?: Partial<Address>
@@ -192,6 +200,35 @@ const getOrder = async (
             shipping_address: cl.addresses.relationship(addressToAttach),
           })
         }
+      }
+      if (
+        params.customer &&
+        params.customerAddresses &&
+        params.customerAddresses.length > 0
+      ) {
+        const token = await getCustomerUserToken({
+          email: params.customer.email,
+          password: params.customer.password,
+        })
+        const customerCl = await getClient(token)
+        const {
+          owner: { id },
+        } = jwt_decode(token) as JWTProps
+
+        const promises = params.customerAddresses.map(async (address) => {
+          const a = await customerCl.addresses.create({
+            ...address,
+          } as AddressCreate)
+          await customerCl.addresses.update({
+            id: a.id,
+            reference: a.id,
+          })
+          return customerCl.customer_addresses.create({
+            customer: customerCl.customers.relationship(id),
+            address: customerCl.addresses.relationship(a),
+          })
+        })
+        await Promise.all(promises)
       }
 
       break

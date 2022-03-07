@@ -339,3 +339,111 @@ test.describe("address on wallet", () => {
     await checkoutPage.save("Payment")
   })
 })
+
+test.describe("two address on wallet", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      customerAddresses: [euAddress, euAddress2],
+    },
+  })
+
+  test("check addresses", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.page.locator(`text=${customerEmail}`)
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    const element = await checkoutPage.page.locator(
+      "[data-cy=customer-billing-address]"
+    )
+    await expect(element).toHaveCount(2)
+
+    await checkoutPage.selectAddressOnBook({ type: "billing", index: 0 })
+    await checkoutPage.page.waitForTimeout(1000)
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress,
+    })
+
+    await checkoutPage.selectAddressOnBook({ type: "billing", index: 1 })
+    await checkoutPage.page.waitForTimeout(1000)
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress2,
+    })
+
+    await checkoutPage.openNewAddress("billing")
+
+    await checkoutPage.setBillingAddress(euAddress2)
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkBillingAddress(euAddress2)
+
+    await checkoutPage.shipToDifferentAddress()
+
+    await checkoutPage.openNewAddress("shipping")
+
+    await checkoutPage.setShippingAddress(euAddress3)
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkBillingAddress(euAddress2)
+
+    await checkoutPage.checkShippingAddress(euAddress3)
+
+    await checkoutPage.closeNewAddress("shipping")
+
+    await checkoutPage.selectAddressOnBook({ type: "shipping", index: 1 })
+
+    await checkoutPage.page.waitForTimeout(1000)
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkBillingAddress(euAddress2)
+    await checkoutPage.checkSelectedAddressBook({
+      type: "shipping",
+      address: euAddress2,
+    })
+    await checkoutPage.closeNewAddress("billing")
+
+    await checkoutPage.selectAddressOnBook({ type: "billing", index: 1 })
+
+    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress,
+    })
+  })
+})
