@@ -19,7 +19,7 @@ export const Step = styled.li<StepProps>`
   ${({ isLocked, isActive }) =>
     isLocked && !isActive
       ? css`
-          ${tw`text-gray-400 pointer-events-none`}
+          ${tw`text-gray-400/50 pointer-events-none`}
         `
       : css`
           ${tw`cursor-pointer`}

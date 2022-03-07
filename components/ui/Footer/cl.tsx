@@ -97,5 +97,5 @@ export const Logo: React.FC<Props> = ({ width, height, className }) => {
 }
 
 const Svg = styled.svg`
-  ${tw`text-gray-600`}
+  ${tw`text-gray-500`}
 `

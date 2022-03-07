@@ -16,7 +16,7 @@ const Invalid: NextPage = () => {
       <Container>
         <Wrapper>
           <LogoWrapper>
-            <Logo className="self-center text-black md:pl-4 md:self-auto" />
+            <FullLogo className="self-center text-black md:pl-4 md:self-auto" />
           </LogoWrapper>
           <Main>
             <Error>
@@ -38,16 +38,19 @@ const Wrapper = styled.div`
   ${tw`flex flex-wrap justify-end items-stretch flex-col h-screen p-5 md:p-10 lg:px-20 lg:pb-10`}
 `
 const Text = styled.p`
-  ${tw`p-4 text-sm font-normal text-gray-600`}
+  ${tw`p-4 text-sm font-normal text-gray-500`}
 `
 const Error = styled.div`
   ${tw`flex flex-col items-center md:(flex-row)`}
 `
 const ErrorCode = styled.p`
-  ${tw`p-4 text-xl font-bold border-gray-400 text-gray-800 border-b  md:(border-r border-b-0)`}
+  ${tw`p-4 text-xl font-bold border-gray-300 text-gray-800 border-b  md:(border-r border-b-0)`}
 `
 const LogoWrapper = styled.div`
   ${tw`md:max-w-xs`}
+`
+const FullLogo = styled(Logo)`
+  ${tw`text-black`}
 `
 
 export default Invalid

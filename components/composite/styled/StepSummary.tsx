@@ -8,7 +8,7 @@ export const StepSummaryItem = styled.div`
   ${tw`flex flex-1 font-bold`}
 `
 export const StepSummaryItemDescription = styled.p`
-  ${tw`text-gray-600 ml-3 font-normal`}
+  ${tw`text-gray-500 ml-3 font-normal`}
 `
 export const StepSummaryItemValue = styled.p`
   ${tw`flex font-bold uppercase text-ss leading-8`}

@@ -111,7 +111,7 @@ export const StepPayment: React.FC = () => {
                 <CheckoutCustomerPayment refetchOrder={refetchOrder} />
               )
             ) : (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-400">
                 {t("stepPayment.amountZero")}
               </p>
             )}
