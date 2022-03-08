@@ -30,9 +30,9 @@ export const CouponOrGiftCard: React.FC<Props> = ({
 
   const [codeError, setCodeError] = useState(false)
 
-  const handleSubmit = async (success: { success?: any }) => {
-    if (!success && success !== undefined) return setCodeError(true)
-    await setCouponOrGiftCard()
+  const handleSubmit = (response: { success: boolean }) => {
+    if (!response.success) return setCodeError(true)
+    setCouponOrGiftCard()
     return setCodeError(false)
   }
 
@@ -105,7 +105,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({
                 {code}
                 {!readonly && (
                   <StyledGiftCardOrCouponRemoveButton
-                    onClick={setCouponOrGiftCard}
+                    onClick={handleSubmit}
                     data-cy="remove_giftcard"
                     type="gift_card"
                     className=""
