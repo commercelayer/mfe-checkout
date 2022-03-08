@@ -447,3 +447,213 @@ test.describe("two address on wallet", () => {
     })
   })
 })
+
+test.describe("two address on wallet and code lock", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        shipping_country_code_lock: "IT",
+      },
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      customerAddresses: [euAddress, euAddress2],
+    },
+  })
+
+  test("check addresses", async ({ checkoutPage }) => {
+    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.page.locator(`text=${customerEmail}`)
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    let element = await checkoutPage.page.locator(
+      "[data-cy=customer-billing-address]"
+    )
+    await expect(element).toHaveCount(2)
+
+    await checkoutPage.selectAddressOnBook({ type: "billing", index: 0 })
+    await checkoutPage.page.waitForTimeout(1000)
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress,
+    })
+
+    element = await checkoutPage.page.locator(
+      "[data-cy=button-ship-to-different-address]"
+    )
+
+    expect(element).toHaveAttribute("data-status", "false")
+    expect(element).toBeEnabled()
+
+    element = await checkoutPage.page.locator("[data-cy=shipping-address]")
+
+    await expect(element).not.toBeVisible()
+
+    await checkoutPage.selectAddressOnBook({ type: "billing", index: 1 })
+    await checkoutPage.page.waitForTimeout(1000)
+
+    element = await checkoutPage.page.locator(
+      "[data-cy=button-ship-to-different-address]"
+    )
+
+    expect(element).toHaveAttribute("data-status", "true")
+    expect(element).toBeDisabled()
+
+    await checkoutPage.page.pause()
+
+    element = await checkoutPage.page.locator(
+      "[data-cy=shipping-address] >> text=Shipping Address"
+    )
+
+    await expect(element).toBeVisible()
+
+    element = await checkoutPage.page.locator(
+      `[data-cy=customer-shipping-address]:near(:text("Shipping Address")) >> text=(IT)`
+    )
+    await expect(element).toHaveCount(1)
+
+    element = await checkoutPage.page.locator(
+      `[data-cy=customer-shipping-address]:near(:text("Shipping Address")) >> text=(FR)`
+    )
+    await expect(element).toHaveCount(0)
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "shipping",
+      address: euAddress,
+    })
+
+    element = await checkoutPage.page.locator("[data-cy=save-addresses-button]")
+    await expect(element).toBeEnabled()
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress2,
+    })
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress2,
+    })
+
+    await checkoutPage.openNewAddress("billing")
+
+    await checkoutPage.setBillingAddress(euAddress2)
+
+    await checkoutPage.page.pause()
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkBillingAddress(euAddress2)
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "shipping",
+      address: euAddress,
+    })
+
+    element = await checkoutPage.page.locator(
+      "[data-cy=button-ship-to-different-address]"
+    )
+
+    await expect(element).toHaveAttribute("data-status", "true")
+    await expect(element).toBeDisabled()
+
+    await checkoutPage.selectCountry("billing_address", "IT")
+    await checkoutPage.selectState("billing_address", "FI")
+
+    element = await checkoutPage.page.locator(
+      "[data-cy=button-ship-to-different-address]"
+    )
+
+    await expect(element).toHaveAttribute("data-status", "true")
+    await expect(element).toBeEnabled()
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.clickStep("Customer")
+
+    element = await checkoutPage.page.locator(
+      "[data-cy=button-ship-to-different-address]"
+    )
+
+    await expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.openNewAddress("shipping")
+
+    await checkoutPage.setShippingAddress(euAddress3)
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkBillingAddress({
+      ...euAddress2,
+      country_code: "IT",
+      state_code: "FI",
+    })
+
+    await checkoutPage.checkShippingAddress(euAddress3)
+
+    await checkoutPage.closeNewAddress("shipping")
+
+    element = await checkoutPage.page.locator("[data-cy=save-addresses-button]")
+    await expect(element).toBeDisabled()
+
+    await checkoutPage.selectAddressOnBook({ type: "shipping", index: 0 })
+    await checkoutPage.page.waitForTimeout(1000)
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkBillingAddress({
+      ...euAddress2,
+      country_code: "IT",
+      state_code: "FI",
+    })
+    await checkoutPage.checkSelectedAddressBook({
+      type: "shipping",
+      address: euAddress,
+    })
+
+    await checkoutPage.closeNewAddress("billing")
+
+    await checkoutPage.selectAddressOnBook({ type: "billing", index: 0 })
+
+    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.clickStep("Customer")
+
+    element = await checkoutPage.page.locator(
+      "[data-cy=button-ship-to-different-address]"
+    )
+
+    await expect(element).toHaveAttribute("data-status", "false")
+    await expect(element).toBeEnabled()
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress,
+    })
+  })
+})

@@ -97,6 +97,13 @@ export class CheckoutPage {
     )
   }
 
+  async selectState(
+    type: "billing_address" | "shipping_address",
+    state: "FI" | "NA" | "MI"
+  ) {
+    await this.page.selectOption(`[data-cy=input_${type}_state_code]`, state)
+  }
+
   async setAddress({
     address,
     type,
