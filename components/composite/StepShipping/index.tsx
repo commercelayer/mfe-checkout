@@ -156,7 +156,7 @@ export const StepShipping: React.FC<Props> = () => {
                     </div>
                   }
                 >
-                  <ShippingWrapper>
+                  <ShippingWrapper data-cy="shipments-container">
                     {shipments.length > 1 && (
                       <ShippingTitle>
                         <ShipmentField name="key_number">

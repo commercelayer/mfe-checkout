@@ -69,10 +69,18 @@ export class CheckoutPage {
       .waitFor({ state: "visible" })
   }
 
-  async checkStep(step: SingleStepEnum, status: "close" | "open") {
+  async checkStep(
+    step: SingleStepEnum,
+    status: "close" | "open" | "not_present"
+  ) {
     const element = await this.page.locator(
       `[data-cy=step_${step.toLocaleLowerCase()}]`
     )
+    if (status === "not_present") {
+      await expect(element).toHaveCount(0)
+      return
+    }
+    await expect(element).toHaveCount(1)
     await expect(element).toHaveAttribute(
       "data-status",
       status === "close" ? "false" : "true"
@@ -102,6 +110,37 @@ export class CheckoutPage {
     state: "FI" | "NA" | "MI"
   ) {
     await this.page.selectOption(`[data-cy=input_${type}_state_code]`, state)
+  }
+
+  async selectShippingMethod({
+    text,
+    shipment = 0,
+  }: {
+    text: string
+    shipment?: number
+  }) {
+    await this.page.click(
+      `[data-cy=shipments-container] >> nth=${shipment} >> [data-cy=shipping-methods-container] >> text=${text}`
+    )
+  }
+
+  async checkSelectedShippingMethod({
+    index = 0,
+    shipment = 0,
+    value,
+  }: {
+    index?: number
+    shipment?: number
+    value: boolean
+  }) {
+    const element = await this.page.locator(
+      `[data-cy=shipments-container] >> nth=${shipment} >> [data-cy=shipping-methods-container] >> nth=${index} >> input[type=checkbox]`
+    )
+    if (value) {
+      await expect(element).toBeTruthy()
+    } else {
+      await expect(element).toBeFalsy()
+    }
   }
 
   async setAddress({
@@ -256,6 +295,13 @@ export class CheckoutPage {
       `[data-cy=customer-${type}-address]:near(:text("${titleizeType} Address")) >> text=${composeForCheck(
         address
       )}`
+    )
+    await expect(element).toHaveCount(1)
+  }
+
+  async checkBadgeIndex(step: SingleStepEnum, value: string) {
+    const element = await this.page.locator(
+      `[data-cy=step-header-badge]:near(:text("${step}")) >> text=${value}`
     )
     await expect(element).toHaveCount(1)
   }

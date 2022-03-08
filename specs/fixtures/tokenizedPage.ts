@@ -60,6 +60,9 @@ interface DefaultParamsProps {
   lineItemsAttributes?: LineItemObject[]
   giftCardAttributes?: GiftCardProps
   customerAddresses?: Partial<Address>[]
+  shippingMethods?: Array<
+    "Standard Shipping" | "Express Delivery EU" | "Express Delivery US"
+  >
   addresses?: {
     billingAddress?: Partial<Address>
     shippingAddress?: Partial<Address>
@@ -230,6 +233,40 @@ const getOrder = async (
         })
         await Promise.all(promises)
       }
+      // Not used due to refresh at the beginning
+      // if (params.shippingMethods && params.shippingMethods.length > 0) {
+      //   const shipments = (
+      //     await cl.orders.retrieve(order.id, {
+      //       fields: {
+      //         orders: ["id"],
+      //         shipments: ["shipping_method"],
+      //       },
+      //       include: ["shipments", "shipments.shipping_method"],
+      //     })
+      //   ).shipments
+      //   const shippingMethods = await cl.shipping_methods.list()
+      //   if (shippingMethods && shippingMethods.length > 0) {
+      //     const promises = shipments?.map((shipment, index) => {
+      //       const shippingMethod = shippingMethods.find((s) => {
+      //         const name = (params.shippingMethods || [])[index]
+      //         return s.name === name
+      //       })
+      //       if (shippingMethod) {
+      //         return cl.shipments.update({
+      //           id: shipment.id,
+      //           shipping_method: cl.shipping_methods.relationship(
+      //             shippingMethod.id
+      //           ),
+      //         })
+      //       } else {
+      //         return 1
+      //       }
+      //     })
+      //     if (promises && promises?.length > 0) {
+      //       await Promise.all(promises)
+      //     }
+      //   }
+      // }
 
       break
     }
