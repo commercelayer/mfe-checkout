@@ -45,7 +45,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
           </PaymentSourceBrandName>
         </div>
         {isCreditCard && (
-          <div className="pl-10 text-gray-500 lg:pl-2">
+          <div className="pl-10 text-gray-400 lg:pl-2">
             {t("stepPayment.expires")} <PaymentSourceDetail type="exp_month" />
             /
             <PaymentSourceDetail type="exp_year" />

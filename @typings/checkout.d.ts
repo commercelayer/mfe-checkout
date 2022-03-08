@@ -18,10 +18,10 @@ interface CheckoutSettings {
   primaryColor: HSLProps
   favicon: string
   gtmId?: string
-  supportEmail: string
-  supportPhone: string
-  termsUrl: string
-  privacyUrl: string
+  supportEmail?: string
+  supportPhone?: string
+  termsUrl?: string
+  privacyUrl?: string
 }
 
 type CheckoutPageContextProps = Pick<

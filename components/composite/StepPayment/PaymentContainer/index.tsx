@@ -67,7 +67,7 @@ export const PaymentContainer: React.FC = ({ children }) => {
         wireTransfer: {
           infoMessage: {
             text: t("stepPayment.wireTransferDescription"),
-            className: "text-sm text-gray-500",
+            className: "text-sm text-gray-400",
           },
         },
         paypalPayment: {
@@ -75,7 +75,7 @@ export const PaymentContainer: React.FC = ({ children }) => {
           return_url: `${window.location.href}&paymentReturn=true`,
           infoMessage: {
             text: t("stepPayment.paypalDescription"),
-            className: "text-sm text-gray-500",
+            className: "text-sm text-gray-400",
           },
         },
       }}

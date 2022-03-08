@@ -71,7 +71,7 @@ const AccordionTab = styled.div`
   }
 `
 const AccordionTabHeader = styled.div`
-  ${tw`relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease duration-500 focus:bg-gray-500 md:pt-6 md:pb-0`}
+  ${tw`text-black relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease duration-500 focus:bg-gray-400 md:pt-6 md:pb-0`}
   .disabled & {
     ${tw`pointer-events-none`}
   }
@@ -86,7 +86,7 @@ const AccordionIcon = styled.div`
   }
 
   .disabled & {
-    ${tw`text-gray-400`}
+    ${tw`text-gray-300`}
   }
 `
 const AccordionBody = styled.div`

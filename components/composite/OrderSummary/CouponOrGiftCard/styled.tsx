@@ -36,4 +36,5 @@ export const StyledGiftCardOrCouponInput = styled(GiftCardOrCouponInput)`
 `
 export const StyledErrors = styled(Errors)`
   ${ErrorCss}
+  ${tw`pl-0`}
 `

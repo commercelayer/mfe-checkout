@@ -181,7 +181,7 @@ export const StepShipping: React.FC<Props> = () => {
                                 i18nKey="stepShipping.shipment"
                                 components={{
                                   Wrap: (
-                                    <span className="text-sm font-medium text-gray-600" />
+                                    <span className="text-sm font-medium text-gray-500" />
                                   ),
                                 }}
                                 values={{

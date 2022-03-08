@@ -48,7 +48,7 @@ const Dot = styled.span`
 `
 
 const Label = styled.span`
-  ${tw`ml-2 cursor-pointer text-sm text-gray-600`}
+  ${tw`ml-2 cursor-pointer text-sm text-gray-500`}
 `
 
 interface WrapperProps {

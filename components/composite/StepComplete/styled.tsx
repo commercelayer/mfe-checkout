@@ -7,7 +7,7 @@ export const Top = styled.div`
   ${tw`bg-white`}
 `
 export const Bottom = styled.div`
-  ${tw`bg-gray-100`}
+  ${tw`bg-gray-50`}
 `
 
 export const Main = styled.div`
@@ -17,13 +17,13 @@ export const Wrapper = styled.div`
   ${tw`flex flex-col p-5 md:p-10 lg:px-20 2xl:(max-w-screen-2xl mx-auto)`}
 `
 export const Title = styled.h1`
-  ${tw`text-2xl lg:text-4xl font-semibold mb-4`}
+  ${tw`text-black text-2xl lg:text-4xl font-semibold mb-4`}
 `
 export const Text = styled.p`
   ${tw`py-2`}
 `
 export const Message = styled.div`
-  ${tw`my-8 text-gray-500`}
+  ${tw`my-8 text-gray-400`}
   > br {
     ${tw`hidden md:block`}
   }
@@ -38,10 +38,10 @@ export const RecapSummary = styled.div`
   ${tw`order-last border-t border-dashed border-t-2 pt-6 md:(order-first border-0 p-0)`}
 `
 export const RecapCustomer = styled.div`
-  ${tw`order-1 md:order-2 mb-5 md:mb-0`}
+  ${tw`text-black order-1 md:order-2 mb-5 md:mb-0`}
 `
 export const RecapTitle = styled.h2`
-  ${tw`text-lg font-semibold leading-none mb-8 md:mb-16`}
+  ${tw`text-black text-lg font-semibold leading-none mb-8 md:mb-16`}
 `
 export const RecapCol = styled.div`
   ${tw`mb-4 md:mb-8`}

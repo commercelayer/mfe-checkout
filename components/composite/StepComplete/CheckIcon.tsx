@@ -7,12 +7,12 @@ export const CheckIcon: React.FC = () => {
       viewBox="0 0 154 154"
       className="icon-order-success"
     >
-      <g fill="none" stroke="#2BC48A" strokeWidth="2">
+      <g fill="none" stroke="#1FDA8A" strokeWidth="2">
         <circle cx="77" cy="77" r="72" className="circle"></circle>
         <circle
           id="colored"
           className="colored_circle"
-          fill="#2BC48A"
+          fill="#1FDA8A"
           cx="77"
           cy="77"
           r="72"

@@ -21,14 +21,13 @@ import {
   StyledErrors,
   StyledPlaceOrderButton,
   StyledPrivacyAndTermsCheckbox,
-  CheckboxWrapper,
   PlaceOrderButtonWrapper,
 } from "./styled"
 
 interface Props {
   isActive: boolean
-  termsUrl: string
-  privacyUrl: string
+  termsUrl?: string
+  privacyUrl?: string
 }
 
 const StepPlaceOrder: React.FC<Props> = ({
@@ -136,14 +135,12 @@ const StepPlaceOrder: React.FC<Props> = ({
       >
         <>
           {!!termsUrl && !!privacyUrl && (
-            <FlexContainer className="items-start mx-5 mt-4 mb-2.5 md:mb-5 md:pb-5 md:mx-0 md:mt-0 md:border-b lg:pl-8 xl:items-center">
-              <CheckboxWrapper>
-                <StyledPrivacyAndTermsCheckbox
-                  id="privacy-terms"
-                  className="form-checkbox"
-                  data-cy="checkbox-privacy-and-terms"
-                />
-              </CheckboxWrapper>
+            <FlexContainer className="items-start mx-5 mt-4 mb-2.5 md:mb-5 md:pb-5 md:mx-0 md:mt-0 md:border-b lg:pl-8">
+              <StyledPrivacyAndTermsCheckbox
+                id="privacy-terms"
+                className="relative form-checkbox top-0.5"
+                data-cy="checkbox-privacy-and-terms"
+              />
               <Label htmlFor="privacy-terms">
                 <Trans
                   i18nKey="general.privacy_and_terms"

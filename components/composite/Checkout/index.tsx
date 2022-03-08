@@ -34,10 +34,10 @@ interface Props {
   logoUrl?: string
   orderNumber: number
   companyName: string
-  supportEmail: string
-  supportPhone: string
-  termsUrl: string
-  privacyUrl: string
+  supportEmail?: string
+  supportPhone?: string
+  termsUrl?: string
+  privacyUrl?: string
 }
 
 const Checkout: React.FC<Props> = ({
@@ -182,7 +182,7 @@ const Checkout: React.FC<Props> = ({
 }
 
 const Sidebar = styled.div`
-  ${tw`flex flex-col min-h-full p-5 lg:pl-20 lg:pr-10 lg:pt-10 xl:pl-48 bg-gray-100`}
+  ${tw`flex flex-col min-h-full p-5 lg:pl-20 lg:pr-10 lg:pt-10 xl:pl-48 bg-gray-50`}
 `
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}
