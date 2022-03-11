@@ -145,7 +145,10 @@ const getOrder = async (
   params: DefaultParamsProps
 ) => {
   const email = params.customer?.email || params.orderAttributes?.customer_email
-  const attributes = { ...params.orderAttributes, customer_email: email }
+  const attributes = {
+    ...params.orderAttributes,
+    customer_email: email,
+  }
   const giftCard = params.giftCardAttributes
   const order = await cl.orders.create(attributes)
   let giftCardCode
@@ -351,6 +354,7 @@ const getClient = async (token: string) => {
   return CommerceLayer({
     organization: process.env.NEXT_PUBLIC_SLUG as string,
     accessToken: token,
+    domain: process.env.DOMAIN,
   })
 }
 

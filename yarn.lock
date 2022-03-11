@@ -12,7 +12,7 @@
   resolved "https://registry.yarnpkg.com/@ac-dev/states-service/-/states-service-1.0.3.tgz#53b5d9a40cad40df5ac313d21ce6b3efbbae63ee"
   integrity sha512-d0uWHRUxqx5wEQ9YrFm8iBkqc/mMxEup3UB0X/YD4BoQvbhz7+Lw7DKo9RqjnpDHmr3m85ecHvWMhCtAtBuU/w==
 
-"@adyen/adyen-web@^5.9.0":
+"@adyen/adyen-web@^5.10.0":
   version "5.10.0"
   resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.10.0.tgz#6902da29c7028fb74a42fd191fa6f20127ff4965"
   integrity sha512-8v9oDRxGNOICyZveObEUtUvlJFTkuIDmki+8lASbHgLDv1gxjzJwXNEoFuJQ8D6R7GKKR4esu+U3vCqjpeFgjw==
@@ -686,19 +686,19 @@
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.6.0.tgz#a795bed0ca9dabeaf6d3fc01b5288f2bf5c66fdc"
-  integrity sha512-FCNmS8JJ39zRFqCIRTWpXBLbNryBOQVTBScTkih+raeINDJh/AFlu+/C68mBXcyftKLReiHtVpEj4vA8lbrt3A==
+"@commercelayer/react-components@^3.6.1":
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.6.1.tgz#02f2a517af9eafc8cdc4b5af830fe8f49273aff9"
+  integrity sha512-Fce1Qd/kUDUnRfqEGPjhf/cgyv3IKrOnQAHueT7mf5boq2V6ubmUWnCGtJCsH/ewZ3CAytspgB/+oAIeIAFC5Q==
   dependencies:
     "@ac-dev/countries-service" "^1.2.0"
     "@ac-dev/states-service" "^1.0.3"
-    "@adyen/adyen-web" "^5.9.0"
+    "@adyen/adyen-web" "^5.10.0"
     "@commercelayer/js-auth" "^3.0.0"
-    "@commercelayer/sdk" "^3.5.0"
+    "@commercelayer/sdk" "^3.6.0"
     "@stripe/react-stripe-js" "^1.7.0"
     "@stripe/stripe-js" "^1.24.0"
-    axios "^0.26.0"
+    axios "^0.26.1"
     braintree-web "^3.85.2"
     frames-react "^1.0.3"
     jwt-decode "^3.1.2"
@@ -706,10 +706,10 @@
     lodash-es "^4.17.21"
     rapid-form "^1.6.1"
 
-"@commercelayer/sdk@^3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/sdk/-/sdk-3.5.0.tgz#11264fc29b92263453623dda535c1ad23ca270d2"
-  integrity sha512-1GBlsZ4rV12YyEzohCYNo0tobREIUethWgTD28ApmKEQhzsoNUtvNTc2bOQKFAI/AEQhoa83cgEgXKtySq9j0Q==
+"@commercelayer/sdk@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/sdk/-/sdk-3.6.0.tgz#4a21fe180227c1e1e4c79e7c637bb920d010a24a"
+  integrity sha512-vjbCtKVL+wcnSOQ+me2o+Gjid9xP4F3TKB5QDTA/TKyzzQuemvOHYpaG/lTa302eEoopXcESSU//hzMG9oESKA==
   dependencies:
     axios "^0.24.0"
 
@@ -782,10 +782,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@faker-js/faker@6.0.0-alpha.7":
-  version "6.0.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-6.0.0-alpha.7.tgz#d4383b10c5cd35ec02fafd1bc472b2f85c306cf5"
-  integrity sha512-T2nYE8+EfzfkRMLMSm7UvgC7fZ2KkKEyCMeyPVS0q2cuvENbt1SjWyu0bOJ0JqBbTs1g+gYMWMFMXspWlzNVmQ==
+"@faker-js/faker@6.0.0-beta.0":
+  version "6.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-6.0.0-beta.0.tgz#8d772b0c37ebc450e3a95114be549e8fd245f16f"
+  integrity sha512-7QdsX5ZqUEz87twuoKEJe7NHn6OHQsVYQpJcK0disnR0XuVb9FEgQUcsViard9OTNN/fG/nZT63V35vieOwZ4Q==
 
 "@fortawesome/fontawesome-common-types@^0.3.0":
   version "0.3.0"
@@ -1384,10 +1384,10 @@
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.24.0.tgz#d23977f364565981f8ab30b1b540e367f72abc5c"
   integrity sha512-8CEILOpzoRhGwvgcf6y+BlPyEq1ZqxAv3gsX7LvokFYvbcyH72GRcHQMGXuZS3s7HqfYQuTSFrvZNL/qdkgA9Q==
 
-"@tailwindcss/forms@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.4.0.tgz#a46715e347a32d216a3973eb67473bd29ae3798e"
-  integrity sha512-DeaQBx6EgEeuZPQACvC+mKneJsD8am1uiJugjgQK1+/Vt+Ai0GpFBC2T2fqnUad71WgOxyrZPE6BG1VaI6YqfQ==
+"@tailwindcss/forms@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.5.0.tgz#d4bea2560a10aac642573e72d3b4d62a88960449"
+  integrity sha512-KzWugryEBFkmoaYcBE18rs6gthWCFHHO7cAZm2/hv3hwD67AzwP7udSCa22E7R1+CEJL/FfhYsJWrc0b1aeSzw==
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
@@ -1502,10 +1502,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@^17.0.39":
-  version "17.0.39"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.39.tgz#d0f4cde092502a6db00a1cded6e6bf2abb7633ce"
-  integrity sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==
+"@types/react@^17.0.40":
+  version "17.0.40"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.40.tgz#dc010cee6254d5239a138083f3799a16638e6bad"
+  integrity sha512-UrXhD/JyLH+W70nNSufXqMZNuUD2cXHu6UjCllC6pmOQgBX4SGXOH8fjRka0O0Ee0HrFxapDD8Bwn81Kmiz6jQ==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -2053,10 +2053,10 @@ axios@^0.24.0:
   dependencies:
     follow-redirects "^1.14.4"
 
-axios@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.0.tgz#9a318f1c69ec108f8cd5f3c3d390366635e13928"
-  integrity sha512-lKoGLMYtHvFrPVt3r+RBMp9nh34N0M8zEfCWqdWZx6phynIEhQqAdydpyBAAG211zlhX9Rgu08cOamy6XjE5Og==
+axios@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
+  integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
   dependencies:
     follow-redirects "^1.14.8"
 

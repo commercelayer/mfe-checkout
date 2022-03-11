@@ -204,20 +204,6 @@ export class CheckoutPage {
         address.billing_info as string
       )
     }
-
-    // const promises = Object.keys(addressToFill).map(async (key) => {
-    //   const command = ["country_code", "state_code"].includes(key)
-    //     ? "selectOption"
-    //     : "fill"
-    //   return await this.page[command](
-    //     `[data-cy=input_${type}_${key}]`,
-    //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //     // @ts-ignore
-    //     addressToFill[key]
-    //   )
-    // })
-
-    // await Promise.all(promises)
   }
 
   async setBillingAddress(address?: Partial<Address>) {

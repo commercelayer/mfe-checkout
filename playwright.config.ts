@@ -1,4 +1,9 @@
 import { PlaywrightTestConfig, devices } from "@playwright/test"
+import dotenv from "dotenv"
+
+import path from "path"
+
+dotenv.config({ path: path.resolve(__dirname, "../../.env.local") })
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
@@ -42,7 +47,9 @@ const config: PlaywrightTestConfig = {
         browserName: "chromium",
         // Any Chromium-specific options.
         viewport: { width: 1200, height: 800 },
-        baseURL: "http://checkout-test.checkout.test:3000",
+        baseURL:
+          process.env.NEXT_PUBLIC_BASE_URL ||
+          "http://checkout-test.checkout.test:3000",
         // launchOptions: {
         //   slowMo: 100,
         //   devtools: true,
