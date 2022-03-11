@@ -36,25 +36,6 @@ test.describe("guest with Paypal", () => {
     await checkoutPage.setPayment("paypal")
 
     await checkoutPage.save("Payment", "Paga con PayPal")
-
-    await checkoutPage.page.fill(
-      "input[name=login_email]",
-      process.env.NEXT_PUBLIC_PAYPAL_EMAIL as string
-    )
-
-    await checkoutPage.page.click("#btnNext")
-
-    await checkoutPage.page.fill(
-      "input[name=login_password]",
-      process.env.NEXT_PUBLIC_PAYPAL_PASSWORD as string
-    )
-
-    await checkoutPage.page.click("#btnLogin")
-    await checkoutPage.page.click('[data-testid="submit-button-initial"]')
-
-    await checkoutPage.page
-      .locator("text=Order successfully placed!")
-      .waitFor({ state: "visible" })
   })
 })
 

@@ -430,6 +430,29 @@ export class CheckoutPage {
       case "Payment": {
         const text = waitText || "Order successfully placed"
         this.page.click("[data-cy=place-order-button]")
+
+        if (waitText === "Paga con PayPal") {
+          await this.page.fill(
+            "input[name=login_email]",
+            process.env.NEXT_PUBLIC_PAYPAL_EMAIL as string
+          )
+
+          await this.page.click("#btnNext")
+
+          await this.page.fill(
+            "input[name=login_password]",
+            process.env.NEXT_PUBLIC_PAYPAL_PASSWORD as string
+          )
+
+          await this.page.click("#btnLogin")
+          await this.page.click('[data-testid="submit-button-initial"]')
+
+          await this.page
+            .locator("text=Order successfully placed!")
+            .waitFor({ state: "visible" })
+          return
+        }
+
         if (skipWait) {
           return
         }
