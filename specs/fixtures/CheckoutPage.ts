@@ -2,11 +2,17 @@ import { Address } from "@commercelayer/sdk"
 import { faker } from "@faker-js/faker"
 import { Page, expect } from "@playwright/test"
 
+import { EcommerceProps } from "../../components/data/GTMProvider/typings"
 import { composeForCheck, euAddress, euAddress2 } from "../utils/addresses"
 
 interface GoToProps {
   orderId: string
   token: string
+}
+
+interface DataLayerWindowProps {
+  event: string
+  ecommerce: EcommerceProps
 }
 
 interface AttributesProps {
@@ -93,6 +99,29 @@ export class CheckoutPage {
 
   async shipToDifferentAddress() {
     this.page.click(`[data-cy=button-ship-to-different-address]`)
+  }
+
+  async getDataLayer(
+    eventToTrack:
+      | "begin_checkout"
+      | "add_shipping_info"
+      | "add_payment_info"
+      | "purchase"
+  ) {
+    await this.page.waitForTimeout(2000)
+    const dataLayer: DataLayerWindowProps[] = await this.page.evaluate(
+      "window.dataLayer"
+    )
+    return dataLayer.filter(
+      ({ event }: DataLayerWindowProps) => event === eventToTrack
+    )
+  }
+
+  async getOrderNumber() {
+    const element = await this.page.locator(
+      "[data-cy=complete-checkout-summary] >> strong"
+    )
+    return element.innerText()
   }
 
   async checkTermsAndPrivacyValue(value: boolean | undefined) {

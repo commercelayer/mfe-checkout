@@ -6,6 +6,8 @@ import TagManager from "react-gtm-module"
 import { AppContext } from "components/data/AppProvider"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 
+import { DataLayerItemProps, DataLayerProps } from "./typings"
+
 interface GTMProviderData {
   fireAddShippingInfo: () => Promise<void>
   fireAddPaymentInfo: () => Promise<void>
@@ -17,32 +19,6 @@ export const GTMContext = createContext<GTMProviderData | null>(null)
 interface GTMProviderProps {
   children: React.ReactNode
   gtmId?: string
-}
-interface ItemProps {
-  item_id: string | undefined
-  item_name: string | undefined
-  price: number | undefined
-  currency: string | undefined
-  quantity: number | undefined
-}
-
-interface PushDataLayerProps {
-  eventName:
-    | "begin_checkout"
-    | "add_shipping_info"
-    | "add_payment_info"
-    | "purchase"
-  dataLayer: {
-    coupon?: string
-    currency: string | undefined
-    shipping?: number
-    items?: (ItemProps | undefined)[]
-    value?: number
-    shipping_tier?: string
-    transaction_id?: number
-    payment_type?: string
-    tax?: number
-  }
 }
 
 export const GTMProvider: React.FC<GTMProviderProps> = ({
@@ -91,7 +67,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const pushDataLayer = ({ eventName, dataLayer }: PushDataLayerProps) => {
+  const pushDataLayer = ({ eventName, dataLayer }: DataLayerProps) => {
     try {
       TagManager.dataLayer({
         dataLayer: {
@@ -111,7 +87,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     bundle_code,
     quantity,
     total_amount_float,
-  }: LineItem): ItemProps => {
+  }: LineItem): DataLayerItemProps => {
     return {
       item_id: sku_code || bundle_code,
       item_name: name,
