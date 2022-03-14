@@ -240,10 +240,12 @@ export class CheckoutPage {
       `[data-cy=input_${type}_line_1]`,
       address.line_1 as string
     )
-    await this.page.fill(
-      `[data-cy=input_${type}_line_2]`,
-      address.line_2 as string
-    )
+    if (address.line_2 && address.line_2?.length > 0) {
+      await this.page.fill(
+        `[data-cy=input_${type}_line_2]`,
+        address.line_2 as string
+      )
+    }
     await this.page.fill(`[data-cy=input_${type}_city]`, address.city as string)
 
     const countrySelect = this.page.locator(

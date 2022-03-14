@@ -57,6 +57,7 @@ export interface FetchOrderByIdResponse {
   returnUrl: string | undefined
   isCreditCard: boolean
   taxIncluded: boolean | undefined
+  shippingMethodName: string | undefined
 }
 
 function isNewAddress({
@@ -410,4 +411,30 @@ export function hasShippingMethodSet(shipments: ShipmentSelected[]) {
     shippingMethods?.length && !shippingMethods?.includes(undefined)
   )
   return { hasShippingMethod }
+}
+
+export async function setAutomatedShippingMethods(
+  cl: CommerceLayerClient,
+  order: Order,
+  hasAddresses: boolean
+) {
+  if (!hasAddresses) {
+    return {}
+  }
+  const shippingMethods = await cl.shipping_methods.list()
+  if (shippingMethods.length > 1 || shippingMethods.length === 0) {
+    return {}
+  }
+
+  const promises = (order.shipments || []).map((shipment) => {
+    return cl.shipments.update({
+      id: shipment.id,
+      shipping_method: cl.shipping_methods.relationship(shippingMethods[0].id),
+    })
+  })
+  await Promise.all(promises)
+  return {
+    hasShippingMethod: true,
+    shippingMethodName: shippingMethods[0].name,
+  }
 }

@@ -48,6 +48,10 @@ export type Action =
       type: ActionType.SET_ADDRESSES
       payload: {
         order: Order
+        automatedShippingMethod: {
+          hasShippingMethod?: boolean | undefined
+          shippingMethodName?: string
+        }
       }
     }
   | {
@@ -117,6 +121,7 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         ...calculateAddresses(action.payload.order, state.customerAddresses),
         shipments: state.isShipmentRequired ? preparedShipments : [],
         hasShippingMethod,
+        ...action.payload.automatedShippingMethod,
         isLoading: false,
       }
     }

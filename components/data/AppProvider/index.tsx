@@ -13,6 +13,7 @@ import {
   checkIfShipmentRequired,
   fetchOrder,
   FetchOrderByIdResponse,
+  setAutomatedShippingMethods,
 } from "components/data/AppProvider/utils"
 
 export interface AppProviderData extends FetchOrderByIdResponse {
@@ -70,6 +71,7 @@ const initialState: AppStateData = {
   isComplete: false,
   returnUrl: "",
   taxIncluded: false,
+  shippingMethodName: undefined,
 }
 
 export const AppContext = createContext<AppProviderData | null>(null)
@@ -110,14 +112,24 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       order,
     })
 
-    // TODO Set shipping method if only one, but defer if not address set
-    // setAutomatedShippingMethods(order, addresses, )
+    const shippingInfos = await setAutomatedShippingMethods(
+      cl,
+      order,
+      !!(Object.keys(addressInfos).length > 0
+        ? addressInfos.hasBillingAddress && addressInfos.hasShippingAddress
+        : others.hasShippingAddress && others.hasBillingAddress)
+    )
 
     dispatch({
       type: ActionType.SET_ORDER,
       payload: {
         order,
-        others: { isShipmentRequired, ...others, ...addressInfos },
+        others: {
+          isShipmentRequired,
+          ...others,
+          ...addressInfos,
+          ...shippingInfos,
+        },
       },
     })
 
@@ -134,8 +146,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setAddresses = async () => {
     dispatch({ type: ActionType.START_LOADING })
 
-    // TODO  Set shipping method if only one
-
     const order = await cl.orders.retrieve(orderId, {
       fields: {
         orders: ["shipping_address", "billing_address", "shipments"],
@@ -149,10 +159,17 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       ],
     })
 
+    const shippingInfos = await setAutomatedShippingMethods(
+      cl,
+      order,
+      !!(order.billing_address && order.shipping_address)
+    )
+
     dispatch({
       type: ActionType.SET_ADDRESSES,
       payload: {
         order,
+        automatedShippingMethod: { ...shippingInfos },
       },
     })
   }

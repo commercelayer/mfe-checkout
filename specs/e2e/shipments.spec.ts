@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 
 import { test, expect } from "../fixtures/tokenizedPage"
-import { euAddress } from "../utils/addresses"
+import { euAddress, usAddress } from "../utils/addresses"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
 
@@ -330,5 +330,63 @@ test.describe("with two shipment (one do not ship)", () => {
     await checkoutPage.save("Shipping")
     await checkoutPage.clickStep("Shipping")
     await checkoutPage.checkSelectedShippingMethod({ index: 1, value: true })
+  })
+})
+
+test.describe("with addresses set and single shipping method", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: usAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("shipping step already completed", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkCustomerEmail(customerEmail)
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.checkStep("Payment", "open")
+  })
+})
+
+test.describe("with single shipping method", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("shipping step already completed", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(usAddress)
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.page
+      .locator("text=Express Delivery")
+      .waitFor({ state: "visible" })
+    await checkoutPage.checkStep("Payment", "open")
   })
 })

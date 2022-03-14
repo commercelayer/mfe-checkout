@@ -48,6 +48,7 @@ interface DefaultParamsProps {
   token?: string
   orderId?: string
   order: OrderType | undefined
+  market?: string
   customer?: {
     email: string
     password: string
@@ -78,10 +79,10 @@ type FixtureType = {
   defaultParams: DefaultParamsProps
 }
 
-const getToken = async () => {
+const getToken = async (market?: string) => {
   const clientId = process.env.NEXT_PUBLIC_CLIENT_ID as string
   const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
-  const scope = process.env.NEXT_PUBLIC_MARKET_ID as string
+  const scope = market || (process.env.NEXT_PUBLIC_MARKET_ID as string)
 
   const data = await getSalesChannelToken({
     clientId,
@@ -405,7 +406,7 @@ export const test = base.extend<FixtureType>({
   checkoutPage: async ({ page, defaultParams }, use) => {
     const token = await (defaultParams.customer
       ? getCustomerUserToken(defaultParams.customer)
-      : getToken())
+      : getToken(defaultParams.market))
     const cl = await getClient(token)
     const { orderId, attributes } = await getOrder(cl, defaultParams)
     const checkoutPage = new CheckoutPage(page, attributes)
