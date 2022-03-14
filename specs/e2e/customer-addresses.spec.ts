@@ -21,7 +21,8 @@ test.describe("without addresses", () => {
   })
 
   test("multiple address changes", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     await checkoutPage.page.locator(`text=${customerEmail}`)
 
     await checkoutPage.setBillingAddress(euAddress)
@@ -38,10 +39,7 @@ test.describe("without addresses", () => {
 
     await checkoutPage.shipToDifferentAddress()
 
-    let element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-    await expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkShipToDifferentAddressValue(true)
 
     await checkoutPage.setShippingAddress()
 
@@ -61,23 +59,17 @@ test.describe("without addresses", () => {
 
     await checkoutPage.shipToDifferentAddress()
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-
-    await expect(element).toHaveAttribute("data-status", "false")
+    await checkoutPage.checkShipToDifferentAddressValue(false)
 
     await checkoutPage.save("Customer")
 
     await checkoutPage.clickStep("Customer")
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
+    await checkoutPage.checkShipToDifferentAddressValue(false)
+
+    const element = await checkoutPage.page.locator(
+      'h3:has-text("Shipping Address")'
     )
-
-    await expect(element).toHaveAttribute("data-status", "false")
-
-    element = await checkoutPage.page.locator('h3:has-text("Shipping Address")')
 
     await expect(element).not.toBeVisible()
   })
@@ -105,7 +97,8 @@ test.describe("same addresses", () => {
   })
 
   test("multiple updates", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     await checkoutPage.page.locator(`text=${customerEmail}`)
 
     await checkoutPage.checkStep("Customer", "close")
@@ -135,23 +128,17 @@ test.describe("same addresses", () => {
 
     await checkoutPage.shipToDifferentAddress()
 
-    let element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-
-    await expect(element).toHaveAttribute("data-status", "false")
+    await checkoutPage.checkShipToDifferentAddressValue(false)
 
     await checkoutPage.save("Customer")
 
     await checkoutPage.clickStep("Customer")
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
+    await checkoutPage.checkShipToDifferentAddressValue(false)
+
+    const element = await checkoutPage.page.locator(
+      'h3:has-text("Shipping Address")'
     )
-
-    await expect(element).toHaveAttribute("data-status", "false")
-
-    element = await checkoutPage.page.locator('h3:has-text("Shipping Address")')
 
     await expect(element).not.toBeVisible()
   })
@@ -179,7 +166,8 @@ test.describe("different addresses", () => {
   })
 
   test("check addresses", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     await checkoutPage.page.locator(`text=${customerEmail}`)
 
     await checkoutPage.checkStep("Customer", "close")
@@ -209,28 +197,20 @@ test.describe("address on wallet", () => {
   })
 
   test("save one address on wallet", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setBillingAddress(euAddress)
 
-    const element = await checkoutPage.page.locator(
-      "input[data-cy=billing_address_save_to_customer_address_book]"
-    )
+    const element = checkoutPage.getSaveAddressBookCheckbox("billing")
     await expect(element).not.toBeChecked()
     await element.check()
 
     await checkoutPage.save("Customer")
-
-    await checkoutPage.page.click(
-      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
-    )
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.save("Shipping")
 
-    await checkoutPage.page.click(
-      "[data-test-id=stripe_payments] >> text=Credit card",
-      { force: true }
-    )
+    await checkoutPage.selectPayment("stripe")
 
     await checkoutPage.setPayment("stripe")
 
@@ -238,7 +218,7 @@ test.describe("address on wallet", () => {
   })
 
   test("use address on wallet", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Customer", "close")
     await checkoutPage.checkStep("Shipping", "open")
@@ -251,9 +231,8 @@ test.describe("address on wallet", () => {
       address: euAddress,
     })
 
-    let element = await checkoutPage.page.locator(
-      "[data-cy=billing_address_save_to_customer_address_book]"
-    )
+    const element = checkoutPage.getSaveAddressBookCheckbox("billing")
+
     await expect(element).toHaveCount(0)
 
     await checkoutPage.save("Customer")
@@ -316,23 +295,13 @@ test.describe("address on wallet", () => {
       address: euAddress,
     })
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
+    await checkoutPage.checkShipToDifferentAddressValue(false)
 
-    await expect(element).toHaveAttribute("data-status", "false")
     await checkoutPage.save("Customer")
-
-    await checkoutPage.page.click(
-      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
-    )
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.save("Shipping")
-
-    await checkoutPage.page.click(
-      "[data-test-id=stripe_payments] >> text=Credit card",
-      { force: true }
-    )
+    await checkoutPage.selectPayment("stripe")
 
     await checkoutPage.setPayment("stripe")
 
@@ -359,7 +328,8 @@ test.describe("two address on wallet", () => {
   })
 
   test("check addresses", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     await checkoutPage.page.locator(`text=${customerEmail}`)
 
     await checkoutPage.checkStep("Customer", "open")
@@ -470,7 +440,8 @@ test.describe("two address on wallet and code lock", () => {
   })
 
   test("check addresses", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     await checkoutPage.page.locator(`text=${customerEmail}`)
 
     await checkoutPage.checkStep("Customer", "open")
@@ -495,12 +466,8 @@ test.describe("two address on wallet and code lock", () => {
       address: euAddress,
     })
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-
-    expect(element).toHaveAttribute("data-status", "false")
-    expect(element).toBeEnabled()
+    await checkoutPage.checkShipToDifferentAddressValue(false)
+    await checkoutPage.checkShipToDifferentAddressEnabled(true)
 
     element = await checkoutPage.page.locator("[data-cy=shipping-address]")
 
@@ -509,14 +476,8 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.selectAddressOnBook({ type: "billing", index: 1 })
     await checkoutPage.page.waitForTimeout(1000)
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-
-    expect(element).toHaveAttribute("data-status", "true")
-    expect(element).toBeDisabled()
-
-    await checkoutPage.page.pause()
+    await checkoutPage.checkShipToDifferentAddressValue(true)
+    await checkoutPage.checkShipToDifferentAddressEnabled(false)
 
     element = await checkoutPage.page.locator(
       "[data-cy=shipping-address] >> text=Shipping Address"
@@ -559,8 +520,6 @@ test.describe("two address on wallet and code lock", () => {
 
     await checkoutPage.setBillingAddress(euAddress2)
 
-    await checkoutPage.page.pause()
-
     await checkoutPage.save("Customer")
 
     await checkoutPage.clickStep("Customer")
@@ -572,32 +531,20 @@ test.describe("two address on wallet and code lock", () => {
       address: euAddress,
     })
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-
-    await expect(element).toHaveAttribute("data-status", "true")
-    await expect(element).toBeDisabled()
+    await checkoutPage.checkShipToDifferentAddressValue(true)
+    await checkoutPage.checkShipToDifferentAddressEnabled(false)
 
     await checkoutPage.selectCountry("billing_address", "IT")
     await checkoutPage.selectState("billing_address", "FI")
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-
-    await expect(element).toHaveAttribute("data-status", "true")
-    await expect(element).toBeEnabled()
+    await checkoutPage.checkShipToDifferentAddressValue(true)
+    await checkoutPage.checkShipToDifferentAddressEnabled(true)
 
     await checkoutPage.save("Customer")
 
     await checkoutPage.clickStep("Customer")
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-
-    await expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkShipToDifferentAddressValue(true)
 
     await checkoutPage.openNewAddress("shipping")
 
@@ -644,12 +591,8 @@ test.describe("two address on wallet and code lock", () => {
 
     await checkoutPage.clickStep("Customer")
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-
-    await expect(element).toHaveAttribute("data-status", "false")
-    await expect(element).toBeEnabled()
+    await checkoutPage.checkShipToDifferentAddressValue(false)
+    await checkoutPage.checkShipToDifferentAddressEnabled(true)
 
     await checkoutPage.checkSelectedAddressBook({
       type: "billing",

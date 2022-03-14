@@ -16,36 +16,30 @@ test.describe("with customer email", () => {
   })
 
   test("Checkout guest address", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     const email = await checkoutPage.getCustomerMail()
 
     await expect(email).toHaveValue(customerEmail)
 
     await checkoutPage.setCustomerMail("customer@example.com")
     await checkoutPage.blurCustomerEmail()
-    // email = await checkoutPage.getCustomerMail()
-    // await expect(email).toHaveValue(customerEmail)
 
     await checkoutPage.setBillingAddress()
+    await checkoutPage.checkStep("Customer", "open")
 
-    let element = await checkoutPage.page.locator("[data-cy=step_customer]")
-    expect(element).toHaveAttribute("data-status", "true")
     await checkoutPage.save("Customer")
 
     await checkoutPage.checkCustomerEmail("customer@example.com")
-
-    element = await checkoutPage.page.locator("[data-cy=step_shipping]")
-    expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkStep("Shipping", "open")
 
     await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkBillingAddress(euAddress)
 
     await checkoutPage.shipToDifferentAddress()
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.checkShipToDifferentAddressValue(true)
 
     await checkoutPage.setShippingAddress()
 
@@ -75,21 +69,17 @@ test.describe("with customer email and same addresses", () => {
   })
 
   test("Checkout guest address", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkCustomerEmail(customerEmail)
+    await checkoutPage.checkStep("Customer", "close")
 
-    let element = await checkoutPage.page.locator("[data-cy=step_customer]")
-    expect(element).toHaveAttribute("data-status", "false")
     await checkoutPage.clickStep("Customer")
-    expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkStep("Customer", "open")
 
     await checkoutPage.checkBillingAddress(euAddress)
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-    expect(element).toHaveAttribute("data-status", "false")
+    await checkoutPage.checkShipToDifferentAddressValue(false)
   })
 })
 
@@ -111,21 +101,17 @@ test.describe("with customer email and different addresses", () => {
   })
 
   test("Checkout guest address", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkCustomerEmail(customerEmail)
+    await checkoutPage.checkStep("Customer", "close")
 
-    let element = await checkoutPage.page.locator("[data-cy=step_customer]")
-    expect(element).toHaveAttribute("data-status", "false")
     await checkoutPage.clickStep("Customer")
-    expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkStep("Customer", "open")
 
     await checkoutPage.checkBillingAddress(euAddress)
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-    expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkShipToDifferentAddressValue(true)
 
     await checkoutPage.checkShippingAddress(euAddress2)
   })
@@ -146,7 +132,8 @@ test.describe("with customer email and shipping country code lock", () => {
   })
 
   test("Checkout guest address", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     let email = await checkoutPage.getCustomerMail()
 
     await expect(email).toHaveValue(customerEmail)
@@ -156,40 +143,29 @@ test.describe("with customer email and shipping country code lock", () => {
     email = await checkoutPage.getCustomerMail()
 
     await expect(email).toHaveValue("customer@example.com")
-
-    let element = await checkoutPage.page.locator("[data-cy=step_customer]")
-    expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkStep("Customer", "open")
 
     await checkoutPage.setBillingAddress()
 
     await checkoutPage.save("Customer")
-
-    expect(element).toHaveAttribute("data-status", "false")
+    await checkoutPage.checkStep("Customer", "close")
 
     await checkoutPage.checkCustomerEmail("customer@example.com")
 
     await checkoutPage.clickStep("Customer")
-    expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkStep("Customer", "open")
 
     await checkoutPage.checkBillingAddress(euAddress)
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-
-    expect(element).toHaveAttribute("data-status", "false")
-    expect(element).toBeEnabled()
+    await checkoutPage.checkShipToDifferentAddressValue(false)
+    await checkoutPage.checkShipToDifferentAddressEnabled(true)
 
     await checkoutPage.selectCountry("billing_address", "FR")
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
+    await checkoutPage.checkShipToDifferentAddressValue(true)
+    await checkoutPage.checkShipToDifferentAddressEnabled(false)
 
-    expect(element).toHaveAttribute("data-status", "true")
-    expect(element).toBeDisabled()
-
-    element = await checkoutPage.page.locator(
+    const element = await checkoutPage.page.locator(
       "[data-cy=input_shipping_address_country_code]"
     )
     expect(element).toBeDisabled()
@@ -230,23 +206,19 @@ test.describe("with shipping country code lock and different address", () => {
   })
 
   test("Checkout guest address", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     await checkoutPage.checkCustomerEmail(customerEmail)
 
-    let element = await checkoutPage.page.locator("[data-cy=step_customer]")
-    expect(element).toHaveAttribute("data-status", "false")
+    await checkoutPage.checkStep("Customer", "close")
 
     await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkBillingAddress(euAddress2)
     await checkoutPage.checkShippingAddress(euAddress)
 
-    element = await checkoutPage.page.locator(
-      "[data-cy=button-ship-to-different-address]"
-    )
-
-    expect(element).toHaveAttribute("data-status", "true")
-    expect(element).toBeDisabled()
+    await checkoutPage.checkShipToDifferentAddressValue(true)
+    await checkoutPage.checkShipToDifferentAddressEnabled(false)
   })
 })
 
@@ -265,7 +237,7 @@ test.describe("without customer email and same addresses", () => {
   })
 
   test("check initial step", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     const email = await checkoutPage.getCustomerMail()
     await expect(email).toBeEmpty()
@@ -277,6 +249,8 @@ test.describe("without customer email and same addresses", () => {
   test("checkout rebuild shipments on guest address change", async ({
     checkoutPage,
   }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
 
     const email = await checkoutPage.getCustomerMail()
@@ -292,9 +266,7 @@ test.describe("without customer email and same addresses", () => {
 
     await checkoutPage.checkStep("Shipping", "open")
 
-    await checkoutPage.page.click(
-      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
-    )
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.save("Shipping")
 

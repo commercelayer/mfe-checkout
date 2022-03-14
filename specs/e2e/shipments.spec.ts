@@ -23,7 +23,7 @@ test.describe("with customer email and same addresses", () => {
   })
 
   test("select shipping method", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkCustomerEmail(customerEmail)
 
@@ -74,7 +74,7 @@ test.describe("with two shipments", () => {
   })
 
   test("select multiple options", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkCustomerEmail(customerEmail)
 
@@ -206,7 +206,7 @@ test.describe("with two shipping method", () => {
   })
 
   test("select standard option", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkCustomerEmail(customerEmail)
 
@@ -231,7 +231,7 @@ test.describe("with two shipping method", () => {
   })
 
   test("select express option", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkCustomerEmail(customerEmail)
 
@@ -274,7 +274,7 @@ test.describe("with one shipment (do not ship)", () => {
   })
 
   test("no shipping step", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkCustomerEmail(customerEmail)
 
@@ -306,7 +306,7 @@ test.describe("with two shipment (one do not ship)", () => {
   })
 
   test("no shipping step", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkCustomerEmail(customerEmail)
 

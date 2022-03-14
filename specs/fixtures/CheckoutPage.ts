@@ -95,6 +95,33 @@ export class CheckoutPage {
     this.page.click(`[data-cy=button-ship-to-different-address]`)
   }
 
+  async checkShipToDifferentAddressValue(value: boolean) {
+    const element = this.page.locator(
+      "[data-cy=button-ship-to-different-address]"
+    )
+    await expect(element).toHaveAttribute(
+      "data-status",
+      value ? "true" : "false"
+    )
+  }
+
+  async checkShipToDifferentAddressEnabled(value: boolean) {
+    const element = this.page.locator(
+      "[data-cy=button-ship-to-different-address]"
+    )
+    if (value) {
+      await expect(element).toBeEnabled()
+    } else {
+      await expect(element).toBeDisabled()
+    }
+  }
+
+  getSaveAddressBookCheckbox(type: "billing" | "shipping") {
+    return this.page.locator(
+      `input[data-cy=${type}_address_save_to_customer_address_book]`
+    )
+  }
+
   async selectCountry(
     type: "billing_address" | "shipping_address",
     country: "IT" | "US" | "GB" | "FR"
@@ -305,10 +332,25 @@ export class CheckoutPage {
     this.page.click("[data-cy=remove_giftcard]")
   }
 
-  async checkShippingSummary(text: string) {
-    await this.page
-      .locator(`[data-cy=shipping-amount] >> text=${text}`)
-      .waitFor({ state: "visible" })
+  async checkOrderSummary(text: string) {
+    await expect(this.page.locator(`text=${text}`)).toBeVisible()
+  }
+
+  async checkShippingSummary(text: string | undefined) {
+    if (text === undefined) {
+      const element = await this.page.locator("[data-cy=shipping-amount]")
+      await expect(element).toHaveCount(0)
+    } else {
+      await this.page
+        .locator(`[data-cy=shipping-amount] >> text=${text}`)
+        .waitFor({ state: "visible" })
+    }
+  }
+
+  async checkPaymentRecap(text: string) {
+    await expect(
+      this.page.locator(`[data-cy=payment-recap] >> text=${text}`)
+    ).toBeVisible()
   }
 
   async checkTaxSummary(text: string) {
@@ -356,9 +398,20 @@ export class CheckoutPage {
     }
   }
 
-  async setPayment(
-    type: "stripe" | "braintree" | "wiretransfer" | "paypal" | "adyen"
+  async selectPayment(
+    type: "stripe" | "braintree" | "wire" | "paypal" | "adyen"
   ) {
+    let paymentMethod
+    if (type === "wire") {
+      paymentMethod = `${type}_transfers`
+    } else {
+      paymentMethod = `${type}_payments`
+    }
+
+    await this.page.click(`[data-test-id=${paymentMethod}]`, { force: true })
+  }
+
+  async setPayment(type: "stripe" | "braintree" | "paypal" | "adyen") {
     switch (type) {
       case "stripe": {
         const stripeFrame = this.page.frameLocator("iframe").first()

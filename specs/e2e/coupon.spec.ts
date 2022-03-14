@@ -1,5 +1,3 @@
-import exp from "constants"
-
 import { test, expect } from "../fixtures/tokenizedPage"
 
 test.describe("with coupon code", () => {
@@ -14,53 +12,41 @@ test.describe("with coupon code", () => {
   })
 
   test("should execute a checkout", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     await checkoutPage.setCustomerMail()
     await checkoutPage.setBillingAddress()
-    let element = await checkoutPage.page.locator("[data-cy=step_customer]")
-    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.checkStep("Customer", "open")
+
     await checkoutPage.save("Customer")
 
-    element = await checkoutPage.page.locator("[data-cy=step_shipping]")
-    expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkStep("Shipping", "open")
 
     await checkoutPage.checkShippingSummary("To be calculated")
-    expect(checkoutPage.page.locator("text=Standard Shipping")).toBeVisible()
-    await checkoutPage.page.click(
-      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
-    )
+
+    await expect(
+      checkoutPage.page.locator("text=Standard Shipping")
+    ).toBeVisible()
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.checkShippingSummary("FREE")
     await checkoutPage.save("Shipping")
     await checkoutPage.checkCouponCode("TESTCOUPON")
     await checkoutPage.checkDiscountAmount("-€94,50")
 
-    element = await checkoutPage.page.locator("[data-cy=step_payment]")
-    expect(element).toHaveAttribute("data-status", "true")
-    expect(
-      checkoutPage.page.locator(
-        "[data-test-id=stripe_payments] >> text=Credit Card"
-      )
-    ).toBeVisible()
-    await checkoutPage.page.click(
-      "[data-test-id=stripe_payments] >> text=Credit card",
-      { force: true }
-    )
+    await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.selectPayment("stripe")
+
     await checkoutPage.checkPaymentSummary("€10,00")
 
     await checkoutPage.setPayment("stripe")
 
     await checkoutPage.save("Payment")
 
-    expect(
-      checkoutPage.page.locator("text=Order successfully placed!")
-    ).toBeVisible()
-
-    expect(
-      checkoutPage.page.locator(
-        "[data-cy=payment-recap] >> text=Visa ending in 4242"
-      )
-    ).toBeVisible()
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 })
 
@@ -75,21 +61,21 @@ test.describe("without coupon code", () => {
   })
 
   test("should execute a checkout with discount", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     await checkoutPage.setCustomerMail("customer@tk.com")
     await checkoutPage.setBillingAddress()
-    let element = await checkoutPage.page.locator("[data-cy=step_customer]")
-    expect(element).toHaveAttribute("data-status", "true")
+
+    await checkoutPage.checkStep("Customer", "open")
     await checkoutPage.save("Customer")
 
-    element = await checkoutPage.page.locator("[data-cy=step_shipping]")
-    expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkStep("Shipping", "open")
 
     await checkoutPage.checkShippingSummary("To be calculated")
-    expect(checkoutPage.page.locator("text=Standard Shipping")).toBeVisible()
-    await checkoutPage.page.click(
-      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
-    )
+    await expect(
+      checkoutPage.page.locator("text=Standard Shipping")
+    ).toBeVisible()
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.checkShippingSummary("FREE")
     await checkoutPage.save("Shipping")
@@ -104,34 +90,18 @@ test.describe("without coupon code", () => {
     await checkoutPage.setCoupon("testcoupon")
     await checkoutPage.checkTotalAmount("€220,50")
 
-    element = await checkoutPage.page.locator("[data-cy=step_payment]")
-    expect(element).toHaveAttribute("data-status", "true")
-    expect(
-      checkoutPage.page.locator(
-        "[data-test-id=stripe_payments] >> text=Credit Card"
-      )
-    ).toBeVisible()
-    await checkoutPage.page.click(
-      "[data-test-id=stripe_payments] >> text=Credit card",
-      { force: true }
-    )
+    await checkoutPage.checkStep("Payment", "open")
+    await checkoutPage.selectPayment("stripe")
+
     await checkoutPage.checkPaymentSummary("€10,00")
 
     await checkoutPage.setPayment("stripe")
 
     await checkoutPage.save("Payment")
 
-    expect(
-      checkoutPage.page.locator("text=Order successfully placed!")
-    ).toBeVisible()
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
 
-    element = await checkoutPage.page.locator("button >> text=Remove")
+    const element = await checkoutPage.page.locator("button >> text=Remove")
     await expect(element).toHaveCount(0)
-
-    expect(
-      checkoutPage.page.locator(
-        "[data-cy=payment-recap] >> text=Visa ending in 4242"
-      )
-    ).toBeVisible()
   })
 })

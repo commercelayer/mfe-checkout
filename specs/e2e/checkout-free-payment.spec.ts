@@ -11,30 +11,28 @@ test.describe("with shippable sku", () => {
   test("should execute a free checkout with shipment", async ({
     checkoutPage,
   }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     await checkoutPage.setCustomerMail()
 
     await checkoutPage.setBillingAddress()
-    let element = await checkoutPage.page.locator("[data-cy=step_customer]")
-    expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkStep("Customer", "open")
+
     await checkoutPage.save("Customer")
 
-    element = await checkoutPage.page.locator("[data-cy=step_shipping]")
-    expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkStep("Shipping", "open")
 
     await checkoutPage.checkShippingSummary("To be calculated")
+
     expect(checkoutPage.page.locator("text=Standard Shipping")).toBeVisible()
-    await checkoutPage.page.click(
-      "[data-cy=shipping-methods-container] >> text=Standard Shipping"
-    )
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.checkShippingSummary("FREE")
     await checkoutPage.save("Shipping")
 
-    element = await checkoutPage.page.locator("[data-cy=step_payment]")
-    expect(element).toHaveAttribute("data-status", "false")
+    await checkoutPage.checkStep("Payment", "close")
 
-    element = await checkoutPage.page.locator(
+    const element = await checkoutPage.page.locator(
       "[data-cy=step-header-info] >> text=This order does not require payment"
     )
 
@@ -42,15 +40,7 @@ test.describe("with shippable sku", () => {
 
     await checkoutPage.save("Payment")
 
-    expect(
-      checkoutPage.page.locator("text=Order successfully placed!")
-    ).toBeVisible()
-
-    expect(
-      checkoutPage.page.locator(
-        "[data-cy=payment-recap] >> text=This order did not require a payment"
-      )
-    ).toBeVisible()
+    await checkoutPage.checkPaymentRecap("This order did not require a payment")
   })
 })
 
@@ -70,38 +60,27 @@ test.describe("with digital sku", () => {
   test("should execute a free checkout with no shipments", async ({
     checkoutPage,
   }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
     await checkoutPage.setCustomerMail("customer@tk.com")
     await checkoutPage.setBillingAddress()
-    let element = await checkoutPage.page.locator("[data-cy=step_customer]")
-    expect(element).toHaveAttribute("data-status", "true")
+    await checkoutPage.checkStep("Customer", "open")
+
     await checkoutPage.save("Customer")
 
-    element = await checkoutPage.page.locator("[data-cy=step_shipping]")
-    expect(element).toHaveCount(0)
+    await checkoutPage.checkStep("Shipping", "not_present")
 
-    element = await checkoutPage.page.locator("[data-cy=shipping-amount]")
-    expect(element).toHaveCount(0)
+    checkoutPage.checkShippingSummary(undefined)
 
-    element = await checkoutPage.page.locator("[data-cy=step_payment]")
-    expect(element).toHaveAttribute("data-status", "false")
+    await checkoutPage.checkStep("Payment", "close")
 
-    element = await checkoutPage.page.locator(
+    const element = await checkoutPage.page.locator(
       "[data-cy=step-header-info] >> text=This order does not require payment"
     )
 
-    expect(element).toBeVisible()
+    await expect(element).toBeVisible()
 
     await checkoutPage.save("Payment")
-
-    expect(
-      checkoutPage.page.locator("text=Order successfully placed!")
-    ).toBeVisible()
-
-    expect(
-      checkoutPage.page.locator(
-        "[data-cy=payment-recap] >> text=This order did not require a payment"
-      )
-    ).toBeVisible()
+    await checkoutPage.checkPaymentRecap("This order did not require a payment")
   })
 })

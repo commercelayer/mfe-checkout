@@ -9,7 +9,7 @@ test.describe("en context", () => {
   })
 
   test("should navigate to english checkout", async ({ checkoutPage }) => {
-    await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
+    await checkoutPage.checkOrderSummary("Order Summary")
   })
 })
 
@@ -22,8 +22,6 @@ test.describe("it context", () => {
   })
 
   test("should navigate to italian checkout", async ({ checkoutPage }) => {
-    await expect(
-      checkoutPage.page.locator("text=Riepilogo Ordine")
-    ).toBeVisible()
+    await checkoutPage.checkOrderSummary("Riepilogo Ordine")
   })
 })
