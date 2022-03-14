@@ -70,8 +70,11 @@ export const StepHeaderShipping: React.FC<HeaderProps> = ({ step }) => {
       return t("stepShipping.notRequired")
     }
     if (hasShippingMethod && accordionCtx.status !== "edit") {
-      if (shipments.length === 1) {
-        return shipments[0]?.shippingMethodName || appCtx.shippingMethodName
+      if (shipments.length === 1 && shipments[0]?.shippingMethodName) {
+        return shipments[0]?.shippingMethodName
+      }
+      if (appCtx.shippingMethodName) {
+        return appCtx.shippingMethodName
       }
       return t("stepShipping.methodSelected", { count: shipments.length })
     } else {
