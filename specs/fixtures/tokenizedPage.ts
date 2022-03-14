@@ -56,6 +56,8 @@ interface DefaultParamsProps {
     language_code?: "en" | "it"
     customer_email?: string
     shipping_country_code_lock?: "IT" | "GB" | "US"
+    terms_url?: string
+    privacy_url?: string
   }
   lineItemsAttributes?: LineItemObject[]
   giftCardAttributes?: GiftCardProps

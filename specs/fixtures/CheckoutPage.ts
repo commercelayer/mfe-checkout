@@ -95,6 +95,28 @@ export class CheckoutPage {
     this.page.click(`[data-cy=button-ship-to-different-address]`)
   }
 
+  async checkTermsAndPrivacyValue(value: boolean | undefined) {
+    const element = this.page.locator("[data-cy=checkbox-privacy-and-terms]")
+    if (value === undefined) {
+      await expect(element).toHaveCount(0)
+      return
+    }
+    if (value) {
+      await expect(element).toBeChecked()
+    } else {
+      await expect(element).not.toBeChecked()
+    }
+  }
+
+  async setTermsAndPrivacy(value: boolean) {
+    const element = this.page.locator("[data-cy=checkbox-privacy-and-terms]")
+    if (value) {
+      await element.check()
+    } else {
+      await element.uncheck()
+    }
+  }
+
   async checkShipToDifferentAddressValue(value: boolean) {
     const element = this.page.locator(
       "[data-cy=button-ship-to-different-address]"
