@@ -12,9 +12,8 @@
     "start": "next start -p $PORT",
     "lint": "eslint ./ --ext .js,.jsx,.tsx,.ts",
     "lint:fix": "eslint ./ --ext .tsx,.ts --fix",
-    "test": "cypress open",
-    "test:e2e": "playwright test",
-    "test:e2e:debug": "PWDEBUG=1 playwright test"
+    "test": "playwright test",
+    "test:debug": "PWDEBUG=1 playwright test"
   },
   "repository": {
     "type": "git",
@@ -89,7 +88,6 @@
     "twin.macro": "2.8.2"
   },
   "devDependencies": {
-    "@commercelayer/cypress-vcr": "^1.1.0",
     "@faker-js/faker": "6.0.0-beta.0",
     "@next/bundle-analyzer": "^12.1.0",
     "@next/eslint-plugin-next": "^12.1.0",
@@ -110,7 +108,6 @@
     "@typescript-eslint/eslint-plugin": "5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
     "autoprefixer": "^10.4.2",
-    "cypress": "^9.5.1",
     "eslint": "^8.10.0",
     "eslint-config-next": "^12.1.0",
     "eslint-config-prettier": "^8.5.0",
