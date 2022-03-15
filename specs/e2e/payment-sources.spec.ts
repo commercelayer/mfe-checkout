@@ -211,6 +211,40 @@ test.describe("payment source amount mismatch with paypal", () => {
 
     await checkoutPage.save("Payment", "Paga con PayPal")
   })
+
+  test("checkout applying coupon interrupted", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
+    await checkoutPage.save("Shipping")
+    await checkoutPage.checkTotalAmount("€99,00")
+
+    await checkoutPage.selectPayment("paypal")
+
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
+    await checkoutPage.checkTotalAmount("€99,00")
+
+    await checkoutPage.save("Payment", undefined, true)
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
+    await checkoutPage.page.click("a#cancelLink")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
+    await checkoutPage.setCoupon("testcoupon")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
+    await checkoutPage.checkTotalAmount("€69,30")
+
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
+    await checkoutPage.save("Payment", "Paga con PayPal")
+  })
 })
 
 test.describe("payment source amount mismatch for coupon with paypal", () => {

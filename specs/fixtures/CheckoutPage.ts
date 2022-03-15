@@ -565,14 +565,16 @@ export class CheckoutPage {
 
           await this.page
             .locator("text=Order successfully placed!")
-            .waitFor({ state: "visible" })
+            .waitFor({ state: "visible", timeout: 15000 })
           return
         }
 
         if (skipWait) {
           return
         }
-        await this.page.locator(`text=${text}`).waitFor({ state: "visible" })
+        await this.page
+          .locator(`text=${text}`)
+          .waitFor({ state: "visible", timeout: 15000 })
         break
       }
     }
