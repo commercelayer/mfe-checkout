@@ -86,7 +86,9 @@ export class CheckoutPage {
       await expect(element).toHaveCount(0)
       return
     }
+
     await expect(element).toHaveCount(1)
+
     await expect(element).toHaveAttribute(
       "data-status",
       status === "close" ? "false" : "true"
@@ -94,7 +96,15 @@ export class CheckoutPage {
   }
 
   async clickStep(step: SingleStepEnum) {
-    this.page.click(`[data-cy=step_${step.toLocaleLowerCase()}]`)
+    this.page.click(`[data-cy=step_${step.toLocaleLowerCase()}]`, {
+      force: true,
+    })
+  }
+
+  async clickAccordion(step: SingleStepEnum) {
+    this.page.click(`[data-cy=accordion_${step.toLocaleLowerCase()}]`, {
+      force: true,
+    })
   }
 
   async shipToDifferentAddress() {

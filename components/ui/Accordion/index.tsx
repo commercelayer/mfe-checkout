@@ -22,12 +22,7 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
   if (!ctx || !appCtx) return null
 
   const handleSelection = () => {
-    if (
-      (ctx.step === "Shipping" && appCtx.hasPaymentMethod) ||
-      ctx.status !== "disabled"
-    ) {
-      return ctx.isActive ? ctx.closeStep() : ctx.setStep()
-    }
+    return ctx.isActive ? ctx.closeStep() : ctx.setStep()
   }
 
   return (
@@ -38,7 +33,11 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
         disabled: ctx.status === "disabled" || ctx.status === "skip",
       })}
     >
-      <AccordionTabHeader className="group" onClick={handleSelection}>
+      <AccordionTabHeader
+        data-cy={`accordion_${ctx.step.toLocaleLowerCase()}`}
+        className="group"
+        onClick={handleSelection}
+      >
         <AccordionTitle>{header}</AccordionTitle>
         <AccordionIcon>
           <svg

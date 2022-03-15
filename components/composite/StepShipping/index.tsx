@@ -130,7 +130,7 @@ export const StepShipping: React.FC<Props> = () => {
   const handleSave = async () => {
     setIsLocalLoader(true)
 
-    await saveShipments()
+    saveShipments()
 
     setIsLocalLoader(false)
     if (gtmCtx?.fireAddShippingInfo) {
