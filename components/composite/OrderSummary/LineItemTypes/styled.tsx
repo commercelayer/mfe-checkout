@@ -12,7 +12,7 @@ export const LineItemTitle = styled.div`
   ${tw`flex justify-between text-black`}
 `
 export const LineItemQty = styled.div`
-  ${tw`text-xs uppercase mt-1 bg-gray-200 max-w-max py-1 px-2.5 rounded-full tracking-wider text-gray-400 font-bold`}
+  ${tw`text-xs mt-1 bg-gray-200 max-w-max py-1 px-2.5 rounded-full tracking-wider text-gray-400 font-bold`}
 `
 export const StyledLineItemSkuCode = styled(LineItemCode)`
   ${tw`text-xxs uppercase text-gray-400 font-bold`}
