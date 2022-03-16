@@ -42,6 +42,7 @@ interface PushDataLayerProps {
     transaction_id?: number
     payment_type?: string
     tax?: number
+    market_id?: string
   }
 }
 
@@ -84,10 +85,11 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
           "shipping_amount_float",
           "total_tax_amount_float",
           "payment_method",
+          "market",
         ],
         payment_method: ["price_amount_float", "name"],
       },
-      include: ["payment_method"],
+      include: ["payment_method", "market"],
     })
   }
 
@@ -149,6 +151,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         currency: order?.currency_code,
         items: lineItems?.map(mapItemsToGTM),
         value: order?.total_amount_with_taxes_float,
+        market_id: order?.market?.id,
       },
     })
   }
@@ -194,6 +197,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
           items: lineItems,
           value: shipment.shipping_method?.price_amount_for_shipment_float,
           shipping_tier: shipment.shipping_method?.name,
+          market_id: order?.market?.id,
         },
       })
     })
@@ -230,6 +234,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         items: lineItems?.map(mapItemsToGTM),
         value: paymentMethod?.price_amount_float,
         payment_type: paymentMethod?.name,
+        market_id: order?.market?.id,
       },
     })
   }
@@ -265,6 +270,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         shipping: order?.shipping_amount_float,
         value: order?.total_amount_with_taxes_float,
         tax: order?.total_tax_amount_float,
+        market_id: order?.market?.id,
       },
     })
   }
