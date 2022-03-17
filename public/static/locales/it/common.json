@@ -43,7 +43,8 @@
         "payment_method_amount": "Metodo di pagamento",
         "subtotal_amount": "Subtotale",
         "total_amount": "Totale",
-        "notSet": "Da calcolare"
+        "notSet": "Da calcolare",
+        "returnToCart": "Ritorna al carrello"
     },
 
     "stepCustomer": {

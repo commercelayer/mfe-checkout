@@ -43,7 +43,8 @@
         "payment_method_amount": "Payment method",
         "subtotal_amount": "Subtotal",
         "total_amount": "Total",
-        "notSet": "To be calculated"
+        "notSet": "To be calculated",
+        "returnToCart": "Return to cart"
     },
 
     "stepCustomer": {
