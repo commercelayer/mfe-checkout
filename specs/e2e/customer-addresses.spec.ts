@@ -500,7 +500,9 @@ test.describe("two address on wallet and code lock", () => {
       address: euAddress,
     })
 
-    element = await checkoutPage.page.locator("[data-cy=save-addresses-button]")
+    element = await checkoutPage.page.locator(
+      "[data-test-id=save-customer-button]"
+    )
     await expect(element).toBeEnabled()
 
     await checkoutPage.checkSelectedAddressBook({
@@ -563,7 +565,9 @@ test.describe("two address on wallet and code lock", () => {
 
     await checkoutPage.closeNewAddress("shipping")
 
-    element = await checkoutPage.page.locator("[data-cy=save-addresses-button]")
+    element = await checkoutPage.page.locator(
+      "data-test-id=save-customer-button"
+    )
     await expect(element).toBeDisabled()
 
     await checkoutPage.selectAddressOnBook({ type: "shipping", index: 0 })

@@ -319,7 +319,7 @@ test.describe("with two shipment (one do not ship)", () => {
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=save-shipments-button]"
+      "[ data-test-id=save-shipping-button]"
     )
     await expect(element).toBeEnabled()
     await checkoutPage.save("Shipping")

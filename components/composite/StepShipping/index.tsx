@@ -300,7 +300,7 @@ export const StepShipping: React.FC<Props> = () => {
                 <ButtonWrapper>
                   <Button
                     disabled={!canContinue || isLocalLoader}
-                    data-cy="save-shipments-button"
+                    data-test-id="save-shipping-button"
                     onClick={handleSave}
                   >
                     {isLocalLoader && <SpinnerIcon />}

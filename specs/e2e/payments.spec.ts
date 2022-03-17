@@ -226,11 +226,11 @@ test.describe("guest with wire transfer", () => {
 
     await checkoutPage.save("Shipping")
 
-    await checkoutPage.checkPlaceOrder("disabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "disabled" })
 
     await checkoutPage.selectPayment("wire")
 
-    await checkoutPage.checkPlaceOrder("enabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
 
     await checkoutPage.save("Payment")
   })
@@ -253,12 +253,12 @@ test.describe("guest with wire transfer", () => {
 
     await checkoutPage.checkPaymentSummary("€10,00")
 
-    await checkoutPage.checkPlaceOrder("enabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
 
     await checkoutPage.selectPayment("wire")
     await checkoutPage.page.waitForTimeout(1500)
 
-    await checkoutPage.checkPlaceOrder("enabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
 
     await checkoutPage.save("Payment")
   })
@@ -304,10 +304,10 @@ test.describe("customer with Braintree", () => {
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
-    await checkoutPage.checkPlaceOrder("disabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "disabled" })
 
     await checkoutPage.setPayment("braintree")
-    await checkoutPage.checkPlaceOrder("enabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
 
     await checkoutPage.save("Payment", undefined, true)
 

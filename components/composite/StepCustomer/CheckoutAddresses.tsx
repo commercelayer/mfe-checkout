@@ -125,7 +125,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
                     : t("stepShipping.continueToPayment")}
                 </>
               }
-              data-cy="save-addresses-button"
+              data-test-id="save-customer-button"
               onClick={handleSave}
             />
           </ButtonWrapper>

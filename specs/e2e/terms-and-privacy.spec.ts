@@ -82,16 +82,16 @@ test.describe("terms and privacy", () => {
     await checkoutPage.checkStep("Payment", "close")
 
     await checkoutPage.checkTermsAndPrivacyValue(false)
-    await checkoutPage.checkPlaceOrder("disabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "disabled" })
     await checkoutPage.setTermsAndPrivacy(true)
-    await checkoutPage.checkPlaceOrder("enabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
 
     await checkoutPage.save("Payment", undefined, true)
 
     await checkoutPage.page.click("a#cancelLink")
 
     await checkoutPage.checkTermsAndPrivacyValue(false)
-    await checkoutPage.checkPlaceOrder("disabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "disabled" })
   })
 
   test("checkout with paypal interrupted going back", async ({
@@ -127,16 +127,16 @@ test.describe("terms and privacy", () => {
     await checkoutPage.selectPayment("paypal")
 
     await checkoutPage.checkTermsAndPrivacyValue(false)
-    await checkoutPage.checkPlaceOrder("disabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "disabled" })
     await checkoutPage.setTermsAndPrivacy(true)
-    await checkoutPage.checkPlaceOrder("enabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
 
     await checkoutPage.save("Payment", undefined, true)
 
     await checkoutPage.page.click("a#cancelLink")
 
     await checkoutPage.checkTermsAndPrivacyValue(false)
-    await checkoutPage.checkPlaceOrder("disabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "disabled" })
   })
 })
 

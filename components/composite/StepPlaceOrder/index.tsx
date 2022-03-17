@@ -162,7 +162,7 @@ const StepPlaceOrder: React.FC<Props> = ({
           )}
           <PlaceOrderButtonWrapper>
             <StyledPlaceOrderButton
-              data-cy="place-order-button"
+              data-test-id="save-payment-button"
               isActive={isActive}
               onClick={handlePlaceOrder}
               label={

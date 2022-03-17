@@ -240,23 +240,24 @@ export class CheckoutPage {
   }) {
     await this.page.fill(
       `[data-cy=input_${type}_first_name]`,
-      address.first_name as string
+      (address.first_name as string) || ""
     )
     await this.page.fill(
       `[data-cy=input_${type}_last_name]`,
-      address.last_name as string
+      (address.last_name as string) || ""
     )
     await this.page.fill(
       `[data-cy=input_${type}_line_1]`,
-      address.line_1 as string
+      (address.line_1 as string) || ""
     )
-    if (address.line_2 && address.line_2?.length > 0) {
-      await this.page.fill(
-        `[data-cy=input_${type}_line_2]`,
-        address.line_2 as string
-      )
-    }
-    await this.page.fill(`[data-cy=input_${type}_city]`, address.city as string)
+    await this.page.fill(
+      `[data-cy=input_${type}_line_2]`,
+      (address.line_2 as string) || ""
+    )
+    await this.page.fill(
+      `[data-cy=input_${type}_city]`,
+      (address.city as string) || ""
+    )
 
     const countrySelect = this.page.locator(
       `[data-cy=input_${type}_country_code]`
@@ -265,7 +266,7 @@ export class CheckoutPage {
     if (countrySelectEnabled) {
       await this.page.selectOption(
         `[data-cy=input_${type}_country_code]`,
-        address.country_code as string,
+        (address.country_code as string) || "",
         { force: true }
       )
     }
@@ -277,21 +278,21 @@ export class CheckoutPage {
 
     await this.page[command](
       `[data-cy=input_${type}_state_code]`,
-      address.state_code as string
+      (address.state_code as string) || ""
     )
 
     await this.page.fill(
       `[data-cy=input_${type}_zip_code]`,
-      address.zip_code as string
+      (address.zip_code as string) || ""
     )
     await this.page.fill(
       `[data-cy=input_${type}_phone]`,
-      address.phone as string
+      (address.phone as string) || ""
     )
     if (address.billing_info) {
       await this.page.fill(
         `[data-cy=input_${type}_billing_info]`,
-        address.billing_info as string
+        (address.billing_info as string) || ""
       )
     }
   }
@@ -452,8 +453,16 @@ export class CheckoutPage {
       .waitFor({ state: "visible" })
   }
 
-  async checkPlaceOrder(status: "enabled" | "disabled") {
-    const element = await this.page.locator("[data-cy=place-order-button]")
+  async checkButton({
+    type,
+    status,
+  }: {
+    type: SingleStepEnum
+    status: "enabled" | "disabled"
+  }) {
+    const element = await this.page.locator(
+      `[data-test-id=save-${type.toLocaleLowerCase()}-button]`
+    )
     if (status === "disabled") {
       return expect(element).toBeDisabled()
     } else {
@@ -532,20 +541,20 @@ export class CheckoutPage {
   async save(step: SingleStepEnum, waitText?: string, skipWait?: boolean) {
     switch (step) {
       case "Customer":
-        this.page.click("[data-cy=save-addresses-button]")
+        this.page.click("[data-test-id=save-customer-button]")
         await this.page
           .locator("[data-cy=step_customer][data-status=false]")
           .waitFor({ state: "visible" })
         break
       case "Shipping":
-        this.page.click("[data-cy=save-shipments-button]")
+        this.page.click("[data-test-id=save-shipping-button]")
         await this.page
           .locator("[data-cy=step_shipping][data-status=false]")
           .waitFor({ state: "visible" })
         break
       case "Payment": {
         const text = waitText || "Order successfully placed"
-        this.page.click("[data-cy=place-order-button]")
+        this.page.click("[data-test-id=save-payment-button]")
 
         if (waitText === "Paga con PayPal") {
           await this.page.fill(

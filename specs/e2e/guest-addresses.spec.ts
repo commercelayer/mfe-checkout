@@ -49,6 +49,53 @@ test.describe("with customer email", () => {
     await checkoutPage.checkBillingAddress(euAddress)
     await checkoutPage.checkShippingAddress(euAddress2)
   })
+
+  test("missing fields on billing address", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    const { name, address } = faker
+
+    const newAddress = {
+      first_name: name.firstName(),
+      last_name: name.lastName(),
+      line_1: address.streetAddress(),
+    }
+    await checkoutPage.setBillingAddress(newAddress)
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.checkButton({ type: "Customer", status: "disabled" })
+
+    await checkoutPage.setBillingAddress({ ...euAddress, ...newAddress })
+    await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
+  })
+
+  test.skip("line_2 optional attribute on billing and shipping address", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress({ ...euAddress, line_2: "" })
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
+
+    await checkoutPage.setBillingAddress({ ...euAddress })
+
+    await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
+
+    await checkoutPage.setBillingAddress({ ...euAddress, line_2: "" })
+
+    await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkBillingAddress({ ...euAddress, line_2: "" })
+  })
 })
 
 test.describe("with customer email and same addresses", () => {
