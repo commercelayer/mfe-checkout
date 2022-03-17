@@ -17,6 +17,7 @@ import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
 import { LineItemTypes } from "./LineItemTypes"
+import { ReturnToCart } from "./ReturnToCart"
 import {
   SummaryHeader,
   SummarySubTitle,
@@ -207,6 +208,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
               className="text-xl font-extrabold"
             />
           </RecapLineTotal>
+          <ReturnToCart cartUrl={appCtx.cartUrl} />
         </AmountWrapper>
       </TotalWrapper>
     </Wrapper>

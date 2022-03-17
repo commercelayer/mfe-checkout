@@ -70,6 +70,7 @@ const initialState: AppStateData = {
   shippingCountryCodeLock: "",
   isComplete: false,
   returnUrl: "",
+  cartUrl: undefined,
   taxIncluded: false,
   shippingMethodName: undefined,
 }
