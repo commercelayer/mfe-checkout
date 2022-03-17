@@ -335,7 +335,7 @@ test.describe("two address on wallet", () => {
     await checkoutPage.checkStep("Customer", "open")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=customer-billing-address]"
+      "[data-test-id=customer-billing-address]"
     )
     await expect(element).toHaveCount(2)
 
@@ -447,7 +447,7 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.checkStep("Customer", "open")
 
     let element = await checkoutPage.page.locator(
-      "[data-cy=customer-billing-address]"
+      "[data-test-id=customer-billing-address]"
     )
     await expect(element).toHaveCount(2)
 
@@ -469,7 +469,7 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.checkShipToDifferentAddressValue(false)
     await checkoutPage.checkShipToDifferentAddressEnabled(true)
 
-    element = await checkoutPage.page.locator("[data-cy=shipping-address]")
+    element = await checkoutPage.page.locator("[data-test-id=shipping-address]")
 
     await expect(element).not.toBeVisible()
 
@@ -480,18 +480,18 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.checkShipToDifferentAddressEnabled(false)
 
     element = await checkoutPage.page.locator(
-      "[data-cy=shipping-address] >> text=Shipping Address"
+      "[data-test-id=shipping-address] >> text=Shipping Address"
     )
 
     await expect(element).toBeVisible()
 
     element = await checkoutPage.page.locator(
-      `[data-cy=customer-shipping-address]:near(:text("Shipping Address")) >> text=(IT)`
+      `[data-test-id=customer-shipping-address]:near(:text("Shipping Address")) >> text=(IT)`
     )
     await expect(element).toHaveCount(1)
 
     element = await checkoutPage.page.locator(
-      `[data-cy=customer-shipping-address]:near(:text("Shipping Address")) >> text=(FR)`
+      `[data-test-id=customer-shipping-address]:near(:text("Shipping Address")) >> text=(FR)`
     )
     await expect(element).toHaveCount(0)
 

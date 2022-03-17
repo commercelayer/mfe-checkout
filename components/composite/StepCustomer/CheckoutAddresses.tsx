@@ -91,7 +91,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
         {isShipmentRequired && (
           <Toggle
             disabled={disabledShipToDifferentAddress}
-            data-cy="button-ship-to-different-address"
+            data-test-id="button-ship-to-different-address"
             data-status={shipToDifferentAddress}
             label={t(`addressForm.ship_to_different_address`)}
             checked={shipToDifferentAddress}

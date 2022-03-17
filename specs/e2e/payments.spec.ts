@@ -72,7 +72,7 @@ test.describe("customer with Stripe", () => {
     await checkoutPage.selectPayment("stripe")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
@@ -100,12 +100,14 @@ test.describe("customer with Stripe", () => {
     await checkoutPage.checkPaymentSummary("€10,00")
 
     let element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
     await element.check()
-    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    element = await checkoutPage.page.locator(
+      "[data-test-id=payment-save-wallet]"
+    )
     expect(element).toBeChecked()
 
     await checkoutPage.save("Payment")
@@ -122,7 +124,9 @@ test.describe("customer with Stripe", () => {
 
     await checkoutPage.selectPayment("stripe")
 
-    await checkoutPage.page.click("[data-cy=customer-card]", { force: true })
+    await checkoutPage.page.click("[data-test-id=customer-card]", {
+      force: true,
+    })
     await checkoutPage.checkPaymentSummary("€10,00")
 
     await checkoutPage.save("Payment")
@@ -162,7 +166,7 @@ test.describe("guest with Stripe", () => {
     await checkoutPage.setPayment("stripe")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).not.toBeVisible()
 
@@ -245,7 +249,7 @@ test.describe("guest with wire transfer", () => {
     await checkoutPage.selectPayment("stripe")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).not.toBeVisible()
 
@@ -300,7 +304,7 @@ test.describe("customer with Braintree", () => {
     await checkoutPage.selectPayment("braintree")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
@@ -362,7 +366,7 @@ test.describe("customer with Adyen", () => {
     await checkoutPage.selectPayment("adyen")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
@@ -386,12 +390,14 @@ test.describe("customer with Adyen", () => {
     await checkoutPage.setPayment("adyen")
 
     let element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
     await element.check()
-    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    element = await checkoutPage.page.locator(
+      "[data-test-id=payment-save-wallet]"
+    )
     expect(element).toBeChecked()
 
     await checkoutPage.save("Payment")
@@ -407,7 +413,9 @@ test.describe("customer with Adyen", () => {
     await checkoutPage.save("Shipping")
     await checkoutPage.selectPayment("adyen")
 
-    await checkoutPage.page.click("[data-cy=customer-card]", { force: true })
+    await checkoutPage.page.click("[data-test-id=customer-card]", {
+      force: true,
+    })
 
     await checkoutPage.save("Payment")
   })

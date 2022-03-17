@@ -142,7 +142,7 @@ const StepPlaceOrder: React.FC<Props> = ({
               <StyledPrivacyAndTermsCheckbox
                 id="privacy-terms"
                 className="relative form-checkbox top-0.5"
-                data-cy="checkbox-privacy-and-terms"
+                data-test-id="checkbox-privacy-and-terms"
               />
               <Label htmlFor="privacy-terms">
                 <Trans

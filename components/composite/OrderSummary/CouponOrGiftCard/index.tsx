@@ -54,12 +54,12 @@ export const CouponOrGiftCard: React.FC<Props> = ({
           <CouponFormWrapper>
             <CouponFieldWrapper>
               <StyledGiftCardOrCouponInput
-                data-cy="input_giftcard_coupon"
+                data-test-id="input_giftcard_coupon"
                 className={`form-input ${classError}`}
                 placeholder={t("orderRecap.couponCode")}
               />
               <GiftCardOrCouponSubmit
-                data-cy="submit_giftcard_coupon"
+                data-test-id="submit_giftcard_coupon"
                 label={t("general.apply")}
                 className={`w-auto -ml-px relative inline-flex items-center space-x-2 px-8 py-3 text-xs font-extrabold text-contrast bg-primary border border-transparent rounded-r-md hover:opacity-80 focus:outline-none`}
               />
@@ -78,14 +78,14 @@ export const CouponOrGiftCard: React.FC<Props> = ({
           const { hide, code, ...p } = props
           return hide ? null : (
             <CouponRecap>
-              <span data-cy="code-coupon" {...p}>
+              <span data-test-id="code-coupon" {...p}>
                 <CouponName>{code}</CouponName>
                 {!readonly && (
                   <StyledGiftCardOrCouponRemoveButton
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     onClick={handleSubmit}
-                    data-cy="remove_coupon"
+                    data-test-id="remove_coupon"
                     type="coupon"
                     label="Remove"
                   />
@@ -103,14 +103,14 @@ export const CouponOrGiftCard: React.FC<Props> = ({
           const { hide, code, ...p } = props
           return hide ? null : (
             <CouponRecap>
-              <span data-cy="code-giftcard" {...p}>
+              <span data-test-id="code-giftcard" {...p}>
                 {code}
                 {!readonly && (
                   <StyledGiftCardOrCouponRemoveButton
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     onClick={handleSubmit}
-                    data-cy="remove_giftcard"
+                    data-test-id="remove_giftcard"
                     type="gift_card"
                     className=""
                     label="Remove"

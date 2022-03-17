@@ -242,7 +242,7 @@ test.describe("with customer email and shipping country code lock", () => {
     await checkoutPage.checkShipToDifferentAddressEnabled(false)
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=input_shipping_address_country_code]"
+      "[data-test-id=input_shipping_address_country_code]"
     )
     expect(element).toBeDisabled()
     const shippingAddress = {
