@@ -70,7 +70,7 @@ test.describe("with customer email", () => {
     await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
   })
 
-  test.skip("line_2 optional attribute on billing and shipping address", async ({
+  test.skip("line_2 optional attribute on billing address", async ({
     checkoutPage,
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
@@ -85,6 +85,35 @@ test.describe("with customer email", () => {
     await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
 
     await checkoutPage.setBillingAddress({ ...euAddress, line_2: "" })
+
+    await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkBillingAddress({ ...euAddress, line_2: "" })
+  })
+
+  test.skip("line_2 optional attribute on shipping address", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress({ ...euAddress })
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
+
+    await checkoutPage.shipToDifferentAddress()
+
+    await checkoutPage.setShippingAddress({ ...euAddress2 })
+
+    await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
+
+    await checkoutPage.setShippingAddress({ ...euAddress2, line_2: "" })
 
     await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
 
