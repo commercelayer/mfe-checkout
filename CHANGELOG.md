@@ -1,3 +1,27 @@
+# [1.5.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.4.3...v1.5.0) (2022-03-17)
+
+
+### Bug Fixes
+
+* autoselect shipping method if only one available ([8694fba](https://github.com/commercelayer/commercelayer-react-checkout/commit/8694fba63597aedf54179175c64d2c9422da8400))
+* avoid to show remove coupon and giftcard link on thankyou page ([71b0e4a](https://github.com/commercelayer/commercelayer-react-checkout/commit/71b0e4ad92548753d2d7a7fe9367f958ec282508))
+* check for customer email if addresses already present ([a6e1a30](https://github.com/commercelayer/commercelayer-react-checkout/commit/a6e1a30c951da54ecb1b6ae7c9b9aeeb2d7dd093))
+* compact duplicated errors ([2f2de65](https://github.com/commercelayer/commercelayer-react-checkout/commit/2f2de654e20ae00054fbb00e6ac13f27e2ea2338))
+* open step from accordion if previous step completed ([555bfb1](https://github.com/commercelayer/commercelayer-react-checkout/commit/555bfb14f471233c87c17d82772ef0f27cc7117d))
+* shipping summary same height ([03bec6c](https://github.com/commercelayer/commercelayer-react-checkout/commit/03bec6c5656f476f6291a4aa8fc20de77583aeb4))
+* update ship to different address status on save ([104a15b](https://github.com/commercelayer/commercelayer-react-checkout/commit/104a15bff6aa269b6e6b40bcbcd5aa95caba6101))
+
+
+### Features
+
+* add price for item with quantity gt 1 ([c528d3d](https://github.com/commercelayer/commercelayer-react-checkout/commit/c528d3d08d95094132fcde3b73ee149aa2abe28f))
+
+
+### Performance Improvements
+
+* add DC to US states list ([3f399a4](https://github.com/commercelayer/commercelayer-react-checkout/commit/3f399a456a7001434f0b11e4e09ad4ab03cdbf34))
+* switch general state to use reducer approach ([db7baa6](https://github.com/commercelayer/commercelayer-react-checkout/commit/db7baa6634307020a314496718080df722397f91))
+
 ## [1.4.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.4.2...v1.4.3) (2022-03-03)
 
 
