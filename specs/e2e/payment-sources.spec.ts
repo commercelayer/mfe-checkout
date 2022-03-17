@@ -51,10 +51,7 @@ test.describe("payment source amount mismatch with stripe", () => {
     await checkoutPage.checkTotalAmount("€121,00")
 
     await checkoutPage.save("Shipping")
-
-    await checkoutPage.selectPayment("stripe")
-
-    await checkoutPage.save("Shipping")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.setPayment("stripe")
 
@@ -79,6 +76,7 @@ test.describe("payment source amount mismatch with stripe", () => {
 
     await checkoutPage.setCoupon("testcoupon")
     await checkoutPage.checkTotalAmount("€79,30")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.setPayment("stripe")
 

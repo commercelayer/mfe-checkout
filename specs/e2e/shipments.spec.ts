@@ -405,7 +405,7 @@ test.describe("changing order amount", () => {
     },
   })
 
-  test.skip("applying coupon no free shipping", async ({ checkoutPage }) => {
+  test("applying coupon no free shipping", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setBillingAddress(usAddress)
@@ -426,5 +426,11 @@ test.describe("changing order amount", () => {
     await checkoutPage.checkShippingSummary("$7.00")
 
     await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.selectPayment("stripe")
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 })

@@ -192,7 +192,8 @@ test.describe("guest with Stripe", () => {
     await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
 
     await checkoutPage.save("Shipping")
-    await checkoutPage.selectPayment("stripe")
+    await checkoutPage.page.waitForTimeout(2000)
+    // await checkoutPage.selectPayment("stripe")
     await checkoutPage.setPayment("stripe")
 
     await checkoutPage.save("Payment")
@@ -248,8 +249,6 @@ test.describe("guest with wire transfer", () => {
     )
     expect(element).not.toBeVisible()
 
-    await checkoutPage.checkPlaceOrder("disabled")
-
     await checkoutPage.setPayment("stripe")
 
     await checkoutPage.checkPaymentSummary("€10,00")
@@ -257,6 +256,7 @@ test.describe("guest with wire transfer", () => {
     await checkoutPage.checkPlaceOrder("enabled")
 
     await checkoutPage.selectPayment("wire")
+    await checkoutPage.page.waitForTimeout(1500)
 
     await checkoutPage.checkPlaceOrder("enabled")
 
