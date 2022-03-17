@@ -31,6 +31,7 @@ interface Props {
   setShipToDifferentAddress: Dispatch<SetStateAction<boolean>>
   openShippingAddress: (props: ShippingToggleProps) => void
   disabledShipToDifferentAddress: boolean
+  setCustomerEmail: (email: string) => void
   handleSave: () => void
 }
 
@@ -45,6 +46,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
   setShipToDifferentAddress,
   openShippingAddress,
   disabledShipToDifferentAddress,
+  setCustomerEmail,
   handleSave,
 }: Props) => {
   const { t } = useTranslation()
@@ -68,7 +70,10 @@ export const CheckoutAddresses: React.FC<Props> = ({
 
   return (
     <Fragment>
-      <AddressSectionEmail emailAddress={emailAddress} />
+      <AddressSectionEmail
+        emailAddress={emailAddress}
+        setCustomerEmail={setCustomerEmail}
+      />
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
         <div className="mt-4">
           <AddressSectionTitle>

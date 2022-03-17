@@ -19,15 +19,20 @@ import {
 
 interface Props {
   readonly?: boolean
+  setCouponOrGiftCard: () => Promise<void>
 }
 
-export const CouponOrGiftCard: React.FC<Props> = ({ readonly }) => {
+export const CouponOrGiftCard: React.FC<Props> = ({
+  readonly,
+  setCouponOrGiftCard,
+}) => {
   const { t } = useTranslation()
 
   const [codeError, setCodeError] = useState(false)
 
-  const handleSubmit = async ({ success }: { success: boolean }) => {
-    if (!success) return setCodeError(true)
+  const handleSubmit = async (response: { success: boolean }) => {
+    if (!response.success) return setCodeError(true)
+    await setCouponOrGiftCard()
     return setCodeError(false)
   }
 
@@ -75,11 +80,16 @@ export const CouponOrGiftCard: React.FC<Props> = ({ readonly }) => {
             <CouponRecap>
               <span data-cy="code-coupon" {...p}>
                 <CouponName>{code}</CouponName>
-                <StyledGiftCardOrCouponRemoveButton
-                  data-cy="remove_coupon"
-                  type="coupon"
-                  label="Remove"
-                />
+                {!readonly && (
+                  <StyledGiftCardOrCouponRemoveButton
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    onClick={handleSubmit}
+                    data-cy="remove_coupon"
+                    type="coupon"
+                    label="Remove"
+                  />
+                )}
               </span>
             </CouponRecap>
           )
@@ -95,12 +105,17 @@ export const CouponOrGiftCard: React.FC<Props> = ({ readonly }) => {
             <CouponRecap>
               <span data-cy="code-giftcard" {...p}>
                 {code}
-                <StyledGiftCardOrCouponRemoveButton
-                  data-cy="remove_giftcard"
-                  type="gift_card"
-                  className=""
-                  label="Remove"
-                />
+                {!readonly && (
+                  <StyledGiftCardOrCouponRemoveButton
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    onClick={handleSubmit}
+                    data-cy="remove_giftcard"
+                    type="gift_card"
+                    className=""
+                    label="Remove"
+                  />
+                )}
               </span>
             </CouponRecap>
           )

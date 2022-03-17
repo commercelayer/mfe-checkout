@@ -2,13 +2,13 @@ import {
   LineItem,
   LineItemImage,
   LineItemName,
-  LineItemQuantity,
   LineItemAmount,
   LineItemOptions,
   LineItemType,
 } from "@commercelayer/react-components"
-import { useTranslation } from "react-i18next"
+import React from "react"
 
+import { QuantityWithPrice } from "./QuantityWithPrice"
 import {
   LineItemDescription,
   LineItemQty,
@@ -28,8 +28,6 @@ const CODE_LOOKUP: { [k: string]: "sku_code" | "bundle_code" | undefined } = {
 }
 
 export const LineItemTypes: React.FC<Props> = ({ type }) => {
-  const { t } = useTranslation()
-
   return (
     <LineItem type={type}>
       <LineItemWrapper>
@@ -47,12 +45,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
             <StyledLineItemOption />
           </LineItemOptions>
           <LineItemQty>
-            <LineItemQuantity>
-              {(props) =>
-                !!props.quantity &&
-                t("orderRecap.quantity", { count: props.quantity })
-              }
-            </LineItemQuantity>
+            <QuantityWithPrice />
           </LineItemQty>
         </LineItemDescription>
       </LineItemWrapper>
