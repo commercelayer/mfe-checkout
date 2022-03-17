@@ -47,7 +47,7 @@ const StepPlaceOrder: React.FC<Props> = ({
     return null
   }
 
-  const { refetchOrder } = appCtx
+  const { placeOrder } = appCtx
 
   const messages: ErrorComponentProps["messages"] = [
     {
@@ -94,14 +94,16 @@ const StepPlaceOrder: React.FC<Props> = ({
     },
   ]
 
-  const handlePlaceOrder = async () => {
-    setIsPlacingOrder(true)
-    if (gtmCtx?.firePurchase && gtmCtx?.fireAddPaymentInfo) {
-      await gtmCtx.fireAddPaymentInfo()
-      await gtmCtx.firePurchase()
+  const handlePlaceOrder = async ({ placed }: { placed: boolean }) => {
+    if (placed) {
+      setIsPlacingOrder(true)
+      await placeOrder()
+      if (gtmCtx?.firePurchase && gtmCtx?.fireAddPaymentInfo) {
+        await gtmCtx.fireAddPaymentInfo()
+        await gtmCtx.firePurchase()
+      }
+      setIsPlacingOrder(false)
     }
-    await refetchOrder()
-    setIsPlacingOrder(false)
   }
 
   return (
@@ -112,7 +114,8 @@ const StepPlaceOrder: React.FC<Props> = ({
             if (props.errors?.length === 0) {
               return null
             }
-            return props.errors?.map((error, index) => {
+            const compactedErrors = [...new Set(props.errors)]
+            return compactedErrors?.map((error, index) => {
               if (error?.trim().length === 0 || !error) {
                 return null
               }

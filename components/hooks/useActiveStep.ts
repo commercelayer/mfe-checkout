@@ -54,7 +54,7 @@ export const useActiveStep = (): UseActiveStep => {
       }
 
       const canSelectCustomerAddress =
-        ctx.hasShippingAddress && ctx.hasBillingAddress
+        ctx.hasShippingAddress && ctx.hasBillingAddress && ctx.hasEmailAddress
       const canSelectShippingMethod =
         canSelectCustomerAddress &&
         (ctx.hasShippingAddress || !ctx.isShipmentRequired)

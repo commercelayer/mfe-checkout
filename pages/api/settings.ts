@@ -98,9 +98,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { NODE_ENV, DOMAIN, HOSTED } = process.env
   const accessToken = req.query.accessToken as string
   const orderId = req.query.orderId as string
-  const domain = isProduction(NODE_ENV)
-    ? "commercelayer.io"
-    : DOMAIN || "commercelayer.io"
+
+  const domain = DOMAIN || "commercelayer.io"
 
   const paymentReturn = req.query.paymentReturn === "true"
 
