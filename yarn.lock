@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@ac-dev/countries-service/-/countries-service-1.2.0.tgz#206538c41b32c193a0a17277902ae78f8d65e2fd"
   integrity sha512-9+LUUTALFa17EKL7l93ExcjYgHdkcHWlOyvAqMdrVWie6/105eGryQqaba0yIwM4rBYfvs/b/KJHkbcAdSFD2Q==
 
-"@ac-dev/states-service@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@ac-dev/states-service/-/states-service-1.0.3.tgz#53b5d9a40cad40df5ac313d21ce6b3efbbae63ee"
-  integrity sha512-d0uWHRUxqx5wEQ9YrFm8iBkqc/mMxEup3UB0X/YD4BoQvbhz7+Lw7DKo9RqjnpDHmr3m85ecHvWMhCtAtBuU/w==
+"@ac-dev/states-service@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@ac-dev/states-service/-/states-service-1.1.0.tgz#303328c615db652b0898aa323b60559fb6c20fc4"
+  integrity sha512-8BdOTMIsHaKweIkx3iMzNkYgUenOENqR5tkvonLAfKn4pBEQf2kmKWUMXpN2/8QKXIDgjcKDkhyEr46UjhKj+A==
 
 "@adyen/adyen-web@^5.11.0":
   version "5.11.0"
@@ -661,13 +661,13 @@
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^3.6.3":
-  version "3.6.3"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.6.3.tgz#00d9ba5ff54499a01ae357e995ab073ccc5adaab"
-  integrity sha512-4zPX6B2D6A1uW8dWaRPww/1cNrMrD40LCVZsYQJMyI/pfFzElF4q3h2OxIA6GX1H9dYIZGaNUzOQJCbvep80hg==
+"@commercelayer/react-components@^3.6.4":
+  version "3.6.4"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.6.4.tgz#f607b11c93ee328423c5a4fac6a8051119e7a92b"
+  integrity sha512-pZu/Q13kmd4MI93zza0DryxhvaU5eI4dXMSUZa2ySZ6OdRao5c1ac2rXnCsn70GCHwhFV2ZLEeV2RBGRzLzFhg==
   dependencies:
     "@ac-dev/countries-service" "^1.2.0"
-    "@ac-dev/states-service" "^1.0.3"
+    "@ac-dev/states-service" "^1.1.0"
     "@adyen/adyen-web" "^5.11.0"
     "@commercelayer/js-auth" "^3.0.0"
     "@commercelayer/sdk" "^3.6.0"
