@@ -16,6 +16,7 @@ export interface EcommerceProps {
   transaction_id?: number
   payment_type?: string
   tax?: number
+  market_id?: string
 }
 
 export interface DataLayerProps {
