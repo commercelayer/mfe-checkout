@@ -57,6 +57,7 @@ interface DefaultParamsProps {
   organization?: {
     supportPhone?: string
     supportEmail?: string
+    gtmId?: string
   }
   orderAttributes?: {
     language_code?: "en" | "it"
