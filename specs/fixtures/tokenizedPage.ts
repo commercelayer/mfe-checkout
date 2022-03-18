@@ -29,6 +29,7 @@ type OrderType =
 
 type LineItemObject = {
   quantity: number
+  sku_options?: Array<Record<string, string | object>>
 } & ({ sku_code: string } | { bundle_code: string })
 
 interface GiftCardProps {
@@ -372,8 +373,9 @@ const createLineItems = async ({
   items: Array<LineItemObject>
 }) => {
   const lineItems = items.map((item) => {
+    const { sku_options, ...tail } = item
     const lineItem = {
-      ...item,
+      ...tail,
       order: cl.orders.relationship(orderId),
     }
 
@@ -381,7 +383,31 @@ const createLineItems = async ({
   })
 
   try {
-    await Promise.all(lineItems)
+    const lineItemsCreated = await Promise.all(lineItems)
+
+    const sku_options = await cl.sku_options.list()
+    if (sku_options && sku_options.length === 0) return
+    const lineItemsOptions = items.map((item, index) => {
+      if (item.sku_options && item.sku_options.length) {
+        return item.sku_options.map((sku_option) => {
+          const option = sku_options.find((so) => so.name === sku_option.name)
+          if (option) {
+            return cl.line_item_options.create({
+              line_item: cl.line_items.relationship(lineItemsCreated[index].id),
+              quantity: 1,
+              options: sku_option.value as object,
+              sku_option: cl.sku_options.relationship(option),
+            })
+          }
+          return undefined
+        })
+      }
+      return undefined
+    })
+
+    await Promise.all(
+      lineItemsOptions.filter((item) => item !== undefined).flat(2)
+    )
   } catch (e) {
     console.log(e)
   }

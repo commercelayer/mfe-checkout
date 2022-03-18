@@ -97,3 +97,53 @@ test.describe("quantity and unit price", () => {
     await expect(element).toHaveText("QUANTITY: 1")
   })
 })
+
+test.describe("sku options", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const company = faker.company.companyName()
+  const name = `${faker.name.firstName()} ${faker.name.lastName()}`
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        {
+          sku_code: "CANVASAU000000FFFFFF1824",
+          quantity: 1,
+          sku_options: [
+            { name: "Engraving", value: { Company: company } },
+            {
+              name: "Emboss",
+              value: {
+                Name: name,
+              },
+            },
+          ],
+        },
+        {
+          sku_code: "TSHIRTMMFFFFFF000000XLXX",
+          quantity: 5,
+          sku_options: [{ name: "Engraving", value: { Company: company } }],
+        },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("appear only on order summary", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    let element = checkoutPage.page.locator(`text=Company:${company}`)
+    await expect(element).toHaveCount(2)
+
+    element = checkoutPage.page.locator(`text=Name:${name}`)
+    await expect(element).toHaveCount(1)
+  })
+})
