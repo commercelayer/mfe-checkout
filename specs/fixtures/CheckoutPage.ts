@@ -569,7 +569,7 @@ export class CheckoutPage {
           .waitFor({ state: "visible" })
         break
       case "Payment": {
-        const text = waitText || "Order successfully placed"
+        const text = waitText || "Thank you for your order"
         this.page.click("[data-test-id=save-payment-button]")
 
         if (waitText === "Paga con PayPal") {
@@ -589,7 +589,7 @@ export class CheckoutPage {
           await this.page.click('[data-testid="submit-button-initial"]')
 
           await this.page
-            .locator("text=Order successfully placed!")
+            .locator("text=Thank you for your order!")
             .waitFor({ state: "visible", timeout: 15000 })
           return
         }

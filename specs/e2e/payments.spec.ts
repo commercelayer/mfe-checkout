@@ -325,7 +325,7 @@ test.describe("customer with Braintree", () => {
     await cardinalFrame.locator("text=SUBMIT").click()
 
     await checkoutPage.page
-      .locator(`text=Order successfully placed`)
+      .locator(`text=Thank you for your order!`)
       .waitFor({ state: "visible", timeout: 100000 })
   })
 })
