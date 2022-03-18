@@ -54,6 +54,10 @@ interface DefaultParamsProps {
     email: string
     password: string
   }
+  organization?: {
+    supportPhone?: string
+    supportEmail?: string
+  }
   orderAttributes?: {
     language_code?: "en" | "it"
     customer_email?: string
@@ -61,6 +65,7 @@ interface DefaultParamsProps {
     terms_url?: string
     privacy_url?: string
     cart_url?: string
+    return_url?: string
   }
   lineItemsAttributes?: LineItemObject[]
   giftCardAttributes?: GiftCardProps
@@ -334,7 +339,13 @@ const getOrder = async (
       break
     }
   }
-  return { orderId: order.id, attributes: { giftCard: giftCardCode } }
+  return {
+    orderId: order.id,
+    attributes: {
+      giftCard: giftCardCode,
+      organization: { ...params.organization },
+    },
+  }
 }
 
 const createAndPurchaseGiftCard = async (
@@ -441,6 +452,7 @@ export const test = base.extend<FixtureType>({
       defaultParams.orderId === undefined ? orderId : defaultParams.orderId
     const accessToken =
       defaultParams.token === undefined ? token : defaultParams.token
+
     await checkoutPage.goto({
       orderId: id,
       token: accessToken,

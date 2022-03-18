@@ -17,6 +17,7 @@ interface DataLayerWindowProps {
 
 interface AttributesProps {
   giftCard?: string
+  organization?: object
 }
 
 export class CheckoutPage {
@@ -25,11 +26,30 @@ export class CheckoutPage {
 
   constructor(page: Page, attributes?: AttributesProps) {
     this.page = page
+
     this.attributes = attributes || {}
   }
 
   async goto({ orderId, token }: GoToProps) {
     const url = `/${orderId}?accessToken=${token}`
+
+    await this.page.route("**/api/settings**", async (route, request) => {
+      // Fetch original response.
+      const response = await this.page.request.fetch(route.request())
+
+      // // Add a prefix to the title.
+      const body = await response.json()
+      // // body = body.replace('<title>', '<title>My prefix:');
+      route.fulfill({
+        // Pass all fields from the response.
+        response,
+        // Override response body.
+        body: JSON.stringify({
+          ...body,
+          ...this.attributes?.organization,
+        }),
+      })
+    })
     await this.page.goto(`${url}`, {
       waitUntil: "networkidle",
     })
@@ -390,6 +410,17 @@ export class CheckoutPage {
 
   async clickReturnToCartLink() {
     await this.page.click("[data-test-id=edit-cart-link] a")
+  }
+
+  async checkContinueShoppingLink(status: "present" | "not_present") {
+    const element = await this.page.locator(
+      "[data-test-id=button-continue-to-shop]"
+    )
+    await expect(element).toHaveCount(status === "not_present" ? 0 : 1)
+  }
+
+  async clickContinueShoppingLink() {
+    await this.page.click("[data-test-id=button-continue-to-shop]")
   }
 
   async checkBadgeIndex(step: SingleStepEnum, value: string) {
