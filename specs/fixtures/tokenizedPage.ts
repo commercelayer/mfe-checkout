@@ -59,6 +59,7 @@ interface DefaultParamsProps {
     shipping_country_code_lock?: "IT" | "GB" | "US"
     terms_url?: string
     privacy_url?: string
+    cart_url?: string
   }
   lineItemsAttributes?: LineItemObject[]
   giftCardAttributes?: GiftCardProps

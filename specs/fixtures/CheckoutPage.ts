@@ -383,6 +383,15 @@ export class CheckoutPage {
     await expect(element).toHaveCount(1)
   }
 
+  async checkReturnToCartLink(status: "present" | "not_present") {
+    const element = await this.page.locator("[data-test-id=edit-cart-link]")
+    await expect(element).toHaveCount(status === "not_present" ? 0 : 1)
+  }
+
+  async clickReturnToCartLink() {
+    await this.page.click("[data-test-id=edit-cart-link] a")
+  }
+
   async checkBadgeIndex(step: SingleStepEnum, value: string) {
     const element = await this.page.locator(
       `[data-test-id=step-header-badge]:near(:text("${step}")) >> text=${value}`

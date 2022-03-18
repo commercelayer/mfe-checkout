@@ -40,6 +40,7 @@ interface Props {
 export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
   const { t } = useTranslation()
 
+  const isTaxCalculated = appCtx.hasShippingAddress && appCtx.hasShippingMethod
   return (
     <Wrapper data-test-id="order-summary">
       <LineItemsContainer>
@@ -146,19 +147,17 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
           <RecapLine>
             <TaxesAmount>
               {(props) => {
-                const isTaxIncluded =
-                  appCtx.hasShippingAddress && appCtx.hasShippingMethod
                 return (
                   <>
                     <RecapLineItem>
                       <Trans
                         i18nKey={
-                          isTaxIncluded
+                          isTaxCalculated
                             ? "orderRecap.tax_included_amount"
                             : "orderRecap.tax_amount"
                         }
                         components={
-                          isTaxIncluded
+                          isTaxCalculated
                             ? {
                                 style: (
                                   <span
@@ -175,9 +174,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                       />
                     </RecapLineItem>
                     <div data-test-id="tax-amount">
-                      {appCtx.hasShippingAddress && appCtx.hasShippingMethod
-                        ? props.price
-                        : t("orderRecap.notSet")}
+                      {isTaxCalculated ? props.price : t("orderRecap.notSet")}
                     </div>
                   </>
                 )

@@ -13,7 +13,7 @@ export const ReturnToCart = ({ cartUrl }: Props) => {
   const { t } = useTranslation()
 
   return (
-    <CartLinkWrapper>
+    <CartLinkWrapper data-test-id="edit-cart-link">
       <Link href={cartUrl} passHref>
         <LinkWrapper>
           <>&lt;</> {t("orderRecap.returnToCart")}
