@@ -10,10 +10,10 @@ import {
 } from "./styled"
 
 interface Props {
-  refetchOrder: () => Promise<void>
+  selectPayment: () => Promise<void>
 }
 
-export const CheckoutPayment: React.FC<Props> = ({ refetchOrder }) => {
+export const CheckoutPayment: React.FC<Props> = ({ selectPayment }) => {
   return (
     <>
       <PaymentMethod
@@ -21,9 +21,9 @@ export const CheckoutPayment: React.FC<Props> = ({ refetchOrder }) => {
         className="payment"
         loader={PaymentSkeleton}
         clickableContainer
-        onClick={refetchOrder}
+        onClick={selectPayment}
       >
-        <PaymentWrapper>
+        <PaymentWrapper data-cy="payment-sources-container">
           <PaymentSummaryList />
           <PaymentSourceContainer data-cy="payment-source">
             <PaymentSource className="flex flex-col" loader={PaymentSkeleton}>

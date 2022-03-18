@@ -1,6 +1,6 @@
 // import { Address, AddressField } from "@commercelayer/react-components"
 import classNames from "classnames"
-import { Fragment, useContext, useState } from "react"
+import { Fragment, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { AccordionContext } from "components/data/AccordionProvider"
@@ -75,12 +75,17 @@ export const StepCustomer: React.FC<Props> = () => {
     isUsingNewShippingAddress,
     hasCustomerAddresses,
     shippingCountryCodeLock,
-    refetchOrder,
+    setAddresses,
+    setCustomerEmail,
   } = appCtx
 
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
     !hasSameAddresses
   )
+
+  useEffect(() => {
+    setShipToDifferentAddress(!hasSameAddresses)
+  }, [hasSameAddresses])
 
   const [disabledShipToDifferentAddress, setDisabledShipToDifferentAddress] =
     useState(
@@ -103,7 +108,7 @@ export const StepCustomer: React.FC<Props> = () => {
 
   const handleSave = async () => {
     setIsLocalLoader(true)
-    await refetchOrder()
+    await setAddresses()
 
     // it is used temporarily to scroll
     // to the next step and fix
@@ -133,6 +138,7 @@ export const StepCustomer: React.FC<Props> = () => {
                 billingAddress={billingAddress}
                 emailAddress={emailAddress}
                 hasSameAddresses={hasSameAddresses}
+                setCustomerEmail={setCustomerEmail}
                 isShipmentRequired={isShipmentRequired}
                 isLocalLoader={isLocalLoader}
                 openShippingAddress={openShippingAddress}

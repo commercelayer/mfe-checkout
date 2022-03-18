@@ -13,11 +13,13 @@ import { Label } from "components/ui/form/Label"
 
 interface Props {
   readonly?: boolean
+  setCustomerEmail?: (email: string) => void
   emailAddress: string | undefined
 }
 
 export const AddressSectionEmail: React.FC<Props> = ({
   readonly,
+  setCustomerEmail,
   emailAddress,
 }) => {
   const { t } = useTranslation()
@@ -36,6 +38,11 @@ export const AddressSectionEmail: React.FC<Props> = ({
       message: t("input.mustBeValidEmail"),
     },
   ]
+  const saveEmail = (email: string) => {
+    if (setCustomerEmail) {
+      setCustomerEmail(email)
+    }
+  }
 
   return (
     <Wrapper>
@@ -52,6 +59,9 @@ export const AddressSectionEmail: React.FC<Props> = ({
               id="customer_email"
               errorClassName="hasError"
               saveOnBlur={true}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              onBlur={saveEmail}
               value={emailAddress}
             />
             <StyledErrors

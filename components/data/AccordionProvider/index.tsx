@@ -65,7 +65,8 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
       return
     }
 
-    if (isActive) {
+    // second condition is to open the step if previous is completed
+    if (isActive || step === lastActivableStep) {
       setStatus("edit")
       return
     }

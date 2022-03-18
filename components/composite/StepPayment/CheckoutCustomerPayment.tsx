@@ -20,10 +20,10 @@ import {
 } from "./styled"
 
 interface Props {
-  refetchOrder: () => Promise<void>
+  selectPayment: () => Promise<void>
 }
 
-export const CheckoutCustomerPayment: React.FC<Props> = ({ refetchOrder }) => {
+export const CheckoutCustomerPayment: React.FC<Props> = ({ selectPayment }) => {
   const { t } = useTranslation()
 
   // TemplateSaveToWalletCheckbox
@@ -91,7 +91,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ refetchOrder }) => {
         className="payment"
         loader={PaymentSkeleton}
         clickableContainer
-        onClick={refetchOrder}
+        onClick={selectPayment}
       >
         <PaymentWrapper>
           <PaymentSummaryList />
