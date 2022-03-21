@@ -144,6 +144,9 @@ test.describe("single shipment", () => {
       orderAttributes: {
         customer_email: customerEmail,
       },
+      organization: {
+        gtmId: "GTM-123456",
+      },
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
         { sku_code: "SWEETHMUB7B7B7000000MXXX", quantity: 4 },
