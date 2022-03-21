@@ -534,15 +534,24 @@ export class CheckoutPage {
     await this.page.click(`[data-test-id=${paymentMethod}]`, { force: true })
   }
 
-  async setPayment(type: "stripe" | "braintree" | "paypal" | "adyen") {
+  async setPayment(
+    type: "stripe" | "braintree" | "paypal" | "adyen",
+    card?: {
+      number?: string
+      exp?: string
+      cvc?: string
+    }
+  ) {
     switch (type) {
       case "stripe": {
         const stripeFrame = this.page.frameLocator("iframe").first()
         await stripeFrame
           .locator("input[name=cardnumber]")
-          .fill("4242424242424242")
-        await stripeFrame.locator("input[name=exp-date]").fill("0231")
-        await stripeFrame.locator("input[name=cvc]").fill("321")
+          .fill(card?.number || "4242424242424242")
+        await stripeFrame
+          .locator("input[name=exp-date]")
+          .fill(card?.exp || "0231")
+        await stripeFrame.locator("input[name=cvc]").fill(card?.cvc || "321")
         break
       }
       case "braintree": {
@@ -556,9 +565,11 @@ export class CheckoutPage {
         const cvvFrame = this.page.frameLocator(
           'iframe[name="braintree-hosted-field-cvv"]'
         )
-        await cardFrame.locator("#credit-card-number").fill("4111111111111111")
-        await expFrame.locator("#expiration").fill("102030")
-        await cvvFrame.locator("#cvv").fill("123")
+        await cardFrame
+          .locator("#credit-card-number")
+          .fill(card?.number || "4111111111111111")
+        await expFrame.locator("#expiration").fill(card?.exp || "102030")
+        await cvvFrame.locator("#cvv").fill(card?.cvc || "123")
         break
       }
       case "adyen": {
@@ -587,6 +598,19 @@ export class CheckoutPage {
         })
       }
     }
+  }
+
+  async checkPaymentError({
+    type,
+    text,
+  }: {
+    type: "stripe" | "braintree" | "paypal" | "adyen"
+    text: string
+  }) {
+    const element = this.page.locator(
+      `[data-test-id="${type}_payments"] >> text=${text}`
+    )
+    await expect(element).toHaveCount(1)
   }
 
   async save(step: SingleStepEnum, waitText?: string, skipWait?: boolean) {
