@@ -152,7 +152,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       <Trans
                         i18nKey={
-                          isTaxCalculated
+                          isTaxCalculated && appCtx.taxIncluded
                             ? "orderRecap.tax_included_amount"
                             : "orderRecap.tax_amount"
                         }
@@ -162,7 +162,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                                 style: (
                                   <span
                                     className={
-                                      !appCtx.taxIncluded
+                                      appCtx.taxIncluded
                                         ? "text-gray-500 font-normal"
                                         : ""
                                     }

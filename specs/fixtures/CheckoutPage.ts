@@ -470,6 +470,10 @@ export class CheckoutPage {
       .waitFor({ state: "visible" })
   }
 
+  async checkTaxLine(text: string) {
+    await this.page.locator(`text=${text}`).waitFor({ state: "visible" })
+  }
+
   async checkDiscountAmount(text: string) {
     await this.page
       .locator(`[data-test-id=discount-amount] >> text=${text}`)

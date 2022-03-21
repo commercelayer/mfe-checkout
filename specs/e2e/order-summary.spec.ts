@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 
 import { test, expect } from "../fixtures/tokenizedPage"
-import { euAddress } from "../utils/addresses"
+import { euAddress, usAddress } from "../utils/addresses"
 
 test.describe("with return to cart", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -145,5 +145,71 @@ test.describe("sku options", () => {
 
     element = checkoutPage.page.locator(`text=Name:${name}`)
     await expect(element).toHaveCount(1)
+  })
+})
+
+test.describe("with tax included", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  const cartUrl = "https://www.google.it"
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        cart_url: cartUrl,
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("link below summary", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkTaxSummary("To be calculated")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkTaxLine("Tax included€0,00")
+    await checkoutPage.checkTaxSummary("€0,00")
+  })
+})
+
+test.describe("with tax not included", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  const cartUrl = "https://www.google.it"
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      orderAttributes: {
+        cart_url: cartUrl,
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+    },
+  })
+
+  test("link below summary", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkTaxSummary("To be calculated")
+
+    await checkoutPage.setBillingAddress(usAddress)
+    await checkoutPage.save("Customer")
+    await checkoutPage.checkStep("Payment", "open")
+    await checkoutPage.checkTaxLine("Tax$26.14")
+    await checkoutPage.checkTaxSummary("$26.14")
   })
 })
