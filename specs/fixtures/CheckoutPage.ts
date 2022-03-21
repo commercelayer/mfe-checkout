@@ -555,7 +555,6 @@ export class CheckoutPage {
         break
       }
       case "braintree": {
-        // await this.page.pause()
         const cardFrame = this.page.frameLocator(
           'iframe[name="braintree-hosted-field-number"]'
         )
@@ -573,19 +572,16 @@ export class CheckoutPage {
         break
       }
       case "adyen": {
-        // await this.page.pause()
         const cardFrame = this.page.frameLocator("iframe >> nth=0")
-        // .first()
         await cardFrame
           .locator("[data-fieldtype=encryptedCardNumber]")
           .fill("4111111111111111")
 
         const expFrame = this.page.frameLocator("iframe >> nth=1")
-        // .first()
         await expFrame
           .locator("[data-fieldtype=encryptedExpiryDate]")
           .fill("0330")
-        const cvvFrame = this.page.frameLocator("iframe >> nth=2") // .first()
+        const cvvFrame = this.page.frameLocator("iframe >> nth=2")
         await cvvFrame
           .locator("[data-fieldtype=encryptedSecurityCode]")
           .fill("737")
@@ -607,8 +603,12 @@ export class CheckoutPage {
     type: "stripe" | "braintree" | "paypal" | "adyen"
     text: string
   }) {
+    let selector = `${type}_payments`
+    if (type === "braintree") {
+      selector = "errors-container"
+    }
     const element = this.page.locator(
-      `[data-test-id="${type}_payments"] >> text=${text}`
+      `[data-test-id="${selector}"] >> text=${text}`
     )
     await expect(element).toHaveCount(1)
   }

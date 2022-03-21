@@ -421,7 +421,7 @@ test.describe("customer with Adyen", () => {
   })
 })
 
-test.describe("errors", () => {
+test.describe("stripe errors", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({
@@ -439,62 +439,118 @@ test.describe("errors", () => {
       },
     },
   })
+  ;[
+    {
+      kind: "generic decline",
+      card: { number: "4000000000000002" },
+      error: "Your card was declined.",
+    },
+    {
+      kind: "insufficient funds decline",
+      card: { number: "4000000000009995" },
+      error: "Your card has insufficient funds.",
+    },
+    {
+      kind: "lost card decline",
+      card: { number: "4000000000009987" },
+      error: "Your card has been declined.",
+    },
+    {
+      kind: "stolen card decline",
+      card: { number: "4000000000009979" },
+      error: "Your card has been declined.",
+    },
+    {
+      kind: "expired card decline",
+      card: { number: "4000000000000069" },
+      error: "Your card has expired.",
+    },
+    {
+      kind: "incorrect CVC card decline",
+      card: { number: "4000000000000127" },
+      error: "Your card's security code is incorrect.",
+    },
+    {
+      kind: "processing error decline",
+      card: { number: "4000000000000119" },
+      error:
+        "An error occurred while processing your card. Try again in a little bit.",
+    },
+    {
+      kind: "incorrect number decline",
+      card: { number: "4242424242424241" },
+      error: "Your card number is invalid.",
+    },
+    {
+      kind: "invalid expiry year decline",
+      card: { exp: "1221" },
+      error: "Your card's expiration year is in the past.",
+    },
+    {
+      kind: "incomplete cvc decline",
+      card: { cvc: "12" },
+      error: "Your card's security code is incomplete.",
+    },
+  ].forEach(({ kind, card, error }) => {
+    test(kind, async ({ checkoutPage }) => {
+      await checkoutPage.checkOrderSummary("Order Summary")
 
-  test.describe("stripe", () => {
-    ;[
-      {
-        kind: "generic decline",
-        card: { number: "4000000000000002" },
-        error: "Your card was declined.",
-      },
-      {
-        kind: "insufficient funds decline",
-        card: { number: "4000000000009995" },
-        error: "Your card has insufficient funds.",
-      },
-      {
-        kind: "lost card decline",
-        card: { number: "4000000000009987" },
-        error: "Your card has been declined.",
-      },
-      {
-        kind: "stolen card decline",
-        card: { number: "4000000000009979" },
-        error: "Your card has been declined.",
-      },
-      {
-        kind: "expired card decline",
-        card: { number: "4000000000000069" },
-        error: "Your card has expired.",
-      },
-      {
-        kind: "incorrect CVC card decline",
-        card: { number: "4000000000000127" },
-        error: "Your card's security code is incorrect.",
-      },
-      {
-        kind: "processing error decline",
-        card: { number: "4000000000000119" },
-        error:
-          "An error occurred while processing your card. Try again in a little bit.",
-      },
-      {
-        kind: "incorrect number decline",
-        card: { number: "4242424242424241" },
-        error: "Your card number is invalid.",
-      },
-      {
-        kind: "invalid expiry year decline",
-        card: { exp: "1221" },
-        error: "Your card's expiration year is in the past.",
-      },
-      {
-        kind: "incomplete cvc decline",
-        card: { cvc: "12" },
-        error: "Your card's security code is incomplete.",
-      },
-    ].forEach(({ kind, card, error }) => {
-      test(kind, async ({ checkoutPage }) => {
+      await checkoutPage.checkStep("Shipping", "open")
+
+      await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+      await checkoutPage.save("Shipping")
+
+      await checkoutPage.selectPayment("stripe")
+
+      await checkoutPage.setPayment("stripe", { ...card })
+
+      await checkoutPage.save("Payment", undefined, true)
+
+      await checkoutPage.checkPaymentError({
+        type: "stripe",
+        text: error,
+      })
+    })
+  })
+})
+
+test.describe("braintree errors", () => {
+  ;[
+    {
+      kind: "do not honor",
+      code: 2000,
+      error: "Transition is not permitted",
+    },
+    {
+      kind: "insufficient funds",
+      code: 2001,
+      error: "Transition is not permitted",
+    },
+    {
+      kind: "limit exceeded",
+      code: 2002,
+      error: "Transition is not permitted",
+    },
+  ].forEach(({ kind, code, error }) => {
+    test.describe(kind, () => {
+      const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+      test.use({
+        defaultParams: {
+          order: "with-items",
+          orderAttributes: {
+            customer_email: customerEmail,
+          },
+          lineItemsAttributes: [{ sku_code: "BRAINTREETEST", quantity: code }],
+          addresses: {
+            billingAddress: euAddress,
+            sameShippingAddress: true,
+          },
+        },
+      })
+
+      test("error", async ({ checkoutPage }) => {
         await checkoutPage.checkOrderSummary("Order Summary")
 
         await checkoutPage.checkStep("Shipping", "open")
@@ -503,14 +559,23 @@ test.describe("errors", () => {
 
         await checkoutPage.save("Shipping")
 
-        await checkoutPage.selectPayment("stripe")
+        await checkoutPage.selectPayment("braintree")
 
-        await checkoutPage.setPayment("stripe", { ...card })
+        await checkoutPage.setPayment("braintree")
 
         await checkoutPage.save("Payment", undefined, true)
 
+        const cardinalFrame = checkoutPage.page.frameLocator(
+          "text=<head></head> <body> <div></div> </body>"
+        )
+        await cardinalFrame
+          .locator('[placeholder="\\ Enter\\ Code\\ Here"]')
+          .fill("1234")
+
+        await cardinalFrame.locator("text=SUBMIT").click()
+
         await checkoutPage.checkPaymentError({
-          type: "stripe",
+          type: "braintree",
           text: error,
         })
       })

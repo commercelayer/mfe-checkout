@@ -108,13 +108,14 @@ const StepPlaceOrder: React.FC<Props> = ({
 
   return (
     <>
-      <ErrorsContainer>
+      <ErrorsContainer data-test-id="errors-container">
         <StyledErrors resource="orders" messages={messages}>
           {(props) => {
+            console.log(props)
             if (props.errors?.length === 0) {
               return null
             }
-            const compactedErrors = [...new Set(props.errors)]
+            const compactedErrors = props.errors
             return compactedErrors?.map((error, index) => {
               if (error?.trim().length === 0 || !error) {
                 return null
