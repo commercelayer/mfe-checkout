@@ -3,6 +3,7 @@ export function getTranslations(value: string, t: (a: string) => string) {
     case "Stripe Payment":
     case "Adyen Payment":
     case "Braintree Payment":
+    case "Checkout Com Payment":
       return t("stepPayment.creditCard")
 
     case "Paypal Payment":

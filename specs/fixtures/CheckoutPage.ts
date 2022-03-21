@@ -525,7 +525,7 @@ export class CheckoutPage {
   }
 
   async selectPayment(
-    type: "stripe" | "braintree" | "wire" | "paypal" | "adyen"
+    type: "stripe" | "braintree" | "wire" | "paypal" | "adyen" | "checkout_com"
   ) {
     let paymentMethod
     if (type === "wire") {
@@ -538,7 +538,7 @@ export class CheckoutPage {
   }
 
   async setPayment(
-    type: "stripe" | "braintree" | "paypal" | "adyen",
+    type: "stripe" | "braintree" | "paypal" | "adyen" | "checkout_com",
     card?: {
       number?: string
       exp?: string
@@ -572,6 +572,23 @@ export class CheckoutPage {
           .fill(card?.number || "4111111111111111")
         await expFrame.locator("#expiration").fill(card?.exp || "102030")
         await cvvFrame.locator("#cvv").fill(card?.cvc || "123")
+        break
+      }
+      case "checkout_com": {
+        const cardFrame = this.page.frameLocator(
+          'iframe[name="checkout-frames-cardNumber"]'
+        )
+        const expFrame = this.page.frameLocator(
+          'iframe[name="checkout-frames-expiryDate"]'
+        )
+        const cvvFrame = this.page.frameLocator(
+          'iframe[name="checkout-frames-cvv"]'
+        )
+        await cardFrame
+          .locator("#checkout-frames-card-number")
+          .fill("4242424242424242")
+        await expFrame.locator("#checkout-frames-expiry-date").fill("102030")
+        await cvvFrame.locator("#checkout-frames-cvv").fill("100")
         break
       }
       case "adyen": {
