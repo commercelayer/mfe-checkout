@@ -434,3 +434,98 @@ test.describe("changing order amount", () => {
     await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 })
+
+test.describe("no shipping zone", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: {
+          ...usAddress,
+          billing_info: faker.random.alphaNumeric(11),
+        },
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("no shipping method to select", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    const element = checkoutPage.page.locator(
+      "text=There are not any shipping method available"
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
+
+test.describe("no shipping zone with cart url", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        cart_url: faker.internet.url(),
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: {
+          ...usAddress,
+          billing_info: faker.random.alphaNumeric(11),
+        },
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("no shipping method to select", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    const element = checkoutPage.page.locator(
+      "text=There are not any shipping method available"
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
+
+test.describe("no shipping zone for out of stock", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        cart_url: faker.internet.url(),
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: {
+          ...usAddress,
+          billing_info: faker.random.alphaNumeric(11),
+        },
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("no shipping method to select", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    const element = checkoutPage.page.locator(
+      "text=There are not any shipping method available"
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
