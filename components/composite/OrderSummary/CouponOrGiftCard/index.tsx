@@ -22,6 +22,10 @@ interface Props {
   setCouponOrGiftCard: () => Promise<void>
 }
 
+interface FormProps {
+  codeType: "gift_card_code" | "coupon_code" | "gift_card_or_coupon_code"
+}
+
 export const CouponOrGiftCard: React.FC<Props> = ({
   readonly,
   setCouponOrGiftCard,
@@ -51,25 +55,29 @@ export const CouponOrGiftCard: React.FC<Props> = ({
     <>
       {!readonly && (
         <GiftCardOrCouponForm onSubmit={handleSubmit}>
-          <CouponFormWrapper>
-            <CouponFieldWrapper>
-              <StyledGiftCardOrCouponInput
-                data-test-id="input_giftcard_coupon"
-                className={`form-input ${classError}`}
-                placeholder={t("orderRecap.couponCode")}
-              />
-              <GiftCardOrCouponSubmit
-                data-test-id="submit_giftcard_coupon"
-                label={t("general.apply")}
-                className={`w-auto -ml-px relative inline-flex items-center space-x-2 px-8 py-3 text-xs font-extrabold text-contrast bg-primary border border-transparent rounded-r-md hover:opacity-80 focus:outline-none`}
-              />
-            </CouponFieldWrapper>
-            <StyledErrors
-              resource="orders"
-              field="giftCardOrCouponCode"
-              messages={messages}
-            />
-          </CouponFormWrapper>
+          {({ codeType }: FormProps) => {
+            return (
+              <CouponFormWrapper>
+                <CouponFieldWrapper>
+                  <StyledGiftCardOrCouponInput
+                    data-test-id="input_giftcard_coupon"
+                    className={`form-input ${classError}`}
+                    placeholder={t(`orderRecap.${codeType}`)}
+                  />
+                  <GiftCardOrCouponSubmit
+                    data-test-id="submit_giftcard_coupon"
+                    label={t("general.apply")}
+                    className={`w-auto -ml-px relative inline-flex items-center space-x-2 px-8 py-3 text-xs font-extrabold text-contrast bg-primary border border-transparent rounded-r-md hover:opacity-80 focus:outline-none`}
+                  />
+                </CouponFieldWrapper>
+                <StyledErrors
+                  resource="orders"
+                  field="giftCardOrCouponCode"
+                  messages={messages}
+                />
+              </CouponFormWrapper>
+            )
+          }}
         </GiftCardOrCouponForm>
       )}
 
