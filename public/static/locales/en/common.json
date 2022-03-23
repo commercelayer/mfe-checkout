@@ -59,7 +59,7 @@
     "stepShipping": {
         "title": "Delivery",
         "shipment": "Shipment <Wrap>{{current}} of {{total}}</Wrap>",
-        "notAvaible": "There are not any shipping method available",
+        "notAvaible": "There are no shipping methods available.",
         "stockTransfer": "<0/> of <1/> items will undergo a transfer",
         "methodSelected": "Your order contains {{count}} shipment",
         "methodSelected_other": "Your order contains {{count}} shipments",
