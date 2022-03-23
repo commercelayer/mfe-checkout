@@ -101,7 +101,9 @@ test.describe("quantity and unit price", () => {
 test.describe("sku options", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const company = faker.company.companyName()
-  const name = `${faker.name.firstName()} ${faker.name.lastName()}`
+  const firstName = faker.name.firstName()
+  const lastName = faker.name.lastName()
+  const name = `${firstName} ${lastName}`
 
   test.use({
     defaultParams: {
@@ -114,7 +116,14 @@ test.describe("sku options", () => {
           sku_code: "CANVASAU000000FFFFFF1824",
           quantity: 1,
           sku_options: [
-            { name: "Engraving", value: { Company: company } },
+            {
+              name: "Engraving",
+              value: {
+                Company: company,
+                "First Name": firstName,
+                "Last Name": lastName,
+              },
+            },
             {
               name: "Emboss",
               value: {
