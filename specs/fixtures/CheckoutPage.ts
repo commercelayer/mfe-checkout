@@ -509,11 +509,14 @@ export class CheckoutPage {
     status,
   }: {
     type: SingleStepEnum
-    status: "enabled" | "disabled"
+    status: "enabled" | "disabled" | "not_present"
   }) {
     const element = await this.page.locator(
       `[data-test-id=save-${type.toLocaleLowerCase()}-button]`
     )
+    if (status === "not_present") {
+      return expect(element).toHaveCount(0)
+    }
     if (status === "disabled") {
       return expect(element).toBeDisabled()
     } else {

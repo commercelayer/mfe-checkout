@@ -29,6 +29,7 @@ type OrderType =
 
 type LineItemObject = {
   quantity: number
+  inventory?: number
   sku_options?: Array<Record<string, string | object>>
 } & ({ sku_code: string } | { bundle_code: string })
 
@@ -169,14 +170,34 @@ const getOrder = async (
       await createDefaultLineItem(cl, order.id)
       break
     case "with-items": {
+      let superToken: string | undefined
+      let superCl: CommerceLayerClient | undefined
+
+      const noStock =
+        (params.lineItemsAttributes?.length || 0) > 0 &&
+        params.lineItemsAttributes?.filter(
+          ({ inventory }) => inventory !== undefined && inventory >= 0
+        )
+
+      if (noStock && noStock.length > 0) {
+        superToken = await getSuperToken()
+        superCl = await getClient(superToken)
+        await updateInventory(superCl, noStock, "quantity")
+      }
       await createLineItems({
         cl,
         orderId: order.id,
         items: params.lineItemsAttributes || [],
       })
+      if (noStock && noStock.length > 0) {
+        superToken = await getSuperToken()
+        superCl = await getClient(superToken)
+        await updateInventory(superCl, noStock, "inventory")
+      }
+
       if (giftCard) {
-        const superToken = await getSuperToken()
-        const superCl = await getClient(superToken)
+        superToken = superToken || (await getSuperToken())
+        superCl = superCl || (await getClient(superToken))
         const card = await createAndPurchaseGiftCard(cl, giftCard)
         const activeCard = await superCl.gift_cards.update({
           id: card.id,
@@ -247,40 +268,6 @@ const getOrder = async (
         })
         await Promise.all(promises)
       }
-      // Not used due to refresh at the beginning
-      // if (params.shippingMethods && params.shippingMethods.length > 0) {
-      //   const shipments = (
-      //     await cl.orders.retrieve(order.id, {
-      //       fields: {
-      //         orders: ["id"],
-      //         shipments: ["shipping_method"],
-      //       },
-      //       include: ["shipments", "shipments.shipping_method"],
-      //     })
-      //   ).shipments
-      //   const shippingMethods = await cl.shipping_methods.list()
-      //   if (shippingMethods && shippingMethods.length > 0) {
-      //     const promises = shipments?.map((shipment, index) => {
-      //       const shippingMethod = shippingMethods.find((s) => {
-      //         const name = (params.shippingMethods || [])[index]
-      //         return s.name === name
-      //       })
-      //       if (shippingMethod) {
-      //         return cl.shipments.update({
-      //           id: shipment.id,
-      //           shipping_method: cl.shipping_methods.relationship(
-      //             shippingMethod.id
-      //           ),
-      //         })
-      //       } else {
-      //         return 1
-      //       }
-      //     })
-      //     if (promises && promises?.length > 0) {
-      //       await Promise.all(promises)
-      //     }
-      //   }
-      // }
 
       break
     }
@@ -349,6 +336,32 @@ const getOrder = async (
   }
 }
 
+const updateInventory = async (
+  cl: CommerceLayerClient,
+  lineItems: LineItemObject[],
+  quantity: "quantity" | "inventory"
+) => {
+  const skus = await cl.skus.list({
+    include: ["stock_items"],
+    filters: {
+      code_in: lineItems.map((line) => line.sku_code).join(","),
+    },
+  })
+  const promises = skus.map((sku) => {
+    if (sku && sku.stock_items) {
+      const lineItem = lineItems.find((li) => li.sku_code === sku.code)
+      if (lineItem) {
+        return cl.stock_items.update({
+          id: sku.stock_items[0].id,
+          quantity: lineItem[quantity],
+        })
+      }
+    }
+    return undefined
+  })
+  await Promise.all(promises)
+}
+
 const createAndPurchaseGiftCard = async (
   cl: CommerceLayerClient,
   props?: GiftCardProps
@@ -385,7 +398,7 @@ const createLineItems = async ({
   items: Array<LineItemObject>
 }) => {
   const lineItems = items.map((item) => {
-    const { sku_options, ...tail } = item
+    const { sku_options, inventory, ...tail } = item
     const lineItem = {
       ...tail,
       order: cl.orders.relationship(orderId),
