@@ -27,11 +27,21 @@ type OrderType =
   | "gift-card"
   | "with-items"
 
-type LineItemObject = {
+interface BaseLineItemObject {
   quantity: number
   inventory?: number
   sku_options?: Array<Record<string, string | object>>
-} & ({ sku_code: string } | { bundle_code: string })
+}
+
+interface SkuItem extends BaseLineItemObject {
+  sku_code: string
+}
+
+interface BundleItem extends BaseLineItemObject {
+  bundle_code: string
+}
+
+type LineItemObject = SkuItem | BundleItem
 
 interface GiftCardProps {
   currency_code?: "EUR" | "USD"
@@ -175,9 +185,9 @@ const getOrder = async (
 
       const noStock =
         (params.lineItemsAttributes?.length || 0) > 0 &&
-        params.lineItemsAttributes?.filter(
+        (params.lineItemsAttributes?.filter(
           ({ inventory }) => inventory !== undefined && inventory >= 0
-        )
+        ) as SkuItem[])
 
       if (noStock && noStock.length > 0) {
         superToken = await getSuperToken()
@@ -338,7 +348,7 @@ const getOrder = async (
 
 const updateInventory = async (
   cl: CommerceLayerClient,
-  lineItems: LineItemObject[],
+  lineItems: SkuItem[],
   quantity: "quantity" | "inventory"
 ) => {
   const skus = await cl.skus.list({

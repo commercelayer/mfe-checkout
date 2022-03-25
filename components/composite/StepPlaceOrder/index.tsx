@@ -111,7 +111,6 @@ const StepPlaceOrder: React.FC<Props> = ({
       <ErrorsContainer data-test-id="errors-container">
         <StyledErrors resource="orders" messages={messages}>
           {(props) => {
-            console.log(props)
             if (props.errors?.length === 0) {
               return null
             }
