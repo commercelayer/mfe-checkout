@@ -1,3 +1,15 @@
+# [1.6.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.5.0...v1.6.0) (2022-03-28)
+
+
+### Bug Fixes
+
+* improve tax included or not in order summary ([2a0acdd](https://github.com/commercelayer/commercelayer-react-checkout/commit/2a0acdd15bbbb0cd129fa68327dad131edfc4ba9))
+
+
+### Features
+
+* add return to cart link below summary if present on order ([623d5ef](https://github.com/commercelayer/commercelayer-react-checkout/commit/623d5ef8d92a4795545b03d28b9c36e217100a76))
+
 # [1.5.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.4.3...v1.5.0) (2022-03-17)
 
 
