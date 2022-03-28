@@ -17,6 +17,7 @@ interface DataLayerWindowProps {
 
 interface AttributesProps {
   giftCard?: string
+  organization?: object
 }
 
 export class CheckoutPage {
@@ -25,11 +26,30 @@ export class CheckoutPage {
 
   constructor(page: Page, attributes?: AttributesProps) {
     this.page = page
+
     this.attributes = attributes || {}
   }
 
   async goto({ orderId, token }: GoToProps) {
     const url = `/${orderId}?accessToken=${token}`
+
+    await this.page.route("**/api/settings**", async (route, request) => {
+      // Fetch original response.
+      const response = await this.page.request.fetch(route.request())
+
+      // // Add a prefix to the title.
+      const body = await response.json()
+      // // body = body.replace('<title>', '<title>My prefix:');
+      route.fulfill({
+        // Pass all fields from the response.
+        response,
+        // Override response body.
+        body: JSON.stringify({
+          ...body,
+          ...this.attributes?.organization,
+        }),
+      })
+    })
     await this.page.goto(`${url}`, {
       waitUntil: "networkidle",
     })
@@ -383,6 +403,26 @@ export class CheckoutPage {
     await expect(element).toHaveCount(1)
   }
 
+  async checkReturnToCartLink(status: "present" | "not_present") {
+    const element = await this.page.locator("[data-test-id=edit-cart-link]")
+    await expect(element).toHaveCount(status === "not_present" ? 0 : 1)
+  }
+
+  async clickReturnToCartLink() {
+    await this.page.click("[data-test-id=edit-cart-link] a")
+  }
+
+  async checkContinueShoppingLink(status: "present" | "not_present") {
+    const element = await this.page.locator(
+      "[data-test-id=button-continue-to-shop]"
+    )
+    await expect(element).toHaveCount(status === "not_present" ? 0 : 1)
+  }
+
+  async clickContinueShoppingLink() {
+    await this.page.click("[data-test-id=button-continue-to-shop]")
+  }
+
   async checkBadgeIndex(step: SingleStepEnum, value: string) {
     const element = await this.page.locator(
       `[data-test-id=step-header-badge]:near(:text("${step}")) >> text=${value}`
@@ -430,6 +470,10 @@ export class CheckoutPage {
       .waitFor({ state: "visible" })
   }
 
+  async checkTaxLine(text: string) {
+    await this.page.locator(`text=${text}`).waitFor({ state: "visible" })
+  }
+
   async checkDiscountAmount(text: string) {
     await this.page
       .locator(`[data-test-id=discount-amount] >> text=${text}`)
@@ -465,11 +509,14 @@ export class CheckoutPage {
     status,
   }: {
     type: SingleStepEnum
-    status: "enabled" | "disabled"
+    status: "enabled" | "disabled" | "not_present"
   }) {
     const element = await this.page.locator(
       `[data-test-id=save-${type.toLocaleLowerCase()}-button]`
     )
+    if (status === "not_present") {
+      return expect(element).toHaveCount(0)
+    }
     if (status === "disabled") {
       return expect(element).toBeDisabled()
     } else {
@@ -490,19 +537,27 @@ export class CheckoutPage {
     await this.page.click(`[data-test-id=${paymentMethod}]`, { force: true })
   }
 
-  async setPayment(type: "stripe" | "braintree" | "paypal" | "adyen") {
+  async setPayment(
+    type: "stripe" | "braintree" | "paypal" | "adyen",
+    card?: {
+      number?: string
+      exp?: string
+      cvc?: string
+    }
+  ) {
     switch (type) {
       case "stripe": {
         const stripeFrame = this.page.frameLocator("iframe").first()
         await stripeFrame
           .locator("input[name=cardnumber]")
-          .fill("4242424242424242")
-        await stripeFrame.locator("input[name=exp-date]").fill("0231")
-        await stripeFrame.locator("input[name=cvc]").fill("321")
+          .fill(card?.number || "4242424242424242")
+        await stripeFrame
+          .locator("input[name=exp-date]")
+          .fill(card?.exp || "0231")
+        await stripeFrame.locator("input[name=cvc]").fill(card?.cvc || "321")
         break
       }
       case "braintree": {
-        // await this.page.pause()
         const cardFrame = this.page.frameLocator(
           'iframe[name="braintree-hosted-field-number"]'
         )
@@ -512,25 +567,24 @@ export class CheckoutPage {
         const cvvFrame = this.page.frameLocator(
           'iframe[name="braintree-hosted-field-cvv"]'
         )
-        await cardFrame.locator("#credit-card-number").fill("4111111111111111")
-        await expFrame.locator("#expiration").fill("102030")
-        await cvvFrame.locator("#cvv").fill("123")
+        await cardFrame
+          .locator("#credit-card-number")
+          .fill(card?.number || "4111111111111111")
+        await expFrame.locator("#expiration").fill(card?.exp || "102030")
+        await cvvFrame.locator("#cvv").fill(card?.cvc || "123")
         break
       }
       case "adyen": {
-        // await this.page.pause()
         const cardFrame = this.page.frameLocator("iframe >> nth=0")
-        // .first()
         await cardFrame
           .locator("[data-fieldtype=encryptedCardNumber]")
           .fill("4111111111111111")
 
         const expFrame = this.page.frameLocator("iframe >> nth=1")
-        // .first()
         await expFrame
           .locator("[data-fieldtype=encryptedExpiryDate]")
           .fill("0330")
-        const cvvFrame = this.page.frameLocator("iframe >> nth=2") // .first()
+        const cvvFrame = this.page.frameLocator("iframe >> nth=2")
         await cvvFrame
           .locator("[data-fieldtype=encryptedSecurityCode]")
           .fill("737")
@@ -543,6 +597,23 @@ export class CheckoutPage {
         })
       }
     }
+  }
+
+  async checkPaymentError({
+    type,
+    text,
+  }: {
+    type: "stripe" | "braintree" | "paypal" | "adyen"
+    text: string
+  }) {
+    let selector = `${type}_payments`
+    if (type === "braintree") {
+      selector = "errors-container"
+    }
+    const element = this.page.locator(
+      `[data-test-id="${selector}"] >> text=${text}`
+    )
+    await expect(element).toHaveCount(1)
   }
 
   async save(step: SingleStepEnum, waitText?: string, skipWait?: boolean) {
@@ -560,7 +631,7 @@ export class CheckoutPage {
           .waitFor({ state: "visible" })
         break
       case "Payment": {
-        const text = waitText || "Order successfully placed"
+        const text = waitText || "Thank you for your order"
         this.page.click("[data-test-id=save-payment-button]")
 
         if (waitText === "Paga con PayPal") {
@@ -580,7 +651,7 @@ export class CheckoutPage {
           await this.page.click('[data-testid="submit-button-initial"]')
 
           await this.page
-            .locator("text=Order successfully placed!")
+            .locator("text=Thank you for your order!")
             .waitFor({ state: "visible", timeout: 15000 })
           return
         }
