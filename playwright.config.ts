@@ -55,7 +55,7 @@ const config: PlaywrightTestConfig = {
           //     console.log(name, severity, message, args),
           // },
           // slowMo: 100,
-          devtools: true,
+          // devtools: true,
         },
       },
     },
