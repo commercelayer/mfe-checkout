@@ -61,6 +61,12 @@ export const CouponOrGiftCard: React.FC<Props> = ({
       field: "gift_card_code",
       message: t("input.mustBeValidGiftCard"),
     },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "orders",
+      field: "customer_email",
+      message: " ",
+    },
   ]
 
   return (

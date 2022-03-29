@@ -355,3 +355,23 @@ test.describe("without customer email and same addresses", () => {
     await checkoutPage.checkStep("Shipping", "open")
   })
 })
+
+test.describe("email error validation", () => {
+  test("check initial step", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    const element = checkoutPage.page.locator("[data-test-id=discount-error]")
+    await expect(element).toHaveCount(0)
+    await checkoutPage.setCustomerMail(customerEmail)
+    await checkoutPage.blurCustomerEmail()
+    await expect(element).toHaveCount(0)
+
+    await checkoutPage.setCustomerMail("")
+    await checkoutPage.blurCustomerEmail()
+
+    await checkoutPage.page
+      .locator("[data-test-id=customer_email_error] >> text=Can't be blank")
+      .waitFor({ state: "visible" })
+
+    await expect(element).toHaveCount(0)
+  })
+})

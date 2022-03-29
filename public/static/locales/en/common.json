@@ -25,10 +25,10 @@
     "input":{
         "cantBlank": "Can't be blank",
         "mustBeValidFormat": "Must be valid format",
-        "mustBeValidEmail": "Must be valid email",
-        "mustBeValidCouponOrGiftCard": "Doesn't match any active gift card or coupon",
-        "mustBeValidCoupon": "Doesn't match any active coupon",
-        "mustBeValidGiftCard": "Doesn't match any active gift card"
+        "mustBeValidEmail": "Please enter a valid email",
+        "mustBeValidCouponOrGiftCard": "Please enter a valid gift card or coupon",
+        "mustBeValidCoupon": "Please enter a valid coupon.",
+        "mustBeValidGiftCard": "Please enter a valid gift card"
     },
 
     "orderRecap": {
@@ -67,7 +67,10 @@
     "stepShipping": {
         "title": "Delivery",
         "shipment": "Shipment <Wrap>{{current}} of {{total}}</Wrap>",
-        "notAvaible": "There are no shipping methods available.",
+        "notAvailable": "The entered destination is outside our shipping zone. Please change your shipping address or contact us for help",
+        "outOfStock": "An item in your order is no longer available.",
+        "outOfStockWithCart": " Click <WrapperStyle><Link>{{link}}</Link></WrapperStyle> to edit your cart.",
+        "outOfStockLink": "here",
         "stockTransfer": "<0/> of <1/> items will undergo a transfer",
         "methodSelected": "Your order contains {{count}} shipment",
         "methodSelected_other": "Your order contains {{count}} shipments",

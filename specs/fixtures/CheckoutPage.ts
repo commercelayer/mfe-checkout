@@ -61,7 +61,7 @@ export class CheckoutPage {
 
   async setCustomerMail(email?: string) {
     let customerEmail = email || ""
-    if (!email) {
+    if (email === undefined) {
       customerEmail = faker.internet.email().toLocaleLowerCase()
     }
     await this.page.fill("[data-test-id=customer_email]", customerEmail)

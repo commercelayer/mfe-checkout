@@ -67,7 +67,10 @@
     "stepShipping": {
         "title": "Consegna",
         "shipment": "Spedizione <Wrap>{{current}} di {{total}}</Wrap>",
-        "notAvaible": "Non sono disponibili metodi di spedizione",
+        "notAvailable": "Non si effettuano spedizioni verso la destinazione indicata. Si prega di selezionare un altro indirizzo o di contattarci per maggiori informazioni.",
+        "outOfStock": "Un prodotto del tuo ordine non è più disponibile.",
+        "outOfStockWithCart": " Clicca <WrapperStyle><Link>{{link}}</Link></WrapperStyle> per modificare il carrello.",
+        "outOfStockLink": "qui",
         "stockTransfer": "<0/> di <1/> articoli verranno trasferiti",
         "methodSelected": "Il tuo ordine contiene {{count}} spedizione",
         "methodSelected_other": "Il tuo ordine contiene {{count}} spedizioni",
