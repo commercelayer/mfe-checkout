@@ -62,7 +62,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({
       message: t("input.mustBeValidGiftCard"),
     },
     {
-      code: "VALIDATION_ERROR",
+      code: "EMPTY_ERROR",
       resource: "orders",
       field: "customer_email",
       message: " ",
