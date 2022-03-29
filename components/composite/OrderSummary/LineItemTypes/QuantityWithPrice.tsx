@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next"
 const LineItemQuantityWithPrice = () => {
   const { t } = useTranslation()
   return (
-    <LineItemQuantity>
+    <LineItemQuantity readonly>
       {(props) => {
         if (props.quantity === 1) {
           return t("orderRecap.quantity", { count: props.quantity })

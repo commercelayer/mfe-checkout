@@ -85,7 +85,7 @@ test.describe("quantity and unit price", () => {
 
   test("link below summary", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
-    await checkoutPage.page.pause()
+
     let element = checkoutPage.page.locator(
       "[data-test-id=order-summary] >> text=Quantity: 5x"
     )
@@ -93,6 +93,18 @@ test.describe("quantity and unit price", () => {
 
     element = checkoutPage.page.locator(
       "[data-test-id=order-summary] >> text=Quantity: 1"
+    )
+    await expect(element).toHaveText("QUANTITY: 1")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    element = checkoutPage.page.locator(
+      "[data-test-id=shipments-container] >> text=Quantity: 5"
+    )
+    await expect(element).toHaveText("QUANTITY: 5")
+
+    element = checkoutPage.page.locator(
+      "[data-test-id=shipments-container] >> text=Quantity: 1"
     )
     await expect(element).toHaveText("QUANTITY: 1")
   })

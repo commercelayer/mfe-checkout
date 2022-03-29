@@ -258,14 +258,10 @@ export const StepShipping: React.FC<Props> = () => {
                                 <LineItemName data-test-id="line-item-name" />
                               </ShippingLineItemTitle>
                               <ShippingLineItemQty>
-                                <LineItemQuantity
-                                  readonly
-                                  data-test-id="line-item-quantity"
-                                  max={100}
-                                >
+                                <LineItemQuantity readonly>
                                   {(props) =>
                                     !!props.quantity &&
-                                    t("orderRecap.quantity", {
+                                    t("orderRecap.only_quantity", {
                                       count: props.quantity,
                                     })
                                   }
