@@ -70,7 +70,7 @@ test.describe("with customer email", () => {
     await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
   })
 
-  test.skip("line_2 optional attribute on billing address", async ({
+  test("line_2 optional attribute on billing address", async ({
     checkoutPage,
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
@@ -97,7 +97,7 @@ test.describe("with customer email", () => {
     await checkoutPage.checkBillingAddress({ ...euAddress, line_2: "" })
   })
 
-  test.skip("line_2 optional attribute on shipping address", async ({
+  test("line_2 optional attribute on shipping address", async ({
     checkoutPage,
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
@@ -123,7 +123,7 @@ test.describe("with customer email", () => {
 
     await checkoutPage.clickStep("Customer")
 
-    await checkoutPage.checkBillingAddress({ ...euAddress, line_2: "" })
+    await checkoutPage.checkShippingAddress({ ...euAddress2, line_2: "" })
   })
 })
 

@@ -40,6 +40,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
       <AddressInputGroup
         fieldName="shipping_address_line_2"
         resource="shipping_address"
+        required={false}
         type="text"
         value={shippingAddress?.line_2 || ""}
       />

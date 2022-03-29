@@ -46,7 +46,7 @@ const config: PlaywrightTestConfig = {
         // Configure the browser to use.
         browserName: "chromium",
         // Any Chromium-specific options.
-        viewport: { width: 1200, height: 800 },
+        viewport: { width: 1200, height: 900 },
         baseURL: process.env.NEXT_PUBLIC_BASE_URL,
         launchOptions: {
           // logger: {
