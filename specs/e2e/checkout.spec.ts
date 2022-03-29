@@ -1,4 +1,20 @@
+import { faker } from "@faker-js/faker"
+
 import { test, expect } from "../fixtures/tokenizedPage"
+
+const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+test.use({
+  defaultParams: {
+    order: "with-items",
+    lineItemsAttributes: [
+      { sku_code: "BABYONBU000000E63E7412MX", quantity: 2 },
+    ],
+    orderAttributes: {
+      customer_email: customerEmail,
+    },
+  },
+})
 
 test("should execute a checkout with valid token", async ({ checkoutPage }) => {
   await checkoutPage.checkOrderSummary("Order Summary")
