@@ -23,10 +23,12 @@
     },
 
     "input":{
-        "cantBlank" : "Non può essere vuoto",
-        "mustBeValidFormat" : "Deve essere un formato valido",
-        "mustBeValidEmail":"Deve essere un indirizzo email valido",
-        "mustBeValidCouponOrGiftCard":"Non corrisponde ad alcuna carta regalo o coupon attivo"
+        "cantBlank": "Non può essere vuoto",
+        "mustBeValidFormat": "Deve essere un formato valido",
+        "mustBeValidEmail": "Deve essere un indirizzo email valido",
+        "mustBeValidCouponOrGiftCard": "Non corrisponde ad alcuna carta regalo o coupon attivo",
+        "mustBeValidCoupon": "Non corrisponde ad un coupon attivo",
+        "mustBeValidGiftCard": "Non corrisponde ad una carta regalo attiva"
     },
 
     "orderRecap": {

@@ -46,8 +46,20 @@ export const CouponOrGiftCard: React.FC<Props> = ({
     {
       code: "VALIDATION_ERROR",
       resource: "orders",
-      field: "giftCardOrCouponCode",
+      field: "gift_card_or_coupon_code",
       message: t("input.mustBeValidCouponOrGiftCard"),
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "orders",
+      field: "coupon_code",
+      message: t("input.mustBeValidCoupon"),
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "orders",
+      field: "gift_card_code",
+      message: t("input.mustBeValidGiftCard"),
     },
   ]
 
@@ -60,6 +72,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({
               <StyledGiftCardOrCouponInput
                 data-test-id="input_giftcard_coupon"
                 className={`form-input ${classError}`}
+                required={false}
                 placeholderTranslation={(codeType) =>
                   t(`orderRecap.${codeType}`)
                 }
@@ -71,8 +84,8 @@ export const CouponOrGiftCard: React.FC<Props> = ({
               />
             </CouponFieldWrapper>
             <StyledErrors
+              data-test-id="discount-error"
               resource="orders"
-              field="giftCardOrCouponCode"
               messages={messages}
             />
           </CouponFormWrapper>

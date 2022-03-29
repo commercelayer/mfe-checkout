@@ -492,6 +492,23 @@ export class CheckoutPage {
       .waitFor({ state: "visible" })
   }
 
+  async checkGiftCardCode(text: string) {
+    await this.page
+      .locator(`[data-test-id=code-giftcard] >> text=${text}`)
+      .waitFor({ state: "visible" })
+  }
+
+  async checkCouponError(text: string | undefined) {
+    const element = this.page.locator(
+      `[data-test-id=discount-error] >> text=${text}`
+    )
+    if (text !== undefined) {
+      await element.waitFor({ state: "visible" })
+    } else {
+      await expect(element).toHaveCount(0)
+    }
+  }
+
   async checkTotalAmount(text: string) {
     await this.page
       .locator(`[data-test-id=total-amount] >> text=${text}`)

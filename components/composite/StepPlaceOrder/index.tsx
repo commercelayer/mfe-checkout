@@ -1,7 +1,4 @@
-import {
-  PlaceOrderContainer,
-  ErrorComponentProps,
-} from "@commercelayer/react-components"
+import { PlaceOrderContainer } from "@commercelayer/react-components"
 import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -13,6 +10,7 @@ import { Label } from "components/ui/Label"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
 
 import { ErrorIcon } from "./ErrorIcon"
+import { messages } from "./messages"
 import {
   ErrorIco,
   ErrorMessage,
@@ -59,51 +57,6 @@ const StepPlaceOrder: React.FC<Props> = ({
 
   const { placeOrder } = appCtx
 
-  const messages: ErrorComponentProps["messages"] = [
-    {
-      code: "VALIDATION_ERROR",
-      resource: "orders",
-      field: "status",
-      message: t("error.transition"),
-    },
-    {
-      code: "VALIDATION_ERROR",
-      resource: "orders",
-      field: "paymentMethod",
-      message: t("error.paymentMethod"),
-    },
-    {
-      code: "VALIDATION_ERROR",
-      resource: "orders",
-      field: "giftCardOrCouponCode",
-      message: " ",
-    },
-    {
-      code: "PAYMENT_NOT_APPROVED_FOR_EXECUTION",
-      resource: "orders",
-      field: "base",
-      message: t("error.payer"),
-    },
-    {
-      code: "INVALID_RESOURCE_ID",
-      resource: "orders",
-      field: "base",
-      message: t("error.resourceID"),
-    },
-    {
-      code: "EMPTY_ERROR",
-      resource: "orders",
-      field: "customer_email",
-      message: " ",
-    },
-    {
-      code: "VALIDATION_ERROR",
-      resource: "orders",
-      field: "customer_email",
-      message: " ",
-    },
-  ]
-
   const handlePlaceOrder = async ({ placed }: { placed: boolean }) => {
     if (placed) {
       setIsPlacingOrder(true)
@@ -119,11 +72,20 @@ const StepPlaceOrder: React.FC<Props> = ({
   return (
     <>
       <ErrorsContainer data-test-id="errors-container">
-        <StyledErrors resource="orders" messages={messages}>
+        <StyledErrors
+          resource="orders"
+          messages={
+            messages &&
+            messages.map((msg) => {
+              return { ...msg, message: t(msg.message) }
+            })
+          }
+        >
           {(props) => {
             if (props.errors?.length === 0) {
               return null
             }
+            console.log(props)
             const compactedErrors = props.errors
             return compactedErrors?.map((error, index) => {
               if (error?.trim().length === 0 || !error) {

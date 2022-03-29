@@ -23,10 +23,12 @@
     },
 
     "input":{
-        "cantBlank" : "Can't be blank",
-        "mustBeValidFormat" : "Must be valid format",
-        "mustBeValidEmail":"Must be valid email",
-        "mustBeValidCouponOrGiftCard":"Doesn't match any active gift card or coupon"
+        "cantBlank": "Can't be blank",
+        "mustBeValidFormat": "Must be valid format",
+        "mustBeValidEmail": "Must be valid email",
+        "mustBeValidCouponOrGiftCard": "Doesn't match any active gift card or coupon",
+        "mustBeValidCoupon": "Doesn't match any active coupon",
+        "mustBeValidGiftCard": "Doesn't match any active gift card"
     },
 
     "orderRecap": {
