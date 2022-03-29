@@ -254,9 +254,8 @@ test.describe("guest with checkout.com", () => {
       .click()
 
     await checkoutPage.page
-      .locator(`text=Order successfully placed`)
+      .locator(`text=Thank you for your order!`)
       .waitFor({ state: "visible", timeout: 100000 })
-
   })
 })
 
