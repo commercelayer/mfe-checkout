@@ -22,8 +22,9 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
     accessToken as string
   )
 
-  const paymentReturnQuery =
-    paymentReturn === "true" ? "&paymentReturn=true" : ""
+  const isPaymentReturn = paymentReturn === "true"
+
+  const paymentReturnQuery = isPaymentReturn ? "&paymentReturn=true" : ""
 
   useEffect(() => {
     if (router.isReady && accessToken && accessToken !== savedAccessToken) {
@@ -41,6 +42,12 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
     fetcher,
     { revalidateOnFocus: false }
   )
+
+  // No accessToken in URL
+  if (router.isReady && !isPaymentReturn && !accessToken) {
+    router.push("/404")
+    return { settings: undefined, isLoading: false }
+  }
 
   if (!data && !error) {
     return { isLoading: true, settings: undefined }
