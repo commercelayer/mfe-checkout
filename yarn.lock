@@ -12,10 +12,10 @@
   resolved "https://registry.yarnpkg.com/@ac-dev/states-service/-/states-service-1.1.0.tgz#303328c615db652b0898aa323b60559fb6c20fc4"
   integrity sha512-8BdOTMIsHaKweIkx3iMzNkYgUenOENqR5tkvonLAfKn4pBEQf2kmKWUMXpN2/8QKXIDgjcKDkhyEr46UjhKj+A==
 
-"@adyen/adyen-web@^5.11.0":
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.11.0.tgz#62f15d2e5dbdb3c030b6c8b3b02c697ff6b63464"
-  integrity sha512-K42Z/ynctW46vY51Qg9IZWUkk7XLLTe545fTOu6CRDMIMPaweycc4cydpeAUIHznvnvTlfWRXSklzj43gbgfDg==
+"@adyen/adyen-web@^5.12.0":
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.12.0.tgz#b31a0c726dca659deae0f33cc2631d3367a77afb"
+  integrity sha512-fh+ICr8KUGnRc1bR/fZlOFhkjiWgajXovAYoC1wihYlXLREMmQ1+XLE1AfYA939o2hlxXmSKsAE1JyEdA3eCXA==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@babel/runtime-corejs3" "^7.16.3"
@@ -661,18 +661,18 @@
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^3.6.4":
-  version "3.6.4"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.6.4.tgz#f607b11c93ee328423c5a4fac6a8051119e7a92b"
-  integrity sha512-pZu/Q13kmd4MI93zza0DryxhvaU5eI4dXMSUZa2ySZ6OdRao5c1ac2rXnCsn70GCHwhFV2ZLEeV2RBGRzLzFhg==
+"@commercelayer/react-components@^3.8.1":
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.8.1.tgz#5e7b6e730183f41835f690e8ed4cd09ece21639a"
+  integrity sha512-+BqcFVnr5tczPCFLeF3fNH0kbkn3d2oXY4HxgUwebH1412uViMoEYUKz2VAeRG3U9vNj4hvbUD8jlEHpK/ryUg==
   dependencies:
     "@ac-dev/countries-service" "^1.2.0"
     "@ac-dev/states-service" "^1.1.0"
-    "@adyen/adyen-web" "^5.11.0"
+    "@adyen/adyen-web" "^5.12.0"
     "@commercelayer/js-auth" "^3.0.0"
-    "@commercelayer/sdk" "^3.6.0"
+    "@commercelayer/sdk" "^3.7.0"
     "@stripe/react-stripe-js" "^1.7.0"
-    "@stripe/stripe-js" "^1.24.0"
+    "@stripe/stripe-js" "^1.26.0"
     axios "^0.26.1"
     braintree-web "^3.85.2"
     frames-react "^1.0.3"
@@ -681,10 +681,10 @@
     lodash-es "^4.17.21"
     rapid-form "^1.6.2"
 
-"@commercelayer/sdk@^3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@commercelayer/sdk/-/sdk-3.6.0.tgz#4a21fe180227c1e1e4c79e7c637bb920d010a24a"
-  integrity sha512-vjbCtKVL+wcnSOQ+me2o+Gjid9xP4F3TKB5QDTA/TKyzzQuemvOHYpaG/lTa302eEoopXcESSU//hzMG9oESKA==
+"@commercelayer/sdk@^3.7.0":
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@commercelayer/sdk/-/sdk-3.7.0.tgz#d0fc7f99c9e4c879a8c38b4bd128014a151494b3"
+  integrity sha512-w+izF/vXK8QYi/cbFFkRFjYaaqHauy6BtngXPENkwCUwHtB4doR3Lq3rugqLLR4uU6MYPW2E7vPOQwZAdWqXDg==
   dependencies:
     axios "^0.24.0"
 
@@ -1292,10 +1292,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^1.24.0":
-  version "1.24.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.24.0.tgz#d23977f364565981f8ab30b1b540e367f72abc5c"
-  integrity sha512-8CEILOpzoRhGwvgcf6y+BlPyEq1ZqxAv3gsX7LvokFYvbcyH72GRcHQMGXuZS3s7HqfYQuTSFrvZNL/qdkgA9Q==
+"@stripe/stripe-js@^1.26.0":
+  version "1.26.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.26.0.tgz#45670924753c01e18d0544ea1f1067b474aaa96f"
+  integrity sha512-4R1vC75yKaCVFARW3bhelf9+dKt4NP4iZY/sIjGK7AAMBVvZ47eG74NvsAIUdUnhOXSWFMjdFWqv+etk5BDW4g==
 
 "@tailwindcss/forms@^0.5.0":
   version "0.5.0"
