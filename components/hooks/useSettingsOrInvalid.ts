@@ -32,7 +32,7 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   }, [router])
 
   const { data, error } = useSWR(
-    router.isReady
+    router.isReady && savedAccessToken
       ? [
           `/api/settings?accessToken=${savedAccessToken}&orderId=${orderId}${paymentReturnQuery}`,
           random,
