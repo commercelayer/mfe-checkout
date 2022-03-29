@@ -3,7 +3,7 @@ import {
   LineItemImage,
   LineItemName,
   LineItemAmount,
-  LineItemOptions,
+  LineItemOption,
   LineItemType,
 } from "@commercelayer/react-components"
 import React from "react"
@@ -14,8 +14,8 @@ import {
   LineItemQty,
   LineItemTitle,
   LineItemWrapper,
-  StyledLineItemOption,
   StyledLineItemSkuCode,
+  StyledLineItemOptions,
 } from "./styled"
 
 interface Props {
@@ -41,9 +41,9 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
             <LineItemName className="font-bold" />
             <LineItemAmount className="pl-2 text-lg font-extrabold" />
           </LineItemTitle>
-          <LineItemOptions showAll showName={false}>
-            <StyledLineItemOption />
-          </LineItemOptions>
+          <StyledLineItemOptions showAll showName={true} className="options">
+            <LineItemOption />
+          </StyledLineItemOptions>
           <LineItemQty>
             <QuantityWithPrice />
           </LineItemQty>
