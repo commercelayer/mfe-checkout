@@ -22,10 +22,6 @@ interface Props {
   setCouponOrGiftCard: () => Promise<void>
 }
 
-interface FormProps {
-  codeType: "gift_card_code" | "coupon_code" | "gift_card_or_coupon_code"
-}
-
 export const CouponOrGiftCard: React.FC<Props> = ({
   readonly,
   setCouponOrGiftCard,
