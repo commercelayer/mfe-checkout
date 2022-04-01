@@ -39,7 +39,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ selectPayment }) => {
           return (
             <div
               key={k}
-              data-cy="customer-card"
+              data-test-id="customer-card"
               onClick={p.handleClick}
               className="flex flex-col items-start p-3 mb-4 text-sm border rounded cursor-pointer lg:flex-row lg:items-center shadow-sm hover:border-primary"
             >
@@ -68,7 +68,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ selectPayment }) => {
         <WalletCheckbox
           name={name}
           id={name}
-          data-cy="save-to-wallet"
+          data-test-id="save-to-wallet"
           type="checkbox"
           className="form-checkbox"
           checked={checked}
@@ -77,7 +77,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ selectPayment }) => {
         />
         <Label
           htmlFor={name}
-          dataCy="payment-save-wallet"
+          dataTestId="payment-save-wallet"
           textLabel={t("stepPayment.saveToWallet")}
         />
       </div>
@@ -95,7 +95,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ selectPayment }) => {
       >
         <PaymentWrapper>
           <PaymentSummaryList />
-          <PaymentSourceContainer data-cy="payment-source">
+          <PaymentSourceContainer data-test-id="payment-source">
             <PaymentSource
               className="flex flex-col"
               templateCustomerCards={(props) => (

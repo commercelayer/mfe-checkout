@@ -19,7 +19,7 @@ export const AddressSectionSaveOnAddressBook: React.FC<Props> = ({
     addressType === "billing"
       ? "billing_address_save_to_customer_book"
       : "shipping_address_save_to_customer_book"
-  const dataCy =
+  const dataTestId =
     addressType === "billing"
       ? "billing_address_save_to_customer_address_book"
       : "shipping_address_save_to_customer_address_book"
@@ -27,7 +27,7 @@ export const AddressSectionSaveOnAddressBook: React.FC<Props> = ({
   return (
     <FlexContainer className="items-center">
       <StyledAddressInput
-        data-cy={dataCy}
+        data-test-id={dataTestId}
         name={fieldName}
         id={fieldName}
         type="checkbox"
@@ -36,7 +36,7 @@ export const AddressSectionSaveOnAddressBook: React.FC<Props> = ({
       />
       <Label
         htmlFor={fieldName}
-        dataCy={dataCy}
+        dataTestId={dataTestId}
         textLabel={t("stepCustomer.saveAddressBook")}
       />
     </FlexContainer>

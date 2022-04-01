@@ -72,7 +72,7 @@ test.describe("customer with Stripe", () => {
     await checkoutPage.selectPayment("stripe")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
@@ -100,12 +100,14 @@ test.describe("customer with Stripe", () => {
     await checkoutPage.checkPaymentSummary("€10,00")
 
     let element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
     await element.check()
-    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    element = await checkoutPage.page.locator(
+      "[data-test-id=payment-save-wallet]"
+    )
     expect(element).toBeChecked()
 
     await checkoutPage.save("Payment")
@@ -122,7 +124,9 @@ test.describe("customer with Stripe", () => {
 
     await checkoutPage.selectPayment("stripe")
 
-    await checkoutPage.page.click("[data-cy=customer-card]", { force: true })
+    await checkoutPage.page.click("[data-test-id=customer-card]", {
+      force: true,
+    })
     await checkoutPage.checkPaymentSummary("€10,00")
 
     await checkoutPage.save("Payment")
@@ -162,7 +166,7 @@ test.describe("guest with Stripe", () => {
     await checkoutPage.setPayment("stripe")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).not.toBeVisible()
 
@@ -226,11 +230,11 @@ test.describe("guest with wire transfer", () => {
 
     await checkoutPage.save("Shipping")
 
-    await checkoutPage.checkPlaceOrder("disabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "disabled" })
 
     await checkoutPage.selectPayment("wire")
 
-    await checkoutPage.checkPlaceOrder("enabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
 
     await checkoutPage.save("Payment")
   })
@@ -245,7 +249,7 @@ test.describe("guest with wire transfer", () => {
     await checkoutPage.selectPayment("stripe")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).not.toBeVisible()
 
@@ -253,12 +257,12 @@ test.describe("guest with wire transfer", () => {
 
     await checkoutPage.checkPaymentSummary("€10,00")
 
-    await checkoutPage.checkPlaceOrder("enabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
 
     await checkoutPage.selectPayment("wire")
     await checkoutPage.page.waitForTimeout(1500)
 
-    await checkoutPage.checkPlaceOrder("enabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
 
     await checkoutPage.save("Payment")
   })
@@ -300,14 +304,14 @@ test.describe("customer with Braintree", () => {
     await checkoutPage.selectPayment("braintree")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
-    await checkoutPage.checkPlaceOrder("disabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "disabled" })
 
     await checkoutPage.setPayment("braintree")
-    await checkoutPage.checkPlaceOrder("enabled")
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
 
     await checkoutPage.save("Payment", undefined, true)
 
@@ -321,7 +325,7 @@ test.describe("customer with Braintree", () => {
     await cardinalFrame.locator("text=SUBMIT").click()
 
     await checkoutPage.page
-      .locator(`text=Order successfully placed`)
+      .locator(`text=Thank you for your order!`)
       .waitFor({ state: "visible", timeout: 100000 })
   })
 })
@@ -362,7 +366,7 @@ test.describe("customer with Adyen", () => {
     await checkoutPage.selectPayment("adyen")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
@@ -386,12 +390,14 @@ test.describe("customer with Adyen", () => {
     await checkoutPage.setPayment("adyen")
 
     let element = await checkoutPage.page.locator(
-      "[data-cy=payment-save-wallet]"
+      "[data-test-id=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
     await element.check()
-    element = await checkoutPage.page.locator("[data-cy=payment-save-wallet]")
+    element = await checkoutPage.page.locator(
+      "[data-test-id=payment-save-wallet]"
+    )
     expect(element).toBeChecked()
 
     await checkoutPage.save("Payment")
@@ -407,8 +413,172 @@ test.describe("customer with Adyen", () => {
     await checkoutPage.save("Shipping")
     await checkoutPage.selectPayment("adyen")
 
-    await checkoutPage.page.click("[data-cy=customer-card]", { force: true })
+    await checkoutPage.page.click("[data-test-id=customer-card]", {
+      force: true,
+    })
 
     await checkoutPage.save("Payment")
+  })
+})
+
+test.describe("stripe errors", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+  ;[
+    {
+      kind: "generic decline",
+      card: { number: "4000000000000002" },
+      error: "Your card was declined.",
+    },
+    {
+      kind: "insufficient funds decline",
+      card: { number: "4000000000009995" },
+      error: "Your card has insufficient funds.",
+    },
+    {
+      kind: "lost card decline",
+      card: { number: "4000000000009987" },
+      error: "Your card has been declined.",
+    },
+    {
+      kind: "stolen card decline",
+      card: { number: "4000000000009979" },
+      error: "Your card has been declined.",
+    },
+    {
+      kind: "expired card decline",
+      card: { number: "4000000000000069" },
+      error: "Your card has expired.",
+    },
+    {
+      kind: "incorrect CVC card decline",
+      card: { number: "4000000000000127" },
+      error: "Your card's security code is incorrect.",
+    },
+    {
+      kind: "processing error decline",
+      card: { number: "4000000000000119" },
+      error:
+        "An error occurred while processing your card. Try again in a little bit.",
+    },
+    {
+      kind: "incorrect number decline",
+      card: { number: "4242424242424241" },
+      error: "Your card number is invalid.",
+    },
+    {
+      kind: "invalid expiry year decline",
+      card: { exp: "1221" },
+      error: "Your card's expiration year is in the past.",
+    },
+    {
+      kind: "incomplete cvc decline",
+      card: { cvc: "12" },
+      error: "Your card's security code is incomplete.",
+    },
+  ].forEach(({ kind, card, error }) => {
+    test(kind, async ({ checkoutPage }) => {
+      await checkoutPage.checkOrderSummary("Order Summary")
+
+      await checkoutPage.checkStep("Shipping", "open")
+
+      await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+      await checkoutPage.save("Shipping")
+
+      await checkoutPage.selectPayment("stripe")
+
+      await checkoutPage.setPayment("stripe", { ...card })
+
+      await checkoutPage.save("Payment", undefined, true)
+
+      await checkoutPage.checkPaymentError({
+        type: "stripe",
+        text: error,
+      })
+    })
+  })
+})
+
+test.describe("braintree errors", () => {
+  ;[
+    {
+      kind: "do not honor",
+      code: 2000,
+      error: "Transition is not permitted",
+    },
+    {
+      kind: "insufficient funds",
+      code: 2001,
+      error: "Transition is not permitted",
+    },
+    {
+      kind: "limit exceeded",
+      code: 2002,
+      error: "Transition is not permitted",
+    },
+  ].forEach(({ kind, code, error }) => {
+    test.describe(kind, () => {
+      const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+      test.use({
+        defaultParams: {
+          order: "with-items",
+          orderAttributes: {
+            customer_email: customerEmail,
+          },
+          lineItemsAttributes: [{ sku_code: "BRAINTREETEST", quantity: code }],
+          addresses: {
+            billingAddress: euAddress,
+            sameShippingAddress: true,
+          },
+        },
+      })
+
+      test("error", async ({ checkoutPage }) => {
+        await checkoutPage.checkOrderSummary("Order Summary")
+
+        await checkoutPage.checkStep("Shipping", "open")
+
+        await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+        await checkoutPage.save("Shipping")
+
+        await checkoutPage.selectPayment("braintree")
+
+        await checkoutPage.setPayment("braintree")
+
+        await checkoutPage.save("Payment", undefined, true)
+
+        const cardinalFrame = checkoutPage.page.frameLocator(
+          "text=<head></head> <body> <div></div> </body>"
+        )
+        await cardinalFrame
+          .locator('[placeholder="\\ Enter\\ Code\\ Here"]')
+          .fill("1234")
+
+        await cardinalFrame.locator("text=SUBMIT").click()
+
+        await checkoutPage.checkPaymentError({
+          type: "braintree",
+          text: error,
+        })
+      })
+    })
   })
 })

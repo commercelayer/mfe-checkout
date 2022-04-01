@@ -26,7 +26,7 @@ export const AddressFormBottom: React.FC<Props> = ({
       <AddressSectionSaveOnAddressBook addressType={addressType} />
       {hasCustomerAddresses && (
         <LinkButton
-          data-cy={`close-${addressType}-form`}
+          data-test-id={`close-${addressType}-form`}
           label={t("stepCustomer.closeForm")}
           onClick={onClick}
         />

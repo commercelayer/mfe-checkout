@@ -17,6 +17,7 @@ import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
 import { LineItemTypes } from "./LineItemTypes"
+import { ReturnToCart } from "./ReturnToCart"
 import {
   SummaryHeader,
   SummarySubTitle,
@@ -39,21 +40,22 @@ interface Props {
 export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
   const { t } = useTranslation()
 
+  const isTaxCalculated = appCtx.hasShippingAddress && appCtx.hasShippingMethod
   return (
-    <Wrapper data-cy="order-summary">
+    <Wrapper data-test-id="order-summary">
       <LineItemsContainer>
         {!readonly && (
           <SummaryHeader>
-            <SummaryTitle data-cy="test-summary">
+            <SummaryTitle data-test-id="test-summary">
               {t("orderRecap.order_summary")}
             </SummaryTitle>
             <SummarySubTitle>
               <LineItemsCount
-                data-cy="items-count"
+                data-test-id="items-count"
                 typeAccepted={LINE_ITEMS_SHOPPABLE}
               >
                 {(props) => (
-                  <span data-cy="items-count">
+                  <span data-test-id="items-count">
                     {t("orderRecap.cartContains", { count: props.quantity })}
                   </span>
                 )}
@@ -85,7 +87,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       {t("orderRecap.discount_amount")}
                     </RecapLineItem>
-                    <div data-cy="discount-amount">{props.price}</div>
+                    <div data-test-id="discount-amount">{props.price}</div>
                   </>
                 )
               }}
@@ -100,7 +102,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       {t("orderRecap.adjustment_amount")}
                     </RecapLineItem>
-                    <div data-cy="adjustment-amount">{props.price}</div>
+                    <div data-test-id="adjustment-amount">{props.price}</div>
                   </>
                 )
               }}
@@ -115,7 +117,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       {t("orderRecap.shipping_amount")}
                     </RecapLineItem>
-                    <div data-cy="shipping-amount">
+                    <div data-test-id="shipping-amount">
                       {!appCtx.hasShippingMethod
                         ? t("orderRecap.notSet")
                         : props.priceCents === 0
@@ -127,7 +129,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
               }}
             </ShippingAmount>
           </RecapLine>
-          <RecapLine data-cy="payment-method-amount">
+          <RecapLine data-test-id="payment-method-amount">
             <PaymentMethodAmount>
               {(props) => {
                 if (props.priceCents === 0) return <></>
@@ -145,24 +147,22 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
           <RecapLine>
             <TaxesAmount>
               {(props) => {
-                const isTaxIncluded =
-                  appCtx.hasShippingAddress && appCtx.hasShippingMethod
                 return (
                   <>
                     <RecapLineItem>
                       <Trans
                         i18nKey={
-                          isTaxIncluded
+                          isTaxCalculated && appCtx.taxIncluded
                             ? "orderRecap.tax_included_amount"
                             : "orderRecap.tax_amount"
                         }
                         components={
-                          isTaxIncluded
+                          isTaxCalculated
                             ? {
                                 style: (
                                   <span
                                     className={
-                                      !appCtx.taxIncluded
+                                      appCtx.taxIncluded
                                         ? "text-gray-500 font-normal"
                                         : ""
                                     }
@@ -173,10 +173,8 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                         }
                       />
                     </RecapLineItem>
-                    <div data-cy="tax-amount">
-                      {appCtx.hasShippingAddress && appCtx.hasShippingMethod
-                        ? props.price
-                        : t("orderRecap.notSet")}
+                    <div data-test-id="tax-amount">
+                      {isTaxCalculated ? props.price : t("orderRecap.notSet")}
                     </div>
                   </>
                 )
@@ -192,7 +190,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       {t("orderRecap.giftcard_amount")}
                     </RecapLineItem>
-                    <div data-cy="giftcard-amount">{props.price}</div>
+                    <div data-test-id="giftcard-amount">{props.price}</div>
                   </>
                 )
               }}
@@ -203,10 +201,11 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
               {t("orderRecap.total_amount")}
             </RecapLineItemTotal>
             <TotalAmount
-              data-cy="total-amount"
+              data-test-id="total-amount"
               className="text-xl font-extrabold"
             />
           </RecapLineTotal>
+          <ReturnToCart cartUrl={appCtx.cartUrl} />
         </AmountWrapper>
       </TotalWrapper>
     </Wrapper>

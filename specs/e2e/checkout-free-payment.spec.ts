@@ -33,7 +33,7 @@ test.describe("with shippable sku", () => {
     await checkoutPage.checkStep("Payment", "close")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=step-header-info] >> text=This order does not require payment"
+      "[data-test-id=step-header-info] >> text=This order does not require payment"
     )
 
     expect(element).toBeVisible()
@@ -75,7 +75,7 @@ test.describe("with digital sku", () => {
     await checkoutPage.checkStep("Payment", "close")
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=step-header-info] >> text=This order does not require payment"
+      "[data-test-id=step-header-info] >> text=This order does not require payment"
     )
 
     await expect(element).toBeVisible()

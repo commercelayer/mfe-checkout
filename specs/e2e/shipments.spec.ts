@@ -319,7 +319,7 @@ test.describe("with two shipment (one do not ship)", () => {
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     const element = await checkoutPage.page.locator(
-      "[data-cy=save-shipments-button]"
+      "[ data-test-id=save-shipping-button]"
     )
     await expect(element).toBeEnabled()
     await checkoutPage.save("Shipping")
@@ -432,5 +432,185 @@ test.describe("changing order amount", () => {
 
     await checkoutPage.save("Payment")
     await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+  })
+})
+
+test.describe("no shipping zone", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: {
+          ...usAddress,
+          billing_info: faker.random.alphaNumeric(11),
+        },
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("no shipping method to select", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    const element = checkoutPage.page.locator(
+      "text=There are not any shipping method available"
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
+
+test.describe("no shipping zone with cart url", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        cart_url: faker.internet.url(),
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: {
+          ...usAddress,
+          billing_info: faker.random.alphaNumeric(11),
+        },
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("no shipping method to select", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    const element = checkoutPage.page.locator(
+      "text=There are not any shipping method available"
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
+
+test.describe("one shippable one out of stock", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "NOSTOCK", quantity: 1 },
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        cart_url: faker.internet.url(),
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("no shipping method to select", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    const element = checkoutPage.page.locator(
+      "text=There are not any shipping method available"
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
+
+test.describe("only out of stock", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [{ sku_code: "NOSTOCK", quantity: 1, inventory: 0 }],
+      orderAttributes: {
+        cart_url: faker.internet.url(),
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("no shipping method to select", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkButton({ type: "Shipping", status: "not_present" })
+    const element = checkoutPage.page.locator(
+      "text=An item in your order is no longer available."
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
+
+test.describe("partial out of stock", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [{ sku_code: "NOSTOCK", quantity: 2, inventory: 1 }],
+      orderAttributes: {
+        cart_url: faker.internet.url(),
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("no shipping method to select", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    const element = checkoutPage.page.locator(
+      "text=There are not any shipping method available"
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
+
+test.describe("no shipping zone and one out of stock", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "NOSTOCK", quantity: 1, inventory: 0 },
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        cart_url: faker.internet.url(),
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: {
+          ...usAddress,
+          billing_info: faker.random.alphaNumeric(11),
+        },
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("no shipping method to select", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    const element = checkoutPage.page.locator(
+      "text=There are not any shipping method available"
+    )
+    await expect(element).toHaveCount(1)
   })
 })

@@ -55,6 +55,7 @@ export interface FetchOrderByIdResponse {
   isPaymentRequired: boolean
   isComplete: boolean
   returnUrl: string | undefined
+  cartUrl: string | undefined
   isCreditCard: boolean
   taxIncluded: boolean | undefined
   shippingMethodName: string | undefined
@@ -216,6 +217,7 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
         "customer_email",
         "status",
         "return_url",
+        "cart_url",
         "tax_included",
         "requires_billing_info",
         "total_amount_with_taxes_float",
@@ -323,6 +325,7 @@ export function calculateSettings(order: Order, isShipmentRequired: boolean) {
         }),
     ...checkPaymentMethod(order),
     returnUrl: order.return_url,
+    cartUrl: order.cart_url,
     taxIncluded: order.tax_included,
     requiresBillingInfo: order.requires_billing_info,
   }

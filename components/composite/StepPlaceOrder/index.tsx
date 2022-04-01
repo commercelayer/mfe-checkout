@@ -108,13 +108,13 @@ const StepPlaceOrder: React.FC<Props> = ({
 
   return (
     <>
-      <ErrorsContainer>
+      <ErrorsContainer data-test-id="errors-container">
         <StyledErrors resource="orders" messages={messages}>
           {(props) => {
             if (props.errors?.length === 0) {
               return null
             }
-            const compactedErrors = [...new Set(props.errors)]
+            const compactedErrors = props.errors
             return compactedErrors?.map((error, index) => {
               if (error?.trim().length === 0 || !error) {
                 return null
@@ -142,7 +142,7 @@ const StepPlaceOrder: React.FC<Props> = ({
               <StyledPrivacyAndTermsCheckbox
                 id="privacy-terms"
                 className="relative form-checkbox top-0.5"
-                data-cy="checkbox-privacy-and-terms"
+                data-test-id="checkbox-privacy-and-terms"
               />
               <Label htmlFor="privacy-terms">
                 <Trans
@@ -162,7 +162,7 @@ const StepPlaceOrder: React.FC<Props> = ({
           )}
           <PlaceOrderButtonWrapper>
             <StyledPlaceOrderButton
-              data-cy="place-order-button"
+              data-test-id="save-payment-button"
               isActive={isActive}
               onClick={handlePlaceOrder}
               label={

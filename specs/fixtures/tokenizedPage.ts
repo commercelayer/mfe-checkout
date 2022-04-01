@@ -27,9 +27,21 @@ type OrderType =
   | "gift-card"
   | "with-items"
 
-type LineItemObject = {
+interface BaseLineItemObject {
   quantity: number
-} & ({ sku_code: string } | { bundle_code: string })
+  inventory?: number
+  sku_options?: Array<Record<string, string | object>>
+}
+
+interface SkuItem extends BaseLineItemObject {
+  sku_code: string
+}
+
+interface BundleItem extends BaseLineItemObject {
+  bundle_code: string
+}
+
+type LineItemObject = SkuItem | BundleItem
 
 interface GiftCardProps {
   currency_code?: "EUR" | "USD"
@@ -53,12 +65,19 @@ interface DefaultParamsProps {
     email: string
     password: string
   }
+  organization?: {
+    supportPhone?: string
+    supportEmail?: string
+    gtmId?: string
+  }
   orderAttributes?: {
     language_code?: "en" | "it"
     customer_email?: string
     shipping_country_code_lock?: "IT" | "GB" | "US"
     terms_url?: string
     privacy_url?: string
+    cart_url?: string
+    return_url?: string
   }
   lineItemsAttributes?: LineItemObject[]
   giftCardAttributes?: GiftCardProps
@@ -161,14 +180,34 @@ const getOrder = async (
       await createDefaultLineItem(cl, order.id)
       break
     case "with-items": {
+      let superToken: string | undefined
+      let superCl: CommerceLayerClient | undefined
+
+      const noStock =
+        (params.lineItemsAttributes?.length || 0) > 0 &&
+        (params.lineItemsAttributes?.filter(
+          ({ inventory }) => inventory !== undefined && inventory >= 0
+        ) as SkuItem[])
+
+      if (noStock && noStock.length > 0) {
+        superToken = await getSuperToken()
+        superCl = await getClient(superToken)
+        await updateInventory(superCl, noStock, "quantity")
+      }
       await createLineItems({
         cl,
         orderId: order.id,
         items: params.lineItemsAttributes || [],
       })
+      if (noStock && noStock.length > 0) {
+        superToken = await getSuperToken()
+        superCl = await getClient(superToken)
+        await updateInventory(superCl, noStock, "inventory")
+      }
+
       if (giftCard) {
-        const superToken = await getSuperToken()
-        const superCl = await getClient(superToken)
+        superToken = superToken || (await getSuperToken())
+        superCl = superCl || (await getClient(superToken))
         const card = await createAndPurchaseGiftCard(cl, giftCard)
         const activeCard = await superCl.gift_cards.update({
           id: card.id,
@@ -239,40 +278,6 @@ const getOrder = async (
         })
         await Promise.all(promises)
       }
-      // Not used due to refresh at the beginning
-      // if (params.shippingMethods && params.shippingMethods.length > 0) {
-      //   const shipments = (
-      //     await cl.orders.retrieve(order.id, {
-      //       fields: {
-      //         orders: ["id"],
-      //         shipments: ["shipping_method"],
-      //       },
-      //       include: ["shipments", "shipments.shipping_method"],
-      //     })
-      //   ).shipments
-      //   const shippingMethods = await cl.shipping_methods.list()
-      //   if (shippingMethods && shippingMethods.length > 0) {
-      //     const promises = shipments?.map((shipment, index) => {
-      //       const shippingMethod = shippingMethods.find((s) => {
-      //         const name = (params.shippingMethods || [])[index]
-      //         return s.name === name
-      //       })
-      //       if (shippingMethod) {
-      //         return cl.shipments.update({
-      //           id: shipment.id,
-      //           shipping_method: cl.shipping_methods.relationship(
-      //             shippingMethod.id
-      //           ),
-      //         })
-      //       } else {
-      //         return 1
-      //       }
-      //     })
-      //     if (promises && promises?.length > 0) {
-      //       await Promise.all(promises)
-      //     }
-      //   }
-      // }
 
       break
     }
@@ -332,7 +337,39 @@ const getOrder = async (
       break
     }
   }
-  return { orderId: order.id, attributes: { giftCard: giftCardCode } }
+  return {
+    orderId: order.id,
+    attributes: {
+      giftCard: giftCardCode,
+      organization: { ...params.organization },
+    },
+  }
+}
+
+const updateInventory = async (
+  cl: CommerceLayerClient,
+  lineItems: SkuItem[],
+  quantity: "quantity" | "inventory"
+) => {
+  const skus = await cl.skus.list({
+    include: ["stock_items"],
+    filters: {
+      code_in: lineItems.map((line) => line.sku_code).join(","),
+    },
+  })
+  const promises = skus.map((sku) => {
+    if (sku && sku.stock_items) {
+      const lineItem = lineItems.find((li) => li.sku_code === sku.code)
+      if (lineItem) {
+        return cl.stock_items.update({
+          id: sku.stock_items[0].id,
+          quantity: lineItem[quantity],
+        })
+      }
+    }
+    return undefined
+  })
+  await Promise.all(promises)
 }
 
 const createAndPurchaseGiftCard = async (
@@ -371,8 +408,9 @@ const createLineItems = async ({
   items: Array<LineItemObject>
 }) => {
   const lineItems = items.map((item) => {
+    const { sku_options, inventory, ...tail } = item
     const lineItem = {
-      ...item,
+      ...tail,
       order: cl.orders.relationship(orderId),
     }
 
@@ -380,7 +418,31 @@ const createLineItems = async ({
   })
 
   try {
-    await Promise.all(lineItems)
+    const lineItemsCreated = await Promise.all(lineItems)
+
+    const sku_options = await cl.sku_options.list()
+    if (sku_options && sku_options.length === 0) return
+    const lineItemsOptions = items.map((item, index) => {
+      if (item.sku_options && item.sku_options.length) {
+        return item.sku_options.map((sku_option) => {
+          const option = sku_options.find((so) => so.name === sku_option.name)
+          if (option) {
+            return cl.line_item_options.create({
+              line_item: cl.line_items.relationship(lineItemsCreated[index].id),
+              quantity: 1,
+              options: sku_option.value as object,
+              sku_option: cl.sku_options.relationship(option),
+            })
+          }
+          return undefined
+        })
+      }
+      return undefined
+    })
+
+    await Promise.all(
+      lineItemsOptions.filter((item) => item !== undefined).flat(2)
+    )
   } catch (e) {
     console.log(e)
   }
@@ -414,6 +476,7 @@ export const test = base.extend<FixtureType>({
       defaultParams.orderId === undefined ? orderId : defaultParams.orderId
     const accessToken =
       defaultParams.token === undefined ? token : defaultParams.token
+
     await checkoutPage.goto({
       orderId: id,
       token: accessToken,
