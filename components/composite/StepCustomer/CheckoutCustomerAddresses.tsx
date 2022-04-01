@@ -119,7 +119,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
   const handleScroll = (type: AddressTypeEnum) => {
     const tab = document
-      .querySelector(`h3[data-cy="${type}-address"]`)
+      .querySelector(`h3[data-test-id="${type}-address"]`)
       ?.getBoundingClientRect()
     const top = window.scrollY + (tab?.top as number)
     const left = window.scrollX + (tab?.left as number)
@@ -169,7 +169,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     <Fragment>
       <AddressSectionEmail readonly emailAddress={emailAddress as string} />
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
-        <AddressSectionTitle data-cy="billing-address">
+        <AddressSectionTitle data-test-id="billing-address">
           {t(`addressForm.billing_address_title`)}
         </AddressSectionTitle>
         <div className="relative">
@@ -193,7 +193,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
                 {!showBillingAddressForm && hasCustomerAddresses && (
                   <AddButton
-                    dataCy="add_new_billing_address"
+                    dataTestId="add_new_billing_address"
                     action={handleShowBillingForm}
                   />
                 )}
@@ -235,14 +235,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           <>
             <Toggle
               disabled={disabledShipToDifferentAddress}
-              data-cy="button-ship-to-different-address"
+              data-test-id="button-ship-to-different-address"
               data-status={shipToDifferentAddress}
               label={t(`addressForm.ship_to_different_address`)}
               checked={shipToDifferentAddress}
               onChange={handleToggle}
             />
             <div className={`${shipToDifferentAddress ? "" : "hidden"} mb-2`}>
-              <AddressSectionTitle data-cy="shipping-address">
+              <AddressSectionTitle data-test-id="shipping-address">
                 {t(`addressForm.shipping_address_title`)}
               </AddressSectionTitle>
             </div>
@@ -275,7 +275,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
               {!showShippingAddressForm && (
                 <AddButton
-                  dataCy="add_new_shipping_address"
+                  dataTestId="add_new_shipping_address"
                   action={handleShowShippingForm}
                 />
               )}
@@ -326,7 +326,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                     : t("stepShipping.continueToPayment")}
                 </>
               }
-              data-cy="save-addresses-button"
+              data-test-id="save-customer-button"
               onClick={handleSave}
             />
           </ButtonWrapper>

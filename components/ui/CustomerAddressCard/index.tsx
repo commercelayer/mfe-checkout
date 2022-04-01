@@ -14,13 +14,13 @@ export const CustomerAddressCard: React.FC<AddressCardProps> = ({
   deselect,
   onSelect,
 }) => {
-  const dataCy =
+  const dataTestId =
     addressType === "billing"
       ? "customer-billing-address"
       : "customer-shipping-address"
   return (
     <Address
-      data-cy={dataCy}
+      data-test-id={dataTestId}
       addresses={addresses}
       className={`text-black p-3 rounded border ${
         onSelect && "hover:border-primary cursor-pointer"
@@ -78,12 +78,12 @@ export const CustomAddress = ({
   addressType,
 }: AddressProps) => (
   <>
-    <p className="font-bold text-md" data-cy={`fullname_${addressType}`}>
+    <p className="font-bold text-md" data-test-id={`fullname_${addressType}`}>
       {firstName} {lastName}
     </p>
     <p
       className="text-sm text-gray-500"
-      data-cy={`full_address_${addressType}`}
+      data-test-id={`full_address_${addressType}`}
     >
       {[line1, line2].join(", ")}
       <br />

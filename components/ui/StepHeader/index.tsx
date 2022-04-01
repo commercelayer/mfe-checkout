@@ -22,9 +22,9 @@ export const StepHeader: React.FC<Props> = ({
       <Body>
         <Top>
           <Badge status={status} stepNumber={stepNumber} />
-          <Title data-cy="step-header-customer">{label}</Title>
+          <Title data-test-id="step-header-customer">{label}</Title>
         </Top>
-        <Info data-cy="step-header-info">{info}</Info>
+        <Info data-test-id="step-header-info">{info}</Info>
       </Body>
     </Wrapper>
   )

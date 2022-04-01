@@ -17,7 +17,7 @@ export const PaymentSummaryList = () => {
   return (
     <>
       <PaymentSummary>
-        <PaymentSummaryItem data-cy="payment-method-item">
+        <PaymentSummaryItem data-test-id="payment-method-item">
           <PaymentRadioContainer>
             <StyledPaymentMethodRadioButton className="form-radio" />
           </PaymentRadioContainer>

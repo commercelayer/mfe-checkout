@@ -2,19 +2,19 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 interface Props {
-  dataCy?: string
+  dataTestId?: string
   htmlFor: string
   textLabel?: string
 }
 
 export const Label: React.FC<Props> = ({
-  dataCy,
+  dataTestId,
   htmlFor,
   textLabel,
   children,
 }) => {
   return (
-    <Wrapper data-cy={dataCy} htmlFor={htmlFor}>
+    <Wrapper data-test-id={dataTestId} htmlFor={htmlFor}>
       {children || textLabel}
     </Wrapper>
   )

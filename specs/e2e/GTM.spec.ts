@@ -14,6 +14,9 @@ test.describe("multi shipments", () => {
         terms_url: "https://www.google.it",
         privacy_url: "https://www.google.it",
       },
+      organization: {
+        gtmId: "GTM-123456",
+      },
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
         { sku_code: "TSHIRTMMFFFFFF000000XLXX", quantity: 5 },
@@ -140,6 +143,9 @@ test.describe("single shipment", () => {
       order: "with-items",
       orderAttributes: {
         customer_email: customerEmail,
+      },
+      organization: {
+        gtmId: "GTM-123456",
       },
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },

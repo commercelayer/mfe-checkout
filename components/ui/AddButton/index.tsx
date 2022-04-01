@@ -3,15 +3,15 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 interface Props {
-  dataCy: string
+  dataTestId: string
   action: () => void
 }
 
-export const AddButton: React.FC<Props> = ({ dataCy, action }) => {
+export const AddButton: React.FC<Props> = ({ dataTestId, action }) => {
   const { t } = useTranslation()
 
   return (
-    <Wrapper data-cy={dataCy} onClick={action}>
+    <Wrapper data-test-id={dataTestId} onClick={action}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="w-5 h-5"

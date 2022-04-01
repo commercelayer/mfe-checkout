@@ -41,7 +41,7 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
       return <p>{t("stepCustomer.notSet")}</p>
     }
 
-    return <p data-cy="customer-email-step-header">{emailAddress}</p>
+    return <p data-test-id="customer-email-step-header">{emailAddress}</p>
   }
 
   return (
