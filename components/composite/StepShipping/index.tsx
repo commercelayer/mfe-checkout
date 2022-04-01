@@ -14,7 +14,6 @@ import {
   DeliveryLeadTime,
   ShipmentField,
   LineItemType,
-  Errors,
   ErrorComponentProps,
 } from "@commercelayer/react-components"
 import { ShippingMethod as ShippingMethodCollection } from "@commercelayer/sdk"

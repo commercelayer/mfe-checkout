@@ -1,16 +1,23 @@
-import { Errors } from "@commercelayer/react-components"
+import { ErrorComponentProps, Errors } from "@commercelayer/react-components"
 import { useTranslation, Trans } from "next-i18next"
+import { Dispatch, SetStateAction } from "react"
 
-export const OutOfStock = ({ messages, setOutOfStockError, cartUrl }) => {
+interface Props {
+  messages: ErrorComponentProps["messages"]
+  setOutOfStockError: Dispatch<SetStateAction<boolean>>
+  cartUrl?: string
+}
+
+export const OutOfStock = ({
+  messages,
+  setOutOfStockError,
+  cartUrl,
+}: Props) => {
   const { t } = useTranslation()
   return (
-    <Errors
-      resource="line_items"
-      messages={messages}
-      setError={setOutOfStockError}
-    >
-      {({ errors, setError }) => {
-        setError(errors.length > 0 && errors[0] !== undefined)
+    <Errors resource="line_items" messages={messages}>
+      {({ errors }) => {
+        setOutOfStockError(errors.length > 0 && errors[0] !== undefined)
 
         return errors.map((error, index) => (
           <p key={index}>

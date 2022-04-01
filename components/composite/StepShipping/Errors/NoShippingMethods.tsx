@@ -1,14 +1,20 @@
-import { Errors } from "@commercelayer/react-components"
+import { ErrorComponentProps, Errors } from "@commercelayer/react-components"
+import { Dispatch, SetStateAction } from "react"
 
-export const NoShippingMethods = ({ messages, setShippingMethodError }) => {
+interface Props {
+  messages: ErrorComponentProps["messages"]
+  setShippingMethodError: Dispatch<SetStateAction<boolean>>
+  cartUrl?: string
+}
+
+export const NoShippingMethods = ({
+  messages,
+  setShippingMethodError,
+}: Props) => {
   return (
-    <Errors
-      resource="shipments"
-      messages={messages}
-      setError={setShippingMethodError}
-    >
-      {({ errors, setError }) => {
-        setError(errors.length > 0 && errors[0] !== undefined)
+    <Errors resource="shipments" messages={messages}>
+      {({ errors }) => {
+        setShippingMethodError(errors.length > 0 && errors[0] !== undefined)
 
         return errors.map((error, index) => <p key={index}>{error}</p>)
       }}
