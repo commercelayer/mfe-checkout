@@ -33,6 +33,8 @@ import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
 
+import { NoShippingMethods } from "./Errors/NoShippingMethods"
+import { OutOfStock } from "./Errors/OutOfStock"
 import {
   ShippingWrapper,
   ShippingTitle,
@@ -170,49 +172,16 @@ export const StepShipping: React.FC<Props> = () => {
               <>
                 {
                   <ShipmentsContainer>
-                    <Errors resource="line_items" messages={messages}>
-                      {({ errors }) => {
-                        setOutOfStockError(
-                          errors.length > 0 && errors[0] !== undefined
-                        )
+                    <OutOfStock
+                      cartUrl={appCtx.cartUrl}
+                      messages={messages}
+                      setOutOfStockError={setOutOfStockError}
+                    />
+                    <NoShippingMethods
+                      messages={messages}
+                      setShippingMethodError={setShippingMethodError}
+                    />
 
-                        return errors.map((error, index) => (
-                          <p key={index}>
-                            {error}
-                            {appCtx.cartUrl && (
-                              <Trans
-                                i18nKey={"stepShipping.outOfStockWithCart"}
-                                values={{
-                                  link: t("stepShipping.outOfStockLink"),
-                                }}
-                                components={{
-                                  WrapperStyle: (
-                                    <strong className="text-black border-b border-gray-300 cursor-pointer" />
-                                  ),
-                                  Link: (
-                                    <a
-                                      data-test-id="out-of-stock-cart-link"
-                                      href={`${appCtx.cartUrl}`}
-                                    />
-                                  ),
-                                }}
-                              />
-                            )}
-                          </p>
-                        ))
-                      }}
-                    </Errors>
-                    <Errors resource="shipments" messages={messages}>
-                      {({ errors }) => {
-                        setShippingMethodError(
-                          errors.length > 0 && errors[0] !== undefined
-                        )
-
-                        return errors.map((error, index) => (
-                          <p key={index}>{error}</p>
-                        ))
-                      }}
-                    </Errors>
                     {!shippingMethodError && !outOfStockError && (
                       <>
                         <Shipment
