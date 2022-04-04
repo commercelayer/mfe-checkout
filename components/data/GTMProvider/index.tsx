@@ -173,6 +173,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
           value: shipment.shipping_method?.price_amount_for_shipment_float,
           shipping_tier: shipment.shipping_method?.name,
           market_id: order?.market?.id,
+          customer_email: order?.customer_email,
         },
       })
     })
