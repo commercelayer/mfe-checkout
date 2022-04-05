@@ -233,4 +233,28 @@ test.describe("with tax not included", () => {
     await checkoutPage.checkTaxLine("Tax$26.14")
     await checkoutPage.checkTaxSummary("$26.14")
   })
+
+  test("total tax on coupon removal", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkTaxSummary("To be calculated")
+
+    await checkoutPage.setBillingAddress(usAddress)
+    await checkoutPage.save("Customer")
+    await checkoutPage.checkStep("Payment", "open")
+    await checkoutPage.checkTaxLine("Tax$26.14")
+    await checkoutPage.checkTaxSummary("$26.14")
+
+    await checkoutPage.setCoupon("coupon100")
+    await checkoutPage.checkDiscountAmount("-$100.00")
+    await checkoutPage.checkTaxLine("Tax$4.14")
+    await checkoutPage.checkTaxSummary("$4.14")
+    await checkoutPage.checkTotalAmount("$29.94")
+
+    await checkoutPage.removeCoupon()
+    await checkoutPage.checkDiscountAmount("")
+    await checkoutPage.checkTaxLine("Tax$26.14")
+    await checkoutPage.checkTaxSummary("$26.14")
+    await checkoutPage.checkTotalAmount("$151.94")
+  })
 })

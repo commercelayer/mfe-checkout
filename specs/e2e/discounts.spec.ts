@@ -48,6 +48,53 @@ test.describe("with coupon code", () => {
 
     await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
+
+  test("should execute a checkout removing coupon", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setCustomerMail()
+    await checkoutPage.setBillingAddress()
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.checkCouponCode("TESTCOUPON")
+    await checkoutPage.checkDiscountAmount("-€94,50")
+
+    await checkoutPage.removeCoupon()
+    await checkoutPage.checkDiscountAmount(undefined)
+
+    await checkoutPage.page.waitForTimeout(1000)
+
+    await checkoutPage.checkShippingSummary("To be calculated")
+
+    await expect(
+      checkoutPage.page.locator("text=Standard Shipping")
+    ).toBeVisible()
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.checkShippingSummary("FREE")
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.checkPaymentSummary("€10,00")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+  })
 })
 
 test.describe("without coupon code", () => {
@@ -167,7 +214,7 @@ test.describe("without applied coupon code", () => {
     await checkoutPage.setCoupon("wrongcoupon")
 
     await checkoutPage.checkCouponError(
-      "Doesn't match any active gift card or coupon"
+      "Please enter a valid gift card or coupon"
     )
 
     await checkoutPage.setCoupon("testcoupon")
@@ -245,7 +292,7 @@ test.describe("with giftcard", () => {
 
     await checkoutPage.setCoupon("wrongcoupon")
 
-    await checkoutPage.checkCouponError("Doesn't match any active coupon")
+    await checkoutPage.checkCouponError("Please enter a valid coupon.")
 
     await checkoutPage.setCoupon("testcoupon")
 
@@ -329,7 +376,7 @@ test.describe("without applied giftcard", () => {
     await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.checkCouponError(
-      "Doesn't match any active gift card or coupon"
+      "Please enter a valid gift card or coupon"
     )
 
     await checkoutPage.setCoupon("testcoupon")
@@ -340,7 +387,7 @@ test.describe("without applied giftcard", () => {
     await checkoutPage.setCoupon("wronggiftcard")
     await checkoutPage.page.waitForTimeout(1000)
 
-    await checkoutPage.checkCouponError("Doesn't match any active gift card")
+    await checkoutPage.checkCouponError("Please enter a valid gift card")
 
     await checkoutPage.setCoupon(checkoutPage.getGiftCard() as string)
     await checkoutPage.page.waitForTimeout(1000)

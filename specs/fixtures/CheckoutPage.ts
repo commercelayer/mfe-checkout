@@ -474,10 +474,16 @@ export class CheckoutPage {
     await this.page.locator(`text=${text}`).waitFor({ state: "visible" })
   }
 
-  async checkDiscountAmount(text: string) {
-    await this.page
-      .locator(`[data-test-id=discount-amount] >> text=${text}`)
-      .waitFor({ state: "visible" })
+  async checkDiscountAmount(text: string | undefined) {
+    const element = await this.page.locator(
+      `[data-test-id=discount-amount] >> text=${text}`
+    )
+
+    if (text !== undefined) {
+      await element.waitFor({ state: "visible" })
+    } else {
+      await expect(element).toHaveCount(0)
+    }
   }
 
   async checkGiftCardAmount(text: string) {
