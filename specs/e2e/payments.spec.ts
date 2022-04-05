@@ -619,18 +619,20 @@ test.describe("customer with Braintree", () => {
 
     await checkoutPage.save("Payment", undefined, true)
 
-    const cardinalFrame = checkoutPage.page.frameLocator(
-      "text=<head></head> <body> <div></div> </body>"
-    )
-    await cardinalFrame
-      .locator('[placeholder="\\ Enter\\ Code\\ Here"]')
-      .fill("1234")
+    // const cardinalFrame = checkoutPage.page.frameLocator(
+    //   "text=<head></head> <body> <div></div> </body>"
+    // )
+    // await cardinalFrame
+    //   .locator('[placeholder="\\ Enter\\ Code\\ Here"]')
+    //   .fill("1234")
 
-    await cardinalFrame.locator("text=SUBMIT").click()
+    // await cardinalFrame.locator("text=SUBMIT").click()
 
     await checkoutPage.page
       .locator(`text=Thank you for your order!`)
       .waitFor({ state: "visible", timeout: 100000 })
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4111")
   })
 })
 
