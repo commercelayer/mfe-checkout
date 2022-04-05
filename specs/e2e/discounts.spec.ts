@@ -151,6 +151,40 @@ test.describe("without coupon code", () => {
     const element = await checkoutPage.page.locator("button >> text=Remove")
     await expect(element).toHaveCount(0)
   })
+
+  test("should not apply after removing and click apply", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setCustomerMail("customer@tk.com")
+    await checkoutPage.setBillingAddress()
+
+    await checkoutPage.checkStep("Customer", "open")
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.checkShippingSummary("To be calculated")
+    await expect(
+      checkoutPage.page.locator("text=Standard Shipping")
+    ).toBeVisible()
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.checkShippingSummary("FREE")
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkTotalAmount("€315,00")
+    await checkoutPage.setCoupon("testcoupon")
+    await checkoutPage.checkCouponCode("TESTCOUPON")
+    await checkoutPage.checkDiscountAmount("-€94,50")
+    await checkoutPage.checkTotalAmount("€220,50")
+    await checkoutPage.removeCoupon()
+    await checkoutPage.checkTotalAmount("€315,00")
+    await checkoutPage.setCoupon("")
+    await checkoutPage.page.waitForTimeout(2000)
+    await checkoutPage.checkTotalAmount("€315,00")
+  })
 })
 
 test.describe("without applied coupon code", () => {

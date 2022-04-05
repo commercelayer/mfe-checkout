@@ -252,7 +252,7 @@ test.describe("with tax not included", () => {
     await checkoutPage.checkTotalAmount("$29.94")
 
     await checkoutPage.removeCoupon()
-    await checkoutPage.checkDiscountAmount("")
+    await checkoutPage.checkDiscountAmount(undefined)
     await checkoutPage.checkTaxLine("Tax$26.14")
     await checkoutPage.checkTaxSummary("$26.14")
     await checkoutPage.checkTotalAmount("$151.94")
