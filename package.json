@@ -34,25 +34,6 @@
         "prerelease": true
       }
     ],
-    "author": {
-      "name": "Matteo Alessani",
-      "email": "matteo@commercelayer.io"
-    },
-    "license": "MIT",
-    "bugs": {
-      "url": "https://github.com/commercelayer/commercelayer-react-checkout/issues"
-    },
-    "homepage": "https://github.com/commercelayer/commercelayer-react-checkout#readme",
-    "keywords": [
-      "reactjs",
-      "nextjs",
-      "jamstack",
-      "headless",
-      "ecommerce",
-      "api",
-      "checkout",
-      "commercelayer"
-    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
@@ -67,6 +48,25 @@
       ]
     ]
   },
+  "author": {
+    "name": "Matteo Alessani",
+    "email": "matteo@commercelayer.io"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/commercelayer/commercelayer-react-checkout/issues"
+  },
+  "homepage": "https://github.com/commercelayer/commercelayer-react-checkout#readme",
+  "keywords": [
+    "reactjs",
+    "nextjs",
+    "jamstack",
+    "headless",
+    "ecommerce",
+    "api",
+    "checkout",
+    "commercelayer"
+  ],
   "dependencies": {
     "@commercelayer/react-components": "^3.9.1",
     "@headlessui/react": "^1.5.0",
