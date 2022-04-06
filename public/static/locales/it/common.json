@@ -3,6 +3,8 @@
     "general": {
         "title": "{{companyName}} - Checkout",
         "systemError": "Siamo spiacenti ma qualcosa è andato storto!",
+        "retry_error_code": "Problemi di connessione",
+        "retry_error_description": "Prova a ricaricare la pagina",
         "invalid": "Quest'ordine non è accessibile.",
         "edit": "Modifica",
         "free" : "Gratis",

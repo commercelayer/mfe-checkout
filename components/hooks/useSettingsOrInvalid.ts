@@ -6,6 +6,7 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 interface UseSettingsOrInvalid {
   settings: CheckoutSettings | undefined
+  retryOnError?: boolean
   isLoading: boolean
 }
 
@@ -31,8 +32,10 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   }
 
   if (error || (data && !data.validCheckout)) {
-    router.push("/404")
-    return { settings: undefined, isLoading: false }
+    if (!data?.retryOnError) {
+      router.push("/404")
+    }
+    return { settings: undefined, retryOnError: true, isLoading: false }
   }
 
   return {

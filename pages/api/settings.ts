@@ -1,15 +1,19 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { TypeAccepted } from "@commercelayer/react-components/lib/utils/getLineItemsCount"
 import CommerceLayer, {
+  CommerceLayerStatic,
   CommerceLayerClient,
   Organization,
   Order,
 } from "@commercelayer/sdk"
+import retry from "async-retry"
 import jwt_decode from "jwt-decode"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 import hex2hsl, { BLACK_COLOR } from "components/utils/hex2hsl"
+
+const RETRIES = 2
 
 interface JWTProps {
   organization: {
@@ -22,15 +26,52 @@ interface JWTProps {
   test: boolean
 }
 
+interface FetchResource<T> {
+  object: T | undefined
+  success: boolean
+}
+
 function isProduction(env: string): boolean {
   return env === "production"
 }
 
+async function retryCall<T>(
+  f: Promise<T>
+): Promise<FetchResource<T> | undefined> {
+  return await retry(
+    async (bail, number) => {
+      try {
+        const object = await f
+        return {
+          object: object as unknown as T,
+          success: true,
+        }
+      } catch (e: unknown) {
+        if (CommerceLayerStatic.isApiError(e) && e.status === 401) {
+          console.log("Not authorized")
+          bail(e)
+          return
+        }
+        if (number === RETRIES + 1) {
+          return {
+            object: undefined,
+            success: false,
+          }
+        }
+        throw e
+      }
+    },
+    {
+      retries: RETRIES,
+    }
+  )
+}
+
 async function getOrganization(
   cl: CommerceLayerClient
-): Promise<Organization | undefined> {
-  try {
-    return await cl.organization.retrieve({
+): Promise<FetchResource<Organization> | undefined> {
+  return retryCall<Organization>(
+    cl.organization.retrieve({
       fields: {
         organizations: [
           "id",
@@ -45,18 +86,15 @@ async function getOrganization(
         ],
       },
     })
-  } catch (e) {
-    console.log("error on retrieving organization")
-    console.log(e)
-  }
+  )
 }
 
 async function getOrder(
   cl: CommerceLayerClient,
   orderId: string
-): Promise<Order | undefined> {
-  try {
-    return await cl.orders.retrieve(orderId, {
+): Promise<FetchResource<Order> | undefined> {
+  return retryCall<Order>(
+    cl.orders.retrieve(orderId, {
       fields: {
         orders: [
           "id",
@@ -73,10 +111,7 @@ async function getOrder(
       },
       include: ["line_items"],
     })
-  } catch (e) {
-    console.log("error on retrieving order")
-    console.log(e)
-  }
+  )
 }
 
 function getTokenInfo(accessToken: string) {
@@ -103,13 +138,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const paymentReturn = req.query.paymentReturn === "true"
 
-  function invalidateCheckout() {
+  function invalidateCheckout(retry?: boolean) {
     res.statusCode = 200
     console.log("access token:")
     console.log(accessToken)
     console.log("orderId")
     console.log(orderId)
-    return res.json({ validCheckout: false })
+    return res.json({ validCheckout: false, retryOnError: !!retry })
   }
 
   if (!accessToken || !orderId) {
@@ -140,18 +175,21 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     domain,
   })
 
-  const organization = await getOrganization(cl)
+  const organizationResource = await getOrganization(cl)
 
-  if (!organization?.id) {
+  const organization = organizationResource?.object
+
+  if (!organizationResource?.success || !organization?.id) {
     console.log("Invalid: organization")
-    return invalidateCheckout()
+    return invalidateCheckout(true)
   }
 
-  const order = await getOrder(cl, orderId)
+  const orderResource = await getOrder(cl, orderId)
+  const order = orderResource?.object
 
-  if (!order?.id) {
+  if (!orderResource?.success || !order?.id) {
     console.log("Invalid: order")
-    return invalidateCheckout()
+    return invalidateCheckout(true)
   }
 
   const lineItemsShoppable = order.line_items?.filter((line_item) => {

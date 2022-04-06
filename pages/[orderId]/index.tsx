@@ -2,6 +2,7 @@ import { NextPage } from "next"
 import dynamic from "next/dynamic"
 
 import CheckoutSkeleton from "components/composite/CheckoutSkeleton"
+import { RetryError } from "components/composite/RetryError"
 import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
 
 const DynamicCheckoutContainer = dynamic(
@@ -20,9 +21,16 @@ const DynamicCheckout = dynamic(() => import("components/composite/Checkout"), {
 
 CheckoutSkeleton.displayName = "Skeleton Loader"
 const Home: NextPage = () => {
-  const { settings, isLoading } = useSettingsOrInvalid()
+  const { settings, retryOnError, isLoading } = useSettingsOrInvalid()
 
-  if (isLoading || !settings) return <CheckoutSkeleton />
+  if (isLoading || (!settings && !retryOnError)) return <CheckoutSkeleton />
+
+  if (!settings) {
+    if (retryOnError) {
+      return <RetryError />
+    }
+    return <RetryError />
+  }
 
   return (
     <DynamicCheckoutContainer settings={settings}>

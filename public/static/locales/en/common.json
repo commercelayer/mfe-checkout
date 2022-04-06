@@ -3,6 +3,8 @@
     "general": {
         "title": "{{companyName}} - Checkout",
         "systemError": "We're sorry but something went wrong!",
+        "retry_error_code": "Connectivity issues",
+        "retry_error_description": "Try to reload the page",
         "invalid": "This order is not accessible.",
         "edit": "Edit",
         "free" : "Free",
