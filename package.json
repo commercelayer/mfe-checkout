@@ -75,7 +75,7 @@
     "classnames": "^2.3.1",
     "jwt-decode": "^3.1.2",
     "next": "12.1.4",
-    "next-i18next": "^10.5.0",
+    "next-i18next": "^11.0.0",
     "pure-md5": "^0.1.13",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -86,10 +86,10 @@
     "twin.macro": "2.8.2"
   },
   "devDependencies": {
-    "@faker-js/faker": "6.1.1",
+    "@commercelayer/js-auth": "^2.3.0",
+    "@faker-js/faker": "^6.1.2",
     "@next/bundle-analyzer": "^12.1.4",
     "@next/eslint-plugin-next": "^12.1.4",
-    "@commercelayer/js-auth": "^2.3.0",
     "@playwright/test": "^1.20.1",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/commit-analyzer": "^9.0.2",
