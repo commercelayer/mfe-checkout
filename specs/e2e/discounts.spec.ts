@@ -33,7 +33,7 @@ test.describe("with coupon code", () => {
 
     await checkoutPage.checkShippingSummary("FREE")
     await checkoutPage.save("Shipping")
-    await checkoutPage.checkCouponCode("TESTCOUPON")
+    await checkoutPage.checkCouponCode("testcoupon")
     await checkoutPage.checkDiscountAmount("-€94,50")
 
     await checkoutPage.checkStep("Payment", "open")
@@ -63,7 +63,7 @@ test.describe("with coupon code", () => {
 
     await checkoutPage.checkStep("Shipping", "open")
 
-    await checkoutPage.checkCouponCode("TESTCOUPON")
+    await checkoutPage.checkCouponCode("testcoupon")
     await checkoutPage.checkDiscountAmount("-€94,50")
 
     await checkoutPage.removeCoupon()
@@ -129,7 +129,7 @@ test.describe("without coupon code", () => {
 
     await checkoutPage.checkTotalAmount("€315,00")
     await checkoutPage.setCoupon("testcoupon")
-    await checkoutPage.checkCouponCode("TESTCOUPON")
+    await checkoutPage.checkCouponCode("testcoupon")
     await checkoutPage.checkDiscountAmount("-€94,50")
     await checkoutPage.checkTotalAmount("€220,50")
     await checkoutPage.removeCoupon()
@@ -176,7 +176,7 @@ test.describe("without coupon code", () => {
 
     await checkoutPage.checkTotalAmount("€315,00")
     await checkoutPage.setCoupon("testcoupon")
-    await checkoutPage.checkCouponCode("TESTCOUPON")
+    await checkoutPage.checkCouponCode("testcoupon")
     await checkoutPage.checkDiscountAmount("-€94,50")
     await checkoutPage.checkTotalAmount("€220,50")
     await checkoutPage.removeCoupon()
@@ -219,7 +219,7 @@ test.describe("without applied coupon code", () => {
 
     await checkoutPage.checkTotalAmount("€315,00")
     await checkoutPage.setCoupon("testcoupon")
-    await checkoutPage.checkCouponCode("TESTCOUPON")
+    await checkoutPage.checkCouponCode("testcoupon")
     await checkoutPage.checkDiscountAmount("-€94,50")
     await checkoutPage.checkTotalAmount("€220,50")
     await checkoutPage.removeCoupon()
@@ -253,7 +253,7 @@ test.describe("without applied coupon code", () => {
 
     await checkoutPage.setCoupon("testcoupon")
 
-    await checkoutPage.checkCouponCode("TESTCOUPON")
+    await checkoutPage.checkCouponCode("testcoupon")
     await checkoutPage.checkCouponError(undefined)
   })
 })
@@ -330,7 +330,7 @@ test.describe("with giftcard", () => {
 
     await checkoutPage.setCoupon("testcoupon")
 
-    await checkoutPage.checkCouponCode("TESTCOUPON")
+    await checkoutPage.checkCouponCode("testcoupon")
     await checkoutPage.checkCouponError(undefined)
   })
 })
@@ -428,7 +428,7 @@ test.describe("without applied giftcard", () => {
 
     await checkoutPage.checkCouponError(undefined)
 
-    await checkoutPage.checkCouponCode("TESTCOUPON")
+    await checkoutPage.checkCouponCode("testcoupon")
     await checkoutPage.checkGiftCardCode(checkoutPage.getGiftCard() as string)
   })
 })

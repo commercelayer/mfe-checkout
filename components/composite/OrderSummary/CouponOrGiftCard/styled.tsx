@@ -19,7 +19,7 @@ export const CouponRecap = styled.div`
   ${tw`flex flex-row justify-between pb-5 mb-6 border-b`}
 `
 export const CouponName = styled.p`
-  ${tw`font-bold uppercase`}
+  ${tw`font-bold`}
 `
 export const StyledGiftCardOrCouponRemoveButton = styled(
   GiftCardOrCouponRemoveButton
