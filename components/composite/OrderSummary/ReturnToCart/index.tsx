@@ -4,7 +4,7 @@ import Link from "next/link"
 import { CartLinkWrapper, LinkWrapper } from "./styled"
 
 interface Props {
-  cartUrl: string | undefined
+  cartUrl?: string
 }
 
 export const ReturnToCart = ({ cartUrl }: Props) => {

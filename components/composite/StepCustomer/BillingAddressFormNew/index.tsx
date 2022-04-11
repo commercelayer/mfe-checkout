@@ -8,7 +8,7 @@ import { AddressInputGroup } from "components/composite/StepCustomer/AddressInpu
 import { AppContext } from "components/data/AppProvider"
 
 interface Props {
-  billingAddress: Address | undefined
+  billingAddress?: Address
   openShippingAddress: (props: ShippingToggleProps) => void
 }
 

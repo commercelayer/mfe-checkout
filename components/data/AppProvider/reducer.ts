@@ -49,7 +49,7 @@ export type Action =
       payload: {
         order: Order
         automatedShippingMethod: {
-          hasShippingMethod?: boolean | undefined
+          hasShippingMethod?: boolean
           shippingMethodName?: string
         }
       }

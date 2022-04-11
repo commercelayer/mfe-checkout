@@ -7,7 +7,7 @@ import { useLocalStorageToken } from "./useLocalStorageToken"
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 interface UseSettingsOrInvalid {
-  settings: CheckoutSettings | undefined
+  settings?: CheckoutSettings
   retryOnError?: boolean
   isLoading: boolean
 }

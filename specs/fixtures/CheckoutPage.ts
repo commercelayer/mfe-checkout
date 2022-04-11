@@ -154,7 +154,7 @@ export class CheckoutPage {
     return element.innerText()
   }
 
-  async checkTermsAndPrivacyValue(value: boolean | undefined) {
+  async checkTermsAndPrivacyValue(value?: boolean) {
     const element = this.page.locator(
       "[data-test-id=checkbox-privacy-and-terms]"
     )
@@ -447,7 +447,7 @@ export class CheckoutPage {
     await expect(this.page.locator(`text=${text}`)).toBeVisible()
   }
 
-  async checkShippingSummary(text: string | undefined) {
+  async checkShippingSummary(text?: string) {
     if (text === undefined) {
       const element = await this.page.locator("[data-test-id=shipping-amount]")
       await expect(element).toHaveCount(0)
@@ -474,7 +474,7 @@ export class CheckoutPage {
     await this.page.locator(`text=${text}`).waitFor({ state: "visible" })
   }
 
-  async checkDiscountAmount(text: string | undefined) {
+  async checkDiscountAmount(text?: string) {
     const element = await this.page.locator(
       `[data-test-id=discount-amount] >> text=${text}`
     )
@@ -504,7 +504,7 @@ export class CheckoutPage {
       .waitFor({ state: "visible" })
   }
 
-  async checkCouponError(text: string | undefined) {
+  async checkCouponError(text?: string) {
     const element = this.page.locator(
       `[data-test-id=discount-error] >> text=${text}`
     )

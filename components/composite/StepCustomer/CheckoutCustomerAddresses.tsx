@@ -31,16 +31,16 @@ import { BillingAddressFormNew } from "./BillingAddressFormNew"
 import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
 
 interface Props {
-  billingAddress: Address | undefined
-  shippingAddress: Address | undefined
+  billingAddress?: Address
+  shippingAddress?: Address
   hasSameAddresses: boolean
   isShipmentRequired: boolean
   isUsingNewBillingAddress: boolean
   isUsingNewShippingAddress: boolean
   hasCustomerAddresses: boolean
-  emailAddress: string | undefined
+  emailAddress?: string
   isLocalLoader: boolean
-  shippingCountryCodeLock: string | undefined
+  shippingCountryCodeLock?: string
   shipToDifferentAddress: boolean
   setShipToDifferentAddress: Dispatch<SetStateAction<boolean>>
   openShippingAddress: (props: ShippingToggleProps) => void
@@ -69,25 +69,25 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation()
 
-  const [billingAddressFill, setBillingAddressFill] = useState<
-    Address | undefined
-  >(billingAddress)
-  const [shippingAddressFill, setShippingAddressFill] = useState<
-    Address | undefined
-  >(shippingAddress)
+  const [billingAddressFill, setBillingAddressFill] = useState(billingAddress)
+  const [shippingAddressFill, setShippingAddressFill] =
+    useState(shippingAddress)
 
   const [showBillingAddressForm, setShowBillingAddressForm] = useState<boolean>(
     isUsingNewBillingAddress
   )
 
-  const [mountBillingAddressForm, setMountBillingAddressForm] =
-    useState<boolean>(isUsingNewBillingAddress)
+  const [mountBillingAddressForm, setMountBillingAddressForm] = useState(
+    isUsingNewBillingAddress
+  )
 
-  const [showShippingAddressForm, setShowShippingAddressForm] =
-    useState<boolean>(isUsingNewShippingAddress)
+  const [showShippingAddressForm, setShowShippingAddressForm] = useState(
+    isUsingNewShippingAddress
+  )
 
-  const [mountShippingAddressForm, setMountShippingAddressForm] =
-    useState<boolean>(isUsingNewShippingAddress)
+  const [mountShippingAddressForm, setMountShippingAddressForm] = useState(
+    isUsingNewShippingAddress
+  )
 
   useEffect(() => {
     if (shipToDifferentAddress && !hasCustomerAddresses) {

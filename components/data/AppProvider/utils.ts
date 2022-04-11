@@ -20,8 +20,8 @@ import { AppStateData } from "components/data/AppProvider"
 import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
 
 interface IsNewAddressProps {
-  address: Address | undefined
-  customerAddresses: Array<CustomerAddress> | undefined
+  address?: Address
+  customerAddresses?: Array<CustomerAddress>
   isGuest: boolean
 }
 
@@ -54,26 +54,26 @@ export interface FetchOrderByIdResponse {
   hasSameAddresses: boolean
   hasEmailAddress: boolean
   customerAddresses: CustomerAddress[]
-  emailAddress: string | undefined
+  emailAddress?: string
   hasShippingAddress: boolean
-  shippingAddress: Address | undefined
+  shippingAddress?: Address
   hasBillingAddress: boolean
-  billingAddress: Address | undefined
-  requiresBillingInfo: boolean | undefined
+  billingAddress?: Address
+  requiresBillingInfo?: boolean
   hasShippingMethod: boolean
-  paymentMethod: PaymentMethod | undefined
+  paymentMethod?: PaymentMethod
   shipments: Array<ShipmentSelected>
   hasPaymentMethod: boolean
   hasCustomerAddresses: boolean
-  shippingCountryCodeLock: string | undefined
+  shippingCountryCodeLock?: string
   isShipmentRequired: boolean
   isPaymentRequired: boolean
   isComplete: boolean
-  returnUrl: string | undefined
-  cartUrl: string | undefined
+  returnUrl?: string
+  cartUrl?: string
   isCreditCard: boolean
-  taxIncluded: boolean | undefined
-  shippingMethodName: string | undefined
+  taxIncluded?: boolean
+  shippingMethodName?: string
 }
 
 function isNewAddress({
@@ -191,8 +191,8 @@ export async function checkAndSetDefaultAddressForOrder({
 }
 
 interface IsBillingAddressSameAsShippingAddressProps {
-  billingAddress: Address | undefined
-  shippingAddress: Address | undefined
+  billingAddress?: Address
+  shippingAddress?: Address
 }
 
 function isBillingAddressSameAsShippingAddress({

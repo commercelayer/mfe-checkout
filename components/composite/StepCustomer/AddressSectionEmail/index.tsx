@@ -14,7 +14,7 @@ import { Label } from "components/ui/form/Label"
 interface Props {
   readonly?: boolean
   setCustomerEmail?: (email: string) => void
-  emailAddress: string | undefined
+  emailAddress?: string
 }
 
 export const AddressSectionEmail: React.FC<Props> = ({
