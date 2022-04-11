@@ -30,8 +30,13 @@ export const CouponOrGiftCard: React.FC<Props> = ({
 
   const [codeError, setCodeError] = useState(false)
 
-  const handleSubmit = async (response: { success: boolean }) => {
-    if (!response.success) return setCodeError(true)
+  const handleSubmit = async (response: {
+    success: boolean
+    value?: string
+  }) => {
+    if (!response.success) {
+      return setCodeError(response.value?.length !== 0)
+    }
     await setCouponOrGiftCard()
     return setCodeError(false)
   }
