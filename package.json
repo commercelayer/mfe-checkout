@@ -68,7 +68,7 @@
     "commercelayer"
   ],
   "dependencies": {
-    "@commercelayer/react-components": "^3.9.2",
+    "@commercelayer/react-components": "^3.9.4",
     "@headlessui/react": "^1.5.0",
     "@rollbar/react": "^0.11.0",
     "async-retry": "^1.3.3",
@@ -82,7 +82,7 @@
     "react-gtm-module": "^2.0.11",
     "rollbar": "^2.24.1",
     "styled-components": "^5.3.5",
-    "swr": "^1.2.2",
+    "swr": "^1.3.0",
     "twin.macro": "2.8.2"
   },
   "devDependencies": {
@@ -103,12 +103,12 @@
     "@types/node": "^17.0.23",
     "@types/react": "^17.0.43",
     "@types/react-gtm-module": "^2.0.1",
-    "@types/styled-components": "^5.1.24",
+    "@types/styled-components": "^5.1.25",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
     "autoprefixer": "^10.4.4",
     "dotenv": "^16.0.0",
-    "eslint": "^8.12.0",
+    "eslint": "^8.13.0",
     "eslint-config-next": "^12.1.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^16.0.3",
