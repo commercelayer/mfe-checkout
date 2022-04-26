@@ -619,3 +619,31 @@ test.describe("no shipping zone and one out of stock", () => {
     await expect(element).toHaveCount(1)
   })
 })
+
+test.describe("ship from primary", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      market: process.env.NEXT_PUBLIC_MARKET_ID_SHIP_FROM_PRIMARY,
+      lineItemsAttributes: [
+        { sku_code: "LSLEEVMM000000E63E74LXXX", quantity: 1 },
+        { sku_code: "PSTBIGAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("can see both article in delivery step", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    const { billing_info, ...address } = euAddress
+    await checkoutPage.setBillingAddress(address)
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "open")
+    const element = checkoutPage.page.locator('[data-test-id="line-item-name"]')
+    await expect(element).toHaveCount(2)
+  })
+})
