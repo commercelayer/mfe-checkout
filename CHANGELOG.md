@@ -1,3 +1,27 @@
+# [1.7.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.6.0...v1.7.0) (2022-05-03)
+
+
+### Bug Fixes
+
+* avoid uppercasing coupon once applied ([06f51ca](https://github.com/commercelayer/commercelayer-react-checkout/commit/06f51caee4ef54b4f36c2af2d4f80c46ea63b2b4))
+* Clean braintree errors on coupon section ([78a9718](https://github.com/commercelayer/commercelayer-react-checkout/commit/78a97182d7dd5ec492dc540df2bbbc7863610595))
+* Hide `customer_email` error on coupon code ([dac90f4](https://github.com/commercelayer/commercelayer-react-checkout/commit/dac90f4404d31fca545d04ad593498fb5d229456))
+* keep line_2 field optional on touch ([f28becf](https://github.com/commercelayer/commercelayer-react-checkout/commit/f28becfc3d4bd3a7df572512866750e6626eb987))
+* lineItem options style refactored ([9ca5ecd](https://github.com/commercelayer/commercelayer-react-checkout/commit/9ca5ecdbf6ce63f9f59bd4244af9057c3d804276))
+* remove error if coupon input is cleared ([3c1316c](https://github.com/commercelayer/commercelayer-react-checkout/commit/3c1316c76d2c2749ceedf95f9fedd743e34f755e))
+* remove price from delivery step ([fcda199](https://github.com/commercelayer/commercelayer-react-checkout/commit/fcda19973fdcc7c88aed21645c38b6f3fac4b9ee))
+* select and use customer payment source ([9a4b0ef](https://github.com/commercelayer/commercelayer-react-checkout/commit/9a4b0efdd6b77344d8c7c37171b56ca6fd1265e4))
+
+
+### Features
+
+* add checkout.com session after return from 3ds ([a8d3496](https://github.com/commercelayer/commercelayer-react-checkout/commit/a8d349601e84347a672344827b94956fe7ab1939))
+* add coupon and gift card errors ([6d8365f](https://github.com/commercelayer/commercelayer-react-checkout/commit/6d8365fdc75c0a2e3def46518fd82acc75bc8b7e))
+* add retry for timeout in api/settings and keep url if failing on error page ([4e6cc5f](https://github.com/commercelayer/commercelayer-react-checkout/commit/4e6cc5f09d782a0c7cde6f504a6bbdf6a41fd591))
+* allow coupon and gift card on the same order ([87b853e](https://github.com/commercelayer/commercelayer-react-checkout/commit/87b853e69a9e9dd7c590930e23196c649b78010a))
+* Checkout dot com form customization ([6403eeb](https://github.com/commercelayer/commercelayer-react-checkout/commit/6403eeb1813bf0839a3cc0acfce24cba4b1271b5))
+* save accessToken in local storage for Paypal and checkout.com return ([1052001](https://github.com/commercelayer/commercelayer-react-checkout/commit/1052001c7f024e88b6e19b665e63076167237ec3))
+
 # [1.6.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.5.0...v1.6.0) (2022-03-28)
 
 
