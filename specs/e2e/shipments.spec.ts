@@ -647,3 +647,32 @@ test.describe("ship from primary", () => {
     await expect(element).toHaveCount(2)
   })
 })
+
+test.describe("discount with coupon", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      market: process.env.NEXT_PUBLIC_MARKET_ID_SHIP_FROM_PRIMARY,
+      lineItemsAttributes: [
+        { sku_code: "TSHIRTMMFFFFFFE63E74MXXX", quantity: 5 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("check right shipping price", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    const { billing_info, ...address } = euAddress
+    await checkoutPage.setBillingAddress(address)
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
+    await checkoutPage.checkShippingSummary("Free")
+    await checkoutPage.setCoupon("test50off")
+    await checkoutPage.checkShippingSummary("€10,00")
+  })
+})
