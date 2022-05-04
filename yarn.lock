@@ -12,10 +12,10 @@
   resolved "https://registry.yarnpkg.com/@ac-dev/states-service/-/states-service-1.1.0.tgz#303328c615db652b0898aa323b60559fb6c20fc4"
   integrity sha512-8BdOTMIsHaKweIkx3iMzNkYgUenOENqR5tkvonLAfKn4pBEQf2kmKWUMXpN2/8QKXIDgjcKDkhyEr46UjhKj+A==
 
-"@adyen/adyen-web@^5.12.0":
-  version "5.13.0"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.13.0.tgz#32a30940432faff44ff842a312cbe46a48293e84"
-  integrity sha512-od3RL5jtF2XaSrQVwqNs5UNfHXnZVjj0vV8OIwD6mcXyKl9nPtHFY2gWlSeXLg1S6cX8B+En7LcY5sNDmDkmbQ==
+"@adyen/adyen-web@^5.13.1":
+  version "5.14.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.14.0.tgz#e216739ee9dbab37162eee8db996c137dd03e20e"
+  integrity sha512-ylud5zphkZc1XsZ6inldc7bs302aY7ZL5xBZbqbRJSP/2j735fBen8/1qnN2+EiUI1LBkFrjQDYJ0Ns3cw5Wrg==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@babel/runtime-corejs3" "^7.16.3"
@@ -514,32 +514,32 @@
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^3.9.5":
-  version "3.9.5"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.9.5.tgz#22d2dbbc0cf1676d39b8804cc18f823bc5d078d8"
-  integrity sha512-YuS87XefaADwmDmgv5DwuPShLTFWslHjLnOO9NgJiGL2TvuVS4qLx8cylo/FGeo1ViAwuQ/f+h+HsS7dOy8wUg==
+"@commercelayer/react-components@^3.11.2":
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.11.2.tgz#8232e7a6632b2de74d44cd356585adfd09c7aa2e"
+  integrity sha512-MIZLQkpCk3e/epHz3X9lpCZk5bvprDyl7Au5Wli8UcIA/r7Dyhh1CRfcCTuNnqf6VZJU/+yvW0kfM5ZM2Pe2aQ==
   dependencies:
     "@ac-dev/countries-service" "^1.2.0"
     "@ac-dev/states-service" "^1.1.0"
-    "@adyen/adyen-web" "^5.12.0"
+    "@adyen/adyen-web" "^5.13.1"
     "@commercelayer/js-auth" "^2.3.0"
-    "@commercelayer/sdk" "^3.7.0"
-    "@stripe/react-stripe-js" "^1.7.0"
-    "@stripe/stripe-js" "^1.26.0"
+    "@commercelayer/sdk" "^4.13.0"
+    "@stripe/react-stripe-js" "^1.7.1"
+    "@stripe/stripe-js" "^1.27.0"
     axios "^0.26.1"
-    braintree-web "^3.85.2"
-    frames-react "^1.0.3"
+    braintree-web "^3.85.3"
+    frames-react "^1.0.5"
     jwt-decode "^3.1.2"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
     rapid-form "^1.6.2"
 
-"@commercelayer/sdk@^3.7.0":
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/@commercelayer/sdk/-/sdk-3.7.1.tgz#84b5f9088b5ef01da257294e03fe935834563a3b"
-  integrity sha512-cn79azWkr5xLGpl9gSheWZ6zKOkzxPh8v0HQVYfY9Utmd+TVsKhF5GeDT+/CLVfIGmIV56lQfVBxJB5b9lxsUg==
+"@commercelayer/sdk@^4.13.0":
+  version "4.13.1"
+  resolved "https://registry.yarnpkg.com/@commercelayer/sdk/-/sdk-4.13.1.tgz#8f9fdda9dfc846aa7794517444217f6f3e1fd089"
+  integrity sha512-/uDGDRhqeOXiCnR9jNmejduVReZO2/Ik71CPi2+rCHyo39dFub5FNLPjKmKPqOsKW01rWtYSoiH1tsfNpN9+eA==
   dependencies:
-    axios "^0.24.0"
+    axios "^0.26.1"
 
 "@emotion/is-prop-valid@^1.1.0":
   version "1.1.2"
@@ -1156,17 +1156,17 @@
   resolved "https://registry.yarnpkg.com/@servie/events/-/events-1.0.0.tgz#8258684b52d418ab7b86533e861186638ecc5dc1"
   integrity sha512-sBSO19KzdrJCM3gdx6eIxV8M9Gxfgg6iDQmH5TIAGaUu+X9VDdsINXJOnoiZ1Kx3TrHdH4bt5UVglkjsEGBcvw==
 
-"@stripe/react-stripe-js@^1.7.0":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.7.1.tgz#6e1db8f4a0eaf2193b153173d4aa7c38b681310d"
-  integrity sha512-GiUPoMo0xVvmpRD6JR9JAhAZ0W3ZpnYZNi0KE+91+tzrSFVpChKZbeSsJ5InlZhHFk9NckJCt1wOYBTqNsvt3A==
+"@stripe/react-stripe-js@^1.7.1":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.7.2.tgz#87cc5464378fb28bc7390702415cf70f13a46bcd"
+  integrity sha512-IAVg2nPUPoSwI//XDRCO7D8mGeK4+N3Xg63fYZHmlfEWAuFVcuaqJKTT67uzIdKYZhHZ/NMdZw/ttz+GOjP/rQ==
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^1.26.0":
-  version "1.27.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.27.0.tgz#ab0c82fa89fd40260de4414f69868b769e810550"
-  integrity sha512-SEiybUBu+tlsFKuzdFFydxxjkbrdzHo0tz/naYC5Dt9or/Ux2gcKJBPYQ4RmqQCNHFxgyNj6UYsclywwhe2inQ==
+"@stripe/stripe-js@^1.27.0":
+  version "1.29.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.29.0.tgz#f41e46aee711d1eabcb3bbc77376016a250ec962"
+  integrity sha512-OsUxk0VLlum8E2d6onlEdKuQcvLMs7qTrOXCnl/BGV3fAm65qr6h3e1IZ5AX4lgUlPRrzRcddSOA5DvkKKYLvg==
 
 "@tailwindcss/forms@^0.5.0":
   version "0.5.0"
@@ -1755,13 +1755,6 @@ axe-core@^4.3.5:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.4.1.tgz#7dbdc25989298f9ad006645cd396782443757413"
   integrity sha512-gd1kmb21kwNuWr6BQz8fv6GNECPBnUasepcoLbekws23NVBLODdsClRZ+bQ8+9Uomf3Sm3+Vwn0oYG9NvwnJCw==
 
-axios@^0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
-  integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
-  dependencies:
-    follow-redirects "^1.14.4"
-
 axios@^0.26.1:
   version "0.26.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
@@ -1865,7 +1858,7 @@ braces@^3.0.2, braces@~3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
-braintree-web@^3.85.2:
+braintree-web@^3.85.3:
   version "3.85.3"
   resolved "https://registry.yarnpkg.com/braintree-web/-/braintree-web-3.85.3.tgz#cf2025dcdcfab5a950f59dbf8910e266f096057b"
   integrity sha512-slCnjD/YLFDmiOU0vxL7i4uifjRQV5Cw7dSkhRdXiIT+a8iQ7NxtL5FSomv45wuHqgdilZeQ8iB8guIrn6QgwA==
@@ -3340,7 +3333,7 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.5.tgz#76c8584f4fc843db64702a6bd04ab7a8bd666da3"
   integrity sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==
 
-follow-redirects@^1.14.4, follow-redirects@^1.14.8:
+follow-redirects@^1.14.8:
   version "1.14.9"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.9.tgz#dd4ea157de7bfaf9ea9b3fbd85aa16951f78d8d7"
   integrity sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==
@@ -3357,10 +3350,10 @@ framebus@5.1.2:
   dependencies:
     "@braintree/uuid" "^0.1.0"
 
-frames-react@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/frames-react/-/frames-react-1.0.4.tgz#e3b2f26cdff6501c1b1214839caa0ff0213492fe"
-  integrity sha512-Rsx6xBDzPLJN6K2r8FpI6esl6oFod4URO10MQURZvFqzr4WZkHhfFqWLECRwLB9srYqwU6sJ7LTmz17p+zwQpA==
+frames-react@^1.0.5:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/frames-react/-/frames-react-1.0.7.tgz#d64d39ad3e12fff72a7da94d6c0259d874147970"
+  integrity sha512-lZH8sg/N9cudOjnYQ3Ydd8ZU2lKo1ra3LrZlcNRtcey7RiXeWXJzoNjvnQJ1wRVfNdFe/pGXp02/owG4fuCDBg==
   dependencies:
     classnames "^2.3.1"
 
