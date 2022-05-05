@@ -1,3 +1,11 @@
+## [1.7.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.0...v1.7.1) (2022-05-05)
+
+
+### Bug Fixes
+
+* avoid double payment intent creation ([fd34f7e](https://github.com/commercelayer/commercelayer-react-checkout/commit/fd34f7e2a1c0f629806dfc924374e3b80dea14e7))
+* use new component for stock transfer ([4b2cc89](https://github.com/commercelayer/commercelayer-react-checkout/commit/4b2cc89418c10abc8c05fa95af5d1caeb44cd8ae))
+
 # [1.7.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.6.0...v1.7.0) (2022-05-03)
 
 
