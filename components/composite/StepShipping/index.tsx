@@ -316,7 +316,8 @@ export const StepShipping: React.FC<Props> = () => {
                                         >
                                           <StockTransferField
                                             className="px-1"
-                                            type="quantity"
+                                            attribute="quantity"
+                                            tagElement="span"
                                           />
                                           <LineItemQuantity
                                             readonly
