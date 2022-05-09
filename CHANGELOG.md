@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.1...v1.7.2) (2022-05-09)
+
+
+### Bug Fixes
+
+* remove unit price in order summary ([573ec70](https://github.com/commercelayer/commercelayer-react-checkout/commit/573ec700114ff964f20b50487d507cebc57f76d0))
+
 ## [1.7.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.0...v1.7.1) (2022-05-05)
 
 
