@@ -391,6 +391,36 @@ test.describe("with single shipping method", () => {
   })
 })
 
+test.describe("with single shipping method, 2 products", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+        { sku_code: "SOCKXXMUE63E74FFFFFFLXXX", quantity: 1 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("one without shipping methods", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(usAddress)
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.page
+      .locator("text=Express Delivery")
+      .waitFor({ state: "visible" })
+    await checkoutPage.checkStep("Payment", "open")
+  })
+})
+
 test.describe("changing order amount", () => {
   test.use({
     defaultParams: {
