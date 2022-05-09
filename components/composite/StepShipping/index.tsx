@@ -296,7 +296,7 @@ export const StepShipping: React.FC<Props> = () => {
                                         <LineItemQuantity readonly>
                                           {(props) =>
                                             !!props.quantity &&
-                                            t("orderRecap.only_quantity", {
+                                            t("orderRecap.quantity", {
                                               count: props.quantity,
                                             })
                                           }
