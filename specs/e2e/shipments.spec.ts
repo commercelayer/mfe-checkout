@@ -466,6 +466,47 @@ test.describe("no shipping zone", () => {
   })
 })
 
+test.describe("with do no track SKU", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "SOCKXXMUFFFFFF000000MXXX", quantity: 2 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("select shipping method", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkCustomerEmail(customerEmail)
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.checkShippingSummary("To be calculated")
+    expect(checkoutPage.page.locator("text=Standard Shipping")).toBeVisible()
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.clickStep("Shipping")
+
+    await checkoutPage.checkSelectedShippingMethod({ value: true })
+
+    await checkoutPage.checkShippingSummary("FREE")
+  })
+})
+
 test.describe("no shipping zone with cart url", () => {
   test.use({
     defaultParams: {
