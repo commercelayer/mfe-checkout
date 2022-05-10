@@ -178,11 +178,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const setCouponOrGiftCard = async () => {
     if (state.paymentMethod) {
-      // dispatch({ type: ActionType.START_LOADING })
+      dispatch({ type: ActionType.START_LOADING })
       // fetch new order data
-      // dispatch({
-      //   type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
-      // })
+      dispatch({
+        type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
+      })
     }
   }
 
