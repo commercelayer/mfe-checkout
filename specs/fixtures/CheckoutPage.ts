@@ -692,7 +692,7 @@ export class CheckoutPage {
 
           await this.page
             .locator("text=Thank you for your order!")
-            .waitFor({ state: "visible", timeout: 15000 })
+            .waitFor({ state: "visible", timeout: 30000 })
           return
         }
 

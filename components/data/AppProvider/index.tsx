@@ -150,13 +150,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     const order = await cl.orders.retrieve(orderId, {
       fields: {
         orders: ["shipping_address", "billing_address", "shipments"],
-        shipments: ["shipping_method"],
+        shipments: ["shipping_method", "available_shipping_methods"],
       },
       include: [
         "shipping_address",
         "billing_address",
         "shipments",
         "shipments.shipping_method",
+        "shipments.available_shipping_methods",
       ],
     })
 

@@ -391,7 +391,7 @@ test.describe("with single shipping method", () => {
   })
 })
 
-test.describe("with single shipping method, 2 products", () => {
+test.describe("with single shipping method, not shippable", () => {
   test.use({
     defaultParams: {
       order: "with-items",
@@ -406,7 +406,9 @@ test.describe("with single shipping method, 2 products", () => {
     },
   })
 
-  test("one without shipping methods", async ({ checkoutPage }) => {
+  test("a shipment without available shipping methods", async ({
+    checkoutPage,
+  }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setBillingAddress(usAddress)
@@ -414,10 +416,44 @@ test.describe("with single shipping method, 2 products", () => {
 
     await checkoutPage.checkStep("Customer", "close")
     await checkoutPage.checkStep("Shipping", "open")
-    await checkoutPage.page
-      .locator("text=Express Delivery")
-      .waitFor({ state: "visible" })
-    await checkoutPage.checkStep("Payment", "open")
+    await checkoutPage.checkButton({ type: "Shipping", status: "not_present" })
+    const element = checkoutPage.page.locator(
+      "text=The entered destination is outside our shipping zone."
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
+
+test.describe("with single shipping method per shipment", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+        { sku_code: "MUGXXXAUFFFFFF00000011OZ", quantity: 1 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("different shipping methods, but single per shipment", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(usAddress)
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.checkButton({ type: "Shipping", status: "not_present" })
+    const element = checkoutPage.page.locator(
+      "text=Your order contains 2 shipments"
+    )
+    await expect(element).toHaveCount(1)
   })
 })
 
