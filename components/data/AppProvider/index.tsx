@@ -150,13 +150,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     const order = await cl.orders.retrieve(orderId, {
       fields: {
         orders: ["shipping_address", "billing_address", "shipments"],
-        shipments: ["shipping_method"],
+        shipments: ["shipping_method", "available_shipping_methods"],
       },
       include: [
         "shipping_address",
         "billing_address",
         "shipments",
         "shipments.shipping_method",
+        "shipments.available_shipping_methods",
       ],
     })
 
@@ -177,11 +178,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const setCouponOrGiftCard = async () => {
     if (state.paymentMethod) {
-      // dispatch({ type: ActionType.START_LOADING })
+      dispatch({ type: ActionType.START_LOADING })
       // fetch new order data
-      // dispatch({
-      //   type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
-      // })
+      dispatch({
+        type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
+      })
     }
   }
 

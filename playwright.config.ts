@@ -8,7 +8,7 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env.local") })
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
   // Timeout per test
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   // Test directory
   testDir: "specs/e2e",
   // If a test fails, retry it additional 2 times

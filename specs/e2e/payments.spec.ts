@@ -619,20 +619,11 @@ test.describe("customer with Braintree", () => {
 
     await checkoutPage.save("Payment", undefined, true)
 
-    // const cardinalFrame = checkoutPage.page.frameLocator(
-    //   "text=<head></head> <body> <div></div> </body>"
-    // )
-    // await cardinalFrame
-    //   .locator('[placeholder="\\ Enter\\ Code\\ Here"]')
-    //   .fill("1234")
-
-    // await cardinalFrame.locator("text=SUBMIT").click()
-
     await checkoutPage.page
       .locator(`text=Thank you for your order!`)
       .waitFor({ state: "visible", timeout: 100000 })
 
-    await checkoutPage.checkPaymentRecap("Visa ending in 4111")
+    await checkoutPage.checkPaymentRecap("Visa ending in 1111")
   })
 })
 
@@ -826,17 +817,17 @@ test.describe("braintree errors", () => {
     {
       kind: "do not honor",
       code: 2000,
-      error: "Transition is not permitted",
+      error: "Do not honor",
     },
     {
       kind: "insufficient funds",
       code: 2001,
-      error: "Transition is not permitted",
+      error: "Insufficient funds",
     },
     {
       kind: "limit exceeded",
       code: 2002,
-      error: "Transition is not permitted",
+      error: "Limit exceeded",
     },
   ].forEach(({ kind, code, error }) => {
     test.describe(kind, () => {

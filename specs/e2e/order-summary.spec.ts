@@ -87,9 +87,9 @@ test.describe("quantity and unit price", () => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     let element = checkoutPage.page.locator(
-      "[data-test-id=order-summary] >> text=Quantity: 5x"
+      "[data-test-id=order-summary] >> text=Quantity: 5"
     )
-    await expect(element).toHaveText("QUANTITY: 5x €29,00")
+    await expect(element).toHaveText("QUANTITY: 5")
 
     element = checkoutPage.page.locator(
       "[data-test-id=order-summary] >> text=Quantity: 1"

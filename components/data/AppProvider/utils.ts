@@ -244,7 +244,7 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
         "payment_source",
         "customer",
       ],
-      shipments: ["shipping_method"],
+      shipments: ["shipping_method", "available_shipping_methods"],
       customer: ["customer_addresses"],
       customer_addresses: ["address"],
     },
@@ -253,6 +253,7 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
       "billing_address",
       "shipments",
       "shipments.shipping_method",
+      "shipments.available_shipping_methods",
       "payment_method",
       "payment_source",
       "customer",
@@ -425,23 +426,59 @@ export async function setAutomatedShippingMethods(
   order: Order,
   hasAddresses: boolean
 ) {
-  if (!hasAddresses) {
-    return {}
-  }
-  const shippingMethods = await cl.shipping_methods.list()
-  if (shippingMethods.length > 1 || shippingMethods.length === 0) {
+  if (!hasAddresses || !order.shipments || order.shipments.length === 0) {
     return {}
   }
 
-  const promises = (order.shipments || []).map((shipment) => {
-    return cl.shipments.update({
-      id: shipment.id,
-      shipping_method: cl.shipping_methods.relationship(shippingMethods[0].id),
-    })
+  const shippingMethods = order.shipments.reduce(
+    (acc, next) => {
+      if (!acc.single || next.available_shipping_methods?.length !== 1) {
+        return { single: false }
+      }
+      return {
+        single: next.available_shipping_methods?.length === 1,
+        methods: acc.methods
+          ? [
+              ...new Set([
+                ...acc.methods,
+                next.available_shipping_methods[0].id,
+              ]),
+            ]
+          : [next.available_shipping_methods[0].id],
+        name: next.available_shipping_methods[0].name,
+      }
+    },
+    { single: true } as {
+      single: boolean
+      methods?: string[]
+      name?: string
+    }
+  )
+
+  if (!shippingMethods.single) {
+    return {}
+  }
+
+  const promises = order.shipments.map((shipment) => {
+    if (shipment.available_shipping_methods?.length === 1) {
+      return cl.shipments.update({
+        id: shipment.id,
+        shipping_method: cl.shipping_methods.relationship(
+          shipment.available_shipping_methods[0].id
+        ),
+      })
+    }
+    return null
   })
-  await Promise.all(promises)
+  try {
+    await Promise.all(promises)
+  } catch (e) {
+    console.log("error updating shipping_method")
+    return {}
+  }
   return {
     hasShippingMethod: true,
-    shippingMethodName: shippingMethods[0].name,
+    shippingMethodName:
+      shippingMethods.methods?.length === 1 ? shippingMethods.name : undefined,
   }
 }
