@@ -29,7 +29,7 @@ export const Message = styled.div`
   }
 `
 export const WrapperButton = styled.div`
-  ${tw`flex items-center justify-center`}
+  ${tw`flex items-center justify-center w-full`}
 `
 export const Recap = styled.div`
   ${tw`grid md:(auto-cols-fr grid-flow-col gap-16) lg:gap-32`}
