@@ -1,3 +1,10 @@
+## [1.7.4](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.3...v1.7.4) (2022-05-11)
+
+
+### Bug Fixes
+
+* solve a safari issue with disabled button in safari ([b8aa1fd](https://github.com/commercelayer/commercelayer-react-checkout/commit/b8aa1fda9e404ee1e60642b7de018c568c89336d))
+
 ## [1.7.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.2...v1.7.3) (2022-05-11)
 
 
