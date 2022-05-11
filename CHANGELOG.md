@@ -1,3 +1,10 @@
+## [1.7.5](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.4...v1.7.5) (2022-05-11)
+
+
+### Bug Fixes
+
+* full width btn on thank you page for mobile ([dfebf8a](https://github.com/commercelayer/commercelayer-react-checkout/commit/dfebf8a876fb579911a05a9efe019c95397a2fb1))
+
 ## [1.7.4](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.3...v1.7.4) (2022-05-11)
 
 

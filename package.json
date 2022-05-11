@@ -1,6 +1,6 @@
 {
   "name": "commercelayer-react-checkout",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "engines": {
     "node": ">=14.x",
     "yarn": "1.x"
