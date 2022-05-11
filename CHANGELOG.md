@@ -1,3 +1,12 @@
+## [1.7.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.2...v1.7.3) (2022-05-11)
+
+
+### Bug Fixes
+
+* allow removing or adding coupon returning from an external payment gateway page (PayPal, checkout.com) ([213134c](https://github.com/commercelayer/commercelayer-react-checkout/commit/213134c4953dd28d3bd7857c191df68940403721))
+* shipping method selection for SKU with no tracking stock ([73bb1f0](https://github.com/commercelayer/commercelayer-react-checkout/commit/73bb1f0d164c62e5e2e7274f1f0806f10d41eecc))
+* use available shipping method for shipments ([4317e02](https://github.com/commercelayer/commercelayer-react-checkout/commit/4317e0233c2219b97d2c13b7b7a1a025cd712049))
+
 ## [1.7.2](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.1...v1.7.2) (2022-05-09)
 
 
