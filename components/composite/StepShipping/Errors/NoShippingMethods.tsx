@@ -1,5 +1,5 @@
 import { ErrorComponentProps, Errors } from "@commercelayer/react-components"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useEffect } from "react"
 
 interface Props {
   messages: ErrorComponentProps["messages"]
@@ -14,8 +14,9 @@ export const NoShippingMethods = ({
   return (
     <Errors resource="shipments" messages={messages}>
       {({ errors }) => {
-        setShippingMethodError(errors.length > 0 && errors[0] !== undefined)
-
+        useEffect(() => {
+          setShippingMethodError(errors.length > 0 && errors[0] !== undefined)
+        }, [errors.length])
         return errors.map((error, index) => <p key={index}>{error}</p>)
       }}
     </Errors>
