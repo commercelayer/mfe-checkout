@@ -304,29 +304,33 @@ export const StepShipping: React.FC<Props> = () => {
                                       </ShippingLineItemQty>
                                     </ShippingLineItemDescription>
                                   </ShippingLineItem>
-                                  <div>
-                                    <StockTransfer>
-                                      <div
-                                        className="flex flex-row"
-                                        data-test-id="stock-transfer"
-                                      >
-                                        <Trans
-                                          t={t}
-                                          i18nKey="stepShipping.stockTransfer"
-                                        >
+                                  <StockTransfer>
+                                    <ShippingLineItem>
+                                      <div className="self-start w-16 p-1 border rounded">
+                                        <StockTransferField
+                                          attribute="image_url"
+                                          tagElement="img"
+                                          width={50}
+                                          className="self-start w-5 p-1 border rounded"
+                                        />
+                                      </div>
+                                      <ShippingLineItemDescription>
+                                        <ShippingLineItemTitle>
                                           <StockTransferField
-                                            className="px-1"
+                                            attribute="name"
+                                            tagElement="p"
+                                          />
+                                        </ShippingLineItemTitle>
+                                        <ShippingLineItemQty>
+                                          Quantity:{" "}
+                                          <StockTransferField
                                             attribute="quantity"
                                             tagElement="span"
                                           />
-                                          <LineItemQuantity
-                                            readonly
-                                            className="px-1"
-                                          />
-                                        </Trans>
-                                      </div>
-                                    </StockTransfer>
-                                  </div>
+                                        </ShippingLineItemQty>
+                                      </ShippingLineItemDescription>
+                                    </ShippingLineItem>
+                                  </StockTransfer>
                                 </LineItem>
                               ))}
                             </LineItemsContainer>
