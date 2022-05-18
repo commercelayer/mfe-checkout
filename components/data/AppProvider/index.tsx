@@ -14,6 +14,7 @@ import {
   fetchOrder,
   FetchOrderByIdResponse,
   setAutomatedShippingMethods,
+  isPaymentRequired,
 } from "components/data/AppProvider/utils"
 
 export interface AppProviderData extends FetchOrderByIdResponse {
@@ -104,9 +105,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       return
     }
     dispatch({ type: ActionType.START_LOADING })
-    const order = await fetchOrder(cl, orderId)
+    let order = await fetchOrder(cl, orderId)
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
-    const others = calculateSettings(order, isShipmentRequired)
 
     const addressInfos = await checkAndSetDefaultAddressForOrder({
       cl,
@@ -118,8 +118,20 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       order,
       !!(Object.keys(addressInfos).length > 0
         ? addressInfos.hasBillingAddress && addressInfos.hasShippingAddress
-        : others.hasShippingAddress && others.hasBillingAddress)
+        : Boolean(order.shipping_address) && Boolean(order.billing_address))
     )
+
+    const paymentRequired = isPaymentRequired(order)
+
+    if (
+      isShipmentRequired &&
+      shippingInfos.hasShippingMethod &&
+      !paymentRequired
+    ) {
+      order = await fetchOrder(cl, orderId)
+    }
+
+    const others = calculateSettings(order, isShipmentRequired)
 
     dispatch({
       type: ActionType.SET_ORDER,
@@ -147,30 +159,33 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setAddresses = async () => {
     dispatch({ type: ActionType.START_LOADING })
 
-    const order = await cl.orders.retrieve(orderId, {
-      fields: {
-        orders: ["shipping_address", "billing_address", "shipments"],
-        shipments: ["shipping_method", "available_shipping_methods"],
-      },
-      include: [
-        "shipping_address",
-        "billing_address",
-        "shipments",
-        "shipments.shipping_method",
-        "shipments.available_shipping_methods",
-      ],
-    })
+    let order = await await fetchOrder(cl, orderId)
+
+    const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     const shippingInfos = await setAutomatedShippingMethods(
       cl,
       order,
-      !!(order.billing_address && order.shipping_address)
+      !!(Boolean(order.billing_address) && Boolean(order.shipping_address))
     )
+
+    const paymentRequired = isPaymentRequired(order)
+
+    if (
+      isShipmentRequired &&
+      shippingInfos.hasShippingMethod &&
+      !paymentRequired
+    ) {
+      order = await fetchOrder(cl, orderId)
+    }
+
+    const others = calculateSettings(order, isShipmentRequired)
 
     dispatch({
       type: ActionType.SET_ADDRESSES,
       payload: {
         order,
+        others,
         automatedShippingMethod: { ...shippingInfos },
       },
     })
@@ -179,9 +194,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setCouponOrGiftCard = async () => {
     if (state.paymentMethod) {
       dispatch({ type: ActionType.START_LOADING })
-      // fetch new order data
+
+      const order = await fetchOrder(cl, orderId)
+
+      const others = calculateSettings(order, state.isShipmentRequired)
+
       dispatch({
         type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
+        payload: { order, others },
       })
     }
   }
@@ -190,43 +210,48 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     shippingMethod: ShippingMethodCollection | Record<string, any>,
     shipmentId: string
   ) => {
+    const order = await fetchOrder(cl, orderId)
+    const others = calculateSettings(order, state.isShipmentRequired)
+
     dispatch({
       type: ActionType.SELECT_SHIPMENT,
       payload: {
-        shippingMethod,
-        shipmentId,
+        order,
+        others,
+        shipment: {
+          shippingMethod,
+          shipmentId,
+        },
       },
     })
   }
 
   const saveShipments = async () => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = await cl.orders.retrieve(orderId, {
-      fields: {
-        orders: ["id", "shipments"],
-        shipments: ["shipping_method"],
-      },
-      include: ["shipments", "shipments.shipping_method"],
-    })
+    const order = await fetchOrder(cl, orderId)
+    const others = calculateSettings(order, state.isShipmentRequired)
 
     dispatch({
       type: ActionType.SAVE_SHIPMENTS,
-      payload: { shipments: order.shipments },
+      payload: { order, others },
     })
   }
 
-  const setPayment = (payment?: PaymentMethod) => {
-    dispatch({ type: ActionType.SET_PAYMENT, payload: { payment } })
+  const setPayment = async (payment?: PaymentMethod) => {
+    dispatch({ type: ActionType.START_LOADING })
+    const order = await fetchOrder(cl, orderId)
+
+    const others = calculateSettings(order, state.isShipmentRequired)
+
+    dispatch({
+      type: ActionType.SET_PAYMENT,
+      payload: { payment, order, others },
+    })
   }
 
   const placeOrder = async () => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = await cl.orders.retrieve(orderId, {
-      fields: {
-        orders: ["id", "status", "payment_method", "payment_source"],
-      },
-      include: ["payment_method", "payment_source"],
-    })
+    const order = await fetchOrder(cl, orderId)
     dispatch({
       type: ActionType.PLACE_ORDER,
       payload: { order },

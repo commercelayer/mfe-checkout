@@ -1,9 +1,4 @@
-import {
-  Order,
-  Shipment,
-  PaymentMethod,
-  ShippingMethod,
-} from "@commercelayer/sdk"
+import { Order, PaymentMethod, ShippingMethod } from "@commercelayer/sdk"
 
 import { AppStateData } from "components/data/AppProvider"
 import {
@@ -48,33 +43,46 @@ export type Action =
       type: ActionType.SET_ADDRESSES
       payload: {
         order: Order
+        others: Partial<AppStateData>
         automatedShippingMethod: {
           hasShippingMethod?: boolean
           shippingMethodName?: string
+          shipments?: Array<ShipmentSelected>
         }
       }
     }
   | {
       type: ActionType.SELECT_SHIPMENT
       payload: {
-        shipmentId: string
-        shippingMethod: ShippingMethod | Record<string, any>
+        order: Order
+        others: Partial<AppStateData>
+        shipment: {
+          shipmentId: string
+          shippingMethod: ShippingMethod | Record<string, any>
+        }
       }
     }
   | {
       type: ActionType.SAVE_SHIPMENTS
       payload: {
-        shipments?: Array<Shipment>
+        order: Order
+        others: Partial<AppStateData>
       }
     }
   | {
       type: ActionType.SET_PAYMENT
       payload: {
         payment?: PaymentMethod
+        order: Order
+        others: Partial<AppStateData>
       }
     }
   | {
       type: ActionType.CHANGE_COUPON_OR_GIFTCARD
+      payload: {
+        order: Order
+        others: Partial<AppStateData>
+      }
     }
   | {
       type: ActionType.PLACE_ORDER
@@ -111,15 +119,18 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         isLoading: false,
       }
     case ActionType.SET_ADDRESSES: {
-      const preparedShipments = prepareShipments(action.payload.order.shipments)
+      const preparedShipments: ShipmentSelected[] =
+        action.payload.automatedShippingMethod.shipments ||
+        prepareShipments(action.payload.order.shipments)
       let { hasShippingMethod } = hasShippingMethodSet(preparedShipments)
       if (!state.isShipmentRequired) {
         hasShippingMethod = true
       }
       return {
         ...state,
-        ...calculateAddresses(action.payload.order, state.customerAddresses),
-        shipments: state.isShipmentRequired ? preparedShipments : [],
+        order: action.payload.order,
+        shipments: preparedShipments,
+        ...action.payload.others,
         hasShippingMethod,
         ...action.payload.automatedShippingMethod,
         isLoading: false,
@@ -128,6 +139,8 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
     case ActionType.CHANGE_COUPON_OR_GIFTCARD:
       return {
         ...state,
+        order: action.payload.order,
+        ...action.payload.others,
         isLoading: false,
         paymentMethod: undefined,
         isCreditCard: false,
@@ -136,21 +149,23 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
     case ActionType.SELECT_SHIPMENT: {
       return {
         ...state,
-        ...calculateSelectedShipments(state.shipments, action.payload),
+        order: action.payload.order,
+        ...action.payload.others,
         isLoading: false,
       }
     }
     case ActionType.SAVE_SHIPMENTS:
       return {
         ...state,
+        order: action.payload.order,
+        ...action.payload.others,
         isLoading: false,
-        shipments: state.isShipmentRequired
-          ? prepareShipments(action.payload.shipments)
-          : [],
       }
     case ActionType.SET_PAYMENT:
       return {
         ...state,
+        order: action.payload.order,
+        ...action.payload.others,
         isLoading: false,
         isCreditCard: creditCardPayment(action.payload.payment),
         paymentMethod: action.payload.payment,

@@ -33,7 +33,7 @@ export class CheckoutPage {
   async goto({ orderId, token }: GoToProps) {
     const url = `/${orderId}?accessToken=${token}`
 
-    await this.page.route("**/api/settings**", async (route, request) => {
+    await this.page.route("**/api/settings**", async (route) => {
       // Fetch original response.
       const response = await this.page.request.fetch(route.request())
 

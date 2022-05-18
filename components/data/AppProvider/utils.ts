@@ -289,7 +289,7 @@ export async function checkIfShipmentRequired(
   return lineItems.length > 0
 }
 
-function isPaymentRequired(order: Order) {
+export function isPaymentRequired(order: Order) {
   return !(order.total_amount_with_taxes_float === 0)
 }
 
@@ -325,9 +325,7 @@ export function calculateAddresses(
 
 export function calculateSettings(order: Order, isShipmentRequired: boolean) {
   const calculatedAddresses = calculateAddresses(order)
-  const paymentRequired = isPaymentRequired(order)
   return {
-    isPaymentRequired: paymentRequired,
     isGuest: Boolean(order.guest),
     shippingCountryCodeLock: order.shipping_country_code_lock,
     hasEmailAddress: Boolean(order.customer_email),
@@ -358,7 +356,8 @@ export function checkPaymentMethod(order: Order) {
       paymentSource?.payment_response?.source
   )
 
-  if (!hasPaymentMethod && !isPaymentRequired(order)) {
+  const paymentRequired = isPaymentRequired(order)
+  if (!hasPaymentMethod && !paymentRequired) {
     hasPaymentMethod = true
   }
 
@@ -366,6 +365,7 @@ export function checkPaymentMethod(order: Order) {
 
   return {
     hasPaymentMethod,
+    isPaymentRequired: paymentRequired,
     paymentMethod,
     isComplete,
     isCreditCard: creditCardPayment(paymentMethod),
@@ -401,7 +401,7 @@ export function calculateSelectedShipments(
   return { shipments: shipmentsSelected, ...hasShippingMethod }
 }
 
-export function prepareShipments(shipments?: Shipment[]) {
+export function prepareShipments(shipments?: Shipment[]): ShipmentSelected[] {
   return (shipments || []).map((a) => {
     return {
       shipmentId: a.id,
@@ -476,8 +476,16 @@ export async function setAutomatedShippingMethods(
     console.log("error updating shipping_method")
     return {}
   }
+  const o = await cl.orders.retrieve(order.id, {
+    fields: {
+      orders: ["shipments"],
+      shipments: ["shipping_method"],
+    },
+    include: ["shipments", "shipments.shipping_method"],
+  })
   return {
     hasShippingMethod: true,
+    shipments: prepareShipments(o.shipments),
     shippingMethodName:
       shippingMethods.methods?.length === 1 ? shippingMethods.name : undefined,
   }
