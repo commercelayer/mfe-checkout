@@ -32,7 +32,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
   const { t } = useTranslation()
   return (
     <LineItem type={type}>
-      <LineItemWrapper>
+      <LineItemWrapper data-test-id={`line-items-${type}`}>
         <LineItemImage
           width={85}
           className="self-start p-1 bg-white border rounded"

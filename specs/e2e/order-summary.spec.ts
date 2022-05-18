@@ -169,6 +169,73 @@ test.describe("sku options", () => {
   })
 })
 
+test.describe("buying gift card", () => {
+  test.use({
+    defaultParams: {
+      order: "gift-card",
+    },
+  })
+
+  test("should appear on summary", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    const element = checkoutPage.page.locator(
+      "[data-test-id=line-items-gift_cards] >> text=Gift card: €100,00"
+    )
+
+    await expect(element).toHaveCount(1)
+
+    await checkoutPage.checkGiftCardAmount()
+  })
+})
+
+test.describe("using gift card", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const phone = faker.phone.phoneNumber()
+  const returnUrl = "https://www.google.it"
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      organization: {
+        supportPhone: phone,
+      },
+      orderAttributes: {
+        customer_email: customerEmail,
+        return_url: returnUrl,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 3 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+      giftCardAttributes: {
+        balance_cents: 2000,
+        apply: true,
+      },
+    },
+  })
+
+  test("should appear on totals, not on summary", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.checkGiftCardAmount("-€20,00")
+    let element = checkoutPage.page.locator(
+      "[data-test-id=line-items-gift_cards]"
+    )
+    const text = await element.innerText()
+    await expect(text).toBe("")
+
+    element = checkoutPage.page.locator(
+      "[data-test-id=items-count] >> text=Your shopping cart contains 3 items"
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
+
 test.describe("with tax included", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 

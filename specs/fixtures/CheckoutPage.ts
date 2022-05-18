@@ -486,10 +486,15 @@ export class CheckoutPage {
     }
   }
 
-  async checkGiftCardAmount(text: string) {
-    await this.page
-      .locator(`[data-test-id=giftcard-amount] >> text=${text}`)
-      .waitFor({ state: "visible" })
+  async checkGiftCardAmount(text?: string) {
+    const element = await this.page.locator(
+      `[data-test-id=giftcard-amount] >> text=${text}`
+    )
+    if (text !== undefined) {
+      await element.waitFor({ state: "visible" })
+    } else {
+      await expect(element).toHaveCount(0)
+    }
   }
 
   async checkCouponCode(text: string) {
