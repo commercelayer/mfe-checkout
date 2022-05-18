@@ -34,7 +34,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
             {(p) => {
               if (isCreditCard) {
                 return (
-                  <Trans t={t} i18nKey="stepPayment.endingIn">
+                  <Trans i18nKey="stepPayment.endingIn">
                     <>{p?.brand}</>
                     <PaymentSourceDetail className="ml-1" type="last4" />
                   </Trans>

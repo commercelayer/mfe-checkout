@@ -40,6 +40,7 @@
         "gift_card_or_coupon_code": "Gift card or coupon code",
         "quantity": "QUANTITY: {{count}}",
         "quantity_other": "QUANTITY: {{count}}",
+        "quantity_stock": "QUANTITY: <0/>",
         "discount_amount": "Discount",
         "adjustment_amount": "Adjustments total",
         "giftcard_amount": "Gift card",

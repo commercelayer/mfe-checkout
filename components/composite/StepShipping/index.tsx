@@ -203,7 +203,6 @@ export const StepShipping: React.FC<Props> = () => {
 
                                     return (
                                       <Trans
-                                        t={t}
                                         i18nKey="stepShipping.shipment"
                                         components={{
                                           Wrap: (
@@ -251,10 +250,7 @@ export const StepShipping: React.FC<Props> = () => {
                                             // @ts-ignore
                                             deliveryLeadTime?.max_days && (
                                               <ShippingSummaryItemDescription>
-                                                <Trans
-                                                  t={t}
-                                                  i18nKey="stepShipping.deliveryLeadTime"
-                                                >
+                                                <Trans i18nKey="stepShipping.deliveryLeadTime">
                                                   <DeliveryLeadTime
                                                     type="min_days"
                                                     data-test-id="delivery-lead-time-min-days"
@@ -294,10 +290,10 @@ export const StepShipping: React.FC<Props> = () => {
                                       </ShippingLineItemTitle>
                                       <ShippingLineItemQty>
                                         <LineItemQuantity readonly>
-                                          {(props) =>
-                                            !!props.quantity &&
+                                          {({ quantity }) =>
+                                            !!quantity &&
                                             t("orderRecap.quantity", {
-                                              count: props.quantity,
+                                              count: quantity,
                                             })
                                           }
                                         </LineItemQuantity>
@@ -306,27 +302,31 @@ export const StepShipping: React.FC<Props> = () => {
                                   </ShippingLineItem>
                                   <StockTransfer>
                                     <ShippingLineItem>
-                                      <div className="self-start w-16 p-1 border rounded">
-                                        <StockTransferField
-                                          attribute="image_url"
-                                          tagElement="img"
-                                          width={50}
-                                          className="self-start w-5 p-1 border rounded"
-                                        />
-                                      </div>
+                                      <StockTransferField
+                                        attribute="image_url"
+                                        tagElement="img"
+                                        width={50}
+                                        className="self-start p-1 border rounded"
+                                      />
                                       <ShippingLineItemDescription>
                                         <ShippingLineItemTitle>
                                           <StockTransferField
                                             attribute="name"
                                             tagElement="p"
+                                            data-test-id="line-item-name"
                                           />
                                         </ShippingLineItemTitle>
                                         <ShippingLineItemQty>
-                                          Quantity:{" "}
-                                          <StockTransferField
-                                            attribute="quantity"
-                                            tagElement="span"
-                                          />
+                                          <Trans
+                                            i18nKey={
+                                              "orderRecap.quantity_stock"
+                                            }
+                                          >
+                                            <StockTransferField
+                                              attribute="quantity"
+                                              tagElement="span"
+                                            />
+                                          </Trans>
                                         </ShippingLineItemQty>
                                       </ShippingLineItemDescription>
                                     </ShippingLineItem>

@@ -184,7 +184,7 @@ export const StepComplete: React.FC<Props> = ({
                             {({ brand }) => {
                               if (ctx.isCreditCard) {
                                 return (
-                                  <Trans t={t} i18nKey="stepPayment.endingIn">
+                                  <Trans i18nKey="stepPayment.endingIn">
                                     {brand}
                                     <PaymentSourceDetail
                                       className="ml-1 font-normal"
