@@ -23,7 +23,6 @@ import {
   AddressContainer,
   Bottom,
   Main,
-  Message,
   Recap,
   RecapBox,
   RecapCol,
@@ -92,12 +91,10 @@ export const StepComplete: React.FC<Props> = ({
                 }}
               />
             </Text>
-            <Message>
-              <SupportMessage
-                supportEmail={supportEmail}
-                supportPhone={supportPhone}
-              />
-            </Message>
+            <SupportMessage
+              supportEmail={supportEmail}
+              supportPhone={supportPhone}
+            />
 
             {ctx?.returnUrl && (
               <WrapperButton>
