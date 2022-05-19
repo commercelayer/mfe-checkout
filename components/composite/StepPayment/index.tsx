@@ -55,7 +55,7 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
               {({ brand }) => {
                 if (isCreditCard) {
                   return (
-                    <Trans t={t} i18nKey="stepPayment.endingIn">
+                    <Trans i18nKey="stepPayment.endingIn">
                       {brand}
                       <PaymentSourceDetail className="ml-1" type="last4" />
                     </Trans>

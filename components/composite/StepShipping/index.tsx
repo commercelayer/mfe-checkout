@@ -203,7 +203,6 @@ export const StepShipping: React.FC<Props> = () => {
 
                                     return (
                                       <Trans
-                                        t={t}
                                         i18nKey="stepShipping.shipment"
                                         components={{
                                           Wrap: (
@@ -251,10 +250,7 @@ export const StepShipping: React.FC<Props> = () => {
                                             // @ts-ignore
                                             deliveryLeadTime?.max_days && (
                                               <ShippingSummaryItemDescription>
-                                                <Trans
-                                                  t={t}
-                                                  i18nKey="stepShipping.deliveryLeadTime"
-                                                >
+                                                <Trans i18nKey="stepShipping.deliveryLeadTime">
                                                   <DeliveryLeadTime
                                                     type="min_days"
                                                     data-test-id="delivery-lead-time-min-days"
@@ -294,39 +290,47 @@ export const StepShipping: React.FC<Props> = () => {
                                       </ShippingLineItemTitle>
                                       <ShippingLineItemQty>
                                         <LineItemQuantity readonly>
-                                          {(props) =>
-                                            !!props.quantity &&
+                                          {({ quantity }) =>
+                                            !!quantity &&
                                             t("orderRecap.quantity", {
-                                              count: props.quantity,
+                                              count: quantity,
                                             })
                                           }
                                         </LineItemQuantity>
                                       </ShippingLineItemQty>
                                     </ShippingLineItemDescription>
                                   </ShippingLineItem>
-                                  <div>
-                                    <StockTransfer>
-                                      <div
-                                        className="flex flex-row"
-                                        data-test-id="stock-transfer"
-                                      >
-                                        <Trans
-                                          t={t}
-                                          i18nKey="stepShipping.stockTransfer"
-                                        >
+                                  <StockTransfer>
+                                    <ShippingLineItem>
+                                      <StockTransferField
+                                        attribute="image_url"
+                                        tagElement="img"
+                                        width={50}
+                                        className="self-start p-1 border rounded"
+                                      />
+                                      <ShippingLineItemDescription>
+                                        <ShippingLineItemTitle>
                                           <StockTransferField
-                                            className="px-1"
-                                            attribute="quantity"
-                                            tagElement="span"
+                                            attribute="name"
+                                            tagElement="p"
+                                            data-test-id="line-item-name"
                                           />
-                                          <LineItemQuantity
-                                            readonly
-                                            className="px-1"
-                                          />
-                                        </Trans>
-                                      </div>
-                                    </StockTransfer>
-                                  </div>
+                                        </ShippingLineItemTitle>
+                                        <ShippingLineItemQty>
+                                          <Trans
+                                            i18nKey={
+                                              "orderRecap.quantity_stock"
+                                            }
+                                          >
+                                            <StockTransferField
+                                              attribute="quantity"
+                                              tagElement="span"
+                                            />
+                                          </Trans>
+                                        </ShippingLineItemQty>
+                                      </ShippingLineItemDescription>
+                                    </ShippingLineItem>
+                                  </StockTransfer>
                                 </LineItem>
                               ))}
                             </LineItemsContainer>
