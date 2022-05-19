@@ -561,8 +561,8 @@ export class CheckoutPage {
     } else {
       paymentMethod = `${type}_payments`
     }
-
     await this.page.click(`[data-test-id=${paymentMethod}]`, { force: true })
+    await this.page.mouse.wheel(0, 30)
   }
 
   async setPayment(

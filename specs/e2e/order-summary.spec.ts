@@ -226,8 +226,7 @@ test.describe("using gift card", () => {
     let element = checkoutPage.page.locator(
       "[data-test-id=line-items-gift_cards]"
     )
-    const text = await element.innerText()
-    await expect(text).toBe("")
+    await expect(element).toHaveCount(0)
 
     element = checkoutPage.page.locator(
       "[data-test-id=items-count] >> text=Your shopping cart contains 3 items"

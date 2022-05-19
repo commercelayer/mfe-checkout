@@ -4,8 +4,6 @@ import { AppStateData } from "components/data/AppProvider"
 import {
   prepareShipments,
   checkPaymentMethod,
-  calculateAddresses,
-  calculateSelectedShipments,
   creditCardPayment,
   hasShippingMethodSet,
 } from "components/data/AppProvider/utils"
