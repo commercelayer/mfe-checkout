@@ -325,6 +325,8 @@ export function calculateAddresses(
 
 export function calculateSettings(order: Order, isShipmentRequired: boolean) {
   const calculatedAddresses = calculateAddresses(order)
+  console.log("calc settings", order)
+  console.log("payment method", checkPaymentMethod(order))
   return {
     isGuest: Boolean(order.guest),
     shippingCountryCodeLock: order.shipping_country_code_lock,

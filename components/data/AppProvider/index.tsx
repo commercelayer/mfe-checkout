@@ -192,18 +192,16 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }
 
   const setCouponOrGiftCard = async () => {
-    if (state.paymentMethod) {
-      dispatch({ type: ActionType.START_LOADING })
+    dispatch({ type: ActionType.START_LOADING })
 
-      const order = await fetchOrder(cl, orderId)
+    const order = await fetchOrder(cl, orderId)
 
-      const others = calculateSettings(order, state.isShipmentRequired)
+    const others = calculateSettings(order, state.isShipmentRequired)
 
-      dispatch({
-        type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
-        payload: { order, others },
-      })
-    }
+    dispatch({
+      type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
+      payload: { order, others },
+    })
   }
 
   const selectShipment = async (
