@@ -323,3 +323,53 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 })
+
+test.describe("with coupon down to zero", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "BABYONBU000000E63E7412MX", quantity: 1 },
+      ],
+      couponCode: "",
+    },
+  })
+
+  test("should execute a free checkout", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.setCustomerMail("customer@tk.com")
+
+    await checkoutPage.setCoupon("test30off")
+
+    await checkoutPage.setBillingAddress()
+    await checkoutPage.checkStep("Customer", "open")
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkDiscountAmount("-€30,00")
+    await checkoutPage.checkTotalAmount("€0,00")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.checkShippingSummary("To be calculated")
+    await checkoutPage.checkTaxSummary("To be calculated")
+
+    expect(
+      checkoutPage.page.locator("text=Standard Shipping >> nth=0")
+    ).toBeVisible()
+    expect(
+      checkoutPage.page.locator("text=Express Delivery >> nth=0")
+    ).toBeVisible()
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.checkShippingSummary("FREE")
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkStep("Payment", "close")
+
+    await checkoutPage.save("Payment")
+
+    const element = await checkoutPage.page.locator("button >> text=Remove")
+    await expect(element).toHaveCount(0)
+    await checkoutPage.checkPaymentRecap("This order did not require a payment")
+  })
+})
