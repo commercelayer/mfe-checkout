@@ -324,3 +324,45 @@ test.describe("with tax not included", () => {
     await checkoutPage.checkTotalAmount("$151.94")
   })
 })
+
+test.describe("with digital product", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [{ sku_code: "NFTEBOOK", quantity: 1 }],
+    },
+  })
+
+  test("should calculate taxes after customer step", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setCustomerMail()
+    await checkoutPage.setBillingAddress(usAddress)
+    await checkoutPage.checkStep("Customer", "open")
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "not_present")
+
+    await checkoutPage.checkShippingSummary(undefined)
+
+    await checkoutPage.checkTaxLine("Tax$3.30")
+    await checkoutPage.checkTaxSummary("$3.30")
+
+    await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+  })
+})
