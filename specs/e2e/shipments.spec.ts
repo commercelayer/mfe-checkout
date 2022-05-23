@@ -388,6 +388,11 @@ test.describe("with single shipping method", () => {
       .locator("text=Express Delivery")
       .waitFor({ state: "visible" })
     await checkoutPage.checkStep("Payment", "open")
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
   })
 })
 
@@ -454,6 +459,11 @@ test.describe("with single shipping method per shipment", () => {
       "text=Your order contains 2 shipments"
     )
     await expect(element).toHaveCount(1)
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
   })
 })
 
