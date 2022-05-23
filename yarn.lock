@@ -12,10 +12,10 @@
   resolved "https://registry.yarnpkg.com/@ac-dev/states-service/-/states-service-1.1.0.tgz#303328c615db652b0898aa323b60559fb6c20fc4"
   integrity sha512-8BdOTMIsHaKweIkx3iMzNkYgUenOENqR5tkvonLAfKn4pBEQf2kmKWUMXpN2/8QKXIDgjcKDkhyEr46UjhKj+A==
 
-"@adyen/adyen-web@^5.15.0":
-  version "5.15.0"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.15.0.tgz#bdbec07f527ba69dc13b2dc065695edf2dacbc31"
-  integrity sha512-/mqiAgOD0QrKqBhOGEOuKLFyqFDF22FAky+ZK3/HBQqNhWunTyp5ROlSbB/MxV+RH3HKpzvMc+FRtZFg9hGhdA==
+"@adyen/adyen-web@^5.14.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.16.0.tgz#a00d83b63b4cd0d803693a42865a41ba113280e2"
+  integrity sha512-aOBcdZ3ID1xF9mNfrfVQLNG6x9v+jt+AoYEMbJZyd1NuMki5Som767kxzbo6bKbXhjBkwEgCpZ/+uSCfKVTfKA==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@babel/runtime-corejs3" "^7.16.3"
@@ -514,16 +514,16 @@
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^3.13.0-beta.2":
-  version "3.13.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.13.0-beta.2.tgz#627b868a89d80baa7e01d064baf98690cab8186a"
-  integrity sha512-onl7dhz1zaPYyV8i9JisYKpHMr1heABcrk7omAHERd+O8dTEg6UN7c6z604QVYDm9S6el1lJXuM/hTMO7jOTVA==
+"@commercelayer/react-components@^3.12.5":
+  version "3.12.5"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.12.5.tgz#97b17a63fe13f5b77b282278344d29cacb3e55c2"
+  integrity sha512-2M9Y4Uo0ftWI91BB/0wnzVEhuCWnn8WgP9VV4FLTECKExzP/MFQ+HR77Aq/ZT9pmPWvspWP3I1s+ta31dtlsXg==
   dependencies:
     "@ac-dev/countries-service" "^1.2.0"
     "@ac-dev/states-service" "^1.1.0"
-    "@adyen/adyen-web" "^5.15.0"
+    "@adyen/adyen-web" "^5.14.0"
     "@commercelayer/sdk" "^4.13.2"
-    "@stripe/react-stripe-js" "^1.8.0"
+    "@stripe/react-stripe-js" "^1.7.2"
     "@stripe/stripe-js" "^1.29.0"
     axios "^0.27.2"
     braintree-web "^3.85.3"
@@ -1155,7 +1155,7 @@
   resolved "https://registry.yarnpkg.com/@servie/events/-/events-1.0.0.tgz#8258684b52d418ab7b86533e861186638ecc5dc1"
   integrity sha512-sBSO19KzdrJCM3gdx6eIxV8M9Gxfgg6iDQmH5TIAGaUu+X9VDdsINXJOnoiZ1Kx3TrHdH4bt5UVglkjsEGBcvw==
 
-"@stripe/react-stripe-js@^1.8.0":
+"@stripe/react-stripe-js@^1.7.2":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.8.0.tgz#b07f1d95e75fe93ac5c33346539ec0972298957d"
   integrity sha512-WtF2mIWJKnyAaZledC48NfynFckEseCPG8tybwFgisFxHvLPKrArlLISJOi2cjIY20DkMAkSkdlEljXifJi0ZA==
