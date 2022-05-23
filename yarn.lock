@@ -206,16 +206,16 @@
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^3.13.0-beta.1":
-  version "3.13.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.13.0-beta.1.tgz#f102a48476e18d5f935a448536c6cb8b6f61e633"
-  integrity sha512-rbQIOmTzREZSxhr4DfkyC0X/NdyKxEyRXdJh/8dzcYt+H+96OkGeMwO9Z93oQ3DLJalf30Ll3cCJThe6UbBS3A==
+"@commercelayer/react-components@^3.12.5":
+  version "3.12.5"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.12.5.tgz#97b17a63fe13f5b77b282278344d29cacb3e55c2"
+  integrity sha512-2M9Y4Uo0ftWI91BB/0wnzVEhuCWnn8WgP9VV4FLTECKExzP/MFQ+HR77Aq/ZT9pmPWvspWP3I1s+ta31dtlsXg==
   dependencies:
     "@ac-dev/countries-service" "^1.2.0"
     "@ac-dev/states-service" "^1.1.0"
-    "@adyen/adyen-web" "^5.15.0"
+    "@adyen/adyen-web" "^5.14.0"
     "@commercelayer/sdk" "^4.13.2"
-    "@stripe/react-stripe-js" "^1.8.0"
+    "@stripe/react-stripe-js" "^1.7.2"
     "@stripe/stripe-js" "^1.29.0"
     axios "^0.27.2"
     braintree-web "^3.85.3"
