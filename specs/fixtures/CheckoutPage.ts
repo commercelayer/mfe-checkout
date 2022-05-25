@@ -248,8 +248,8 @@ export class CheckoutPage {
     shipment?: number
     value: boolean
   }) {
-    const element = await this.page.locator(
-      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> nth=${index} >> input[type=checkbox]`
+    const element = await this.page.isChecked(
+      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> nth=${index} >> input[type=radio]`
     )
     if (value) {
       await expect(element).toBeTruthy()
