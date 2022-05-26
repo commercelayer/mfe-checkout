@@ -182,10 +182,7 @@ const Checkout: React.FC<Props> = ({
   }
 
   return (
-    <OrderContainer
-      orderId={ctx.orderId}
-      fetchOrder={ctx.getOrder}
-    >
+    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
       {ctx.isComplete ? renderComplete() : renderSteps()}
     </OrderContainer>
   )

@@ -1,4 +1,4 @@
-import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
+import { CommerceLayer } from "@commercelayer/react-components"
 
 import { CheckoutHead } from "components/composite/CheckoutTitle"
 import { AppProvider } from "components/data/AppProvider"
