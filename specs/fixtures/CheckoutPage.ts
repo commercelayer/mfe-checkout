@@ -432,15 +432,15 @@ export class CheckoutPage {
 
   async setCoupon(code: string) {
     await this.page.fill("[data-test-id=input_giftcard_coupon]", code)
-    this.page.click("[data-test-id=submit_giftcard_coupon]")
+    await this.page.click("[data-test-id=submit_giftcard_coupon]")
   }
 
   async removeCoupon() {
-    this.page.click("[data-test-id=remove_coupon]")
+    await this.page.click("[data-test-id=remove_coupon]")
   }
 
   async removeGiftCard() {
-    this.page.click("[data-test-id=remove_giftcard]")
+    await this.page.click("[data-test-id=remove_giftcard]")
   }
 
   async checkOrderSummary(text: string) {

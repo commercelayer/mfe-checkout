@@ -184,6 +184,7 @@ export const StepShipping: React.FC<Props> = () => {
                     {!shippingMethodError && !outOfStockError && (
                       <>
                         <Shipment
+                          autoSelectSingleShippingMethod
                           loader={
                             <div className="animate-pulse">
                               <div className="w-1/2 h-5 bg-gray-200" />
@@ -339,6 +340,7 @@ export const StepShipping: React.FC<Props> = () => {
                         <ButtonWrapper>
                           <Button
                             disabled={!canContinue || isLocalLoader}
+                            // disabled={!canContinue || isLocalLoader}
                             data-test-id="save-shipping-button"
                             onClick={handleSave}
                           >

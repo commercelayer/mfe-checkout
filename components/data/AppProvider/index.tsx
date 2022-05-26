@@ -120,23 +120,25 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       order,
     })
 
-    const shippingInfos = await setAutomatedShippingMethods(
-      cl,
-      order,
-      !!(Object.keys(addressInfos).length > 0
-        ? addressInfos.hasBillingAddress && addressInfos.hasShippingAddress
-        : Boolean(order.shipping_address) && Boolean(order.billing_address))
-    )
+    // const shippingInfos = await setAutomatedShippingMethods(
+    //   cl,
+    //   order,
+    //   !!(Object.keys(addressInfos).length > 0
+    //     ? addressInfos.hasBillingAddress && addressInfos.hasShippingAddress
+    //     : Boolean(order.shipping_address) && Boolean(order.billing_address))
+    // )
+
+    const shippingInfos = {}
 
     const paymentRequired = isPaymentRequired(order)
 
-    if (
-      isShipmentRequired &&
-      shippingInfos.hasShippingMethod &&
-      !paymentRequired
-    ) {
-      order = await fetchOrder(cl, orderId)
-    }
+    // if (
+    //   isShipmentRequired &&
+    //   shippingInfos.hasShippingMethod &&
+    //   !paymentRequired
+    // ) {
+    //   order = await fetchOrder(cl, orderId)
+    // }
 
     const others = calculateSettings(order, isShipmentRequired)
 
@@ -166,24 +168,27 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setAddresses = async () => {
     dispatch({ type: ActionType.START_LOADING })
 
+    const order = orderRef.current || (await fetchOrder(cl, orderId))
+
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
-    let order = orderRef.current || (await fetchOrder(cl, orderId))
-    const shippingInfos = await setAutomatedShippingMethods(
-      cl,
-      order,
-      !!(Boolean(order.billing_address) && Boolean(order.shipping_address))
-    )
+
+    // const shippingInfos = await setAutomatedShippingMethods(
+    //   cl,
+    //   order,
+    //   !!(Boolean(order.billing_address) && Boolean(order.shipping_address))
+    // )
+
+    const shippingInfos = {}
 
     const paymentRequired = isPaymentRequired(order)
 
-    if (
-      isShipmentRequired &&
-      shippingInfos.hasShippingMethod &&
-      !paymentRequired
-    ) {
-      orderRef.current = await fetchOrder(cl, orderId)
-      order = orderRef.current
-    }
+    // if (
+    //   isShipmentRequired &&
+    //   shippingInfos.hasShippingMethod &&
+    //   !paymentRequired
+    // ) {
+    //   order = await fetchOrder(cl, orderId)
+    // }
 
     const others = calculateSettings(order, isShipmentRequired)
 
