@@ -12,7 +12,7 @@
   resolved "https://registry.yarnpkg.com/@ac-dev/states-service/-/states-service-1.1.0.tgz#303328c615db652b0898aa323b60559fb6c20fc4"
   integrity sha512-8BdOTMIsHaKweIkx3iMzNkYgUenOENqR5tkvonLAfKn4pBEQf2kmKWUMXpN2/8QKXIDgjcKDkhyEr46UjhKj+A==
 
-"@adyen/adyen-web@^5.14.0":
+"@adyen/adyen-web@^5.15.0":
   version "5.16.0"
   resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.16.0.tgz#a00d83b63b4cd0d803693a42865a41ba113280e2"
   integrity sha512-aOBcdZ3ID1xF9mNfrfVQLNG6x9v+jt+AoYEMbJZyd1NuMki5Som767kxzbo6bKbXhjBkwEgCpZ/+uSCfKVTfKA==
@@ -206,10 +206,10 @@
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^3.13.0-beta.4":
-  version "3.13.0-beta.4"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.13.0-beta.4.tgz#5fb342d313e59f8f23654e297ce2e0730b5965dd"
-  integrity sha512-C1oEQtch3XCgrNOvSomQRvJ62QnVP47DmHkYnDCtz/Wof5B0RVfGrPZw2NOLDcuHvdza6mgyZqXXzefZG+BtBQ==
+"@commercelayer/react-components@^3.13.0-beta.5":
+  version "3.13.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.13.0-beta.5.tgz#5a37e6bd0d76b35d439ae18a5712f2d033d942c2"
+  integrity sha512-szFHBuQ5ynEonVituG5ffSiKaSzenhKXvE3efs37O6mc9cbmp6Hf+3yOUuJsGQKfoyhUZf5PTCf30TJ6gZmJ2Q==
   dependencies:
     "@ac-dev/countries-service" "^1.2.0"
     "@ac-dev/states-service" "^1.1.0"
@@ -803,10 +803,10 @@
   resolved "https://registry.yarnpkg.com/@servie/events/-/events-1.0.0.tgz#8258684b52d418ab7b86533e861186638ecc5dc1"
   integrity sha512-sBSO19KzdrJCM3gdx6eIxV8M9Gxfgg6iDQmH5TIAGaUu+X9VDdsINXJOnoiZ1Kx3TrHdH4bt5UVglkjsEGBcvw==
 
-"@stripe/react-stripe-js@^1.7.2":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.8.0.tgz#b07f1d95e75fe93ac5c33346539ec0972298957d"
-  integrity sha512-WtF2mIWJKnyAaZledC48NfynFckEseCPG8tybwFgisFxHvLPKrArlLISJOi2cjIY20DkMAkSkdlEljXifJi0ZA==
+"@stripe/react-stripe-js@^1.8.0":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.8.1.tgz#b646e3a8775dbb0432e234c6e1d67b19c4c0462d"
+  integrity sha512-8TpHu87zWSX/PhMMIC2C0jYXKl53kdiHz7bDSfLDs2oIynbV5L9cyoCZ1NuTllrNvFtd28fOqPc4IikZYRRDew==
   dependencies:
     prop-types "^15.7.2"
 

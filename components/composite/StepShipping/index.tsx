@@ -184,7 +184,9 @@ export const StepShipping: React.FC<Props> = () => {
                     {!shippingMethodError && !outOfStockError && (
                       <>
                         <Shipment
-                          autoSelectSingleShippingMethod
+                          autoSelectSingleShippingMethod={
+                            appCtx.autoSelectShippingMethod
+                          }
                           loader={
                             <div className="animate-pulse">
                               <div className="w-1/2 h-5 bg-gray-200" />

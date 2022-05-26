@@ -37,6 +37,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
     },
     shipmentId: string
   ) => Promise<void>
+  autoSelectShippingMethod: () => void
 }
 
 export interface AppStateData extends FetchOrderByIdResponse {
@@ -112,7 +113,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       return
     }
     dispatch({ type: ActionType.START_LOADING })
-    let order = orderRef.current || (await fetchOrder(cl, orderId))
+    const order = orderRef.current || (await fetchOrder(cl, orderId))
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     const addressInfos = await checkAndSetDefaultAddressForOrder({
@@ -239,6 +240,21 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     })
   }
 
+  const autoSelectShippingMethod = async () => {
+    dispatch({ type: ActionType.START_LOADING })
+
+    const order = await fetchOrder(cl, orderId)
+    const others = calculateSettings(order, state.isShipmentRequired)
+
+    dispatch({
+      type: ActionType.SAVE_SHIPMENTS,
+      payload: {
+        order,
+        others,
+      },
+    })
+  }
+
   const saveShipments = async () => {
     dispatch({ type: ActionType.START_LOADING })
     const order = orderRef.current || (await fetchOrder(cl, orderId))
@@ -299,6 +315,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         setCouponOrGiftCard,
         placeOrder,
         setCustomerEmail,
+        autoSelectShippingMethod,
       }}
     >
       {children}
