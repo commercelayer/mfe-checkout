@@ -20,16 +20,15 @@ const CheckoutContainer: React.FC<Props> = ({ settings, children }) => {
           endpoint={settings.endpoint}
         >
           <GlobalStylesProvider primaryColor={settings.primaryColor} />
-          <OrderContainer orderId={settings.orderId}>
-            <AppProvider
-              orderId={settings.orderId}
-              accessToken={settings.accessToken}
-              slug={settings.slug}
-              domain={settings.domain}
-            >
-              <GTMProvider gtmId={settings.gtmId}>{children}</GTMProvider>
-            </AppProvider>
-          </OrderContainer>
+
+          <AppProvider
+            orderId={settings.orderId}
+            accessToken={settings.accessToken}
+            slug={settings.slug}
+            domain={settings.domain}
+          >
+            <GTMProvider gtmId={settings.gtmId}>{children}</GTMProvider>
+          </AppProvider>
         </CommerceLayer>
       </RollbarProvider>
     </div>

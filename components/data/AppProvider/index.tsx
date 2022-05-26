@@ -4,7 +4,7 @@ import CommerceLayer, {
   Order,
 } from "@commercelayer/sdk"
 import { changeLanguage } from "i18next"
-import { createContext, useEffect, useReducer } from "react"
+import { createContext, useEffect, useReducer, useRef } from "react"
 
 import { ActionType, reducer } from "components/data/AppProvider/reducer"
 import {
@@ -24,6 +24,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   slug: string
   domain: string
   isFirstLoading: boolean
+  getOrder: (order: Order) => void
   setCustomerEmail: (email: string) => void
   setAddresses: () => void
   setCouponOrGiftCard: () => Promise<void>
@@ -35,7 +36,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
       id: string
     },
     shipmentId: string
-  ) => void
+  ) => Promise<void>
 }
 
 export interface AppStateData extends FetchOrderByIdResponse {
@@ -92,6 +93,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   slug,
   domain,
 }) => {
+  const orderRef = useRef<Order>()
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const cl = CommerceLayer({
@@ -100,12 +102,17 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     domain,
   })
 
+  const getOrder = (order: Order) => {
+    orderRef.current = order
+  }
+
   const fetchInitialOrder = async (orderId?: string, accessToken?: string) => {
+    console.log("fetch initialState", orderRef.current)
     if (!orderId || !accessToken) {
       return
     }
     dispatch({ type: ActionType.START_LOADING })
-    let order = await fetchOrder(cl, orderId)
+    let order = orderRef.current || (await fetchOrder(cl, orderId))
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     const addressInfos = await checkAndSetDefaultAddressForOrder({
@@ -159,10 +166,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setAddresses = async () => {
     dispatch({ type: ActionType.START_LOADING })
 
-    let order = await await fetchOrder(cl, orderId)
-
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
-
+    let order = orderRef.current || (await fetchOrder(cl, orderId))
     const shippingInfos = await setAutomatedShippingMethods(
       cl,
       order,
@@ -176,7 +181,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       shippingInfos.hasShippingMethod &&
       !paymentRequired
     ) {
-      order = await fetchOrder(cl, orderId)
+      orderRef.current = await fetchOrder(cl, orderId)
+      order = orderRef.current
     }
 
     const others = calculateSettings(order, isShipmentRequired)
@@ -192,23 +198,27 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }
 
   const setCouponOrGiftCard = async () => {
-    dispatch({ type: ActionType.START_LOADING })
+    const order = orderRef.current || (await fetchOrder(cl, orderId))
+    if (state.order) {
+      dispatch({ type: ActionType.START_LOADING })
 
-    const order = await fetchOrder(cl, orderId)
+      const others = calculateSettings(order, state.isShipmentRequired)
 
-    const others = calculateSettings(order, state.isShipmentRequired)
-
-    dispatch({
-      type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
-      payload: { order, others },
-    })
+      dispatch({
+        type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
+        payload: { order, others },
+      })
+    }
   }
 
   const selectShipment = async (
     shippingMethod: ShippingMethodCollection | Record<string, any>,
     shipmentId: string
   ) => {
+    // dispatch({ type: ActionType.START_LOADING })
+    // TODO Remove after fixing components
     const order = await fetchOrder(cl, orderId)
+
     const others = calculateSettings(order, state.isShipmentRequired)
 
     dispatch({
@@ -226,18 +236,22 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const saveShipments = async () => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = await fetchOrder(cl, orderId)
+    const order = orderRef.current || (await fetchOrder(cl, orderId))
+
     const others = calculateSettings(order, state.isShipmentRequired)
 
-    dispatch({
-      type: ActionType.SAVE_SHIPMENTS,
-      payload: { order, others },
-    })
+    console.log("others in save", others)
+    setTimeout(() => {
+      dispatch({
+        type: ActionType.SAVE_SHIPMENTS,
+        payload: { order, others },
+      })
+    }, 100)
   }
 
   const setPayment = async (payment?: PaymentMethod) => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = await fetchOrder(cl, orderId)
+    const order = orderRef.current || (await fetchOrder(cl, orderId))
 
     const others = calculateSettings(order, state.isShipmentRequired)
 
@@ -249,7 +263,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const placeOrder = async () => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = await fetchOrder(cl, orderId)
+    const order = orderRef.current || (await fetchOrder(cl, orderId))
+
     dispatch({
       type: ActionType.PLACE_ORDER,
       payload: { order },
@@ -273,6 +288,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         domain,
         setAddresses,
         selectShipment,
+        getOrder,
         saveShipments,
         setPayment,
         setCouponOrGiftCard,

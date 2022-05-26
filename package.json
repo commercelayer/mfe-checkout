@@ -68,7 +68,7 @@
     "commercelayer"
   ],
   "dependencies": {
-    "@commercelayer/react-components": "^3.12.5",
+    "@commercelayer/react-components": "^3.13.0-beta.4",
     "@headlessui/react": "^1.6.1",
     "@rollbar/react": "^0.11.0",
     "async-retry": "^1.3.3",
