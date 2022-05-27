@@ -108,7 +108,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }
 
   const fetchInitialOrder = async (orderId?: string, accessToken?: string) => {
-    console.log("fetch initialState", orderRef.current)
     if (!orderId || !accessToken) {
       return
     }
@@ -121,26 +120,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       order,
     })
 
-    // const shippingInfos = await setAutomatedShippingMethods(
-    //   cl,
-    //   order,
-    //   !!(Object.keys(addressInfos).length > 0
-    //     ? addressInfos.hasBillingAddress && addressInfos.hasShippingAddress
-    //     : Boolean(order.shipping_address) && Boolean(order.billing_address))
-    // )
-
-    const shippingInfos = {}
-
-    const paymentRequired = isPaymentRequired(order)
-
-    // if (
-    //   isShipmentRequired &&
-    //   shippingInfos.hasShippingMethod &&
-    //   !paymentRequired
-    // ) {
-    //   order = await fetchOrder(cl, orderId)
-    // }
-
     const others = calculateSettings(order, isShipmentRequired)
 
     dispatch({
@@ -151,7 +130,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
           isShipmentRequired,
           ...others,
           ...addressInfos,
-          ...shippingInfos,
         },
       },
     })
@@ -173,32 +151,19 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
-    // const shippingInfos = await setAutomatedShippingMethods(
-    //   cl,
-    //   order,
-    //   !!(Boolean(order.billing_address) && Boolean(order.shipping_address))
-    // )
-
-    const shippingInfos = {}
-
-    const paymentRequired = isPaymentRequired(order)
-
-    // if (
-    //   isShipmentRequired &&
-    //   shippingInfos.hasShippingMethod &&
-    //   !paymentRequired
-    // ) {
-    //   order = await fetchOrder(cl, orderId)
-    // }
-
-    const others = calculateSettings(order, isShipmentRequired)
+    const others = calculateSettings(
+      order,
+      isShipmentRequired,
+      // FIX We are using customer addresses saved in reducer because
+      // we don't receive them from fetchOrder
+      state.customerAddresses
+    )
 
     dispatch({
       type: ActionType.SET_ADDRESSES,
       payload: {
         order,
         others,
-        automatedShippingMethod: { ...shippingInfos },
       },
     })
   }
@@ -261,7 +226,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
     const others = calculateSettings(order, state.isShipmentRequired)
 
-    console.log("others in save", others)
     setTimeout(() => {
       dispatch({
         type: ActionType.SAVE_SHIPMENTS,

@@ -69,19 +69,18 @@ test.describe("with shippable sku single not free shipping method", () => {
 
     await checkoutPage.checkStep("Shipping", "close")
 
-    await checkoutPage.checkShippingSummary("$7,00")
+    await checkoutPage.checkShippingSummary("$7.00")
 
     await checkoutPage.checkStep("Payment", "open")
 
-    const element = await checkoutPage.page.locator(
-      "[data-test-id=step-header-info] >> text=This order does not require payment"
-    )
+    await checkoutPage.selectPayment("stripe")
 
-    expect(element).toBeVisible()
+    await checkoutPage.checkPaymentSummary("$10.00")
+
+    await checkoutPage.setPayment("stripe")
 
     await checkoutPage.save("Payment")
-
-    await checkoutPage.checkPaymentRecap("This order did not require a payment")
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 })
 

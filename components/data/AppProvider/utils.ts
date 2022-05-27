@@ -323,10 +323,18 @@ export function calculateAddresses(
   return values
 }
 
-export function calculateSettings(order: Order, isShipmentRequired: boolean) {
-  const calculatedAddresses = calculateAddresses(order)
-  console.log("calc settings", order)
-  console.log("payment method", checkPaymentMethod(order))
+export function calculateSettings(
+  order: Order,
+  isShipmentRequired: boolean,
+  customerAddress?: CustomerAddress[]
+) {
+  // FIX saving customerAddresses because we don't receive
+  // them from fetchORder
+  const calculatedAddresses = calculateAddresses(
+    order,
+    order.customer?.customer_addresses || customerAddress
+  )
+
   return {
     isGuest: Boolean(order.guest),
     shippingCountryCodeLock: order.shipping_country_code_lock,

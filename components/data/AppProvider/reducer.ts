@@ -42,11 +42,6 @@ export type Action =
       payload: {
         order: Order
         others: Partial<AppStateData>
-        automatedShippingMethod: {
-          hasShippingMethod?: boolean
-          shippingMethodName?: string
-          shipments?: Array<ShipmentSelected>
-        }
       }
     }
   | {
@@ -105,6 +100,11 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
       return {
         ...state,
         order: action.payload.order,
+        // FIX saving customerAddresses because we don't receive
+        // them from fetchORder
+        customerAddresses:
+          action.payload.order.customer?.customer_addresses ||
+          state.customerAddresses,
         ...action.payload.others,
         isFirstLoading: false,
         isLoading: false,
@@ -117,9 +117,10 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         isLoading: false,
       }
     case ActionType.SET_ADDRESSES: {
-      const preparedShipments: ShipmentSelected[] =
-        action.payload.automatedShippingMethod.shipments ||
-        prepareShipments(action.payload.order.shipments)
+      const preparedShipments: ShipmentSelected[] = prepareShipments(
+        action.payload.order.shipments
+      )
+
       let { hasShippingMethod } = hasShippingMethodSet(preparedShipments)
       if (!state.isShipmentRequired) {
         hasShippingMethod = true
@@ -130,7 +131,6 @@ export function reducer(state: AppStateData, action: Action): AppStateData {
         shipments: preparedShipments,
         ...action.payload.others,
         hasShippingMethod,
-        ...action.payload.automatedShippingMethod,
         isLoading: false,
       }
     }

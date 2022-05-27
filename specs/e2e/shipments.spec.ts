@@ -87,12 +87,18 @@ test.describe("with two shipments", () => {
       text: "Standard Shipping",
       shipment: 0,
     })
+
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.save("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
 
@@ -121,9 +127,13 @@ test.describe("with two shipments", () => {
     })
 
     await checkoutPage.save("Shipping")
+
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.checkSelectedShippingMethod({
       index: 1,
@@ -140,15 +150,19 @@ test.describe("with two shipments", () => {
       text: "Express Delivery",
       shipment: 0,
     })
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.save("Shipping")
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.checkSelectedShippingMethod({
       index: 1,
@@ -317,18 +331,26 @@ test.describe("with two shipment (one do not ship)", () => {
     await checkoutPage.checkBadgeIndex("Payment", "3")
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.page.waitForTimeout(1000)
 
     const element = await checkoutPage.page.locator(
       "[ data-test-id=save-shipping-button]"
     )
     await expect(element).toBeEnabled()
     await checkoutPage.save("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.checkSelectedShippingMethod({ index: 0, value: true })
+    await checkoutPage.checkSelectedShippingMethod({ index: 1, value: false })
     await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.save("Shipping")
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.checkSelectedShippingMethod({ index: 0, value: false })
     await checkoutPage.checkSelectedShippingMethod({ index: 1, value: true })
   })
 })
@@ -818,8 +840,14 @@ test.describe("discount with coupon", () => {
 
     await checkoutPage.checkStep("Shipping", "open")
     await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.checkShippingSummary("Free")
     await checkoutPage.setCoupon("test50off")
+    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.checkShippingSummary("To be calculated")
+    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.checkShippingSummary("€10,00")
   })
 })
@@ -850,8 +878,9 @@ test.describe("adding coupon code", () => {
     await checkoutPage.checkSelectedShippingMethod({ value: true })
     await checkoutPage.checkButton({ type: "Shipping", status: "enabled" })
     await checkoutPage.setCoupon("testcoupon")
-    await checkoutPage.checkSelectedShippingMethod({ value: false })
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    await checkoutPage.checkSelectedShippingMethod({ value: false })
   })
 
   test("on payment step", async ({ checkoutPage }) => {
