@@ -124,9 +124,12 @@ test.describe("customer with Stripe", () => {
 
     await checkoutPage.selectPayment("stripe")
 
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.page.click("[data-test-id=customer-card]", {
       force: true,
     })
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.checkPaymentSummary("€10,00")
 
     await checkoutPage.save("Payment")
