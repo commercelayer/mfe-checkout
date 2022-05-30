@@ -252,11 +252,18 @@ test.describe("with two shipping method", () => {
     await checkoutPage.checkStep("Customer", "close")
     await checkoutPage.checkStep("Shipping", "open")
 
+    const element = checkoutPage.page.locator(
+      '[data-test-id="shipping-method-price"] >> nth=1 >> text=€12,00'
+    )
+
+    await expect(element).toHaveCount(1)
+
     await checkoutPage.selectShippingMethod({
       text: "Express Delivery",
     })
 
     await checkoutPage.save("Shipping")
+    await checkoutPage.checkShippingSummary("€12,00")
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
 
