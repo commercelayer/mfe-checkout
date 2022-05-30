@@ -188,7 +188,7 @@ test.describe("with two shipments", () => {
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
     await checkoutPage.clickStep("Shipping")
-
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.checkSelectedShippingMethod({
       index: 0,
       shipment: 0,
@@ -515,7 +515,7 @@ test.describe("changing order amount", () => {
       .locator("text=Express Delivery")
       .waitFor({ state: "visible" })
 
-    await checkoutPage.checkShippingSummary("Free")
+    await checkoutPage.checkShippingSummary("$7.00")
 
     await checkoutPage.setCoupon("40OFFDISC")
 
