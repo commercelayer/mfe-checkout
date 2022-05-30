@@ -231,6 +231,8 @@ test.describe("with two shipping method", () => {
       text: "Standard Shipping",
     })
 
+    await checkoutPage.checkShippingMethodPrice({ text: "Free" })
+
     await checkoutPage.save("Shipping")
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
@@ -251,6 +253,8 @@ test.describe("with two shipping method", () => {
 
     await checkoutPage.checkStep("Customer", "close")
     await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.checkShippingMethodPrice({ index: 1, text: "€12,00" })
 
     const element = checkoutPage.page.locator(
       '[data-test-id="shipping-method-price"] >> nth=1 >> text=€12,00'

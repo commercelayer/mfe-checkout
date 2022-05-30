@@ -239,6 +239,22 @@ export class CheckoutPage {
     )
   }
 
+  async checkShippingMethodPrice({
+    index = 0,
+    shipment = 0,
+    text,
+  }: {
+    index?: number
+    shipment?: number
+    text: string
+  }) {
+    const element = this.page.locator(
+      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> nth=${index} >> text=${text}`
+    )
+
+    await expect(element).toHaveCount(1)
+  }
+
   async checkSelectedShippingMethod({
     index = 0,
     shipment = 0,
