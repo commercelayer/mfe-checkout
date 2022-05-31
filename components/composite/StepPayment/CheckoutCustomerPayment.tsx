@@ -88,7 +88,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ selectPayment }) => {
     <>
       <PaymentMethod
         activeClass="active"
-        className="payment"
+        className="payment group"
         loader={PaymentSkeleton}
         clickableContainer
         onClick={selectPayment}

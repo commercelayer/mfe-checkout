@@ -6,7 +6,11 @@ import { CheckCss } from "components/ui/form/CheckBox"
 import { RadioCss } from "components/ui/form/RadioButton"
 
 export const PaymentWrapper = styled.div`
-  ${tw`text-black border border-gray-300 mb-5 p-3 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-primary`}
+  ${tw`text-black border border-gray-300 mb-5 p-3 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-primary group-hover:(cursor-pointer)`}
+
+  label {
+    ${tw`group-hover:(cursor-pointer)`}
+  }
 
   .payment:last-of-type & {
     ${tw`mb-0`}
@@ -18,12 +22,6 @@ export const PaymentWrapper = styled.div`
     input[type="radio"] + label {
       ${tw`pointer-events-none cursor-default`}
     }
-  }
-
-  :not(.payment.active &)::after {
-    ${tw`absolute inset-0 z-0 pointer-events-auto cursor-pointer bg-transparent`}
-
-    content: "";
   }
 `
 export const PaymentSummary = styled.div`
