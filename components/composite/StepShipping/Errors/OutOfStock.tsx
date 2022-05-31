@@ -1,6 +1,6 @@
 import { ErrorComponentProps, Errors } from "@commercelayer/react-components"
 import { useTranslation, Trans } from "next-i18next"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useEffect } from "react"
 
 interface Props {
   messages: ErrorComponentProps["messages"]
@@ -17,7 +17,9 @@ export const OutOfStock = ({
   return (
     <Errors resource="line_items" messages={messages}>
       {({ errors }) => {
-        setOutOfStockError(errors.length > 0 && errors[0] !== undefined)
+        useEffect(() => {
+          setOutOfStockError(errors.length > 0 && errors[0] !== undefined)
+        }, [errors.length])
 
         return errors.map((error, index) => (
           <p key={index}>

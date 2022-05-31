@@ -124,9 +124,12 @@ test.describe("customer with Stripe", () => {
 
     await checkoutPage.selectPayment("stripe")
 
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.page.click("[data-test-id=customer-card]", {
       force: true,
     })
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.checkPaymentSummary("€10,00")
 
     await checkoutPage.save("Payment")
@@ -201,6 +204,31 @@ test.describe("guest with Stripe", () => {
     await checkoutPage.setPayment("stripe")
 
     await checkoutPage.save("Payment")
+  })
+
+  test("generic card decline then valid", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe", { number: "4000000000000002" })
+
+    await checkoutPage.save("Payment", undefined, true)
+
+    await checkoutPage.checkPaymentError({
+      type: "stripe",
+      text: "Your card was declined.",
+    })
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 })
 

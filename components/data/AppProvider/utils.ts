@@ -289,7 +289,7 @@ export async function checkIfShipmentRequired(
   return lineItems.length > 0
 }
 
-function isPaymentRequired(order: Order) {
+export function isPaymentRequired(order: Order) {
   return !(order.total_amount_with_taxes_float === 0)
 }
 
@@ -323,11 +323,19 @@ export function calculateAddresses(
   return values
 }
 
-export function calculateSettings(order: Order, isShipmentRequired: boolean) {
-  const calculatedAddresses = calculateAddresses(order)
-  const paymentRequired = isPaymentRequired(order)
+export function calculateSettings(
+  order: Order,
+  isShipmentRequired: boolean,
+  customerAddress?: CustomerAddress[]
+) {
+  // FIX saving customerAddresses because we don't receive
+  // them from fetchORder
+  const calculatedAddresses = calculateAddresses(
+    order,
+    order.customer?.customer_addresses || customerAddress
+  )
+
   return {
-    isPaymentRequired: paymentRequired,
     isGuest: Boolean(order.guest),
     shippingCountryCodeLock: order.shipping_country_code_lock,
     hasEmailAddress: Boolean(order.customer_email),
@@ -358,7 +366,8 @@ export function checkPaymentMethod(order: Order) {
       paymentSource?.payment_response?.source
   )
 
-  if (!hasPaymentMethod && !isPaymentRequired(order)) {
+  const paymentRequired = isPaymentRequired(order)
+  if (!hasPaymentMethod && !paymentRequired) {
     hasPaymentMethod = true
   }
 
@@ -366,6 +375,7 @@ export function checkPaymentMethod(order: Order) {
 
   return {
     hasPaymentMethod,
+    isPaymentRequired: paymentRequired,
     paymentMethod,
     isComplete,
     isCreditCard: creditCardPayment(paymentMethod),
@@ -401,7 +411,7 @@ export function calculateSelectedShipments(
   return { shipments: shipmentsSelected, ...hasShippingMethod }
 }
 
-export function prepareShipments(shipments?: Shipment[]) {
+export function prepareShipments(shipments?: Shipment[]): ShipmentSelected[] {
   return (shipments || []).map((a) => {
     return {
       shipmentId: a.id,
@@ -419,66 +429,4 @@ export function hasShippingMethodSet(shipments: ShipmentSelected[]) {
     shippingMethods?.length && !shippingMethods?.includes(undefined)
   )
   return { hasShippingMethod }
-}
-
-export async function setAutomatedShippingMethods(
-  cl: CommerceLayerClient,
-  order: Order,
-  hasAddresses: boolean
-) {
-  if (!hasAddresses || !order.shipments || order.shipments.length === 0) {
-    return {}
-  }
-
-  const shippingMethods = order.shipments.reduce(
-    (acc, next) => {
-      if (!acc.single || next.available_shipping_methods?.length !== 1) {
-        return { single: false }
-      }
-      return {
-        single: next.available_shipping_methods?.length === 1,
-        methods: acc.methods
-          ? [
-              ...new Set([
-                ...acc.methods,
-                next.available_shipping_methods[0].id,
-              ]),
-            ]
-          : [next.available_shipping_methods[0].id],
-        name: next.available_shipping_methods[0].name,
-      }
-    },
-    { single: true } as {
-      single: boolean
-      methods?: string[]
-      name?: string
-    }
-  )
-
-  if (!shippingMethods.single) {
-    return {}
-  }
-
-  const promises = order.shipments.map((shipment) => {
-    if (shipment.available_shipping_methods?.length === 1) {
-      return cl.shipments.update({
-        id: shipment.id,
-        shipping_method: cl.shipping_methods.relationship(
-          shipment.available_shipping_methods[0].id
-        ),
-      })
-    }
-    return null
-  })
-  try {
-    await Promise.all(promises)
-  } catch (e) {
-    console.log("error updating shipping_method")
-    return {}
-  }
-  return {
-    hasShippingMethod: true,
-    shippingMethodName:
-      shippingMethods.methods?.length === 1 ? shippingMethods.name : undefined,
-  }
 }

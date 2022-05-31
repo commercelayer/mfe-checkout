@@ -33,7 +33,7 @@ export class CheckoutPage {
   async goto({ orderId, token }: GoToProps) {
     const url = `/${orderId}?accessToken=${token}`
 
-    await this.page.route("**/api/settings**", async (route, request) => {
+    await this.page.route("**/api/settings**", async (route) => {
       // Fetch original response.
       const response = await this.page.request.fetch(route.request())
 
@@ -239,6 +239,22 @@ export class CheckoutPage {
     )
   }
 
+  async checkShippingMethodPrice({
+    index = 0,
+    shipment = 0,
+    text,
+  }: {
+    index?: number
+    shipment?: number
+    text: string
+  }) {
+    const element = this.page.locator(
+      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> nth=${index} >> text=${text}`
+    )
+
+    await expect(element).toHaveCount(1)
+  }
+
   async checkSelectedShippingMethod({
     index = 0,
     shipment = 0,
@@ -248,8 +264,8 @@ export class CheckoutPage {
     shipment?: number
     value: boolean
   }) {
-    const element = await this.page.locator(
-      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> nth=${index} >> input[type=checkbox]`
+    const element = await this.page.isChecked(
+      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> nth=${index} >> input[type=radio]`
     )
     if (value) {
       await expect(element).toBeTruthy()
@@ -432,15 +448,15 @@ export class CheckoutPage {
 
   async setCoupon(code: string) {
     await this.page.fill("[data-test-id=input_giftcard_coupon]", code)
-    this.page.click("[data-test-id=submit_giftcard_coupon]")
+    await this.page.click("[data-test-id=submit_giftcard_coupon]")
   }
 
   async removeCoupon() {
-    this.page.click("[data-test-id=remove_coupon]")
+    await this.page.click("[data-test-id=remove_coupon]")
   }
 
   async removeGiftCard() {
-    this.page.click("[data-test-id=remove_giftcard]")
+    await this.page.click("[data-test-id=remove_giftcard]")
   }
 
   async checkOrderSummary(text: string) {
@@ -486,10 +502,15 @@ export class CheckoutPage {
     }
   }
 
-  async checkGiftCardAmount(text: string) {
-    await this.page
-      .locator(`[data-test-id=giftcard-amount] >> text=${text}`)
-      .waitFor({ state: "visible" })
+  async checkGiftCardAmount(text?: string) {
+    const element = await this.page.locator(
+      `[data-test-id=giftcard-amount] >> text=${text}`
+    )
+    if (text !== undefined) {
+      await element.waitFor({ state: "visible" })
+    } else {
+      await expect(element).toHaveCount(0)
+    }
   }
 
   async checkCouponCode(text: string) {
@@ -556,8 +577,8 @@ export class CheckoutPage {
     } else {
       paymentMethod = `${type}_payments`
     }
-
     await this.page.click(`[data-test-id=${paymentMethod}]`, { force: true })
+    await this.page.mouse.wheel(0, 30)
   }
 
   async setPayment(

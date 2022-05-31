@@ -85,7 +85,6 @@ const StepPlaceOrder: React.FC<Props> = ({
             if (props.errors?.length === 0) {
               return null
             }
-            console.log(props)
             const compactedErrors = props.errors
             return compactedErrors?.map((error, index) => {
               if (error?.trim().length === 0 || !error) {

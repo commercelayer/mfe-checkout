@@ -76,9 +76,19 @@ test.describe("payment source amount mismatch with stripe", () => {
 
     await checkoutPage.setCoupon("testcoupon")
     await checkoutPage.checkTotalAmount("€79,30")
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkStep("Payment", "open")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
+    await checkoutPage.selectPayment("stripe")
     await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.setPayment("stripe")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Payment")
   })
@@ -119,6 +129,12 @@ test.describe("payment source amount mismatch for coupon with stripe", () => {
 
     await checkoutPage.removeCoupon()
 
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
     await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.setPayment("stripe")
@@ -202,6 +218,13 @@ test.describe("payment source amount mismatch with paypal", () => {
     await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.checkTotalAmount("€69,30")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
+    await checkoutPage.save("Shipping")
 
     await checkoutPage.setPayment("paypal")
 
@@ -238,6 +261,14 @@ test.describe("payment source amount mismatch with paypal", () => {
     await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.checkTotalAmount("€69,30")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
+    await checkoutPage.save("Shipping")
 
     await checkoutPage.page.waitForTimeout(TIMEOUT)
 
@@ -282,6 +313,13 @@ test.describe("payment source amount mismatch for coupon with paypal", () => {
     await checkoutPage.removeCoupon()
     await checkoutPage.page.waitForTimeout(TIMEOUT)
 
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
+    await checkoutPage.save("Shipping")
     await checkoutPage.setPayment("paypal")
     await checkoutPage.page.waitForTimeout(TIMEOUT)
 

@@ -136,6 +136,12 @@ test.describe("without coupon code", () => {
     await checkoutPage.checkTotalAmount("€315,00")
     await checkoutPage.setCoupon("testcoupon")
     await checkoutPage.checkTotalAmount("€220,50")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.checkShippingSummary("FREE")
+    await checkoutPage.save("Shipping")
 
     await checkoutPage.checkStep("Payment", "open")
     await checkoutPage.selectPayment("stripe")
@@ -227,6 +233,12 @@ test.describe("without applied coupon code", () => {
     await checkoutPage.setCoupon("testcoupon")
     await checkoutPage.checkTotalAmount("€220,50")
 
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.checkShippingSummary("FREE")
+    await checkoutPage.save("Shipping")
     await checkoutPage.checkStep("Payment", "open")
     await checkoutPage.selectPayment("stripe")
 

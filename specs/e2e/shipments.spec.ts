@@ -87,12 +87,18 @@ test.describe("with two shipments", () => {
       text: "Standard Shipping",
       shipment: 0,
     })
+
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.save("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
 
@@ -121,9 +127,13 @@ test.describe("with two shipments", () => {
     })
 
     await checkoutPage.save("Shipping")
+
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.checkSelectedShippingMethod({
       index: 1,
@@ -140,15 +150,19 @@ test.describe("with two shipments", () => {
       text: "Express Delivery",
       shipment: 0,
     })
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.save("Shipping")
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.checkSelectedShippingMethod({
       index: 1,
@@ -174,7 +188,7 @@ test.describe("with two shipments", () => {
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
     await checkoutPage.clickStep("Shipping")
-
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.checkSelectedShippingMethod({
       index: 0,
       shipment: 0,
@@ -217,6 +231,8 @@ test.describe("with two shipping method", () => {
       text: "Standard Shipping",
     })
 
+    await checkoutPage.checkShippingMethodPrice({ text: "Free" })
+
     await checkoutPage.save("Shipping")
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
@@ -238,11 +254,20 @@ test.describe("with two shipping method", () => {
     await checkoutPage.checkStep("Customer", "close")
     await checkoutPage.checkStep("Shipping", "open")
 
+    await checkoutPage.checkShippingMethodPrice({ index: 1, text: "€12,00" })
+
+    const element = checkoutPage.page.locator(
+      '[data-test-id="shipping-method-price"] >> nth=1 >> text=€12,00'
+    )
+
+    await expect(element).toHaveCount(1)
+
     await checkoutPage.selectShippingMethod({
       text: "Express Delivery",
     })
 
     await checkoutPage.save("Shipping")
+    await checkoutPage.checkShippingSummary("€12,00")
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
 
@@ -317,18 +342,26 @@ test.describe("with two shipment (one do not ship)", () => {
     await checkoutPage.checkBadgeIndex("Payment", "3")
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.page.waitForTimeout(1000)
 
     const element = await checkoutPage.page.locator(
       "[ data-test-id=save-shipping-button]"
     )
     await expect(element).toBeEnabled()
     await checkoutPage.save("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.checkSelectedShippingMethod({ index: 0, value: true })
+    await checkoutPage.checkSelectedShippingMethod({ index: 1, value: false })
     await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.save("Shipping")
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.checkSelectedShippingMethod({ index: 0, value: false })
     await checkoutPage.checkSelectedShippingMethod({ index: 1, value: true })
   })
 })
@@ -388,6 +421,11 @@ test.describe("with single shipping method", () => {
       .locator("text=Express Delivery")
       .waitFor({ state: "visible" })
     await checkoutPage.checkStep("Payment", "open")
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
   })
 })
 
@@ -454,6 +492,11 @@ test.describe("with single shipping method per shipment", () => {
       "text=Your order contains 2 shipments"
     )
     await expect(element).toHaveCount(1)
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
   })
 })
 
@@ -483,7 +526,7 @@ test.describe("changing order amount", () => {
       .locator("text=Express Delivery")
       .waitFor({ state: "visible" })
 
-    await checkoutPage.checkShippingSummary("Free")
+    await checkoutPage.checkShippingSummary("$7.00")
 
     await checkoutPage.setCoupon("40OFFDISC")
 
@@ -755,6 +798,36 @@ test.describe("ship from primary", () => {
   })
 })
 
+test.describe("ship from primary with all stock transfers", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      market: process.env.NEXT_PUBLIC_MARKET_ID_SHIP_FROM_PRIMARY,
+      lineItemsAttributes: [
+        { sku_code: "BABYONBU000000E63E7412MX", quantity: 1 },
+        { sku_code: "PSTBIGAU000000FFFFFF1824", quantity: 1 },
+        { sku_code: "NOIMAGE", quantity: 1 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("can see both article in delivery step", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    const { billing_info, ...address } = euAddress
+    await checkoutPage.setBillingAddress(address)
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "open")
+    const element = checkoutPage.page.locator('[data-test-id="line-item-name"]')
+
+    await expect(element).toHaveCount(3)
+  })
+})
+
 test.describe("discount with coupon", () => {
   test.use({
     defaultParams: {
@@ -778,8 +851,62 @@ test.describe("discount with coupon", () => {
 
     await checkoutPage.checkStep("Shipping", "open")
     await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.checkShippingSummary("Free")
     await checkoutPage.setCoupon("test50off")
+    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.checkShippingSummary("To be calculated")
+    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.checkShippingSummary("€10,00")
+  })
+})
+
+test.describe("adding coupon code", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "TSHIRTMMFFFFFFE63E74MXXX", quantity: 1 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("on delivery step", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.checkSelectedShippingMethod({ value: true })
+    await checkoutPage.checkButton({ type: "Shipping", status: "enabled" })
+    await checkoutPage.setCoupon("testcoupon")
+    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    await checkoutPage.checkSelectedShippingMethod({ value: false })
+  })
+
+  test("on payment step", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.checkSelectedShippingMethod({ value: true })
+    await checkoutPage.checkButton({ type: "Shipping", status: "enabled" })
+    await checkoutPage.save("Shipping")
+    await checkoutPage.checkStep("Payment", "open")
+    await checkoutPage.setCoupon("testcoupon")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkSelectedShippingMethod({ value: false })
+    await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
   })
 })

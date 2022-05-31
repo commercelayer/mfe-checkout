@@ -40,7 +40,11 @@ interface Props {
 export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
   const { t } = useTranslation()
 
-  const isTaxCalculated = appCtx.hasShippingAddress && appCtx.hasShippingMethod
+  const isTaxCalculated = appCtx.isShipmentRequired
+    ? appCtx.hasBillingAddress &&
+      appCtx.hasShippingAddress &&
+      appCtx.hasShippingMethod
+    : appCtx.hasBillingAddress
   return (
     <Wrapper data-test-id="order-summary">
       <LineItemsContainer>
