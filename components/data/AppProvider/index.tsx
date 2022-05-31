@@ -13,8 +13,6 @@ import {
   checkIfShipmentRequired,
   fetchOrder,
   FetchOrderByIdResponse,
-  setAutomatedShippingMethods,
-  isPaymentRequired,
 } from "components/data/AppProvider/utils"
 
 export interface AppProviderData extends FetchOrderByIdResponse {
