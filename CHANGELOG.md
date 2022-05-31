@@ -1,3 +1,22 @@
+## [1.7.6](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.5...v1.7.6) (2022-05-31)
+
+
+### Bug Fixes
+
+* adjust padding on message and btn on thankyou page ([392d191](https://github.com/commercelayer/commercelayer-react-checkout/commit/392d1917f99c5a2737cb405e69fdf13293836b3c))
+* checkout on scenarios with free SKUs ([ae0fcd5](https://github.com/commercelayer/commercelayer-react-checkout/commit/ae0fcd58e61449f0931dd49471f7df159ce0e61b))
+* disable place order button on mobile ([1a2c827](https://github.com/commercelayer/commercelayer-react-checkout/commit/1a2c8275fae1089d1803f3f4aaab7cfc7023e4bd))
+* display stock transfer as stock line items ([2ed84b6](https://github.com/commercelayer/commercelayer-react-checkout/commit/2ed84b629b8b7893939b92eaae128458744808f5))
+* remove empty div on active payment card ([f2690d6](https://github.com/commercelayer/commercelayer-react-checkout/commit/f2690d66902e3b1fb65d8d1a5a3112009bfe9afa))
+* remove gift card from order summary when is used ([c2f5a3f](https://github.com/commercelayer/commercelayer-react-checkout/commit/c2f5a3ffd9b9f97ea9862c123dd0163a4d94544b))
+* Remove react console error from error children ([6d18da4](https://github.com/commercelayer/commercelayer-react-checkout/commit/6d18da4f3ee205605766d6837f3fa85867793a14))
+* set payment required applying or removing gift card on each step ([4312fcc](https://github.com/commercelayer/commercelayer-react-checkout/commit/4312fcc9fa8415943bfc4d7aa8a38dc47035cada))
+
+
+### Performance Improvements
+
+* using fetchOrder callback to get updated order from OrderContainer ([d7e66ca](https://github.com/commercelayer/commercelayer-react-checkout/commit/d7e66ca019fbb563a8425b5193c02ea7c5b3183b))
+
 ## [1.7.5](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.4...v1.7.5) (2022-05-11)
 
 
