@@ -4,9 +4,43 @@ import { useTranslation } from "react-i18next"
 export const PaymentContainer: React.FC = ({ children }) => {
   const { t } = useTranslation()
 
+  const checkoutReturnUrl = `${
+    window.location.href.split("?")[0]
+  }?paymentReturn=true`
+
   return (
     <PaymentMethodsContainer
       config={{
+        checkoutComPayment: {
+          success_url: checkoutReturnUrl,
+          failure_url: checkoutReturnUrl,
+          options: {
+            style: {
+              base: {
+                padding: "10px",
+                border: "1px solid #E6E7E7",
+                borderRadius: "0.25rem",
+                transition: "border 0.5s ease-out",
+                fontSize: "16px",
+              },
+              valid: {
+                color: "#1FDA8",
+              },
+              invalid: {
+                color: "#FF656B",
+              },
+              placeholder: {
+                base: {
+                  color: "#DBDCDC",
+                  fontFamily: "monospace",
+                },
+                focus: {
+                  color: "#101111",
+                },
+              },
+            },
+          },
+        },
         adyenPayment: {
           styles: {
             base: {
@@ -71,8 +105,8 @@ export const PaymentContainer: React.FC = ({ children }) => {
           },
         },
         paypalPayment: {
-          cancel_url: `${window.location.href}&paymentReturn=true`,
-          return_url: `${window.location.href}&paymentReturn=true`,
+          cancel_url: checkoutReturnUrl,
+          return_url: checkoutReturnUrl,
           infoMessage: {
             text: t("stepPayment.paypalDescription"),
             className: "text-sm text-gray-400",

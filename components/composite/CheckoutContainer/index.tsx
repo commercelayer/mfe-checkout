@@ -1,4 +1,4 @@
-import { CommerceLayer, OrderContainer } from "@commercelayer/react-components"
+import { CommerceLayer } from "@commercelayer/react-components"
 
 import { CheckoutHead } from "components/composite/CheckoutTitle"
 import { AppProvider } from "components/data/AppProvider"
@@ -20,16 +20,15 @@ const CheckoutContainer: React.FC<Props> = ({ settings, children }) => {
           endpoint={settings.endpoint}
         >
           <GlobalStylesProvider primaryColor={settings.primaryColor} />
-          <OrderContainer orderId={settings.orderId}>
-            <AppProvider
-              orderId={settings.orderId}
-              accessToken={settings.accessToken}
-              slug={settings.slug}
-              domain={settings.domain}
-            >
-              <GTMProvider gtmId={settings.gtmId}>{children}</GTMProvider>
-            </AppProvider>
-          </OrderContainer>
+
+          <AppProvider
+            orderId={settings.orderId}
+            accessToken={settings.accessToken}
+            slug={settings.slug}
+            domain={settings.domain}
+          >
+            <GTMProvider gtmId={settings.gtmId}>{children}</GTMProvider>
+          </AppProvider>
         </CommerceLayer>
       </RollbarProvider>
     </div>

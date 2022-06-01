@@ -1,4 +1,7 @@
-import { CustomerContainer } from "@commercelayer/react-components"
+import {
+  CustomerContainer,
+  OrderContainer,
+} from "@commercelayer/react-components"
 import { useContext } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -178,7 +181,11 @@ const Checkout: React.FC<Props> = ({
     )
   }
 
-  return ctx.isComplete ? renderComplete() : renderSteps()
+  return (
+    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
+      {ctx.isComplete ? renderComplete() : renderSteps()}
+    </OrderContainer>
+  )
 }
 
 const Sidebar = styled.div`

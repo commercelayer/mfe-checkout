@@ -1,11 +1,23 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { test } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
 
 test.describe("plain order", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "BABYONBU000000E63E7412MX", quantity: 2 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
   test("should open customer step", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 

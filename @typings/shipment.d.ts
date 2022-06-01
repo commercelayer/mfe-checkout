@@ -1,5 +1,5 @@
 interface ShipmentSelected {
   shipmentId: string
-  shippingMethodId: string | undefined
-  shippingMethodName: string | undefined
+  shippingMethodId?: string
+  shippingMethodName?: string
 }

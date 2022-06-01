@@ -21,9 +21,9 @@ import { BillingAddressFormNew } from "./BillingAddressFormNew"
 import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
 
 interface Props {
-  billingAddress: Address | undefined
-  shippingAddress: Address | undefined
-  emailAddress: string | undefined
+  billingAddress?: Address
+  shippingAddress?: Address
+  emailAddress?: string
   hasSameAddresses: boolean
   isShipmentRequired: boolean
   isLocalLoader: boolean

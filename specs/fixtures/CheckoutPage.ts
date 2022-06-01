@@ -33,7 +33,7 @@ export class CheckoutPage {
   async goto({ orderId, token }: GoToProps) {
     const url = `/${orderId}?accessToken=${token}`
 
-    await this.page.route("**/api/settings**", async (route, request) => {
+    await this.page.route("**/api/settings**", async (route) => {
       // Fetch original response.
       const response = await this.page.request.fetch(route.request())
 
@@ -61,7 +61,7 @@ export class CheckoutPage {
 
   async setCustomerMail(email?: string) {
     let customerEmail = email || ""
-    if (!email) {
+    if (email === undefined) {
       customerEmail = faker.internet.email().toLocaleLowerCase()
     }
     await this.page.fill("[data-test-id=customer_email]", customerEmail)
@@ -154,7 +154,7 @@ export class CheckoutPage {
     return element.innerText()
   }
 
-  async checkTermsAndPrivacyValue(value: boolean | undefined) {
+  async checkTermsAndPrivacyValue(value?: boolean) {
     const element = this.page.locator(
       "[data-test-id=checkbox-privacy-and-terms]"
     )
@@ -239,6 +239,22 @@ export class CheckoutPage {
     )
   }
 
+  async checkShippingMethodPrice({
+    index = 0,
+    shipment = 0,
+    text,
+  }: {
+    index?: number
+    shipment?: number
+    text: string
+  }) {
+    const element = this.page.locator(
+      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> nth=${index} >> text=${text}`
+    )
+
+    await expect(element).toHaveCount(1)
+  }
+
   async checkSelectedShippingMethod({
     index = 0,
     shipment = 0,
@@ -248,8 +264,8 @@ export class CheckoutPage {
     shipment?: number
     value: boolean
   }) {
-    const element = await this.page.locator(
-      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> nth=${index} >> input[type=checkbox]`
+    const element = await this.page.isChecked(
+      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> nth=${index} >> input[type=radio]`
     )
     if (value) {
       await expect(element).toBeTruthy()
@@ -432,22 +448,22 @@ export class CheckoutPage {
 
   async setCoupon(code: string) {
     await this.page.fill("[data-test-id=input_giftcard_coupon]", code)
-    this.page.click("[data-test-id=submit_giftcard_coupon]")
+    await this.page.click("[data-test-id=submit_giftcard_coupon]")
   }
 
   async removeCoupon() {
-    this.page.click("[data-test-id=remove_coupon]")
+    await this.page.click("[data-test-id=remove_coupon]")
   }
 
   async removeGiftCard() {
-    this.page.click("[data-test-id=remove_giftcard]")
+    await this.page.click("[data-test-id=remove_giftcard]")
   }
 
   async checkOrderSummary(text: string) {
     await expect(this.page.locator(`text=${text}`)).toBeVisible()
   }
 
-  async checkShippingSummary(text: string | undefined) {
+  async checkShippingSummary(text?: string) {
     if (text === undefined) {
       const element = await this.page.locator("[data-test-id=shipping-amount]")
       await expect(element).toHaveCount(0)
@@ -474,22 +490,50 @@ export class CheckoutPage {
     await this.page.locator(`text=${text}`).waitFor({ state: "visible" })
   }
 
-  async checkDiscountAmount(text: string) {
-    await this.page
-      .locator(`[data-test-id=discount-amount] >> text=${text}`)
-      .waitFor({ state: "visible" })
+  async checkDiscountAmount(text?: string) {
+    const element = await this.page.locator(
+      `[data-test-id=discount-amount] >> text=${text}`
+    )
+
+    if (text !== undefined) {
+      await element.waitFor({ state: "visible" })
+    } else {
+      await expect(element).toHaveCount(0)
+    }
   }
 
-  async checkGiftCardAmount(text: string) {
-    await this.page
-      .locator(`[data-test-id=giftcard-amount] >> text=${text}`)
-      .waitFor({ state: "visible" })
+  async checkGiftCardAmount(text?: string) {
+    const element = await this.page.locator(
+      `[data-test-id=giftcard-amount] >> text=${text}`
+    )
+    if (text !== undefined) {
+      await element.waitFor({ state: "visible" })
+    } else {
+      await expect(element).toHaveCount(0)
+    }
   }
 
   async checkCouponCode(text: string) {
     await this.page
       .locator(`[data-test-id=code-coupon] >> text=${text}`)
       .waitFor({ state: "visible" })
+  }
+
+  async checkGiftCardCode(text: string) {
+    await this.page
+      .locator(`[data-test-id=code-giftcard] >> text=${text}`)
+      .waitFor({ state: "visible" })
+  }
+
+  async checkCouponError(text?: string) {
+    const element = this.page.locator(
+      `[data-test-id=discount-error] >> text=${text}`
+    )
+    if (text !== undefined) {
+      await element.waitFor({ state: "visible" })
+    } else {
+      await expect(element).toHaveCount(0)
+    }
   }
 
   async checkTotalAmount(text: string) {
@@ -525,7 +569,7 @@ export class CheckoutPage {
   }
 
   async selectPayment(
-    type: "stripe" | "braintree" | "wire" | "paypal" | "adyen"
+    type: "stripe" | "braintree" | "wire" | "paypal" | "adyen" | "checkout_com"
   ) {
     let paymentMethod
     if (type === "wire") {
@@ -533,12 +577,12 @@ export class CheckoutPage {
     } else {
       paymentMethod = `${type}_payments`
     }
-
     await this.page.click(`[data-test-id=${paymentMethod}]`, { force: true })
+    await this.page.mouse.wheel(0, 30)
   }
 
   async setPayment(
-    type: "stripe" | "braintree" | "paypal" | "adyen",
+    type: "stripe" | "braintree" | "paypal" | "adyen" | "checkout_com",
     card?: {
       number?: string
       exp?: string
@@ -572,6 +616,23 @@ export class CheckoutPage {
           .fill(card?.number || "4111111111111111")
         await expFrame.locator("#expiration").fill(card?.exp || "102030")
         await cvvFrame.locator("#cvv").fill(card?.cvc || "123")
+        break
+      }
+      case "checkout_com": {
+        const cardFrame = this.page.frameLocator(
+          'iframe[name="checkout-frames-cardNumber"]'
+        )
+        const expFrame = this.page.frameLocator(
+          'iframe[name="checkout-frames-expiryDate"]'
+        )
+        const cvvFrame = this.page.frameLocator(
+          'iframe[name="checkout-frames-cvv"]'
+        )
+        await cardFrame
+          .locator("#checkout-frames-card-number")
+          .fill("4242424242424242")
+        await expFrame.locator("#checkout-frames-expiry-date").fill("102030")
+        await cvvFrame.locator("#checkout-frames-cvv").fill("100")
         break
       }
       case "adyen": {
@@ -652,7 +713,7 @@ export class CheckoutPage {
 
           await this.page
             .locator("text=Thank you for your order!")
-            .waitFor({ state: "visible", timeout: 15000 })
+            .waitFor({ state: "visible", timeout: 30000 })
           return
         }
 

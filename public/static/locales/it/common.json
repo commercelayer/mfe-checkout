@@ -3,6 +3,8 @@
     "general": {
         "title": "{{companyName}} - Checkout",
         "systemError": "Siamo spiacenti ma qualcosa è andato storto!",
+        "retry_error_code": "Problemi di connessione",
+        "retry_error_description": "Prova a ricaricare la pagina",
         "invalid": "Quest'ordine non è accessibile.",
         "edit": "Modifica",
         "free" : "Gratis",
@@ -21,19 +23,24 @@
     },
 
     "input":{
-        "cantBlank" : "Non può essere vuoto",
-        "mustBeValidFormat" : "Deve essere un formato valido",
-        "mustBeValidEmail":"Deve essere un indirizzo email valido",
-        "mustBeValidCouponOrGiftCard":"Non corrisponde ad alcuna carta regalo o coupon attivo"
+        "cantBlank": "Non può essere vuoto",
+        "mustBeValidFormat": "Deve essere un formato valido",
+        "mustBeValidEmail": "Deve essere un indirizzo email valido",
+        "mustBeValidCouponOrGiftCard": "Non corrisponde ad alcuna carta regalo o coupon attivo",
+        "mustBeValidCoupon": "Non corrisponde ad un coupon attivo",
+        "mustBeValidGiftCard": "Non corrisponde ad una carta regalo attiva"
     },
 
     "orderRecap": {
         "order_summary": "Riepilogo ordine",
         "cartContains": "Il tuo carrello contiene {{count}} articolo",
         "cartContains_other": "Il tuo carrello contiene {{count}} articoli",
-        "couponCode": "Codice coupon",
+        "coupon_code": "Codice coupon",
+        "gift_card_code": "Codice gift card",
+        "gift_card_or_coupon_code": "Codice gift card o coupon",
         "quantity": "QUANTITÀ: {{count}}",
-        "quantity_other": "QUANTITÀ: {{count}}x {{price}}",
+        "quantity_other": "QUANTITÀ: {{count}}",
+        "quantity_stock": "QUANTITÀ: <0/>",
         "discount_amount": "Sconto",
         "adjustment_amount": "Totale Adjustments",
         "giftcard_amount": "Gift card",
@@ -59,7 +66,10 @@
     "stepShipping": {
         "title": "Consegna",
         "shipment": "Spedizione <Wrap>{{current}} di {{total}}</Wrap>",
-        "notAvaible": "Non sono disponibili metodi di spedizione",
+        "notAvailable": "Non si effettuano spedizioni verso la destinazione indicata. Si prega di selezionare un altro indirizzo o di contattarci per maggiori informazioni.",
+        "outOfStock": "Un prodotto del tuo ordine non è più disponibile.",
+        "outOfStockWithCart": " Clicca <WrapperStyle><Link>{{link}}</Link></WrapperStyle> per modificare il carrello.",
+        "outOfStockLink": "qui",
         "stockTransfer": "<0/> di <1/> articoli verranno trasferiti",
         "methodSelected": "Il tuo ordine contiene {{count}} spedizione",
         "methodSelected_other": "Il tuo ordine contiene {{count}} spedizioni",

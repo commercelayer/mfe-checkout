@@ -1,14 +1,14 @@
 export interface DataLayerItemProps {
-  item_id: string | undefined
-  item_name: string | undefined
-  price: number | undefined
-  currency: string | undefined
-  quantity: number | undefined
+  item_id?: string
+  item_name?: string
+  price?: number
+  currency?: string
+  quantity?: number
 }
 
 export interface EcommerceProps {
   coupon?: string
-  currency: string | undefined
+  currency?: string
   shipping?: number
   items?: (DataLayerItemProps | undefined)[]
   value?: number

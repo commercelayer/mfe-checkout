@@ -59,7 +59,7 @@ interface JWTProps {
 interface DefaultParamsProps {
   token?: string
   orderId?: string
-  order: OrderType | undefined
+  order?: OrderType
   market?: string
   customer?: {
     email: string

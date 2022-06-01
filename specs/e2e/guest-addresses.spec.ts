@@ -70,7 +70,7 @@ test.describe("with customer email", () => {
     await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
   })
 
-  test.skip("line_2 optional attribute on billing address", async ({
+  test("line_2 optional attribute on billing address", async ({
     checkoutPage,
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
@@ -97,7 +97,7 @@ test.describe("with customer email", () => {
     await checkoutPage.checkBillingAddress({ ...euAddress, line_2: "" })
   })
 
-  test.skip("line_2 optional attribute on shipping address", async ({
+  test("line_2 optional attribute on shipping address", async ({
     checkoutPage,
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
@@ -123,7 +123,7 @@ test.describe("with customer email", () => {
 
     await checkoutPage.clickStep("Customer")
 
-    await checkoutPage.checkBillingAddress({ ...euAddress, line_2: "" })
+    await checkoutPage.checkShippingAddress({ ...euAddress2, line_2: "" })
   })
 })
 
@@ -353,5 +353,25 @@ test.describe("without customer email and same addresses", () => {
     await checkoutPage.save("Customer")
 
     await checkoutPage.checkStep("Shipping", "open")
+  })
+})
+
+test.describe("email error validation", () => {
+  test("check initial step", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    let element = checkoutPage.page.locator("[data-test-id=discount-error]")
+    await expect(element).toHaveCount(0)
+    await checkoutPage.setCustomerMail(customerEmail)
+    await checkoutPage.blurCustomerEmail()
+    await expect(element).toHaveCount(0)
+
+    await checkoutPage.setCustomerMail("")
+    await checkoutPage.blurCustomerEmail()
+
+    await checkoutPage.page
+      .locator("[data-test-id=customer_email_error] >> text=Can't be blank")
+      .waitFor({ state: "visible" })
+    element = checkoutPage.page.locator("[data-test-id=discount-error]")
+    await expect(element).toBeEmpty()
   })
 })

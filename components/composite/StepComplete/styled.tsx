@@ -22,14 +22,9 @@ export const Title = styled.h1`
 export const Text = styled.p`
   ${tw`py-2`}
 `
-export const Message = styled.div`
-  ${tw`my-8 text-gray-400`}
-  > br {
-    ${tw`hidden md:block`}
-  }
-`
+
 export const WrapperButton = styled.div`
-  ${tw`flex items-center justify-center`}
+  ${tw`flex items-center justify-center w-full mt-8`}
 `
 export const Recap = styled.div`
   ${tw`grid md:(auto-cols-fr grid-flow-col gap-16) lg:gap-32`}
