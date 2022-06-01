@@ -8,7 +8,7 @@ import { AddressInputGroup } from "components/composite/StepCustomer/AddressInpu
 import { AppContext } from "components/data/AppProvider"
 
 interface Props {
-  billingAddress: Address | undefined
+  billingAddress?: Address
   openShippingAddress: (props: ShippingToggleProps) => void
 }
 
@@ -49,6 +49,7 @@ export const BillingAddressFormNew: React.FC<Props> = ({
       <AddressInputGroup
         fieldName="billing_address_line_2"
         resource="billing_address"
+        required={false}
         type="text"
         value={billingAddress?.line_2 || ""}
       />

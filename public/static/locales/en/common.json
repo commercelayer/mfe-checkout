@@ -3,6 +3,8 @@
     "general": {
         "title": "{{companyName}} - Checkout",
         "systemError": "We're sorry but something went wrong!",
+        "retry_error_code": "Connectivity issues",
+        "retry_error_description": "Try to reload the page",
         "invalid": "This order is not accessible.",
         "edit": "Edit",
         "free" : "Free",
@@ -21,19 +23,24 @@
     },
 
     "input":{
-        "cantBlank" : "Can't be blank",
-        "mustBeValidFormat" : "Must be valid format",
-        "mustBeValidEmail":"Must be valid email",
-        "mustBeValidCouponOrGiftCard":"Doesn't match any active gift card or coupon"
+        "cantBlank": "Can't be blank",
+        "mustBeValidFormat": "Must be valid format",
+        "mustBeValidEmail": "Please enter a valid email",
+        "mustBeValidCouponOrGiftCard": "Please enter a valid gift card or coupon",
+        "mustBeValidCoupon": "Please enter a valid coupon.",
+        "mustBeValidGiftCard": "Please enter a valid gift card"
     },
 
     "orderRecap": {
         "order_summary": "Order summary",
         "cartContains": "Your shopping cart contains {{count}} item",
         "cartContains_other": "Your shopping cart contains {{count}} items",
-        "couponCode": "Coupon code",
+        "coupon_code": "Coupon code",
+        "gift_card_code": "Gift card code",
+        "gift_card_or_coupon_code": "Gift card or coupon code",
         "quantity": "QUANTITY: {{count}}",
-        "quantity_other": "QUANTITY: {{count}}x {{price}}",
+        "quantity_other": "QUANTITY: {{count}}",
+        "quantity_stock": "QUANTITY: <0/>",
         "discount_amount": "Discount",
         "adjustment_amount": "Adjustments total",
         "giftcard_amount": "Gift card",
@@ -59,7 +66,10 @@
     "stepShipping": {
         "title": "Delivery",
         "shipment": "Shipment <Wrap>{{current}} of {{total}}</Wrap>",
-        "notAvaible": "There are no shipping methods available.",
+        "notAvailable": "The entered destination is outside our shipping zone. Please change your shipping address or contact us for help",
+        "outOfStock": "An item in your order is no longer available.",
+        "outOfStockWithCart": " Click <WrapperStyle><Link>{{link}}</Link></WrapperStyle> to edit your cart.",
+        "outOfStockLink": "here",
         "stockTransfer": "<0/> of <1/> items will undergo a transfer",
         "methodSelected": "Your order contains {{count}} shipment",
         "methodSelected_other": "Your order contains {{count}} shipments",

@@ -1,11 +1,14 @@
 import { useRouter } from "next/router"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import useSWR from "swr"
+
+import { useLocalStorageToken } from "./useLocalStorageToken"
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 interface UseSettingsOrInvalid {
-  settings: CheckoutSettings | undefined
+  settings?: CheckoutSettings
+  retryOnError?: boolean
   isLoading: boolean
 }
 
@@ -13,12 +16,26 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const random = useRef(Date.now())
   const router = useRouter()
   const { orderId, accessToken, paymentReturn } = router.query
-  const paymentReturnQuery =
-    paymentReturn === "true" ? "&paymentReturn=true" : ""
+
+  const [savedAccessToken, setAccessToken] = useLocalStorageToken(
+    "checkoutAccessToken",
+    accessToken as string
+  )
+
+  const isPaymentReturn = paymentReturn === "true"
+
+  const paymentReturnQuery = isPaymentReturn ? "&paymentReturn=true" : ""
+
+  useEffect(() => {
+    if (router.isReady && accessToken && accessToken !== savedAccessToken) {
+      setAccessToken(accessToken)
+    }
+  }, [router])
+
   const { data, error } = useSWR(
-    router.isReady
+    router.isReady && savedAccessToken
       ? [
-          `/api/settings?accessToken=${accessToken}&orderId=${orderId}${paymentReturnQuery}`,
+          `/api/settings?accessToken=${savedAccessToken}&orderId=${orderId}${paymentReturnQuery}`,
           random,
         ]
       : null,
@@ -26,13 +43,21 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
     { revalidateOnFocus: false }
   )
 
+  // No accessToken in URL
+  if (router.isReady && !isPaymentReturn && !accessToken) {
+    router.push("/404")
+    return { settings: undefined, isLoading: false }
+  }
+
   if (!data && !error) {
     return { isLoading: true, settings: undefined }
   }
 
   if (error || (data && !data.validCheckout)) {
-    router.push("/404")
-    return { settings: undefined, isLoading: false }
+    if (!data?.retryOnError) {
+      router.push("/404")
+    }
+    return { settings: undefined, retryOnError: true, isLoading: false }
   }
 
   return {

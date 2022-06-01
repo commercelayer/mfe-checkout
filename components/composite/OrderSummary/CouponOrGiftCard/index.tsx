@@ -30,8 +30,13 @@ export const CouponOrGiftCard: React.FC<Props> = ({
 
   const [codeError, setCodeError] = useState(false)
 
-  const handleSubmit = async (response: { success: boolean }) => {
-    if (!response.success) return setCodeError(true)
+  const handleSubmit = async (response: {
+    success: boolean
+    value?: string
+  }) => {
+    if (!response.success) {
+      return setCodeError(response.value?.length !== 0)
+    }
     await setCouponOrGiftCard()
     return setCodeError(false)
   }
@@ -42,8 +47,32 @@ export const CouponOrGiftCard: React.FC<Props> = ({
     {
       code: "VALIDATION_ERROR",
       resource: "orders",
-      field: "giftCardOrCouponCode",
+      field: "gift_card_or_coupon_code",
       message: t("input.mustBeValidCouponOrGiftCard"),
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "orders",
+      field: "coupon_code",
+      message: t("input.mustBeValidCoupon"),
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "orders",
+      field: "gift_card_code",
+      message: t("input.mustBeValidGiftCard"),
+    },
+    {
+      code: "EMPTY_ERROR",
+      resource: "orders",
+      field: "customer_email",
+      message: " ",
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "orders",
+      field: "braintree_payments",
+      message: " ",
     },
   ]
 
@@ -56,7 +85,10 @@ export const CouponOrGiftCard: React.FC<Props> = ({
               <StyledGiftCardOrCouponInput
                 data-test-id="input_giftcard_coupon"
                 className={`form-input ${classError}`}
-                placeholder={t("orderRecap.couponCode")}
+                required={false}
+                placeholderTranslation={(codeType) =>
+                  t(`orderRecap.${codeType}`)
+                }
               />
               <GiftCardOrCouponSubmit
                 data-test-id="submit_giftcard_coupon"
@@ -65,8 +97,8 @@ export const CouponOrGiftCard: React.FC<Props> = ({
               />
             </CouponFieldWrapper>
             <StyledErrors
+              data-test-id="discount-error"
               resource="orders"
-              field="giftCardOrCouponCode"
               messages={messages}
             />
           </CouponFormWrapper>
