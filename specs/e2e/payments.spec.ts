@@ -33,6 +33,11 @@ test.describe("guest with Paypal", () => {
     await checkoutPage.setPayment("paypal")
 
     await checkoutPage.save("Payment", "Paga con PayPal")
+
+    await checkoutPage.checkPaymentRecap("PayPal")
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("PayPal")
   })
 })
 
@@ -178,6 +183,12 @@ test.describe("guest with Stripe", () => {
     await checkoutPage.checkPaymentSummary("€10,00")
 
     await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 
   test("checkout changing shipping method", async ({ checkoutPage }) => {
@@ -284,6 +295,12 @@ test.describe("guest with checkout.com", () => {
     await checkoutPage.page
       .locator(`text=Thank you for your order!`)
       .waitFor({ state: "visible", timeout: 100000 })
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 })
 
@@ -446,6 +463,12 @@ test.describe("guest with wire transfer", () => {
     await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
 
     await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Wire transfer")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Wire transfer")
   })
 
   test("Change method and checkout", async ({ checkoutPage }) => {
@@ -528,6 +551,10 @@ test.describe("guest with Braintree", () => {
     await checkoutPage.page
       .locator(`text=Thank you for your order!`)
       .waitFor({ state: "visible", timeout: 100000 })
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 1111")
+    await checkoutPage.page.reload()
+    await checkoutPage.checkPaymentRecap("Visa ending in 1111")
   })
 })
 
@@ -652,6 +679,46 @@ test.describe("customer with Braintree", () => {
       .waitFor({ state: "visible", timeout: 100000 })
 
     await checkoutPage.checkPaymentRecap("Visa ending in 1111")
+  })
+})
+
+test.describe("guest with Adyen", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("Checkout order", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.setPayment("adyen")
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
+    await checkoutPage.page.reload()
+    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
   })
 })
 
