@@ -17,8 +17,8 @@ export const CheckoutPayment: React.FC<Props> = ({ selectPayment }) => {
   return (
     <>
       <PaymentMethod
-        activeClass="active group"
-        className="payment"
+        activeClass="active"
+        className="payment group"
         loader={PaymentSkeleton}
         clickableContainer
         onClick={selectPayment}
