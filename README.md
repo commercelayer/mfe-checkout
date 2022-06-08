@@ -34,11 +34,13 @@ The Commerce Layer checkout application (React) provides you with a PCI-complian
 
 6. Checkout the previously created order using the URL format: `<your-deployed-checkout-url>/:order_id?accessToken=<token>`. For example: `https://checkout.yourbrand.com/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`.
 
-## Future updates
+## Hosted version
 
-We will be launching a (free) hosted version of this checkout application and a new dashboard soon. With the hosted checkout feature enabled, you can install the checkout application with a single click, customize your organization logo and primary colors, and automatically deploy the application from the dashboard.
+The hosted version of the checkout application will be automatically enabled in your account and you can customize it adding your organization logo, favicon, primary color, Google Tag Manager id, support phone and email.
 
-Kindly reach out to support@commercelayer.io or the chat on [our website](https://commercelayer.io) if you're interested in becoming an early user.
+You can use the hosted checkout with the following URL format: `https://<your-organization-subdomain>.checkout.commercelayer.app/:order_id?accessToken=<token>`.
+
+For example: `https://yourbrand.checkout.commercelayer.app/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`
 
 ## Contributors guide
 
