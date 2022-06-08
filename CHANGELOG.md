@@ -1,3 +1,11 @@
+## [1.7.7](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.6...v1.7.7) (2022-06-08)
+
+
+### Bug Fixes
+
+* thank you page with data on page reload ([bcd74c9](https://github.com/commercelayer/commercelayer-react-checkout/commit/bcd74c9910a7f35e2b64e7f4a6d23977805707a0))
+* use group selector on payment cards ([d5dad66](https://github.com/commercelayer/commercelayer-react-checkout/commit/d5dad667dff2de0e82db01adf73500cf63cebaf0))
+
 ## [1.7.6](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.5...v1.7.6) (2022-05-31)
 
 
