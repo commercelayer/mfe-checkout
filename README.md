@@ -32,23 +32,23 @@ The Commerce Layer checkout application (React) provides you with a PCI-complian
 
 5. Create an [order](https://docs.commercelayer.io/developers/v/api-reference/orders) associated with some line items.
 
-6. Checkout the previously created order using the URL format: `<your-deployed-checkout-url>/:order_id?accessToken=<token>`. For example: `https://checkout.yourbrand.com/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`.
+6. Checkout the previously created order using the URL format: `<your-deployed-checkout-url>/:order_id?accessToken=<your-access-token>`. For example: `https://checkout.yourbrand.com/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`.
 
 ## Hosted version
 
-The hosted version of the checkout application will be automatically enabled in your account and you can customize it adding your organization logo, favicon, primary color, Google Tag Manager id, support phone and email.
+There is a hosted version of the checkout application that is automatically enabled in your Commerce Layer account.  You can customize it by adding your organization logo, favicon, primary color, Google Tag Manager ID, support telephone, and email address.
 
-You can use the hosted checkout with the following URL format: `https://<your-organization-subdomain>.checkout.commercelayer.app/:order_id?accessToken=<token>`.
+You can use the hosted checkout with the following URL format: `https://<your-organization-subdomain>.checkout.commercelayer.app/:order_id?accessToken=<your-access-token>`.
 
 For example: `https://yourbrand.checkout.commercelayer.app/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`
 
-If you are using [Commerce Layer CLI](https://github.com/commercelayer/commercelayer-cli), there is a [checkout plugin](https://github.com/commercelayer/commercelayer-cli-plugin-checkout/blob/main/README.md) that can generate the URL from SKU and bundle codes, or from an order id:
+If you are using [Commerce Layer CLI](https://github.com/commercelayer/commercelayer-cli), you can leverage the [checkout plugin](https://github.com/commercelayer/commercelayer-cli-plugin-checkout/blob/main/README.md)  to generate the URL from an SKU code (using the `-S` flag), a bundle code `-B`, or from an order ID (using the `-O` flag):
 
 ```
 commercelayer checkout -S <skuCode>:<quantity> --open
+commercelayer checkout -B <bundleCode>:<quantity> --open
+commercelayer checkout -O <orderId> --open
 ```
-
-You can use `-S` for SKUs, `-B` for bundles, `-O` for order id.
 
 ## Contributors guide
 
@@ -69,7 +69,7 @@ yarn dev
 
 4. Set your environment with `.env.local` starting from `.env.local.sample`.
 
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can use the following format to open the checkout: `http://localhost:3000/:orderId?accessToken=...`.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can use the following format to open the checkout: `http://localhost:3000/:orderId?accessToken=<your-access-token>`.
 
 6. Make your changes and create a pull request ([learn how to do this](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)).
 
