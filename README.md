@@ -11,7 +11,7 @@ The Commerce Layer checkout application (React) provides you with a PCI-complian
 ## Table of contents
 
 - [Getting started](#getting-started)
-- [Future updates](#future-updates)
+- [Hosted version](#hosted-version)
 - [Contributors guide](#contributors-guide)
 - [Help and support](#need-help)
 - [License](#license)
