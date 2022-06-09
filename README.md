@@ -11,7 +11,7 @@ The Commerce Layer checkout application (React) provides you with a PCI-complian
 ## Table of contents
 
 - [Getting started](#getting-started)
-- [Future updates](#future-updates)
+- [Hosted version](#hosted-version)
 - [Contributors guide](#contributors-guide)
 - [Help and support](#need-help)
 - [License](#license)
@@ -32,13 +32,23 @@ The Commerce Layer checkout application (React) provides you with a PCI-complian
 
 5. Create an [order](https://docs.commercelayer.io/developers/v/api-reference/orders) associated with some line items.
 
-6. Checkout the previously created order using the URL format: `<your-deployed-checkout-url>/:order_id?accessToken=<token>`. For example: `https://checkout.yourbrand.com/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`.
+6. Checkout the previously created order using the URL format: `<your-deployed-checkout-url>/:order_id?accessToken=<your-access-token>`. For example: `https://checkout.yourbrand.com/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`.
 
-## Future updates
+## Hosted version
 
-We will be launching a (free) hosted version of this checkout application and a new dashboard soon. With the hosted checkout feature enabled, you can install the checkout application with a single click, customize your organization logo and primary colors, and automatically deploy the application from the dashboard.
+There is a hosted version of the checkout application that is automatically enabled in your Commerce Layer account.  You can customize it by adding your organization logo, favicon, primary color, Google Tag Manager ID, support telephone, and email address.
 
-Kindly reach out to support@commercelayer.io or the chat on [our website](https://commercelayer.io) if you're interested in becoming an early user.
+You can use the hosted checkout with the following URL format: `https://<your-organization-subdomain>.checkout.commercelayer.app/:order_id?accessToken=<your-access-token>`.
+
+For example: `https://yourbrand.checkout.commercelayer.app/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`
+
+If you are using [Commerce Layer CLI](https://github.com/commercelayer/commercelayer-cli), you can leverage the [checkout plugin](https://github.com/commercelayer/commercelayer-cli-plugin-checkout/blob/main/README.md)  to generate the URL from an SKU code (using the `-S` flag), a bundle code (using the `-B` flag), or from an order ID (using the `-O` flag):
+
+```
+commercelayer checkout -S <skuCode>:<quantity> --open
+commercelayer checkout -B <bundleCode>:<quantity> --open
+commercelayer checkout -O <orderID> --open
+```
 
 ## Contributors guide
 
@@ -50,23 +60,20 @@ Kindly reach out to support@commercelayer.io or the chat on [our website](https:
 git clone https://github.com/<your username>/commercelayer-react-checkout.git && cd commercelayer-react-checkout
 ```
 
-3. First, run the development server:
+3. First, install dependencies and run the development server:
 
 ```
+yarn install
 yarn dev
 ```
 
 4. Set your environment with `.env.local` starting from `.env.local.sample`.
 
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can use the following format to open the checkout: `http://localhost:3000/:orderId?accessToken=...`.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can use the following format to open the checkout: `http://localhost:3000/:orderId?accessToken=<your-access-token>`.
 
 6. Make your changes and create a pull request ([learn how to do this](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)).
 
 7. Someone will attend to your pull request and provide some feedback.
-
-## Rollbar token
-
-There are many access tokens on rollbar settings, we need to use one related to post client items.
 
 ## Need help?
 
