@@ -42,6 +42,14 @@ You can use the hosted checkout with the following URL format: `https://<your-or
 
 For example: `https://yourbrand.checkout.commercelayer.app/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`
 
+If you are using [Commerce Layer CLI](https://github.com/commercelayer/commercelayer-cli), there is a [checkout plugin](https://github.com/commercelayer/commercelayer-cli-plugin-checkout/blob/main/README.md) that can generate the URL from SKU and bundle codes, or from an order id:
+
+```
+commercelayer checkout -S <skuCode>:<quantity> --open
+```
+
+You can use `-S` for SKUs, `-B` for bundles, `-O` for order id.
+
 ## Contributors guide
 
 1. Fork [this repository](https://github.com/commercelayer/commercelayer-react-checkout) (you can learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
