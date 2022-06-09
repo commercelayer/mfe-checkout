@@ -60,9 +60,10 @@ You can use `-S` for SKUs, `-B` for bundles, `-O` for order id.
 git clone https://github.com/<your username>/commercelayer-react-checkout.git && cd commercelayer-react-checkout
 ```
 
-3. First, run the development server:
+3. First, install dependencies and run the development server:
 
 ```
+yarn install
 yarn dev
 ```
 
@@ -73,7 +74,7 @@ yarn dev
 6. Make your changes and create a pull request ([learn how to do this](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)).
 
 7. Someone will attend to your pull request and provide some feedback.
-8. 
+
 ## Need help?
 
 1. Join [Commerce Layer's Slack community](https://slack.commercelayer.app).
