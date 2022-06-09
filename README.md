@@ -65,11 +65,7 @@ yarn dev
 6. Make your changes and create a pull request ([learn how to do this](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)).
 
 7. Someone will attend to your pull request and provide some feedback.
-
-## Rollbar token
-
-There are many access tokens on rollbar settings, we need to use one related to post client items.
-
+8. 
 ## Need help?
 
 1. Join [Commerce Layer's Slack community](https://slack.commercelayer.app).
