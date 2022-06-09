@@ -42,12 +42,12 @@ You can use the hosted checkout with the following URL format: `https://<your-or
 
 For example: `https://yourbrand.checkout.commercelayer.app/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`
 
-If you are using [Commerce Layer CLI](https://github.com/commercelayer/commercelayer-cli), you can leverage the [checkout plugin](https://github.com/commercelayer/commercelayer-cli-plugin-checkout/blob/main/README.md)  to generate the URL from an SKU code (using the `-S` flag), a bundle code `-B`, or from an order ID (using the `-O` flag):
+If you are using [Commerce Layer CLI](https://github.com/commercelayer/commercelayer-cli), you can leverage the [checkout plugin](https://github.com/commercelayer/commercelayer-cli-plugin-checkout/blob/main/README.md)  to generate the URL from an SKU code (using the `-S` flag), a bundle code (using the `-B` flag), or from an order ID (using the `-O` flag):
 
 ```
 commercelayer checkout -S <skuCode>:<quantity> --open
 commercelayer checkout -B <bundleCode>:<quantity> --open
-commercelayer checkout -O <orderId> --open
+commercelayer checkout -O <orderID> --open
 ```
 
 ## Contributors guide
