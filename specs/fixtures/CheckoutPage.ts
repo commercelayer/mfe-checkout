@@ -474,6 +474,11 @@ export class CheckoutPage {
     }
   }
 
+  async checkLineItemsCount(text: string) {
+    const element = await this.page.locator(`[data-test-id=items-count]`)
+    await expect(element).toHaveText(text)
+  }
+
   async checkPaymentRecap(text: string) {
     await expect(
       this.page.locator(`[data-test-id=payment-recap] >> text=${text}`)

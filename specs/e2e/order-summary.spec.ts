@@ -366,3 +366,85 @@ test.describe("with digital product", () => {
     await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 })
+
+test.describe("count with only free items", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [{ sku_code: "APPTESLA", quantity: 2 }],
+    },
+  })
+
+  test("should count the right items ", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkLineItemsCount(
+      "Your shopping cart contains 2 items"
+    )
+  })
+})
+
+test.describe("count with mixed items", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "APPTESLA", quantity: 2 },
+        { sku_code: "BABYONBU000000E63E7412MX", quantity: 3 },
+      ],
+    },
+  })
+
+  test("should count the right items", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkLineItemsCount(
+      "Your shopping cart contains 5 items"
+    )
+  })
+})
+
+test.describe("count using gift card", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "TSHIRTMMFFFFFF000000XLXX", quantity: 5 },
+      ],
+      giftCardAttributes: {
+        balance_cents: 10000,
+        apply: true,
+      },
+    },
+  })
+
+  test("should count the right items", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkLineItemsCount(
+      "Your shopping cart contains 5 items"
+    )
+  })
+})
+
+test.describe("count buying gift card", () => {
+  test.use({
+    defaultParams: {
+      order: "gift-card",
+    },
+  })
+
+  test("should count the right items", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkLineItemsCount("Your shopping cart contains 1 item")
+  })
+})
