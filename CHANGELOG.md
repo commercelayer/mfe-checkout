@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.7...v1.8.0) (2022-06-16)
+
+
+### Features
+
+* add German translations ([121bd05](https://github.com/commercelayer/commercelayer-react-checkout/commit/121bd058501629092e569a1e46d70289836ef69b))
+
 ## [1.7.7](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.6...v1.7.7) (2022-06-08)
 
 
