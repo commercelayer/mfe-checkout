@@ -1,0 +1,144 @@
+{
+
+    "general": {
+        "title": "{{companyName}} - Zur Bezahlung",
+        "systemError": "Es tut uns leid, aber irgendetwas ist schief gegangen!",
+        "retry_error_code": "Verbindungsprobleme",
+        "retry_error_description": "Versuche, die Seite zu aktualisieren",
+        "invalid": "Diese Bestellung ist nicht verfügbar",
+        "edit": "Bearbeiten",
+        "free": "Gratis",
+        "apply": "Anwenden",
+        "privacy_and_terms": "Durch Anklicken des Kontrollkästchens erklärst Du Dich mit den <bold><termsUrl>Geschäftsbedingungen</termsUrl></bold> und dem <bold><privacyUrl>Datenschutz</privacyUrl></bold> einverstanden.",
+        "checkoutTitle": "Bezahlung"
+    },
+  
+    "error": {
+        "general": "Allgemeiner Fehler",
+        "shipments": "Bei einigen Sendungen fehlt die Versandart.",
+        "paymentMethod": "Bitte füge eine Zahlungsmethode hinzu",
+        "transition": "Die Übermittlung ist nicht autorisiert",
+        "payer": "Die Zahlung wurde nicht genehmigt",
+        "resourceID": "Die angeforderte Ressourcen-ID wurde nicht gefunden"
+    },
+  
+    "input": {
+        "cantBlank": "Darf nicht leer sein",
+        "mustBeValidFormat": "Muss ein gültiges Format sein",
+        "mustBeValidEmail": "Bitte gib eine gültige Emailadresse an",
+        "mustBeValidCouponOrGiftCard": "Bitte gib einen gültigen Rabattcode oder Geschenkgutschein an",
+        "mustBeValidCoupon": "Bitte gib einen gültigen Rabattcode an.",
+        "mustBeValidGiftCard": "Bitte gib einen gültigen Geschenkgutschein an"
+    },
+  
+    "orderRecap": {
+        "order_summary": "Bestellübersicht",
+        "cartContains": "Dein Einkaufswagen enthält {{count}} Artikel.",
+        "cartContains_plural": "Dein Einkaufswagen enthält {{count}} Artikel.",
+        "coupon_code": "Rabattcode",
+        "gift_card_code": "Geschenkkarte",
+        "gift_card_or_coupon_code": "Geschenkkarte oder Rabattcode" ,
+        "quantity": "Anzahl: {{count}}",
+        "quantity_other": "Anzahl: {{count}}",
+        "quantity_stock": "Anzahl: <0/>",
+        "discount_amount": "Rabatt",
+        "adjustment_amount": "Anpassungen gesamt",
+        "giftcard_amount": "Geschenkkarte",
+        "tax_amount": "Mehrwertsteuer",
+        "tax_included_amount": "<style>inkl.</style> MwSt.",
+        "shipping_amount": "Versandkosten",
+        "payment_method_amount": "Zahlungsmethode",
+        "subtotal_amount": "Zwischensumme",
+        "total_amount": "Summe",
+        "notSet": "Zu berechnen",
+        "returnToCart": "Zurück zum Warenkorb"
+    },
+  
+    "stepCustomer": {
+        "title": "Kunde",
+        "addNewAddress": "Neue Adresse hinzufügen",
+        "saveAddressBook": "Speichere diese Adresse in Deinem Konto",
+        "continueToDelivery": "Weiter zum Versand",
+        "notSet": "Gib Deine Rechnungs- / Lieferadresse ein",
+        "closeForm": "Adresse auswählen"
+    },
+  
+    "stepShipping": {
+        "title": "Versand",
+        "shipment": "Versand <Wrap>{{current}} von {{total}}</Wrap>",
+        "notAvailable": "Die angegeben Lieferadresse liegt außerhalb unseres Liefergebiets. Bitte gib eine andere Lieferadresse an, oder kontaktiere uns.",
+        "outOfStock": "Ein Artikel deiner Bestellung ist nicht mehr verfügbar.",
+        "outOfStockWithCart": " Klicke <WrapperStyle><Link>{{link}}</Link></WrapperStyle>, um deinen Warenkorb zu bearbeiten.",
+        "outOfStockLink": "hier",
+        "stockTransfer": "<0/> von <1/> Artikeln werden versendet",
+        "methodSelected": "Deine Bestellung besteht aus {{count}} Sendung.",
+        "methodSelected_other": "Deine Bestellung besteht aus {{count}} Sendungen.",
+        "methodUnselected": "Wähle eine Versandart",
+        "deliveryLeadTime": "<0/> - <1/> Tage",
+        "continueToPayment": "Weiter zur Zahlung",
+        "notRequired": "Diese Bestellung erfordert keinen Versand"
+    },
+  
+    "stepPayment": {
+        "title": "Zahlung",
+        "methodUnselected": "Wähle eine Zahlungsmethode",
+        "creditCard": "Kreditkarte",
+        "wireTransfer": "Banküberweisung",
+        "wireTransferDescription": "Nachdem Du die Bestellung aufgegeben hast, musst Du die Zahlung manuell mit Deiner Bank abwickeln.",
+        "paypalDescription": "Nach der Bestellung wirst Du auf die PayPal-Website weitergeleitet, um Dich anzumelden und die Zahlung zu autorisieren.",
+        "endingIn": "<0/> endet mit <1/>",
+        "submit": "Jetzt bestellen",
+        "notRequired": "Diese Bestellung erfordert keine Zahlung",
+        "amountZero": "Der Gesamtbetrag der Bestellung ist Null. Du kannst die Bestellung so aufgeben, wie sie jetzt ist",
+        "saveToWallet": "Speichere eine neue Karte",
+        "expires": "Ablaufdatum"
+    },
+  
+    "addressForm": {
+        "customer_email": "Deine E-Mail-Adresse",
+        "billing_address_title": "Rechnungsadresse",
+        "billing_address_first_name": "Vorname",
+        "billing_address_last_name": "Nachname",
+        "billing_address_line_1": "Erste Adresszeile",
+        "billing_address_line_2": "Zweite Adresszeile",
+        "billing_address_city": "Stadt",
+        "billing_address_country_code_placeholder": "Wähle ein Land",
+        "billing_address_country_code": "Land",
+        "billing_address_state_code": "Bundesland",
+        "billing_address_state_code_placeholder": "Wähle ein Bundesland",
+        "billing_address_zip_code": "Postleitzahl",
+        "billing_address_phone": "Telefon",
+        "billing_address_billing_info": "Rechnungsinfo",
+        "ship_to_different_address": "An eine andere Adresse liefern",
+        "shipping_address_title": "Lieferadresse",
+        "shipping_address_first_name": "Vorname",
+        "shipping_address_last_name": "Nachname",
+        "shipping_address_line_1": "Erste Adresszeile",
+        "shipping_address_line_2": "Zweite Adresszeile",
+        "shipping_address_city": "Stadt",
+        "shipping_address_country_code": "Land",
+        "shipping_address_country_code_placeholder": "Wähle ein Land",
+        "shipping_address_state_code": "Bundesland",
+        "shipping_address_state_code_placeholder": "Wähle ein Bundesland",
+        "shipping_address_zip_code": "Postleitzahl",
+        "shipping_address_phone": "Telefon"
+    },
+  
+    "stepComplete": {
+        "title": "Vielen Dank für deine Bestellung!",
+        "description": "Bestellnummer: <WrapperOrderId>#{{orderNumber}}</WrapperOrderId>",
+        "continue": "Weiter einkaufen",
+        "supportEmail": "Bei Fragen kontaktiere uns bitte unter <br /><WrapperStyle><WrapperEmail>{{email}}</WrapperEmail></WrapperStyle>",
+        "supportPhone": "Bei Fragen rufe uns bitte an unter <br /><WrapperStyle><WrapperPhone>{{phone}}</WrapperPhone></WrapperStyle>",
+        "fullSupport": "Bei Fragen kontaktiere uns bitte unter <br /><WrapperStyle><WrapperEmail>{{email}}</WrapperEmail></WrapperStyle> oder <WrapperStyle><WrapperPhone>{{phone}}</WrapperPhone></WrapperStyle>",
+        "ship_to": "Versendet an:",
+        "billed_to": "Rechnung gesendet an:",
+        "payment": "Zahlung:",
+        "summary_title": "Zusammenfassung",
+        "customer_title": "Kunde",
+        "email": "E-Mail:",
+        "free_payment": "Diese Bestellung erforderte keine Zahlung"  
+    }
+
+  }
+  
