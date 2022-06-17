@@ -121,10 +121,13 @@ test.describe("with two shipments", () => {
       text: "Express Delivery",
       shipment: 0,
     })
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.selectShippingMethod({
       text: "Express Delivery",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.save("Shipping")
 
@@ -179,10 +182,13 @@ test.describe("with two shipments", () => {
       text: "Express Delivery",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
       shipment: 0,
     })
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.save("Shipping")
     await checkoutPage.checkStep("Shipping", "close")
