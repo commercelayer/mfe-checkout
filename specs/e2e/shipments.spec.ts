@@ -853,6 +853,7 @@ test.describe("adding coupon code", () => {
     await checkoutPage.setCoupon("testcoupon")
     await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.checkSelectedShippingMethod({ value: false })
   })
 
