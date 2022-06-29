@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.0...v1.8.1) (2022-06-29)
+
+
+### Bug Fixes
+
+* count free items as line items ([04c06ce](https://github.com/commercelayer/commercelayer-react-checkout/commit/04c06ce2033ac1b88b79839fc672301e13ce9d76))
+
 # [1.8.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.7...v1.8.0) (2022-06-16)
 
 
