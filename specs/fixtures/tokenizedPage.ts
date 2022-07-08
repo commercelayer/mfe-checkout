@@ -67,8 +67,8 @@ interface DefaultParamsProps {
     password: string
   }
   organization?: {
-    supportPhone?: string
-    supportEmail?: string
+    support_phone?: string
+    support_email?: string
     gtmId?: string
   }
   orderAttributes?: {

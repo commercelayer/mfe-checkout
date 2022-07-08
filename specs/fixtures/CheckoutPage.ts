@@ -31,12 +31,13 @@ export class CheckoutPage {
   }
 
   async goto({ orderId, token }: GoToProps) {
-    const url = `/${orderId}?accessToken=${token}`
+    const url = `${
+      process.env.NEXT_PUBLIC_BASE_PATH || ""
+    }/${orderId}?accessToken=${token}`
 
-    await this.page.route("**/api/settings**", async (route) => {
+    await this.page.route("**/api/organization**", async (route) => {
       // Fetch original response.
       const response = await this.page.request.fetch(route.request())
-
       // // Add a prefix to the title.
       const body = await response.json()
       // // body = body.replace('<title>', '<title>My prefix:');
@@ -46,7 +47,13 @@ export class CheckoutPage {
         // Override response body.
         body: JSON.stringify({
           ...body,
-          ...this.attributes?.organization,
+          data: {
+            ...body.data,
+            attributes: {
+              ...body.data.attributes,
+              ...this.attributes?.organization,
+            },
+          },
         }),
       })
     })
