@@ -1,7 +1,7 @@
 import { PlaceOrderContainer } from "@commercelayer/react-components"
-import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
+import { useSearchParams } from "react-router-dom"
 
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
@@ -34,7 +34,9 @@ const StepPlaceOrder: React.FC<Props> = ({
   privacyUrl,
 }) => {
   const { t } = useTranslation()
-  const { query } = useRouter()
+  const [searchParams] = useSearchParams()
+  const payerID = searchParams.get("PayerID")
+  const ckoSessionId = searchParams.get("cko-session-id")
 
   const [isPlacingOrder, setIsPlacingOrder] = useState(false)
 
@@ -47,12 +49,12 @@ const StepPlaceOrder: React.FC<Props> = ({
   let paypalPayerId = ""
   let checkoutComSession = ""
 
-  if (query.PayerID) {
-    paypalPayerId = query.PayerID as string
+  if (payerID) {
+    paypalPayerId = payerID as string
   }
 
-  if (query["cko-session-id"]) {
-    checkoutComSession = query["cko-session-id"] as string
+  if (ckoSessionId) {
+    checkoutComSession = ckoSessionId
   }
 
   const { placeOrder } = appCtx

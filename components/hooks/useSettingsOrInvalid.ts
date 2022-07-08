@@ -1,5 +1,5 @@
-import { useRouter } from "next/router"
 import { useCallback, useEffect, useRef } from "react"
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"
 import useSWR from "swr"
 import { getSettings } from "utils/getSettings"
 import { getSubdomain } from "utils/getSubdomain"
@@ -14,8 +14,11 @@ interface UseSettingsOrInvalid {
 
 export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const random = useRef(Date.now())
-  const router = useRouter()
-  const { orderId, accessToken, paymentReturn } = router.query
+  const navigate = useNavigate()
+  const { orderId } = useParams()
+  const [searchParams] = useSearchParams()
+  const accessToken = searchParams.get("accessToken")
+  const paymentReturn = searchParams.get("paymentReturn")
 
   const [savedAccessToken, setAccessToken] = useLocalStorageToken(
     "checkoutAccessToken",
@@ -25,10 +28,10 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const isPaymentReturn = paymentReturn === "true"
 
   useEffect(() => {
-    if (router.isReady && accessToken && accessToken !== savedAccessToken) {
+    if (accessToken && accessToken !== savedAccessToken) {
       setAccessToken(accessToken)
     }
-  }, [router])
+  }, [accessToken])
 
   // setting a custom fetcher to get data from our local async getSettings
   const fetcher = useCallback(
@@ -42,15 +45,13 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
     [orderId, savedAccessToken, isPaymentReturn]
   )
 
-  const { data, error } = useSWR(
-    router.isReady && savedAccessToken ? [random] : null,
-    fetcher,
-    { revalidateOnFocus: false }
-  )
+  const { data, error } = useSWR(savedAccessToken ? [random] : null, fetcher, {
+    revalidateOnFocus: false,
+  })
 
   // No accessToken in URL
-  if (router.isReady && !isPaymentReturn && !accessToken) {
-    router.push("/404")
+  if (isPaymentReturn === null && accessToken === null) {
+    navigate("/404")
     return { settings: undefined, isLoading: false }
   }
 
@@ -64,7 +65,7 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
 
   if (data && !data.validCheckout) {
     if (!data.retryOnError) {
-      router.push("/404")
+      navigate("/404")
     }
     return { settings: undefined, retryOnError: true, isLoading: false }
   }
