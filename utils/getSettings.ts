@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { TypeAccepted } from "@commercelayer/react-components/lib/utils/getLineItemsCount"
 import CommerceLayer, {
   CommerceLayerStatic,
@@ -8,7 +7,6 @@ import CommerceLayer, {
 } from "@commercelayer/sdk"
 import retry from "async-retry"
 import jwt_decode from "jwt-decode"
-import type { NextApiRequest, NextApiResponse } from "next"
 
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 import hex2hsl, { BLACK_COLOR } from "components/utils/hex2hsl"
@@ -31,17 +29,23 @@ interface FetchResource<T> {
   success: boolean
 }
 
-function isProduction(env: string): boolean {
-  return env === "production"
+function isProduction(): boolean {
+  return process.env.NODE_ENV === "production"
+}
+
+function isHosted() {
+  return !!process.env.NEXT_PUBLIC_HOSTED
 }
 
 async function retryCall<T>(
-  f: Promise<T>
+  f: () => Promise<T>
 ): Promise<FetchResource<T> | undefined> {
   return await retry(
     async (bail, number) => {
       try {
-        const object = await f
+        console.log("retrying", number)
+
+        const object = await f()
         return {
           object: object as unknown as T,
           success: true,
@@ -70,7 +74,7 @@ async function retryCall<T>(
 async function getOrganization(
   cl: CommerceLayerClient
 ): Promise<FetchResource<Organization> | undefined> {
-  return retryCall<Organization>(
+  return retryCall<Organization>(() =>
     cl.organization.retrieve({
       fields: {
         organizations: [
@@ -93,7 +97,7 @@ async function getOrder(
   cl: CommerceLayerClient,
   orderId: string
 ): Promise<FetchResource<Order> | undefined> {
-  return retryCall<Order>(
+  return retryCall<Order>(() =>
     cl.orders.retrieve(orderId, {
       fields: {
         orders: [
@@ -129,31 +133,33 @@ function getTokenInfo(accessToken: string) {
   }
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { NODE_ENV, DOMAIN, HOSTED, NEXT_PUBLIC_SLUG } = process.env
-  const accessToken = req.query.accessToken as string
-  const orderId = req.query.orderId as string
+export const getSettings = async ({
+  accessToken,
+  orderId,
+  subdomain,
+  paymentReturn,
+}: {
+  accessToken: string
+  orderId: string
+  paymentReturn?: boolean
+  subdomain: string
+}) => {
+  const domain = process.env.NEXT_PUBLIC_DOMAIN || "commercelayer.io"
 
-  const domain = DOMAIN || "commercelayer.io"
-
-  const paymentReturn = req.query.paymentReturn === "true"
-
-  function invalidateCheckout(retry?: boolean) {
-    res.statusCode = 200
+  function invalidateCheckout(retry?: boolean): InvalidCheckoutSettings {
     console.log("access token:")
     console.log(accessToken)
     console.log("orderId")
     console.log(orderId)
-    return res.json({ validCheckout: false, retryOnError: !!retry })
+    return {
+      validCheckout: false,
+      retryOnError: !!retry,
+    } as InvalidCheckoutSettings
   }
 
   if (!accessToken || !orderId) {
     return invalidateCheckout()
   }
-
-  const subdomain = HOSTED
-    ? req.headers.host?.split(":")[0].split(".")[0]
-    : NEXT_PUBLIC_SLUG
 
   const { slug, kind, isTest } = getTokenInfo(accessToken)
 
@@ -161,10 +167,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return invalidateCheckout()
   }
 
-  if (
-    isProduction(NODE_ENV) &&
-    (subdomain !== slug || kind !== "sales_channel")
-  ) {
+  if (isProduction() && (subdomain !== slug || kind !== "sales_channel")) {
     return invalidateCheckout()
   } else if (kind !== "sales_channel") {
     return invalidateCheckout()
@@ -245,8 +248,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     privacyUrl: order.privacy_url,
   }
 
-  return res
-    .setHeader("Cache-Control", "s-maxage=1, stale-while-revalidate")
-    .status(200)
-    .json(appSettings)
+  return appSettings
 }
