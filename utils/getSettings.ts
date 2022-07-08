@@ -43,8 +43,6 @@ async function retryCall<T>(
   return await retry(
     async (bail, number) => {
       try {
-        console.log("retrying", number)
-
         const object = await f()
         return {
           object: object as unknown as T,
