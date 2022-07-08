@@ -8,7 +8,7 @@ interface CheckoutSettings {
   accessToken: string
   orderId: string
   orderNumber: number
-  validCheckout: boolean
+  validCheckout: true
   endpoint: string
   domain: string
   slug: string
@@ -22,6 +22,11 @@ interface CheckoutSettings {
   supportPhone?: string
   termsUrl?: string
   privacyUrl?: string
+}
+
+interface InvalidCheckoutSettings {
+  validCheckout: false
+  retryOnError: boolean
 }
 
 type CheckoutPageContextProps = Pick<
