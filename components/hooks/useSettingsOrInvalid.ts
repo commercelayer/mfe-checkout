@@ -20,6 +20,7 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const [settings, setSettings] = useState<
     CheckoutSettings | InvalidCheckoutSettings | undefined
   >(undefined)
+  const [isFetching, setIsFetching] = useState(true)
 
   const [savedAccessToken, setAccessToken] = useLocalStorageToken(
     "checkoutAccessToken",
@@ -35,23 +36,25 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   }, [accessToken])
 
   useEffect(() => {
-    if (savedAccessToken && orderId) {
-      getSettings({
-        accessToken: savedAccessToken,
-        orderId: orderId as string,
-        paymentReturn: isPaymentReturn,
-        subdomain: getSubdomain(window.location.hostname),
-      }).then((s) => setSettings(s))
-    }
-  }, [orderId, savedAccessToken, isPaymentReturn])
+    setIsFetching(true)
+    getSettings({
+      accessToken: savedAccessToken,
+      orderId: orderId as string,
+      paymentReturn: isPaymentReturn,
+      subdomain: getSubdomain(window.location.hostname),
+    }).then((fetchedSettings) => {
+      setSettings(fetchedSettings)
+      setIsFetching(false)
+    })
+  }, [])
 
   // No accessToken in URL
-  if (isPaymentReturn === null && accessToken === null) {
+  if (!isPaymentReturn && accessToken === null) {
     navigate("/404")
     return { settings: undefined, isLoading: false }
   }
 
-  if (!settings) {
+  if (isFetching) {
     return { isLoading: true, settings: undefined }
   }
 
