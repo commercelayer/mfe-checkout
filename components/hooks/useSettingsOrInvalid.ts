@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate, useParams, useSearchParams } from "react-router-dom"
-import useSWR from "swr"
 import { getSettings } from "utils/getSettings"
 import { getSubdomain } from "utils/getSubdomain"
 
@@ -13,12 +12,14 @@ interface UseSettingsOrInvalid {
 }
 
 export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
-  const random = useRef(Date.now())
   const navigate = useNavigate()
   const { orderId } = useParams()
   const [searchParams] = useSearchParams()
   const accessToken = searchParams.get("accessToken")
   const paymentReturn = searchParams.get("paymentReturn")
+  const [settings, setSettings] = useState<
+    CheckoutSettings | InvalidCheckoutSettings | undefined
+  >(undefined)
 
   const [savedAccessToken, setAccessToken] = useLocalStorageToken(
     "checkoutAccessToken",
@@ -33,21 +34,16 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
     }
   }, [accessToken])
 
-  // setting a custom fetcher to get data from our local async getSettings
-  const fetcher = useCallback(
-    () =>
+  useEffect(() => {
+    if (savedAccessToken && orderId) {
       getSettings({
         accessToken: savedAccessToken,
         orderId: orderId as string,
         paymentReturn: isPaymentReturn,
         subdomain: getSubdomain(window.location.hostname),
-      }),
-    [orderId, savedAccessToken, isPaymentReturn]
-  )
-
-  const { data, error } = useSWR(savedAccessToken ? [random] : null, fetcher, {
-    revalidateOnFocus: false,
-  })
+      }).then((s) => setSettings(s))
+    }
+  }, [orderId, savedAccessToken, isPaymentReturn])
 
   // No accessToken in URL
   if (isPaymentReturn === null && accessToken === null) {
@@ -55,23 +51,19 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
     return { settings: undefined, isLoading: false }
   }
 
-  if (!data && !error) {
+  if (!settings) {
     return { isLoading: true, settings: undefined }
   }
 
-  if (error) {
-    return { settings: undefined, retryOnError: true, isLoading: false }
-  }
-
-  if (data && !data.validCheckout) {
-    if (!data.retryOnError) {
+  if (settings && !settings.validCheckout) {
+    if (!settings.retryOnError) {
       navigate("/404")
     }
     return { settings: undefined, retryOnError: true, isLoading: false }
   }
 
   return {
-    settings: data,
+    settings,
     isLoading: false,
   }
 }
