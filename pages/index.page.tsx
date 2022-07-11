@@ -6,7 +6,7 @@ import Order from "./Order"
 
 const Home: NextPage = () => {
   return (
-    <BrowserRouter basename={process.env.NEXT_PUBLIC_BASE_URL}>
+    <BrowserRouter basename={process.env.NEXT_PUBLIC_BASE_PATH}>
       <Routes>
         <Route path="404" element={<Page404 />} />
         <Route path=":orderId" element={<Order />} />
