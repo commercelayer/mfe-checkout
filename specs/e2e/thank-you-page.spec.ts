@@ -95,8 +95,8 @@ test.describe("with support phone and email", () => {
     defaultParams: {
       order: "with-items",
       organization: {
-        supportPhone: phone,
-        supportEmail: email,
+        support_phone: phone,
+        support_email: email,
       },
       orderAttributes: {
         customer_email: customerEmail,
@@ -142,7 +142,7 @@ test.describe("with support phone", () => {
     defaultParams: {
       order: "with-items",
       organization: {
-        supportPhone: phone,
+        support_phone: phone,
       },
       orderAttributes: {
         customer_email: customerEmail,
@@ -188,7 +188,7 @@ test.describe("with support email", () => {
     defaultParams: {
       order: "with-items",
       organization: {
-        supportEmail: email,
+        support_email: email,
       },
       orderAttributes: {
         customer_email: customerEmail,
