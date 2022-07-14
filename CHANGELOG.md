@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.1...v1.8.2) (2022-07-14)
+
+
+### Bug Fixes
+
+* fire GTM add_shipping_info event with autoselect shipping method ([bfa55a5](https://github.com/commercelayer/commercelayer-react-checkout/commit/bfa55a5a40a9217ce03b6f8db6c5917ef3f778df))
+
 ## [1.8.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.0...v1.8.1) (2022-06-29)
 
 
