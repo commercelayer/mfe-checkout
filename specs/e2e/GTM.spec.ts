@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 
 import { test, expect } from "../fixtures/tokenizedPage"
-import { euAddress } from "../utils/addresses"
+import { euAddress, usAddress } from "../utils/addresses"
 
 test.describe("multi shipments", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -205,5 +205,84 @@ test.describe("single shipment", () => {
       parseInt(orderNumber.replace("#", ""))
     )
     expect(dataLayer[0].ecommerce.items?.length).toBe(2)
+  })
+})
+
+test.describe("with single shipping method", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      organization: {
+        gtmId: "GTM-123456",
+      },
+      order: "with-items",
+      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("fire add shipping info on autoselect", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(usAddress)
+    await checkoutPage.save("Customer")
+
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("USD")
+    expect(dataLayer[0].ecommerce.value).toBe(118.8)
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.checkStep("Payment", "open")
+
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("USD")
+    expect(dataLayer[0].ecommerce.shipping_tier).toBe("Express Delivery")
+    expect(dataLayer[0].ecommerce.value).toBe(7)
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+  })
+
+  test("fire multiple time going back and forth", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(usAddress)
+    await checkoutPage.save("Customer")
+
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("USD")
+    expect(dataLayer[0].ecommerce.value).toBe(118.8)
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.checkStep("Payment", "open")
+
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("USD")
+    expect(dataLayer[0].ecommerce.shipping_tier).toBe("Express Delivery")
+    expect(dataLayer[0].ecommerce.value).toBe(7)
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+
+    await checkoutPage.clickStep("Shipping")
+    await checkoutPage.save("Shipping")
+    await checkoutPage.checkStep("Shipping", "close")
+
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    expect(dataLayer.length).toBe(2)
+    expect(dataLayer[0].ecommerce.currency).toBe("USD")
+    expect(dataLayer[0].ecommerce.shipping_tier).toBe("Express Delivery")
+    expect(dataLayer[0].ecommerce.value).toBe(7)
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
   })
 })
