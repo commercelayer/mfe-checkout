@@ -156,7 +156,7 @@ export const StepShipping: React.FC<Props> = () => {
     }
   }
 
-  const autoSelectCompleted = async () => {
+  const autoSelectCallback = async () => {
     if (gtmCtx?.fireAddShippingInfo) {
       await gtmCtx.fireAddShippingInfo()
     }
@@ -191,7 +191,7 @@ export const StepShipping: React.FC<Props> = () => {
                     {!shippingMethodError && !outOfStockError && (
                       <>
                         <Shipment
-                          autoSelectSingleShippingMethod={autoSelectCompleted}
+                          autoSelectSingleShippingMethod={autoSelectCallback}
                           loader={
                             <div className="animate-pulse">
                               <div className="w-1/2 h-5 bg-gray-200" />
