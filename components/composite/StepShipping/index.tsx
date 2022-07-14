@@ -156,6 +156,13 @@ export const StepShipping: React.FC<Props> = () => {
     }
   }
 
+  const autoSelectCompleted = async () => {
+    if (gtmCtx?.fireAddShippingInfo) {
+      await gtmCtx.fireAddShippingInfo()
+    }
+    appCtx.autoSelectShippingMethod()
+  }
+
   return (
     <StepContainer
       className={classNames({
@@ -184,9 +191,7 @@ export const StepShipping: React.FC<Props> = () => {
                     {!shippingMethodError && !outOfStockError && (
                       <>
                         <Shipment
-                          autoSelectSingleShippingMethod={
-                            appCtx.autoSelectShippingMethod
-                          }
+                          autoSelectSingleShippingMethod={autoSelectCompleted}
                           loader={
                             <div className="animate-pulse">
                               <div className="w-1/2 h-5 bg-gray-200" />
