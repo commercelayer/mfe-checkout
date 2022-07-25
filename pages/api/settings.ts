@@ -130,7 +130,7 @@ function getTokenInfo(accessToken: string) {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { NODE_ENV, DOMAIN, HOSTED } = process.env
+  const { NODE_ENV, DOMAIN, HOSTED, NEXT_PUBLIC_SLUG } = process.env
   const accessToken = req.query.accessToken as string
   const orderId = req.query.orderId as string
 
@@ -151,7 +151,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return invalidateCheckout()
   }
 
-  const subdomain = req.headers.host?.split(":")[0].split(".")[0]
+  const subdomain = HOSTED
+    ? req.headers.host?.split(":")[0].split(".")[0]
+    : NEXT_PUBLIC_SLUG
 
   const { slug, kind, isTest } = getTokenInfo(accessToken)
 
@@ -161,7 +163,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (
     isProduction(NODE_ENV) &&
-    !!HOSTED &&
     (subdomain !== slug || kind !== "sales_channel")
   ) {
     return invalidateCheckout()
