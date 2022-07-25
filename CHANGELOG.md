@@ -1,3 +1,10 @@
+## [1.8.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.2...v1.8.3) (2022-07-25)
+
+
+### Bug Fixes
+
+* force check slug variable on forked checkout ([7d73126](https://github.com/commercelayer/commercelayer-react-checkout/commit/7d73126453ee1d7bbfc324311e46c487548ffacd))
+
 ## [1.8.2](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.1...v1.8.2) (2022-07-14)
 
 
