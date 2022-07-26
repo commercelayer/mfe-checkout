@@ -87,7 +87,7 @@ The Checkout application shows a visual summary of the order that's about to be 
 
 The Checkout application supports [SKU options](https://docs.commercelayer.io/developers/v/api-reference/sku_options). If a line item is associated with one or more [line item options](https://docs.commercelayer.io/developers/v/api-reference/line_item_options) the details are visible in the order summary. Line item option prices aren't displayed but they are included in the line item amount.
 
-#### Gift cards
+#### Gift cards and coupons
 
 The Checkout application supports [gift cards](https://docs.commercelayer.io/developers/v/api-reference/gift_cards) and [coupon](https://docs.commercelayer.io/developers/v/api-reference/coupons) codes (just fill in the related field in the order summary). You can use a gift card or coupon to pay — in total or in part — for the order. A single gift card and a coupon code can also be used together to pay for the same order.
 
@@ -130,7 +130,7 @@ If the shipping address is outside the associated [shipping zone](https://docs.c
 
 #### Out-of-stock items
 
-If one of the items in the order is out of stock customers will get an error message and won't be able to place the order. If the order has the attribute `cart_url` set, the error message will contain a link to them go back and edit the shopping cart.
+If one of the items in the order is out of stock customers will get an error message and won't be able to place the order. If the order has the attribute `cart_url` set, the error message will contain a link to let them go back and edit the shopping cart.
 
 #### Digital products
 
