@@ -238,7 +238,9 @@ export const getSettings = async ({
     companyName: organization.name || "Test company",
     language: order.language_code || "en",
     primaryColor: hex2hsl(organization.primary_color as string) || BLACK_COLOR,
-    favicon: organization.favicon_url || "/favicon.png",
+    favicon:
+      organization.favicon_url ||
+      "https://data.commercelayer.app/assets/images/favicons/favicon-32x32.png",
     gtmId: isTest ? organization.gtm_id_test : organization.gtm_id,
     supportEmail: organization.support_email,
     supportPhone: organization.support_phone,
