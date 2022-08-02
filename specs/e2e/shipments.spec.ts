@@ -121,10 +121,13 @@ test.describe("with two shipments", () => {
       text: "Express Delivery",
       shipment: 0,
     })
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.selectShippingMethod({
       text: "Express Delivery",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.save("Shipping")
 
@@ -179,10 +182,13 @@ test.describe("with two shipments", () => {
       text: "Express Delivery",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(1000)
+
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
       shipment: 0,
     })
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.save("Shipping")
     await checkoutPage.checkStep("Shipping", "close")
@@ -497,50 +503,6 @@ test.describe("with single shipping method per shipment", () => {
     await checkoutPage.setPayment("stripe")
 
     await checkoutPage.save("Payment")
-  })
-})
-
-test.describe("changing order amount", () => {
-  test.use({
-    defaultParams: {
-      order: "with-items",
-      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
-      lineItemsAttributes: [
-        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 2 },
-      ],
-      orderAttributes: {
-        customer_email: customerEmail,
-      },
-    },
-  })
-
-  test("applying coupon no free shipping", async ({ checkoutPage }) => {
-    await checkoutPage.checkOrderSummary("Order Summary")
-
-    await checkoutPage.setBillingAddress(usAddress)
-    await checkoutPage.save("Customer")
-
-    await checkoutPage.checkStep("Customer", "close")
-    await checkoutPage.checkStep("Shipping", "close")
-    await checkoutPage.page
-      .locator("text=Express Delivery")
-      .waitFor({ state: "visible" })
-
-    await checkoutPage.checkShippingSummary("$7.00")
-
-    await checkoutPage.setCoupon("40OFFDISC")
-
-    await checkoutPage.checkStep("Shipping", "close")
-
-    await checkoutPage.checkShippingSummary("$7.00")
-
-    await checkoutPage.checkStep("Payment", "open")
-
-    await checkoutPage.selectPayment("stripe")
-    await checkoutPage.setPayment("stripe")
-
-    await checkoutPage.save("Payment")
-    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 })
 
@@ -891,6 +853,7 @@ test.describe("adding coupon code", () => {
     await checkoutPage.setCoupon("testcoupon")
     await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.checkButton({ type: "Shipping", status: "disabled" })
+    await checkoutPage.page.waitForTimeout(1000)
     await checkoutPage.checkSelectedShippingMethod({ value: false })
   })
 
