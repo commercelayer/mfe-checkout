@@ -1,3 +1,39 @@
+## [1.8.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.2...v1.8.3) (2022-07-25)
+
+
+### Bug Fixes
+
+* force check slug variable on forked checkout ([7d73126](https://github.com/commercelayer/commercelayer-react-checkout/commit/7d73126453ee1d7bbfc324311e46c487548ffacd))
+
+## [1.8.2](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.1...v1.8.2) (2022-07-14)
+
+
+### Bug Fixes
+
+* fire GTM add_shipping_info event with autoselect shipping method ([bfa55a5](https://github.com/commercelayer/commercelayer-react-checkout/commit/bfa55a5a40a9217ce03b6f8db6c5917ef3f778df))
+
+## [1.8.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.0...v1.8.1) (2022-06-29)
+
+
+### Bug Fixes
+
+* count free items as line items ([04c06ce](https://github.com/commercelayer/commercelayer-react-checkout/commit/04c06ce2033ac1b88b79839fc672301e13ce9d76))
+
+# [1.8.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.7...v1.8.0) (2022-06-16)
+
+
+### Features
+
+* add German translations ([121bd05](https://github.com/commercelayer/commercelayer-react-checkout/commit/121bd058501629092e569a1e46d70289836ef69b))
+
+## [1.7.7](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.6...v1.7.7) (2022-06-08)
+
+
+### Bug Fixes
+
+* thank you page with data on page reload ([bcd74c9](https://github.com/commercelayer/commercelayer-react-checkout/commit/bcd74c9910a7f35e2b64e7f4a6d23977805707a0))
+* use group selector on payment cards ([d5dad66](https://github.com/commercelayer/commercelayer-react-checkout/commit/d5dad667dff2de0e82db01adf73500cf63cebaf0))
+
 ## [1.7.6](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.7.5...v1.7.6) (2022-05-31)
 
 
