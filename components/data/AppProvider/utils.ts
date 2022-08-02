@@ -227,6 +227,13 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
     fields: {
       orders: [
         "id",
+        // Start fields for GTM
+        "number",
+        "coupon_code",
+        "currency_code",
+        "shipping_amount_float",
+        "total_tax_amount_float",
+        // End fields for GTM
         "guest",
         "shipping_country_code_lock",
         "customer_email",
