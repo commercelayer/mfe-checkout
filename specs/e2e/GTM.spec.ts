@@ -286,3 +286,61 @@ test.describe("with single shipping method", () => {
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
   })
 })
+
+test.describe("with digital products", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      organization: {
+        gtmId: "GTM-123456",
+      },
+      order: "digital",
+      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("do not fire add_shipping_info event", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(usAddress)
+    await checkoutPage.save("Customer")
+
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("USD")
+    expect(dataLayer[0].ecommerce.value).toBe(15)
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "not_present")
+    await checkoutPage.checkStep("Payment", "open")
+
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    expect(dataLayer.length).toBe(0)
+
+    await checkoutPage.selectPayment("wire")
+
+    await checkoutPage.save("Payment")
+
+    dataLayer = await checkoutPage.getDataLayer("add_payment_info")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("USD")
+    expect(dataLayer[0].ecommerce.payment_type).toBe("Wire Transfer")
+    expect(dataLayer[0].ecommerce.value).toBe(0)
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+
+    dataLayer = await checkoutPage.getDataLayer("purchase")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("USD")
+    expect(dataLayer[0].ecommerce.value).toBe(18.3)
+    expect(dataLayer[0].ecommerce.shipping).toBe(0)
+    expect(dataLayer[0].ecommerce.tax).toBe(3.3)
+  })
+})

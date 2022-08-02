@@ -23,6 +23,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   domain: string
   isFirstLoading: boolean
   getOrder: (order: Order) => void
+  getOrderFromRef: () => Promise<Order>
   setCustomerEmail: (email: string) => void
   setAddresses: () => void
   setCouponOrGiftCard: () => Promise<void>
@@ -110,7 +111,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       return
     }
     dispatch({ type: ActionType.START_LOADING })
-    const order = orderRef.current || (await fetchOrder(cl, orderId))
+    const order = await getOrderFromRef()
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     const addressInfos = await checkAndSetDefaultAddressForOrder({
@@ -145,7 +146,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setAddresses = async () => {
     dispatch({ type: ActionType.START_LOADING })
 
-    const order = orderRef.current || (await fetchOrder(cl, orderId))
+    const order = await getOrderFromRef()
 
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
@@ -167,7 +168,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }
 
   const setCouponOrGiftCard = async () => {
-    const order = orderRef.current || (await fetchOrder(cl, orderId))
+    const order = await getOrderFromRef()
     if (state.order) {
       dispatch({ type: ActionType.START_LOADING })
 
@@ -220,7 +221,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const saveShipments = async () => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = orderRef.current || (await fetchOrder(cl, orderId))
+    const order = await getOrderFromRef()
 
     const others = calculateSettings(order, state.isShipmentRequired)
 
@@ -234,7 +235,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const setPayment = async (payment?: PaymentMethod) => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = orderRef.current || (await fetchOrder(cl, orderId))
+    const order = await getOrderFromRef()
 
     const others = calculateSettings(order, state.isShipmentRequired)
 
@@ -246,12 +247,16 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const placeOrder = async () => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = orderRef.current || (await fetchOrder(cl, orderId))
+    const order = await getOrderFromRef()
 
     dispatch({
       type: ActionType.PLACE_ORDER,
       payload: { order },
     })
+  }
+
+  const getOrderFromRef = async () => {
+    return orderRef.current || (await fetchOrder(cl, orderId))
   }
 
   useEffect(() => {
@@ -269,6 +274,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         accessToken,
         slug,
         domain,
+        getOrderFromRef,
         setAddresses,
         selectShipment,
         getOrder,
