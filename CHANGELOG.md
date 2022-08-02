@@ -1,3 +1,10 @@
+## [1.8.4](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.3...v1.8.4) (2022-08-02)
+
+
+### Performance Improvements
+
+* improve GTM provider reducing API calls ([075424d](https://github.com/commercelayer/commercelayer-react-checkout/commit/075424d12e75626cfd724f291f3e8d9acf908dda))
+
 ## [1.8.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.2...v1.8.3) (2022-07-25)
 
 
