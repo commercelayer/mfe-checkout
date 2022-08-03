@@ -12,57 +12,44 @@ const config: PlaywrightTestConfig = {
   // Test directory
   testDir: "specs/e2e",
   // If a test fails, retry it additional 2 times
-  retries: 0,
+  retries: 2,
   // Artifacts folder where screenshots, videos, and traces are stored.
   outputDir: "test-results/",
-  workers: 1,
+  workers: 2,
   maxFailures: 2,
 
   // Run your local dev server before starting the tests:
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
-  webServer: {
-    command: "yarn dev",
-    port: 3000,
-    timeout: 120 * 1000,
-    reuseExistingServer: !process.env.CI,
-  },
+  // webServer: {
+  //   command: "yarn start",
+  //   port: 5000,
+  //   timeout: 120 * 1000,
+  //   reuseExistingServer: false,
+  // },
 
   use: {
-    // Retry a test if its failing with enabled tracing. This allows you to analyse the DOM, console logs, network traffic etc.
-    // More information: https://playwright.dev/docs/trace-viewer
-    trace: "retry-with-trace",
-    headless: false,
+    trace: "on-first-retry",
+    // Browser options
+    // headless: true,
+    // slowMo: 50,
+    // Context options
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
     // Artifacts
     screenshot: "only-on-failure",
     video: "retry-with-video",
   },
-
+  forbidOnly: false,
   projects: [
     {
-      name: "Chromium",
+      name: "chromium",
       use: {
-        // Configure the browser to use.
-        browserName: "chromium",
-        // Any Chromium-specific options.
-        viewport: { width: 1200, height: 900 },
-        baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+        ...devices["Desktop Chrome"],
         launchOptions: {
-          // logger: {
-          //   isEnabled: (name, severity) => true,
-          //   log: (name, severity, message, args) =>
-          //     console.log(name, severity, message, args),
-          // },
-          // slowMo: 100,
-          // devtools: true,
+          devtools: false,
         },
       },
     },
-    // {
-    //   name: "Mobile Safari",
-    //   use: devices["iPhone 12"],
-    // },
   ],
 }
 export default config

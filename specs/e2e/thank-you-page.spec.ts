@@ -87,7 +87,7 @@ test.describe("without return url", () => {
 
 test.describe("with support phone and email", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
-  const phone = faker.phone.phoneNumber()
+  const phone = faker.phone.number()
   const email = faker.internet.email()
   const returnUrl = "https://www.google.it"
 
@@ -135,7 +135,7 @@ test.describe("with support phone and email", () => {
 
 test.describe("with support phone", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
-  const phone = faker.phone.phoneNumber()
+  const phone = faker.phone.number()
   const returnUrl = "https://www.google.it"
 
   test.use({

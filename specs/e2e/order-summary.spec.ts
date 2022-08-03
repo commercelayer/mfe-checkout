@@ -190,7 +190,7 @@ test.describe("buying gift card", () => {
 
 test.describe("using gift card", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
-  const phone = faker.phone.phoneNumber()
+  const phone = faker.phone.number()
   const returnUrl = "https://www.google.it"
 
   test.use({
