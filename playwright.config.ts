@@ -47,7 +47,7 @@ const config: PlaywrightTestConfig = {
         browserName: "chromium",
         // Any Chromium-specific options.
         viewport: { width: 1200, height: 900 },
-        baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+        baseURL: process.env.E2E_BASE_URL,
         launchOptions: {
           // logger: {
           //   isEnabled: (name, severity) => true,

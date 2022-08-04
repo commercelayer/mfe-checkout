@@ -376,7 +376,7 @@ test.describe("with addresses set and single shipping method", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
       ],
@@ -405,7 +405,7 @@ test.describe("with single shipping method", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
       ],
@@ -439,7 +439,7 @@ test.describe("with single shipping method, not shippable", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
         { sku_code: "SOCKXXMUE63E74FFFFFFLXXX", quantity: 1 },
@@ -472,7 +472,7 @@ test.describe("with single shipping method per shipment", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
         { sku_code: "MUGXXXAUFFFFFF00000011OZ", quantity: 1 },
@@ -610,41 +610,38 @@ test.describe("no shipping zone with cart url", () => {
   })
 })
 
-test.describe(
-  "one item shippable and one item out of stock with cartUrl",
-  () => {
-    test.use({
-      defaultParams: {
-        order: "with-items",
-        lineItemsAttributes: [
-          { sku_code: "NOSTOCK", quantity: 1, inventory: 0 },
-          { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
-        ],
-        orderAttributes: {
-          cart_url: faker.internet.url(),
-          customer_email: customerEmail,
-        },
-        addresses: {
-          billingAddress: euAddress,
-          sameShippingAddress: true,
-        },
+test.describe("one item shippable and one item out of stock with cartUrl", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "NOSTOCK", quantity: 1, inventory: 0 },
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      orderAttributes: {
+        cart_url: faker.internet.url(),
+        customer_email: customerEmail,
       },
-    })
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
 
-    test("no shipping method to select", async ({ checkoutPage }) => {
-      await checkoutPage.checkOrderSummary("Order Summary")
-      await checkoutPage.checkStep("Shipping", "open")
-      await checkoutPage.checkButton({
-        type: "Shipping",
-        status: "not_present",
-      })
-      const element = checkoutPage.page.locator(
-        "text=An item in your order is no longer available. Click here to edit your cart."
-      )
-      await expect(element).toHaveCount(1)
+  test("no shipping method to select", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkButton({
+      type: "Shipping",
+      status: "not_present",
     })
-  }
-)
+    const element = checkoutPage.page.locator(
+      "text=An item in your order is no longer available. Click here to edit your cart."
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
 
 test.describe("only out of stock", () => {
   test.use({
@@ -736,7 +733,7 @@ test.describe("ship from primary", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.NEXT_PUBLIC_MARKET_ID_SHIP_FROM_PRIMARY,
+      market: process.env.E2E_MARKET_ID_SHIP_FROM_PRIMARY,
       lineItemsAttributes: [
         { sku_code: "LSLEEVMM000000E63E74LXXX", quantity: 1 },
         { sku_code: "PSTBIGAU000000FFFFFF1824", quantity: 1 },
@@ -764,7 +761,7 @@ test.describe("ship from primary with all stock transfers", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.NEXT_PUBLIC_MARKET_ID_SHIP_FROM_PRIMARY,
+      market: process.env.E2E_MARKET_ID_SHIP_FROM_PRIMARY,
       lineItemsAttributes: [
         { sku_code: "BABYONBU000000E63E7412MX", quantity: 1 },
         { sku_code: "PSTBIGAU000000FFFFFF1824", quantity: 1 },
@@ -794,7 +791,7 @@ test.describe("discount with coupon", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.NEXT_PUBLIC_MARKET_ID_SHIP_FROM_PRIMARY,
+      market: process.env.E2E_MARKET_ID_SHIP_FROM_PRIMARY,
       lineItemsAttributes: [
         { sku_code: "TSHIRTMMFFFFFFE63E74MXXX", quantity: 5 },
       ],
