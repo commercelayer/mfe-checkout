@@ -3,7 +3,8 @@ version: 2.1
 jobs:
   build_and_test: # this can be any name you choose
     docker:
-      - image: mcr.microsoft.com/playwright:focal
+      - image: mcr.microsoft.com/playwright:v1.24.2-focal
+    resource_class:
     environment:
       NODE_ENV: production
       PWDEBUG: pw:api
@@ -32,6 +33,7 @@ jobs:
           command: |
             yarn install --production=false
             yarn build
+            yarn start
             yarn run playwright test
 
 workflows:
