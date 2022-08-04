@@ -710,14 +710,14 @@ export class CheckoutPage {
         if (waitText === "Paga con PayPal") {
           await this.page.fill(
             "input[name=login_email]",
-            process.env.NEXT_PUBLIC_PAYPAL_EMAIL as string
+            process.env.E2E_PAYPAL_EMAIL as string
           )
 
           await this.page.click("#btnNext")
 
           await this.page.fill(
             "input[name=login_password]",
-            process.env.NEXT_PUBLIC_PAYPAL_PASSWORD as string
+            process.env.E2E_PAYPAL_PASSWORD as string
           )
 
           await this.page.click("#btnLogin")
