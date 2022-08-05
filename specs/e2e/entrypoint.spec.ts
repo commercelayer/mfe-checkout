@@ -1,14 +1,14 @@
 import { test, expect } from "../fixtures/tokenizedPage"
 
 test("should navigate to the 404 page with no params", async ({ page }) => {
-  page.goto("/")
+  page.goto(`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`)
   await expect(page.locator("text=This order is not accessible.")).toBeVisible()
 })
 
 test("should navigate to the 404 page with wrong orderId, no token", async ({
   page,
 }) => {
-  page.goto("/Asdakfrsf")
+  page.goto(`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/Asdakfrsf`)
   await expect(page.locator("text=This order is not accessible.")).toBeVisible()
 })
 
@@ -69,7 +69,11 @@ test.describe("add default params to page", () => {
   test("should navigate to the 404 page with wrong orderId, wrong token", async ({
     page,
   }) => {
-    page.goto("/wrongOrderId?accessToken=wrongToken")
+    page.goto(
+      `${
+        process.env.NEXT_PUBLIC_BASE_PATH || ""
+      }/wrongOrderId?accessToken=wrongToken`
+    )
     await expect(
       page.locator("text=This order is not accessible.")
     ).toBeVisible()

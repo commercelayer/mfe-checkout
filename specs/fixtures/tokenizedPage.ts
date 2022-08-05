@@ -66,8 +66,8 @@ interface DefaultParamsProps {
     password: string
   }
   organization?: {
-    supportPhone?: string
-    supportEmail?: string
+    support_phone?: string
+    support_email?: string
     gtmId?: string
   }
   orderAttributes?: {
@@ -99,9 +99,9 @@ type FixtureType = {
 }
 
 const getToken = async (market?: string) => {
-  const clientId = process.env.NEXT_PUBLIC_CLIENT_ID as string
-  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
-  const scope = market || (process.env.NEXT_PUBLIC_MARKET_ID as string)
+  const clientId = process.env.E2E_CLIENT_ID as string
+  const endpoint = process.env.E2E_ENDPOINT as string
+  const scope = market || (process.env.E2E_MARKET_ID as string)
 
   const data = await getSalesChannelToken({
     clientId,
@@ -129,9 +129,9 @@ const getCustomerUserToken = async ({
   if (existingUser.length === 0) {
     await cl.customers.create({ email, password })
   }
-  const clientId = process.env.NEXT_PUBLIC_CLIENT_ID as string
-  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
-  const scope = process.env.NEXT_PUBLIC_MARKET_ID as string
+  const clientId = process.env.E2E_CLIENT_ID as string
+  const endpoint = process.env.E2E_ENDPOINT as string
+  const scope = process.env.E2E_MARKET_ID as string
 
   const data = await getCustomerToken(
     {
@@ -148,11 +148,10 @@ const getCustomerUserToken = async ({
 }
 
 const getSuperToken = async () => {
-  const clientId = process.env.NEXT_PUBLIC_INTEGRATION_CLIENT_ID as string
-  const clientSecret = process.env
-    .NEXT_PUBLIC_INTEGRATION_CLIENT_SECRET as string
-  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
-  const scope = process.env.NEXT_PUBLIC_MARKET_ID as string
+  const clientId = process.env.E2E_INTEGRATION_CLIENT_ID as string
+  const clientSecret = process.env.E2E_INTEGRATION_CLIENT_SECRET as string
+  const endpoint = process.env.E2E_ENDPOINT as string
+  const scope = process.env.E2E_MARKET_ID as string
   const data = await getIntegrationToken({
     clientId,
     clientSecret,
