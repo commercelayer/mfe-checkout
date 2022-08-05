@@ -15,7 +15,7 @@
     "lint:fix": "eslint ./ --ext .tsx,.ts --fix",
     "test": "playwright test",
     "test:debug": "PWDEBUG=1 playwright test",
-    "serve": "serve -l tcp://localhost:3000/ -s out/"
+    "serve": "serve -l tcp://localhost:$PORT/ -s out/"
   },
   "repository": {
     "type": "git",
