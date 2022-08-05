@@ -14,7 +14,7 @@ const config: PlaywrightTestConfig = {
   // Test directory
   testDir: "specs/e2e",
   // If a test fails, retry it additional 2 times
-  retries: process.env.CI ? 2 : 0,
+  retries: 2,
   // Artifacts folder where screenshots, videos, and traces are stored.
   outputDir: "test-results/",
   workers: 2,
@@ -24,7 +24,7 @@ const config: PlaywrightTestConfig = {
     // Retry a test if its failing with enabled tracing. This allows you to analyse the DOM, console logs, network traffic etc.
     // More information: https://playwright.dev/docs/trace-viewer
     trace: "retry-with-trace",
-    headless: !!process.env.CI,
+    headless: true,
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
     // Artifacts
@@ -44,7 +44,7 @@ const config: PlaywrightTestConfig = {
         baseURL: process.env.NEXT_PUBLIC_BASE_URL,
         ignoreHTTPSErrors: true,
         launchOptions: {
-          devtools: !!process.env.CI,
+          devtools: true,
         },
       },
     },

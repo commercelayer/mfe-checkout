@@ -5,8 +5,6 @@ import path from "path"
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") })
 
-console.log(process.env.CI)
-
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
   // Timeout per test
@@ -14,26 +12,26 @@ const config: PlaywrightTestConfig = {
   // Test directory
   testDir: "specs/e2e",
   // If a test fails, retry it additional 2 times
-  retries: process.env.CI ? 2 : 0,
+  retries: 0,
   // Artifacts folder where screenshots, videos, and traces are stored.
   outputDir: "test-results/",
-  workers: 2,
+  workers: 1,
   maxFailures: 2,
 
   // Run your local dev server before starting the tests:
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
   webServer: {
-    command: "yarn start",
+    command: "yarn dev",
     port: 3000,
     timeout: 120 * 1000,
-    reuseExistingServer: false,
+    reuseExistingServer: !process.env.CI,
   },
 
   use: {
     // Retry a test if its failing with enabled tracing. This allows you to analyse the DOM, console logs, network traffic etc.
     // More information: https://playwright.dev/docs/trace-viewer
     trace: "retry-with-trace",
-    headless: !!process.env.CI,
+    headless: false,
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
     // Artifacts
@@ -48,15 +46,23 @@ const config: PlaywrightTestConfig = {
         // Configure the browser to use.
         browserName: "chromium",
         // Any Chromium-specific options.
-        headless: true,
         viewport: { width: 1200, height: 900 },
         baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-        ignoreHTTPSErrors: true,
         launchOptions: {
-          devtools: !!process.env.CI,
+          // logger: {
+          //   isEnabled: (name, severity) => true,
+          //   log: (name, severity, message, args) =>
+          //     console.log(name, severity, message, args),
+          // },
+          // slowMo: 100,
+          // devtools: true,
         },
       },
     },
+    // {
+    //   name: "Mobile Safari",
+    //   use: devices["iPhone 12"],
+    // },
   ],
 }
 export default config

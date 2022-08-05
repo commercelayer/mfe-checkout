@@ -34,7 +34,7 @@ jobs:
             yarn install --production=false
             yarn build
             yarn start
-            yarn run playwright test
+            yarn run playwright test --config=playwright.config.ci.ts
 
 workflows:
   tests:
