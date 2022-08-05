@@ -5,6 +5,8 @@ import path from "path"
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") })
 
+console.log(process.env.CI)
+
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
   // Timeout per test
@@ -12,7 +14,7 @@ const config: PlaywrightTestConfig = {
   // Test directory
   testDir: "specs/e2e",
   // If a test fails, retry it additional 2 times
-  retries: 2,
+  retries: process.env.CI ? 2 : 0,
   // Artifacts folder where screenshots, videos, and traces are stored.
   outputDir: "test-results/",
   workers: 2,
@@ -20,33 +22,38 @@ const config: PlaywrightTestConfig = {
 
   // Run your local dev server before starting the tests:
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
-  // webServer: {
-  //   command: "yarn start",
-  //   port: 5000,
-  //   timeout: 120 * 1000,
-  //   reuseExistingServer: false,
-  // },
+  webServer: {
+    command: "yarn dev",
+    port: 3000,
+    timeout: 120 * 1000,
+    reuseExistingServer: !process.env.CI,
+  },
 
   use: {
-    trace: "on-first-retry",
-    // Browser options
-    // headless: true,
-    // slowMo: 50,
-    // Context options
+    // Retry a test if its failing with enabled tracing. This allows you to analyse the DOM, console logs, network traffic etc.
+    // More information: https://playwright.dev/docs/trace-viewer
+    trace: "retry-with-trace",
+    headless: !!process.env.CI,
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
     // Artifacts
     screenshot: "only-on-failure",
     video: "retry-with-video",
   },
-  forbidOnly: false,
+
   projects: [
     {
-      name: "chromium",
+      name: "Chromium",
       use: {
-        ...devices["Desktop Chrome"],
+        // Configure the browser to use.
+        browserName: "chromium",
+        // Any Chromium-specific options.
+        headless: true,
+        viewport: { width: 1200, height: 900 },
+        baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+        ignoreHTTPSErrors: true,
         launchOptions: {
-          devtools: false,
+          devtools: !!process.env.CI,
         },
       },
     },
