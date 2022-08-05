@@ -1,9 +1,4 @@
-import { PlaywrightTestConfig, devices } from "@playwright/test"
-import dotenv from "dotenv"
-
-import path from "path"
-
-dotenv.config({ path: path.resolve(__dirname, "../../.env.local") })
+import { PlaywrightTestConfig } from "@playwright/test"
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
@@ -12,10 +7,10 @@ const config: PlaywrightTestConfig = {
   // Test directory
   testDir: "specs/e2e",
   // If a test fails, retry it additional 2 times
-  retries: 2,
+  retries: 5,
   // Artifacts folder where screenshots, videos, and traces are stored.
   outputDir: "test-results/",
-  workers: 2,
+  workers: 5,
   maxFailures: 2,
 
   use: {
@@ -41,9 +36,6 @@ const config: PlaywrightTestConfig = {
         viewport: { width: 1200, height: 900 },
         baseURL: `${process.env.E2E_BASE_PROTOCOL}://${process.env.E2E_BASE_URL}:${process.env.E2E_BASE_PORT}`,
         ignoreHTTPSErrors: true,
-        launchOptions: {
-          devtools: true,
-        },
       },
     },
   ],

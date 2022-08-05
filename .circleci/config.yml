@@ -4,17 +4,15 @@ jobs:
   build_and_test: # this can be any name you choose
     docker:
       - image: mcr.microsoft.com/playwright:v1.24.2-focal
-    resource_class:
+    resource_class: medium+
+    parallelism: 10
+
     environment:
       NODE_ENV: production
-      PWDEBUG: 1
-      DISPLAY: :99
-      PORT: ${E2E_BASE_PORT}
+      PLAYWRIGHT_BROWSERS_PATH: 0
 
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
@@ -22,8 +20,8 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
-            yarn install --immutable --production=false
-            yarn run playwright install --with-deps chromium
+            yarn install --production=false
+            yarn run playwright install chromium
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
@@ -35,11 +33,15 @@ jobs:
           command: |
             tee -a /etc/hosts \<<<"127.0.0.1 ${E2E_BASE_URL}"
       - run:
+          name: Export and serve
           command: |
-            Xvfb -ac :99 -screen 0 1280x1024x16 &
             yarn export
-            serve -l tcp://localhost:${PORT}/ -s out/ &
-            yarn run playwright test --config=playwright.config.ci.ts
+      - run:
+          name: Run tests
+          command: |
+            yarn serve &
+            TESTFILES=$(circleci tests glob "specs/e2e/**/*.spec.ts" | circleci tests split --split-by=timings)   
+            yarn run playwright test --config=playwright.config.ci.ts ${TESTFILES}
 
 workflows:
   tests:
