@@ -18,15 +18,6 @@ const config: PlaywrightTestConfig = {
   workers: 2,
   maxFailures: 2,
 
-  // Run your local dev server before starting the tests:
-  // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
-  webServer: {
-    command: "yarn start",
-    port: 5000,
-    timeout: 120 * 1000,
-    reuseExistingServer: !process.env.CI,
-  },
-
   use: {
     // Retry a test if its failing with enabled tracing. This allows you to analyse the DOM, console logs, network traffic etc.
     // More information: https://playwright.dev/docs/trace-viewer
@@ -48,7 +39,7 @@ const config: PlaywrightTestConfig = {
         // Any Chromium-specific options.
         headless: true,
         viewport: { width: 1200, height: 900 },
-        baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+        baseURL: `${process.env.E2E_BASE_PROTOCOL}://${process.env.E2E_BASE_URL}:${process.env.E2E_BASE_PORT}`,
         ignoreHTTPSErrors: true,
         launchOptions: {
           devtools: true,

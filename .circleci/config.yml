@@ -7,11 +7,15 @@ jobs:
     resource_class:
     environment:
       NODE_ENV: production
-      PWDEBUG: pw:api
+      PWDEBUG: 1
       DISPLAY: :99
-      PORT: 4000
+      PORT: ${E2E_BASE_PORT}
 
     steps:
+      - run:
+          name: Setup display
+          command: |
+            Xvfb -ac :99 -screen 0 1280x1024x16 &
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
@@ -20,16 +24,9 @@ jobs:
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
-          name: Add domain.com
-          command: |
-            sudo tee -a /etc/hosts \<<<'127.0.0.1 ${E2E_BASE_URL}'
-            cat /etc/hosts
-      - run:
           name: Install Dependencies
           command: |
-            Xvfb -ac :99 -screen 0 1280x1024x16 &
             yarn install --immutable --production=false
-            yarn build
             yarn run playwright install --with-deps chromium
       - save_cache:
           name: Save Yarn Package Cache
@@ -38,7 +35,13 @@ jobs:
             - .yarn/cache
             - .yarn/unplugged
       - run:
+          name: Add E2E_BASE_URL to /etc/hosts
           command: |
+            tee -a /etc/hosts <<<"127.0.0.1 ${E2E_BASE_URL}"
+      - run:
+          command: |
+            yarn export
+            yarn start
             yarn run playwright test --config=playwright.config.ci.ts
 
 workflows:
