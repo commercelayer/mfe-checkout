@@ -9,7 +9,7 @@ jobs:
       NODE_ENV: production
       PWDEBUG: pw:api
       DISPLAY: :99
-      PORT: 5000
+      PORT: 4000
 
     steps:
       - checkout
@@ -20,10 +20,16 @@ jobs:
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
+          name: Add domain.com
+          command: |
+            sudo tee -a /etc/hosts \<<<'127.0.0.1 ${E2E_BASE_URL}'
+            cat /etc/hosts
+      - run:
           name: Install Dependencies
           command: |
             Xvfb -ac :99 -screen 0 1280x1024x16 &
             yarn install --immutable --production=false
+            yarn build
             yarn run playwright install --with-deps chromium
       - save_cache:
           name: Save Yarn Package Cache
@@ -33,8 +39,6 @@ jobs:
             - .yarn/unplugged
       - run:
           command: |
-            yarn install --production=false
-            yarn build
             yarn run playwright test --config=playwright.config.ci.ts
 
 workflows:
