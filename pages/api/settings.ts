@@ -137,8 +137,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const domain = NEXT_PUBLIC_DOMAIN || "commercelayer.io"
 
-  const paymentReturn =
-    req.query.paymentReturn === "true" || !!req.query.redirectResult
+  const paymentReturn = req.query.paymentReturn === "true"
 
   function invalidateCheckout(retry?: boolean) {
     res.statusCode = 200

@@ -15,14 +15,14 @@ interface UseSettingsOrInvalid {
 export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const random = useRef(Date.now())
   const router = useRouter()
-  const { orderId, accessToken, paymentReturn } = router.query
+  const { orderId, accessToken, paymentReturn, redirectResult } = router.query
 
   const [savedAccessToken, setAccessToken] = useLocalStorageToken(
     "checkoutAccessToken",
     accessToken as string
   )
 
-  const isPaymentReturn = paymentReturn === "true"
+  const isPaymentReturn = paymentReturn === "true" || !!redirectResult
 
   const paymentReturnQuery = isPaymentReturn ? "&paymentReturn=true" : ""
 

@@ -172,12 +172,7 @@ const getOrder = async (
   }
 
   const giftCard = params.giftCardAttributes
-  console.log("attr", attributes)
-  // try {
   const order = await cl.orders.create(attributes)
-  // } catch (e) {
-  //   console.log(e)
-  // }
   let giftCardCode
   switch (params.order) {
     case "plain":
@@ -395,9 +390,6 @@ const createAndPurchaseGiftCard = async (
 }
 
 const getClient = async (token: string) => {
-  console.log(process.env.NEXT_PUBLIC_SLUG)
-  console.log(token)
-  console.log(process.env.E2E_ENDPOINT)
   return CommerceLayer({
     organization: process.env.NEXT_PUBLIC_SLUG as string,
     accessToken: token,
@@ -476,7 +468,6 @@ export const test = base.extend<FixtureType>({
     const token = await (defaultParams.customer
       ? getCustomerUserToken(defaultParams.customer)
       : getToken(defaultParams.market))
-    console.log(token)
     const cl = await getClient(token)
     const { orderId, attributes } = await getOrder(cl, defaultParams)
     const checkoutPage = new CheckoutPage(page, attributes)

@@ -1,7 +1,9 @@
 import {
   CustomerContainer,
   OrderContainer,
+  PlaceOrderContainer,
 } from "@commercelayer/react-components"
+import { useRouter } from "next/router"
 import { useContext } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -53,6 +55,23 @@ const Checkout: React.FC<Props> = ({
   privacyUrl,
 }) => {
   const ctx = useContext(AppContext)
+  const { query } = useRouter()
+
+  let paypalPayerId = ""
+  let checkoutComSession = ""
+  let redirectResult = ""
+
+  if (query.PayerID) {
+    paypalPayerId = query.PayerID as string
+  }
+
+  if (query.redirectResult) {
+    redirectResult = query.redirectResult as string
+  }
+
+  if (query["cko-session-id"]) {
+    checkoutComSession = query["cko-session-id"] as string
+  }
 
   const { activeStep, lastActivableStep, setActiveStep, steps } =
     useActiveStep()
@@ -154,23 +173,33 @@ const Checkout: React.FC<Props> = ({
                   isStepDone={ctx.hasPaymentMethod}
                 >
                   <PaymentContainer>
-                    <AccordionItem
-                      index={3}
-                      header={
-                        <StepHeaderPayment step={getStepNumber("Payment")} />
-                      }
+                    <PlaceOrderContainer
+                      options={{
+                        paypalPayerId,
+                        checkoutCom: { session_id: checkoutComSession },
+                        adyen: {
+                          redirectResult,
+                        },
+                      }}
                     >
-                      <div className="mb-6">
-                        <StepPayment />
-                      </div>
-                    </AccordionItem>
-                    <StepPlaceOrder
-                      isActive={
-                        activeStep === "Payment" || activeStep === "Complete"
-                      }
-                      termsUrl={termsUrl}
-                      privacyUrl={privacyUrl}
-                    />
+                      <AccordionItem
+                        index={3}
+                        header={
+                          <StepHeaderPayment step={getStepNumber("Payment")} />
+                        }
+                      >
+                        <div className="mb-6">
+                          <StepPayment />
+                        </div>
+                      </AccordionItem>
+                      <StepPlaceOrder
+                        isActive={
+                          activeStep === "Payment" || activeStep === "Complete"
+                        }
+                        termsUrl={termsUrl}
+                        privacyUrl={privacyUrl}
+                      />
+                    </PlaceOrderContainer>
                   </PaymentContainer>
                 </AccordionProvider>
               </Accordion>
