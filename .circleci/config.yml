@@ -41,7 +41,7 @@ jobs:
       - run:
           command: |
             yarn export
-            yarn start
+            yarn serve
             yarn run playwright test --config=playwright.config.ci.ts
 
 workflows:
