@@ -37,7 +37,7 @@ jobs:
       - run:
           name: Add E2E_BASE_URL to /etc/hosts
           command: |
-            tee -a /etc/hosts <<<"127.0.0.1 ${E2E_BASE_URL}"
+            tee -a /etc/hosts \<<<"127.0.0.1 ${E2E_BASE_URL}"
       - run:
           command: |
             yarn export
