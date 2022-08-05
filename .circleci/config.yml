@@ -12,10 +12,6 @@ jobs:
       PORT: ${E2E_BASE_PORT}
 
     steps:
-      - run:
-          name: Setup display
-          command: |
-            Xvfb -ac :99 -screen 0 1280x1024x16 &
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
@@ -40,6 +36,7 @@ jobs:
             tee -a /etc/hosts \<<<"127.0.0.1 ${E2E_BASE_URL}"
       - run:
           command: |
+            Xvfb -ac :99 -screen 0 1280x1024x16 &
             yarn export
             serve -l tcp://localhost:${PORT}/ -s out/ &
             yarn run playwright test --config=playwright.config.ci.ts
