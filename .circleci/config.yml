@@ -22,7 +22,6 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
-            apt-get install -y xvfb
             Xvfb -ac :99 -screen 0 1280x1024x16 &
             yarn install --immutable --production=false
             yarn run playwright install --with-deps chromium
