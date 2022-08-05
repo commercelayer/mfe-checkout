@@ -393,7 +393,7 @@ const getClient = async (token: string) => {
   return CommerceLayer({
     organization: process.env.NEXT_PUBLIC_SLUG as string,
     accessToken: token,
-    domain: process.env.DOMAIN,
+    domain: process.env.NEXT_PUBLIC_DOMAIN,
   })
 }
 
