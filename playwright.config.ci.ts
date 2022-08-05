@@ -5,8 +5,6 @@ import path from "path"
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") })
 
-console.log(process.env.CI)
-
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
   // Timeout per test
