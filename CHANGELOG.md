@@ -1,3 +1,16 @@
+# [1.9.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.4...v1.9.0) (2022-08-11)
+
+
+### Bug Fixes
+
+* remove error for customer wallet from order summary ([5aac2f4](https://github.com/commercelayer/commercelayer-react-checkout/commit/5aac2f48110b2f9cde5006569c08c0074f73a7a6))
+* sync JWT with local storage before calling settings endpoint ([fabd92f](https://github.com/commercelayer/commercelayer-react-checkout/commit/fabd92fa7a95f9764c7f88c33d9ec8cb785a45f2))
+
+
+### Features
+
+* add payment methods support to Adyen gateway (Klarna and PayPal) ([357ae68](https://github.com/commercelayer/commercelayer-react-checkout/commit/357ae681ceca7e4f3ecd85810ac956ccf5ed3dcf))
+
 ## [1.8.4](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.3...v1.8.4) (2022-08-02)
 
 
