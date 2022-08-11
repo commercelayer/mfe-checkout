@@ -130,11 +130,12 @@ function getTokenInfo(accessToken: string) {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { NODE_ENV, DOMAIN, HOSTED, NEXT_PUBLIC_SLUG } = process.env
+  const { NODE_ENV, NEXT_PUBLIC_DOMAIN, NEXT_PUBLIC_HOSTED, NEXT_PUBLIC_SLUG } =
+    process.env
   const accessToken = req.query.accessToken as string
   const orderId = req.query.orderId as string
 
-  const domain = DOMAIN || "commercelayer.io"
+  const domain = NEXT_PUBLIC_DOMAIN || "commercelayer.io"
 
   const paymentReturn = req.query.paymentReturn === "true"
 
@@ -151,7 +152,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return invalidateCheckout()
   }
 
-  const subdomain = HOSTED
+  const subdomain = NEXT_PUBLIC_HOSTED
     ? req.headers.host?.split(":")[0].split(".")[0]
     : NEXT_PUBLIC_SLUG
 

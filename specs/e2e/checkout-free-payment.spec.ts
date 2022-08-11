@@ -50,7 +50,7 @@ test.describe("with shippable sku single not free shipping method", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
       lineItemsAttributes: [{ sku_code: "TESLAFREE", quantity: 1 }],
     },
   })
@@ -88,7 +88,7 @@ test.describe("with shippable sku single free shipping method", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.NEXT_PUBLIC_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
       lineItemsAttributes: [{ sku_code: "GIFTBABY", quantity: 1 }],
     },
   })
