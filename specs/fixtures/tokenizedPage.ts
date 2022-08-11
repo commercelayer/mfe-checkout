@@ -8,7 +8,7 @@ import CommerceLayer, {
   Address,
   AddressCreate,
 } from "@commercelayer/sdk"
-import { test as base } from "@playwright/test"
+import { chromium, test as base } from "@playwright/test"
 import dotenv from "dotenv"
 import jwt_decode from "jwt-decode"
 
@@ -57,6 +57,7 @@ interface JWTProps {
 }
 
 interface DefaultParamsProps {
+  incognito?: boolean
   token?: string
   orderId?: string
   order?: OrderType
@@ -482,6 +483,18 @@ export const test = base.extend<FixtureType>({
     })
     await use(checkoutPage)
   },
+
+  // This is the option to avoid incognito mode
+  // context: [
+  //   async ({ defaultParams: { incognito } }, use) => {
+  //     if (!incognito) {
+  //       const context = await chromium.launchPersistentContext("/tmp")
+  //       await use(context)
+  //       await context.close()
+  //     }
+  //   },
+  //   { scope: "test" },
+  // ],
 })
 
 export { expect } from "@playwright/test"

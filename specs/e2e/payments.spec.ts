@@ -1,7 +1,9 @@
 import { faker } from "@faker-js/faker"
+import { chromium } from "@playwright/test"
+import { CheckoutPage } from "specs/fixtures/CheckoutPage"
 
 import { test, expect } from "../fixtures/tokenizedPage"
-import { euAddress } from "../utils/addresses"
+import { euAddress, euAddress2 } from "../utils/addresses"
 
 test.describe("guest with Paypal", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -715,6 +717,90 @@ test.describe("guest with Adyen", () => {
     await checkoutPage.setPayment("adyen")
 
     await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
+    await checkoutPage.page.reload()
+    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
+  })
+})
+
+test.describe("guest with Adyen drop-in", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      incognito: true,
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress2,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("Checkout order with PayPal", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.completePayment({
+      type: "adyen-dropin",
+      gateway: "paypal",
+    })
+
+    await checkoutPage.checkPaymentRecap("PayPal ending in ****")
+    await checkoutPage.page.reload()
+    await checkoutPage.checkPaymentRecap("PayPal ending in ****")
+  })
+
+  test("Checkout order with Klarna", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.completePayment({
+      type: "adyen-dropin",
+      gateway: "klarna",
+    })
+
+    await checkoutPage.checkPaymentRecap("Klarna ending in ****")
+    await checkoutPage.page.reload()
+    await checkoutPage.checkPaymentRecap("Klarna ending in ****")
+  })
+
+  test("Checkout order with Credit Card", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.completePayment({
+      type: "adyen-dropin",
+      gateway: "card",
+    })
 
     await checkoutPage.checkPaymentRecap("Credit card ending in ****")
     await checkoutPage.page.reload()

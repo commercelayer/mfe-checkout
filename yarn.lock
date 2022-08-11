@@ -12,10 +12,10 @@
   resolved "https://registry.yarnpkg.com/@ac-dev/states-service/-/states-service-1.1.0.tgz#303328c615db652b0898aa323b60559fb6c20fc4"
   integrity sha512-8BdOTMIsHaKweIkx3iMzNkYgUenOENqR5tkvonLAfKn4pBEQf2kmKWUMXpN2/8QKXIDgjcKDkhyEr46UjhKj+A==
 
-"@adyen/adyen-web@^5.19.0":
-  version "5.20.0"
-  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.20.0.tgz#63ff072a2ad980aa59e6b4b4b73f1d8516e57521"
-  integrity sha512-Z0U95GDIlvb2nHlssNGK5Ief4Wjt1MxKjNWTc1IIzE84poFsZBVdQgQnonR3mb0UDBCahyRpT54+X3LlddHYwg==
+"@adyen/adyen-web@^5.21.0":
+  version "5.21.0"
+  resolved "https://registry.yarnpkg.com/@adyen/adyen-web/-/adyen-web-5.21.0.tgz#0e1972a44fd56a6757ab8d75c5ed80ccec2594bf"
+  integrity sha512-pGvpj8F6VyIqo09oSjHnY9Mdq+KnVznAqshXolL/VYKo/F/GOvk/KJTaUwn3IaEHc676QTZECmYIBoCN8RZ3/w==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@babel/runtime-corejs3" "^7.16.3"
@@ -223,20 +223,20 @@
     client-oauth2 "^4.3.3"
     tslib "^2.3.1"
 
-"@commercelayer/react-components@^3.15.0-beta.2":
-  version "3.15.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.15.0-beta.2.tgz#7b25a91a9a9ae4fb8ed3971a0631639a9e1bb090"
-  integrity sha512-wYVD/IiQwjFl7npDEaPHivPBv1pe5Bd8kYudwlAwp6Ha19doYEkirSUV0vrhycSLfH7bH519Jeu4Sxnbl2M+4Q==
+"@commercelayer/react-components@^3.15.0-beta.8":
+  version "3.15.0-beta.8"
+  resolved "https://registry.yarnpkg.com/@commercelayer/react-components/-/react-components-3.15.0-beta.8.tgz#e1a4d91312c8599df1f89966000692a0345b3425"
+  integrity sha512-UotpfbdpqVuHO8UGqElyWpVasgNpFPafWTr1hM8860En8KbFO8u0hdbLVTozvm4ov6I4Ezg8hxiwTIQaZAFFuw==
   dependencies:
     "@ac-dev/countries-service" "^1.2.0"
     "@ac-dev/states-service" "^1.1.0"
-    "@adyen/adyen-web" "^5.19.0"
+    "@adyen/adyen-web" "^5.21.0"
     "@commercelayer/sdk" "^4.15.1"
-    "@stripe/react-stripe-js" "^1.9.0"
-    "@stripe/stripe-js" "^1.33.0"
+    "@stripe/react-stripe-js" "^1.10.0"
+    "@stripe/stripe-js" "^1.35.0"
     axios "^0.27.2"
     braintree-web "^3.85.5"
-    frames-react "^1.0.11"
+    frames-react "^1.0.12"
     jwt-decode "^3.1.2"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
@@ -872,14 +872,14 @@
   resolved "https://registry.yarnpkg.com/@servie/events/-/events-1.0.0.tgz#8258684b52d418ab7b86533e861186638ecc5dc1"
   integrity sha512-sBSO19KzdrJCM3gdx6eIxV8M9Gxfgg6iDQmH5TIAGaUu+X9VDdsINXJOnoiZ1Kx3TrHdH4bt5UVglkjsEGBcvw==
 
-"@stripe/react-stripe-js@^1.9.0":
+"@stripe/react-stripe-js@^1.10.0":
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.10.0.tgz#5412874b5ed4732e917c6d9bb2b6721ee25615ab"
   integrity sha512-vuIjJUZJ3nyiaGa5z5iyMCzZfGGsgzOOjWjqknbbhkNsewyyginfeky9EZLSz9+iSAsgC9K6MeNOTLKVGcMycQ==
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^1.33.0":
+"@stripe/stripe-js@^1.35.0":
   version "1.35.0"
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.35.0.tgz#f809e2e5e0a00f01aa12e8aed0b89d27728c05c0"
   integrity sha512-UIuzpbJqgXCTvJhY/aZYvBtaKdMfQgnIv6kkLlfRJ9smZcC4zoPvq3j7k9wobYI+idHAWP4BRiPnqA8lvzJCtg==
@@ -3082,7 +3082,7 @@ framebus@5.1.2:
   dependencies:
     "@braintree/uuid" "^0.1.0"
 
-frames-react@^1.0.11:
+frames-react@^1.0.12:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/frames-react/-/frames-react-1.0.12.tgz#502cab3326c62658e5bdac6f07c5d0c2a1e4b548"
   integrity sha512-ZCJX++Cz1mlmzFoKLSpG/OhJbVaxdyY9CkjYr3OL8dgMHYBRKZWY3rs6gpWCfh4Dtlsgz6CFNnjhLnuJrhYUTg==

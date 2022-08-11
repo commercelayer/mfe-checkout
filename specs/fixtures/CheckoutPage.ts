@@ -574,7 +574,14 @@ export class CheckoutPage {
   }
 
   async selectPayment(
-    type: "stripe" | "braintree" | "wire" | "paypal" | "adyen" | "checkout_com"
+    type:
+      | "stripe"
+      | "braintree"
+      | "wire"
+      | "paypal"
+      | "adyen"
+      | "checkout_com"
+      | "adyen-dropin"
   ) {
     let paymentMethod
     if (type === "wire") {
@@ -584,6 +591,106 @@ export class CheckoutPage {
     }
     await this.page.click(`[data-test-id=${paymentMethod}]`, { force: true })
     await this.page.mouse.wheel(0, 30)
+  }
+
+  async completePayment({
+    type,
+    gateway,
+  }: {
+    type: "adyen-dropin"
+    gateway: "paypal" | "klarna" | "card"
+  }) {
+    switch (type) {
+      case "adyen-dropin": {
+        switch (gateway) {
+          case "paypal": {
+            await this.page.click(
+              "[data-test-id=adyen_payments] >> text=PayPal",
+              {
+                force: true,
+              }
+            )
+            const [newPage] = await Promise.all([
+              this.page.waitForEvent("popup"),
+              await this.page.click(
+                "[data-test-id=adyen_payments] >> .adyen-checkout__paypal__button >> nth=0",
+                {
+                  force: true,
+                }
+              ),
+            ])
+            await newPage.waitForLoadState()
+            await newPage.fill(
+              "input[name=login_email]",
+              process.env.E2E_PAYPAL_EMAIL as string
+            )
+
+            await newPage.click("#btnNext")
+
+            await newPage.fill(
+              "input[name=login_password]",
+              process.env.E2E_PAYPAL_PASSWORD as string
+            )
+
+            await newPage.click("#btnLogin")
+            await newPage.click('[data-testid="submit-button-initial"]')
+
+            break
+          }
+          case "klarna": {
+            await this.page.click(
+              "[data-test-id=adyen_payments] >> text=Klarna",
+              {
+                force: true,
+              }
+            )
+            await this.page.click("[data-test-id=save-payment-button]")
+            const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
+
+            await klarnaIframe
+              .locator("input#email_or_phone")
+              .waitFor({ state: "visible" })
+
+            await klarnaIframe.locator("input#email_or_phone").focus()
+            await klarnaIframe
+              .locator("input#email_or_phone")
+              .fill("33312312325")
+            await klarnaIframe.locator('[data-testid="kaf-button"]').click()
+            await klarnaIframe.locator("input#otp_field").focus()
+            await klarnaIframe.locator("input#otp_field").type("123456")
+            await klarnaIframe.locator("button[data-cid=btn-primary]").click()
+            await klarnaIframe.locator("button >> nth=8").click()
+            break
+          }
+          case "card": {
+            await this.page.click(
+              "[data-test-id=adyen_payments] >> text=Credit Card",
+              {
+                force: true,
+              }
+            )
+            const cardFrame = this.page.frameLocator("iframe >> nth=0")
+            await cardFrame
+              .locator("[data-fieldtype=encryptedCardNumber]")
+              .fill("4111111111111111")
+
+            const expFrame = this.page.frameLocator("iframe >> nth=1")
+            await expFrame
+              .locator("[data-fieldtype=encryptedExpiryDate]")
+              .fill("0330")
+            const cvvFrame = this.page.frameLocator("iframe >> nth=2")
+            await cvvFrame
+              .locator("[data-fieldtype=encryptedSecurityCode]")
+              .fill("737")
+            await this.page.click("[data-test-id=save-payment-button]")
+          }
+        }
+        await this.page
+
+          .locator("text=Thank you for your order!")
+          .waitFor({ state: "visible", timeout: 30000 })
+      }
+    }
   }
 
   async setPayment(
@@ -685,20 +792,20 @@ export class CheckoutPage {
   async save(step: SingleStepEnum, waitText?: string, skipWait?: boolean) {
     switch (step) {
       case "Customer":
-        this.page.click("[data-test-id=save-customer-button]")
+        await this.page.click("[data-test-id=save-customer-button]")
         await this.page
           .locator("[data-test-id=step_customer][data-status=false]")
           .waitFor({ state: "visible" })
         break
       case "Shipping":
-        this.page.click("[data-test-id=save-shipping-button]")
+        await this.page.click("[data-test-id=save-shipping-button]")
         await this.page
           .locator("[data-test-id=step_shipping][data-status=false]")
           .waitFor({ state: "visible" })
         break
       case "Payment": {
         const text = waitText || "Thank you for your order"
-        this.page.click("[data-test-id=save-payment-button]")
+        await this.page.click("[data-test-id=save-payment-button]")
 
         if (waitText === "Paga con PayPal") {
           await this.page.fill(
