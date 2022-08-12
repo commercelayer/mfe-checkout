@@ -192,9 +192,7 @@ test.describe("customer with Braintree with saving", () => {
 
     await checkoutPage.selectPayment("braintree")
 
-    await checkoutPage.page.click("[data-test-id=customer-card]", {
-      force: true,
-    })
+    await checkoutPage.useCustomerCard()
 
     await checkoutPage.page.waitForTimeout(2000)
 

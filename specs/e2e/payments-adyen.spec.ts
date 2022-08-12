@@ -235,9 +235,7 @@ test.describe("customer with Adyen with saving", () => {
     await checkoutPage.save("Shipping")
     await checkoutPage.selectPayment("adyen")
 
-    await checkoutPage.page.click("[data-test-id=customer-card]", {
-      force: true,
-    })
+    await checkoutPage.useCustomerCard()
 
     await checkoutPage.save("Payment")
   })
