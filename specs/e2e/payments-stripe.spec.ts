@@ -53,6 +53,8 @@ test.describe("customer with Stripe without saving", () => {
 })
 
 test.describe("customer with Stripe with saving", () => {
+  test.describe.configure({ mode: "serial" })
+
   test.use({
     defaultParams: {
       order: "with-items",
@@ -117,9 +119,10 @@ test.describe("customer with Stripe with saving", () => {
 
     await checkoutPage.useCustomerCard()
 
-    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.page.waitForTimeout(2000)
 
     await checkoutPage.checkPaymentSummary("€10,00")
+    await checkoutPage.page.waitForTimeout(2000)
 
     await checkoutPage.save("Payment")
   })
@@ -194,7 +197,7 @@ test.describe("guest with Stripe", () => {
     await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
 
     await checkoutPage.save("Shipping")
-    await checkoutPage.page.waitForTimeout(2000)
+    await checkoutPage.page.waitForTimeout(5000)
     // await checkoutPage.selectPayment("stripe")
     await checkoutPage.setPayment("stripe")
 

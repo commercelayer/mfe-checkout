@@ -175,6 +175,8 @@ test.describe("customer with Adyen without saving", () => {
 })
 
 test.describe("customer with Adyen with saving", () => {
+  test.describe.configure({ mode: "serial" })
+
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const customerPassword = faker.internet.password()
 
