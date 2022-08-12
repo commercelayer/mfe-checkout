@@ -203,6 +203,7 @@ export class CheckoutPage {
   async useCustomerCard() {
     const element = this.page.locator("[data-test-id=customer-card]")
     await expect(element).toBeVisible({ timeout: 10000 })
+    await this.page.waitForTimeout(2000)
     await this.page.click("[data-test-id=customer-card]", {
       force: true,
     })
@@ -252,9 +253,12 @@ export class CheckoutPage {
     text: string
     shipment?: number
   }) {
-    await this.page.click(
-      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> text=${text}`
+    const selector = `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> text=${text}`
+    await this.page.click(selector)
+    const element = this.page.locator(
+      `${selector} >> xpath=.. >> xpath=.. >> input:checked`
     )
+    await expect(element).toHaveCount(1)
   }
 
   async checkShippingMethodPrice({
@@ -808,22 +812,23 @@ export class CheckoutPage {
   }
 
   async save(step: SingleStepEnum, waitText?: string, skipWait?: boolean) {
+    const buttonId = `[data-test-id=save-${step.toLocaleLowerCase()}-button]:enabled`
     switch (step) {
       case "Customer":
-        await this.page.click("[data-test-id=save-customer-button]")
+        await this.page.click(buttonId, { force: true })
         await this.page
           .locator("[data-test-id=step_customer][data-status=false]")
           .waitFor({ state: "visible" })
         break
       case "Shipping":
-        await this.page.click("[data-test-id=save-shipping-button]")
+        await this.page.click(buttonId, { force: true })
         await this.page
           .locator("[data-test-id=step_shipping][data-status=false]")
           .waitFor({ state: "visible" })
         break
       case "Payment": {
         const text = waitText || "Thank you for your order"
-        await this.page.click("[data-test-id=save-payment-button]")
+        await this.page.click(buttonId, { force: true })
 
         if (waitText === "Paga con PayPal") {
           await this.page.fill(

@@ -3,6 +3,8 @@ import { faker } from "@faker-js/faker"
 import { test, expect } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
 
+const TIMEOUT = 2000
+
 test.describe("guest with Braintree", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
@@ -125,6 +127,8 @@ test.describe("customer with Braintree without saving", () => {
 })
 
 test.describe("customer with Braintree with saving", () => {
+  test.describe.configure({ mode: "serial" })
+
   test.use({
     defaultParams: {
       order: "with-items",
@@ -192,9 +196,11 @@ test.describe("customer with Braintree with saving", () => {
 
     await checkoutPage.selectPayment("braintree")
 
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
     await checkoutPage.useCustomerCard()
 
-    await checkoutPage.page.waitForTimeout(2000)
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Payment", undefined, true)
 

@@ -128,6 +128,8 @@ test.describe("customer with checkout.com without saving", () => {
 })
 
 test.describe("customer with checkout.com with saving", () => {
+  test.describe.configure({ mode: "serial" })
+
   test.use({
     defaultParams: {
       order: "with-items",

@@ -15,7 +15,7 @@ const config: PlaywrightTestConfig = {
   // Artifacts folder where screenshots, videos, and traces are stored.
   outputDir: "test-results/",
   workers: 5,
-  maxFailures: 2,
+  maxFailures: 10,
 
   use: {
     // Retry a test if its failing with enabled tracing. This allows you to analyse the DOM, console logs, network traffic etc.
