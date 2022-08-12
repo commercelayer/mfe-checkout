@@ -202,9 +202,7 @@ test.describe("customer with checkout.com with saving", () => {
 
     await checkoutPage.selectPayment("checkout_com")
 
-    await checkoutPage.page.click("[data-test-id=customer-card]", {
-      force: true,
-    })
+    await checkoutPage.useCustomerCard()
 
     await checkoutPage.save("Payment")
 

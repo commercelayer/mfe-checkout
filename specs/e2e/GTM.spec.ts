@@ -39,6 +39,7 @@ test.describe("multi shipments", () => {
     expect(dataLayer[0].ecommerce.items?.length).toBe(2)
 
     await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
     await checkoutPage.page.waitForTimeout(TIMEOUT)
@@ -74,6 +75,7 @@ test.describe("multi shipments", () => {
     await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Shipping")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
     expect(dataLayer.length).toBe(4)
@@ -89,6 +91,8 @@ test.describe("multi shipments", () => {
 
     await checkoutPage.clickStep("Shipping")
     await checkoutPage.page.waitForTimeout(TIMEOUT)
+
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
     await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({
@@ -99,6 +103,7 @@ test.describe("multi shipments", () => {
 
     await checkoutPage.save("Shipping")
 
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
     expect(dataLayer.length).toBe(6)
     expect(dataLayer[4].ecommerce.currency).toBe("EUR")
@@ -124,6 +129,7 @@ test.describe("multi shipments", () => {
 
     await checkoutPage.save("Shipping")
 
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
     expect(dataLayer.length).toBe(8)
     expect(dataLayer[6].ecommerce.currency).toBe("EUR")
