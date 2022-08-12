@@ -80,6 +80,12 @@ export const CouponOrGiftCard: React.FC<Props> = ({
       field: "adyen_payments",
       message: " ",
     },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "orders",
+      field: "paypal_payments",
+      message: " ",
+    },
   ]
 
   return (

@@ -3,6 +3,8 @@ import { faker } from "@faker-js/faker"
 import { test, expect } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
 
+const TIMEOUT = 1000
+
 test.describe("multi shipments", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
@@ -39,11 +41,12 @@ test.describe("multi shipments", () => {
     await checkoutPage.checkStep("Shipping", "open")
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
-    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Shipping")
 
@@ -61,12 +64,14 @@ test.describe("multi shipments", () => {
 
     await checkoutPage.clickStep("Shipping")
 
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
-    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({
       text: "Express Delivery",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Shipping")
 
@@ -83,13 +88,14 @@ test.describe("multi shipments", () => {
     expect(dataLayer[3].ecommerce.items?.length).toBe(1)
 
     await checkoutPage.clickStep("Shipping")
-
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
-    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Shipping")
 
@@ -106,13 +112,15 @@ test.describe("multi shipments", () => {
     expect(dataLayer[5].ecommerce.items?.length).toBe(1)
 
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
-    await checkoutPage.page.waitForTimeout(1000)
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({
       text: "Express Delivery",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Shipping")
 
