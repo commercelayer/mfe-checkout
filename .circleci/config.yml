@@ -4,7 +4,7 @@ jobs:
   build_and_test: # this can be any name you choose
     docker:
       - image: mcr.microsoft.com/playwright:v1.24.2-focal
-    resource_class: medium+
+    resource_class: large
     parallelism: 10
 
     environment:
@@ -28,10 +28,11 @@ jobs:
           paths:
             - .yarn/cache
             - .yarn/unplugged
-      - run:
-          name: Add E2E_BASE_URL to /etc/hosts
-          command: |
-            tee -a /etc/hosts \<<<"127.0.0.1 ${E2E_BASE_URL}"
+      # Step disabled until Adyen is allowing host with http protocol
+      # - run:
+      #     name: Add E2E_BASE_URL to /etc/hosts
+      #     command: |
+      #       tee -a /etc/hosts \<<<"127.0.0.1 ${E2E_BASE_URL}"
       - run:
           name: Export and serve
           command: |
