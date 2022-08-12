@@ -4,6 +4,10 @@ import { PlaywrightTestConfig } from "@playwright/test"
 const config: PlaywrightTestConfig = {
   // Timeout per test
   timeout: 2 * 60 * 1000,
+  // Timeout per expect
+  expect: {
+    timeout: 10 * 1000,
+  },
   // Test directory
   testDir: "specs/e2e",
   // If a test fails, retry it additional 2 times
