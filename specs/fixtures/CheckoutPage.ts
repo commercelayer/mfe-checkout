@@ -149,8 +149,11 @@ export class CheckoutPage {
     const dataLayer: DataLayerWindowProps[] = await this.page.evaluate(
       "window.dataLayer"
     )
-    return dataLayer.filter(
-      ({ event }: DataLayerWindowProps) => event === eventToTrack
+    return (
+      dataLayer &&
+      dataLayer.filter(
+        ({ event }: DataLayerWindowProps) => event === eventToTrack
+      )
     )
   }
 

@@ -69,7 +69,7 @@ interface DefaultParamsProps {
   organization?: {
     support_phone?: string
     support_email?: string
-    gtmId?: string
+    gtm_id_test?: string
   }
   orderAttributes?: {
     language_code?: "en" | "it"

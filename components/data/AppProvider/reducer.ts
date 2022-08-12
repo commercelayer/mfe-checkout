@@ -51,6 +51,7 @@ export type Action =
         others: Partial<AppStateData>
         shipment: {
           shipmentId: string
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           shippingMethod: ShippingMethod | Record<string, any>
         }
       }
