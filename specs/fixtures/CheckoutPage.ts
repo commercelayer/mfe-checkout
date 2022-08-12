@@ -698,7 +698,7 @@ export class CheckoutPage {
         await this.page
 
           .locator("text=Thank you for your order!")
-          .waitFor({ state: "visible", timeout: 30000 })
+          .waitFor({ state: "visible", timeout: 60000 })
       }
     }
   }
@@ -835,7 +835,7 @@ export class CheckoutPage {
 
           await this.page
             .locator("text=Thank you for your order!")
-            .waitFor({ state: "visible", timeout: 30000 })
+            .waitFor({ state: "visible", timeout: 60000 })
           return
         }
 
@@ -844,7 +844,7 @@ export class CheckoutPage {
         }
         await this.page
           .locator(`text=${text}`)
-          .waitFor({ state: "visible", timeout: 15000 })
+          .waitFor({ state: "visible", timeout: 60000 })
         break
       }
     }

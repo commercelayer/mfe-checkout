@@ -197,7 +197,7 @@ test.describe("using gift card", () => {
     defaultParams: {
       order: "with-items",
       organization: {
-        supportPhone: phone,
+        support_phone: phone,
       },
       orderAttributes: {
         customer_email: customerEmail,
