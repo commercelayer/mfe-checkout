@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.9.0...v1.10.0) (2022-08-25)
+
+
+### Features
+
+* autoselect payment method if only one available in the market ([c6bb966](https://github.com/commercelayer/commercelayer-react-checkout/commit/c6bb9664eec8d00815bb898f2ad25fc62b1fcdf0))
+
 # [1.9.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.4...v1.9.0) (2022-08-11)
 
 
