@@ -150,9 +150,14 @@ Here is where customers select a payment method and place the order.
 | [Stripe](https://docs.commercelayer.io/developers/v/how-tos/payments/stripe)                  | Credit card                                                                                                                                             | &check;         |
 | [Manual gateway](https://docs.commercelayer.io/developers/v/how-tos/payments/manual-payments) | Manual payment                                                                                                                                          | &cross;         |
 
+> When using PayPal via Adyen please make sure to properly [set up third-party access](https://docs.adyen.com/payment-methods/paypal/web-drop-in#grant-api-access) on your PayPal first.
+
 #### Logged customers
 
 If the access token used to build the checkout URL is a [customer token](https://docs.commercelayer.io/developers/authentication/password) customers will see their saved credit cards in their customer wallet and will be able to reuse them to accelerate the payment process.
+
+#### Single payment method
+If there is only one [payment method](https://docs.commercelayer.io/developers/v/api-reference/payment_methods) available in the market the order belongs to, the Checkout application will autoselect that payment method and let you directly place the order.
 
 #### Zero-balance
 
