@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
-import { euAddress, euAddress2 } from "../utils/addresses"
+import { test } from "../fixtures/tokenizedPage"
+import { euAddress } from "../utils/addresses"
 
 test.describe("guest with Paypal", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()

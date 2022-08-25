@@ -429,6 +429,7 @@ test.describe("without applied giftcard", () => {
     await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.checkCouponError(undefined)
+    await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.setCoupon("wronggiftcard")
     await checkoutPage.page.waitForTimeout(1000)
