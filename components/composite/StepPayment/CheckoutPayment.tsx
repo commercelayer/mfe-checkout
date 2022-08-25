@@ -9,14 +9,23 @@ import {
   PaymentDetailsWrapper,
 } from "./styled"
 
+import { THandleClick } from "."
+
 interface Props {
-  selectPayment: () => Promise<void>
+  selectPayment: THandleClick
+  hasTitle: boolean
+  autoSelectCallback: () => void
 }
 
-export const CheckoutPayment: React.FC<Props> = ({ selectPayment }) => {
+export const CheckoutPayment: React.FC<Props> = ({
+  selectPayment,
+  hasTitle,
+  autoSelectCallback,
+}) => {
   return (
     <>
       <PaymentMethod
+        autoSelectSinglePaymentMethod={autoSelectCallback}
         activeClass="active"
         className="payment group"
         loader={PaymentSkeleton}
@@ -24,7 +33,7 @@ export const CheckoutPayment: React.FC<Props> = ({ selectPayment }) => {
         onClick={selectPayment}
       >
         <PaymentWrapper data-test-id="payment-sources-container">
-          <PaymentSummaryList />
+          <PaymentSummaryList hasTitle={hasTitle} />
           <PaymentSourceContainer data-test-id="payment-source">
             <PaymentSource className="flex flex-col" loader={PaymentSkeleton}>
               <PaymentDetailsWrapper>

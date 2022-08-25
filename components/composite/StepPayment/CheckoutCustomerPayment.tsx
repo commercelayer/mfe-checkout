@@ -19,11 +19,19 @@ import {
   WalletCheckbox,
 } from "./styled"
 
+import { THandleClick } from "."
+
 interface Props {
-  selectPayment: () => Promise<void>
+  selectPayment: THandleClick
+  hasTitle: boolean
+  autoSelectCallback: () => void
 }
 
-export const CheckoutCustomerPayment: React.FC<Props> = ({ selectPayment }) => {
+export const CheckoutCustomerPayment: React.FC<Props> = ({
+  selectPayment,
+  hasTitle,
+  autoSelectCallback,
+}) => {
   const { t } = useTranslation()
 
   // TemplateSaveToWalletCheckbox
@@ -87,6 +95,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ selectPayment }) => {
   return (
     <>
       <PaymentMethod
+        autoSelectSinglePaymentMethod={autoSelectCallback}
         activeClass="active group"
         className="payment"
         loader={PaymentSkeleton}
@@ -94,7 +103,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({ selectPayment }) => {
         onClick={selectPayment}
       >
         <PaymentWrapper>
-          <PaymentSummaryList />
+          <PaymentSummaryList hasTitle={hasTitle} />
           <PaymentSourceContainer data-test-id="payment-source">
             <PaymentSource
               className="flex flex-col"

@@ -12,7 +12,7 @@ import {
 
 import { StyledErrors } from "components/composite/OrderSummary/CouponOrGiftCard/styled"
 
-export const PaymentSummaryList = () => {
+export const PaymentSummaryList = ({ hasTitle }: { hasTitle: boolean }) => {
   const { t } = useTranslation()
   return (
     <>
@@ -21,11 +21,13 @@ export const PaymentSummaryList = () => {
           <PaymentRadioContainer>
             <StyledPaymentMethodRadioButton className="form-radio" />
           </PaymentRadioContainer>
-          <PaymentMethodNameWithStripe />
+          {hasTitle && <PaymentMethodNameWithStripe />}
         </PaymentSummaryItem>
-        <PaymentSummaryValue>
-          <PaymentMethodPrice labelFree={t("general.free")} />
-        </PaymentSummaryValue>
+        {hasTitle && (
+          <PaymentSummaryValue>
+            <PaymentMethodPrice labelFree={t("general.free")} />
+          </PaymentSummaryValue>
+        )}
       </PaymentSummary>
       <StyledErrors resource="payment_methods" />
     </>
