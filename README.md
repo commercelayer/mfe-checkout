@@ -157,7 +157,7 @@ Here is where customers select a payment method and place the order.
 If the access token used to build the checkout URL is a [customer token](https://docs.commercelayer.io/developers/authentication/password) customers will see their saved credit cards in their customer wallet and will be able to reuse them to accelerate the payment process.
 
 #### Single payment method
-If there is only one [payment method](https://docs.commercelayer.io/developers/v/api-reference/payment_methods) available in the market the order belongs to, the Checkout application will autoselect that payment method and let you directly place the order.
+If there is only one [payment method](https://docs.commercelayer.io/developers/v/api-reference/payment_methods) available in the market the order belongs to, the Checkout application will autoselect that payment method and let you directly add your payment details to the order.
 
 #### Zero-balance
 
