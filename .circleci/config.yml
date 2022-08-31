@@ -8,26 +8,29 @@ jobs:
     parallelism: 10
 
     environment:
-      NODE_ENV: production
+      # NODE_ENV: production
       PLAYWRIGHT_BROWSERS_PATH: 0
 
     steps:
       - checkout
       - restore_cache:
-          name: Restore Yarn Package Cache
+          name: Restore pnpm Package Cache
           keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
+            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+      - run:
+          name: Install pnpm package manager
+          command: |
+            curl -L https://pnpm.js.org/pnpm.js | node - add --global pnpm@7
       - run:
           name: Install Dependencies
           command: |
-            yarn install --production=false
-            yarn run playwright install chromium
+            pnpm install
+            pnpm playwright install chromium
       - save_cache:
-          name: Save Yarn Package Cache
-          key: yarn-packages-{{ checksum "yarn.lock" }}
+          name: Save pnpm Package Cache
+          key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
           paths:
-            - .yarn/cache
-            - .yarn/unplugged
+            - node_modules
       # Step disabled until Adyen is allowing host with http protocol
       # - run:
       #     name: Add E2E_BASE_URL to /etc/hosts
@@ -36,13 +39,13 @@ jobs:
       - run:
           name: Export and serve
           command: |
-            yarn export
+            pnpm run export
       - run:
           name: Run tests
           command: |
-            yarn serve &
+            pnpm run serve &
             TESTFILES=$(circleci tests glob "specs/e2e/**/*.spec.ts" | circleci tests split --split-by=timings)   
-            yarn run playwright test --config=playwright.config.ci.ts ${TESTFILES}
+            pnpm playwright test --config=playwright.config.ci.ts ${TESTFILES}
 
 workflows:
   tests:
