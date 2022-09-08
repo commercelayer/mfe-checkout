@@ -84,7 +84,7 @@ test.describe("guest with Adyen drop-in", () => {
     await checkoutPage.checkPaymentRecap("PayPal ending in ****")
   })
 
-  test("Checkout order with Klarna", async ({ checkoutPage }) => {
+  test.skip("Checkout order with Klarna", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Shipping", "open")
