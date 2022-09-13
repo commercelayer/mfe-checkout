@@ -221,7 +221,7 @@ test.describe("guest with Stripe", () => {
 
     await checkoutPage.checkPaymentError({
       type: "stripe",
-      text: "Your card was declined.",
+      text: "Your card has been declined.",
     })
     await checkoutPage.setPayment("stripe")
 

@@ -25,7 +25,7 @@ test.describe("stripe errors", () => {
     {
       kind: "generic decline",
       card: { number: "4000000000000002" },
-      error: "Your card was declined.",
+      error: "Your card has been declined.",
     },
     {
       kind: "insufficient funds decline",
