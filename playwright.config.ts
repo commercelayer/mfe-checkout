@@ -21,7 +21,7 @@ const config: PlaywrightTestConfig = {
   // Run your local dev server before starting the tests:
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
   webServer: {
-    command: "yarn dev",
+    command: "pnpm run dev",
     port: 3000,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
@@ -47,7 +47,7 @@ const config: PlaywrightTestConfig = {
         browserName: "chromium",
         // Any Chromium-specific options.
         viewport: { width: 1200, height: 900 },
-        baseURL: `${process.env.E2E_BASE_PROTOCOL}://${process.env.E2E_BASE_URL}:${process.env.E2E_BASE_PORT}`,
+        baseURL: `${process.env.E2E_BASE_PROTOCOL}:${process.env.E2E_BASE_URL}:${process.env.E2E_BASE_PORT}`,
         launchOptions: {
           // logger: {
           //   isEnabled: (name, severity) => true,

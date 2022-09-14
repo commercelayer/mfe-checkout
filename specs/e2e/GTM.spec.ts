@@ -3,6 +3,8 @@ import { faker } from "@faker-js/faker"
 import { test, expect } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
 
+const TIMEOUT = 1000
+
 test.describe("multi shipments", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
@@ -15,7 +17,7 @@ test.describe("multi shipments", () => {
         privacy_url: "https://www.google.it",
       },
       organization: {
-        gtmId: "GTM-123456",
+        gtm_id_test: "GTM-123456",
       },
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
@@ -37,12 +39,15 @@ test.describe("multi shipments", () => {
     expect(dataLayer[0].ecommerce.items?.length).toBe(2)
 
     await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Shipping")
 
@@ -60,13 +65,17 @@ test.describe("multi shipments", () => {
 
     await checkoutPage.clickStep("Shipping")
 
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({
       text: "Express Delivery",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Shipping")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
     expect(dataLayer.length).toBe(4)
@@ -81,15 +90,20 @@ test.describe("multi shipments", () => {
     expect(dataLayer[3].ecommerce.items?.length).toBe(1)
 
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Shipping")
 
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
     expect(dataLayer.length).toBe(6)
     expect(dataLayer[4].ecommerce.currency).toBe("EUR")
@@ -103,15 +117,19 @@ test.describe("multi shipments", () => {
     expect(dataLayer[5].ecommerce.items?.length).toBe(1)
 
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     await checkoutPage.selectShippingMethod({
       text: "Express Delivery",
       shipment: 1,
     })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Shipping")
 
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
     dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
     expect(dataLayer.length).toBe(8)
     expect(dataLayer[6].ecommerce.currency).toBe("EUR")
@@ -145,7 +163,7 @@ test.describe("single shipment", () => {
         customer_email: customerEmail,
       },
       organization: {
-        gtmId: "GTM-123456",
+        gtm_id_test: "GTM-123456",
       },
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
@@ -214,7 +232,7 @@ test.describe("with single shipping method", () => {
   test.use({
     defaultParams: {
       organization: {
-        gtmId: "GTM-123456",
+        gtm_id_test: "GTM-123456",
       },
       order: "with-items",
       market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
@@ -293,7 +311,7 @@ test.describe("with digital products", () => {
   test.use({
     defaultParams: {
       organization: {
-        gtmId: "GTM-123456",
+        gtm_id_test: "GTM-123456",
       },
       order: "digital",
       market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
