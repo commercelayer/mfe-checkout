@@ -1,3 +1,19 @@
+# [2.0.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.10.0...v2.0.0) (2022-09-15)
+
+
+### Features
+
+* switch Checkout to a single page application ([4ed5566](https://github.com/commercelayer/commercelayer-react-checkout/commit/4ed556624051fb30fc4f6d2fd0b2d7b702b2cbba))
+* switch to pnpm package manager ([1ef9bc6](https://github.com/commercelayer/commercelayer-react-checkout/commit/1ef9bc68f7881104b8e2fa6c1290f32901e0d666)), closes [#277](https://github.com/commercelayer/commercelayer-react-checkout/issues/277)
+
+
+### BREAKING CHANGES
+
+* starting from this release only pnpm will be allowed as package manager
+* Checkout is now a single page application using react-router-dom
+
+Starting from this release Checkout Application doesn’t require anymore hosting with Nodejs capabilities. Instead of building the project it is required to export it using the command `yarn export`. It is possible to test it on local environment using `yarn serve` command.
+
 # [1.10.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.9.0...v1.10.0) (2022-08-25)
 
 
