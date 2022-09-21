@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.0...v2.0.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* Authorization calls on Adyen dropin ([d5fe2da](https://github.com/commercelayer/commercelayer-react-checkout/commit/d5fe2dad008b45257e5bab8a25667caa67189c60))
+
 # [2.0.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.10.0...v2.0.0) (2022-09-15)
 
 
