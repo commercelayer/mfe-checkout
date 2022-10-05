@@ -172,7 +172,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     if (state.order) {
       dispatch({ type: ActionType.START_LOADING })
 
-      const others = calculateSettings(order, state.isShipmentRequired)
+      const others = calculateSettings(
+        order,
+        state.isShipmentRequired,
+        state.customerAddresses
+      )
 
       dispatch({
         type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
@@ -190,7 +194,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     // TODO Remove after fixing components
     const order = await fetchOrder(cl, orderId)
 
-    const others = calculateSettings(order, state.isShipmentRequired)
+    const others = calculateSettings(
+      order,
+      state.isShipmentRequired,
+      state.customerAddresses
+    )
 
     dispatch({
       type: ActionType.SELECT_SHIPMENT,
@@ -209,7 +217,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     dispatch({ type: ActionType.START_LOADING })
 
     const order = await fetchOrder(cl, orderId)
-    const others = calculateSettings(order, state.isShipmentRequired)
+    const others = calculateSettings(
+      order,
+      state.isShipmentRequired,
+      state.customerAddresses
+    )
 
     dispatch({
       type: ActionType.SAVE_SHIPMENTS,
@@ -223,8 +235,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const saveShipments = async () => {
     dispatch({ type: ActionType.START_LOADING })
     const order = await getOrderFromRef()
-
-    const others = calculateSettings(order, state.isShipmentRequired)
+    console.log(order)
+    const others = calculateSettings(
+      order,
+      state.isShipmentRequired,
+      state.customerAddresses
+    )
 
     setTimeout(() => {
       dispatch({
@@ -238,7 +254,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     dispatch({ type: ActionType.START_LOADING })
     const order = await getOrderFromRef()
 
-    const others = calculateSettings(order, state.isShipmentRequired)
+    const others = calculateSettings(
+      order,
+      state.isShipmentRequired,
+      state.customerAddresses
+    )
 
     dispatch({
       type: ActionType.SET_PAYMENT,

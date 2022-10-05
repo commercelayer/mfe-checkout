@@ -35,6 +35,8 @@ test.describe("with two shipments", () => {
 
     await checkoutPage.checkShippingSummary("To be calculated")
 
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
       shipment: 0,
@@ -55,12 +57,15 @@ test.describe("with two shipments", () => {
     await checkoutPage.checkStep("Payment", "open")
 
     await checkoutPage.clickStep("Shipping")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.checkSelectedShippingMethod({
       index: 0,
       shipment: 0,
       value: true,
     })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
     await checkoutPage.checkSelectedShippingMethod({
       index: 0,
       shipment: 1,
@@ -100,6 +105,7 @@ test.describe("with two shipments", () => {
       shipment: 1,
       value: true,
     })
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.selectShippingMethod({
       text: "Express Delivery",
@@ -114,6 +120,8 @@ test.describe("with two shipments", () => {
     await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     await checkoutPage.save("Shipping")
+    await checkoutPage.page.waitForTimeout(TIMEOUT)
+
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
     await checkoutPage.clickStep("Shipping")
