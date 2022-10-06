@@ -88,6 +88,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
           orders: ["line_items"],
           line_items: [
             "sku_code",
+            "bundle_code",
             "name",
             "total_amount_float",
             "currency_code",

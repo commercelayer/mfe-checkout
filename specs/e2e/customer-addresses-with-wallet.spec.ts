@@ -429,3 +429,57 @@ test.describe("two address on wallet and code lock", () => {
     })
   })
 })
+
+test.describe("one address on wallet", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      customerAddresses: [euAddress],
+    },
+  })
+
+  test("check addresses", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.page.locator(`text=${customerEmail}`)
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.clickStep("Customer")
+
+    let element = await checkoutPage.page.locator(
+      "[data-test-id=customer-billing-address]"
+    )
+    await expect(element).toHaveCount(1)
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await expect(
+      checkoutPage.page.locator("text=Standard Shipping")
+    ).toBeVisible()
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.checkShippingSummary("FREE")
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.clickStep("Customer")
+
+    element = await checkoutPage.page.locator(
+      "[data-test-id=customer-billing-address]"
+    )
+    await expect(element).toHaveCount(1)
+  })
+})
