@@ -1,3 +1,11 @@
+## [2.0.2](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.1...v2.0.2) (2022-10-06)
+
+
+### Bug Fixes
+
+* add item_id to dataLayer for bundles ([ba991d2](https://github.com/commercelayer/commercelayer-react-checkout/commit/ba991d2b820c9665317ae219e7bfc10347d5745b))
+* keep customer address selected after delivery step ([8c3ae14](https://github.com/commercelayer/commercelayer-react-checkout/commit/8c3ae14ea0f7ca985f022c0607862042c776bf2e))
+
 ## [2.0.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.0...v2.0.1) (2022-09-21)
 
 
