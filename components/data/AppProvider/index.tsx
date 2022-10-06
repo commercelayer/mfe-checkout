@@ -235,7 +235,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const saveShipments = async () => {
     dispatch({ type: ActionType.START_LOADING })
     const order = await getOrderFromRef()
-    console.log(order)
     const others = calculateSettings(
       order,
       state.isShipmentRequired,
