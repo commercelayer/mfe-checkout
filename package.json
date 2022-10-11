@@ -70,7 +70,7 @@
     "commercelayer"
   ],
   "dependencies": {
-    "@commercelayer/react-components": "^3.15.1",
+    "@commercelayer/react-components": "^3.15.3",
     "@commercelayer/sdk": "^4.15.1",
     "@headlessui/react": "^1.7.1",
     "@rollbar/react": "^0.11.1",
