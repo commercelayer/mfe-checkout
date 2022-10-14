@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.3...v2.0.4) (2022-10-14)
+
+
+### Bug Fixes
+
+* improve adyen drop-in integration ([6f1d3d9](https://github.com/commercelayer/commercelayer-react-checkout/commit/6f1d3d9f8d6ccacebca73180d8e076f72c126028))
+
 ## [2.0.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.2...v2.0.3) (2022-10-12)
 
 
