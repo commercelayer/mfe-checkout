@@ -7,7 +7,7 @@ overrides:
 
 specifiers:
   '@commercelayer/js-auth': ^2.3.0
-  '@commercelayer/react-components': ^3.15.3
+  '@commercelayer/react-components': ^3.15.5
   '@commercelayer/sdk': ^4.15.1
   '@faker-js/faker': ^7.3.0
   '@headlessui/react': ^1.7.1
@@ -65,7 +65,7 @@ specifiers:
   typescript: ^4.8.3
 
 dependencies:
-  '@commercelayer/react-components': 3.15.3_sfoxds7t5ydpegc3knd667wn6m
+  '@commercelayer/react-components': 3.15.5_sfoxds7t5ydpegc3knd667wn6m
   '@commercelayer/sdk': 4.15.1
   '@headlessui/react': 1.7.1_sfoxds7t5ydpegc3knd667wn6m
   '@rollbar/react': 0.11.1_pe2begstrhzcx3ohvyfcha5fyy
@@ -336,8 +336,8 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /@commercelayer/react-components/3.15.3_sfoxds7t5ydpegc3knd667wn6m:
-    resolution: {integrity: sha512-z2RlHronlUkjpItx6nAa16cRaRhKf9VbHJX0UB6cm2tboSsfXO91dHCklsRX7/FpzdPaerP6xlKgNHUk3MA3ow==}
+  /@commercelayer/react-components/3.15.5_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-e47T+iDJ/jYGg6RESx4mX1PMUYAdPM0/dyxKiL4QzpCCETw9bZ1u6wy+JMnxR9qrGMZZI5Z6gIPAXVOjQt7Jyw==}
     peerDependencies:
       react: ^17.0.2
     dependencies:
