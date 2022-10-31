@@ -34,7 +34,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     return <>{children}</>
   }
 
-  const { accessToken, orderId, slug, domain } = ctx
+  const { accessToken, orderId, slug, domain, getOrderFromRef } = ctx
 
   const cl = CommerceLayer({
     organization: slug,
@@ -48,25 +48,6 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       fireBeginCheckout()
     }
   }, [])
-
-  const fetchOrder = async () => {
-    return cl.orders.retrieve(orderId, {
-      fields: {
-        orders: [
-          "number",
-          "coupon_code",
-          "currency_code",
-          "total_amount_with_taxes_float",
-          "shipping_amount_float",
-          "total_tax_amount_float",
-          "payment_method",
-          "market",
-        ],
-        payment_method: ["price_amount_float", "name"],
-      },
-      include: ["payment_method", "market"],
-    })
-  }
 
   const pushDataLayer = ({ eventName, dataLayer }: DataLayerProps) => {
     try {
@@ -99,7 +80,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   }
 
   const fireBeginCheckout = async () => {
-    const order = await fetchOrder()
+    const order = await getOrderFromRef()
     const lineItems = (
       await cl.orders.retrieve(orderId, {
         include: ["line_items"],
@@ -107,6 +88,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
           orders: ["line_items"],
           line_items: [
             "sku_code",
+            "bundle_code",
             "name",
             "total_amount_float",
             "currency_code",
@@ -132,7 +114,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   }
 
   const fireAddShippingInfo = async () => {
-    const order = await fetchOrder()
+    const order = await getOrderFromRef()
     const shipments = (
       await cl.orders.retrieve(orderId, {
         include: [
@@ -180,23 +162,8 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   }
 
   const fireAddPaymentInfo = async () => {
-    const order = await fetchOrder()
-    const lineItems = (
-      await cl.orders.retrieve(orderId, {
-        include: ["line_items"],
-        fields: {
-          orders: ["line_items"],
-          line_items: [
-            "sku_code",
-            "name",
-            "total_amount_float",
-            "currency_code",
-            "quantity",
-            "item_type",
-          ],
-        },
-      })
-    ).line_items?.filter((line_item) => {
+    const order = await getOrderFromRef()
+    const lineItems = order.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
 
@@ -216,23 +183,9 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   }
 
   const firePurchase = async () => {
-    const order = await fetchOrder()
-    const lineItems = (
-      await cl.orders.retrieve(orderId, {
-        include: ["line_items"],
-        fields: {
-          orders: ["line_items"],
-          line_items: [
-            "sku_code",
-            "name",
-            "total_amount_float",
-            "currency_code",
-            "quantity",
-            "item_type",
-          ],
-        },
-      })
-    ).line_items?.filter((line_item) => {
+    const order = await getOrderFromRef()
+
+    const lineItems = order.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
 

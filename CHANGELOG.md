@@ -1,3 +1,75 @@
+## [2.0.4](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.3...v2.0.4) (2022-10-14)
+
+
+### Bug Fixes
+
+* improve adyen drop-in integration ([6f1d3d9](https://github.com/commercelayer/commercelayer-react-checkout/commit/6f1d3d9f8d6ccacebca73180d8e076f72c126028))
+
+## [2.0.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.2...v2.0.3) (2022-10-12)
+
+
+### Bug Fixes
+
+* improve authorization flow with Adyen drop-in ([90a0bb8](https://github.com/commercelayer/commercelayer-react-checkout/commit/90a0bb86cc7effa273540a950d07a1d776f72845))
+
+## [2.0.2](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.1...v2.0.2) (2022-10-06)
+
+
+### Bug Fixes
+
+* add item_id to dataLayer for bundles ([ba991d2](https://github.com/commercelayer/commercelayer-react-checkout/commit/ba991d2b820c9665317ae219e7bfc10347d5745b))
+* keep customer address selected after delivery step ([8c3ae14](https://github.com/commercelayer/commercelayer-react-checkout/commit/8c3ae14ea0f7ca985f022c0607862042c776bf2e))
+
+## [2.0.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.0...v2.0.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* Authorization calls on Adyen dropin ([d5fe2da](https://github.com/commercelayer/commercelayer-react-checkout/commit/d5fe2dad008b45257e5bab8a25667caa67189c60))
+
+# [2.0.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.10.0...v2.0.0) (2022-09-15)
+
+
+### Features
+
+* switch Checkout to a single page application ([4ed5566](https://github.com/commercelayer/commercelayer-react-checkout/commit/4ed556624051fb30fc4f6d2fd0b2d7b702b2cbba))
+* switch to pnpm package manager ([1ef9bc6](https://github.com/commercelayer/commercelayer-react-checkout/commit/1ef9bc68f7881104b8e2fa6c1290f32901e0d666)), closes [#277](https://github.com/commercelayer/commercelayer-react-checkout/issues/277)
+
+
+### BREAKING CHANGES
+
+* starting from this release only pnpm will be allowed as package manager
+* Checkout is now a single page application using react-router-dom
+
+Starting from this release Checkout Application doesn’t require anymore hosting with Nodejs capabilities. Instead of building the project it is required to export it using the command `yarn export`. It is possible to test it on local environment using `yarn serve` command.
+
+# [1.10.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.9.0...v1.10.0) (2022-08-25)
+
+
+### Features
+
+* autoselect payment method if only one available in the market ([c6bb966](https://github.com/commercelayer/commercelayer-react-checkout/commit/c6bb9664eec8d00815bb898f2ad25fc62b1fcdf0))
+
+# [1.9.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.4...v1.9.0) (2022-08-11)
+
+
+### Bug Fixes
+
+* remove error for customer wallet from order summary ([5aac2f4](https://github.com/commercelayer/commercelayer-react-checkout/commit/5aac2f48110b2f9cde5006569c08c0074f73a7a6))
+* sync JWT with local storage before calling settings endpoint ([fabd92f](https://github.com/commercelayer/commercelayer-react-checkout/commit/fabd92fa7a95f9764c7f88c33d9ec8cb785a45f2))
+
+
+### Features
+
+* add payment methods support to Adyen gateway (Klarna and PayPal) ([357ae68](https://github.com/commercelayer/commercelayer-react-checkout/commit/357ae681ceca7e4f3ecd85810ac956ccf5ed3dcf))
+
+## [1.8.4](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.3...v1.8.4) (2022-08-02)
+
+
+### Performance Improvements
+
+* improve GTM provider reducing API calls ([075424d](https://github.com/commercelayer/commercelayer-react-checkout/commit/075424d12e75626cfd724f291f3e8d9acf908dda))
+
 ## [1.8.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v1.8.2...v1.8.3) (2022-07-25)
 
 

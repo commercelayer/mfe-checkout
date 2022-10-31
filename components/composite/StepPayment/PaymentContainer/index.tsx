@@ -43,10 +43,12 @@ export const PaymentContainer: React.FC = ({ children }) => {
         },
         adyenPayment: {
           styles: {
-            base: {
-              fontSize: "16px",
-              padding: "12px",
-              fontFamily: "monospace",
+            card: {
+              base: {
+                fontSize: "16px",
+                padding: "12px",
+                fontFamily: "monospace",
+              },
             },
           },
         },

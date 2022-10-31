@@ -1,0 +1,60 @@
+version: 2.1
+
+jobs:
+  build_and_test: # this can be any name you choose
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.25.2-focal
+    resource_class: large
+    parallelism: 10
+
+    environment:
+      # NODE_ENV: production
+      PLAYWRIGHT_BROWSERS_PATH: 0
+
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore pnpm Package Cache
+          keys:
+            - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+      - run:
+          name: Install nodejs 18
+          command: |
+            apt-get update
+            apt-get install -y curl wget gpg
+            curl -sL https://deb.nodesource.com/setup_18.x | bash -
+            apt-get install -y nodejs
+      - run:
+          name: Install pnpm package manager
+          command: |
+            curl -L https://pnpm.js.org/pnpm.js | node - add --global pnpm@7
+      - run:
+          name: Install Dependencies
+          command: |
+            pnpm install
+            pnpm playwright install chromium
+      - save_cache:
+          name: Save pnpm Package Cache
+          key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
+          paths:
+            - node_modules
+      # Step disabled until Adyen is allowing host with http protocol
+      # - run:
+      #     name: Add E2E_BASE_URL to /etc/hosts
+      #     command: |
+      #       tee -a /etc/hosts \<<<"127.0.0.1 ${E2E_BASE_URL}"
+      - run:
+          name: Export and serve
+          command: |
+            pnpm run export
+      - run:
+          name: Run tests
+          command: |
+            pnpm run serve &
+            TESTFILES=$(circleci tests glob "specs/e2e/**/*.spec.ts" | circleci tests split --split-by=timings)   
+            pnpm playwright test --config=playwright.config.ci.ts ${TESTFILES}
+
+workflows:
+  tests:
+    jobs:
+      - build_and_test

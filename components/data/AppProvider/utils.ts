@@ -227,6 +227,13 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
     fields: {
       orders: [
         "id",
+        // Start fields for GTM
+        "number",
+        "coupon_code",
+        "currency_code",
+        "shipping_amount_float",
+        "total_tax_amount_float",
+        // End fields for GTM
         "guest",
         "shipping_country_code_lock",
         "customer_email",
@@ -259,6 +266,7 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
       "customer",
       "customer.customer_addresses",
       "customer.customer_addresses.address",
+      "market",
     ],
   })
 }
@@ -395,6 +403,7 @@ export function calculateSelectedShipments(
   shipments: ShipmentSelected[],
   payload?: {
     shipmentId: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     shippingMethod: ShippingMethod | Record<string, any>
   }
 ) {

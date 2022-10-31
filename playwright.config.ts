@@ -8,7 +8,7 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env.local") })
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
   // Timeout per test
-  timeout: 60 * 1000,
+  timeout: 120 * 1000,
   // Test directory
   testDir: "specs/e2e",
   // If a test fails, retry it additional 2 times
@@ -21,7 +21,7 @@ const config: PlaywrightTestConfig = {
   // Run your local dev server before starting the tests:
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
   webServer: {
-    command: "yarn dev",
+    command: "pnpm run dev",
     port: 3000,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
@@ -47,7 +47,7 @@ const config: PlaywrightTestConfig = {
         browserName: "chromium",
         // Any Chromium-specific options.
         viewport: { width: 1200, height: 900 },
-        baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+        baseURL: `${process.env.E2E_BASE_PROTOCOL}:${process.env.E2E_BASE_URL}:${process.env.E2E_BASE_PORT}`,
         launchOptions: {
           // logger: {
           //   isEnabled: (name, severity) => true,

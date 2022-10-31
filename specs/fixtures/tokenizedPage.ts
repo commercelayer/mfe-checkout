@@ -8,7 +8,7 @@ import CommerceLayer, {
   Address,
   AddressCreate,
 } from "@commercelayer/sdk"
-import { test as base } from "@playwright/test"
+import { chromium, test as base } from "@playwright/test"
 import dotenv from "dotenv"
 import jwt_decode from "jwt-decode"
 
@@ -57,6 +57,7 @@ interface JWTProps {
 }
 
 interface DefaultParamsProps {
+  incognito?: boolean
   token?: string
   orderId?: string
   order?: OrderType
@@ -66,9 +67,9 @@ interface DefaultParamsProps {
     password: string
   }
   organization?: {
-    supportPhone?: string
-    supportEmail?: string
-    gtmId?: string
+    support_phone?: string
+    support_email?: string
+    gtm_id_test?: string
   }
   orderAttributes?: {
     language_code?: "en" | "it"
@@ -99,9 +100,9 @@ type FixtureType = {
 }
 
 const getToken = async (market?: string) => {
-  const clientId = process.env.NEXT_PUBLIC_CLIENT_ID as string
-  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
-  const scope = market || (process.env.NEXT_PUBLIC_MARKET_ID as string)
+  const clientId = process.env.E2E_CLIENT_ID as string
+  const endpoint = process.env.E2E_ENDPOINT as string
+  const scope = market || (process.env.E2E_MARKET_ID as string)
 
   const data = await getSalesChannelToken({
     clientId,
@@ -129,9 +130,9 @@ const getCustomerUserToken = async ({
   if (existingUser.length === 0) {
     await cl.customers.create({ email, password })
   }
-  const clientId = process.env.NEXT_PUBLIC_CLIENT_ID as string
-  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
-  const scope = process.env.NEXT_PUBLIC_MARKET_ID as string
+  const clientId = process.env.E2E_CLIENT_ID as string
+  const endpoint = process.env.E2E_ENDPOINT as string
+  const scope = process.env.E2E_MARKET_ID as string
 
   const data = await getCustomerToken(
     {
@@ -148,11 +149,10 @@ const getCustomerUserToken = async ({
 }
 
 const getSuperToken = async () => {
-  const clientId = process.env.NEXT_PUBLIC_INTEGRATION_CLIENT_ID as string
-  const clientSecret = process.env
-    .NEXT_PUBLIC_INTEGRATION_CLIENT_SECRET as string
-  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT as string
-  const scope = process.env.NEXT_PUBLIC_MARKET_ID as string
+  const clientId = process.env.E2E_INTEGRATION_CLIENT_ID as string
+  const clientSecret = process.env.E2E_INTEGRATION_CLIENT_SECRET as string
+  const endpoint = process.env.E2E_ENDPOINT as string
+  const scope = process.env.E2E_MARKET_ID as string
   const data = await getIntegrationToken({
     clientId,
     clientSecret,
@@ -171,10 +171,10 @@ const getOrder = async (
     ...params.orderAttributes,
     customer_email: email,
   }
+
   const giftCard = params.giftCardAttributes
   const order = await cl.orders.create(attributes)
   let giftCardCode
-
   switch (params.order) {
     case "plain":
       await createDefaultLineItem(cl, order.id)
@@ -394,7 +394,7 @@ const getClient = async (token: string) => {
   return CommerceLayer({
     organization: process.env.NEXT_PUBLIC_SLUG as string,
     accessToken: token,
-    domain: process.env.DOMAIN,
+    domain: process.env.NEXT_PUBLIC_DOMAIN,
   })
 }
 
@@ -483,6 +483,18 @@ export const test = base.extend<FixtureType>({
     })
     await use(checkoutPage)
   },
+
+  // This is the option to avoid incognito mode
+  // context: [
+  //   async ({ defaultParams: { incognito } }, use) => {
+  //     if (!incognito) {
+  //       const context = await chromium.launchPersistentContext("/tmp")
+  //       await use(context)
+  //       await context.close()
+  //     }
+  //   },
+  //   { scope: "test" },
+  // ],
 })
 
 export { expect } from "@playwright/test"
