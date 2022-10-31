@@ -5,9 +5,9 @@ import {
   PaymentSource,
   PaymentSourceBrandIcon,
 } from "@commercelayer/react-components"
-import { PaymentMethod } from "@commercelayer/sdk"
+import { PaymentMethod as PaymentMethodType } from "@commercelayer/sdk"
 import classNames from "classnames"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { AccordionContext } from "components/data/AccordionProvider"
@@ -19,6 +19,11 @@ import { StepHeader } from "components/ui/StepHeader"
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
 import { PaymentSkeleton } from "./PaymentSkeleton"
+
+export type THandleClick = (params: {
+  payment?: PaymentMethodType | Record<string, any>
+  paymentSource?: Record<string, any>
+}) => void
 
 interface HeaderProps {
   className?: string
@@ -84,6 +89,10 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
 export const StepPayment: React.FC = () => {
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
+  const [hasMultiplePaymentMethods, setHasMultiplePaymentMethods] =
+    useState(false)
+  const [autoSelected, setAutoselected] = useState(false)
+  const [hasTitle, setHasTitle] = useState(true)
 
   const { t } = useTranslation()
 
@@ -93,10 +102,24 @@ export const StepPayment: React.FC = () => {
     return null
   }
 
+  useEffect(() => {
+    // If single payment methods and has multiple payment methods, we hide the label of the box
+    if (autoSelected && hasMultiplePaymentMethods) {
+      setHasTitle(false)
+    }
+  }, [autoSelected, hasMultiplePaymentMethods])
+
   const { isGuest, isPaymentRequired, setPayment } = appCtx
 
-  const selectPayment = async (payment?: PaymentMethod) => {
-    setPayment(payment)
+  const selectPayment: THandleClick = async ({ payment, paymentSource }) => {
+    if (paymentSource?.payment_methods?.paymentMethods?.length > 1) {
+      setHasMultiplePaymentMethods(true)
+    }
+    setPayment(payment as PaymentMethodType)
+  }
+
+  const autoSelectCallback = async () => {
+    setAutoselected(true)
   }
 
   return (
@@ -111,9 +134,17 @@ export const StepPayment: React.FC = () => {
           <div>
             {isPaymentRequired ? (
               isGuest ? (
-                <CheckoutPayment selectPayment={selectPayment} />
+                <CheckoutPayment
+                  selectPayment={selectPayment}
+                  autoSelectCallback={autoSelectCallback}
+                  hasTitle={hasTitle}
+                />
               ) : (
-                <CheckoutCustomerPayment selectPayment={selectPayment} />
+                <CheckoutCustomerPayment
+                  selectPayment={selectPayment}
+                  autoSelectCallback={autoSelectCallback}
+                  hasTitle={hasTitle}
+                />
               )
             ) : (
               <p className="text-sm text-gray-400">

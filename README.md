@@ -65,7 +65,7 @@ commercelayer checkout -O <orderID> --open
 
 The Commerce Layer Checkout application supports most of the main features available through the Commerce Layer API. We're working to add a few missing ones within the next development iterations.
 
-> **COMING SOON** — [Order subscriptions](https://docs.commercelayer.io/developers/v/api-reference/order_subscriptions) aren't currently supported by the Checkout application, but will be available shortly. 
+> **COMING SOON** — [Order subscriptions](https://docs.commercelayer.io/developers/v/api-reference/order_subscriptions) aren't currently supported by the Checkout application, but will be available shortly.
 
 The Checkout application includes an [order summary](#order-summary) and a checkout flow made of 3 steps:
 
@@ -93,7 +93,7 @@ The Checkout application supports [gift cards](https://docs.commercelayer.io/dev
 
 #### Bundles
 
-The Checkout application supports [bundles](https://docs.commercelayer.io/developers/v/api-reference/bundles) and shows them as a single item both in the order summary and within the *Delivery* step. The SKUs belonging to bundles may still be split across more than one shipment, based on their availability and the selected inventory model strategy.
+The Checkout application supports [bundles](https://docs.commercelayer.io/developers/v/api-reference/bundles) and shows them as a single item both in the order summary and within the _Delivery_ step. The SKUs belonging to bundles may still be split across more than one shipment, based on their availability and the selected inventory model strategy.
 
 #### Return to cart
 
@@ -105,7 +105,7 @@ Here is where customers provide their email address, billing and shipping inform
 
 #### Logged customers
 
-If the access token used to build the checkout URL is a [customer token](https://docs.commercelayer.io/developers/authentication/password) customers can select one of their saved addresses from their address book and use it as the billing and/or shipping address. If the customer has only one address in the address book the Checkout application will use this address as the billing and shipping address and skip the *Customer* step.
+If the access token used to build the checkout URL is a [customer token](https://docs.commercelayer.io/developers/authentication/password) customers can select one of their saved addresses from their address book and use it as the billing and/or shipping address. If the customer has only one address in the address book the Checkout application will use this address as the billing and shipping address and skip the _Customer_ step.
 
 #### Digital products
 
@@ -115,14 +115,13 @@ In the case of digital product purchases (i.e. SKUs with the `do_not_ship` flag 
 
 If the order has the attribute `shipping_country_code_lock` set, customers can select only the specified country code in the shipping address form. If they select a different country for the billing address, the shipping address section will open automatically with the country code already selected and disabled.
 
-
 ### Delivery step
 
 Here is where customers select a shipping method for each shipment of their order.
 
 #### Single shipping method
 
-If there is only one available [shipping method](https://docs.commercelayer.io/developers/v/api-reference/shipping_methods) per shipment, the Checkout application will autoselect that shipping method for each shipment of the order and skip the *Delivery* step.
+If there is only one available [shipping method](https://docs.commercelayer.io/developers/v/api-reference/shipping_methods) per shipment, the Checkout application will autoselect that shipping method for each shipment of the order and skip the _Delivery_ step.
 
 #### Shipping zone check
 
@@ -138,22 +137,27 @@ In the case of digital product purchases (i.e. SKUs with the `do_not_ship` flag 
 
 ### Payment step
 
-Here is where customers select a payment method and place the order. 
+Here is where customers select a payment method and place the order.
 
 > We're working to make all the [payment gateways](https://docs.commercelayer.io/developers/v/how-tos/payments) supported by Commerce Layer available out-of-the-box in the Checkout application. [Klarna](https://docs.commercelayer.io/developers/v/how-tos/payments/klarna) integration will be available soon. [External payments](https://docs.commercelayer.io/developers/v/how-tos/payments/external-payments) are not supported by the Checkout application at the moment. For all the other gateways information please refer to the table below.
 
-| Payment gateway | Supported payment methods | Customer wallet |
-| --------------- | ------------------------- | --------------- |
-| [Adyen](https://docs.commercelayer.io/developers/v/how-tos/payments/adyen) | Credit card | &check; |
-| [Braintree](https://docs.commercelayer.io/developers/v/how-tos/payments/braintree) | Credit card | &check; |
-| [Checkout.com](https://docs.commercelayer.io/developers/v/how-tos/payments/checkout.com) | Credit card | &check; |
-| [PayPal](https://docs.commercelayer.io/developers/v/how-tos/payments/paypal) | PayPal | &cross; |
-| [Stripe](https://docs.commercelayer.io/developers/v/how-tos/payments/stripe) | Credit card | &check; |
-| [Manual gateway](https://docs.commercelayer.io/developers/v/how-tos/payments/manual-payments) | Manual payment | &cross; |
+| Payment gateway                                                                               | Supported payment methods                                                                                                                               | Customer wallet |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| [Adyen](https://docs.commercelayer.io/developers/v/how-tos/payments/adyen)                    | Credit card / [PayPal](https://docs.adyen.com/payment-methods/paypal/web-drop-in) / [Klarna](https://docs.adyen.com/payment-methods/klarna/web-drop-in) | &check;         |
+| [Braintree](https://docs.commercelayer.io/developers/v/how-tos/payments/braintree)            | Credit card                                                                                                                                             | &check;         |
+| [Checkout.com](https://docs.commercelayer.io/developers/v/how-tos/payments/checkout.com)      | Credit card                                                                                                                                             | &check;         |
+| [PayPal](https://docs.commercelayer.io/developers/v/how-tos/payments/paypal)                  | PayPal                                                                                                                                                  | &cross;         |
+| [Stripe](https://docs.commercelayer.io/developers/v/how-tos/payments/stripe)                  | Credit card                                                                                                                                             | &check;         |
+| [Manual gateway](https://docs.commercelayer.io/developers/v/how-tos/payments/manual-payments) | Manual payment                                                                                                                                          | &cross;         |
+
+> When using PayPal via Adyen please make sure to properly [set up third-party access](https://docs.adyen.com/payment-methods/paypal/web-drop-in#grant-api-access) on your PayPal first.
 
 #### Logged customers
 
 If the access token used to build the checkout URL is a [customer token](https://docs.commercelayer.io/developers/authentication/password) customers will see their saved credit cards in their customer wallet and will be able to reuse them to accelerate the payment process.
+
+#### Single payment method
+If there is only one [payment method](https://docs.commercelayer.io/developers/v/api-reference/payment_methods) available in the market the order belongs to, the Checkout application will autoselect that payment method and let you directly add your payment details to the order.
 
 #### Zero-balance
 
@@ -188,8 +192,7 @@ If `gtm_id` attribute is set on the [organization](https://docs.commercelayer.io
 - `add_payment_info`
 - `purchase`
 
-If the *Delivery* step is [automatically populated](#single-shipping-method), the `add_shipping_info` event will be fired as soon as the Checkout application sets the related shipping method. If the customer opens the *Delivery* step from the UI and clicks on the "Continue to payment" button, the event will be fired once more.
-
+If the _Delivery_ step is [automatically populated](#single-shipping-method), the `add_shipping_info` event will be fired as soon as the Checkout application sets the related shipping method. If the customer opens the _Delivery_ step from the UI and clicks on the "Continue to payment" button, the event will be fired once more.
 
 ## Contributors guide
 

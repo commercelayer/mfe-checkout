@@ -1,10 +1,9 @@
-import { useRouter } from "next/router"
-import { useEffect, useRef } from "react"
-import useSWR from "swr"
+import { useEffect, useState } from "react"
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"
+import { getSettings } from "utils/getSettings"
+import { getSubdomain } from "utils/getSubdomain"
 
 import { useLocalStorageToken } from "./useLocalStorageToken"
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 interface UseSettingsOrInvalid {
   settings?: CheckoutSettings
@@ -13,55 +12,67 @@ interface UseSettingsOrInvalid {
 }
 
 export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
-  const random = useRef(Date.now())
-  const router = useRouter()
-  const { orderId, accessToken, paymentReturn } = router.query
+  const navigate = useNavigate()
+  const { orderId } = useParams()
+  const [searchParams] = useSearchParams()
+  const accessToken = searchParams.get("accessToken")
+  const paymentReturn = searchParams.get("paymentReturn")
+  const redirectResult = searchParams.get("redirectResult")
+  const [settings, setSettings] = useState<
+    CheckoutSettings | InvalidCheckoutSettings | undefined
+  >(undefined)
+  const [isFetching, setIsFetching] = useState(true)
 
   const [savedAccessToken, setAccessToken] = useLocalStorageToken(
     "checkoutAccessToken",
     accessToken as string
   )
 
-  const isPaymentReturn = paymentReturn === "true"
-
-  const paymentReturnQuery = isPaymentReturn ? "&paymentReturn=true" : ""
+  const isPaymentReturn = paymentReturn === "true" || !!redirectResult
 
   useEffect(() => {
-    if (router.isReady && accessToken && accessToken !== savedAccessToken) {
+    if (accessToken && accessToken !== savedAccessToken) {
       setAccessToken(accessToken)
     }
-  }, [router])
+  }, [accessToken])
 
-  const { data, error } = useSWR(
-    router.isReady && savedAccessToken
-      ? [
-          `/api/settings?accessToken=${savedAccessToken}&orderId=${orderId}${paymentReturnQuery}`,
-          random,
-        ]
-      : null,
-    fetcher,
-    { revalidateOnFocus: false }
-  )
+  const syncedAccessToken =
+    accessToken === savedAccessToken || (!accessToken && savedAccessToken)
+
+  useEffect(() => {
+    if (syncedAccessToken) {
+      setIsFetching(true)
+      getSettings({
+        accessToken: savedAccessToken,
+        orderId: orderId as string,
+        paymentReturn: isPaymentReturn,
+        subdomain: getSubdomain(window.location.hostname),
+      }).then((fetchedSettings) => {
+        setSettings(fetchedSettings)
+        setIsFetching(false)
+      })
+    }
+  }, [syncedAccessToken])
 
   // No accessToken in URL
-  if (router.isReady && !isPaymentReturn && !accessToken) {
-    router.push("/404")
+  if (!isPaymentReturn && accessToken === null) {
+    navigate("/404")
     return { settings: undefined, isLoading: false }
   }
 
-  if (!data && !error) {
+  if (isFetching) {
     return { isLoading: true, settings: undefined }
   }
 
-  if (error || (data && !data.validCheckout)) {
-    if (!data?.retryOnError) {
-      router.push("/404")
+  if (settings && !settings.validCheckout) {
+    if (!settings.retryOnError) {
+      navigate("/404")
     }
     return { settings: undefined, retryOnError: true, isLoading: false }
   }
 
   return {
-    settings: data,
+    settings,
     isLoading: false,
   }
 }
