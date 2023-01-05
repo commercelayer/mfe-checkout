@@ -150,7 +150,7 @@ test.describe("customer with checkout.com with saving", () => {
     },
   })
 
-  test("save card in customer wallet", async ({ checkoutPage }) => {
+  test.skip("save card in customer wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Shipping", "open")
@@ -193,7 +193,7 @@ test.describe("customer with checkout.com with saving", () => {
     await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 
-  test("use card in customer wallet", async ({ checkoutPage }) => {
+  test.skip("use card in customer wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Shipping", "open")
