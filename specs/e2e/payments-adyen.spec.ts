@@ -65,9 +65,9 @@ test.describe("guest with Adyen", () => {
       .locator(`text=Thank you for your order!`)
       .waitFor({ state: "visible", timeout: 10000 })
 
-    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
+    await checkoutPage.checkPaymentRecap("Visa ending in ****")
     await checkoutPage.page.reload()
-    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
+    await checkoutPage.checkPaymentRecap("Visa ending in ****")
   })
 })
 
