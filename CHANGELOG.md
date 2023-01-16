@@ -1,3 +1,10 @@
+## [2.0.6](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.5...v2.0.6) (2023-01-16)
+
+
+### Bug Fixes
+
+* allow Adyen payment with a credit card that requires 3D Secure 2 authentication ([967ce9d](https://github.com/commercelayer/commercelayer-react-checkout/commit/967ce9dfd23efd2ecb45d3677471119c01fdb96a))
+
 ## [2.0.5](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.4...v2.0.5) (2023-01-09)
 
 
