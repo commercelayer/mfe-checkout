@@ -10,7 +10,7 @@ const config: PlaywrightTestConfig = {
   },
   // Test directory
   testDir: "specs/e2e",
-  // If a test fails, retry it additional 2 times
+  // If a test fails, retry it additional 5 times
   retries: 5,
   // Artifacts folder where screenshots, videos, and traces are stored.
   outputDir: "test-results/",
