@@ -799,7 +799,7 @@ export class CheckoutPage {
         )
         await cardFrame
           .locator("#credit-card-number")
-          .fill(card?.number || "4111111111111111")
+          .fill(card?.number || "4005519200000004")
         await expFrame.locator("#expiration").fill(card?.exp || "102030")
         await cvvFrame.locator("#cvv").fill(card?.cvc || "123")
         break
