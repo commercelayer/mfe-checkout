@@ -822,10 +822,10 @@ export class CheckoutPage {
         break
       }
       case "adyen": {
-        await this.page.waitForTimeout(1000)
+        await this.page.waitForTimeout(3000)
 
         const cardFrame = this.page.frameLocator("iframe >> nth=0")
-        await this.page.waitForTimeout(1000)
+        await this.page.waitForTimeout(3000)
 
         await cardFrame
           .locator("[data-fieldtype=encryptedCardNumber]")
@@ -867,6 +867,7 @@ export class CheckoutPage {
         await this.page.click("[data-test-id=paypal_payments] >> text=PayPal", {
           force: true,
         })
+        break
       }
     }
   }
