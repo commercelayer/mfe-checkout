@@ -70,7 +70,6 @@
     "commercelayer"
   ],
   "dependencies": {
-    "@adyen/adyen-web": "^5.31.1",
     "@commercelayer/react-components": "3.15.5",
     "@commercelayer/sdk": "^4.21.0",
     "@headlessui/react": "^1.7.7",
