@@ -6,6 +6,7 @@ overrides:
   dset: ^3.1.2
 
 specifiers:
+  '@adyen/adyen-web': ^5.31.2
   '@commercelayer/js-auth': ^2.3.0
   '@commercelayer/react-components': 3.15.5
   '@commercelayer/sdk': ^4.21.0
@@ -63,6 +64,7 @@ specifiers:
   typescript: ^4.9.4
 
 dependencies:
+  '@adyen/adyen-web': 5.31.2
   '@commercelayer/react-components': 3.15.5_sfoxds7t5ydpegc3knd667wn6m
   '@commercelayer/sdk': 4.21.0
   '@headlessui/react': 1.7.7_sfoxds7t5ydpegc3knd667wn6m
@@ -133,8 +135,8 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /@adyen/adyen-web/5.31.1:
-    resolution: {integrity: sha512-NzaX1T2ve4Lbe1IPp/RiIO1p6GNL20XCp0r+CNx9e7EwPlwPaD560XwbslVH1ugwaBsEui0DJotdd9TgyUnz+g==}
+  /@adyen/adyen-web/5.31.2:
+    resolution: {integrity: sha512-jkVesf8tgPFo9fQE9fK3Y8kr3+RI+LmrI/AqYhOWASLodUI+1aFTfMDKQs+/DxW3vx/7uaeLnBhvid7Fw0ty5A==}
     dependencies:
       '@babel/runtime': 7.20.6
       '@babel/runtime-corejs3': 7.20.6
@@ -339,7 +341,7 @@ packages:
     dependencies:
       '@ac-dev/countries-service': 1.2.0
       '@ac-dev/states-service': 1.1.1
-      '@adyen/adyen-web': 5.31.1
+      '@adyen/adyen-web': 5.31.2
       '@commercelayer/sdk': 4.21.0
       '@stripe/react-stripe-js': 1.16.0_wuutodrnuujxynxjikyep652cy
       '@stripe/stripe-js': 1.46.0
