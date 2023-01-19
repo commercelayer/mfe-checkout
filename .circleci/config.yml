@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build_and_test: # this can be any name you choose
     docker:
-      - image: mcr.microsoft.com/playwright:v1.25.2-focal
+      - image: mcr.microsoft.com/playwright:v1.29.2-focal
     resource_class: large
     parallelism: 10
 

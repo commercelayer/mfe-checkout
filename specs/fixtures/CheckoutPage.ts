@@ -620,7 +620,7 @@ export class CheckoutPage {
     gateway,
   }: {
     type: "adyen-dropin"
-    gateway: "paypal" | "klarna" | "card"
+    gateway: "paypal" | "klarna" | "card" | "card3DS"
   }) {
     switch (type) {
       case "adyen-dropin": {
@@ -667,21 +667,31 @@ export class CheckoutPage {
               }
             )
             await this.page.click("[data-test-id=save-payment-button]")
+            await this.page.click("#buy-button")
+            const i = this.page.locator("#klarna-apf-iframe")
             const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
 
             await klarnaIframe
-              .locator("input#email_or_phone")
+              .locator("input#phone")
               .waitFor({ state: "visible" })
 
-            await klarnaIframe.locator("input#email_or_phone").focus()
-            await klarnaIframe
-              .locator("input#email_or_phone")
-              .fill("33312312325")
+            await klarnaIframe.locator("input#phone").focus()
+            await klarnaIframe.locator("input#phone").fill("33312312325")
+
             await klarnaIframe.locator('[data-testid="kaf-button"]').click()
             await klarnaIframe.locator("input#otp_field").focus()
             await klarnaIframe.locator("input#otp_field").type("123456")
-            await klarnaIframe.locator("button[data-cid=btn-primary]").click()
-            await klarnaIframe.locator("button >> nth=8").click()
+            await this.page.waitForTimeout(1000)
+            await i.page().mouse.wheel(0, 60)
+            await klarnaIframe
+              .locator("#mandatory_terms")
+              .click({ position: { x: 10, y: 10 } })
+
+            await klarnaIframe.locator("[data-testid=confirm-and-pay]").click()
+
+            await klarnaIframe
+              .locator('[data-testid="SmoothCheckoutPopUp:enable"]')
+              .click()
             break
           }
           case "card": {
@@ -691,10 +701,12 @@ export class CheckoutPage {
                 force: true,
               }
             )
+            await this.page.waitForTimeout(3000)
             const cardFrame = this.page.frameLocator("iframe >> nth=0")
+            await this.page.waitForTimeout(3000)
             await cardFrame
               .locator("[data-fieldtype=encryptedCardNumber]")
-              .fill("4111111111111111")
+              .fill("4111111111111111", { timeout: 5000 })
 
             const expFrame = this.page.frameLocator("iframe >> nth=1")
             await expFrame
@@ -705,6 +717,32 @@ export class CheckoutPage {
               .locator("[data-fieldtype=encryptedSecurityCode]")
               .fill("737")
             await this.page.click("[data-test-id=save-payment-button]")
+            break
+          }
+          case "card3DS": {
+            await this.page.click(
+              "[data-test-id=adyen_payments] >> text=Credit Card",
+              {
+                force: true,
+              }
+            )
+            await this.page.waitForTimeout(3000)
+            const cardFrame = this.page.frameLocator("iframe >> nth=0")
+            await this.page.waitForTimeout(3000)
+            await cardFrame
+              .locator("[data-fieldtype=encryptedCardNumber]")
+              .fill("4917610000000000", { timeout: 5000 })
+
+            const expFrame = this.page.frameLocator("iframe >> nth=1")
+            await expFrame
+              .locator("[data-fieldtype=encryptedExpiryDate]")
+              .fill("0330")
+            const cvvFrame = this.page.frameLocator("iframe >> nth=2")
+            await cvvFrame
+              .locator("[data-fieldtype=encryptedSecurityCode]")
+              .fill("737")
+            await this.page.click("[data-test-id=save-payment-button]")
+            return
           }
         }
         await this.page
@@ -715,8 +753,22 @@ export class CheckoutPage {
     }
   }
 
+  async enter3DSecure({ type, text }: { type: "adyen"; text: string }) {
+    await this.page.waitForTimeout(3000)
+    const secureFrame = this.page.frameLocator("iframe[name=threeDSIframe]")
+    await this.page.waitForTimeout(2000)
+    await secureFrame.locator("input[type=password]").fill(text)
+    await secureFrame.locator("#buttonSubmit").click()
+  }
+
   async setPayment(
-    type: "stripe" | "braintree" | "paypal" | "adyen" | "checkout_com",
+    type:
+      | "stripe"
+      | "braintree"
+      | "paypal"
+      | "adyen"
+      | "adyen3DS"
+      | "checkout_com",
     card?: {
       number?: string
       exp?: string
@@ -747,7 +799,7 @@ export class CheckoutPage {
         )
         await cardFrame
           .locator("#credit-card-number")
-          .fill(card?.number || "4111111111111111")
+          .fill(card?.number || "4005519200000004")
         await expFrame.locator("#expiration").fill(card?.exp || "102030")
         await cvvFrame.locator("#cvv").fill(card?.cvc || "123")
         break
@@ -770,10 +822,35 @@ export class CheckoutPage {
         break
       }
       case "adyen": {
+        await this.page.waitForTimeout(3000)
+
         const cardFrame = this.page.frameLocator("iframe >> nth=0")
+        await this.page.waitForTimeout(3000)
+
         await cardFrame
           .locator("[data-fieldtype=encryptedCardNumber]")
           .fill("4111111111111111")
+
+        const expFrame = this.page.frameLocator("iframe >> nth=1")
+        await expFrame
+          .locator("[data-fieldtype=encryptedExpiryDate]")
+          .fill("0330")
+        const cvvFrame = this.page.frameLocator("iframe >> nth=2")
+        await cvvFrame
+          .locator("[data-fieldtype=encryptedSecurityCode]")
+          .fill("737")
+
+        break
+      }
+      case "adyen3DS": {
+        await this.page.waitForTimeout(3000)
+
+        const cardFrame = this.page.frameLocator("iframe >> nth=0")
+        await this.page.waitForTimeout(3000)
+
+        await cardFrame
+          .locator("[data-fieldtype=encryptedCardNumber]")
+          .fill("4917 6100 0000 0000")
 
         const expFrame = this.page.frameLocator("iframe >> nth=1")
         await expFrame
@@ -790,6 +867,7 @@ export class CheckoutPage {
         await this.page.click("[data-test-id=paypal_payments] >> text=PayPal", {
           force: true,
         })
+        break
       }
     }
   }
