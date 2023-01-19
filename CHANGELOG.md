@@ -1,3 +1,20 @@
+# [3.0.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.6...v3.0.0) (2023-01-19)
+
+
+### Bug Fixes
+
+* rollback `adyen-web` package to be compatible with Adyen API v66 ([c4b7abf](https://github.com/commercelayer/commercelayer-react-checkout/commit/c4b7abfebd2f45101da83f51d3a3221d93682d1f))
+
+
+### Features
+
+* support Klarna on Adyen with Payment API v68 ([02a6912](https://github.com/commercelayer/commercelayer-react-checkout/commit/02a6912a1913ceb60d95559f4f7f92aa7ffab879))
+
+
+### BREAKING CHANGES
+
+* drop support for Adyen Payment API v66. Adyen payment gateway needs to be configured with v68 on Commerce Layer for the payments to be authorized successfully.
+
 ## [2.0.6](https://github.com/commercelayer/commercelayer-react-checkout/compare/v2.0.5...v2.0.6) (2023-01-16)
 
 
