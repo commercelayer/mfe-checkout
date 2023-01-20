@@ -26,10 +26,10 @@ jobs:
             apt-get install -y curl wget gpg
             curl -sL https://deb.nodesource.com/setup_18.x | bash -
             apt-get install -y nodejs
+            npm install -g pnpm
       - run:
           name: Setup
           command: |
-            npm install pnpm
             pnpm install
       - run:
           name: Install Playwright
