@@ -618,9 +618,17 @@ export class CheckoutPage {
   async completePayment({
     type,
     gateway,
+    language,
   }: {
     type: "adyen-dropin"
-    gateway: "paypal" | "klarna" | "card" | "card3DS"
+    gateway:
+      | "paypal"
+      | "card"
+      | "card3DS"
+      | "klarna_pay_over_time"
+      | "klarna_pay_later"
+      | "klarna_pay_now"
+    language?: "fr" | "de"
   }) {
     switch (type) {
       case "adyen-dropin": {
@@ -659,39 +667,161 @@ export class CheckoutPage {
 
             break
           }
-          case "klarna": {
+          case "klarna_pay_now": {
             await this.page.click(
-              "[data-test-id=adyen_payments] >> text=Klarna",
+              "[data-test-id=adyen_payments] >> text=Pay now",
               {
                 force: true,
               }
             )
+
             await this.page.click("[data-test-id=save-payment-button]")
             await this.page.click("#buy-button")
+
             const i = this.page.locator("#klarna-apf-iframe")
-            const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
+            const klarnaIframe = this.page.frameLocator(
+              "#klarna-hpp-instance-fullscreen"
+            )
 
             await klarnaIframe
-              .locator("input#phone")
+              .getByTestId("kaf-field")
               .waitFor({ state: "visible" })
 
-            await klarnaIframe.locator("input#phone").focus()
-            await klarnaIframe.locator("input#phone").fill("33312312325")
+            await klarnaIframe.getByTestId("kaf-field").focus()
+            await klarnaIframe.getByTestId("kaf-field").fill("33312312325")
 
-            await klarnaIframe.locator('[data-testid="kaf-button"]').click()
+            await klarnaIframe.getByTestId("kaf-button").click()
             await klarnaIframe.locator("input#otp_field").focus()
             await klarnaIframe.locator("input#otp_field").type("123456")
             await this.page.waitForTimeout(1000)
-            await i.page().mouse.wheel(0, 60)
-            await klarnaIframe
-              .locator("#mandatory_terms")
-              .click({ position: { x: 10, y: 10 } })
-
-            await klarnaIframe.locator("[data-testid=confirm-and-pay]").click()
 
             await klarnaIframe
-              .locator('[data-testid="SmoothCheckoutPopUp:enable"]')
+              .locator(
+                "#dd-confirmation-dialog__footer-button-wrapper  >> button"
+              )
               .click()
+            break
+          }
+          case "klarna_pay_later": {
+            await this.page.click(
+              "[data-test-id=adyen_payments] >> text=Pay later",
+              {
+                force: true,
+              }
+            )
+
+            await this.page.click("[data-test-id=save-payment-button]")
+            await this.page.click("#buy-button")
+
+            const i = this.page.locator("#klarna-apf-iframe")
+            const klarnaIframe = this.page.frameLocator(
+              "#klarna-hpp-instance-fullscreen"
+            )
+
+            await klarnaIframe
+              .getByTestId("kaf-field")
+              .waitFor({ state: "visible" })
+
+            await klarnaIframe.getByTestId("kaf-field").focus()
+            await klarnaIframe.getByTestId("kaf-field").fill("33312312325")
+
+            await klarnaIframe.getByTestId("kaf-button").click()
+            await klarnaIframe.locator("input#otp_field").focus()
+            await klarnaIframe.locator("input#otp_field").type("123456")
+            await this.page.waitForTimeout(1000)
+
+            await klarnaIframe
+              .locator("#invoice_kp-purchase-review-continue-button")
+              .click()
+            break
+          }
+          case "klarna_pay_over_time": {
+            if (language === "fr") {
+              await this.page.click(
+                "[data-test-id=adyen_payments] >> text=Pay over time",
+                {
+                  force: true,
+                }
+              )
+              await this.page.click("[data-test-id=save-payment-button]")
+              await this.page.click("#buy-button")
+
+              const i = this.page.locator("#klarna-apf-iframe")
+              const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
+
+              await klarnaIframe
+                .getByTestId("kaf-field")
+                .waitFor({ state: "visible" })
+
+              await klarnaIframe.getByTestId("kaf-field").focus()
+              await klarnaIframe.getByTestId("kaf-field").fill("33312312325")
+
+              await klarnaIframe.getByTestId("kaf-button").click()
+              await klarnaIframe.locator("input#otp_field").focus()
+              await klarnaIframe.locator("input#otp_field").type("123456")
+              await this.page.waitForTimeout(1000)
+              await i.page().mouse.wheel(0, 60)
+              await klarnaIframe
+                .locator("#mandatory_terms")
+                .click({ position: { x: 10, y: 10 } })
+
+              await klarnaIframe
+                .locator("[data-testid=confirm-and-pay]")
+                .click()
+
+              await klarnaIframe
+                .locator('[data-testid="SmoothCheckoutPopUp:enable"]')
+                .click()
+            } else {
+              await this.page.click(
+                "[data-test-id=adyen_payments] >> text=Pay over time",
+                {
+                  force: true,
+                }
+              )
+
+              await this.page.click("[data-test-id=save-payment-button]")
+              await this.page.click("#buy-button")
+
+              const i = this.page.locator("#klarna-apf-iframe")
+              const klarnaIframe = this.page.frameLocator(
+                "#klarna-hpp-instance-fullscreen"
+              )
+
+              await klarnaIframe
+                .getByTestId("kaf-field")
+                .waitFor({ state: "visible" })
+
+              await klarnaIframe.getByTestId("kaf-field").focus()
+              await klarnaIframe.getByTestId("kaf-field").fill("33312312325")
+
+              await klarnaIframe.getByTestId("kaf-button").click()
+              await klarnaIframe.locator("input#otp_field").focus()
+              await klarnaIframe.locator("input#otp_field").type("123456")
+              await this.page.waitForTimeout(1000)
+
+              // await klarnaIframe.getByTestId("kaf-button").click()
+
+              // await klarnaIframe
+              //   .locator("input#addressCollector-date_of_birth")
+              //   .focus()
+              // await klarnaIframe
+              //   .locator("input#addressCollector-date_of_birth")
+              //   .type("22061978")
+
+              // await klarnaIframe.getByTestId("kaf-button").click()
+              // await this.page.waitForTimeout(2000)
+
+              await klarnaIframe
+                .locator(
+                  "#fixedsumcredit_kp-purchase-review-secci-toggle__root"
+                )
+                .click({ position: { x: 10, y: 10 } })
+
+              await klarnaIframe
+                .locator("#fixedsumcredit_kp-purchase-review-continue-button")
+                .click()
+            }
             break
           }
           case "card": {

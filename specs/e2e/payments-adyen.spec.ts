@@ -65,9 +65,9 @@ test.describe("guest with Adyen", () => {
       .locator(`text=Thank you for your order!`)
       .waitFor({ state: "visible", timeout: 10000 })
 
-    await checkoutPage.checkPaymentRecap("Visa ending in ****")
+    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
     await checkoutPage.page.reload()
-    await checkoutPage.checkPaymentRecap("Visa ending in ****")
+    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
   })
 })
 
@@ -110,27 +110,6 @@ test.describe("guest with Adyen drop-in", () => {
     await checkoutPage.checkPaymentRecap("PayPal ending in ****")
     await checkoutPage.page.reload()
     await checkoutPage.checkPaymentRecap("PayPal ending in ****")
-  })
-
-  test("Checkout order with Klarna", async ({ checkoutPage }) => {
-    await checkoutPage.checkOrderSummary("Order Summary")
-
-    await checkoutPage.checkStep("Shipping", "open")
-
-    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
-
-    await checkoutPage.save("Shipping")
-
-    await checkoutPage.selectPayment("adyen")
-
-    await checkoutPage.completePayment({
-      type: "adyen-dropin",
-      gateway: "klarna",
-    })
-
-    await checkoutPage.checkPaymentRecap("Klarna ending in ****")
-    await checkoutPage.page.reload()
-    await checkoutPage.checkPaymentRecap("Klarna ending in ****")
   })
 
   test("Checkout order with Credit Card", async ({ checkoutPage }) => {
