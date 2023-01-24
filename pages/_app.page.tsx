@@ -7,12 +7,9 @@ import "components/data/i18n"
 
 function CheckoutApp(props: AppProps) {
   const { Component, pageProps } = props
-
-  return (
-    <div suppressHydrationWarning>
-      {typeof window === "undefined" ? null : <Component {...pageProps} />}
-    </div>
-  )
+  const child =
+    typeof window === "undefined" ? null : <Component {...pageProps} />
+  return <div suppressHydrationWarning>{child}</div>
 }
 
 export default appWithTranslation(CheckoutApp)

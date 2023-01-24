@@ -4,6 +4,9 @@ const shouldAnalyzeBundles = process.env.ANALYZE === "true"
 
 /** @type { import('next').NextConfig } */
 let nextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
   eslint: {},
   poweredByHeader: false,
   swcMinify: false,

@@ -1,8 +1,6 @@
-import {
-  CustomerContainer,
-  OrderContainer,
-  PlaceOrderContainer,
-} from "@commercelayer/react-components"
+import CustomerContainer from "@commercelayer/react-components/customers/CustomerContainer"
+import OrderContainer from "@commercelayer/react-components/orders/OrderContainer"
+import PlaceOrderContainer from "@commercelayer/react-components/orders/PlaceOrderContainer"
 import { useRouter } from "next/router"
 import { useContext } from "react"
 import styled from "styled-components"
@@ -211,7 +209,7 @@ const Checkout: React.FC<Props> = ({
   }
 
   return (
-    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
+    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder as any}>
       {ctx.isComplete ? renderComplete() : renderSteps()}
     </OrderContainer>
   )

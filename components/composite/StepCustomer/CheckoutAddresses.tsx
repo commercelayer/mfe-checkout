@@ -1,9 +1,7 @@
-import {
-  AddressesContainer,
-  BillingAddressForm,
-  SaveAddressesButton,
-  ShippingAddressForm,
-} from "@commercelayer/react-components"
+import AddressesContainer from "@commercelayer/react-components/addresses/AddressesContainer"
+import BillingAddressForm from "@commercelayer/react-components/addresses/BillingAddressForm"
+import SaveAddressesButton from "@commercelayer/react-components/addresses/SaveAddressesButton"
+import ShippingAddressForm from "@commercelayer/react-components/addresses/ShippingAddressForm"
 import { Address } from "@commercelayer/sdk"
 import { useState, Fragment, useEffect, Dispatch, SetStateAction } from "react"
 import { useTranslation } from "react-i18next"

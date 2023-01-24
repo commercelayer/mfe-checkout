@@ -1,9 +1,9 @@
-import { TypeAccepted } from "@commercelayer/react-components/lib/utils/getLineItemsCount"
 import CommerceLayer, { LineItem } from "@commercelayer/sdk"
 import { createContext, useEffect, useContext } from "react"
 import TagManager from "react-gtm-module"
 
 import { AppContext } from "components/data/AppProvider"
+import type { TypeAccepted } from "components/data/AppProvider/utils"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 
 import { DataLayerItemProps, DataLayerProps } from "./typings"

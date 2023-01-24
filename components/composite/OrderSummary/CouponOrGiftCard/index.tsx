@@ -1,9 +1,7 @@
-import {
-  GiftCardOrCouponCode,
-  GiftCardOrCouponSubmit,
-  GiftCardOrCouponForm,
-  ErrorComponentProps,
-} from "@commercelayer/react-components"
+import type { TErrorComponent } from "@commercelayer/react-components/errors/Errors"
+import GiftCardOrCouponCode from "@commercelayer/react-components/gift_cards/GiftCardOrCouponCode"
+import GiftCardOrCouponForm from "@commercelayer/react-components/gift_cards/GiftCardOrCouponForm"
+import GiftCardOrCouponSubmit from "@commercelayer/react-components/gift_cards/GiftCardOrCouponSubmit"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -43,7 +41,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({
 
   const classError = codeError ? "hasError" : ""
 
-  const messages: ErrorComponentProps["messages"] = [
+  const messages: TErrorComponent["messages"] = [
     {
       code: "VALIDATION_ERROR",
       resource: "orders",

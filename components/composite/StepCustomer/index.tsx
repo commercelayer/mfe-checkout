@@ -1,4 +1,3 @@
-// import { Address, AddressField } from "@commercelayer/react-components"
 import classNames from "classnames"
 import { Fragment, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -38,10 +37,18 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
       (!hasShippingAddress && !hasBillingAddress) ||
       accordionCtx.status === "edit"
     ) {
-      return <p>{t("stepCustomer.notSet")}</p>
+      return (
+        <>
+          <p>{t("stepCustomer.notSet")}</p>
+        </>
+      )
     }
 
-    return <p data-test-id="customer-email-step-header">{emailAddress}</p>
+    return (
+      <>
+        <p data-test-id="customer-email-step-header">{emailAddress}</p>
+      </>
+    )
   }
 
   return (

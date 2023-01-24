@@ -5,7 +5,7 @@ import CheckoutSkeleton from "components/composite/CheckoutSkeleton"
 import { RetryError } from "components/composite/RetryError"
 import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
 
-const DynamicCheckoutContainer = dynamic(
+const DynamicCheckoutContainer: any = dynamic(
   () => import("components/composite/CheckoutContainer"),
   {
     loading: function LoadingSkeleton() {
@@ -13,11 +13,14 @@ const DynamicCheckoutContainer = dynamic(
     },
   }
 )
-const DynamicCheckout = dynamic(() => import("components/composite/Checkout"), {
-  loading: function LoadingSkeleton() {
-    return <CheckoutSkeleton />
-  },
-})
+const DynamicCheckout: any = dynamic(
+  () => import("components/composite/Checkout"),
+  {
+    loading: function LoadingSkeleton() {
+      return <CheckoutSkeleton />
+    },
+  }
+)
 
 CheckoutSkeleton.displayName = "Skeleton Loader"
 

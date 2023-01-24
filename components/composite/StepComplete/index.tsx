@@ -1,9 +1,7 @@
-import {
-  PaymentSource,
-  PaymentSourceBrandIcon,
-  PaymentSourceBrandName,
-  PaymentSourceDetail,
-} from "@commercelayer/react-components"
+import PaymentSource from "@commercelayer/react-components/payment_source/PaymentSource"
+import PaymentSourceBrandIcon from "@commercelayer/react-components/payment_source/PaymentSourceBrandIcon"
+import PaymentSourceBrandName from "@commercelayer/react-components/payment_source/PaymentSourceBrandName"
+import PaymentSourceDetail from "@commercelayer/react-components/payment_source/PaymentSourceDetail"
 import { useContext } from "react"
 import { useTranslation, Trans } from "react-i18next"
 
@@ -190,7 +188,7 @@ export const StepComplete: React.FC<Props> = ({
                                   </Trans>
                                 )
                               }
-                              return getTranslations(brand, t)
+                              return <>{getTranslations(brand, t)}</>
                             }}
                           </PaymentSourceBrandName>
                         </PaymentSource>

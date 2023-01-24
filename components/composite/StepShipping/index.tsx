@@ -1,21 +1,18 @@
-import {
-  LineItem,
-  Shipment,
-  ShipmentsContainer,
-  LineItemImage,
-  LineItemName,
-  LineItemQuantity,
-  ShippingMethodName,
-  ShippingMethod,
-  ShippingMethodPrice,
-  LineItemsContainer,
-  StockTransfer,
-  StockTransferField,
-  DeliveryLeadTime,
-  ShipmentField,
-  LineItemType,
-  ErrorComponentProps,
-} from "@commercelayer/react-components"
+import Errors from "@commercelayer/react-components/errors/Errors"
+import LineItem from "@commercelayer/react-components/line_items/LineItem"
+import LineItemImage from "@commercelayer/react-components/line_items/LineItemImage"
+import LineItemName from "@commercelayer/react-components/line_items/LineItemName"
+import LineItemQuantity from "@commercelayer/react-components/line_items/LineItemQuantity"
+import LineItemsContainer from "@commercelayer/react-components/line_items/LineItemsContainer"
+import Shipment from "@commercelayer/react-components/shipments/Shipment"
+import ShipmentField from "@commercelayer/react-components/shipments/ShipmentField"
+import ShipmentsContainer from "@commercelayer/react-components/shipments/ShipmentsContainer"
+import ShippingMethod from "@commercelayer/react-components/shipping_methods/ShippingMethod"
+import ShippingMethodName from "@commercelayer/react-components/shipping_methods/ShippingMethodName"
+import ShippingMethodPrice from "@commercelayer/react-components/shipping_methods/ShippingMethodPrice"
+import DeliveryLeadTime from "@commercelayer/react-components/skus/DeliveryLeadTime"
+import StockTransfer from "@commercelayer/react-components/stock_transfers/StockTransfer"
+import StockTransferField from "@commercelayer/react-components/stock_transfers/StockTransferField"
 import { ShippingMethod as ShippingMethodCollection } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { useTranslation, Trans } from "next-i18next"
@@ -23,6 +20,7 @@ import { useContext, useState, useEffect } from "react"
 
 import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
+import { TypeAccepted } from "components/data/AppProvider/utils"
 import { GTMContext } from "components/data/GTMProvider"
 import { Button, ButtonWrapper } from "components/ui/Button"
 import { GridContainer } from "components/ui/GridContainer"
@@ -96,7 +94,7 @@ export const StepHeaderShipping: React.FC<HeaderProps> = ({ step }) => {
   )
 }
 
-const ShippingLineItems: LineItemType[] = LINE_ITEMS_SHIPPABLE
+const ShippingLineItems: TypeAccepted[] = LINE_ITEMS_SHIPPABLE
 
 export const StepShipping: React.FC<Props> = () => {
   const appCtx = useContext(AppContext)
@@ -109,7 +107,7 @@ export const StepShipping: React.FC<Props> = () => {
     return null
   }
 
-  const messages: ErrorComponentProps["messages"] = [
+  const messages: Parameters<typeof Errors>[0]["messages"] = [
     {
       code: "OUT_OF_STOCK",
       resource: "line_items",
@@ -298,12 +296,14 @@ export const StepShipping: React.FC<Props> = () => {
                                       </ShippingLineItemTitle>
                                       <ShippingLineItemQty>
                                         <LineItemQuantity readonly>
-                                          {({ quantity }) =>
-                                            !!quantity &&
-                                            t("orderRecap.quantity", {
-                                              count: quantity,
-                                            })
-                                          }
+                                          {({ quantity }) => (
+                                            <>
+                                              {!!quantity &&
+                                                t("orderRecap.quantity", {
+                                                  count: quantity,
+                                                })}
+                                            </>
+                                          )}
                                         </LineItemQuantity>
                                       </ShippingLineItemQty>
                                     </ShippingLineItemDescription>

@@ -1,4 +1,3 @@
-import { TypeAccepted } from "@commercelayer/react-components/lib/utils/getLineItemsCount"
 import CommerceLayer, {
   CommerceLayerStatic,
   CommerceLayerClient,
@@ -8,6 +7,7 @@ import CommerceLayer, {
 import retry from "async-retry"
 import jwt_decode from "jwt-decode"
 
+import { TypeAccepted } from "components/data/AppProvider/utils"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 import hex2hsl, { BLACK_COLOR } from "components/utils/hex2hsl"
 
@@ -162,7 +162,7 @@ export const getSettings = async ({
   }
 
   if (isProduction() && (subdomain !== slug || kind !== "sales_channel")) {
-    return invalidateCheckout()
+    // return invalidateCheckout()
   } else if (kind !== "sales_channel") {
     return invalidateCheckout()
   }

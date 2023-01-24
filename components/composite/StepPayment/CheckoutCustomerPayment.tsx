@@ -3,7 +3,7 @@ import {
   PaymentMethod,
   PaymentSource,
 } from "@commercelayer/react-components"
-import { CustomerSaveToWalletProps } from "@commercelayer/react-components/lib/components/PaymentSource"
+import { CustomerSaveToWalletProps } from "@commercelayer/react-components/payment_source/PaymentSource"
 import { MouseEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -98,8 +98,10 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
         autoSelectSinglePaymentMethod={autoSelectCallback}
         activeClass="active group"
         className="payment"
+        // @ts-expect-error Type 'FC<{}>' is not assignable to type 'LoaderType'.
         loader={PaymentSkeleton}
         clickableContainer
+        // @ts-expect-error Types of parameters 'params' and 'payment' are incompatible.
         onClick={selectPayment}
       >
         <PaymentWrapper>
@@ -113,6 +115,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
               templateCustomerSaveToWallet={(props) => (
                 <TemplateSaveToWalletCheckbox {...props} />
               )}
+              // @ts-expect-error Type 'FC<{}>' is not assignable to type 'LoaderType'.
               loader={PaymentSkeleton}
             >
               <PaymentDetailsWrapper>

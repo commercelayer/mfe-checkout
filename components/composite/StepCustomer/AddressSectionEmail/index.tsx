@@ -1,8 +1,5 @@
-import {
-  CustomerInput,
-  Errors,
-  ErrorComponentProps,
-} from "@commercelayer/react-components"
+import CustomerInput from "@commercelayer/react-components/customers/CustomerInput"
+import Errors from "@commercelayer/react-components/errors/Errors"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -24,7 +21,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
 
-  const messages: ErrorComponentProps["messages"] = [
+  const messages: Parameters<typeof Errors>[0]["messages"] = [
     {
       code: "EMPTY_ERROR",
       resource: "orders",

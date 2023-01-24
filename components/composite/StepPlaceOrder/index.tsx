@@ -73,19 +73,23 @@ const StepPlaceOrder: React.FC<Props> = ({
               return null
             }
             const compactedErrors = props.errors
-            return compactedErrors?.map((error, index) => {
-              if (error?.trim().length === 0 || !error) {
-                return null
-              }
-              return (
-                <ErrorWrapper key={index}>
-                  <ErrorIco>
-                    <ErrorIcon />
-                  </ErrorIco>
-                  <ErrorMessage>{error}</ErrorMessage>
-                </ErrorWrapper>
-              )
-            })
+            return (
+              <>
+                {compactedErrors?.map((error, index) => {
+                  if (error?.trim().length === 0 || !error) {
+                    return null
+                  }
+                  return (
+                    <ErrorWrapper key={index}>
+                      <ErrorIco>
+                        <ErrorIcon />
+                      </ErrorIco>
+                      <ErrorMessage>{error}</ErrorMessage>
+                    </ErrorWrapper>
+                  )
+                })}
+              </>
+            )
           }}
         </StyledErrors>
       </ErrorsContainer>

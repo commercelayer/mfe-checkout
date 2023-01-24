@@ -66,7 +66,7 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
                     </Trans>
                   )
                 }
-                return brand
+                return <>{brand}</>
               }}
             </PaymentSourceBrandName>
           </PaymentSource>
