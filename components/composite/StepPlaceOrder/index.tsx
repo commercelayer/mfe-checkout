@@ -1,3 +1,4 @@
+import type { Order } from "@commercelayer/sdk"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
@@ -44,10 +45,16 @@ const StepPlaceOrder: React.FC<Props> = ({
 
   const { placeOrder } = appCtx
 
-  const handlePlaceOrder = async ({ placed }: { placed: boolean }) => {
+  const handlePlaceOrder = async ({
+    placed,
+    order,
+  }: {
+    placed: boolean
+    order?: Order
+  }) => {
     if (placed) {
       setIsPlacingOrder(true)
-      await placeOrder()
+      await placeOrder(order)
       if (gtmCtx?.firePurchase && gtmCtx?.fireAddPaymentInfo) {
         await gtmCtx.fireAddPaymentInfo()
         await gtmCtx.firePurchase()

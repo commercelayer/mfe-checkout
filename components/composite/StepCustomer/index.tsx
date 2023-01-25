@@ -1,3 +1,4 @@
+import type { Order } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { Fragment, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -113,8 +114,10 @@ export const StepCustomer: React.FC<Props> = () => {
     setDisabledShipToDifferentAddress(disableToggle)
   }
 
-  const handleSave = async () => {
+  const handleSave = async (params: { success: boolean; order?: Order }) => {
+    console.log("params", params)
     setIsLocalLoader(true)
+    debugger
     await setAddresses()
 
     // it is used temporarily to scroll

@@ -1,7 +1,7 @@
 import CommerceLayer, {
-  ShippingMethod as ShippingMethodCollection,
-  PaymentMethod,
-  Order,
+  type ShippingMethod as ShippingMethodCollection,
+  type PaymentMethod,
+  type Order,
 } from "@commercelayer/sdk"
 import { changeLanguage } from "i18next"
 import { createContext, useEffect, useReducer, useRef } from "react"
@@ -103,6 +103,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   })
 
   const getOrder = (order: Order) => {
+    console.log("order", order)
     orderRef.current = order
   }
 
@@ -143,15 +144,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     })
   }
 
-  const setAddresses = async () => {
+  const setAddresses = async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
-
-    const order = await getOrderFromRef()
-
+    const currentOrder = order ?? (await getOrderFromRef())
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     const others = calculateSettings(
-      order,
+      currentOrder,
       isShipmentRequired,
       // FIX We are using customer addresses saved in reducer because
       // we don't receive them from fetchOrder
@@ -161,7 +160,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     dispatch({
       type: ActionType.SET_ADDRESSES,
       payload: {
-        order,
+        order: currentOrder,
         others,
       },
     })
@@ -265,13 +264,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     })
   }
 
-  const placeOrder = async () => {
+  const placeOrder = async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = await getOrderFromRef()
+    const currentOrder = order ?? (await getOrderFromRef())
 
     dispatch({
       type: ActionType.PLACE_ORDER,
-      payload: { order },
+      payload: { order: currentOrder },
     })
   }
 
