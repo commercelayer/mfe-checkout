@@ -5,8 +5,9 @@ import { euAddress, usAddress } from "../utils/addresses"
 
 const TIMEOUT = 1000
 
+const customerEmail = faker.internet.email().toLocaleLowerCase()
+
 test.describe("multi shipments", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({
     defaultParams: {
@@ -159,7 +160,6 @@ test.describe("multi shipments", () => {
 })
 
 test.describe("single shipment", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({
     defaultParams: {
@@ -232,7 +232,6 @@ test.describe("single shipment", () => {
 })
 
 test.describe("with single shipping method", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({
     defaultParams: {
@@ -311,7 +310,6 @@ test.describe("with single shipping method", () => {
 })
 
 test.describe("with digital products", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({
     defaultParams: {
@@ -369,7 +367,6 @@ test.describe("with digital products", () => {
 })
 
 test.describe("with bundle", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({
     defaultParams: {
