@@ -13,7 +13,7 @@ specifiers:
   '@headlessui/react': ^1.7.7
   '@next/bundle-analyzer': ^12.3.4
   '@next/eslint-plugin-next': ^12.3.4
-  '@playwright/test': ^1.29.2
+  '@playwright/test': ^1.30.0
   '@semantic-release/changelog': ^6.0.2
   '@semantic-release/commit-analyzer': ^9.0.2
   '@semantic-release/git': ^10.0.1
@@ -70,7 +70,7 @@ dependencies:
   '@headlessui/react': 1.7.7_sfoxds7t5ydpegc3knd667wn6m
   '@next/bundle-analyzer': 12.3.4
   '@next/eslint-plugin-next': 12.3.4
-  '@playwright/test': 1.29.2
+  '@playwright/test': 1.30.0
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.4
   '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.4
   '@types/async-retry': 1.4.3
@@ -717,13 +717,13 @@ packages:
       '@octokit/openapi-types': 13.5.0
     dev: true
 
-  /@playwright/test/1.29.2:
-    resolution: {integrity: sha512-+3/GPwOgcoF0xLz/opTnahel1/y42PdcgZ4hs+BZGIUjtmEFSXGg+nFoaH3NSmuc7a6GSFwXDJ5L7VXpqzigNg==}
+  /@playwright/test/1.30.0:
+    resolution: {integrity: sha512-SVxkQw1xvn/Wk/EvBnqWIq6NLo1AppwbYOjNLmyU0R1RoQ3rLEBtmjTnElcnz8VEtn11fptj1ECxK0tgURhajw==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
       '@types/node': 18.7.14
-      playwright-core: 1.29.2
+      playwright-core: 1.30.0
     dev: false
 
   /@pnpm/network.ca-file/1.0.2:
@@ -4612,8 +4612,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /playwright-core/1.29.2:
-    resolution: {integrity: sha512-94QXm4PMgFoHAhlCuoWyaBYKb92yOcGVHdQLoxQ7Wjlc7Flg4aC/jbFW7xMR52OfXMVkWicue4WXE7QEegbIRA==}
+  /playwright-core/1.30.0:
+    resolution: {integrity: sha512-7AnRmTCf+GVYhHbLJsGUtskWTE33SwMZkybJ0v6rqR1boxq2x36U7p1vDRV7HO2IwTZgmycracLxPEJI49wu4g==}
     engines: {node: '>=14'}
     hasBin: true
     dev: false

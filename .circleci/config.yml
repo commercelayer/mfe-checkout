@@ -6,7 +6,7 @@ orbs:
 jobs:
   test: # this can be any name you choose
     docker:
-      - image: mcr.microsoft.com/playwright:v1.29.2-focal
+      - image: mcr.microsoft.com/playwright:v1.30.0-focal
     resource_class: large
     parallelism: 10
 
@@ -50,6 +50,8 @@ jobs:
             pnpm run serve &
             TESTFILES=$(circleci tests glob "specs/e2e/**/*.spec.ts" | circleci tests split --split-by=timings)
             pnpm playwright test --config=playwright.config.ci.ts ${TESTFILES}
+      - store_artifacts:
+          path: test-results
 
   build:
     docker:
