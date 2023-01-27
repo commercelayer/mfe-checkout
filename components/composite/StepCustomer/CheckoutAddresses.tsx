@@ -2,7 +2,7 @@ import AddressesContainer from "@commercelayer/react-components/addresses/Addres
 import BillingAddressForm from "@commercelayer/react-components/addresses/BillingAddressForm"
 import SaveAddressesButton from "@commercelayer/react-components/addresses/SaveAddressesButton"
 import ShippingAddressForm from "@commercelayer/react-components/addresses/ShippingAddressForm"
-import { Address } from "@commercelayer/sdk"
+import type { Address, Order } from "@commercelayer/sdk"
 import { useState, Fragment, useEffect, Dispatch, SetStateAction } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
@@ -30,7 +30,7 @@ interface Props {
   openShippingAddress: (props: ShippingToggleProps) => void
   disabledShipToDifferentAddress: boolean
   setCustomerEmail: (email: string) => void
-  handleSave: () => void
+  handleSave: (params: { success: boolean; order?: Order }) => void
 }
 
 export const CheckoutAddresses: React.FC<Props> = ({

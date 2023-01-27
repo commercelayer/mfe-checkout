@@ -115,7 +115,7 @@ export const StepPayment: React.FC = () => {
     if (paymentSource?.payment_methods?.paymentMethods?.length > 1) {
       setHasMultiplePaymentMethods(true)
     }
-    setPayment(payment as PaymentMethodType)
+    setPayment({ payment: payment as PaymentMethodType })
   }
 
   const autoSelectCallback = async () => {

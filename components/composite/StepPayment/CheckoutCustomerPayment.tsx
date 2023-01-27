@@ -1,9 +1,7 @@
-import {
-  CustomerCardsType,
-  PaymentMethod,
-  PaymentSource,
-} from "@commercelayer/react-components"
-import { CustomerSaveToWalletProps } from "@commercelayer/react-components/payment_source/PaymentSource"
+import PaymentMethod from "@commercelayer/react-components/payment_methods/PaymentMethod"
+import PaymentSource, {
+  CustomerSaveToWalletProps,
+} from "@commercelayer/react-components/payment_source/PaymentSource"
 import { MouseEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -27,6 +25,10 @@ interface Props {
   autoSelectCallback: () => void
 }
 
+type TTemplateCustomerCards = Parameters<
+  typeof PaymentSource
+>[0]["templateCustomerCards"]
+
 export const CheckoutCustomerPayment: React.FC<Props> = ({
   selectPayment,
   hasTitle,
@@ -37,10 +39,10 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   // TemplateSaveToWalletCheckbox
   const [checked, setChecked] = useState(false)
 
-  const TemplateCustomerCards = ({
+  const TemplateCustomerCards: TTemplateCustomerCards = ({
     customerPayments,
     PaymentSourceProvider,
-  }: CustomerCardsType) => {
+  }) => {
     return (
       <>
         {customerPayments?.map((p, k) => {

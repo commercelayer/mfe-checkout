@@ -4,7 +4,7 @@ import BillingAddressForm from "@commercelayer/react-components/addresses/Billin
 import SaveAddressesButton from "@commercelayer/react-components/addresses/SaveAddressesButton"
 import ShippingAddressContainer from "@commercelayer/react-components/addresses/ShippingAddressContainer"
 import ShippingAddressForm from "@commercelayer/react-components/addresses/ShippingAddressForm"
-import { Address } from "@commercelayer/sdk"
+import type { Address, Order } from "@commercelayer/sdk"
 import { Transition } from "@headlessui/react"
 import { useState, Fragment, useEffect, Dispatch, SetStateAction } from "react"
 import { useTranslation } from "react-i18next"
@@ -43,7 +43,7 @@ interface Props {
   setShipToDifferentAddress: Dispatch<SetStateAction<boolean>>
   openShippingAddress: (props: ShippingToggleProps) => void
   disabledShipToDifferentAddress: boolean
-  handleSave: () => void
+  handleSave: (params: { success: boolean; order?: Order }) => void
 }
 
 type AddressTypeEnum = "shipping" | "billing"

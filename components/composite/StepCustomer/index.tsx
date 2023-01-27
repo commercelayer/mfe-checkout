@@ -115,10 +115,8 @@ export const StepCustomer: React.FC<Props> = () => {
   }
 
   const handleSave = async (params: { success: boolean; order?: Order }) => {
-    console.log("params", params)
     setIsLocalLoader(true)
-    debugger
-    await setAddresses()
+    await setAddresses(params.order)
 
     // it is used temporarily to scroll
     // to the next step and fix

@@ -25,17 +25,18 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   getOrder: (order: Order) => void
   getOrderFromRef: () => Promise<Order>
   setCustomerEmail: (email: string) => void
-  setAddresses: () => void
+  setAddresses: (order?: Order) => Promise<void>
   setCouponOrGiftCard: () => Promise<void>
   saveShipments: () => void
-  placeOrder: () => Promise<void>
-  setPayment: (payment?: PaymentMethod) => void
-  selectShipment: (
+  placeOrder: (order?: Order) => Promise<void>
+  setPayment: (params: { payment?: PaymentMethod; order?: Order }) => void
+  selectShipment: (params: {
     shippingMethod: {
       id: string
-    },
+    }
     shipmentId: string
-  ) => Promise<void>
+    order?: Order
+  }) => Promise<void>
   autoSelectShippingMethod: () => void
 }
 
@@ -103,7 +104,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   })
 
   const getOrder = (order: Order) => {
-    console.log("order", order)
     orderRef.current = order
   }
 
@@ -166,35 +166,36 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     })
   }
 
-  const setCouponOrGiftCard = async () => {
-    const order = await getOrderFromRef()
+  const setCouponOrGiftCard = async (order?: Order) => {
+    const currentOrder = order ?? (await getOrderFromRef())
     if (state.order) {
       dispatch({ type: ActionType.START_LOADING })
 
       const others = calculateSettings(
-        order,
+        currentOrder,
         state.isShipmentRequired,
         state.customerAddresses
       )
 
       dispatch({
         type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
-        payload: { order, others },
+        payload: { order: currentOrder, others },
       })
     }
   }
 
-  const selectShipment = async (
+  const selectShipment = async (params: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    shippingMethod: ShippingMethodCollection | Record<string, any>,
+    shippingMethod: ShippingMethodCollection | Record<string, any>
     shipmentId: string
-  ) => {
+    order?: Order
+  }) => {
     // dispatch({ type: ActionType.START_LOADING })
     // TODO Remove after fixing components
-    const order = await fetchOrder(cl, orderId)
+    const currentOrder = params.order ?? (await fetchOrder(cl, orderId))
 
     const others = calculateSettings(
-      order,
+      currentOrder,
       state.isShipmentRequired,
       state.customerAddresses
     )
@@ -202,11 +203,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     dispatch({
       type: ActionType.SELECT_SHIPMENT,
       payload: {
-        order,
+        order: currentOrder,
         others,
         shipment: {
-          shippingMethod,
-          shipmentId,
+          shippingMethod: params.shippingMethod,
+          shipmentId: params.shipmentId,
         },
       },
     })
@@ -233,9 +234,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const saveShipments = async () => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = await getOrderFromRef()
+    const currentOrder = await getOrderFromRef()
     const others = calculateSettings(
-      order,
+      currentOrder,
       state.isShipmentRequired,
       state.customerAddresses
     )
@@ -243,24 +244,27 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     setTimeout(() => {
       dispatch({
         type: ActionType.SAVE_SHIPMENTS,
-        payload: { order, others },
+        payload: { order: currentOrder, others },
       })
     }, 100)
   }
 
-  const setPayment = async (payment?: PaymentMethod) => {
+  const setPayment = async (params: {
+    payment?: PaymentMethod
+    order?: Order
+  }) => {
     dispatch({ type: ActionType.START_LOADING })
-    const order = await getOrderFromRef()
+    const currentOrder = params.order ?? (await getOrderFromRef())
 
     const others = calculateSettings(
-      order,
+      currentOrder,
       state.isShipmentRequired,
       state.customerAddresses
     )
 
     dispatch({
       type: ActionType.SET_PAYMENT,
-      payload: { payment, order, others },
+      payload: { payment: params.order, order: currentOrder, others },
     })
   }
 

@@ -13,7 +13,10 @@ import ShippingMethodPrice from "@commercelayer/react-components/shipping_method
 import DeliveryLeadTime from "@commercelayer/react-components/skus/DeliveryLeadTime"
 import StockTransfer from "@commercelayer/react-components/stock_transfers/StockTransfer"
 import StockTransferField from "@commercelayer/react-components/stock_transfers/StockTransferField"
-import { ShippingMethod as ShippingMethodCollection } from "@commercelayer/sdk"
+import type {
+  Order,
+  ShippingMethod as ShippingMethodCollection,
+} from "@commercelayer/sdk"
 import classNames from "classnames"
 import { useTranslation, Trans } from "next-i18next"
 import { useContext, useState, useEffect } from "react"
@@ -136,11 +139,16 @@ export const StepShipping: React.FC<Props> = () => {
     }
   }, [shipments])
 
-  const handleChange = (
-    shippingMethod: ShippingMethodCollection,
+  const handleChange = (params: {
+    shippingMethod: ShippingMethodCollection
     shipmentId: string
-  ): void => {
-    selectShipment(shippingMethod, shipmentId)
+    order?: Order
+  }): void => {
+    selectShipment({
+      shippingMethod: params.shippingMethod,
+      shipmentId: params.shipmentId,
+      order: params.order,
+    })
   }
 
   const handleSave = async () => {
@@ -233,9 +241,7 @@ export const StepShipping: React.FC<Props> = () => {
                                   <StyledShippingMethodRadioButton
                                     data-test-id="shipping-method-button"
                                     className="form-radio mt-0.5 md:mt-0"
-                                    onChange={(shippingMethod, shipmentId) =>
-                                      handleChange(shippingMethod, shipmentId)
-                                    }
+                                    onChange={(params) => handleChange(params)}
                                   />
                                   <ShippingMethodName data-test-id="shipping-method-name">
                                     {(props) => {

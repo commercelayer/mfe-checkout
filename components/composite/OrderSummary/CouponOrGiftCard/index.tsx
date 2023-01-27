@@ -2,6 +2,7 @@ import type { TErrorComponent } from "@commercelayer/react-components/errors/Err
 import GiftCardOrCouponCode from "@commercelayer/react-components/gift_cards/GiftCardOrCouponCode"
 import GiftCardOrCouponForm from "@commercelayer/react-components/gift_cards/GiftCardOrCouponForm"
 import GiftCardOrCouponSubmit from "@commercelayer/react-components/gift_cards/GiftCardOrCouponSubmit"
+import type { Order } from "@commercelayer/sdk"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -17,7 +18,7 @@ import {
 
 interface Props {
   readonly?: boolean
-  setCouponOrGiftCard: () => Promise<void>
+  setCouponOrGiftCard: (order?: Order) => Promise<void>
 }
 
 export const CouponOrGiftCard: React.FC<Props> = ({
@@ -31,11 +32,12 @@ export const CouponOrGiftCard: React.FC<Props> = ({
   const handleSubmit = async (response: {
     success: boolean
     value?: string
+    order?: Order
   }) => {
     if (!response.success) {
       return setCodeError(response.value?.length !== 0)
     }
-    await setCouponOrGiftCard()
+    await setCouponOrGiftCard(response.order)
     return setCodeError(false)
   }
 
