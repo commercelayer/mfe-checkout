@@ -37,6 +37,7 @@ const config: PlaywrightTestConfig = {
     // Artifacts
     screenshot: "only-on-failure",
     video: "retry-with-video",
+    testIdAttribute: 'data-test-id',
   },
 
   projects: [

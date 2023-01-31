@@ -253,12 +253,12 @@ export class CheckoutPage {
     text: string
     shipment?: number
   }) {
-    const selector = `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> text=${text}`
-    await this.page.click(selector)
+    await this.page.getByText(text).nth(shipment).click()
+    await expect(this.page.getByText(text).nth(shipment)).toHaveCount(1)
     const element = this.page.locator(
-      `${selector} >> xpath=.. >> xpath=.. >> input:checked`
+      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-method-button]:checked`
     )
-    await expect(element).toHaveCount(1)
+    await expect(element).toBeChecked()
   }
 
   async checkShippingMethodPrice({
