@@ -71,7 +71,7 @@
   ],
   "dependencies": {
     "@commercelayer/js-auth": "^2.3.0",
-    "@commercelayer/react-components": "3.15.7",
+    "@commercelayer/react-components": "4.2.1-beta.4",
     "@commercelayer/sdk": "^4.21.0",
     "@faker-js/faker": "^7.6.0",
     "@headlessui/react": "^1.7.7",
@@ -94,15 +94,15 @@
     "next": "^12.3.4",
     "next-i18next": "^12.1.0",
     "postcss": "^8.4.21",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-gtm-module": "^2.0.11",
     "react-i18next": "^11.18.6",
-    "react-router-dom": "^6.7.0",
+    "react-router-dom": "^6.8.0",
     "styled-components": "^5.3.6",
     "tailwindcss": "^3.2.4",
     "twin.macro": "2.8.2",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.2",
