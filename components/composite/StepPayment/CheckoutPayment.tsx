@@ -32,9 +32,9 @@ export const CheckoutPayment = ({
       // @ts-expect-error Type Types of parameters 'params' and 'payment' are incompatible.
       onClick={selectPayment}
     >
-      <PaymentWrapper data-test-id="payment-sources-container">
+      <PaymentWrapper data-testid="payment-sources-container">
         <PaymentSummaryList hasTitle={hasTitle} />
-        <PaymentSourceContainer data-test-id="payment-source">
+        <PaymentSourceContainer data-testid="payment-source">
           <PaymentSource className="flex flex-col" loader={<PaymentSkeleton />}>
             <PaymentDetailsWrapper>
               <PaymentDetails hasEditButton />

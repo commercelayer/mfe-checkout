@@ -47,7 +47,7 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
 
     return (
       <>
-        <p data-test-id="customer-email-step-header">{emailAddress}</p>
+        <p data-testid="customer-email-step-header">{emailAddress}</p>
       </>
     )
   }

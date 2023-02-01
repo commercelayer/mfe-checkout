@@ -71,12 +71,12 @@ export class CheckoutPage {
     if (email === undefined) {
       customerEmail = faker.internet.email().toLocaleLowerCase()
     }
-    await this.page.fill("[data-test-id=customer_email]", customerEmail)
+    await this.page.fill("[data-testid=customer_email]", customerEmail)
   }
 
   async blurCustomerEmail() {
     await this.page
-      .locator("[data-test-id=customer_email]")
+      .locator("[data-testid=customer_email]")
       .evaluate((e) => e.blur())
   }
 
@@ -92,13 +92,13 @@ export class CheckoutPage {
   }
 
   async changeCustomerEmail(text: string) {
-    await this.clearInput("[data-test-id=customer_email]")
+    await this.clearInput("[data-testid=customer_email]")
     await this.setCustomerMail(text)
   }
 
   async checkCustomerEmail(text: string) {
     await this.page
-      .locator(`[data-test-id=customer-email-step-header] >> text=${text}`)
+      .locator(`[data-testid=customer-email-step-header] >> text=${text}`)
       .waitFor({ state: "visible" })
   }
 
@@ -106,8 +106,8 @@ export class CheckoutPage {
     step: SingleStepEnum,
     status: "close" | "open" | "not_present"
   ) {
-    const element = await this.page.locator(
-      `[data-test-id=step_${step.toLocaleLowerCase()}]`
+    const element = this.page.getByTestId(
+      `step_${step.toLocaleLowerCase()}`
     )
     if (status === "not_present") {
       await expect(element).toHaveCount(0)
@@ -123,19 +123,19 @@ export class CheckoutPage {
   }
 
   async clickStep(step: SingleStepEnum) {
-    this.page.click(`[data-test-id=step_${step.toLocaleLowerCase()}]`, {
+    this.page.click(`[data-testid=step_${step.toLocaleLowerCase()}]`, {
       force: true,
     })
   }
 
   async clickAccordion(step: SingleStepEnum) {
-    this.page.click(`[data-test-id=accordion_${step.toLocaleLowerCase()}]`, {
+    this.page.click(`[data-testid=accordion_${step.toLocaleLowerCase()}]`, {
       force: true,
     })
   }
 
   async shipToDifferentAddress() {
-    this.page.click(`[data-test-id=button-ship-to-different-address]`)
+    this.page.click(`[data-testid=button-ship-to-different-address]`)
   }
 
   async getDataLayer(
@@ -159,14 +159,14 @@ export class CheckoutPage {
 
   async getOrderNumber() {
     const element = await this.page.locator(
-      "[data-test-id=complete-checkout-summary] >> strong"
+      "[data-testid=complete-checkout-summary] >> strong"
     )
     return element.innerText()
   }
 
   async checkTermsAndPrivacyValue(value?: boolean) {
     const element = this.page.locator(
-      "[data-test-id=checkbox-privacy-and-terms]"
+      "[data-testid=checkbox-privacy-and-terms]"
     )
     if (value === undefined) {
       await expect(element).toHaveCount(0)
@@ -181,7 +181,7 @@ export class CheckoutPage {
 
   async setTermsAndPrivacy(value: boolean) {
     const element = this.page.locator(
-      "[data-test-id=checkbox-privacy-and-terms]"
+      "[data-testid=checkbox-privacy-and-terms]"
     )
     if (value) {
       await element.check()
@@ -192,7 +192,7 @@ export class CheckoutPage {
 
   async checkShipToDifferentAddressValue(value: boolean) {
     const element = this.page.locator(
-      "[data-test-id=button-ship-to-different-address]"
+      "[data-testid=button-ship-to-different-address]"
     )
     await expect(element).toHaveAttribute(
       "data-status",
@@ -201,17 +201,17 @@ export class CheckoutPage {
   }
 
   async useCustomerCard() {
-    const element = this.page.locator("[data-test-id=customer-card]")
+    const element = this.page.locator("[data-testid=customer-card]")
     await expect(element).toBeVisible({ timeout: 10000 })
     await this.page.waitForTimeout(2000)
-    await this.page.click("[data-test-id=customer-card]", {
+    await this.page.click("[data-testid=customer-card]", {
       force: true,
     })
   }
 
   async checkShipToDifferentAddressEnabled(value: boolean) {
     const element = this.page.locator(
-      "[data-test-id=button-ship-to-different-address]"
+      "[data-testid=button-ship-to-different-address]"
     )
     if (value) {
       await expect(element).toBeEnabled()
@@ -222,7 +222,7 @@ export class CheckoutPage {
 
   getSaveAddressBookCheckbox(type: "billing" | "shipping") {
     return this.page.locator(
-      `input[data-test-id=${type}_address_save_to_customer_address_book]`
+      `input[data-testid=${type}_address_save_to_customer_address_book]`
     )
   }
 
@@ -231,7 +231,7 @@ export class CheckoutPage {
     country: "IT" | "US" | "GB" | "FR"
   ) {
     await this.page.selectOption(
-      `[data-test-id=input_${type}_country_code]`,
+      `[data-testid=input_${type}_country_code]`,
       country
     )
   }
@@ -241,7 +241,7 @@ export class CheckoutPage {
     state: "FI" | "NA" | "MI"
   ) {
     await this.page.selectOption(
-      `[data-test-id=input_${type}_state_code]`,
+      `[data-testid=input_${type}_state_code]`,
       state
     )
   }
@@ -256,7 +256,7 @@ export class CheckoutPage {
     await this.page.getByText(text).nth(shipment).click()
     await expect(this.page.getByText(text).nth(shipment)).toHaveCount(1)
     const element = this.page.locator(
-      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-method-button]:checked`
+      `[data-testid=shipments-container] >> nth=${shipment} >> [data-testid=shipping-method-button]:checked`
     )
     await expect(element).toBeChecked()
   }
@@ -271,7 +271,7 @@ export class CheckoutPage {
     text: string
   }) {
     const element = this.page.locator(
-      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> nth=${index} >> text=${text}`
+      `[data-testid=shipments-container] >> nth=${shipment} >> [data-testid=shipping-methods-container] >> nth=${index} >> text=${text}`
     )
 
     await expect(element).toHaveCount(1)
@@ -287,7 +287,7 @@ export class CheckoutPage {
     value: boolean
   }) {
     const element = await this.page.isChecked(
-      `[data-test-id=shipments-container] >> nth=${shipment} >> [data-test-id=shipping-methods-container] >> nth=${index} >> input[type=radio]`
+      `[data-testid=shipments-container] >> nth=${shipment} >> [data-testid=shipping-methods-container] >> nth=${index} >> input[type=radio]`
     )
     if (value) {
       await expect(element).toBeTruthy()
@@ -304,33 +304,33 @@ export class CheckoutPage {
     type: "billing_address" | "shipping_address"
   }) {
     await this.page.fill(
-      `[data-test-id=input_${type}_first_name]`,
+      `[data-testid=input_${type}_first_name]`,
       (address.first_name as string) || ""
     )
     await this.page.fill(
-      `[data-test-id=input_${type}_last_name]`,
+      `[data-testid=input_${type}_last_name]`,
       (address.last_name as string) || ""
     )
     await this.page.fill(
-      `[data-test-id=input_${type}_line_1]`,
+      `[data-testid=input_${type}_line_1]`,
       (address.line_1 as string) || ""
     )
     await this.page.fill(
-      `[data-test-id=input_${type}_line_2]`,
+      `[data-testid=input_${type}_line_2]`,
       (address.line_2 as string) || ""
     )
     await this.page.fill(
-      `[data-test-id=input_${type}_city]`,
+      `[data-testid=input_${type}_city]`,
       (address.city as string) || ""
     )
 
     const countrySelect = this.page.locator(
-      `[data-test-id=input_${type}_country_code]`
+      `[data-testid=input_${type}_country_code]`
     )
     const countrySelectEnabled = await countrySelect.isEnabled()
     if (countrySelectEnabled) {
       await this.page.selectOption(
-        `[data-test-id=input_${type}_country_code]`,
+        `[data-testid=input_${type}_country_code]`,
         (address.country_code as string) || "",
         { force: true }
       )
@@ -342,21 +342,21 @@ export class CheckoutPage {
         : "fill"
 
     await this.page[command](
-      `[data-test-id=input_${type}_state_code]`,
+      `[data-testid=input_${type}_state_code]`,
       (address.state_code as string) || ""
     )
 
     await this.page.fill(
-      `[data-test-id=input_${type}_zip_code]`,
+      `[data-testid=input_${type}_zip_code]`,
       (address.zip_code as string) || ""
     )
     await this.page.fill(
-      `[data-test-id=input_${type}_phone]`,
+      `[data-testid=input_${type}_phone]`,
       (address.phone as string) || ""
     )
     if (address.billing_info) {
       await this.page.fill(
-        `[data-test-id=input_${type}_billing_info]`,
+        `[data-testid=input_${type}_billing_info]`,
         (address.billing_info as string) || ""
       )
     }
@@ -399,11 +399,11 @@ export class CheckoutPage {
   }
 
   async openNewAddress(type: "shipping" | "billing") {
-    this.page.click(`[data-test-id=add_new_${type}_address]`)
+    this.page.click(`[data-testid=add_new_${type}_address]`)
   }
 
   async closeNewAddress(type: "shipping" | "billing") {
-    this.page.click(`[data-test-id=close-${type}-form]`)
+    this.page.click(`[data-testid=close-${type}-form]`)
   }
 
   async checkBillingAddress(address: Partial<Address>) {
@@ -421,7 +421,7 @@ export class CheckoutPage {
     type: "billing" | "shipping"
     index: number
   }) {
-    this.page.click(`[data-test-id=customer-${type}-address] >> nth=${index}`)
+    this.page.click(`[data-testid=customer-${type}-address] >> nth=${index}`)
   }
 
   async checkSelectedAddressBook({
@@ -434,7 +434,7 @@ export class CheckoutPage {
     const titleizeType = type[0].toLocaleUpperCase() + type.slice(1)
 
     const element = await this.page.locator(
-      `[data-test-id=customer-${type}-address]:near(:text("${titleizeType} Address")) >> text=${composeForCheck(
+      `[data-testid=customer-${type}-address]:near(:text("${titleizeType} Address")) >> text=${composeForCheck(
         address
       )}`
     )
@@ -442,43 +442,43 @@ export class CheckoutPage {
   }
 
   async checkReturnToCartLink(status: "present" | "not_present") {
-    const element = await this.page.locator("[data-test-id=edit-cart-link]")
+    const element = await this.page.locator("[data-testid=edit-cart-link]")
     await expect(element).toHaveCount(status === "not_present" ? 0 : 1)
   }
 
   async clickReturnToCartLink() {
-    await this.page.click("[data-test-id=edit-cart-link] a")
+    await this.page.click("[data-testid=edit-cart-link] a")
   }
 
   async checkContinueShoppingLink(status: "present" | "not_present") {
     const element = await this.page.locator(
-      "[data-test-id=button-continue-to-shop]"
+      "[data-testid=button-continue-to-shop]"
     )
     await expect(element).toHaveCount(status === "not_present" ? 0 : 1)
   }
 
   async clickContinueShoppingLink() {
-    await this.page.click("[data-test-id=button-continue-to-shop]")
+    await this.page.click("[data-testid=button-continue-to-shop]")
   }
 
   async checkBadgeIndex(step: SingleStepEnum, value: string) {
     const element = await this.page.locator(
-      `[data-test-id=step-header-badge]:near(:text("${step}")) >> text=${value}`
+      `[data-testid=step-header-badge]:near(:text("${step}")) >> text=${value}`
     )
     await expect(element).toHaveCount(1)
   }
 
   async setCoupon(code: string) {
-    await this.page.fill("[data-test-id=input_giftcard_coupon]", code)
-    await this.page.click("[data-test-id=submit_giftcard_coupon]")
+    await this.page.fill("[data-testid=input_giftcard_coupon]", code)
+    await this.page.click("[data-testid=submit_giftcard_coupon]")
   }
 
   async removeCoupon() {
-    await this.page.click("[data-test-id=remove_coupon]")
+    await this.page.click("[data-testid=remove_coupon]")
   }
 
   async removeGiftCard() {
-    await this.page.click("[data-test-id=remove_giftcard]")
+    await this.page.click("[data-testid=remove_giftcard]")
   }
 
   async checkOrderSummary(text: string) {
@@ -487,41 +487,36 @@ export class CheckoutPage {
 
   async checkShippingSummary(text?: string) {
     if (text === undefined) {
-      const element = await this.page.locator("[data-test-id=shipping-amount]")
+      const element = await this.page.locator("[data-testid=shipping-amount]")
       await expect(element).toHaveCount(0)
     } else {
       await this.page
-        .locator(`[data-test-id=shipping-amount] >> text=${text}`)
+        .locator(`[data-testid=shipping-amount] >> text=${text}`)
         .waitFor({ state: "visible" })
     }
   }
 
   async checkLineItemsCount(text: string) {
-    const element = await this.page.locator(`[data-test-id=items-count]`)
+    const element = await this.page.locator(`[data-testid=items-count]`)
     await expect(element).toHaveText(text)
   }
 
   async checkPaymentRecap(text: string) {
-    await expect(
-      this.page.locator(`[data-test-id=payment-recap] >> text=${text}`)
-    ).toBeVisible()
+    await expect(this.page.getByText(text)).toBeVisible()
   }
 
   async checkTaxSummary(text: string) {
     await this.page
-      .locator(`[data-test-id=tax-amount] >> text=${text}`)
+      .locator(`[data-testid=tax-amount] >> text=${text}`)
       .waitFor({ state: "visible" })
   }
 
   async checkTaxLine(text: string) {
-    await this.page.locator(`text=${text}`).waitFor({ state: "visible" })
+    await this.page.getByText(text).waitFor({ state: "visible" })
   }
 
   async checkDiscountAmount(text?: string) {
-    const element = await this.page.locator(
-      `[data-test-id=discount-amount] >> text=${text}`
-    )
-
+    const element = await this.page.getByTestId('discount-amount')
     if (text !== undefined) {
       await element.waitFor({ state: "visible" })
     } else {
@@ -531,7 +526,7 @@ export class CheckoutPage {
 
   async checkGiftCardAmount(text?: string) {
     const element = await this.page.locator(
-      `[data-test-id=giftcard-amount] >> text=${text}`
+      `[data-testid=giftcard-amount] >> text=${text}`
     )
     if (text !== undefined) {
       await element.waitFor({ state: "visible" })
@@ -542,19 +537,19 @@ export class CheckoutPage {
 
   async checkCouponCode(text: string) {
     await this.page
-      .locator(`[data-test-id=code-coupon] >> text=${text}`)
+      .locator(`[data-testid=code-coupon] >> text=${text}`)
       .waitFor({ state: "visible" })
   }
 
   async checkGiftCardCode(text: string) {
     await this.page
-      .locator(`[data-test-id=code-giftcard] >> text=${text}`)
+      .locator(`[data-testid=code-giftcard] >> text=${text}`)
       .waitFor({ state: "visible" })
   }
 
   async checkCouponError(text?: string) {
     const element = this.page.locator(
-      `[data-test-id=discount-error] >> text=${text}`
+      `[data-testid=discount-error] >> text=${text}`
     )
     if (text !== undefined) {
       await element.waitFor({ state: "visible" })
@@ -565,13 +560,13 @@ export class CheckoutPage {
 
   async checkTotalAmount(text: string) {
     await this.page
-      .locator(`[data-test-id=total-amount] >> text=${text}`)
+      .locator(`[data-testid=total-amount] >> text=${text}`)
       .waitFor({ state: "visible" })
   }
 
   async checkPaymentSummary(text: string) {
     await this.page
-      .locator(`[data-test-id=payment-method-amount] >> text=${text}`)
+      .locator(`[data-testid=payment-method-amount] >> text=${text}`)
       .waitFor({ state: "visible" })
   }
 
@@ -583,7 +578,7 @@ export class CheckoutPage {
     status: "enabled" | "disabled" | "not_present"
   }) {
     const element = await this.page.locator(
-      `[data-test-id=save-${type.toLocaleLowerCase()}-button]`
+      `[data-testid=save-${type.toLocaleLowerCase()}-button]`
     )
     if (status === "not_present") {
       return expect(element).toHaveCount(0)
@@ -611,7 +606,8 @@ export class CheckoutPage {
     } else {
       paymentMethod = `${type}_payments`
     }
-    await this.page.click(`[data-test-id=${paymentMethod}]`, { force: true })
+    // await this.page.click(`[data-testid=${paymentMethod}]`, { force: true })
+    await this.page.getByTestId(paymentMethod).click()
     await this.page.mouse.wheel(0, 30)
   }
 
@@ -635,7 +631,7 @@ export class CheckoutPage {
         switch (gateway) {
           case "paypal": {
             await this.page.click(
-              "[data-test-id=adyen_payments] >> text=PayPal",
+              "[data-testid=adyen_payments] >> text=PayPal",
               {
                 force: true,
               }
@@ -643,7 +639,7 @@ export class CheckoutPage {
             const [newPage] = await Promise.all([
               this.page.waitForEvent("popup"),
               await this.page.click(
-                "[data-test-id=adyen_payments] >> .adyen-checkout__paypal__button >> nth=0",
+                "[data-testid=adyen_payments] >> .adyen-checkout__paypal__button >> nth=0",
                 {
                   force: true,
                 }
@@ -669,13 +665,12 @@ export class CheckoutPage {
           }
           case "klarna_pay_now": {
             await this.page.click(
-              "[data-test-id=adyen_payments] >> text=Pay now",
+              "[data-testid=adyen_payments] >> text=Klarna",
               {
                 force: true,
               }
             )
-
-            await this.page.click("[data-test-id=save-payment-button]")
+            await this.page.click("[data-testid=save-payment-button]")
             await this.page.click("#buy-button")
 
             const i = this.page.locator("#klarna-apf-iframe")
@@ -826,7 +821,7 @@ export class CheckoutPage {
           }
           case "card": {
             await this.page.click(
-              "[data-test-id=adyen_payments] >> text=Credit Card",
+              "[data-testid=adyen_payments] >> text=Credit Card",
               {
                 force: true,
               }
@@ -846,12 +841,12 @@ export class CheckoutPage {
             await cvvFrame
               .locator("[data-fieldtype=encryptedSecurityCode]")
               .fill("737")
-            await this.page.click("[data-test-id=save-payment-button]")
+            await this.page.click("[data-testid=save-payment-button]")
             break
           }
           case "card3DS": {
             await this.page.click(
-              "[data-test-id=adyen_payments] >> text=Credit Card",
+              "[data-testid=adyen_payments] >> text=Credit Card",
               {
                 force: true,
               }
@@ -871,7 +866,7 @@ export class CheckoutPage {
             await cvvFrame
               .locator("[data-fieldtype=encryptedSecurityCode]")
               .fill("737")
-            await this.page.click("[data-test-id=save-payment-button]")
+            await this.page.click("[data-testid=save-payment-button]")
             return
           }
         }
@@ -994,7 +989,7 @@ export class CheckoutPage {
         break
       }
       case "paypal": {
-        await this.page.click("[data-test-id=paypal_payments] >> text=PayPal", {
+        await this.page.click("[data-testid=paypal_payments] >> text=PayPal", {
           force: true,
         })
         break
@@ -1014,24 +1009,24 @@ export class CheckoutPage {
       selector = "errors-container"
     }
     const element = this.page.locator(
-      `[data-test-id="${selector}"] >> text=${text}`
+      `[data-testid="${selector}"] >> text=${text}`
     )
     await expect(element).toHaveCount(1)
   }
 
   async save(step: SingleStepEnum, waitText?: string, skipWait?: boolean) {
-    const buttonId = `[data-test-id=save-${step.toLocaleLowerCase()}-button]:enabled`
+    const buttonId = `[data-testid=save-${step.toLocaleLowerCase()}-button]:enabled`
     switch (step) {
       case "Customer":
         await this.page.click(buttonId, { force: true })
         await this.page
-          .locator("[data-test-id=step_customer][data-status=false]")
+          .locator("[data-testid=step_customer][data-status=false]")
           .waitFor({ state: "visible" })
         break
       case "Shipping":
         await this.page.click(buttonId, { force: true })
         await this.page
-          .locator("[data-test-id=step_shipping][data-status=false]")
+          .locator("[data-testid=step_shipping][data-status=false]")
           .waitFor({ state: "visible" })
         break
       case "Payment": {

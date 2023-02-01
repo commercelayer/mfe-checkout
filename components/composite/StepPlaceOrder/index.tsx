@@ -65,7 +65,7 @@ const StepPlaceOrder: React.FC<Props> = ({
 
   return (
     <>
-      <ErrorsContainer data-test-id="errors-container">
+      <ErrorsContainer data-testid="errors-container">
         <StyledErrors
           resource="orders"
           messages={
@@ -107,7 +107,7 @@ const StepPlaceOrder: React.FC<Props> = ({
             <StyledPrivacyAndTermsCheckbox
               id="privacy-terms"
               className="relative form-checkbox top-0.5"
-              data-test-id="checkbox-privacy-and-terms"
+              data-testid="checkbox-privacy-and-terms"
             />
             <Label htmlFor="privacy-terms">
               <Trans
@@ -127,7 +127,7 @@ const StepPlaceOrder: React.FC<Props> = ({
         )}
         <PlaceOrderButtonWrapper>
           <StyledPlaceOrderButton
-            data-test-id="save-payment-button"
+            data-testid="save-payment-button"
             isActive={isActive}
             onClick={handlePlaceOrder}
             label={

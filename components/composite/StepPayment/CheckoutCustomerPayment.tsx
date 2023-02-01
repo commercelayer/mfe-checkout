@@ -49,7 +49,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
           return (
             <div
               key={k}
-              data-test-id="customer-card"
+              data-testid="customer-card"
               onClick={p.handleClick}
               className="flex flex-col items-start p-3 mb-4 text-sm border rounded cursor-pointer lg:flex-row lg:items-center shadow-sm hover:border-primary"
             >
@@ -78,7 +78,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
         <WalletCheckbox
           name={name}
           id={name}
-          data-test-id="save-to-wallet"
+          data-testid="save-to-wallet"
           type="checkbox"
           className="form-checkbox"
           checked={checked}
@@ -108,7 +108,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
       >
         <PaymentWrapper>
           <PaymentSummaryList hasTitle={hasTitle} />
-          <PaymentSourceContainer data-test-id="payment-source">
+          <PaymentSourceContainer data-testid="payment-source">
             <PaymentSource
               className="flex flex-col"
               templateCustomerCards={(props) => (

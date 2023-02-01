@@ -162,11 +162,11 @@ export const StepShipping: React.FC<Props> = () => {
     }
   }
 
-  const autoSelectCallback = async () => {
+  const autoSelectCallback = async (order?: Order) => {
     if (gtmCtx?.fireAddShippingInfo) {
       await gtmCtx.fireAddShippingInfo()
     }
-    appCtx.autoSelectShippingMethod()
+    appCtx.autoSelectShippingMethod(order)
   }
 
   return (
@@ -205,7 +205,7 @@ export const StepShipping: React.FC<Props> = () => {
                             </div>
                           }
                         >
-                          <ShippingWrapper data-test-id="shipments-container">
+                          <ShippingWrapper data-testid="shipments-container">
                             {shipments.length > 1 && (
                               <ShippingTitle>
                                 <ShipmentField name="key_number">
@@ -237,13 +237,13 @@ export const StepShipping: React.FC<Props> = () => {
                               <ShippingMethod
                                 emptyText={t("stepShipping.notAvailable")}
                               >
-                                <ShippingSummary data-test-id="shipping-methods-container">
+                                <ShippingSummary data-testid="shipping-methods-container">
                                   <StyledShippingMethodRadioButton
-                                    data-test-id="shipping-method-button"
+                                    data-testid="shipping-method-button"
                                     className="form-radio mt-0.5 md:mt-0"
                                     onChange={(params) => handleChange(params)}
                                   />
-                                  <ShippingMethodName data-test-id="shipping-method-name">
+                                  <ShippingMethodName data-testid="shipping-method-name">
                                     {(props) => {
                                       const deliveryLeadTime =
                                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -265,11 +265,11 @@ export const StepShipping: React.FC<Props> = () => {
                                                 <Trans i18nKey="stepShipping.deliveryLeadTime">
                                                   <DeliveryLeadTime
                                                     type="min_days"
-                                                    data-test-id="delivery-lead-time-min-days"
+                                                    data-testid="delivery-lead-time-min-days"
                                                   />
                                                   <DeliveryLeadTime
                                                     type="max_days"
-                                                    data-test-id="delivery-lead-time-max-days"
+                                                    data-testid="delivery-lead-time-max-days"
                                                     className="mr-1"
                                                   />
                                                 </Trans>
@@ -277,7 +277,7 @@ export const StepShipping: React.FC<Props> = () => {
                                             )}
                                           <ShippingSummaryValue>
                                             <ShippingMethodPrice
-                                              data-test-id="shipping-method-price"
+                                              data-testid="shipping-method-price"
                                               labelFreeOver={t("general.free")}
                                             />
                                           </ShippingSummaryValue>
@@ -298,7 +298,7 @@ export const StepShipping: React.FC<Props> = () => {
                                     />
                                     <ShippingLineItemDescription>
                                       <ShippingLineItemTitle>
-                                        <LineItemName data-test-id="line-item-name" />
+                                        <LineItemName data-testid="line-item-name" />
                                       </ShippingLineItemTitle>
                                       <ShippingLineItemQty>
                                         <LineItemQuantity readonly>
@@ -327,7 +327,7 @@ export const StepShipping: React.FC<Props> = () => {
                                           <StockTransferField
                                             attribute="name"
                                             tagElement="p"
-                                            data-test-id="line-item-name"
+                                            data-testid="line-item-name"
                                           />
                                         </ShippingLineItemTitle>
                                         <ShippingLineItemQty>
@@ -354,7 +354,7 @@ export const StepShipping: React.FC<Props> = () => {
                           <Button
                             disabled={!canContinue || isLocalLoader}
                             // disabled={!canContinue || isLocalLoader}
-                            data-test-id="save-shipping-button"
+                            data-testid="save-shipping-button"
                             onClick={handleSave}
                           >
                             {isLocalLoader && <SpinnerIcon />}

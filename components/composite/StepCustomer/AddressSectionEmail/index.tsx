@@ -45,14 +45,14 @@ export const AddressSectionEmail: React.FC<Props> = ({
     <Wrapper>
       <div className="relative">
         {readonly ? (
-          <ReadOnlyEmail data-test-id="current-customer-email">
+          <ReadOnlyEmail data-testid="current-customer-email">
             {emailAddress}
           </ReadOnlyEmail>
         ) : (
           <>
             <StyledCustomInput
               className="block w-full border-gray-300 form-input shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
-              data-test-id="customer_email"
+              data-testid="customer_email"
               id="customer_email"
               errorClassName="hasError"
               saveOnBlur={true}
@@ -62,7 +62,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
               value={emailAddress}
             />
             <StyledErrors
-              data-test-id="customer_email_error"
+              data-testid="customer_email_error"
               resource="orders"
               field="customer_email"
               messages={messages}

@@ -34,7 +34,7 @@ export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
       })}
     >
       <AccordionTabHeader
-        data-test-id={`accordion_${ctx.step.toLocaleLowerCase()}`}
+        data-testid={`accordion_${ctx.step.toLocaleLowerCase()}`}
         className="group"
         onClick={handleSelection}
       >

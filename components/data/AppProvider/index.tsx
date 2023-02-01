@@ -37,7 +37,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
     shipmentId: string
     order?: Order
   }) => Promise<void>
-  autoSelectShippingMethod: () => void
+  autoSelectShippingMethod: (order?: Order) => void
 }
 
 export interface AppStateData extends FetchOrderByIdResponse {
@@ -213,12 +213,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     })
   }
 
-  const autoSelectShippingMethod = async () => {
+  const autoSelectShippingMethod = async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
 
-    const order = await fetchOrder(cl, orderId)
+    const currentOrder = order ?? (await fetchOrder(cl, orderId))
     const others = calculateSettings(
-      order,
+      currentOrder,
       state.isShipmentRequired,
       state.customerAddresses
     )
@@ -226,7 +226,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     dispatch({
       type: ActionType.SAVE_SHIPMENTS,
       payload: {
-        order,
+        order: currentOrder,
         others,
       },
     })

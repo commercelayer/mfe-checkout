@@ -38,7 +38,7 @@ export const OutOfStock = ({
                       ),
                       Link: (
                         <a
-                          data-test-id="out-of-stock-cart-link"
+                          data-testid="out-of-stock-cart-link"
                           href={`${cartUrl}`}
                         />
                       ),

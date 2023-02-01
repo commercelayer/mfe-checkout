@@ -14,7 +14,7 @@ export const Label: React.FC<Props> = ({
   children,
 }) => {
   return (
-    <Wrapper data-test-id={dataTestId} htmlFor={htmlFor}>
+    <Wrapper data-testid={dataTestId} htmlFor={htmlFor}>
       {children || textLabel}
     </Wrapper>
   )

@@ -113,7 +113,7 @@ export const AddressInputGroup: React.FC<Props> = ({
           <StyledAddressCountrySelector
             id={fieldName}
             className="form-select"
-            data-test-id={`input_${fieldName}`}
+            data-testid={`input_${fieldName}`}
             name={fieldName}
             placeholder={{
               label: t(`addressForm.${fieldName}_placeholder`),
@@ -141,7 +141,7 @@ export const AddressInputGroup: React.FC<Props> = ({
             id={fieldName}
             selectClassName="form-select"
             inputClassName="form-input"
-            data-test-id={`input_${fieldName}`}
+            data-testid={`input_${fieldName}`}
             name={fieldName}
             value={value}
           />
@@ -154,7 +154,7 @@ export const AddressInputGroup: React.FC<Props> = ({
           <StyledAddressInput
             id={fieldName}
             required={required}
-            data-test-id={`input_${fieldName}`}
+            data-testid={`input_${fieldName}`}
             name={fieldName}
             type={type}
             value={valueStatus}
@@ -172,7 +172,7 @@ export const AddressInputGroup: React.FC<Props> = ({
         <div className="relative h-10">{renderInput()}</div>
       </Wrapper>
       <StyledErrors
-        data-test-id={`error_${fieldName}`}
+        data-testid={`error_${fieldName}`}
         resource={resource}
         field={fieldName}
         messages={messages}

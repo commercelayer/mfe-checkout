@@ -87,24 +87,24 @@ test.describe("quantity and unit price", () => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     let element = checkoutPage.page.locator(
-      "[data-test-id=order-summary] >> text=Quantity: 5"
+      "[data-testid=order-summary] >> text=Quantity: 5"
     )
     await expect(element).toHaveText("QUANTITY: 5")
 
     element = checkoutPage.page.locator(
-      "[data-test-id=order-summary] >> text=Quantity: 1"
+      "[data-testid=order-summary] >> text=Quantity: 1"
     )
     await expect(element).toHaveText("QUANTITY: 1")
 
     await checkoutPage.checkStep("Shipping", "open")
 
     element = checkoutPage.page.locator(
-      "[data-test-id=shipments-container] >> text=Quantity: 5"
+      "[data-testid=shipments-container] >> text=Quantity: 5"
     )
     await expect(element).toHaveText("QUANTITY: 5")
 
     element = checkoutPage.page.locator(
-      "[data-test-id=shipments-container] >> text=Quantity: 1"
+      "[data-testid=shipments-container] >> text=Quantity: 1"
     )
     await expect(element).toHaveText("QUANTITY: 1")
   })
@@ -179,7 +179,7 @@ test.describe("buying gift card", () => {
   test("should appear on summary", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
     const element = checkoutPage.page.locator(
-      "[data-test-id=line-items-gift_cards] >> text=Gift card: €100,00"
+      "[data-testid=line-items-gift_cards] >> text=Gift card: €100,00"
     )
 
     await expect(element).toHaveCount(1)
@@ -224,12 +224,12 @@ test.describe("using gift card", () => {
 
     await checkoutPage.checkGiftCardAmount("-€20,00")
     let element = checkoutPage.page.locator(
-      "[data-test-id=line-items-gift_cards]"
+      "[data-testid=line-items-gift_cards]"
     )
     await expect(element).toHaveCount(0)
 
     element = checkoutPage.page.locator(
-      "[data-test-id=items-count] >> text=Your shopping cart contains 3 items"
+      "[data-testid=items-count] >> text=Your shopping cart contains 3 items"
     )
     await expect(element).toHaveCount(1)
   })

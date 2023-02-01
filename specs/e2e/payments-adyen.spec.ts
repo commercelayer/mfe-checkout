@@ -38,7 +38,6 @@ test.describe("guest with Adyen", () => {
     await checkoutPage.save("Payment")
 
     await checkoutPage.checkPaymentRecap("Credit card ending in ****")
-    await checkoutPage.page.reload()
     await checkoutPage.checkPaymentRecap("Credit card ending in ****")
   })
 
@@ -200,7 +199,6 @@ test.describe("customer with Adyen without saving", () => {
     await checkoutPage.selectPayment("adyen")
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
@@ -251,13 +249,13 @@ test.describe("customer with Adyen with saving", () => {
     await checkoutPage.setPayment("adyen")
 
     let element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
     await element.check()
     element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]"
     )
     expect(element).toBeChecked()
 

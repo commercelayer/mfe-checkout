@@ -71,7 +71,7 @@ test.describe("with two shipment (one do not ship)", () => {
     await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     const element = await checkoutPage.page.locator(
-      "[ data-test-id=save-shipping-button]"
+      "[ data-testid=save-shipping-button]"
     )
     await expect(element).toBeEnabled()
     await checkoutPage.save("Shipping")

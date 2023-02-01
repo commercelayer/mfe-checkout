@@ -89,7 +89,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
         {isShipmentRequired && (
           <Toggle
             disabled={disabledShipToDifferentAddress}
-            data-test-id="button-ship-to-different-address"
+            data-testid="button-ship-to-different-address"
             data-status={shipToDifferentAddress}
             label={t(`addressForm.ship_to_different_address`)}
             checked={shipToDifferentAddress}
@@ -123,7 +123,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
                     : t("stepShipping.continueToPayment")}
                 </>
               }
-              data-test-id="save-customer-button"
+              data-testid="save-customer-button"
               onClick={handleSave}
             />
           </ButtonWrapper>

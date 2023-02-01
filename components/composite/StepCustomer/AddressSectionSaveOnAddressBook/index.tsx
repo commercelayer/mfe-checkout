@@ -27,7 +27,7 @@ export const AddressSectionSaveOnAddressBook: React.FC<Props> = ({
   return (
     <FlexContainer className="items-center">
       <StyledAddressInput
-        data-test-id={dataTestId}
+        data-testid={dataTestId}
         // @ts-expect-error Missing attribute
         name={fieldName}
         id={fieldName}
