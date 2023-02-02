@@ -699,13 +699,13 @@ export class CheckoutPage {
           }
           case "klarna_pay_later": {
             await this.page.click(
-              "[data-test-id=adyen_payments] >> text=Pay later",
+              "[data-testid=adyen_payments] >> text=Pay later",
               {
                 force: true,
               }
             )
 
-            await this.page.click("[data-test-id=save-payment-button]")
+            await this.page.click("[data-testid=save-payment-button]")
             await this.page.click("#buy-button")
 
             const i = this.page.locator("#klarna-apf-iframe")
@@ -733,12 +733,12 @@ export class CheckoutPage {
           case "klarna_pay_over_time": {
             if (language === "fr") {
               await this.page.click(
-                "[data-test-id=adyen_payments] >> text=Pay over time",
+                "[data-testid=adyen_payments] >> text=Pay over time",
                 {
                   force: true,
                 }
               )
-              await this.page.click("[data-test-id=save-payment-button]")
+              await this.page.click("[data-testid=save-payment-button]")
               await this.page.click("#buy-button")
 
               const i = this.page.locator("#klarna-apf-iframe")
@@ -769,13 +769,13 @@ export class CheckoutPage {
                 .click()
             } else {
               await this.page.click(
-                "[data-test-id=adyen_payments] >> text=Pay over time",
+                "[data-testid=adyen_payments] >> text=Pay over time",
                 {
                   force: true,
                 }
               )
 
-              await this.page.click("[data-test-id=save-payment-button]")
+              await this.page.click("[data-testid=save-payment-button]")
               await this.page.click("#buy-button")
 
               const i = this.page.locator("#klarna-apf-iframe")

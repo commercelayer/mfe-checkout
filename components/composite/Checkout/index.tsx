@@ -53,7 +53,7 @@ const Checkout: React.FC<Props> = ({
   privacyUrl,
 }) => {
   const ctx = useContext(AppContext)
-  console.log('ctx', ctx)
+  
   const { query } = useRouter()
 
   let paypalPayerId = ""
