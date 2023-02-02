@@ -103,7 +103,7 @@ export const StepShipping: React.FC<Props> = () => {
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
   const gtmCtx = useContext(GTMContext)
-
+  console.log(accordionCtx)
   const { t } = useTranslation()
 
   if (!appCtx || !accordionCtx) {
@@ -166,6 +166,7 @@ export const StepShipping: React.FC<Props> = () => {
     if (gtmCtx?.fireAddShippingInfo) {
       await gtmCtx.fireAddShippingInfo()
     }
+    console.log('order', order)
     appCtx.autoSelectShippingMethod(order)
   }
 
@@ -178,6 +179,8 @@ export const StepShipping: React.FC<Props> = () => {
       })}
     >
       <StepContent>
+        <>
+        
         {isShipmentRequired && (
           <div>
             {accordionCtx.isActive && (
@@ -369,6 +372,7 @@ export const StepShipping: React.FC<Props> = () => {
             )}
           </div>
         )}
+        </>
       </StepContent>
     </StepContainer>
   )

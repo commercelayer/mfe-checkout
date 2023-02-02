@@ -1,6 +1,6 @@
 import type { Order } from "@commercelayer/sdk"
 import classNames from "classnames"
-import { Fragment, useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import { AccordionContext } from "components/data/AccordionProvider"
@@ -138,8 +138,9 @@ export const StepCustomer: React.FC<Props> = () => {
       })}
     >
       <StepContent>
+        <>
         {accordionCtx.isActive && (
-          <Fragment>
+          <>
             {isGuest ? (
               <CheckoutAddresses
                 shippingAddress={shippingAddress}
@@ -174,8 +175,9 @@ export const StepCustomer: React.FC<Props> = () => {
                 handleSave={handleSave}
               />
             )}
-          </Fragment>
+          </>
         )}
+        </>
       </StepContent>
     </StepContainer>
   )

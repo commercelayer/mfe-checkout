@@ -4,6 +4,7 @@ const shouldAnalyzeBundles = process.env.ANALYZE === "true"
 
 /** @type { import('next').NextConfig } */
 let nextConfig = {
+  reactStrictMode: true,
   compiler: {
     styledComponents: true,
   },

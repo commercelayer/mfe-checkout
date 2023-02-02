@@ -4,12 +4,16 @@ import "../styles/globals.css"
 import { appWithTranslation } from "next-i18next"
 
 import "components/data/i18n"
+import { useEffect, useState } from "react"
 
 function CheckoutApp(props: AppProps) {
   const { Component, pageProps } = props
-  const child =
-    typeof window === "undefined" ? null : <Component {...pageProps} />
-  return <div suppressHydrationWarning>{child}</div>
+  const [browser, setBrowser] = useState(false)
+  useEffect(() => {
+    if (typeof window !== "undefined") setBrowser(true)
+  }, [])
+  
+  return browser ? <Component {...pageProps} /> : null
 }
 
 export default appWithTranslation(CheckoutApp)

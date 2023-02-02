@@ -53,6 +53,7 @@ const Checkout: React.FC<Props> = ({
   privacyUrl,
 }) => {
   const ctx = useContext(AppContext)
+  console.log('ctx', ctx)
   const { query } = useRouter()
 
   let paypalPayerId = ""
@@ -142,7 +143,7 @@ const Checkout: React.FC<Props> = ({
                     <StepCustomer className="mb-6" step={1} />
                   </AccordionItem>
                 </AccordionProvider>
-                {ctx.isShipmentRequired && (
+                <>{ctx.isShipmentRequired && (
                   <AccordionProvider
                     activeStep={activeStep}
                     lastActivableStep={lastActivableStep}
@@ -150,6 +151,7 @@ const Checkout: React.FC<Props> = ({
                     step="Shipping"
                     steps={steps}
                     isStepRequired={ctx.isShipmentRequired}
+                    isStepDone={ctx.hasShippingMethod}
                   >
                     <AccordionItem
                       index={2}
@@ -160,7 +162,7 @@ const Checkout: React.FC<Props> = ({
                       <StepShipping className="mb-6" step={2} />
                     </AccordionItem>
                   </AccordionProvider>
-                )}
+                )}</>
                 <AccordionProvider
                   activeStep={activeStep}
                   lastActivableStep={lastActivableStep}

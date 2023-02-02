@@ -85,6 +85,7 @@ interface AppProviderProps {
   slug: string
   orderId: string
   accessToken: string
+  children?: JSX.Element[] | JSX.Element | null
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({
@@ -215,14 +216,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const autoSelectShippingMethod = async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
-
     const currentOrder = order ?? (await fetchOrder(cl, orderId))
     const others = calculateSettings(
       currentOrder,
       state.isShipmentRequired,
       state.customerAddresses
     )
-
+    console.log('others', others)
+    debugger
     dispatch({
       type: ActionType.SAVE_SHIPMENTS,
       payload: {

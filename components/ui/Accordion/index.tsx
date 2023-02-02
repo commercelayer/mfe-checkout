@@ -9,13 +9,14 @@ import { AppContext } from "components/data/AppProvider"
 interface Props {
   index: number
   header: ReactNode
+  children?: JSX.Element[] | JSX.Element
 }
 
-export const Accordion: React.FC = ({ children }) => {
+export const Accordion = ({ children }: { children?: JSX.Element[] | JSX.Element | null }) => {
   return <Wrapper>{children}</Wrapper>
 }
 
-export const AccordionItem: React.FC<Props> = ({ children, index, header }) => {
+export const AccordionItem = ({ children, index, header }: Props) => {
   const ctx = useContext(AccordionContext)
   const appCtx = useContext(AppContext)
 
