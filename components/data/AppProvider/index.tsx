@@ -179,11 +179,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         state.isShipmentRequired,
         state.customerAddresses
       )
-
-      dispatch({
-        type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
-        payload: { order: currentOrder, others },
-      })
+      setTimeout(() => {
+        dispatch({
+          type: ActionType.CHANGE_COUPON_OR_GIFTCARD,
+          payload: { order: currentOrder, others },
+        })
+      }, 100)
     }
   }
 
