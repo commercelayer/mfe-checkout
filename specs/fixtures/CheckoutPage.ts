@@ -71,7 +71,8 @@ export class CheckoutPage {
     if (email === undefined) {
       customerEmail = faker.internet.email().toLocaleLowerCase()
     }
-    await this.page.fill("[data-testid=customer_email]", customerEmail)
+    await this.page.getByTestId("customer_email").fill(customerEmail)
+    await this.page.getByTestId("customer_email").blur()
   }
 
   async blurCustomerEmail() {
@@ -106,9 +107,7 @@ export class CheckoutPage {
     step: SingleStepEnum,
     status: "close" | "open" | "not_present"
   ) {
-    const element = this.page.getByTestId(
-      `step_${step.toLocaleLowerCase()}`
-    )
+    const element = this.page.getByTestId(`step_${step.toLocaleLowerCase()}`)
     if (status === "not_present") {
       await expect(element).toHaveCount(0)
       return
@@ -303,10 +302,9 @@ export class CheckoutPage {
     address: Partial<Address>
     type: "billing_address" | "shipping_address"
   }) {
-    await this.page.fill(
-      `[data-testid=input_${type}_first_name]`,
-      (address.first_name as string) || ""
-    )
+    await this.page
+      .getByTestId(`input_${type}_first_name`)
+      .fill((address.first_name as string) || "")
     await this.page.fill(
       `[data-testid=input_${type}_last_name]`,
       (address.last_name as string) || ""
@@ -516,7 +514,7 @@ export class CheckoutPage {
   }
 
   async checkDiscountAmount(text?: string) {
-    const element = await this.page.getByTestId('discount-amount')
+    const element = await this.page.getByTestId("discount-amount")
     if (text !== undefined) {
       await element.waitFor({ state: "visible" })
     } else {
@@ -1015,23 +1013,28 @@ export class CheckoutPage {
   }
 
   async save(step: SingleStepEnum, waitText?: string, skipWait?: boolean) {
-    const buttonId = `[data-testid=save-${step.toLocaleLowerCase()}-button]:enabled`
+    const buttonId = this.page.getByTestId(
+      `save-${step.toLocaleLowerCase()}-button`
+    )
     switch (step) {
       case "Customer":
-        await this.page.click(buttonId, { force: true })
+        await buttonId.isEnabled()
+        await buttonId.click()
         await this.page
           .locator("[data-testid=step_customer][data-status=false]")
           .waitFor({ state: "visible" })
         break
       case "Shipping":
-        await this.page.click(buttonId, { force: true })
+        await buttonId.isEnabled()
+        await buttonId.click()
         await this.page
           .locator("[data-testid=step_shipping][data-status=false]")
           .waitFor({ state: "visible" })
         break
       case "Payment": {
         const text = waitText || "Thank you for your order"
-        await this.page.click(buttonId, { force: true })
+        await buttonId.isEnabled()
+        await buttonId.click()
 
         if (waitText === "Paga con PayPal") {
           await this.page.fill(

@@ -124,7 +124,7 @@ export const StepCustomer: React.FC<Props> = () => {
     const tab = document.querySelector('div[tabindex="2"]')
     const top = tab?.scrollLeft as number
     const left = tab?.scrollTop as number
-    window.scrollTo({ left, top: top, behavior: "smooth" })
+    window.scrollTo({ left, top, behavior: "smooth" })
 
     setIsLocalLoader(false)
   }
@@ -139,44 +139,48 @@ export const StepCustomer: React.FC<Props> = () => {
     >
       <StepContent>
         <>
-        {accordionCtx.isActive && (
-          <>
-            {isGuest ? (
-              <CheckoutAddresses
-                shippingAddress={shippingAddress}
-                billingAddress={billingAddress}
-                emailAddress={emailAddress}
-                hasSameAddresses={hasSameAddresses}
-                setCustomerEmail={setCustomerEmail}
-                isShipmentRequired={isShipmentRequired}
-                isLocalLoader={isLocalLoader}
-                openShippingAddress={openShippingAddress}
-                shipToDifferentAddress={shipToDifferentAddress}
-                setShipToDifferentAddress={setShipToDifferentAddress}
-                disabledShipToDifferentAddress={disabledShipToDifferentAddress}
-                handleSave={handleSave}
-              />
-            ) : (
-              <CheckoutCustomerAddresses
-                shippingAddress={shippingAddress}
-                billingAddress={billingAddress}
-                emailAddress={emailAddress}
-                hasCustomerAddresses={hasCustomerAddresses}
-                isShipmentRequired={isShipmentRequired}
-                isUsingNewShippingAddress={isUsingNewShippingAddress}
-                isUsingNewBillingAddress={isUsingNewBillingAddress}
-                hasSameAddresses={hasSameAddresses}
-                isLocalLoader={isLocalLoader}
-                shippingCountryCodeLock={shippingCountryCodeLock}
-                openShippingAddress={openShippingAddress}
-                shipToDifferentAddress={shipToDifferentAddress}
-                setShipToDifferentAddress={setShipToDifferentAddress}
-                disabledShipToDifferentAddress={disabledShipToDifferentAddress}
-                handleSave={handleSave}
-              />
-            )}
-          </>
-        )}
+          {accordionCtx.isActive && (
+            <>
+              {isGuest ? (
+                <CheckoutAddresses
+                  shippingAddress={shippingAddress}
+                  billingAddress={billingAddress}
+                  emailAddress={emailAddress}
+                  hasSameAddresses={hasSameAddresses}
+                  setCustomerEmail={setCustomerEmail}
+                  isShipmentRequired={isShipmentRequired}
+                  isLocalLoader={isLocalLoader}
+                  openShippingAddress={openShippingAddress}
+                  shipToDifferentAddress={shipToDifferentAddress}
+                  setShipToDifferentAddress={setShipToDifferentAddress}
+                  disabledShipToDifferentAddress={
+                    disabledShipToDifferentAddress
+                  }
+                  handleSave={handleSave}
+                />
+              ) : (
+                <CheckoutCustomerAddresses
+                  shippingAddress={shippingAddress}
+                  billingAddress={billingAddress}
+                  emailAddress={emailAddress}
+                  hasCustomerAddresses={hasCustomerAddresses}
+                  isShipmentRequired={isShipmentRequired}
+                  isUsingNewShippingAddress={isUsingNewShippingAddress}
+                  isUsingNewBillingAddress={isUsingNewBillingAddress}
+                  hasSameAddresses={hasSameAddresses}
+                  isLocalLoader={isLocalLoader}
+                  shippingCountryCodeLock={shippingCountryCodeLock}
+                  openShippingAddress={openShippingAddress}
+                  shipToDifferentAddress={shipToDifferentAddress}
+                  setShipToDifferentAddress={setShipToDifferentAddress}
+                  disabledShipToDifferentAddress={
+                    disabledShipToDifferentAddress
+                  }
+                  handleSave={handleSave}
+                />
+              )}
+            </>
+          )}
         </>
       </StepContent>
     </StepContainer>

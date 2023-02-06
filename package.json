@@ -71,7 +71,7 @@
   ],
   "dependencies": {
     "@commercelayer/js-auth": "^2.3.0",
-    "@commercelayer/react-components": "4.2.1-beta.4",
+    "@commercelayer/react-components": "4.2.1-beta.5",
     "@commercelayer/sdk": "^4.21.0",
     "@faker-js/faker": "^7.6.0",
     "@headlessui/react": "^1.7.8",
@@ -118,6 +118,7 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",

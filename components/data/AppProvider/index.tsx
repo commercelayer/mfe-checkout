@@ -100,7 +100,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const cl = CommerceLayer({
     organization: slug,
-    accessToken: accessToken,
+    accessToken,
     domain,
   })
 
@@ -148,6 +148,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setAddresses = async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
     const currentOrder = order ?? (await getOrderFromRef())
+    console.log(currentOrder)
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     const others = calculateSettings(
@@ -157,14 +158,15 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       // we don't receive them from fetchOrder
       state.customerAddresses
     )
-
-    dispatch({
-      type: ActionType.SET_ADDRESSES,
-      payload: {
-        order: currentOrder,
-        others,
-      },
-    })
+    setTimeout(() => {
+      dispatch({
+        type: ActionType.SET_ADDRESSES,
+        payload: {
+          order: currentOrder,
+          others,
+        },
+      })
+    }, 100)
   }
 
   const setCouponOrGiftCard = async (order?: Order) => {
@@ -214,21 +216,21 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     })
   }
 
-  const autoSelectShippingMethod = async (_order?: Order) => {
+  const autoSelectShippingMethod = async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
-    const currentOrder = await fetchOrder(cl, orderId)
+    const currentOrder = order ?? (await fetchOrder(cl, orderId))
+
     const others = calculateSettings(
       currentOrder,
       state.isShipmentRequired,
       state.customerAddresses
     )
-    dispatch({
-      type: ActionType.SAVE_SHIPMENTS,
-      payload: {
-        order: currentOrder,
-        others,
-      },
-    })
+    setTimeout(() => {
+      dispatch({
+        type: ActionType.SAVE_SHIPMENTS,
+        payload: { order: currentOrder, others },
+      })
+    }, 100)
   }
 
   const saveShipments = async () => {

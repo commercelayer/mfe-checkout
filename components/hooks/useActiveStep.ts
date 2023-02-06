@@ -67,7 +67,6 @@ export const useActiveStep = (): UseActiveStep => {
         canSelectShippingMethod &&
         canSelectPayment &&
         ctx.hasPaymentMethod
-
       if (canPlaceOrder) {
         setActiveStep("Complete")
         setLastActivableStep("Complete")
