@@ -178,198 +178,201 @@ export const StepShipping: React.FC<Props> = () => {
     >
       <StepContent>
         <>
-        
-        {isShipmentRequired && (
-          <div>
-            {accordionCtx.isActive && (
-              <>
-                {
-                  <ShipmentsContainer>
-                    <OutOfStock
-                      cartUrl={appCtx.cartUrl}
-                      messages={messages}
-                      setOutOfStockError={setOutOfStockError}
-                    />
-                    <NoShippingMethods
-                      messages={messages}
-                      setShippingMethodError={setShippingMethodError}
-                    />
+          {isShipmentRequired && (
+            <div>
+              {accordionCtx.isActive && (
+                <>
+                  {
+                    <ShipmentsContainer>
+                      <OutOfStock
+                        cartUrl={appCtx.cartUrl}
+                        messages={messages}
+                        setOutOfStockError={setOutOfStockError}
+                      />
+                      <NoShippingMethods
+                        messages={messages}
+                        setShippingMethodError={setShippingMethodError}
+                      />
 
-                    {!shippingMethodError && !outOfStockError && (
-                      <>
-                        <Shipment
-                          autoSelectSingleShippingMethod={autoSelectCallback}
-                          loader={
-                            <div className="animate-pulse">
-                              <div className="w-1/2 h-5 bg-gray-200" />
-                              <div className="h-20 my-5 bg-gray-200" />
-                            </div>
-                          }
-                        >
-                          <ShippingWrapper data-testid="shipments-container">
-                            {shipments.length > 1 && (
-                              <ShippingTitle>
-                                <ShipmentField name="key_number">
-                                  {(props) => {
-                                    const index = shipments.findIndex(
-                                      (item) =>
-                                        item.shipmentId === props.shipment.id
-                                    )
-
-                                    return (
-                                      <Trans
-                                        i18nKey="stepShipping.shipment"
-                                        components={{
-                                          Wrap: (
-                                            <span className="text-sm font-medium text-gray-500" />
-                                          ),
-                                        }}
-                                        values={{
-                                          current: index + 1,
-                                          total: shipments.length.toString(),
-                                        }}
-                                      />
-                                    )
-                                  }}
-                                </ShipmentField>
-                              </ShippingTitle>
-                            )}
-                            <GridContainer className="mb-6">
-                              <ShippingMethod
-                                emptyText={t("stepShipping.notAvailable")}
-                              >
-                                <ShippingSummary data-testid="shipping-methods-container">
-                                  <StyledShippingMethodRadioButton
-                                    data-testid="shipping-method-button"
-                                    className="form-radio mt-0.5 md:mt-0"
-                                    onChange={(params) => handleChange(params)}
-                                  />
-                                  <ShippingMethodName data-testid="shipping-method-name">
+                      {!shippingMethodError && !outOfStockError && (
+                        <>
+                          <Shipment
+                            autoSelectSingleShippingMethod={autoSelectCallback}
+                            loader={
+                              <div className="animate-pulse">
+                                <div className="w-1/2 h-5 bg-gray-200" />
+                                <div className="h-20 my-5 bg-gray-200" />
+                              </div>
+                            }
+                          >
+                            <ShippingWrapper data-testid="shipments-container">
+                              {shipments.length > 1 && (
+                                <ShippingTitle>
+                                  <ShipmentField name="key_number">
                                     {(props) => {
-                                      const deliveryLeadTime =
-                                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                        // @ts-ignore
-                                        props?.deliveryLeadTimeForShipment
+                                      const index = shipments.findIndex(
+                                        (item) =>
+                                          item.shipmentId === props.shipment.id
+                                      )
+
                                       return (
-                                        <label
-                                          className="flex flex-col p-3 border rounded cursor-pointer hover:border-primary transition duration-200 ease-in"
-                                          htmlFor={props.htmlFor}
-                                        >
-                                          <ShippingLineItemTitle>
-                                            {props.label}
-                                          </ShippingLineItemTitle>
-                                          {deliveryLeadTime?.min_days &&
-                                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                            // @ts-ignore
-                                            deliveryLeadTime?.max_days && (
-                                              <ShippingSummaryItemDescription>
-                                                <Trans i18nKey="stepShipping.deliveryLeadTime">
-                                                  <DeliveryLeadTime
-                                                    type="min_days"
-                                                    data-testid="delivery-lead-time-min-days"
-                                                  />
-                                                  <DeliveryLeadTime
-                                                    type="max_days"
-                                                    data-testid="delivery-lead-time-max-days"
-                                                    className="mr-1"
-                                                  />
-                                                </Trans>
-                                              </ShippingSummaryItemDescription>
-                                            )}
-                                          <ShippingSummaryValue>
-                                            <ShippingMethodPrice
-                                              data-testid="shipping-method-price"
-                                              labelFreeOver={t("general.free")}
-                                            />
-                                          </ShippingSummaryValue>
-                                        </label>
+                                        <Trans
+                                          i18nKey="stepShipping.shipment"
+                                          components={{
+                                            Wrap: (
+                                              <span className="text-sm font-medium text-gray-500" />
+                                            ),
+                                          }}
+                                          values={{
+                                            current: index + 1,
+                                            total: shipments.length.toString(),
+                                          }}
+                                        />
                                       )
                                     }}
-                                  </ShippingMethodName>
-                                </ShippingSummary>
-                              </ShippingMethod>
-                            </GridContainer>
-                            <LineItemsContainer>
-                              {ShippingLineItems.map((type) => (
-                                <LineItem key={type} type={type}>
-                                  <ShippingLineItem>
-                                    <LineItemImage
-                                      width={50}
-                                      className="self-start p-1 border rounded"
+                                  </ShipmentField>
+                                </ShippingTitle>
+                              )}
+                              <GridContainer className="mb-6">
+                                <ShippingMethod
+                                  emptyText={t("stepShipping.notAvailable")}
+                                >
+                                  <ShippingSummary data-testid="shipping-methods-container">
+                                    <StyledShippingMethodRadioButton
+                                      data-testid="shipping-method-button"
+                                      className="form-radio mt-0.5 md:mt-0"
+                                      onChange={(params) =>
+                                        handleChange(params)
+                                      }
                                     />
-                                    <ShippingLineItemDescription>
-                                      <ShippingLineItemTitle>
-                                        <LineItemName data-testid="line-item-name" />
-                                      </ShippingLineItemTitle>
-                                      <ShippingLineItemQty>
-                                        <LineItemQuantity readonly>
-                                          {({ quantity }) => (
-                                            <>
-                                              {!!quantity &&
-                                                t("orderRecap.quantity", {
-                                                  count: quantity,
-                                                })}
-                                            </>
-                                          )}
-                                        </LineItemQuantity>
-                                      </ShippingLineItemQty>
-                                    </ShippingLineItemDescription>
-                                  </ShippingLineItem>
-                                  <StockTransfer>
+                                    <ShippingMethodName data-testid="shipping-method-name">
+                                      {(props) => {
+                                        const deliveryLeadTime =
+                                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                          // @ts-ignore
+                                          props?.deliveryLeadTimeForShipment
+                                        return (
+                                          <label
+                                            className="flex flex-col p-3 border rounded cursor-pointer hover:border-primary transition duration-200 ease-in"
+                                            htmlFor={props.htmlFor}
+                                          >
+                                            <ShippingLineItemTitle>
+                                              {props.label}
+                                            </ShippingLineItemTitle>
+                                            {deliveryLeadTime?.min_days &&
+                                              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                              // @ts-ignore
+                                              deliveryLeadTime?.max_days && (
+                                                <ShippingSummaryItemDescription>
+                                                  <Trans i18nKey="stepShipping.deliveryLeadTime">
+                                                    <DeliveryLeadTime
+                                                      type="min_days"
+                                                      data-testid="delivery-lead-time-min-days"
+                                                    />
+                                                    <DeliveryLeadTime
+                                                      type="max_days"
+                                                      data-testid="delivery-lead-time-max-days"
+                                                      className="mr-1"
+                                                    />
+                                                  </Trans>
+                                                </ShippingSummaryItemDescription>
+                                              )}
+                                            <ShippingSummaryValue>
+                                              <ShippingMethodPrice
+                                                data-testid="shipping-method-price"
+                                                labelFreeOver={t(
+                                                  "general.free"
+                                                )}
+                                              />
+                                            </ShippingSummaryValue>
+                                          </label>
+                                        )
+                                      }}
+                                    </ShippingMethodName>
+                                  </ShippingSummary>
+                                </ShippingMethod>
+                              </GridContainer>
+                              <LineItemsContainer>
+                                {ShippingLineItems.map((type) => (
+                                  <LineItem key={type} type={type}>
                                     <ShippingLineItem>
-                                      <StockTransferField
-                                        attribute="image_url"
-                                        tagElement="img"
+                                      <LineItemImage
                                         width={50}
                                         className="self-start p-1 border rounded"
                                       />
                                       <ShippingLineItemDescription>
                                         <ShippingLineItemTitle>
-                                          <StockTransferField
-                                            attribute="name"
-                                            tagElement="p"
-                                            data-testid="line-item-name"
-                                          />
+                                          <LineItemName data-testid="line-item-name" />
                                         </ShippingLineItemTitle>
                                         <ShippingLineItemQty>
-                                          <Trans
-                                            i18nKey={
-                                              "orderRecap.quantity_stock"
-                                            }
-                                          >
-                                            <StockTransferField
-                                              attribute="quantity"
-                                              tagElement="span"
-                                            />
-                                          </Trans>
+                                          <LineItemQuantity readonly>
+                                            {({ quantity }) => (
+                                              <>
+                                                {!!quantity &&
+                                                  t("orderRecap.quantity", {
+                                                    count: quantity,
+                                                  })}
+                                              </>
+                                            )}
+                                          </LineItemQuantity>
                                         </ShippingLineItemQty>
                                       </ShippingLineItemDescription>
                                     </ShippingLineItem>
-                                  </StockTransfer>
-                                </LineItem>
-                              ))}
-                            </LineItemsContainer>
-                          </ShippingWrapper>
-                        </Shipment>
-                        <ButtonWrapper>
-                          <Button
-                            disabled={!canContinue || isLocalLoader}
-                            // disabled={!canContinue || isLocalLoader}
-                            data-testid="save-shipping-button"
-                            onClick={handleSave}
-                          >
-                            {isLocalLoader && <SpinnerIcon />}
-                            {t("stepShipping.continueToPayment")}
-                          </Button>
-                        </ButtonWrapper>
-                      </>
-                    )}
-                  </ShipmentsContainer>
-                }
-              </>
-            )}
-          </div>
-        )}
+                                    <StockTransfer>
+                                      <ShippingLineItem>
+                                        <StockTransferField
+                                          attribute="image_url"
+                                          tagElement="img"
+                                          width={50}
+                                          className="self-start p-1 border rounded"
+                                        />
+                                        <ShippingLineItemDescription>
+                                          <ShippingLineItemTitle>
+                                            <StockTransferField
+                                              attribute="name"
+                                              tagElement="p"
+                                              data-testid="line-item-name"
+                                            />
+                                          </ShippingLineItemTitle>
+                                          <ShippingLineItemQty>
+                                            <Trans
+                                              i18nKey={
+                                                "orderRecap.quantity_stock"
+                                              }
+                                            >
+                                              <StockTransferField
+                                                attribute="quantity"
+                                                tagElement="span"
+                                              />
+                                            </Trans>
+                                          </ShippingLineItemQty>
+                                        </ShippingLineItemDescription>
+                                      </ShippingLineItem>
+                                    </StockTransfer>
+                                  </LineItem>
+                                ))}
+                              </LineItemsContainer>
+                            </ShippingWrapper>
+                          </Shipment>
+                          <ButtonWrapper>
+                            <Button
+                              disabled={!canContinue || isLocalLoader}
+                              // disabled={!canContinue || isLocalLoader}
+                              data-testid="save-shipping-button"
+                              onClick={handleSave}
+                            >
+                              {isLocalLoader && <SpinnerIcon />}
+                              {t("stepShipping.continueToPayment")}
+                            </Button>
+                          </ButtonWrapper>
+                        </>
+                      )}
+                    </ShipmentsContainer>
+                  }
+                </>
+              )}
+            </div>
+          )}
         </>
       </StepContent>
     </StepContainer>

@@ -130,9 +130,9 @@ test.describe("guest with Adyen and Pay over time with Klarna in Germany", () =>
       gateway: "klarna_pay_now",
       language: "de",
     })
-
-    await checkoutPage.checkPaymentRecap("Klarna_paynow ending in ****")
+    await checkoutPage.page.pause()
+    await checkoutPage.checkPaymentRecap("Klarna paynow ending in ****")
     await checkoutPage.page.reload()
-    await checkoutPage.checkPaymentRecap("Klarna_paynow ending in ****")
+    await checkoutPage.checkPaymentRecap("Klarna paynow ending in ****")
   })
 })

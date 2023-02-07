@@ -53,7 +53,7 @@ const Checkout: React.FC<Props> = ({
   privacyUrl,
 }) => {
   const ctx = useContext(AppContext)
-  
+
   const { query } = useRouter()
 
   let paypalPayerId = ""
@@ -143,26 +143,30 @@ const Checkout: React.FC<Props> = ({
                     <StepCustomer className="mb-6" step={1} />
                   </AccordionItem>
                 </AccordionProvider>
-                <>{ctx.isShipmentRequired && (
-                  <AccordionProvider
-                    activeStep={activeStep}
-                    lastActivableStep={lastActivableStep}
-                    setActiveStep={setActiveStep}
-                    step="Shipping"
-                    steps={steps}
-                    isStepRequired={ctx.isShipmentRequired}
-                    isStepDone={ctx.hasShippingMethod}
-                  >
-                    <AccordionItem
-                      index={2}
-                      header={
-                        <StepHeaderShipping step={getStepNumber("Shipping")} />
-                      }
+                <>
+                  {ctx.isShipmentRequired && (
+                    <AccordionProvider
+                      activeStep={activeStep}
+                      lastActivableStep={lastActivableStep}
+                      setActiveStep={setActiveStep}
+                      step="Shipping"
+                      steps={steps}
+                      isStepRequired={ctx.isShipmentRequired}
+                      isStepDone={ctx.hasShippingMethod}
                     >
-                      <StepShipping className="mb-6" step={2} />
-                    </AccordionItem>
-                  </AccordionProvider>
-                )}</>
+                      <AccordionItem
+                        index={2}
+                        header={
+                          <StepHeaderShipping
+                            step={getStepNumber("Shipping")}
+                          />
+                        }
+                      >
+                        <StepShipping className="mb-6" step={2} />
+                      </AccordionItem>
+                    </AccordionProvider>
+                  )}
+                </>
                 <AccordionProvider
                   activeStep={activeStep}
                   lastActivableStep={lastActivableStep}

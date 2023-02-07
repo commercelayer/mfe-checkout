@@ -7,7 +7,7 @@ overrides:
 
 specifiers:
   '@commercelayer/js-auth': ^2.3.0
-  '@commercelayer/react-components': 4.2.1-beta.5
+  '@commercelayer/react-components': 4.2.1-beta.6
   '@commercelayer/sdk': ^4.21.0
   '@faker-js/faker': ^7.6.0
   '@headlessui/react': ^1.7.8
@@ -65,7 +65,7 @@ specifiers:
 
 dependencies:
   '@commercelayer/js-auth': 2.3.0
-  '@commercelayer/react-components': 4.2.1-beta.5_biqbaboplfbrettd7655fr4n2y
+  '@commercelayer/react-components': 4.2.1-beta.6_biqbaboplfbrettd7655fr4n2y
   '@commercelayer/sdk': 4.21.0
   '@faker-js/faker': 7.6.0
   '@headlessui/react': 1.7.8_biqbaboplfbrettd7655fr4n2y
@@ -326,15 +326,15 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@commercelayer/react-components/4.2.1-beta.5_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-+d0gb+IQlIq4j3drfTUbpPfIJiCWCKFtNJK7KqD/k2sqbtNEzbdK0orVyiN8TYg6juvG7BUe52Rx1iQpeJAu/g==}
+  /@commercelayer/react-components/4.2.1-beta.6_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-6op3r0zKbXcTmeQgytM3q6IUXkHNDG1k2aVukwUIczx8n/sC1oQSEqfTIpt3hJyN6wLmax+UrfVrY5jL1PmUCA==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
       '@ac-dev/countries-service': 1.2.0
       '@ac-dev/states-service': 1.1.1
       '@adyen/adyen-web': 5.33.0
-      '@commercelayer/sdk': 4.24.0
+      '@commercelayer/sdk': 4.24.1
       '@stripe/react-stripe-js': 1.16.4_keartrz7uyerl3wkpjpue4xbhy
       '@stripe/stripe-js': 1.46.0
       axios: 1.3.2
@@ -360,11 +360,11 @@ packages:
       - debug
     dev: false
 
-  /@commercelayer/sdk/4.24.0:
-    resolution: {integrity: sha512-fwolX+FwmtmkjtikPBINE0k2msbx8dRdF8cE7wDIeArTP8lzlELJFNnHrhOPezbuiTh32HeAvie4+f1lzhjlJw==}
+  /@commercelayer/sdk/4.24.1:
+    resolution: {integrity: sha512-d5wMM7wDEXNKF8ORiYuuWlbjQzEZiSh7lk2nyugOaCe36ERBURljy+2TFa9YlznP+Z2YW1yCw1MDhwV1WABZ9g==}
     engines: {node: '>=16 || ^14.17'}
     dependencies:
-      axios: 1.3.1
+      axios: 1.3.2
     transitivePeerDependencies:
       - debug
     dev: false
@@ -1472,16 +1472,6 @@ packages:
 
   /axios/1.1.3:
     resolution: {integrity: sha512-00tXVRwKx/FZr/IDVFt4C+f9FYairX517WoGCL6dpOntqLkZofjhu43F/Xl44UOpqa+9sLFDrG/XAnFsUYgkDA==}
-    dependencies:
-      follow-redirects: 1.15.2
-      form-data: 4.0.0
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
-  /axios/1.3.1:
-    resolution: {integrity: sha512-78pWJsQTceInlyaeBQeYZ/QgZeWS8hGeKiIJiDKQe3hEyBb7sEMq0K4gjx+Va6WHTYO4zI/RRl8qGRzn0YMadA==}
     dependencies:
       follow-redirects: 1.15.2
       form-data: 4.0.0

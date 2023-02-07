@@ -131,29 +131,29 @@ export const StepPayment: React.FC = () => {
     >
       <StepContent>
         <>
-        {accordionCtx.isActive && (
-          <div>
-            {isPaymentRequired ? (
-              isGuest ? (
-                <CheckoutPayment
-                  selectPayment={selectPayment}
-                  autoSelectCallback={autoSelectCallback}
-                  hasTitle={hasTitle}
-                />
+          {accordionCtx.isActive && (
+            <div>
+              {isPaymentRequired ? (
+                isGuest ? (
+                  <CheckoutPayment
+                    selectPayment={selectPayment}
+                    autoSelectCallback={autoSelectCallback}
+                    hasTitle={hasTitle}
+                  />
+                ) : (
+                  <CheckoutCustomerPayment
+                    selectPayment={selectPayment}
+                    autoSelectCallback={autoSelectCallback}
+                    hasTitle={hasTitle}
+                  />
+                )
               ) : (
-                <CheckoutCustomerPayment
-                  selectPayment={selectPayment}
-                  autoSelectCallback={autoSelectCallback}
-                  hasTitle={hasTitle}
-                />
-              )
-            ) : (
-              <p className="text-sm text-gray-400">
-                {t("stepPayment.amountZero")}
-              </p>
-            )}
-          </div>
-        )}
+                <p className="text-sm text-gray-400">
+                  {t("stepPayment.amountZero")}
+                </p>
+              )}
+            </div>
+          )}
         </>
       </StepContent>
     </StepContainer>

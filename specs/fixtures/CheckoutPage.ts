@@ -662,13 +662,12 @@ export class CheckoutPage {
             break
           }
           case "klarna_pay_now": {
-            await this.page.click(
-              "[data-testid=adyen_payments] >> text=Klarna",
-              {
-                force: true,
-              }
-            )
-            await this.page.click("[data-testid=save-payment-button]")
+            await this.page
+              .getByRole("radio", {
+                name: "Pay now with Klarna. Pay now with Klarna.",
+              })
+              .click()
+            await this.page.getByTestId("save-payment-button").click()
             await this.page.click("#buy-button")
 
             const i = this.page.locator("#klarna-apf-iframe")
@@ -687,11 +686,8 @@ export class CheckoutPage {
             await klarnaIframe.locator("input#otp_field").focus()
             await klarnaIframe.locator("input#otp_field").type("123456")
             await this.page.waitForTimeout(1000)
-
             await klarnaIframe
-              .locator(
-                "#dd-confirmation-dialog__footer-button-wrapper  >> button"
-              )
+              .getByRole("button", { name: "Zahle 99,00 € jetzt" })
               .click()
             break
           }
