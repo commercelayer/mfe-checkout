@@ -29,6 +29,7 @@ export const CheckoutPayment = ({
       className="payment group"
       loader={<PaymentSkeleton />}
       clickableContainer
+      hide={["external_payments"]}
       // @ts-expect-error Type Types of parameters 'params' and 'payment' are incompatible.
       onClick={selectPayment}
     >
