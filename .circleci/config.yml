@@ -1,14 +1,16 @@
 version: 2.1
 
+orbs:
+  aws-s3: circleci/aws-s3@3.1.1
+
 jobs:
-  build_and_test: # this can be any name you choose
+  test: # this can be any name you choose
     docker:
-      - image: mcr.microsoft.com/playwright:v1.25.2-focal
+      - image: mcr.microsoft.com/playwright:v1.30.0-focal
     resource_class: large
     parallelism: 10
 
     environment:
-      # NODE_ENV: production
       PLAYWRIGHT_BROWSERS_PATH: 0
 
     steps:
@@ -24,25 +26,20 @@ jobs:
             apt-get install -y curl wget gpg
             curl -sL https://deb.nodesource.com/setup_18.x | bash -
             apt-get install -y nodejs
+            npm install -g pnpm
       - run:
-          name: Install pnpm package manager
-          command: |
-            curl -L https://pnpm.js.org/pnpm.js | node - add --global pnpm@7
-      - run:
-          name: Install Dependencies
+          name: Setup
           command: |
             pnpm install
+      - run:
+          name: Install Playwright
+          command: |
             pnpm playwright install chromium
       - save_cache:
           name: Save pnpm Package Cache
           key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
           paths:
             - node_modules
-      # Step disabled until Adyen is allowing host with http protocol
-      # - run:
-      #     name: Add E2E_BASE_URL to /etc/hosts
-      #     command: |
-      #       tee -a /etc/hosts \<<<"127.0.0.1 ${E2E_BASE_URL}"
       - run:
           name: Export and serve
           command: |
@@ -51,10 +48,58 @@ jobs:
           name: Run tests
           command: |
             pnpm run serve &
-            TESTFILES=$(circleci tests glob "specs/e2e/**/*.spec.ts" | circleci tests split --split-by=timings)   
+            TESTFILES=$(circleci tests glob "specs/e2e/**/*.spec.ts" | circleci tests split --split-by=timings)
             pnpm playwright test --config=playwright.config.ci.ts ${TESTFILES}
+      - store_artifacts:
+          path: test-results
+
+  build:
+    docker:
+      - image: cimg/node:18.12.1
+    resource_class: medium
+    environment:
+      FOLDER: checkout
+      NEXT_PUBLIC_DOMAIN: commercelayer.io
+      NEXT_PUBLIC_HOSTED: true
+      NEXT_PUBLIC_BASE_PATH: /checkout
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: pnpm install
+      - run:
+          name: Build
+          command: pnpm export
+      - aws-s3/sync:
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          from: out
+          to: "s3://$S3_ASSETS_BUCKET/team/fe-static-apps/$FOLDER/<<pipeline.git.tag>>"
 
 workflows:
   tests:
     jobs:
-      - build_and_test
+      - test:
+          context: commercelayer
+          filters:
+            tags:
+              ignore: /v.*/
+
+  test-build-and-push:
+    jobs:
+      - test:
+          context: commercelayer
+          filters:
+            tags:
+              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
+            branches:
+              ignore: /.*/
+      - build:
+          requires:
+            - test
+          context: commercelayer
+          filters:
+            tags:
+              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
+            branches:
+              ignore: /.*/

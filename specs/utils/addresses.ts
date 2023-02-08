@@ -50,6 +50,18 @@ export const usAddress: Partial<Address> = {
   phone: "+1 123 321123123",
 }
 
+export const deAddress: Partial<Address> = {
+  first_name: "Steve",
+  last_name: "Jobs",
+  line_1: "Nürnberger Str. 24A",
+  city: "Berlin",
+  country_code: "DE",
+  state_code: "Berlin",
+  zip_code: "10789",
+  phone: "+49 30 56839568",
+  billing_info: "00CDEFGHIJKLMNOPQRSTUVWYXZ",
+}
+
 export function composeForCheck(address: Partial<Address>) {
   return `${address.first_name} ${address.last_name}${address.line_1}${
     address.line_2 ? `, ${address.line_2}` : ""

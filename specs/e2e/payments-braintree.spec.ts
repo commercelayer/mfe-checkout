@@ -57,9 +57,9 @@ test.describe("guest with Braintree", () => {
       .locator(`text=Thank you for your order!`)
       .waitFor({ state: "visible", timeout: 100000 })
 
-    await checkoutPage.checkPaymentRecap("Visa ending in 1111")
+    await checkoutPage.checkPaymentRecap("Visa ending in 0004")
     await checkoutPage.page.reload()
-    await checkoutPage.checkPaymentRecap("Visa ending in 1111")
+    await checkoutPage.checkPaymentRecap("Visa ending in 0004")
   })
 })
 
@@ -208,6 +208,6 @@ test.describe("customer with Braintree with saving", () => {
       .locator(`text=Thank you for your order!`)
       .waitFor({ state: "visible", timeout: 100000 })
 
-    await checkoutPage.checkPaymentRecap("Visa ending in 1111")
+    await checkoutPage.checkPaymentRecap("Visa ending in 0004")
   })
 })

@@ -5,6 +5,9 @@ import Document, {
   Head,
   DocumentContext,
 } from "next/document"
+import Script from "next/script"
+
+import NewRelicSnippet from "components/data/NewRelicSnippet"
 
 class AppDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -21,6 +24,12 @@ class AppDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
             rel="stylesheet"
           />
+
+          {process.env.NEXT_PUBLIC_NEWRELIC_LOADER_CONFIG && (
+            <Script id="new-relic" strategy="afterInteractive">
+              {NewRelicSnippet}
+            </Script>
+          )}
         </Head>
         <body className="bg-gray-50">
           <Main />

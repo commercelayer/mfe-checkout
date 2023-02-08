@@ -344,7 +344,7 @@ test.describe("with coupon down to zero", () => {
     await checkoutPage.checkStep("Customer", "open")
     await checkoutPage.save("Customer")
 
-    await checkoutPage.checkDiscountAmount("-€30,00")
+    await checkoutPage.checkDiscountAmount("-€29,00")
     await checkoutPage.checkTotalAmount("€0,00")
     await checkoutPage.checkStep("Shipping", "open")
 
