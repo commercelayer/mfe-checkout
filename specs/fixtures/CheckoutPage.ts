@@ -200,12 +200,10 @@ export class CheckoutPage {
   }
 
   async useCustomerCard() {
-    const element = this.page.locator("[data-testid=customer-card]")
+    const element = this.page.getByTestId("customer-card")
     await expect(element).toBeVisible({ timeout: 10000 })
     await this.page.waitForTimeout(2000)
-    await this.page.click("[data-testid=customer-card]", {
-      force: true,
-    })
+    await this.page.getByTestId("customer-card").click()
   }
 
   async checkShipToDifferentAddressEnabled(value: boolean) {
