@@ -485,11 +485,12 @@ export class CheckoutPage {
 
   async checkShippingSummary(text?: string) {
     if (text === undefined) {
-      const element = await this.page.locator("[data-testid=shipping-amount]")
+      const element = await this.page.getByTestId("shipping-amount")
       await expect(element).toHaveCount(0)
     } else {
       await this.page
-        .locator(`[data-testid=shipping-amount] >> text=${text}`)
+        .getByTestId("shipping-amount")
+        .filter({ hasText: text })
         .waitFor({ state: "visible" })
     }
   }
