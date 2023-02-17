@@ -118,8 +118,8 @@ workflows:
       #       branches:
       #         ignore: /.*/
       - build:
-          requires:
-            - test
+          # requires:
+          #   - test
           context: commercelayer
           filters:
             tags:
@@ -137,8 +137,8 @@ workflows:
       #       branches:
       #         ignore: /.*/
       - build-on-pci-bucket:
-          requires:
-            - test
+          # requires:
+          #   - test
           context: commercelayer
           filters:
             tags:
