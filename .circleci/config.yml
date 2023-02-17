@@ -59,7 +59,7 @@ jobs:
     resource_class: medium
     environment:
       FOLDER: checkout
-      NEXT_PUBLIC_DOMAIN: commercelayer.io
+      NEXT_PUBLIC_DOMAIN: commercelayer.co
       NEXT_PUBLIC_HOSTED: true
       NEXT_PUBLIC_BASE_PATH: /checkout
     steps:
@@ -76,6 +76,29 @@ jobs:
           from: out
           to: "s3://$S3_ASSETS_BUCKET/team/fe-static-apps/$FOLDER/<<pipeline.git.tag>>"
 
+  build-on-pci-bucket:
+    docker:
+      - image: cimg/node:18.12.1
+    resource_class: medium
+    environment:
+      FOLDER: checkout
+      NEXT_PUBLIC_DOMAIN: commercelayer.io
+      NEXT_PUBLIC_HOSTED: true
+      NEXT_PUBLIC_BASE_PATH: /checkout
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: pnpm install
+      - run:
+          name: Build
+          command: pnpm export
+      - aws-s3/sync:
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          from: out
+          to: "s3://$S3_PCI_BUCKET/$FOLDER/<<pipeline.git.tag>>-<<pipeline.git.revision>>"
+
 workflows:
   tests:
     jobs:
@@ -87,13 +110,13 @@ workflows:
 
   test-build-and-push:
     jobs:
-      - test:
-          context: commercelayer
-          filters:
-            tags:
-              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
-            branches:
-              ignore: /.*/
+      # - test:
+      #     context: commercelayer
+      #     filters:
+      #       tags:
+      #         only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
+      #       branches:
+      #         ignore: /.*/
       - build:
           requires:
             - test
@@ -103,3 +126,22 @@ workflows:
               only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
             branches:
               ignore: /.*/
+
+  test-build-and-push-on-pci-bucket:
+    jobs:
+      # - test:
+      #     context: commercelayer
+      #     filters:
+      #       tags:
+      #         only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
+      #       branches:
+      #         ignore: /.*/
+      - build-on-pci-bucket:
+          requires:
+            - test
+          context: commercelayer
+          filters:
+            tags:
+              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
+            branches:
+              only: pci
