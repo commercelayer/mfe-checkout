@@ -110,16 +110,16 @@ workflows:
 
   test-build-and-push:
     jobs:
-      # - test:
-      #     context: commercelayer
-      #     filters:
-      #       tags:
-      #         only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
-      #       branches:
-      #         ignore: /.*/
+      - test:
+          context: commercelayer
+          filters:
+            tags:
+              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
+            branches:
+              ignore: /.*/
       - build:
-          # requires:
-          #   - test
+          requires:
+            - test
           context: commercelayer
           filters:
             tags:
@@ -129,16 +129,16 @@ workflows:
 
   test-build-and-push-on-pci-bucket:
     jobs:
-      # - test:
-      #     context: commercelayer
-      #     filters:
-      #       tags:
-      #         only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
-      #       branches:
-      #         ignore: /.*/
+      - test:
+          context: commercelayer
+          filters:
+            tags:
+              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
+            branches:
+              ignore: /.*/
       - build-on-pci-bucket:
-          # requires:
-          #   - test
+          requires:
+            - test
           context: commercelayer
           filters:
             tags:
