@@ -110,7 +110,7 @@ test.describe("with two shipping method", () => {
     await checkoutPage.checkShippingMethodPrice({ index: 1, text: "€12,00" })
 
     const element = checkoutPage.page.locator(
-      '[data-test-id="shipping-method-price"] >> nth=1 >> text=€12,00'
+      '[data-testid="shipping-method-price"] >> nth=1 >> text=€12,00'
     )
 
     await expect(element).toHaveCount(1)
@@ -262,7 +262,7 @@ test.describe("ship from primary", () => {
     await checkoutPage.save("Customer")
 
     await checkoutPage.checkStep("Shipping", "open")
-    const element = checkoutPage.page.locator('[data-test-id="line-item-name"]')
+    const element = checkoutPage.page.locator('[data-testid="line-item-name"]')
     await expect(element).toHaveCount(2)
   })
 })
@@ -292,7 +292,7 @@ test.describe("ship from primary with all stock transfers", () => {
     await checkoutPage.save("Customer")
 
     await checkoutPage.checkStep("Shipping", "open")
-    const element = checkoutPage.page.locator('[data-test-id="line-item-name"]')
+    const element = checkoutPage.page.locator('[data-testid="line-item-name"]')
 
     await expect(element).toHaveCount(3)
   })

@@ -6,7 +6,7 @@ interface GlobalStyleProps {
   primaryColor: HSLProps
 }
 
-const CustomStyles = createGlobalStyle<GlobalStyleProps>`
+const CustomStyles: any = createGlobalStyle<GlobalStyleProps>`
   :root {
     --primary-h: ${({ primaryColor }) => primaryColor.h};
     --primary-s: ${({ primaryColor }) => primaryColor.s};

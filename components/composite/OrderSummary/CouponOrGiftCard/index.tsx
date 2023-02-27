@@ -1,9 +1,8 @@
-import {
-  GiftCardOrCouponCode,
-  GiftCardOrCouponSubmit,
-  GiftCardOrCouponForm,
-  ErrorComponentProps,
-} from "@commercelayer/react-components"
+import type { TErrorComponent } from "@commercelayer/react-components/errors/Errors"
+import GiftCardOrCouponCode from "@commercelayer/react-components/gift_cards/GiftCardOrCouponCode"
+import GiftCardOrCouponForm from "@commercelayer/react-components/gift_cards/GiftCardOrCouponForm"
+import GiftCardOrCouponSubmit from "@commercelayer/react-components/gift_cards/GiftCardOrCouponSubmit"
+import type { Order } from "@commercelayer/sdk"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -19,7 +18,7 @@ import {
 
 interface Props {
   readonly?: boolean
-  setCouponOrGiftCard: () => Promise<void>
+  setCouponOrGiftCard: (order?: Order) => Promise<void>
 }
 
 export const CouponOrGiftCard: React.FC<Props> = ({
@@ -33,17 +32,18 @@ export const CouponOrGiftCard: React.FC<Props> = ({
   const handleSubmit = async (response: {
     success: boolean
     value?: string
+    order?: Order
   }) => {
     if (!response.success) {
       return setCodeError(response.value?.length !== 0)
     }
-    await setCouponOrGiftCard()
+    await setCouponOrGiftCard(response.order)
     return setCodeError(false)
   }
 
   const classError = codeError ? "hasError" : ""
 
-  const messages: ErrorComponentProps["messages"] = [
+  const messages: TErrorComponent["messages"] = [
     {
       code: "VALIDATION_ERROR",
       resource: "orders",
@@ -95,7 +95,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({
           <CouponFormWrapper>
             <CouponFieldWrapper>
               <StyledGiftCardOrCouponInput
-                data-test-id="input_giftcard_coupon"
+                data-testid="input_giftcard_coupon"
                 className={`form-input ${classError}`}
                 required={false}
                 placeholderTranslation={(codeType) =>
@@ -103,13 +103,13 @@ export const CouponOrGiftCard: React.FC<Props> = ({
                 }
               />
               <GiftCardOrCouponSubmit
-                data-test-id="submit_giftcard_coupon"
+                data-testid="submit_giftcard_coupon"
                 label={t("general.apply")}
                 className={`w-auto -ml-px relative inline-flex items-center space-x-2 px-8 py-3 text-xs font-extrabold text-contrast bg-primary border border-transparent rounded-r-md hover:opacity-80 focus:outline-none`}
               />
             </CouponFieldWrapper>
             <StyledErrors
-              data-test-id="discount-error"
+              data-testid="discount-error"
               resource="orders"
               messages={messages}
             />
@@ -122,14 +122,14 @@ export const CouponOrGiftCard: React.FC<Props> = ({
           const { hide, code, ...p } = props
           return hide ? null : (
             <CouponRecap>
-              <span data-test-id="code-coupon" {...p}>
+              <span data-testid="code-coupon" {...p}>
                 <CouponName>{code}</CouponName>
                 {!readonly && (
                   <StyledGiftCardOrCouponRemoveButton
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     onClick={handleSubmit}
-                    data-test-id="remove_coupon"
+                    data-testid="remove_coupon"
                     type="coupon"
                     label="Remove"
                   />
@@ -147,14 +147,14 @@ export const CouponOrGiftCard: React.FC<Props> = ({
           const { hide, code, ...p } = props
           return hide ? null : (
             <CouponRecap>
-              <span data-test-id="code-giftcard" {...p}>
+              <span data-testid="code-giftcard" {...p}>
                 {code}
                 {!readonly && (
                   <StyledGiftCardOrCouponRemoveButton
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     onClick={handleSubmit}
-                    data-test-id="remove_giftcard"
+                    data-testid="remove_giftcard"
                     type="gift_card"
                     className=""
                     label="Remove"

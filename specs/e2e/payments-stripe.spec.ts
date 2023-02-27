@@ -39,7 +39,7 @@ test.describe("customer with Stripe without saving", () => {
     await checkoutPage.selectPayment("stripe")
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
@@ -91,13 +91,13 @@ test.describe("customer with Stripe with saving", () => {
     await checkoutPage.checkPaymentSummary("€10,00")
 
     let element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
     await element.check()
     element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]"
     )
     expect(element).toBeChecked()
 
@@ -161,7 +161,7 @@ test.describe("guest with Stripe", () => {
     await checkoutPage.setPayment("stripe")
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]"
     )
     expect(element).not.toBeVisible()
 

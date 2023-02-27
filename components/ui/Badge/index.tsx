@@ -10,7 +10,7 @@ interface Props {
 
 export const Badge: React.FC<Props> = ({ status, stepNumber }) => (
   <StepBadge
-    data-test-id="step-header-badge"
+    data-testid="step-header-badge"
     active={status === "edit"}
     done={status === "done"}
     skip={status === "skip"}

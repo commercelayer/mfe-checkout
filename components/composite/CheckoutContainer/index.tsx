@@ -1,4 +1,4 @@
-import { CommerceLayer } from "@commercelayer/react-components"
+import CommerceLayer from "@commercelayer/react-components/auth/CommerceLayer"
 
 import { CheckoutHead } from "components/composite/CheckoutTitle"
 import { AppProvider } from "components/data/AppProvider"
@@ -7,9 +7,10 @@ import { GTMProvider } from "components/data/GTMProvider"
 
 interface Props {
   settings: CheckoutSettings
+  children: JSX.Element[] | JSX.Element
 }
 
-const CheckoutContainer: React.FC<Props> = ({ settings, children }) => {
+const CheckoutContainer = ({ settings, children }: Props): JSX.Element => {
   return (
     <div>
       <CheckoutHead title={settings.companyName} favicon={settings.favicon} />

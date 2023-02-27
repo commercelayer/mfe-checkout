@@ -1,8 +1,6 @@
-import {
-  GiftCardOrCouponRemoveButton,
-  GiftCardOrCouponInput,
-  Errors,
-} from "@commercelayer/react-components"
+import Errors from "@commercelayer/react-components/errors/Errors"
+import GiftCardOrCouponInput from "@commercelayer/react-components/gift_cards/GiftCardOrCouponInput"
+import GiftCardOrCouponRemoveButton from "@commercelayer/react-components/gift_cards/GiftCardOrCouponRemoveButton"
 import styled from "styled-components"
 import tw from "twin.macro"
 

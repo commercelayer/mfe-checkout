@@ -1,12 +1,12 @@
 import {
   LineItem,
-  LineItemImage,
-  LineItemName,
-  LineItemAmount,
-  LineItemOption,
-  LineItemType,
-  LineItemQuantity,
-} from "@commercelayer/react-components"
+  TLineItem,
+} from "@commercelayer/react-components/line_items/LineItem"
+import LineItemAmount from "@commercelayer/react-components/line_items/LineItemAmount"
+import LineItemImage from "@commercelayer/react-components/line_items/LineItemImage"
+import LineItemName from "@commercelayer/react-components/line_items/LineItemName"
+import LineItemOption from "@commercelayer/react-components/line_items/LineItemOption"
+import LineItemQuantity from "@commercelayer/react-components/line_items/LineItemQuantity"
 import { useTranslation } from "next-i18next"
 import React from "react"
 
@@ -20,7 +20,7 @@ import {
 } from "./styled"
 
 interface Props {
-  type: LineItemType
+  type: TLineItem
 }
 
 const CODE_LOOKUP: { [k: string]: "sku_code" | "bundle_code" | undefined } = {
@@ -32,7 +32,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
   const { t } = useTranslation()
   return (
     <LineItem type={type}>
-      <LineItemWrapper data-test-id={`line-items-${type}`}>
+      <LineItemWrapper data-testid={`line-items-${type}`}>
         <LineItemImage
           width={85}
           className="self-start p-1 bg-white border rounded"
@@ -48,10 +48,12 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
           </StyledLineItemOptions>
           <LineItemQty>
             <LineItemQuantity>
-              {(props) =>
-                !!props.quantity &&
-                t("orderRecap.quantity", { count: props.quantity })
-              }
+              {(props) => (
+                <>
+                  {!!props.quantity &&
+                    t("orderRecap.quantity", { count: props.quantity })}
+                </>
+              )}
             </LineItemQuantity>
           </LineItemQty>
         </LineItemDescription>

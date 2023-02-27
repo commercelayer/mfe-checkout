@@ -1,12 +1,10 @@
-import {
-  AddressesContainer,
-  BillingAddressForm,
-  SaveAddressesButton,
-  ShippingAddressForm,
-  BillingAddressContainer,
-  ShippingAddressContainer,
-} from "@commercelayer/react-components"
-import { Address } from "@commercelayer/sdk"
+import AddressesContainer from "@commercelayer/react-components/addresses/AddressesContainer"
+import BillingAddressContainer from "@commercelayer/react-components/addresses/BillingAddressContainer"
+import BillingAddressForm from "@commercelayer/react-components/addresses/BillingAddressForm"
+import SaveAddressesButton from "@commercelayer/react-components/addresses/SaveAddressesButton"
+import ShippingAddressContainer from "@commercelayer/react-components/addresses/ShippingAddressContainer"
+import ShippingAddressForm from "@commercelayer/react-components/addresses/ShippingAddressForm"
+import type { Address, Order } from "@commercelayer/sdk"
 import { Transition } from "@headlessui/react"
 import { useState, Fragment, useEffect, Dispatch, SetStateAction } from "react"
 import { useTranslation } from "react-i18next"
@@ -45,7 +43,7 @@ interface Props {
   setShipToDifferentAddress: Dispatch<SetStateAction<boolean>>
   openShippingAddress: (props: ShippingToggleProps) => void
   disabledShipToDifferentAddress: boolean
-  handleSave: () => void
+  handleSave: (params: { success: boolean; order?: Order }) => void
 }
 
 type AddressTypeEnum = "shipping" | "billing"
@@ -119,7 +117,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
 
   const handleScroll = (type: AddressTypeEnum) => {
     const tab = document
-      .querySelector(`h3[data-test-id="${type}-address"]`)
+      .querySelector(`h3[data-testid="${type}-address"]`)
       ?.getBoundingClientRect()
     const top = window.scrollY + (tab?.top as number)
     const left = window.scrollX + (tab?.left as number)
@@ -169,7 +167,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     <Fragment>
       <AddressSectionEmail readonly emailAddress={emailAddress as string} />
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
-        <AddressSectionTitle data-test-id="billing-address">
+        <AddressSectionTitle data-testid="billing-address">
           {t(`addressForm.billing_address_title`)}
         </AddressSectionTitle>
         <div className="relative">
@@ -235,14 +233,14 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           <>
             <Toggle
               disabled={disabledShipToDifferentAddress}
-              data-test-id="button-ship-to-different-address"
+              data-testid="button-ship-to-different-address"
               data-status={shipToDifferentAddress}
               label={t(`addressForm.ship_to_different_address`)}
               checked={shipToDifferentAddress}
               onChange={handleToggle}
             />
             <div className={`${shipToDifferentAddress ? "" : "hidden"} mb-2`}>
-              <AddressSectionTitle data-test-id="shipping-address">
+              <AddressSectionTitle data-testid="shipping-address">
                 {t(`addressForm.shipping_address_title`)}
               </AddressSectionTitle>
             </div>
@@ -326,7 +324,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                     : t("stepShipping.continueToPayment")}
                 </>
               }
-              data-test-id="save-customer-button"
+              data-testid="save-customer-button"
               onClick={handleSave}
             />
           </ButtonWrapper>

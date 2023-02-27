@@ -1,4 +1,3 @@
-import { TypeAccepted } from "@commercelayer/react-components/lib/utils/getLineItemsCount"
 import {
   Order,
   Address,
@@ -18,6 +17,20 @@ import {
 
 import { AppStateData } from "components/data/AppProvider"
 import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
+
+export type LineItemType =
+  | "gift_cards"
+  | "payment_methods"
+  | "promotions"
+  | "shipments"
+  | "skus"
+  | "bundles"
+  | "adjustments"
+
+export type TypeAccepted = Extract<
+  LineItemType,
+  "skus" | "gift_cards" | "bundles" | "adjustments"
+>
 
 interface IsNewAddressProps {
   address?: Address

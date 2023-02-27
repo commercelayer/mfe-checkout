@@ -160,7 +160,7 @@ test.describe("two address on wallet", () => {
     await checkoutPage.checkStep("Customer", "open")
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=customer-billing-address]"
+      "[data-testid=customer-billing-address]"
     )
     await expect(element).toHaveCount(2)
 
@@ -272,7 +272,7 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.checkStep("Customer", "open")
 
     let element = await checkoutPage.page.locator(
-      "[data-test-id=customer-billing-address]"
+      "[data-testid=customer-billing-address]"
     )
     await expect(element).toHaveCount(2)
 
@@ -294,7 +294,7 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.checkShipToDifferentAddressValue(false)
     await checkoutPage.checkShipToDifferentAddressEnabled(true)
 
-    element = await checkoutPage.page.locator("[data-test-id=shipping-address]")
+    element = await checkoutPage.page.locator("[data-testid=shipping-address]")
 
     await expect(element).not.toBeVisible()
 
@@ -305,18 +305,18 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.checkShipToDifferentAddressEnabled(false)
 
     element = await checkoutPage.page.locator(
-      "[data-test-id=shipping-address] >> text=Shipping Address"
+      "[data-testid=shipping-address] >> text=Shipping Address"
     )
 
     await expect(element).toBeVisible()
 
     element = await checkoutPage.page.locator(
-      `[data-test-id=customer-shipping-address]:near(:text("Shipping Address")) >> text=(IT)`
+      `[data-testid=customer-shipping-address]:near(:text("Shipping Address")) >> text=(IT)`
     )
     await expect(element).toHaveCount(1)
 
     element = await checkoutPage.page.locator(
-      `[data-test-id=customer-shipping-address]:near(:text("Shipping Address")) >> text=(FR)`
+      `[data-testid=customer-shipping-address]:near(:text("Shipping Address")) >> text=(FR)`
     )
     await expect(element).toHaveCount(0)
 
@@ -326,7 +326,7 @@ test.describe("two address on wallet and code lock", () => {
     })
 
     element = await checkoutPage.page.locator(
-      "[data-test-id=save-customer-button]"
+      "[data-testid=save-customer-button]"
     )
     await expect(element).toBeEnabled()
 
@@ -391,7 +391,7 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.closeNewAddress("shipping")
 
     element = await checkoutPage.page.locator(
-      "data-test-id=save-customer-button"
+      "data-testid=save-customer-button"
     )
     await expect(element).toBeDisabled()
 
@@ -458,7 +458,7 @@ test.describe("one address on wallet", () => {
     await checkoutPage.clickStep("Customer")
 
     let element = await checkoutPage.page.locator(
-      "[data-test-id=customer-billing-address]"
+      "[data-testid=customer-billing-address]"
     )
     await expect(element).toHaveCount(1)
 
@@ -478,7 +478,7 @@ test.describe("one address on wallet", () => {
     await checkoutPage.clickStep("Customer")
 
     element = await checkoutPage.page.locator(
-      "[data-test-id=customer-billing-address]"
+      "[data-testid=customer-billing-address]"
     )
     await expect(element).toHaveCount(1)
   })

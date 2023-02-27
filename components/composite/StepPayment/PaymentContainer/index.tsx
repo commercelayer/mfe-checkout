@@ -1,7 +1,11 @@
 import { PaymentMethodsContainer } from "@commercelayer/react-components"
 import { useTranslation } from "react-i18next"
 
-export const PaymentContainer: React.FC = ({ children }) => {
+interface Props {
+  children: JSX.Element[] | JSX.Element
+}
+
+export const PaymentContainer = ({ children }: Props) => {
   const { t } = useTranslation()
 
   const checkoutReturnUrl = `${
@@ -112,6 +116,12 @@ export const PaymentContainer: React.FC = ({ children }) => {
           infoMessage: {
             text: t("stepPayment.paypalDescription"),
             className: "text-sm text-gray-400",
+          },
+        },
+        externalPayment: {
+          payment_source_token: "testToken12334554",
+          customComponent: () => {
+            return <div>This is an external payment</div>
           },
         },
       }}

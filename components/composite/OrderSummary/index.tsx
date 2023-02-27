@@ -1,15 +1,13 @@
-import {
-  LineItemsContainer,
-  LineItemsCount,
-  TaxesAmount,
-  ShippingAmount,
-  TotalAmount,
-  PaymentMethodAmount,
-  SubTotalAmount,
-  DiscountAmount,
-  AdjustmentAmount,
-  GiftCardAmount,
-} from "@commercelayer/react-components"
+import LineItemsContainer from "@commercelayer/react-components/line_items/LineItemsContainer"
+import LineItemsCount from "@commercelayer/react-components/line_items/LineItemsCount"
+import AdjustmentAmount from "@commercelayer/react-components/orders/AdjustmentAmount"
+import DiscountAmount from "@commercelayer/react-components/orders/DiscountAmount"
+import GiftCardAmount from "@commercelayer/react-components/orders/GiftCardAmount"
+import PaymentMethodAmount from "@commercelayer/react-components/orders/PaymentMethodAmount"
+import ShippingAmount from "@commercelayer/react-components/orders/ShippingAmount"
+import SubTotalAmount from "@commercelayer/react-components/orders/SubTotalAmount"
+import TaxesAmount from "@commercelayer/react-components/orders/TaxesAmount"
+import TotalAmount from "@commercelayer/react-components/orders/TotalAmount"
 import { Trans, useTranslation } from "react-i18next"
 
 import { AppProviderData } from "components/data/AppProvider"
@@ -45,31 +43,39 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
       appCtx.hasShippingAddress &&
       appCtx.hasShippingMethod
     : appCtx.hasBillingAddress
+
+  const lineItems = !readonly ? (
+    <SummaryHeader>
+      <SummaryTitle data-testid="test-summary">
+        {t("orderRecap.order_summary")}
+      </SummaryTitle>
+      <SummarySubTitle>
+        <LineItemsCount
+          data-testid="items-count"
+          typeAccepted={LINE_ITEMS_SHOPPABLE}
+        >
+          {(props): JSX.Element => (
+            <span data-testid="items-count">
+              {t("orderRecap.cartContains", { count: props.quantity })}
+            </span>
+          )}
+        </LineItemsCount>
+      </SummarySubTitle>
+    </SummaryHeader>
+  ) : null
   return (
-    <Wrapper data-test-id="order-summary">
+    <Wrapper data-testid="order-summary">
       <LineItemsContainer>
-        {!readonly && (
-          <SummaryHeader>
-            <SummaryTitle data-test-id="test-summary">
-              {t("orderRecap.order_summary")}
-            </SummaryTitle>
-            <SummarySubTitle>
-              <LineItemsCount
-                data-test-id="items-count"
-                typeAccepted={LINE_ITEMS_SHOPPABLE}
-              >
-                {(props) => (
-                  <span data-test-id="items-count">
-                    {t("orderRecap.cartContains", { count: props.quantity })}
-                  </span>
-                )}
-              </LineItemsCount>
-            </SummarySubTitle>
-          </SummaryHeader>
-        )}
-        {LINE_ITEMS_SHOPPABLE.map((type) => (
-          <LineItemTypes type={type} key={type} />
-        ))}
+        <>
+          {lineItems}
+          {
+            <>
+              {LINE_ITEMS_SHOPPABLE.map((type) => (
+                <LineItemTypes type={type} key={type} />
+              ))}
+            </>
+          }
+        </>
       </LineItemsContainer>
       <TotalWrapper>
         <AmountSpacer />
@@ -91,7 +97,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       {t("orderRecap.discount_amount")}
                     </RecapLineItem>
-                    <div data-test-id="discount-amount">{props.price}</div>
+                    <div data-testid="discount-amount">{props.price}</div>
                   </>
                 )
               }}
@@ -106,7 +112,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       {t("orderRecap.adjustment_amount")}
                     </RecapLineItem>
-                    <div data-test-id="adjustment-amount">{props.price}</div>
+                    <div data-testid="adjustment-amount">{props.price}</div>
                   </>
                 )
               }}
@@ -121,7 +127,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       {t("orderRecap.shipping_amount")}
                     </RecapLineItem>
-                    <div data-test-id="shipping-amount">
+                    <div data-testid="shipping-amount">
                       {!appCtx.hasShippingMethod
                         ? t("orderRecap.notSet")
                         : props.priceCents === 0
@@ -133,7 +139,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
               }}
             </ShippingAmount>
           </RecapLine>
-          <RecapLine data-test-id="payment-method-amount">
+          <RecapLine data-testid="payment-method-amount">
             <PaymentMethodAmount>
               {(props) => {
                 if (props.priceCents === 0) return <></>
@@ -177,7 +183,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                         }
                       />
                     </RecapLineItem>
-                    <div data-test-id="tax-amount">
+                    <div data-testid="tax-amount">
                       {isTaxCalculated ? props.price : t("orderRecap.notSet")}
                     </div>
                   </>
@@ -194,7 +200,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       {t("orderRecap.giftcard_amount")}
                     </RecapLineItem>
-                    <div data-test-id="giftcard-amount">{props.price}</div>
+                    <div data-testid="giftcard-amount">{props.price}</div>
                   </>
                 )
               }}
@@ -205,7 +211,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
               {t("orderRecap.total_amount")}
             </RecapLineItemTotal>
             <TotalAmount
-              data-test-id="total-amount"
+              data-testid="total-amount"
               className="text-xl font-extrabold"
             />
           </RecapLineTotal>

@@ -54,7 +54,7 @@ test.describe("guest with wire transfer", () => {
     await checkoutPage.selectPayment("stripe")
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]"
     )
     expect(element).not.toBeVisible()
 

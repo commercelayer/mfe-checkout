@@ -1,9 +1,7 @@
-import {
-  PaymentSource,
-  PaymentSourceBrandIcon,
-  PaymentSourceBrandName,
-  PaymentSourceDetail,
-} from "@commercelayer/react-components"
+import PaymentSource from "@commercelayer/react-components/payment_source/PaymentSource"
+import PaymentSourceBrandIcon from "@commercelayer/react-components/payment_source/PaymentSourceBrandIcon"
+import PaymentSourceBrandName from "@commercelayer/react-components/payment_source/PaymentSourceBrandName"
+import PaymentSourceDetail from "@commercelayer/react-components/payment_source/PaymentSourceDetail"
 import { useContext } from "react"
 import { useTranslation, Trans } from "react-i18next"
 
@@ -80,7 +78,7 @@ export const StepComplete: React.FC<Props> = ({
             </div>
             <Title>{t("stepComplete.title")}</Title>
             <Text
-              data-test-id="complete-checkout-summary"
+              data-testid="complete-checkout-summary"
               className="text-gray-400"
             >
               <Trans
@@ -99,7 +97,7 @@ export const StepComplete: React.FC<Props> = ({
             {ctx?.returnUrl && (
               <WrapperButton>
                 <Button
-                  data-test-id="button-continue-to-shop"
+                  data-testid="button-continue-to-shop"
                   onClick={handleClick}
                 >
                   {t("stepComplete.continue")}
@@ -126,7 +124,7 @@ export const StepComplete: React.FC<Props> = ({
               </RecapCol>
               <RecapCol>
                 <AddressContainer className="lg:!grid-cols-1 xl:!grid-cols-2">
-                  <div data-test-id="billing-address-recap">
+                  <div data-testid="billing-address-recap">
                     <RecapItemTitle>
                       {t("stepComplete.billed_to")}
                     </RecapItemTitle>
@@ -145,8 +143,8 @@ export const StepComplete: React.FC<Props> = ({
                       />
                     </RecapBox>
                   </div>
-                  {ctx.isShipmentRequired && (
-                    <div data-test-id="shipping-address-recap">
+                  <>{ctx.isShipmentRequired && (
+                    <div data-testid="shipping-address-recap">
                       <RecapItemTitle>
                         {t("stepComplete.ship_to")}
                       </RecapItemTitle>
@@ -165,11 +163,11 @@ export const StepComplete: React.FC<Props> = ({
                         />
                       </RecapBox>
                     </div>
-                  )}
+                  )}</>
                 </AddressContainer>
               </RecapCol>
 
-              <RecapCol data-test-id="payment-recap">
+              <RecapCol data-testid="payment-recap">
                 <RecapItemTitle>{t("stepComplete.payment")}</RecapItemTitle>
                 {ctx.isPaymentRequired ? (
                   <RecapBox>
@@ -190,7 +188,7 @@ export const StepComplete: React.FC<Props> = ({
                                   </Trans>
                                 )
                               }
-                              return getTranslations(brand, t)
+                              return <>{getTranslations(brand, t)}</>
                             }}
                           </PaymentSourceBrandName>
                         </PaymentSource>

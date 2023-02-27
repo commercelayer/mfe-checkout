@@ -1,3 +1,4 @@
+import type { Order } from "@commercelayer/sdk"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
@@ -44,10 +45,16 @@ const StepPlaceOrder: React.FC<Props> = ({
 
   const { placeOrder } = appCtx
 
-  const handlePlaceOrder = async ({ placed }: { placed: boolean }) => {
+  const handlePlaceOrder = async ({
+    placed,
+    order,
+  }: {
+    placed: boolean
+    order?: Order
+  }) => {
     if (placed) {
       setIsPlacingOrder(true)
-      await placeOrder()
+      await placeOrder(order)
       if (gtmCtx?.firePurchase && gtmCtx?.fireAddPaymentInfo) {
         await gtmCtx.fireAddPaymentInfo()
         await gtmCtx.firePurchase()
@@ -58,7 +65,7 @@ const StepPlaceOrder: React.FC<Props> = ({
 
   return (
     <>
-      <ErrorsContainer data-test-id="errors-container">
+      <ErrorsContainer data-testid="errors-container">
         <StyledErrors
           resource="orders"
           messages={
@@ -73,19 +80,23 @@ const StepPlaceOrder: React.FC<Props> = ({
               return null
             }
             const compactedErrors = props.errors
-            return compactedErrors?.map((error, index) => {
-              if (error?.trim().length === 0 || !error) {
-                return null
-              }
-              return (
-                <ErrorWrapper key={index}>
-                  <ErrorIco>
-                    <ErrorIcon />
-                  </ErrorIco>
-                  <ErrorMessage>{error}</ErrorMessage>
-                </ErrorWrapper>
-              )
-            })
+            return (
+              <>
+                {compactedErrors?.map((error, index) => {
+                  if (error?.trim().length === 0 || !error) {
+                    return null
+                  }
+                  return (
+                    <ErrorWrapper key={index}>
+                      <ErrorIco>
+                        <ErrorIcon />
+                      </ErrorIco>
+                      <ErrorMessage>{error}</ErrorMessage>
+                    </ErrorWrapper>
+                  )
+                })}
+              </>
+            )
           }}
         </StyledErrors>
       </ErrorsContainer>
@@ -96,7 +107,7 @@ const StepPlaceOrder: React.FC<Props> = ({
             <StyledPrivacyAndTermsCheckbox
               id="privacy-terms"
               className="relative form-checkbox top-0.5"
-              data-test-id="checkbox-privacy-and-terms"
+              data-testid="checkbox-privacy-and-terms"
             />
             <Label htmlFor="privacy-terms">
               <Trans
@@ -116,7 +127,7 @@ const StepPlaceOrder: React.FC<Props> = ({
         )}
         <PlaceOrderButtonWrapper>
           <StyledPlaceOrderButton
-            data-test-id="save-payment-button"
+            data-testid="save-payment-button"
             isActive={isActive}
             onClick={handlePlaceOrder}
             label={

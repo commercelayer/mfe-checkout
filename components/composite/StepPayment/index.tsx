@@ -66,7 +66,7 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
                     </Trans>
                   )
                 }
-                return brand
+                return <>{brand}</>
               }}
             </PaymentSourceBrandName>
           </PaymentSource>
@@ -115,7 +115,7 @@ export const StepPayment: React.FC = () => {
     if (paymentSource?.payment_methods?.paymentMethods?.length > 1) {
       setHasMultiplePaymentMethods(true)
     }
-    setPayment(payment as PaymentMethodType)
+    setPayment({ payment: payment as PaymentMethodType })
   }
 
   const autoSelectCallback = async () => {
@@ -130,29 +130,31 @@ export const StepPayment: React.FC = () => {
       })}
     >
       <StepContent>
-        {accordionCtx.isActive && (
-          <div>
-            {isPaymentRequired ? (
-              isGuest ? (
-                <CheckoutPayment
-                  selectPayment={selectPayment}
-                  autoSelectCallback={autoSelectCallback}
-                  hasTitle={hasTitle}
-                />
+        <>
+          {accordionCtx.isActive && (
+            <div>
+              {isPaymentRequired ? (
+                isGuest ? (
+                  <CheckoutPayment
+                    selectPayment={selectPayment}
+                    autoSelectCallback={autoSelectCallback}
+                    hasTitle={hasTitle}
+                  />
+                ) : (
+                  <CheckoutCustomerPayment
+                    selectPayment={selectPayment}
+                    autoSelectCallback={autoSelectCallback}
+                    hasTitle={hasTitle}
+                  />
+                )
               ) : (
-                <CheckoutCustomerPayment
-                  selectPayment={selectPayment}
-                  autoSelectCallback={autoSelectCallback}
-                  hasTitle={hasTitle}
-                />
-              )
-            ) : (
-              <p className="text-sm text-gray-400">
-                {t("stepPayment.amountZero")}
-              </p>
-            )}
-          </div>
-        )}
+                <p className="text-sm text-gray-400">
+                  {t("stepPayment.amountZero")}
+                </p>
+              )}
+            </div>
+          )}
+        </>
       </StepContent>
     </StepContainer>
   )

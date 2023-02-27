@@ -1,6 +1,6 @@
-import { ErrorComponentProps } from "@commercelayer/react-components"
+import { Errors } from "@commercelayer/react-components/errors/Errors"
 
-export const messages: ErrorComponentProps["messages"] = [
+export const messages: Parameters<typeof Errors>[0]["messages"] = [
   {
     code: "VALIDATION_ERROR",
     resource: "orders",

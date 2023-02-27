@@ -242,7 +242,7 @@ test.describe("with customer email and shipping country code lock", () => {
     await checkoutPage.checkShipToDifferentAddressEnabled(false)
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=input_shipping_address_country_code]"
+      "[data-testid=input_shipping_address_country_code]"
     )
     expect(element).toBeDisabled()
     const shippingAddress = {
@@ -359,7 +359,7 @@ test.describe("without customer email and same addresses", () => {
 test.describe("email error validation", () => {
   test("check initial step", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
-    let element = checkoutPage.page.locator("[data-test-id=discount-error]")
+    let element = checkoutPage.page.locator("[data-testid=discount-error]")
     await expect(element).toHaveCount(0)
     await checkoutPage.setCustomerMail(customerEmail)
     await checkoutPage.blurCustomerEmail()
@@ -369,9 +369,9 @@ test.describe("email error validation", () => {
     await checkoutPage.blurCustomerEmail()
 
     await checkoutPage.page
-      .locator("[data-test-id=customer_email_error] >> text=Can't be blank")
+      .locator("[data-testid=customer_email_error] >> text=Can't be blank")
       .waitFor({ state: "visible" })
-    element = checkoutPage.page.locator("[data-test-id=discount-error]")
+    element = checkoutPage.page.locator("[data-testid=discount-error]")
     await expect(element).toBeEmpty()
   })
 })

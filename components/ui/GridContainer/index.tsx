@@ -3,9 +3,10 @@ import tw from "twin.macro"
 
 interface Props {
   className?: string
+  children?: JSX.Element[] | JSX.Element
 }
 
-export const GridContainer: React.FC<Props> = ({ children, className }) => (
+export const GridContainer = ({ children, className }: Props): JSX.Element => (
   <Wrapper className={className}>{children}</Wrapper>
 )
 

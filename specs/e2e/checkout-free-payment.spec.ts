@@ -35,7 +35,7 @@ test.describe("with shippable sku", () => {
     await checkoutPage.checkStep("Payment", "close")
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment"
     )
 
     expect(element).toBeVisible()
@@ -66,7 +66,7 @@ test.describe("with shippable sku single not free shipping method", () => {
     await checkoutPage.checkStep("Customer", "open")
 
     await checkoutPage.save("Customer")
-
+    
     await checkoutPage.checkStep("Shipping", "close")
 
     await checkoutPage.checkShippingSummary("$7.00")
@@ -112,7 +112,7 @@ test.describe("with shippable sku single free shipping method", () => {
     await checkoutPage.checkStep("Payment", "close")
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment"
     )
 
     expect(element).toBeVisible()
@@ -154,7 +154,7 @@ test.describe("with digital sku", () => {
     await checkoutPage.checkStep("Payment", "close")
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment"
     )
 
     await expect(element).toBeVisible()
@@ -250,7 +250,7 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.checkTotalAmount("€0,00")
 
     let element = await checkoutPage.page.locator(
-      "[data-test-id=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment"
     )
 
     expect(element).toBeVisible()
@@ -296,7 +296,7 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.checkTotalAmount("€0,00")
 
     let element = checkoutPage.page.locator(
-      "[data-test-id=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment"
     )
 
     expect(element).toBeVisible()
@@ -304,7 +304,7 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.removeGiftCard()
 
     element = checkoutPage.page.locator(
-      "[data-test-id=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment"
     )
 
     expect(element).toHaveCount(0)

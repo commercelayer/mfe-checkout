@@ -5,6 +5,7 @@ interface Props {
   dataTestId?: string
   htmlFor: string
   textLabel?: string
+  children?: JSX.Element[] | JSX.Element | null
 }
 
 export const Label: React.FC<Props> = ({
@@ -14,7 +15,7 @@ export const Label: React.FC<Props> = ({
   children,
 }) => {
   return (
-    <Wrapper data-test-id={dataTestId} htmlFor={htmlFor}>
+    <Wrapper data-testid={dataTestId} htmlFor={htmlFor}>
       {children || textLabel}
     </Wrapper>
   )

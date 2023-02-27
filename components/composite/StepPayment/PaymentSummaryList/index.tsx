@@ -17,7 +17,7 @@ export const PaymentSummaryList = ({ hasTitle }: { hasTitle: boolean }) => {
   return (
     <>
       <PaymentSummary>
-        <PaymentSummaryItem data-test-id="payment-method-item">
+        <PaymentSummaryItem data-testid="payment-method-item">
           <PaymentRadioContainer>
             <StyledPaymentMethodRadioButton className="form-radio" />
           </PaymentRadioContainer>
