@@ -1,3 +1,32 @@
+# [4.0.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v3.0.1...v4.0.0) (2023-02-27)
+
+
+### Bug Fixes
+
+* Add Fragment component to avoid React 18 type errors ([f9d01b6](https://github.com/commercelayer/commercelayer-react-checkout/commit/f9d01b659bb9b4e5724fcb67e02a51caec50be26))
+* Payments Adyen Klarna specs ([95ac15a](https://github.com/commercelayer/commercelayer-react-checkout/commit/95ac15aef9203dcc1d71edd27d864faa0bc4645d))
+* Server side rendering error for react 18 ([63e92e3](https://github.com/commercelayer/commercelayer-react-checkout/commit/63e92e375d9e6234b66384513bf033c60950e35a))
+* Set shipping step when a discount is removed ([e897820](https://github.com/commercelayer/commercelayer-react-checkout/commit/e897820b2a9befc1e9eaf557330d960bc7eb0ae6))
+
+
+### Features
+
+* Upgrade to React18 and implement new react component version ([2e9c7a2](https://github.com/commercelayer/commercelayer-react-checkout/commit/2e9c7a2672910ed2ebb63ce2e7e9a813fdcee1ee))
+* Use React 18 ([0547a08](https://github.com/commercelayer/commercelayer-react-checkout/commit/0547a08e8de8a0ca04f4df8a1ad7ace112e02c29))
+
+
+### Performance Improvements
+
+* Get order from callback ([7dc936c](https://github.com/commercelayer/commercelayer-react-checkout/commit/7dc936ca2569954172fbeafe15398447dc346f9e))
+* Get order resource by react-compenents callbacks ([e1f71d7](https://github.com/commercelayer/commercelayer-react-checkout/commit/e1f71d7f7a9e211170b50dca0565cc8b2d4ec127))
+* Hide `external_payments` ([33e6059](https://github.com/commercelayer/commercelayer-react-checkout/commit/33e6059bca691785ec1254cbcef3be7b2ee6efd7))
+* Rewrite provider functions ([8aeb2ea](https://github.com/commercelayer/commercelayer-react-checkout/commit/8aeb2ea8889e6ac1e26148febed6d1ccf4c36a1c))
+
+
+### BREAKING CHANGES
+
+* Starting from this major release of the Checkout application, we moved to React 18 and to version 4.x of Commerce Layer React Components
+
 ## [3.0.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v3.0.0...v3.0.1) (2023-02-01)
 
 
