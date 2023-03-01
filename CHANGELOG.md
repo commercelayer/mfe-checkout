@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.0...v4.0.1) (2023-03-01)
+
+
+### Bug Fixes
+
+* set next build id to commit hash ([bbc3ce0](https://github.com/commercelayer/commercelayer-react-checkout/commit/bbc3ce0204594c622fdd2ebced32120f54e0f8cf))
+
 # [4.0.0](https://github.com/commercelayer/commercelayer-react-checkout/compare/v3.0.1...v4.0.0) (2023-02-27)
 
 
