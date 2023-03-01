@@ -124,6 +124,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-tailwind": "^0.2.1",
+    "next-build-id": "^3.0.0",
     "prettier": "^2.8.3",
     "serve": "^14.1.2",
     "stylelint": "^14.16.1",

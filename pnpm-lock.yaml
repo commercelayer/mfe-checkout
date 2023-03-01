@@ -47,6 +47,7 @@ specifiers:
   i18next: ^21.10.0
   jwt-decode: ^3.1.2
   next: ^12.3.4
+  next-build-id: ^3.0.0
   next-i18next: ^12.1.0
   postcss: ^8.4.21
   prettier: ^2.8.3
@@ -118,6 +119,7 @@ devDependencies:
   eslint-plugin-promise: 6.1.1_eslint@8.33.0
   eslint-plugin-react: 7.32.2_eslint@8.33.0
   eslint-plugin-tailwind: 0.2.1_eslint@8.33.0
+  next-build-id: 3.0.0
   prettier: 2.8.3
   serve: 14.1.2
   stylelint: 14.16.1
@@ -4313,6 +4315,11 @@ packages:
 
   /nerf-dart/1.0.0:
     resolution: {integrity: sha512-EZSPZB70jiVsivaBLYDCyntd5eH8NTSMOn3rB+HxwdmKThGELLdYv8qVIMWvZEFy9w8ZZpW9h9OB32l1rGtj7g==}
+    dev: true
+
+  /next-build-id/3.0.0:
+    resolution: {integrity: sha512-B3JCsL/9Z/wkmo3EySukQHCgx89Aw0i4LPi2MEhCboQBJ6wpkYTIu1z6hOYKuw/S1Wy8ZRqCEq0dVY/ST6jGqg==}
+    engines: {node: '>=8'}
     dev: true
 
   /next-i18next/12.1.0_bhgafntz2ozm43l35i5qtimxry:
