@@ -1,5 +1,7 @@
 // @ts-check
 
+const nextBuildId = require("next-build-id")
+
 const shouldAnalyzeBundles = process.env.ANALYZE === "true"
 
 /** @type { import('next').NextConfig } */
@@ -29,6 +31,7 @@ let nextConfig = {
       },
     ]
   },
+  generateBuildId: () => nextBuildId({ dir: __dirname }),
 }
 
 if (shouldAnalyzeBundles) {
