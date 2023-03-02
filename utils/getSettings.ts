@@ -162,14 +162,14 @@ export const getSettings = async ({
   }
 
   if (isProduction() && (subdomain !== slug || kind !== "sales_channel")) {
-    // return invalidateCheckout()
+    return invalidateCheckout()
   } else if (kind !== "sales_channel") {
     return invalidateCheckout()
   }
 
   const cl = CommerceLayer({
     organization: slug,
-    accessToken: accessToken,
+    accessToken,
     domain,
   })
 

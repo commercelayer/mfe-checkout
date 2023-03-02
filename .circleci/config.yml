@@ -55,12 +55,15 @@ jobs:
 
   build:
     docker:
-      - image: cimg/node:18.12.1
+      - image: cimg/node:18.14.2
     resource_class: medium
     environment:
       FOLDER: checkout
       NEXT_PUBLIC_DOMAIN: commercelayer.co
       NEXT_PUBLIC_HOSTED: true
+      NEXT_PUBLIC_SLUG: ""
+      NEXT_PUBLIC_NEWRELIC_CONFIG_LOADER: ""
+      NODE_ENV: production
       NEXT_PUBLIC_BASE_PATH: /checkout
     steps:
       - checkout
@@ -78,15 +81,23 @@ jobs:
 
   build-on-pci-bucket:
     docker:
-      - image: cimg/node:18.12.1
+      - image: cimg/node:18.14.2
     resource_class: medium
     environment:
       FOLDER: checkout
       NEXT_PUBLIC_DOMAIN: commercelayer.io
+      NEXT_PUBLIC_SLUG: ""
+      NODE_ENV: production
       NEXT_PUBLIC_HOSTED: true
       NEXT_PUBLIC_BASE_PATH: /checkout
     steps:
       - checkout
+      - run:
+          name: Get version
+          command: |
+            pnpm -v
+            npm -v
+            node -v
       - run:
           name: Install
           command: pnpm install
@@ -144,4 +155,4 @@ workflows:
             tags:
               only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
             branches:
-              only: pci
+              only: main

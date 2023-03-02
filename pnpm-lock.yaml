@@ -87,6 +87,7 @@ dependencies:
   i18next: 21.10.0
   jwt-decode: 3.1.2
   next: 12.3.4_biqbaboplfbrettd7655fr4n2y
+  next-build-id: 3.0.0
   next-i18next: 12.1.0_bhgafntz2ozm43l35i5qtimxry
   postcss: 8.4.21
   react: 18.2.0
@@ -119,7 +120,6 @@ devDependencies:
   eslint-plugin-promise: 6.1.1_eslint@8.33.0
   eslint-plugin-react: 7.32.2_eslint@8.33.0
   eslint-plugin-tailwind: 0.2.1_eslint@8.33.0
-  next-build-id: 3.0.0
   prettier: 2.8.3
   serve: 14.1.2
   stylelint: 14.16.1
@@ -4320,7 +4320,7 @@ packages:
   /next-build-id/3.0.0:
     resolution: {integrity: sha512-B3JCsL/9Z/wkmo3EySukQHCgx89Aw0i4LPi2MEhCboQBJ6wpkYTIu1z6hOYKuw/S1Wy8ZRqCEq0dVY/ST6jGqg==}
     engines: {node: '>=8'}
-    dev: true
+    dev: false
 
   /next-i18next/12.1.0_bhgafntz2ozm43l35i5qtimxry:
     resolution: {integrity: sha512-rhos/PVULmZPdC0jpec2MDBQMXdGZ3+Mbh/tZfrDtjgnVN3ucdq7k8BlwsJNww6FnqC8AC31n6dSYuqVzYsGsw==}
