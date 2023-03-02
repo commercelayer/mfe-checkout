@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.1...v4.0.2) (2023-03-02)
+
+
+### Bug Fixes
+
+* solve new relic issue for build on pipeline ([c86e68e](https://github.com/commercelayer/commercelayer-react-checkout/commit/c86e68e97d49e91429580bc47c1e2345dd1c6312))
+
 ## [4.0.1](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.0...v4.0.1) (2023-03-01)
 
 
