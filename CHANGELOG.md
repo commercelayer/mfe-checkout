@@ -1,3 +1,10 @@
+## [4.0.4](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.3...v4.0.4) (2023-03-09)
+
+
+### Bug Fixes
+
+* change structure for adyen tests with 3d secure ([290ae2c](https://github.com/commercelayer/commercelayer-react-checkout/commit/290ae2c2995010d035ee1fabde0143e3a4345f5d))
+
 ## [4.0.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.2...v4.0.3) (2023-03-09)
 
 
