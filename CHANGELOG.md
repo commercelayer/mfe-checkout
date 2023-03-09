@@ -1,3 +1,11 @@
+## [4.0.3](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.2...v4.0.3) (2023-03-09)
+
+
+### Bug Fixes
+
+* add `shortcut` attribute to favicon ([a80f2e3](https://github.com/commercelayer/commercelayer-react-checkout/commit/a80f2e322f421bcc01af46dd96d05e1df91672e8))
+* add new relic per environment ([5c74bac](https://github.com/commercelayer/commercelayer-react-checkout/commit/5c74bac8e5ef08694d70afc495cf39b53b26ed01))
+
 ## [4.0.2](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.1...v4.0.2) (2023-03-02)
 
 
