@@ -62,7 +62,7 @@ jobs:
       NEXT_PUBLIC_DOMAIN: commercelayer.co
       NEXT_PUBLIC_HOSTED: true
       NEXT_PUBLIC_SLUG: ""
-      NEXT_PUBLIC_NEWRELIC_CONFIG_LOADER: ""
+      NEXT_PUBLIC_STAGE: "STG"
       NODE_ENV: production
       NEXT_PUBLIC_BASE_PATH: /checkout
     steps:
@@ -87,6 +87,7 @@ jobs:
       FOLDER: checkout
       NEXT_PUBLIC_DOMAIN: commercelayer.io
       NEXT_PUBLIC_SLUG: ""
+      NEXT_PUBLIC_STAGE: "PRD"
       NODE_ENV: production
       NEXT_PUBLIC_HOSTED: true
       NEXT_PUBLIC_BASE_PATH: /checkout
@@ -144,15 +145,15 @@ workflows:
           context: commercelayer
           filters:
             tags:
-              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
+              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/
             branches:
-              ignore: /.*/
+              only: main
       - build-on-pci-bucket:
           requires:
             - test
           context: commercelayer
           filters:
             tags:
-              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*).*/
+              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/
             branches:
               only: main

@@ -25,7 +25,9 @@ class AppDocument extends Document {
             rel="stylesheet"
           />
 
-          {process.env.NEXT_PUBLIC_NEWRELIC_LOADER_CONFIG !== null && (
+          {process.env[
+            `NEXT_PUBLIC_NEWRELIC_LOADER_CONFIG_${process.env.NEXT_PUBLIC_STAGE}`
+          ] !== null && (
             <Script id="new-relic" strategy="afterInteractive">
               {NewRelicSnippet}
             </Script>
