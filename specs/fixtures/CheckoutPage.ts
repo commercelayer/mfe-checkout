@@ -875,13 +875,12 @@ export class CheckoutPage {
     await this.page.waitForTimeout(3000)
     const secureFrame = this.page.frameLocator("iframe[name=threeDSIframe]")
     await this.page.waitForTimeout(2000)
-    const inputFrame = secureFrame.frameLocator('iframe[name="acsFrame"]')
-    const element = await inputFrame.getByPlaceholder(
+    const element = await secureFrame.getByPlaceholder(
       "enter the word 'password'"
     )
     await element.click()
     await element.fill(text)
-    await inputFrame.locator("#buttonSubmit").click()
+    await secureFrame.locator("#buttonSubmit").click()
   }
 
   async setPayment(
