@@ -37,5 +37,3 @@ cypress/fixtures/*
 
 # vercel
 .vercel
-
-Dockerfile.production
