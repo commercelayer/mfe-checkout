@@ -1,0 +1,22 @@
+FROM node:18.14.2-alpine
+
+WORKDIR /home/circleci/project
+
+RUN corepack enable && corepack prepare pnpm@7.27.1 --activate
+
+COPY package.json pnpm-lock.yaml ./
+
+ENV NODE_ENV production
+
+RUN pnpm install
+
+COPY . .
+
+# To build the image you can use:
+# docker build -t checkout -f Dockerfile.production ./
+# 
+# To export the Next.js application you can run on your shell:
+# docker run --volume ~/path-to-out-folder:/home/circleci/project/out -it checkout pnpm run export
+#
+# you can specify other environment variables directly on .env.production.local file
+
