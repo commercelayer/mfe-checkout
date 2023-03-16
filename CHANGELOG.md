@@ -1,3 +1,10 @@
+## [4.0.5](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.4...v4.0.5) (2023-03-16)
+
+
+### Bug Fixes
+
+* upgrade to latest dependencies ([646945e](https://github.com/commercelayer/commercelayer-react-checkout/commit/646945e2bbe9d6550210524d8765da4716e39b56))
+
 ## [4.0.4](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.3...v4.0.4) (2023-03-09)
 
 
