@@ -1,3 +1,10 @@
+## [4.0.6](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.5...v4.0.6) (2023-03-20)
+
+
+### Bug Fixes
+
+* resolve favicon request error ([e5636cb](https://github.com/commercelayer/commercelayer-react-checkout/commit/e5636cb3fbcb9f063ebd9c31f0980c28a063c1d5))
+
 ## [4.0.5](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.4...v4.0.5) (2023-03-16)
 
 
