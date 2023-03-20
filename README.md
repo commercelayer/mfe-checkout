@@ -45,11 +45,11 @@ The Commerce Layer Checkout application (React) provides you with a PCI-complian
 
 Any Commerce Layer account comes with a hosted version of the Checkout application that is automatically enabled. You can customize it by adding your organization logo, favicon, primary color, Google Tag Manager ID, support telephone, and email address.
 
-You can use the hosted version of the Checkout application with the following URL format: `https://<your-organization-subdomain>.checkout.commercelayer.app/:order_id?accessToken=<your-access-token>`
+You can use the hosted version of the Checkout application with the following URL format: `https://<your-organization-subdomain>.commercelayer.app/checkout/:order_id?accessToken=<your-access-token>`
 
 ### Example
 
-`https://yourbrand.checkout.commercelayer.app/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`
+`https://yourbrand.commercelayer.app/checkout/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`
 
 ### CLI plugin
 
