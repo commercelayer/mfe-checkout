@@ -1,3 +1,10 @@
+## [4.0.7](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.6...v4.0.7) (2023-03-22)
+
+
+### Bug Fixes
+
+* fix return to cart link ([5894e10](https://github.com/commercelayer/commercelayer-react-checkout/commit/5894e102ac1fae7292e1805d480d5396579672d8))
+
 ## [4.0.6](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.5...v4.0.6) (2023-03-20)
 
 
