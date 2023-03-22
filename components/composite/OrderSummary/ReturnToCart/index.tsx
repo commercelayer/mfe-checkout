@@ -15,11 +15,11 @@ export const ReturnToCart = ({ cartUrl }: Props) => {
 
   return (
     <CartLinkWrapper data-testid="edit-cart-link">
-      <Link href={cartUrl} passHref>
+      <a href={cartUrl}>
         <LinkWrapper>
           <>&lt;</> {t("orderRecap.returnToCart")}
         </LinkWrapper>
-      </Link>
+      </a>
     </CartLinkWrapper>
   )
 }
