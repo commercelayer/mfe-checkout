@@ -73,8 +73,8 @@
   ],
   "dependencies": {
     "@commercelayer/js-auth": "^2.3.0",
-    "@commercelayer/react-components": "4.3.2",
-    "@commercelayer/sdk": "^4.26.0",
+    "@commercelayer/react-components": "4.3.5",
+    "@commercelayer/sdk": "^4.27.0",
     "@faker-js/faker": "^7.6.0",
     "@headlessui/react": "^1.7.13",
     "@next/bundle-analyzer": "^12.3.4",
