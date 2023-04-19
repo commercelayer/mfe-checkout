@@ -138,7 +138,7 @@ test.describe("with addresses set and single shipping method", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
       ],
@@ -167,7 +167,7 @@ test.describe("with single shipping method", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
       ],
@@ -242,7 +242,7 @@ test.describe("ship from primary", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SHIP_FROM_PRIMARY,
+      market: "MI",
       lineItemsAttributes: [
         { sku_code: "LSLEEVMM000000E63E74LXXX", quantity: 1 },
         { sku_code: "PSTBIGAU000000FFFFFF1824", quantity: 1 },
@@ -271,7 +271,7 @@ test.describe("ship from primary with all stock transfers", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SHIP_FROM_PRIMARY,
+      market: "MI",
       lineItemsAttributes: [
         { sku_code: "BABYONBU000000E63E7412MX", quantity: 1 },
         { sku_code: "PSTBIGAU000000FFFFFF1824", quantity: 1 },

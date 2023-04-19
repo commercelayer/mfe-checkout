@@ -70,7 +70,6 @@
     "commercelayer"
   ],
   "dependencies": {
-    "@commercelayer/js-auth": "^2.3.0",
     "@commercelayer/react-components": "4.2.2",
     "@commercelayer/sdk": "^4.25.0",
     "@faker-js/faker": "^7.6.0",
@@ -81,6 +80,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/async-retry": "1.4.5",
+    "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "^18.15.3",
     "@types/react": "17.0.49",
     "@types/react-gtm-module": "^2.0.1",
@@ -90,6 +90,7 @@
     "classnames": "^2.3.2",
     "dotenv": "^16.0.3",
     "i18next": "^21.10.0",
+    "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^3.1.2",
     "next": "^12.3.4",
     "next-build-id": "^3.0.0",
