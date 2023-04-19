@@ -172,7 +172,7 @@ test.describe("with single shipping method per shipment", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
         { sku_code: "MUGXXXAUFFFFFF00000011OZ", quantity: 1 },

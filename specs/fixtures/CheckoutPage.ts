@@ -36,14 +36,42 @@ export class CheckoutPage {
     }/${orderId}?accessToken=${token}`
 
     await this.page.route("**/api/organization**", async (route) => {
-      // Fetch original response.
-      const response = await this.page.request.fetch(route.request())
       // // Add a prefix to the title.
-      const body = await response.json()
-      // // body = body.replace('<title>', '<title>My prefix:');
+      const body = {
+        data: {
+          id: process.env.E2E_ORGANIZATION_ID as string,
+          type: "organizations",
+          attributes: {
+            name: process.env.NEXT_PUBLIC_SLUG as string,
+            slug: process.env.NEXT_PUBLIC_SLUG as string,
+            domain: null,
+            support_phone: "",
+            support_email: "",
+            logo_url:
+              "https://data.commercelayer.app/assets/logos/full-logo/black/commercelayer_full_logo_black.svg",
+            favicon_url:
+              "https://data.commercelayer.app/assets/images/favicons/favicon-32x32.png",
+            primary_color: "",
+            contrast_color: null,
+            gtm_id: "",
+            gtm_id_test: "",
+            discount_disabled: null,
+            account_disabled: null,
+            acceptance_disabled: null,
+            max_concurrent_promotions: 10,
+            max_concurrent_imports: 10,
+            created_at: "2022-02-24T14:04:55.307Z",
+            updated_at: "2022-12-15T09:14:36.994Z",
+            reference: null,
+            reference_origin: null,
+            metadata: {},
+          },
+        },
+      }
       route.fulfill({
         // Pass all fields from the response.
-        response,
+        status: 200,
+        contentType: "application/json",
         // Override response body.
         body: JSON.stringify({
           ...body,
