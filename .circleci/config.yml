@@ -138,4 +138,4 @@ workflows:
             tags:
               only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/
             branches:
-              only: main
+              ignore: /.*/
