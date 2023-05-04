@@ -82,7 +82,7 @@
     "stepPayment": {
         "title": "Zahlung",
         "methodUnselected": "Wähle eine Zahlungsmethode",
-        "creditCard": "Kreditkarte",
+        "creditCard": "Zahlungsarten",
         "wireTransfer": "Banküberweisung",
         "wireTransferDescription": "Nachdem Du die Bestellung aufgegeben hast, musst Du die Zahlung manuell mit Deiner Bank abwickeln.",
         "paypalDescription": "Nach der Bestellung wirst Du auf die PayPal-Website weitergeleitet, um Dich anzumelden und die Zahlung zu autorisieren.",
