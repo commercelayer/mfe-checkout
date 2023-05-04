@@ -775,11 +775,18 @@ export class CheckoutPage {
               await klarnaIframe.getByTestId("kaf-button").click()
               await klarnaIframe.locator("input#otp_field").focus()
               await klarnaIframe.locator("input#otp_field").type("123456")
-              await this.page.waitForTimeout(1000)
+              await this.page.waitForTimeout(2000)
               await i.page().mouse.wheel(0, 60)
-              await klarnaIframe
-                .locator("#mandatory_terms")
-                .click({ position: { x: 10, y: 10 } })
+              await this.page
+                .frameLocator("#klarna-apf-iframe")
+                .locator("label")
+                .filter({
+                  hasText:
+                    "J’accepte les Conditions de l’option Payer en 3 fois",
+                })
+                .locator("div")
+                .nth(1)
+                .click()
 
               await klarnaIframe
                 .locator("[data-testid=confirm-and-pay]")
