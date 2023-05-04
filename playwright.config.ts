@@ -36,7 +36,7 @@ const config: PlaywrightTestConfig = {
     ignoreHTTPSErrors: true,
     // Artifacts
     screenshot: "only-on-failure",
-    video: "retry-with-video"
+    video: "retry-with-video",
   },
 
   projects: [

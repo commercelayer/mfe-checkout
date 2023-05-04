@@ -7,7 +7,7 @@ jobs:
   test: # this can be any name you choose
     docker:
       - image: mcr.microsoft.com/playwright:v1.32.3-focal
-    resource_class: large
+    resource_class: medium+
     parallelism: 10
 
     environment:
@@ -47,9 +47,13 @@ jobs:
       - run:
           name: Run tests
           command: |
+            mkdir test-results
             pnpm run serve &
-            TESTFILES=$(circleci tests glob "specs/e2e/**/*.spec.ts" | circleci tests split --split-by=timings)
-            pnpm playwright test --config=playwright.config.ci.ts ${TESTFILES}
+            TESTFILES=$(circleci tests glob "specs/e2e/**/*.spec.ts")
+            export PLAYWRIGHT_JUNIT_OUTPUT_NAME=test-results/junit.xml
+            echo $TESTFILES | circleci tests run --command="xargs pnpm playwright test --config=playwright.config.ci.ts --reporter=junit" --verbose --split-by=timings
+      - store_test_results:
+          path: test-results/junit.xml
       - store_artifacts:
           path: test-results
 
