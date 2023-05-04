@@ -25,7 +25,7 @@ export const PaymentSummaryList = ({ hasTitle }: { hasTitle: boolean }) => {
         </PaymentSummaryItem>
         {hasTitle && (
           <PaymentSummaryValue>
-            <PaymentMethodPrice labelFree={t("general.free")} />
+            <PaymentMethodPrice labelFree="&nbsp;" />
           </PaymentSummaryValue>
         )}
       </PaymentSummary>
