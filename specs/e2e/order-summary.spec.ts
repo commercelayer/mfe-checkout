@@ -277,7 +277,7 @@ test.describe("with tax not included", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       orderAttributes: {
         cart_url: cartUrl,
         customer_email: customerEmail,
@@ -331,7 +331,7 @@ test.describe("with digital product", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       orderAttributes: {
         customer_email: customerEmail,
       },

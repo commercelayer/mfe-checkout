@@ -50,7 +50,7 @@ test.describe("with shippable sku single not free shipping method", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       lineItemsAttributes: [{ sku_code: "TESLAFREE", quantity: 1 }],
     },
   })
@@ -66,7 +66,7 @@ test.describe("with shippable sku single not free shipping method", () => {
     await checkoutPage.checkStep("Customer", "open")
 
     await checkoutPage.save("Customer")
-    
+
     await checkoutPage.checkStep("Shipping", "close")
 
     await checkoutPage.checkShippingSummary("$7.00")
@@ -88,7 +88,7 @@ test.describe("with shippable sku single free shipping method", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       lineItemsAttributes: [{ sku_code: "GIFTBABY", quantity: 1 }],
     },
   })
