@@ -1,3 +1,13 @@
+## [4.0.8](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.7...v4.0.8) (2023-05-04)
+
+
+### Bug Fixes
+
+* remove encrypted data from AdyenPayments ([21e7561](https://github.com/commercelayer/commercelayer-react-checkout/commit/21e7561b853d440dd35f547b73de6a8ce3889d8a))
+* remove payment method price when free ([4106b0c](https://github.com/commercelayer/commercelayer-react-checkout/commit/4106b0c974bbf36d82f99f1f61cdfaaec6c0f3b2))
+* update German translation on payment method ([3fd3b74](https://github.com/commercelayer/commercelayer-react-checkout/commit/3fd3b7456affae61e4148cc069e42b3d06a156e5))
+* upgrade dependencies ([39bb6d7](https://github.com/commercelayer/commercelayer-react-checkout/commit/39bb6d78aedcd44fa45d97dbd740591bd229967a))
+
 ## [4.0.7](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.6...v4.0.7) (2023-03-22)
 
 
