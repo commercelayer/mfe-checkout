@@ -1,3 +1,10 @@
+## [4.0.9](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.8...v4.0.9) (2023-05-09)
+
+
+### Bug Fixes
+
+* Updated German translations ([64adb2d](https://github.com/commercelayer/commercelayer-react-checkout/commit/64adb2df127004828d984c35443bc91f77761bde))
+
 ## [4.0.8](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.7...v4.0.8) (2023-05-04)
 
 
