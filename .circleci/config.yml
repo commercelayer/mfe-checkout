@@ -12,6 +12,7 @@ jobs:
 
     environment:
       PLAYWRIGHT_BROWSERS_PATH: 0
+      PLAYWRIGHT_JUNIT_OUTPUT_NAME: test-results/junit.xml
 
     steps:
       - checkout
@@ -50,7 +51,6 @@ jobs:
             mkdir test-results
             pnpm run serve &
             TESTFILES=$(circleci tests glob "specs/e2e/**/*.spec.ts")
-            export PLAYWRIGHT_JUNIT_OUTPUT_NAME=test-results/junit.xml
             echo $TESTFILES | circleci tests run --command="xargs pnpm playwright test --config=playwright.config.ci.ts --reporter=junit" --verbose --split-by=timings
       - store_test_results:
           path: test-results/junit.xml
