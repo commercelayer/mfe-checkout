@@ -8,8 +8,6 @@ const config: PlaywrightTestConfig = {
   expect: {
     timeout: 10 * 1000,
   },
-  // Test directory
-  testDir: "specs/e2e",
   // If a test fails, retry it additional 5 times
   retries: 3,
   // Artifacts folder where screenshots, videos, and traces are stored.
