@@ -83,7 +83,7 @@
         "methodUnselected": "Select a payment method",
         "creditCard": "Credit card",
         "wireTransfer": "Wire transfer",
-        "wireTransferDescription": "Upon order confirmation, you'll receive wiring instructions to complete payment",
+        "wireTransferDescription": "Upon order confirmation, you’ll receive instructions to complete payment.",
         "paypalDescription": "After placing the order, you will be redirected to the PayPal website to sign in and authorize the payment",
         "endingIn": "<0/> ending in <1/>",
         "submit": "Place order",

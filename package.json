@@ -72,7 +72,7 @@
     "commercelayer"
   ],
   "dependencies": {
-    "@commercelayer/react-components": "4.3.5",
+    "@commercelayer/react-components": "4.3.6",
     "@commercelayer/sdk": "^4.27.1",
     "@faker-js/faker": "^7.6.0",
     "@headlessui/react": "^1.7.14",

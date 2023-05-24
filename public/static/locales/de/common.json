@@ -84,7 +84,7 @@
         "methodUnselected": "Wähle eine Zahlungsmethode",
         "creditCard": "Zahlungsarten",
         "wireTransfer": "Banküberweisung",
-        "wireTransferDescription": "Nachdem Du die Bestellung aufgegeben hast, musst Du die Zahlung manuell mit Deiner Bank abwickeln.",
+        "wireTransferDescription": "Nach Abschluss der Bestellung übersenden wir Ihnen die Daten für eine vorab Banküberweisung.",
         "paypalDescription": "Nach der Bestellung wirst Du auf die PayPal-Website weitergeleitet, um Dich anzumelden und die Zahlung zu autorisieren.",
         "endingIn": "<0/> endet mit <1/>",
         "submit": "Jetzt bestellen",
