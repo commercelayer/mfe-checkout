@@ -1,3 +1,10 @@
+## [4.0.10](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.9...v4.0.10) (2023-05-24)
+
+
+### Bug Fixes
+
+* add Italian and German translation for wire transfer description ([8a67548](https://github.com/commercelayer/commercelayer-react-checkout/commit/8a67548a7a260c22870f9b9e411a53ff117cc08f))
+
 ## [4.0.9](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.8...v4.0.9) (2023-05-09)
 
 
