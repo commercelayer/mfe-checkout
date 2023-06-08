@@ -29,16 +29,16 @@ import { BillingAddressFormNew } from "./BillingAddressFormNew"
 import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
 
 interface Props {
-  billingAddress?: Address
-  shippingAddress?: Address
+  billingAddress: NullableType<Address>
+  shippingAddress: NullableType<Address>
   hasSameAddresses: boolean
   isShipmentRequired: boolean
   isUsingNewBillingAddress: boolean
   isUsingNewShippingAddress: boolean
   hasCustomerAddresses: boolean
-  emailAddress?: string
+  emailAddress: NullableType<string>
   isLocalLoader: boolean
-  shippingCountryCodeLock?: string
+  shippingCountryCodeLock: NullableType<string>
   shipToDifferentAddress: boolean
   setShipToDifferentAddress: Dispatch<SetStateAction<boolean>>
   openShippingAddress: (props: ShippingToggleProps) => void
@@ -121,7 +121,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
       ?.getBoundingClientRect()
     const top = window.scrollY + (tab?.top as number)
     const left = window.scrollX + (tab?.left as number)
-    window.scrollTo({ left, top: top, behavior: "smooth" })
+    window.scrollTo({ left, top, behavior: "smooth" })
   }
 
   const handleShowBillingForm = () => {

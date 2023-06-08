@@ -6,7 +6,7 @@ import tw from "twin.macro"
 import { AddressInputGroup } from "components/composite/StepCustomer/AddressInputGroup"
 
 interface Props {
-  shippingAddress?: Address
+  shippingAddress: NullableType<Address>
 }
 
 export const ShippingAddressFormNew: React.FC<Props> = ({

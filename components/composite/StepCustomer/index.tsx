@@ -189,7 +189,7 @@ export const StepCustomer: React.FC<Props> = () => {
 
 interface EvaluateConditionsProps {
   countryCode?: string
-  shippingCountryCodeLock?: string
+  shippingCountryCodeLock: NullableType<string>
 }
 
 export function evaluateShippingToggle({

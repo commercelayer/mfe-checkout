@@ -1,4 +1,5 @@
-import CommerceLayer, {
+import {
+  CommerceLayer,
   type ShippingMethod as ShippingMethodCollection,
   type PaymentMethod,
   type Order,
@@ -85,7 +86,7 @@ interface AppProviderProps {
   slug: string
   orderId: string
   accessToken: string
-  children?: JSX.Element[] | JSX.Element | null
+  children?: ChildrenType
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({
@@ -135,7 +136,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       },
     })
 
-    await changeLanguage(order.language_code)
+    await changeLanguage(order.language_code ?? "en")
   }
 
   const setCustomerEmail = (email: string) => {
@@ -266,7 +267,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
     dispatch({
       type: ActionType.SET_PAYMENT,
-      payload: { payment: params.order, order: currentOrder, others },
+      payload: { payment: params.payment, order: currentOrder, others },
     })
   }
 

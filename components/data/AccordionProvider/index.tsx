@@ -23,7 +23,7 @@ interface AccordionProviderProps {
   setActiveStep?: (step: SingleStepEnum) => void
   isStepRequired?: boolean
   isStepDone?: boolean
-  children?: JSX.Element[] | JSX.Element | null
+  children?: ChildrenType
 }
 
 export const AccordionProvider: React.FC<AccordionProviderProps> = ({
