@@ -1,3 +1,10 @@
+## [4.0.11](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.10...v4.0.11) (2023-06-08)
+
+
+### Performance Improvements
+
+* upgrade `@commercelayer/sdk` and `@types/react` ([74ba7d9](https://github.com/commercelayer/commercelayer-react-checkout/commit/74ba7d9dc06ab1d7445e9a7d0edeed4d95b6432a))
+
 ## [4.0.10](https://github.com/commercelayer/commercelayer-react-checkout/compare/v4.0.9...v4.0.10) (2023-05-24)
 
 
