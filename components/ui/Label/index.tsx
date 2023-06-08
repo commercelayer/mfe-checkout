@@ -5,7 +5,7 @@ interface Props {
   dataTestId?: string
   htmlFor: string
   textLabel?: string
-  children?: JSX.Element[] | JSX.Element | null
+  children?: ChildrenType
 }
 
 export const Label: React.FC<Props> = ({

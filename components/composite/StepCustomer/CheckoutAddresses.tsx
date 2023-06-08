@@ -19,9 +19,9 @@ import { BillingAddressFormNew } from "./BillingAddressFormNew"
 import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
 
 interface Props {
-  billingAddress?: Address
-  shippingAddress?: Address
-  emailAddress?: string
+  billingAddress: NullableType<Address>
+  shippingAddress: NullableType<Address>
+  emailAddress: NullableType<string>
   hasSameAddresses: boolean
   isShipmentRequired: boolean
   isLocalLoader: boolean
@@ -49,9 +49,8 @@ export const CheckoutAddresses: React.FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation()
 
-  const [shippingAddressFill, setShippingAddressFill] = useState<
-    Address | undefined
-  >(shippingAddress)
+  const [shippingAddressFill, setShippingAddressFill] =
+    useState<NullableType<Address>>(shippingAddress)
 
   const handleToggleDifferentAddress = () => {
     return [

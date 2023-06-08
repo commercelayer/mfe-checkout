@@ -53,16 +53,16 @@ export const CustomerAddressCard: React.FC<AddressCardProps> = ({
 }
 
 interface AddressProps {
-  firstName?: string
-  lastName?: string
-  city?: string
-  line1?: string
-  line2?: string
-  zipCode?: string
-  stateCode?: string
-  countryCode?: string
-  phone?: string
-  addressType: string
+  firstName: NullableType<string>
+  lastName: NullableType<string>
+  city: NullableType<string>
+  line1: NullableType<string>
+  line2: NullableType<string>
+  zipCode: NullableType<string>
+  stateCode: NullableType<string>
+  countryCode: NullableType<string>
+  phone: NullableType<string>
+  addressType: NullableType<string>
 }
 
 export const CustomAddress = ({

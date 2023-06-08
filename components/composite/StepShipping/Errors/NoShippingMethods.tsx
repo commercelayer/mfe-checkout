@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useEffect } from "react"
 interface Props {
   messages: Parameters<typeof Errors>[0]["messages"]
   setShippingMethodError: Dispatch<SetStateAction<boolean>>
-  cartUrl?: string
+  cartUrl?: NullableType<string>
 }
 
 export const NoShippingMethods = ({

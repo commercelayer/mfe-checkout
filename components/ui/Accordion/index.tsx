@@ -12,7 +12,7 @@ interface Props {
   children?: JSX.Element[] | JSX.Element
 }
 
-export const Accordion = ({ children }: { children?: JSX.Element[] | JSX.Element | null }) => {
+export const Accordion = ({ children }: { children?: ChildrenType }) => {
   return <Wrapper>{children}</Wrapper>
 }
 

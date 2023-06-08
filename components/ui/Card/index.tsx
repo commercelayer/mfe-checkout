@@ -5,7 +5,7 @@ interface Props {
   className?: string
   rounded?: boolean
   fullHeight?: boolean
-  children?: JSX.Element[] | JSX.Element | null
+  children?: ChildrenType
 }
 
 export const Card: React.FC<Props> = ({

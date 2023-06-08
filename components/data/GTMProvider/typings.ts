@@ -1,21 +1,21 @@
 export interface DataLayerItemProps {
-  item_id?: string
-  item_name?: string
-  price?: number
-  currency?: string
-  quantity?: number
+  item_id: NullableType<string>
+  item_name: NullableType<string>
+  price?: NullableType<number>
+  currency: NullableType<string>
+  quantity: NullableType<number>
 }
 
 export interface EcommerceProps {
-  coupon?: string
-  currency?: string
-  shipping?: number
+  coupon?: NullableType<string>
+  currency?: NullableType<string>
+  shipping?: NullableType<number>
   items?: (DataLayerItemProps | undefined)[]
-  value?: number
-  shipping_tier?: string
-  transaction_id?: number
-  payment_type?: string
-  tax?: number
+  value?: NullableType<number>
+  shipping_tier?: NullableType<string>
+  transaction_id?: NullableType<number>
+  payment_type?: NullableType<string>
+  tax?: NullableType<number>
 }
 
 export interface DataLayerProps {

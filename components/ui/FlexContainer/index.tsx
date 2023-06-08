@@ -3,7 +3,7 @@ import tw from "twin.macro"
 
 interface Props {
   className?: string
-  children?: JSX.Element[] | JSX.Element | null
+  children?: ChildrenType
 }
 
 export const FlexContainer: React.FC<Props> = ({ children, className }) => (

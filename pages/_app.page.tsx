@@ -12,7 +12,7 @@ function CheckoutApp(props: AppProps) {
   useEffect(() => {
     if (typeof window !== "undefined") setBrowser(true)
   }, [])
-  
+
   return browser ? <Component {...pageProps} /> : null
 }
 

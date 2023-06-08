@@ -66,7 +66,7 @@ export type Action =
   | {
       type: ActionType.SET_PAYMENT
       payload: {
-        payment?: PaymentMethod
+        payment: NullableType<PaymentMethod>
         order: Order
         others: Partial<AppStateData>
       }
