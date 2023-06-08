@@ -1,4 +1,5 @@
-import CommerceLayer, {
+import {
+  CommerceLayer,
   CommerceLayerClient,
   Address,
   AddressCreate,

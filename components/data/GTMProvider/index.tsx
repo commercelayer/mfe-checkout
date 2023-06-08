@@ -1,4 +1,4 @@
-import CommerceLayer, { LineItem } from "@commercelayer/sdk"
+import { CommerceLayer, LineItem } from "@commercelayer/sdk"
 import { createContext, useEffect, useContext } from "react"
 import TagManager from "react-gtm-module"
 
@@ -18,7 +18,7 @@ export const GTMContext = createContext<GTMProviderData | null>(null)
 
 interface GTMProviderProps {
   children: React.ReactNode
-  gtmId?: string
+  gtmId: NullableType<string>
 }
 
 export const GTMProvider: React.FC<GTMProviderProps> = ({
@@ -38,13 +38,13 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
 
   const cl = CommerceLayer({
     organization: slug,
-    accessToken: accessToken,
+    accessToken,
     domain,
   })
 
   useEffect(() => {
-    if (gtmId) {
-      TagManager.initialize({ gtmId: gtmId })
+    if (gtmId != null) {
+      TagManager.initialize({ gtmId })
       fireBeginCheckout()
     }
   }, [])
@@ -75,7 +75,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       item_name: name,
       price: total_amount_float,
       currency: currency_code,
-      quantity: quantity,
+      quantity,
     }
   }
 

@@ -16,18 +16,18 @@ interface DataLayerWindowProps {
 }
 
 interface AttributesProps {
-  giftCard?: string
-  organization?: object
+  giftCard: NullableType<string>
+  organization: NullableType<object>
 }
 
 export class CheckoutPage {
   readonly page: Page
-  readonly attributes?: AttributesProps
+  readonly attributes: NullableType<AttributesProps>
 
-  constructor(page: Page, attributes?: AttributesProps) {
+  constructor(page: Page, attributes: NullableType<AttributesProps>) {
     this.page = page
 
-    this.attributes = attributes || {}
+    this.attributes = attributes
   }
 
   async goto({ orderId, token }: GoToProps) {

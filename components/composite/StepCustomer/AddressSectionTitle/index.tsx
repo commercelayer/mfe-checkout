@@ -5,7 +5,10 @@ interface Props {
   children?: JSX.Element[] | JSX.Element
 }
 
-export const AddressSectionTitle = ({ children, ...rest }: Props): JSX.Element => {
+export const AddressSectionTitle = ({
+  children,
+  ...rest
+}: Props): JSX.Element => {
   return <Wrapper {...rest}>{children}</Wrapper>
 }
 

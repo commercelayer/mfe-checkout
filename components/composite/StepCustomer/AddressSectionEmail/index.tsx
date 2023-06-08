@@ -11,7 +11,7 @@ import { Label } from "components/ui/form/Label"
 interface Props {
   readonly?: boolean
   setCustomerEmail?: (email: string) => void
-  emailAddress?: string
+  emailAddress: NullableType<string>
 }
 
 export const AddressSectionEmail: React.FC<Props> = ({
@@ -59,7 +59,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               onBlur={saveEmail}
-              value={emailAddress}
+              value={emailAddress ?? ""}
             />
             <StyledErrors
               data-testid="customer_email_error"
