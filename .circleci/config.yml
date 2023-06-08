@@ -6,7 +6,7 @@ orbs:
 jobs:
   test: # this can be any name you choose
     docker:
-      - image: mcr.microsoft.com/playwright:v1.32.3-focal
+      - image: mcr.microsoft.com/playwright:v1.34.3-focal
     resource_class: medium+
     parallelism: 10
 
