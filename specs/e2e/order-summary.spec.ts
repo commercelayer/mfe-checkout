@@ -112,7 +112,7 @@ test.describe("quantity and unit price", () => {
 
 test.describe("sku options", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
-  const company = faker.company.companyName()
+  const company = faker.company.name()
   const firstName = faker.name.firstName()
   const lastName = faker.name.lastName()
   const name = `${firstName} ${lastName}`
