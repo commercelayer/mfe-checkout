@@ -86,7 +86,13 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
   )
 }
 
-export const StepPayment: React.FC = () => {
+interface PaymentHeaderProps {
+  onSelectPayment?: any
+}
+
+export const StepPayment: React.FC<PaymentHeaderProps> = ({
+  onSelectPayment,
+}: any) => {
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
   const [hasMultiplePaymentMethods, setHasMultiplePaymentMethods] =
@@ -116,6 +122,8 @@ export const StepPayment: React.FC = () => {
       setHasMultiplePaymentMethods(true)
     }
     setPayment({ payment: payment as PaymentMethodType })
+
+    onSelectPayment(payment?.name)
   }
 
   const autoSelectCallback = async () => {

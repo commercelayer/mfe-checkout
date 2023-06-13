@@ -1,11 +1,29 @@
 import { PaymentMethodsContainer } from "@commercelayer/react-components"
+import { ButtonWrapper, Button } from "components/ui/Button"
+import { SpinnerIcon } from "components/ui/SpinnerIcon"
+import { resolve } from "path"
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import { useContext } from "react"
+import { AppContext } from "components/data/AppProvider"
+
+import { GTMContext } from "components/data/GTMProvider"
+import { useSearchParams } from "react-router-dom"
+import { ExternalPaymentCard } from "../ExternalPayment/Index"
 interface Props {
   children: JSX.Element[] | JSX.Element
 }
 
 export const PaymentContainer = ({ children }: Props) => {
+  const [searchParams] = useSearchParams()
+  const paymentToken = searchParams.get("paymentToken")
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false)
+  const ctx = useContext(AppContext)
+  const gtmCtx = useContext(GTMContext)
+
+  if (!ctx) return null
+
   const { t } = useTranslation()
 
   const checkoutReturnUrl = `${
@@ -45,83 +63,18 @@ export const PaymentContainer = ({ children }: Props) => {
             },
           },
         },
-        adyenPayment: {
-          styles: {
-            card: {
-              base: {
-                fontSize: "16px",
-                padding: "12px",
-                fontFamily: "monospace",
-              },
-            },
-          },
-        },
-        braintreePayment: {
-          styles: {
-            // Style all elements
-            input: {
-              "font-size": "16px",
-              "font-family": "monospace",
-              padding: "10px",
-            },
-          },
-          containerClassName: "flex flex-col",
-          fieldsContainerClassName: "flex flex-col xl:flex-row",
-          cardDetailsContainerClassName: "flex justify-between",
-          cardContainerClassName: "grow mb-3 xl:mb-0",
-          expDateContainerClassName: "flex-none w-2/4 xl:mx-3 xl:w-24",
-          cvvContainerClassName: "flex-none w-2/4 pl-3 xl:w-14 xl:pl-0",
-          inputWrapperClassName: "h-8 border rounded",
-          fieldLabelClassName: "text-xs text-gray-400",
-        },
-        stripePayment: {
-          fonts: [
-            {
-              cssSrc:
-                "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
-            },
-          ],
-          options: {
-            style: {
-              base: {
-                color: "#000",
-                fontWeight: "400",
-                fontSize: "16px",
-                fontFamily: "Manrope, sans-serif",
-                ":-webkit-autofill": {
-                  color: "#fce883",
-                },
-                "::placeholder": {
-                  color: "#e0e0e0",
-                },
-              },
-              invalid: {
-                iconColor: "#FFC7EE",
-                color: "#FFC7EE",
-              },
-            },
-            hideIcon: false,
-            hidePostalCode: true,
-          },
-        },
-        wireTransfer: {
-          infoMessage: {
-            text: t("stepPayment.wireTransferDescription"),
-            className: "text-sm text-gray-400",
-          },
-        },
-        paypalPayment: {
-          cancel_url: checkoutReturnUrl,
-          return_url: checkoutReturnUrl,
-          infoMessage: {
-            text: t("stepPayment.paypalDescription"),
-            className: "text-sm text-gray-400",
-          },
-        },
+
         externalPayment: {
-          payment_source_token: "testToken12334554",
+          show: true,
+          payment_source_token: paymentToken || "",
           customComponent: () => {
-            return <div>This is an external payment</div>
+            return (
+              <>
+                <div>
+                  <ExternalPaymentCard paymentToken={paymentToken} />
+                </div>
+              </>
+            )
           },
         },
       }}

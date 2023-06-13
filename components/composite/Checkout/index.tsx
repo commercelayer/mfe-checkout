@@ -2,7 +2,7 @@ import CustomerContainer from "@commercelayer/react-components/customers/Custome
 import OrderContainer from "@commercelayer/react-components/orders/OrderContainer"
 import PlaceOrderContainer from "@commercelayer/react-components/orders/PlaceOrderContainer"
 import { useRouter } from "next/router"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
 
@@ -52,6 +52,7 @@ const Checkout: React.FC<Props> = ({
   termsUrl,
   privacyUrl,
 }) => {
+  const [paymentType, setPaymentType] = useState("")
   const ctx = useContext(AppContext)
 
   const { query } = useRouter()
@@ -82,6 +83,10 @@ const Checkout: React.FC<Props> = ({
   if (!ctx || ctx.isFirstLoading) {
     return <CheckoutSkeleton />
   }
+
+  const onSelectPayment = (name: any) => {
+    setPaymentType(name)
+  }
   const renderComplete = () => {
     return (
       <StepComplete
@@ -99,7 +104,7 @@ const Checkout: React.FC<Props> = ({
       <CustomerContainer isGuest={ctx.isGuest}>
         <LayoutDefault
           aside={
-            <Sidebar>
+            <Sidebar className="sidebar-border-right">
               <Logo
                 logoUrl={logoUrl}
                 companyName={companyName}
@@ -108,7 +113,7 @@ const Checkout: React.FC<Props> = ({
               <SummaryWrapper>
                 <OrderSummary appCtx={ctx} />
               </SummaryWrapper>
-              <Footer />
+              {/* <Footer /> */}
             </Sidebar>
           }
           main={
@@ -193,16 +198,19 @@ const Checkout: React.FC<Props> = ({
                         }
                       >
                         <div className="mb-6">
-                          <StepPayment />
+                          <StepPayment onSelectPayment={onSelectPayment} />
                         </div>
                       </AccordionItem>
-                      <StepPlaceOrder
-                        isActive={
-                          activeStep === "Payment" || activeStep === "Complete"
-                        }
-                        termsUrl={termsUrl}
-                        privacyUrl={privacyUrl}
-                      />
+                      {paymentType !== "External Payment" && (
+                        <StepPlaceOrder
+                          isActive={
+                            activeStep === "Payment" ||
+                            activeStep === "Complete"
+                          }
+                          termsUrl={termsUrl}
+                          privacyUrl={privacyUrl}
+                        />
+                      )}
                     </PlaceOrderContainer>
                   </PaymentContainer>
                 </AccordionProvider>
@@ -222,7 +230,7 @@ const Checkout: React.FC<Props> = ({
 }
 
 const Sidebar = styled.div`
-  ${tw`flex flex-col min-h-full p-5 lg:pl-20 lg:pr-10 lg:pt-10 xl:pl-48 bg-gray-50`}
+  ${tw`flex flex-col min-h-full p-5 lg:pl-20 lg:pr-10 lg:pt-10 xl:pl-48`}
 `
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}

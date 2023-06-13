@@ -28,11 +28,11 @@ export const RecapLine = styled.div`
   }
 `
 export const RecapLineItem = styled.p`
-  ${tw`font-semibold`}
+  ${tw`font-normal text-sm leading-7 text-gray-400`}
 `
 export const RecapLineTotal = styled(RecapLine)`
   ${tw`border-t border-gray-400 mt-7 pt-6`}
 `
 export const RecapLineItemTotal = styled(RecapLineItem)`
-  ${tw`text-xl font-normal invisible lg:visible`}
+  ${tw`invisible lg:visible font-semibold text-sm leading-7 text-gray-700`}
 `

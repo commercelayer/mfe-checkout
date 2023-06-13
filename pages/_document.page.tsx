@@ -34,7 +34,7 @@ class AppDocument extends Document {
             </Script>
           )}
         </Head>
-        <body className="bg-gray-50">
+        <body>
           <Main />
           <NextScript />
         </body>

@@ -233,7 +233,7 @@ export const StepShipping: React.FC<Props> = () => {
                                   </ShipmentField>
                                 </ShippingTitle>
                               )}
-                              <GridContainer className="mb-6">
+                              <div className="space-y-5">
                                 <ShippingMethod
                                   emptyText={t("stepShipping.notAvailable")}
                                 >
@@ -245,7 +245,7 @@ export const StepShipping: React.FC<Props> = () => {
                                         handleChange(params)
                                       }
                                     />
-                                    <ShippingMethodName data-testid="shipping-method-name">
+                                    <ShippingMethodName data-test-id="shipping-method-name">
                                       {(props) => {
                                         const deliveryLeadTime =
                                           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -256,43 +256,51 @@ export const StepShipping: React.FC<Props> = () => {
                                             className="flex flex-col p-3 border rounded cursor-pointer hover:border-primary transition duration-200 ease-in"
                                             htmlFor={props.htmlFor}
                                           >
-                                            <ShippingLineItemTitle>
-                                              {props.label}
-                                            </ShippingLineItemTitle>
-                                            {deliveryLeadTime?.min_days &&
-                                              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                              // @ts-ignore
-                                              deliveryLeadTime?.max_days && (
-                                                <ShippingSummaryItemDescription>
-                                                  <Trans i18nKey="stepShipping.deliveryLeadTime">
-                                                    <DeliveryLeadTime
-                                                      type="min_days"
-                                                      data-testid="delivery-lead-time-min-days"
-                                                    />
-                                                    <DeliveryLeadTime
-                                                      type="max_days"
-                                                      data-testid="delivery-lead-time-max-days"
-                                                      className="mr-1"
-                                                    />
-                                                  </Trans>
-                                                </ShippingSummaryItemDescription>
-                                              )}
-                                            <ShippingSummaryValue>
-                                              <ShippingMethodPrice
-                                                data-testid="shipping-method-price"
-                                                labelFreeOver={t(
-                                                  "general.free"
-                                                )}
-                                              />
-                                            </ShippingSummaryValue>
+                                            <div className="flex justify-between">
+                                              <div>
+                                                <ShippingLineItemTitle>
+                                                  {props.label}
+                                                </ShippingLineItemTitle>
+                                              </div>
+                                              <div>
+                                                {deliveryLeadTime?.min_days &&
+                                                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                                  // @ts-ignore
+                                                  deliveryLeadTime?.max_days && (
+                                                    <ShippingSummaryItemDescription>
+                                                      <Trans i18nKey="stepShipping.deliveryLeadTime">
+                                                        <DeliveryLeadTime
+                                                          type="min_days"
+                                                          data-test-id="delivery-lead-time-min-days"
+                                                        />
+                                                        <DeliveryLeadTime
+                                                          type="max_days"
+                                                          data-test-id="delivery-lead-time-max-days"
+                                                          className="mr-1"
+                                                        />
+                                                      </Trans>
+                                                    </ShippingSummaryItemDescription>
+                                                  )}
+                                              </div>
+                                              <div>
+                                                <ShippingSummaryValue>
+                                                  <ShippingMethodPrice
+                                                    data-test-id="shipping-method-price"
+                                                    labelFreeOver={t(
+                                                      "general.free"
+                                                    )}
+                                                  />
+                                                </ShippingSummaryValue>
+                                              </div>
+                                            </div>
                                           </label>
                                         )
                                       }}
                                     </ShippingMethodName>
                                   </ShippingSummary>
                                 </ShippingMethod>
-                              </GridContainer>
-                              <LineItemsContainer>
+                              </div>
+                              {/* <LineItemsContainer>
                                 {ShippingLineItems.map((type) => (
                                   <LineItem key={type} type={type}>
                                     <ShippingLineItem>
@@ -351,7 +359,7 @@ export const StepShipping: React.FC<Props> = () => {
                                     </StockTransfer>
                                   </LineItem>
                                 ))}
-                              </LineItemsContainer>
+                              </LineItemsContainer> */}
                             </ShippingWrapper>
                           </Shipment>
                           <ButtonWrapper>

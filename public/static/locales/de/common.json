@@ -12,7 +12,7 @@
         "privacy_and_terms": "Durch Anklicken des Kontrollkästchens erklärst Du Dich mit den <bold><termsUrl>Geschäftsbedingungen</termsUrl></bold> und dem <bold><privacyUrl>Datenschutz</privacyUrl></bold> einverstanden.",
         "checkoutTitle": "Bezahlung"
     },
-  
+
     "error": {
         "general": "Allgemeiner Fehler",
         "shipments": "Bei einigen Sendungen fehlt die Versandart.",
@@ -21,7 +21,7 @@
         "payer": "Die Zahlung wurde nicht genehmigt",
         "resourceID": "Die angeforderte Ressourcen-ID wurde nicht gefunden"
     },
-  
+
     "input": {
         "cantBlank": "Darf nicht leer sein",
         "mustBeValidFormat": "Muss ein gültiges Format sein",
@@ -30,14 +30,14 @@
         "mustBeValidCoupon": "Bitte gib einen gültigen Rabattcode an.",
         "mustBeValidGiftCard": "Bitte gib einen gültigen Geschenkgutschein an"
     },
-  
+
     "orderRecap": {
         "order_summary": "Bestellübersicht",
         "cartContains": "Dein Einkaufswagen enthält {{count}} Artikel.",
         "cartContains_plural": "Dein Einkaufswagen enthält {{count}} Artikel.",
         "coupon_code": "Rabattcode",
         "gift_card_code": "Geschenkkarte",
-        "gift_card_or_coupon_code": "Geschenkkarte oder Rabattcode",
+        "gift_card_or_coupon_code": "Geschenkkarte oder Rabattcode" ,
         "quantity": "Anzahl: {{count}}",
         "quantity_other": "Anzahl: {{count}}",
         "quantity_stock": "Anzahl: <0/>",
@@ -51,9 +51,12 @@
         "subtotal_amount": "Zwischensumme",
         "total_amount": "Summe",
         "notSet": "Zu berechnen",
-        "returnToCart": "Zurück zum Warenkorb"
+        "returnToCart": "Zurück zum Warenkorb",
+        "Subtotal":"Subtotal",
+        "Itemtotal":"Items total"
+
     },
-  
+
     "stepCustomer": {
         "title": "Adresse",
         "addNewAddress": "Neue Adresse hinzufügen",
@@ -62,7 +65,7 @@
         "notSet": "Gib Deine Rechnungs- / Lieferadresse ein",
         "closeForm": "Adresse auswählen"
     },
-  
+
     "stepShipping": {
         "title": "Versand",
         "shipment": "Versand <Wrap>{{current}} von {{total}}</Wrap>",
@@ -78,7 +81,7 @@
         "continueToPayment": "Weiter zur Zahlung",
         "notRequired": "Diese Bestellung erfordert keinen Versand"
     },
-  
+
     "stepPayment": {
         "title": "Zahlung",
         "methodUnselected": "Wähle eine Zahlungsmethode",
@@ -93,7 +96,7 @@
         "saveToWallet": "Speichere eine neue Karte",
         "expires": "Ablaufdatum"
     },
-  
+
     "addressForm": {
         "customer_email": "Deine E-Mail-Adresse",
         "billing_address_title": "Rechnungsadresse",
@@ -123,7 +126,7 @@
         "shipping_address_zip_code": "Postleitzahl",
         "shipping_address_phone": "Telefon"
     },
-  
+
     "stepComplete": {
         "title": "Vielen Dank für deine Bestellung!",
         "description": "Bestellnummer: <WrapperOrderId>#{{orderNumber}}</WrapperOrderId>",
@@ -137,8 +140,7 @@
         "summary_title": "Zusammenfassung",
         "customer_title": "Kunde",
         "email": "E-Mail:",
-        "free_payment": "Diese Bestellung erforderte keine Zahlung"  
+        "free_payment": "Diese Bestellung erforderte keine Zahlung"
     }
 
   }
-  

@@ -8,5 +8,5 @@ export const Base = ({
 }) => <Wrapper>{children}</Wrapper>
 
 const Wrapper = styled.div`
-  ${tw`bg-gray-50 min-h-screen w-auto`}
+  ${tw`min-h-screen w-auto`}
 `

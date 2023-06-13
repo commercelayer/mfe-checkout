@@ -14,9 +14,9 @@ export const ShippingTitle = styled.h4`
   ${tw`font-bold text-md mb-2`}
 `
 export const ShippingSummary = styled.div`
-  ${tw`contents`}
+  ${tw`mb-2`}
   input:checked + label {
-    ${tw`border-2 border-primary shadow-md bg-gray-50`}
+    ${tw`border-2 border-primary shadow-md bg-gray-50 mb-2`}
   }
 `
 export const ShippingSummaryItem = styled.div`

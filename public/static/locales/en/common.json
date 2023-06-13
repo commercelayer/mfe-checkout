@@ -36,7 +36,7 @@
         "cartContains_other": "Your shopping cart contains {{count}} items",
         "coupon_code": "Coupon code",
         "gift_card_code": "Gift card code",
-        "gift_card_or_coupon_code": "Gift card or coupon code",
+        "gift_card_or_coupon_code": "Enter promo code",
         "quantity": "QUANTITY: {{count}}",
         "quantity_other": "QUANTITY: {{count}}",
         "quantity_stock": "QUANTITY: <0/>",
@@ -50,14 +50,16 @@
         "subtotal_amount": "Subtotal",
         "total_amount": "Total",
         "notSet": "To be calculated",
-        "returnToCart": "Return to cart"
+        "returnToCart": "Return to cart",
+        "Subtotal":"Subtotal",
+        "Itemtotal":"Items total"
     },
 
     "stepCustomer": {
         "title": "Customer",
         "addNewAddress": "Add new address",
         "saveAddressBook": "Save this address in your account",
-        "continueToDelivery": "Continue to delivery",
+        "continueToDelivery": "CONTINUE TO DELIVERY",
         "notSet": "Fill in your Billing/Shipping Address",
         "closeForm": "Choose address"
     },
@@ -74,7 +76,7 @@
         "methodSelected_other": "Your order contains {{count}} shipments",
         "methodUnselected": "Select a shipping method",
         "deliveryLeadTime" : "<0/> - <1/> days",
-        "continueToPayment": "Continue to payment",
+        "continueToPayment": "CONTINUE TO PAYMENT",
         "notRequired": "This order does not require shipping"
     },
 
@@ -86,7 +88,7 @@
         "wireTransferDescription": "Upon order confirmation, you’ll receive instructions to complete payment.",
         "paypalDescription": "After placing the order, you will be redirected to the PayPal website to sign in and authorize the payment",
         "endingIn": "<0/> ending in <1/>",
-        "submit": "Place order",
+        "submit": "PLACE ORDER",
         "notRequired": "This order does not require payment",
         "amountZero": "The total amount of the order is zero, you can place the order as it is right now",
         "saveToWallet": "Save new card on your wallet",

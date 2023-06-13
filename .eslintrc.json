@@ -40,25 +40,7 @@
     "camelcase": "off",
     "import/named": "off",
     "import/no-unresolved": "off", // unresolved are handled by ts
-    "import/order": [
-      "error",
-      {
-        "newlines-between": "always",
-        "groups": ["external", "builtin", "parent", "sibling", "index"],
-        "pathGroups": [
-          {
-            "pattern": "components/**",
-            "group": "parent",
-            "position": "after"
-          }
-        ],
-        "pathGroupsExcludedImportTypes": ["parent"],
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ],
+    "import/order": "off",
     "@typescript-eslint/member-delimiter-style": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/camelcase": "off",

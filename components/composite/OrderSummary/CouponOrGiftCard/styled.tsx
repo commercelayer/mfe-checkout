@@ -29,7 +29,7 @@ export const StyledGiftCardOrCouponInput = styled(GiftCardOrCouponInput)`
   ${InputCss}
   ${tw`rounded-none rounded-l-md z-10`}
   &.hasError {
-    ${tw`placeholder-red-400 border-red-400 border-2 focus:ring-offset-0 focus:ring-red-400 focus:ring-opacity-50`}
+    ${tw`placeholder-red-400 border-red-400  border-none focus:ring-offset-0 focus:ring-red-400 focus:ring-opacity-50`}
   }
 `
 export const StyledErrors = styled(Errors)`

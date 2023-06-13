@@ -78,15 +78,14 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
         </>
       </LineItemsContainer>
       <TotalWrapper>
-        <AmountSpacer />
         <AmountWrapper>
           <CouponOrGiftCard
             readonly={readonly}
             setCouponOrGiftCard={appCtx.setCouponOrGiftCard}
           />
           <RecapLine>
-            <RecapLineItem>{t("orderRecap.subtotal_amount")}</RecapLineItem>
-            <SubTotalAmount />
+            <RecapLineItem>{t("orderRecap.Itemtotal")}</RecapLineItem>
+            <SubTotalAmount className="font-normal text-sm leading-7 text-gray-400" />
           </RecapLine>
           <RecapLine>
             <DiscountAmount>
@@ -97,7 +96,12 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       {t("orderRecap.discount_amount")}
                     </RecapLineItem>
-                    <div data-testid="discount-amount">{props.price}</div>
+                    <div
+                      className="font-normal text-sm leading-7 text-gray-400"
+                      data-test-id="discount-amount"
+                    >
+                      {props.price}
+                    </div>
                   </>
                 )
               }}
@@ -112,7 +116,12 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       {t("orderRecap.adjustment_amount")}
                     </RecapLineItem>
-                    <div data-testid="adjustment-amount">{props.price}</div>
+                    <div
+                      className="font-normal text-sm leading-7 text-gray-400"
+                      data-test-id="adjustment-amount"
+                    >
+                      {props.price}
+                    </div>
                   </>
                 )
               }}
@@ -127,7 +136,10 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                     <RecapLineItem>
                       {t("orderRecap.shipping_amount")}
                     </RecapLineItem>
-                    <div data-testid="shipping-amount">
+                    <div
+                      className="font-normal text-sm leading-7 text-gray-400"
+                      data-test-id="shipping-amount"
+                    >
                       {!appCtx.hasShippingMethod
                         ? t("orderRecap.notSet")
                         : props.priceCents === 0
@@ -139,7 +151,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
               }}
             </ShippingAmount>
           </RecapLine>
-          <RecapLine data-testid="payment-method-amount">
+          <RecapLine data-test-id="payment-method-amount">
             <PaymentMethodAmount>
               {(props) => {
                 if (props.priceCents === 0) return <></>
@@ -183,7 +195,10 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                         }
                       />
                     </RecapLineItem>
-                    <div data-testid="tax-amount">
+                    <div
+                      className="font-normal text-sm leading-7 text-gray-400"
+                      data-test-id="tax-amount"
+                    >
                       {isTaxCalculated ? props.price : t("orderRecap.notSet")}
                     </div>
                   </>
@@ -191,31 +206,34 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
               }}
             </TaxesAmount>
           </RecapLine>
-          <RecapLine>
-            <GiftCardAmount>
-              {(props) => {
-                if (props.priceCents === 0) return <></>
-                return (
-                  <>
-                    <RecapLineItem>
-                      {t("orderRecap.giftcard_amount")}
-                    </RecapLineItem>
-                    <div data-testid="giftcard-amount">{props.price}</div>
-                  </>
-                )
-              }}
-            </GiftCardAmount>
-          </RecapLine>
-          <RecapLineTotal>
-            <RecapLineItemTotal>
-              {t("orderRecap.total_amount")}
-            </RecapLineItemTotal>
+
+          <GiftCardAmount>
+            {(props) => {
+              if (props.priceCents === 0) return <></>
+              return (
+                <>
+                  <RecapLineItem>
+                    {t("orderRecap.giftcard_amount")}
+                  </RecapLineItem>
+                  <div
+                    className="font-normal text-sm leading-7 text-gray-400"
+                    data-test-id="giftcard-amount"
+                  >
+                    {props.price}
+                  </div>
+                </>
+              )
+            }}
+          </GiftCardAmount>
+          <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          <div className="flex items-center justify-between">
+            <RecapLineItemTotal>{t("orderRecap.Subtotal")}</RecapLineItemTotal>
             <TotalAmount
-              data-testid="total-amount"
-              className="text-xl font-extrabold"
+              data-test-id="total-amount"
+              className="text-sm font-semibold leading-7 text-gray-700"
             />
-          </RecapLineTotal>
-          <ReturnToCart cartUrl={appCtx.cartUrl} />
+          </div>
+          {/* <ReturnToCart cartUrl={appCtx.cartUrl} /> */}
         </AmountWrapper>
       </TotalWrapper>
     </Wrapper>

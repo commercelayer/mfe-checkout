@@ -18,7 +18,7 @@
         "shipments": "Alcune spedizioni mancano del metodo di spedizione",
         "paymentMethod": "Lo step del pagamento non può rimanere vuoto",
         "transition": "La transizione non è consentita",
-        "payer": "Non è stato approvato il pagamento",  
+        "payer": "Non è stato approvato il pagamento",
         "resourceID": "L'ID della risorsa richiesto non è stato trovato"
     },
 
@@ -51,7 +51,9 @@
         "subtotal_amount": "Subtotale",
         "total_amount": "Totale",
         "notSet": "Da calcolare",
-        "returnToCart": "Ritorna al carrello"
+        "returnToCart": "Ritorna al carrello",
+        "Subtotal":"Subtotal",
+        "Itemtotal":"Items total"
     },
 
     "stepCustomer": {

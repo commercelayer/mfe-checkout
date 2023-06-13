@@ -83,7 +83,7 @@ export const StepComplete: React.FC<Props> = ({
             >
               <Trans
                 i18nKey={"stepComplete.description"}
-                values={{ orderNumber }}
+                values={{ orderNumber: orderNumber }}
                 components={{
                   WrapperOrderId: <strong className="text-black" />,
                 }}
@@ -130,15 +130,15 @@ export const StepComplete: React.FC<Props> = ({
                     </RecapItemTitle>
                     <RecapBox>
                       <CustomAddress
-                        firstName={ctx.billingAddress?.first_name ?? ""}
-                        lastName={ctx.billingAddress?.last_name ?? ""}
-                        city={ctx.billingAddress?.city ?? ""}
-                        line1={ctx.billingAddress?.line_1 ?? ""}
-                        line2={ctx.billingAddress?.line_2 ?? ""}
-                        zipCode={ctx.billingAddress?.zip_code ?? ""}
-                        stateCode={ctx.billingAddress?.state_code ?? ""}
-                        countryCode={ctx.billingAddress?.country_code ?? ""}
-                        phone={ctx.billingAddress?.phone ?? ""}
+                        firstName={ctx.billingAddress?.first_name}
+                        lastName={ctx.billingAddress?.last_name}
+                        city={ctx.billingAddress?.city}
+                        line1={ctx.billingAddress?.line_1}
+                        line2={ctx.billingAddress?.line_2}
+                        zipCode={ctx.billingAddress?.zip_code}
+                        stateCode={ctx.billingAddress?.state_code}
+                        countryCode={ctx.billingAddress?.country_code}
+                        phone={ctx.billingAddress?.phone}
                         addressType="billing"
                       />
                     </RecapBox>
@@ -151,17 +151,15 @@ export const StepComplete: React.FC<Props> = ({
                         </RecapItemTitle>
                         <RecapBox>
                           <CustomAddress
-                            firstName={ctx.shippingAddress?.first_name ?? ""}
-                            lastName={ctx.shippingAddress?.last_name ?? ""}
-                            city={ctx.shippingAddress?.city ?? ""}
-                            line1={ctx.shippingAddress?.line_1 ?? ""}
-                            line2={ctx.shippingAddress?.line_2 ?? ""}
-                            zipCode={ctx.shippingAddress?.zip_code ?? ""}
-                            stateCode={ctx.shippingAddress?.state_code ?? ""}
-                            countryCode={
-                              ctx.shippingAddress?.country_code ?? ""
-                            }
-                            phone={ctx.shippingAddress?.phone ?? ""}
+                            firstName={ctx.shippingAddress?.first_name}
+                            lastName={ctx.shippingAddress?.last_name}
+                            city={ctx.shippingAddress?.city}
+                            line1={ctx.shippingAddress?.line_1}
+                            line2={ctx.shippingAddress?.line_2}
+                            zipCode={ctx.shippingAddress?.zip_code}
+                            stateCode={ctx.shippingAddress?.state_code}
+                            countryCode={ctx.shippingAddress?.country_code}
+                            phone={ctx.shippingAddress?.phone}
                             addressType="shipping"
                           />
                         </RecapBox>
@@ -207,7 +205,7 @@ export const StepComplete: React.FC<Props> = ({
               </RecapCol>
             </RecapCustomer>
           </Recap>
-          <Footer />
+          {/* <Footer /> */}
         </Wrapper>
       </Bottom>
     </Base>
