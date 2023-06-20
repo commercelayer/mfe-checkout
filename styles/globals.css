@@ -249,3 +249,12 @@ input[type="button"] {
   background: #e2242d !important;
   border-radius: 6px !important;
 }
+
+.order-btn-text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #ffffff;
+}

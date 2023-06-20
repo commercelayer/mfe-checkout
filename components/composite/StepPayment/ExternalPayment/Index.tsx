@@ -167,7 +167,9 @@ export const ExternalPaymentCard = ({ paymentToken }: any) => {
     <>
       <div className="flex flex-wrap w-full p-5">
         {!cardErrorMessage.isSuccess && (
-          <div className="w-full text-red-400">{cardErrorMessage?.message}</div>
+          <div className="w-full pb-2 text-red-400">
+            {cardErrorMessage?.message}
+          </div>
         )}
 
         <div className="w-full">
