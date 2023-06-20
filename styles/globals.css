@@ -217,7 +217,8 @@
 }
 
 .btn-background {
-  background: #e2242d;
+  background: #e2242d !important;
+  border-radius: 4px !important;
 }
 
 .input-border {
@@ -238,4 +239,13 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+input[type="button"] {
+  border-radius: none;
+}
+
+.btn-background-address {
+  background: #e2242d !important;
+  border-radius: 6px !important;
 }

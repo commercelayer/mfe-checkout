@@ -11,7 +11,7 @@ const CustomStyles: any = createGlobalStyle<GlobalStyleProps>`
     --primary-h: ${({ primaryColor }) => primaryColor.h};
     --primary-s: ${({ primaryColor }) => primaryColor.s};
     --primary-l: ${({ primaryColor }) => primaryColor.l};
-    --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+    // --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
     --primary-light: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.1);
     --primary-dark: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) * 0.5));
     --contrast-threshold: 75%;

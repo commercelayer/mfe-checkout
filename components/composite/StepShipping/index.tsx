@@ -362,7 +362,7 @@ export const StepShipping: React.FC<Props> = () => {
                               </LineItemsContainer> */}
                             </ShippingWrapper>
                           </Shipment>
-                          <ButtonWrapper>
+                          <ButtonWrapper className="btn-background">
                             <Button
                               disabled={!canContinue || isLocalLoader}
                               // disabled={!canContinue || isLocalLoader}
