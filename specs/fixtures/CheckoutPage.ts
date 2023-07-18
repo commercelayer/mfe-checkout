@@ -793,6 +793,7 @@ export class CheckoutPage {
               )
 
               await this.page.click("[data-testid=save-payment-button]")
+              await this.page.waitForTimeout(5000)
               await this.page.click("#buy-button")
 
               const i = this.page.locator("#klarna-apf-iframe")
