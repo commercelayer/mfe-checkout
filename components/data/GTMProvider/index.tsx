@@ -6,7 +6,11 @@ import TagManager from "react-gtm-module"
 import { AppContext } from "components/data/AppProvider"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 
-import { DataLayerItemProps, DataLayerProps } from "./typings"
+import {
+  DataLayerItemProps,
+  DataLayerProps,
+  RakutenDataLayerItemProps,
+} from "./typings"
 
 interface GTMProviderData {
   fireAddShippingInfo: () => Promise<void>
@@ -75,6 +79,21 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       item_name: name,
       price: total_amount_float,
       currency: currency_code,
+      quantity: quantity,
+    }
+  }
+  const mapItemsToRakuten = ({
+    name,
+    sku_code,
+    bundle_code,
+    quantity,
+    total_amount_float,
+  }: LineItem): RakutenDataLayerItemProps => {
+    return {
+      SKU: sku_code || bundle_code,
+      productName: name,
+      unitPrice: total_amount_float,
+      unitPriceLessTax: total_amount_float,
       quantity: quantity,
     }
   }
@@ -195,6 +214,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         coupon: order?.coupon_code,
         currency: order?.currency_code,
         items: lineItems?.map(mapItemsToGTM),
+        rakutenItems: lineItems?.map(mapItemsToRakuten),
         transaction_id: order?.number,
         shipping: order?.shipping_amount_float,
         value: order?.total_amount_with_taxes_float,
