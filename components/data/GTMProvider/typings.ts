@@ -24,6 +24,8 @@ export interface EcommerceProps {
   transaction_id?: number
   payment_type?: string
   tax?: number
+  taxRate?: number // taxRate can be percentage or decimal
+  taxRatePer?: number // taxRatePer will always be in percentage format
   market_id?: string
   customer_email?: string
 }

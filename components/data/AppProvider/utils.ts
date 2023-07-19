@@ -233,6 +233,7 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
         "currency_code",
         "shipping_amount_float",
         "total_tax_amount_float",
+        "tax_rate",
         "market",
         // End fields for GTM
         "guest",

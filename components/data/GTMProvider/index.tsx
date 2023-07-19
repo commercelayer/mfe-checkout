@@ -25,6 +25,10 @@ interface GTMProviderProps {
   gtmId?: string
 }
 
+function isFloat(n: number) {
+  return Number(n) === n && n % 1 !== 0
+}
+
 export const GTMProvider: React.FC<GTMProviderProps> = ({
   children,
   gtmId,
@@ -219,6 +223,10 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         shipping: order?.shipping_amount_float,
         value: order?.total_amount_with_taxes_float,
         tax: order?.total_tax_amount_float,
+        taxRate: order?.tax_rate, // taxRate can be percentage or decimal
+        taxRatePer: isFloat((order?.tax_rate || 0) * 1) // taxRatePer will always be in percentage format, need to multiply to 1 so that any returned value would be converted to a number, tax_rate is being returned as string
+          ? (order?.tax_rate || 0) * 100
+          : order?.tax_rate,
         market_id: order?.market?.id,
       },
     })
