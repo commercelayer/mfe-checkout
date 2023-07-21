@@ -684,6 +684,7 @@ export class CheckoutPage {
             )
 
             await newPage.click("#btnLogin")
+            await newPage.waitForTimeout(3000)
             await newPage.click('[data-testid="submit-button-initial"]')
 
             break
