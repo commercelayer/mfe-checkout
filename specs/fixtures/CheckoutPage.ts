@@ -684,6 +684,8 @@ export class CheckoutPage {
             )
 
             await newPage.click("#btnLogin")
+            await newPage.waitForTimeout(3000)
+            await newPage.click("#gdpr-container >> text=Accetta")
             await newPage.click('[data-testid="submit-button-initial"]')
 
             break
@@ -727,6 +729,7 @@ export class CheckoutPage {
             )
 
             await this.page.click("[data-testid=save-payment-button]")
+            await this.page.waitForTimeout(4000)
             await this.page.click("#buy-button")
 
             const i = this.page.locator("#klarna-apf-iframe")
@@ -793,6 +796,7 @@ export class CheckoutPage {
               )
 
               await this.page.click("[data-testid=save-payment-button]")
+              await this.page.waitForTimeout(5000)
               await this.page.click("#buy-button")
 
               const i = this.page.locator("#klarna-apf-iframe")
