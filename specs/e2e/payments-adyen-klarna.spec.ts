@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker"
 import { test, expect } from "../fixtures/tokenizedPage"
 import { euAddress2, deAddress } from "../utils/addresses"
 
-test.describe("guest with Adyen and Pay over time with Klarna in France", () => {
+test.describe("guest with Adyen and Pay with Klarna in France", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({
@@ -46,7 +46,7 @@ test.describe("guest with Adyen and Pay over time with Klarna in France", () => 
   })
 })
 
-test.describe("guest with Adyen and Pay over time with Klarna in Germany", () => {
+test.describe("guest with Adyen and Pay with Klarna in Germany", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({

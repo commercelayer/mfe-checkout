@@ -138,7 +138,8 @@
   "resolutions": {
     "npm": "^8.18.0",
     "dset": "^3.1.2",
-    "semver": ">=7.5.2"
+    "semver": ">=7.5.2",
+    "word-break": ">=1.2.5"
   },
   "babelMacros": {
     "twin": {

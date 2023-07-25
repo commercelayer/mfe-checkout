@@ -1,9 +1,14 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 overrides:
   npm: ^8.18.0
   dset: ^3.1.2
   semver: '>=7.5.2'
+  word-break: '>=1.2.5'
 
 dependencies:
   '@commercelayer/react-components':
