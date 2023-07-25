@@ -1,3 +1,10 @@
+## [4.0.12](https://github.com/commercelayer/mfe-checkout/compare/v4.0.11...v4.0.12) (2023-07-25)
+
+
+### Bug Fixes
+
+* upgrade packages and fix klarna test ([c9bf491](https://github.com/commercelayer/mfe-checkout/commit/c9bf4911feaf380a6ee82af5ca5623a7ba7172cb))
+
 ## [4.0.11](https://github.com/commercelayer/mfe-checkout/compare/v4.0.10...v4.0.11) (2023-06-08)
 
 ### Performance Improvements
