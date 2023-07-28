@@ -118,14 +118,14 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       await cl.orders.retrieve(orderId, {
         include: [
           "shipments.shipping_method",
-          "shipments.shipment_line_items",
-          "shipments.shipment_line_items.line_item",
+          "shipments.stock_line_items",
+          "shipments.stock_line_items.line_item",
         ],
         fields: {
           orders: ["shipments"],
-          shipments: ["shipping_method", "shipment_line_items"],
+          shipments: ["shipping_method", "stock_line_items"],
           shipping_method: ["name", "price_amount_for_shipment_float"],
-          shipment_line_items: ["line_item"],
+          stock_line_items: ["line_item"],
           line_item: [
             "sku_code",
             "name",
@@ -139,7 +139,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     ).shipments
 
     shipments?.forEach(async (shipment) => {
-      const lineItems = shipment.shipment_line_items?.map(
+      const lineItems = shipment.stock_line_items?.map(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         (e) => e && mapItemsToGTM(e.line_item)
