@@ -549,6 +549,16 @@ export class CheckoutPage {
     await this.page.getByText(text).waitFor({ state: "visible" })
   }
 
+  async checkLineItemAmount(text?: string) {
+    const element = await this.page.getByTestId(`line-item-amount`)
+    if (text !== undefined) {
+      await element.waitFor({ state: "visible" })
+      await expect(await element.innerText()).toBe(text)
+    } else {
+      await expect(element).toHaveCount(0)
+    }
+  }
+
   async checkDiscountAmount(text?: string) {
     const element = await this.page.getByTestId("discount-amount")
     if (text !== undefined) {
@@ -704,7 +714,7 @@ export class CheckoutPage {
           case "klarna_pay_now": {
             await this.page
               .getByRole("radio", {
-                name: "Pay now with Klarna. Pay now with Klarna.",
+                name: "Pay now with Klarna.",
               })
               .click()
             await this.page.getByTestId("save-payment-button").click()
@@ -955,14 +965,14 @@ export class CheckoutPage {
   ) {
     switch (type) {
       case "stripe": {
-        const stripeFrame = this.page.frameLocator("iframe").first()
+        const stripeFrame = this.page
+          .frameLocator("[data-testid=stripe_payments] iframe")
+          .first()
         await stripeFrame
-          .locator("input[name=cardnumber]")
+          .getByPlaceholder("1234 1234 1234 1234")
           .fill(card?.number || "4242424242424242")
-        await stripeFrame
-          .locator("input[name=exp-date]")
-          .fill(card?.exp || "0231")
-        await stripeFrame.locator("input[name=cvc]").fill(card?.cvc || "321")
+        await stripeFrame.getByPlaceholder("MM / YY").fill(card?.exp || "0231")
+        await stripeFrame.getByPlaceholder("CVC").fill(card?.cvc || "321")
         break
       }
       case "braintree": {
@@ -1071,6 +1081,7 @@ export class CheckoutPage {
     const buttonId = this.page.getByTestId(
       `save-${step.toLocaleLowerCase()}-button`
     )
+    await buttonId.focus()
     switch (step) {
       case "Customer":
         await buttonId.isEnabled()
@@ -1088,7 +1099,7 @@ export class CheckoutPage {
         break
       case "Payment": {
         const text = waitText || "Thank you for your order"
-        await buttonId.isEnabled()
+        await buttonId.isEnabled({ timeout: 3000 })
         await buttonId.click()
 
         if (waitText === "Paga con PayPal") {

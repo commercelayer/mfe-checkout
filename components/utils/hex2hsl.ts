@@ -1,9 +1,3 @@
-export const BLACK_COLOR: HSLProps = {
-  h: 0,
-  l: "0%",
-  s: "0%",
-}
-
 function removeHash(hex: string) {
   if (hex.charAt && hex.charAt(0) === "#") {
     const arr = hex.split("")
