@@ -631,7 +631,6 @@ export class CheckoutPage {
     } else {
       paymentMethod = `${type}_payments`
     }
-    // await this.page.click(`[data-testid=${paymentMethod}]`, { force: true })
     await this.page.getByTestId(paymentMethod).click()
     await this.page.mouse.wheel(0, 30)
   }
@@ -700,7 +699,6 @@ export class CheckoutPage {
               })
               .click()
             await this.page.getByTestId("save-payment-button").click()
-            // await this.page.click("#buy-button")
 
             const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
 
@@ -730,11 +728,6 @@ export class CheckoutPage {
             await pagePromise.getByLabel("TAN").fill("12345")
             await pagePromise.getByRole("button", { name: "Weiter" }).click()
 
-            // await this.page.pause()
-            // await this.page.pause()
-            // await klarnaIframe
-            //   .getByRole("button", { name: "Zahle 99,00 € jetzt" })
-            //   .click()
             break
           }
           case "klarna_pay_later": {
@@ -747,9 +740,7 @@ export class CheckoutPage {
 
             await this.page.click("[data-testid=save-payment-button]")
             await this.page.waitForTimeout(4000)
-            // await this.page.click("#buy-button")
 
-            // const i = this.page.locator("#klarna-apf-iframe")
             const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
 
             await klarnaIframe
@@ -766,9 +757,6 @@ export class CheckoutPage {
 
             await klarnaIframe.getByTestId("confirm-and-pay").click()
 
-            // await klarnaIframe
-            //   .locator("#invoice_kp-purchase-review-continue-button")
-            //   .click()
             break
           }
           case "klarna_pay_over_time": {
@@ -816,14 +804,9 @@ export class CheckoutPage {
               )
 
               await this.page.click("[data-testid=save-payment-button]")
-              // await this.page.pause()
               await this.page.waitForTimeout(5000)
-              // await this.page.click("#buy-button")
 
               const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
-              // const klarnaIframe = this.page.frameLocator(
-              //   "#klarna-hpp-instance-fullscreen"
-              // )
 
               await klarnaIframe
                 .getByTestId("kaf-field")
@@ -850,7 +833,6 @@ export class CheckoutPage {
               // await this.page.waitForTimeout(2000)
 
               await klarnaIframe.getByTestId("pick-plan").click()
-              // await this.page.pause()
               await klarnaIframe
                 .locator("label")
                 .filter({
