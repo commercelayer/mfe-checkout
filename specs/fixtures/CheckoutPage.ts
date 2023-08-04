@@ -631,7 +631,6 @@ export class CheckoutPage {
     } else {
       paymentMethod = `${type}_payments`
     }
-    // await this.page.click(`[data-testid=${paymentMethod}]`, { force: true })
     await this.page.getByTestId(paymentMethod).click()
     await this.page.mouse.wheel(0, 30)
   }
@@ -685,7 +684,10 @@ export class CheckoutPage {
 
             await newPage.click("#btnLogin")
             await newPage.waitForTimeout(3000)
-            await newPage.click("#gdpr-container >> text=Accetta")
+            const banner = newPage.locator("#gdpr-container >> text=Accetta")
+            if (await banner.isVisible()) {
+              banner.click()
+            }
             await newPage.click('[data-testid="submit-button-initial"]')
 
             break
@@ -697,12 +699,8 @@ export class CheckoutPage {
               })
               .click()
             await this.page.getByTestId("save-payment-button").click()
-            await this.page.click("#buy-button")
 
-            const i = this.page.locator("#klarna-apf-iframe")
-            const klarnaIframe = this.page.frameLocator(
-              "#klarna-hpp-instance-fullscreen"
-            )
+            const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
 
             await klarnaIframe
               .getByTestId("kaf-field")
@@ -715,9 +713,21 @@ export class CheckoutPage {
             await klarnaIframe.locator("input#otp_field").focus()
             await klarnaIframe.locator("input#otp_field").type("123456")
             await this.page.waitForTimeout(1000)
-            await klarnaIframe
-              .getByRole("button", { name: "Zahle 99,00 € jetzt" })
-              .click()
+            await klarnaIframe.getByTestId("pick-plan").click()
+            await klarnaIframe.getByTestId("confirm-and-pay").click()
+            await klarnaIframe.getByRole("button", { name: "Weiter" }).click()
+            const pagePromise = await this.page.waitForEvent("popup")
+
+            await pagePromise.getByText("Demo Bank").click()
+            await pagePromise.getByLabel("Kontonummer").click()
+            await pagePromise.getByLabel("Kontonummer").fill("12345678")
+            await pagePromise.getByLabel("PIN").click()
+            await pagePromise.getByLabel("PIN").fill("1234")
+            await pagePromise.getByRole("button", { name: "Weiter" }).click()
+            await pagePromise.getByLabel("TAN").click()
+            await pagePromise.getByLabel("TAN").fill("12345")
+            await pagePromise.getByRole("button", { name: "Weiter" }).click()
+
             break
           }
           case "klarna_pay_later": {
@@ -730,12 +740,8 @@ export class CheckoutPage {
 
             await this.page.click("[data-testid=save-payment-button]")
             await this.page.waitForTimeout(4000)
-            await this.page.click("#buy-button")
 
-            const i = this.page.locator("#klarna-apf-iframe")
-            const klarnaIframe = this.page.frameLocator(
-              "#klarna-hpp-instance-fullscreen"
-            )
+            const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
 
             await klarnaIframe
               .getByTestId("kaf-field")
@@ -749,9 +755,8 @@ export class CheckoutPage {
             await klarnaIframe.locator("input#otp_field").type("123456")
             await this.page.waitForTimeout(1000)
 
-            await klarnaIframe
-              .locator("#invoice_kp-purchase-review-continue-button")
-              .click()
+            await klarnaIframe.getByTestId("confirm-and-pay").click()
+
             break
           }
           case "klarna_pay_over_time": {
@@ -784,9 +789,12 @@ export class CheckoutPage {
                 .locator("[data-testid=confirm-and-pay]")
                 .click()
 
-              await klarnaIframe
-                .locator('[data-testid="SmoothCheckoutPopUp:enable"]')
-                .click()
+              const popup = await klarnaIframe.locator(
+                '[data-testid="SmoothCheckoutPopUp:enable"]'
+              )
+              if (await popup.isVisible()) {
+                await popup.click()
+              }
             } else {
               await this.page.click(
                 "[data-testid=adyen_payments] >> text=Pay over time",
@@ -797,12 +805,8 @@ export class CheckoutPage {
 
               await this.page.click("[data-testid=save-payment-button]")
               await this.page.waitForTimeout(5000)
-              await this.page.click("#buy-button")
 
-              const i = this.page.locator("#klarna-apf-iframe")
-              const klarnaIframe = this.page.frameLocator(
-                "#klarna-hpp-instance-fullscreen"
-              )
+              const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
 
               await klarnaIframe
                 .getByTestId("kaf-field")
@@ -828,15 +832,17 @@ export class CheckoutPage {
               // await klarnaIframe.getByTestId("kaf-button").click()
               // await this.page.waitForTimeout(2000)
 
+              await klarnaIframe.getByTestId("pick-plan").click()
               await klarnaIframe
-                .locator(
-                  "#fixedsumcredit_kp-purchase-review-secci-toggle__root"
-                )
-                .click({ position: { x: 10, y: 10 } })
-
-              await klarnaIframe
-                .locator("#fixedsumcredit_kp-purchase-review-continue-button")
+                .locator("label")
+                .filter({
+                  hasText:
+                    "Ich habe die Teilzahlungsbedingungen gelesen und verstanden und bestätige, dass ",
+                })
+                .locator("div")
+                .nth(1)
                 .click()
+              await klarnaIframe.getByTestId("confirm-and-pay").click()
             }
             break
           }
