@@ -700,12 +700,9 @@ export class CheckoutPage {
               })
               .click()
             await this.page.getByTestId("save-payment-button").click()
-            await this.page.click("#buy-button")
+            // await this.page.click("#buy-button")
 
-            const i = this.page.locator("#klarna-apf-iframe")
-            const klarnaIframe = this.page.frameLocator(
-              "#klarna-hpp-instance-fullscreen"
-            )
+            const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
 
             await klarnaIframe
               .getByTestId("kaf-field")
@@ -718,9 +715,26 @@ export class CheckoutPage {
             await klarnaIframe.locator("input#otp_field").focus()
             await klarnaIframe.locator("input#otp_field").type("123456")
             await this.page.waitForTimeout(1000)
-            await klarnaIframe
-              .getByRole("button", { name: "Zahle 99,00 € jetzt" })
-              .click()
+            await klarnaIframe.getByTestId("pick-plan").click()
+            await klarnaIframe.getByTestId("confirm-and-pay").click()
+            await klarnaIframe.getByRole("button", { name: "Weiter" }).click()
+            const pagePromise = await this.page.waitForEvent("popup")
+
+            await pagePromise.getByText("Demo Bank").click()
+            await pagePromise.getByLabel("Kontonummer").click()
+            await pagePromise.getByLabel("Kontonummer").fill("12345678")
+            await pagePromise.getByLabel("PIN").click()
+            await pagePromise.getByLabel("PIN").fill("1234")
+            await pagePromise.getByRole("button", { name: "Weiter" }).click()
+            await pagePromise.getByLabel("TAN").click()
+            await pagePromise.getByLabel("TAN").fill("12345")
+            await pagePromise.getByRole("button", { name: "Weiter" }).click()
+
+            // await this.page.pause()
+            // await this.page.pause()
+            // await klarnaIframe
+            //   .getByRole("button", { name: "Zahle 99,00 € jetzt" })
+            //   .click()
             break
           }
           case "klarna_pay_later": {
