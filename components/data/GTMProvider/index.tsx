@@ -6,7 +6,11 @@ import TagManager from "react-gtm-module"
 import { AppContext } from "components/data/AppProvider"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 
-import { DataLayerItemProps, DataLayerProps } from "./typings"
+import {
+  DataLayerItemProps,
+  DataLayerProps,
+  RakutenDataLayerItemProps,
+} from "./typings"
 
 interface GTMProviderData {
   fireAddShippingInfo: () => Promise<void>
@@ -19,6 +23,10 @@ export const GTMContext = createContext<GTMProviderData | null>(null)
 interface GTMProviderProps {
   children: React.ReactNode
   gtmId?: string
+}
+
+function isFloat(n: number) {
+  return Number(n) === n && n % 1 !== 0
 }
 
 export const GTMProvider: React.FC<GTMProviderProps> = ({
@@ -75,6 +83,21 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       item_name: name,
       price: total_amount_float,
       currency: currency_code,
+      quantity: quantity,
+    }
+  }
+  const mapItemsToRakuten = ({
+    name,
+    sku_code,
+    bundle_code,
+    quantity,
+    total_amount_float,
+  }: LineItem): RakutenDataLayerItemProps => {
+    return {
+      SKU: sku_code || bundle_code,
+      productName: name,
+      unitPrice: total_amount_float,
+      unitPriceLessTax: total_amount_float,
       quantity: quantity,
     }
   }
@@ -195,10 +218,15 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
         coupon: order?.coupon_code,
         currency: order?.currency_code,
         items: lineItems?.map(mapItemsToGTM),
+        rakutenItems: lineItems?.map(mapItemsToRakuten),
         transaction_id: order?.number,
         shipping: order?.shipping_amount_float,
         value: order?.total_amount_with_taxes_float,
         tax: order?.total_tax_amount_float,
+        taxRate: order?.tax_rate, // taxRate can be percentage or decimal
+        taxRatePer: isFloat((order?.tax_rate || 0) * 1) // taxRatePer will always be in percentage format, need to multiply to 1 so that any returned value would be converted to a number, tax_rate is being returned as string
+          ? (order?.tax_rate || 0) * 100
+          : order?.tax_rate,
         market_id: order?.market?.id,
       },
     })
