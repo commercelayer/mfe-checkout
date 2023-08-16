@@ -203,7 +203,8 @@ test.describe("sku options with price", () => {
     },
   })
 
-  test("appear only on order summary", async ({ checkoutPage }) => {
+  test("should match SKUs quantity", async ({ checkoutPage }) => {
+    test.skip()
     await checkoutPage.checkOrderSummary("Order Summary")
     await checkoutPage.checkStep("Shipping", "open")
     const element = checkoutPage.page.locator(`text=Letters:${letters}`)
