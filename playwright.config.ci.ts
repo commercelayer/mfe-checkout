@@ -3,13 +3,13 @@ import { PlaywrightTestConfig } from "@playwright/test"
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
   // Timeout per test
-  timeout: 2 * 60 * 1000,
+  timeout: 1 * 60 * 1000,
   // Timeout per expect
   expect: {
     timeout: 10 * 1000,
   },
-  // If a test fails, retry it additional 5 times
-  retries: 3,
+  // If a test fails, retry it additional 2 times
+  retries: 2,
   // Artifacts folder where screenshots, videos, and traces are stored.
   outputDir: "test-results/",
   workers: 3,

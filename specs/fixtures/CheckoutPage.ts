@@ -651,6 +651,7 @@ export class CheckoutPage {
       paymentMethod = `${type}_payments`
     }
     await this.page.getByTestId(paymentMethod).click()
+    await this.page.waitForTimeout(2000)
     await this.page.mouse.wheel(0, 30)
   }
 
@@ -952,6 +953,7 @@ export class CheckoutPage {
   async setPayment(
     type:
       | "stripe"
+      | "stripe-paypal"
       | "braintree"
       | "paypal"
       | "adyen"
@@ -973,6 +975,16 @@ export class CheckoutPage {
           .fill(card?.number || "4242424242424242")
         await stripeFrame.getByPlaceholder("MM / YY").fill(card?.exp || "0231")
         await stripeFrame.getByPlaceholder("CVC").fill(card?.cvc || "321")
+        break
+      }
+      case "stripe-paypal": {
+        await this.page.waitForTimeout(2000)
+        await this.page.mouse.wheel(0, 300)
+
+        const stripeFrame = this.page
+          .frameLocator("[data-testid=stripe_payments] iframe")
+          .first()
+        await stripeFrame.getByRole("button", { name: "PayPal" }).click()
         break
       }
       case "braintree": {

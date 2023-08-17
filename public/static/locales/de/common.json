@@ -88,6 +88,7 @@
         "methodSelected_other": "Deine Bestellung besteht aus {{count}} Sendungen.",
         "methodUnselected": "Wähle eine Versandart",
         "deliveryLeadTime": "<0/> - <1/> Tage",
+        "externalPrice": "At next step",
         "continueToPayment": "Weiter zur Zahlung",
         "notRequired": "Diese Bestellung erfordert keinen Versand"
     },

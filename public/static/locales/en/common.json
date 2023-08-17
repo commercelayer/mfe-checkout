@@ -87,6 +87,7 @@
         "methodSelected_other": "Your order contains {{count}} shipments",
         "methodUnselected": "Select a shipping method",
         "deliveryLeadTime" : "<0/> - <1/> days",
+        "externalPrice": "At next step",
         "continueToPayment": "Continue to payment",
         "notRequired": "This order does not require shipping"
     },
