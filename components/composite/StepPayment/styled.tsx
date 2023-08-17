@@ -68,7 +68,7 @@ export const PaymentItemTitle = styled.h5`
   ${tw`text-sm font-bold`}
 `
 export const ShippingLineItemQty = styled.p`
-  ${tw`text-xs text-gray-400 uppercase pt-1`}
+  ${tw`text-lg text-gray-500 lowercase pt-1`}
 `
 export const WalletCheckbox = styled.input`
   ${CheckCss}

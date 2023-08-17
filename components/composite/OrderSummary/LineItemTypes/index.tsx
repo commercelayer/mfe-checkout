@@ -1,3 +1,4 @@
+import { LineItemField } from "@commercelayer/react-components"
 import {
   LineItem,
   TLineItem,
@@ -10,9 +11,12 @@ import LineItemQuantity from "@commercelayer/react-components/line_items/LineIte
 import { useTranslation } from "next-i18next"
 import React from "react"
 
+import { FlexContainer } from "components/ui/FlexContainer"
+
 import {
   LineItemDescription,
   LineItemQty,
+  LineItemFrequency,
   LineItemTitle,
   LineItemWrapper,
   StyledLineItemSkuCode,
@@ -46,16 +50,30 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
           <StyledLineItemOptions showAll showName={true} className="options">
             <LineItemOption />
           </StyledLineItemOptions>
-          <LineItemQty>
-            <LineItemQuantity>
-              {(props) => (
-                <>
-                  {!!props.quantity &&
-                    t("orderRecap.quantity", { count: props.quantity })}
-                </>
-              )}
-            </LineItemQuantity>
-          </LineItemQty>
+          <FlexContainer className="justify-between mt-2">
+            <LineItemQty>
+              <LineItemQuantity>
+                {(props) => (
+                  <>
+                    {!!props.quantity &&
+                      t("orderRecap.quantity", { count: props.quantity })}
+                  </>
+                )}
+              </LineItemQuantity>
+            </LineItemQty>
+            <LineItemField attribute="frequency">
+              {/*  @ts-expect-error typing on attribute */}
+              {({ attributeValue }) =>
+                attributeValue ? (
+                  <LineItemFrequency>
+                    {(attributeValue as string)[0].toUpperCase() +
+                      (attributeValue as string).slice(1)}{" "}
+                    subscription
+                  </LineItemFrequency>
+                ) : null
+              }
+            </LineItemField>
+          </FlexContainer>
         </LineItemDescription>
       </LineItemWrapper>
     </LineItem>

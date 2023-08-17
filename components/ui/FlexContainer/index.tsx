@@ -11,5 +11,5 @@ export const FlexContainer: React.FC<Props> = ({ children, className }) => (
 )
 
 const Wrapper = styled.div`
-  ${tw`flex justify-start`}
+  ${tw`flex`}
 `

@@ -38,7 +38,7 @@ export const ShippingLineItemTitle = styled.h5`
   ${tw`text-black text-sm font-bold`}
 `
 export const ShippingLineItemQty = styled.p`
-  ${tw`text-xs text-gray-400 uppercase pt-1`}
+  ${tw`text-xs font-semibold text-gray-400 lowercase pt-1 first-letter:uppercase`}
 `
 export const StyledShippingMethodRadioButton = styled(
   ShippingMethodRadioButton
