@@ -723,6 +723,7 @@ export class CheckoutPage {
             await pagePromise.getByLabel("Kontonummer").fill("12345678")
             await pagePromise.getByLabel("PIN").click()
             await pagePromise.getByLabel("PIN").fill("1234")
+            await pagePromise.waitForTimeout(2000)
             await pagePromise.getByRole("button", { name: "Weiter" }).click()
             await pagePromise.getByLabel("TAN").click()
             await pagePromise.getByLabel("TAN").fill("12345")
@@ -831,7 +832,6 @@ export class CheckoutPage {
 
               // await klarnaIframe.getByTestId("kaf-button").click()
               // await this.page.waitForTimeout(2000)
-
               await klarnaIframe.getByTestId("pick-plan").click()
               await klarnaIframe
                 .locator("label")
@@ -843,6 +843,16 @@ export class CheckoutPage {
                 .nth(1)
                 .click()
               await klarnaIframe.getByTestId("confirm-and-pay").click()
+
+              const iban = klarnaIframe.getByRole("textbox", {
+                name: "IBAN übermitteln",
+              })
+
+              if (await iban.isVisible()) {
+                iban.click()
+                iban.fill("DE91100000000123456789")
+                klarnaIframe.getByRole("button", { name: "Bestätigen" }).click()
+              }
             }
             break
           }
