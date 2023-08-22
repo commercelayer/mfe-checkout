@@ -821,7 +821,10 @@ export class CheckoutPage {
               await klarnaIframe.locator("input#otp_field").type("123456")
               await this.page.waitForTimeout(1000)
 
-              // await klarnaIframe.getByTestId("kaf-button").click()
+              const emailButton = klarnaIframe.getByTestId("kaf-button")
+              if (await emailButton.isVisible()) {
+                emailButton.click()
+              }
 
               // await klarnaIframe
               //   .locator("input#addressCollector-date_of_birth")
