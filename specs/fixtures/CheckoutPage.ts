@@ -511,7 +511,7 @@ export class CheckoutPage {
 
   async checkShippingSummary(text?: string) {
     if (text === undefined) {
-      const element = await this.page.getByTestId("shipping-amount")
+      const element = this.page.getByTestId("shipping-amount")
       await expect(element).toHaveCount(0)
     } else {
       await this.page
@@ -522,8 +522,17 @@ export class CheckoutPage {
   }
 
   async checkLineItemsCount(text: string) {
-    const element = await this.page.locator(`[data-testid=items-count]`)
+    const element = this.page.locator(`[data-testid=items-count]`)
     await expect(element).toHaveText(text)
+  }
+
+  async checkLineItemFrequency(text?: string) {
+    const element = this.page.locator(`[data-testid=line-items-frequency]`)
+    if (text) {
+      await expect(element).toContainText(text)
+    } else {
+      expect(element).toBeHidden()
+    }
   }
 
   async checkPaymentRecap(text: string) {

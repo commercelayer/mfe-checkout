@@ -87,7 +87,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
                   : t(`orderRecap.frequency.${attributeValue}`)
 
                 return (
-                  <LineItemFrequency>
+                  <LineItemFrequency data-testid="line-items-frequency">
                     <RepeatIcon />
                     {frequency}
                   </LineItemFrequency>
