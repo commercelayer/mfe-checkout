@@ -43,6 +43,7 @@ export const AddressInputGroup: React.FC<Props> = ({
   openShippingAddress,
 }) => {
   const { t } = useTranslation()
+  const [valueState, setValueState] = useState(value)
 
   const messages: TMessages = [
     {
@@ -144,6 +145,10 @@ export const AddressInputGroup: React.FC<Props> = ({
             data-testid={`input_${fieldName}`}
             name={fieldName}
             value={value}
+            onChange={(event) => {
+              const value = event.target.value
+              setValueState(value)
+            }}
           />
           <Label htmlFor={fieldName}>{label}</Label>
         </>
@@ -171,6 +176,11 @@ export const AddressInputGroup: React.FC<Props> = ({
       <Wrapper>
         <div className="relative h-10">{renderInput()}</div>
       </Wrapper>
+      {fieldName === "billing_address_state_code" && !valueState ? (
+        <p className="inline-block py-2 pt-3 pl-3 text-xs text-red-400 placeholder-red-400 border-red-400 focus:ring-red-500 focus:border-red-500">
+          This field is required.
+        </p>
+      ) : null}
       <StyledErrors
         data-testid={`error_${fieldName}`}
         resource={resource}
