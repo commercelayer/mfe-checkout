@@ -1,3 +1,11 @@
+## [4.0.13](https://github.com/commercelayer/mfe-checkout/compare/v4.0.12...v4.0.13) (2023-08-23)
+
+
+### Bug Fixes
+
+* add support for crontab frequency ([551878c](https://github.com/commercelayer/mfe-checkout/commit/551878c89fbf65cd585531ab588f992207503a8f))
+* display subscription frequency on summary ([6d43494](https://github.com/commercelayer/mfe-checkout/commit/6d434942a0ec5606c4c70b312dfc5e774f9ef0e6))
+
 ## [4.0.12](https://github.com/commercelayer/mfe-checkout/compare/v4.0.11...v4.0.12) (2023-07-25)
 
 
