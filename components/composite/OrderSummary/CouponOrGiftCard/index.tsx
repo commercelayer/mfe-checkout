@@ -90,7 +90,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({
 
   return (
     <>
-      {!readonly && (
+      {/* {!readonly && (
         <GiftCardOrCouponForm onSubmit={handleSubmit}>
           <CouponFormWrapper>
             <CouponFieldWrapper>
@@ -115,7 +115,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({
             />
           </CouponFormWrapper>
         </GiftCardOrCouponForm>
-      )}
+      )} */}
 
       <GiftCardOrCouponCode type="coupon" className="inline-flex items-center">
         {(props) => {
