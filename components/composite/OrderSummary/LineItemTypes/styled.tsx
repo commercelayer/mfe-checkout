@@ -16,7 +16,7 @@ export const LineItemQty = styled.div`
   ${tw`text-xs bg-gray-100 max-w-max py-1 px-2.5 rounded lowercase text-gray-500 font-bold first-letter:uppercase`}
 `
 export const LineItemFrequency = styled(LineItemQty)`
-  ${tw`bg-white border border-primary text-primary `}
+  ${tw`mt-2 flex bg-white border border-primary text-primary lg:mt-0`}
 `
 
 export const StyledLineItemSkuCode = styled(LineItemCode)`

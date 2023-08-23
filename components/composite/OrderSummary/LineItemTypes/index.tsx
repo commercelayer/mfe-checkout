@@ -8,8 +8,15 @@ import LineItemImage from "@commercelayer/react-components/line_items/LineItemIm
 import LineItemName from "@commercelayer/react-components/line_items/LineItemName"
 import LineItemOption from "@commercelayer/react-components/line_items/LineItemOption"
 import LineItemQuantity from "@commercelayer/react-components/line_items/LineItemQuantity"
+import cronParser from "cron-parser"
+import cronstrue from "cronstrue"
 import { useTranslation } from "next-i18next"
 import React from "react"
+import "cronstrue/locales/en"
+import "cronstrue/locales/it"
+import "cronstrue/locales/de"
+
+import { RepeatIcon } from "../RepeatIcon"
 
 import { FlexContainer } from "components/ui/FlexContainer"
 
@@ -33,7 +40,7 @@ const CODE_LOOKUP: { [k: string]: "sku_code" | "bundle_code" | undefined } = {
 }
 
 export const LineItemTypes: React.FC<Props> = ({ type }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   return (
     <LineItem type={type}>
       <LineItemWrapper data-testid={`line-items-${type}`}>
@@ -50,7 +57,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
           <StyledLineItemOptions showAll showName={true} className="options">
             <LineItemOption />
           </StyledLineItemOptions>
-          <FlexContainer className="justify-between mt-2">
+          <FlexContainer className="flex-col justify-between mt-2 lg:flex-row">
             <LineItemQty>
               <LineItemQuantity>
                 {(props) => (
@@ -63,15 +70,29 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
             </LineItemQty>
             <LineItemField attribute="frequency">
               {/*  @ts-expect-error typing on attribute */}
-              {({ attributeValue }) =>
-                attributeValue ? (
+              {({ attributeValue }) => {
+                if (!attributeValue) {
+                  return null
+                }
+                let isCronValid = true
+                try {
+                  cronParser.parseExpression(attributeValue as string)
+                } catch (e) {
+                  isCronValid = false
+                }
+                const frequency = isCronValid
+                  ? cronstrue.toString(attributeValue as string, {
+                      locale: i18n.language,
+                    })
+                  : t(`orderRecap.frequency.${attributeValue}`)
+
+                return (
                   <LineItemFrequency>
-                    {(attributeValue as string)[0].toUpperCase() +
-                      (attributeValue as string).slice(1)}{" "}
-                    subscription
+                    <RepeatIcon />
+                    {frequency}
                   </LineItemFrequency>
-                ) : null
-              }
+                )
+              }}
             </LineItemField>
           </FlexContainer>
         </LineItemDescription>
