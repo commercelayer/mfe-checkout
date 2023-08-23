@@ -79,7 +79,7 @@ export const AddressInputGroup: React.FC<Props> = ({
     shippingCountryCodeLock = appCtx.shippingCountryCodeLock
   }
 
-  const label = t(`addressForm.${fieldName}`)
+  const label = t(`addressForm.${fieldName}`) + (required ? " *" : "")
 
   const [valueStatus, setValueStatus] = useState(value)
 

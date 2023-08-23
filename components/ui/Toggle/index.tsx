@@ -25,6 +25,7 @@ export const Toggle: React.FC<Props> = ({
           {...rest}
           type="button"
           onClick={onChange}
+          className={checked ? "toggle-background" : ""}
         >
           <span className="sr-only">Use setting</span>
           <Dot aria-hidden="true" />

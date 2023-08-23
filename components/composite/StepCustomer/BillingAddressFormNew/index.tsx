@@ -31,12 +31,14 @@ export const BillingAddressFormNew: React.FC<Props> = ({
           fieldName="billing_address_first_name"
           resource="billing_address"
           type="text"
+          required={true}
           value={billingAddress?.first_name || ""}
         />
         <AddressInputGroup
           fieldName="billing_address_last_name"
           resource="billing_address"
           type="text"
+          required={true}
           value={billingAddress?.last_name || ""}
         />
       </Grid>
@@ -44,6 +46,7 @@ export const BillingAddressFormNew: React.FC<Props> = ({
         fieldName="billing_address_line_1"
         resource="billing_address"
         type="text"
+        required={true}
         value={billingAddress?.line_1 || ""}
       />
       <AddressInputGroup
@@ -58,12 +61,14 @@ export const BillingAddressFormNew: React.FC<Props> = ({
           fieldName="billing_address_city"
           resource="billing_address"
           type="text"
+          required={true}
           value={billingAddress?.city || ""}
         />
         <AddressInputGroup
           fieldName="billing_address_country_code"
           resource="billing_address"
           type="text"
+          required={true}
           openShippingAddress={openShippingAddress}
           value={billingAddress?.country_code || ""}
         />
@@ -73,12 +78,14 @@ export const BillingAddressFormNew: React.FC<Props> = ({
           fieldName="billing_address_state_code"
           resource="billing_address"
           type="text"
+          required={true}
           value={billingAddress?.state_code || ""}
         />
         <AddressInputGroup
           fieldName="billing_address_zip_code"
           resource="billing_address"
           type="text"
+          required={true}
           value={billingAddress?.zip_code || ""}
         />
       </Grid>
@@ -86,6 +93,7 @@ export const BillingAddressFormNew: React.FC<Props> = ({
         fieldName="billing_address_phone"
         resource="billing_address"
         type="tel"
+        required={true}
         value={billingAddress?.phone || ""}
       />
       {requiresBillingInfo && (
