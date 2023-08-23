@@ -115,7 +115,7 @@ If the order has the attribute `shipping_country_code_lock` set, customers can s
 
 ### Delivery step
 
-Here is where customers select a shipping method for each shipment of their order.
+Here is where customers select a shipping method for each shipment of their order. [External shipping cost](https://docs.commercelayer.io/core/external-resources/external-shipping-costs) are not supported by the Checkout application at the moment.
 
 #### Single shipping method
 
