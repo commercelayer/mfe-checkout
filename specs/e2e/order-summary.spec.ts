@@ -448,3 +448,42 @@ test.describe("count buying gift card", () => {
     await checkoutPage.checkLineItemsCount("Your shopping cart contains 1 item")
   })
 })
+
+test.describe("line item with frequency", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        {
+          sku_code: "TSHIRTMMFFFFFF000000XLXX",
+          quantity: 1,
+          frequency: "monthly",
+        },
+      ],
+    },
+  })
+
+  test("should show the monthly frequency", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkLineItemFrequency("Monthly")
+  })
+})
+
+test.describe("line item without frequency", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        {
+          sku_code: "TSHIRTMMFFFFFF000000XLXX",
+          quantity: 1,
+        },
+      ],
+    },
+  })
+
+  test("should show the monthly frequency", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkLineItemFrequency()
+  })
+})

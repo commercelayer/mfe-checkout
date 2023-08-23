@@ -50,7 +50,20 @@
         "subtotal_amount": "Subtotal",
         "total_amount": "Total",
         "notSet": "To be calculated",
-        "returnToCart": "Return to cart"
+        "returnToCart": "Return to cart",
+        "frequency.hourly": "Hourly",
+        "frequency.daily": "Daily",
+        "frequency.weekly": "Weekly",
+        "frequency.monthly": "Monthly",
+        "frequency.two-months": "Every two months",
+        "frequency.two-month": "Every two months",
+        "frequency.three-months": "Every three months",
+        "frequency.three-month": "Every three months",
+        "frequency.four-months": "Every four months",
+        "frequency.four-month": "Every four months",
+        "frequency.six-months": "Every six months",
+        "frequency.six-month": "Every six months",
+        "frequency.yearly": "Yearly"
     },
 
     "stepCustomer": {

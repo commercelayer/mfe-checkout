@@ -27,6 +27,7 @@ type OrderType =
 interface BaseLineItemObject {
   quantity: number
   inventory?: number
+  frequency?: string
   sku_options?: Array<Record<string, string | object>>
 }
 

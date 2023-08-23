@@ -511,7 +511,7 @@ export class CheckoutPage {
 
   async checkShippingSummary(text?: string) {
     if (text === undefined) {
-      const element = await this.page.getByTestId("shipping-amount")
+      const element = this.page.getByTestId("shipping-amount")
       await expect(element).toHaveCount(0)
     } else {
       await this.page
@@ -522,8 +522,17 @@ export class CheckoutPage {
   }
 
   async checkLineItemsCount(text: string) {
-    const element = await this.page.locator(`[data-testid=items-count]`)
+    const element = this.page.locator(`[data-testid=items-count]`)
     await expect(element).toHaveText(text)
+  }
+
+  async checkLineItemFrequency(text?: string) {
+    const element = this.page.locator(`[data-testid=line-items-frequency]`)
+    if (text) {
+      await expect(element).toContainText(text)
+    } else {
+      expect(element).toBeHidden()
+    }
   }
 
   async checkPaymentRecap(text: string) {
@@ -723,6 +732,7 @@ export class CheckoutPage {
             await pagePromise.getByLabel("Kontonummer").fill("12345678")
             await pagePromise.getByLabel("PIN").click()
             await pagePromise.getByLabel("PIN").fill("1234")
+            await pagePromise.waitForTimeout(2000)
             await pagePromise.getByRole("button", { name: "Weiter" }).click()
             await pagePromise.getByLabel("TAN").click()
             await pagePromise.getByLabel("TAN").fill("12345")
@@ -820,7 +830,10 @@ export class CheckoutPage {
               await klarnaIframe.locator("input#otp_field").type("123456")
               await this.page.waitForTimeout(1000)
 
-              // await klarnaIframe.getByTestId("kaf-button").click()
+              const emailButton = klarnaIframe.getByTestId("kaf-button")
+              if (await emailButton.isVisible()) {
+                emailButton.click()
+              }
 
               // await klarnaIframe
               //   .locator("input#addressCollector-date_of_birth")
@@ -831,7 +844,6 @@ export class CheckoutPage {
 
               // await klarnaIframe.getByTestId("kaf-button").click()
               // await this.page.waitForTimeout(2000)
-
               await klarnaIframe.getByTestId("pick-plan").click()
               await klarnaIframe
                 .locator("label")
@@ -843,6 +855,16 @@ export class CheckoutPage {
                 .nth(1)
                 .click()
               await klarnaIframe.getByTestId("confirm-and-pay").click()
+
+              const iban = klarnaIframe.getByRole("textbox", {
+                name: "IBAN übermitteln",
+              })
+
+              if (await iban.isVisible()) {
+                iban.click()
+                iban.fill("DE91100000000123456789")
+                klarnaIframe.getByRole("button", { name: "Bestätigen" }).click()
+              }
             }
             break
           }

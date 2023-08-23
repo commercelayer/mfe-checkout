@@ -1,3 +1,4 @@
+import { LineItemField } from "@commercelayer/react-components"
 import {
   LineItem,
   TLineItem,
@@ -7,12 +8,22 @@ import LineItemImage from "@commercelayer/react-components/line_items/LineItemIm
 import LineItemName from "@commercelayer/react-components/line_items/LineItemName"
 import LineItemOption from "@commercelayer/react-components/line_items/LineItemOption"
 import LineItemQuantity from "@commercelayer/react-components/line_items/LineItemQuantity"
+import cronParser from "cron-parser"
+import cronstrue from "cronstrue"
 import { useTranslation } from "next-i18next"
 import React from "react"
+import "cronstrue/locales/en"
+import "cronstrue/locales/it"
+import "cronstrue/locales/de"
+
+import { RepeatIcon } from "../RepeatIcon"
+
+import { FlexContainer } from "components/ui/FlexContainer"
 
 import {
   LineItemDescription,
   LineItemQty,
+  LineItemFrequency,
   LineItemTitle,
   LineItemWrapper,
   StyledLineItemSkuCode,
@@ -29,7 +40,7 @@ const CODE_LOOKUP: { [k: string]: "sku_code" | "bundle_code" | undefined } = {
 }
 
 export const LineItemTypes: React.FC<Props> = ({ type }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   return (
     <LineItem type={type}>
       <LineItemWrapper data-testid={`line-items-${type}`}>
@@ -46,16 +57,44 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
           <StyledLineItemOptions showAll showName={true} className="options">
             <LineItemOption />
           </StyledLineItemOptions>
-          <LineItemQty>
-            <LineItemQuantity>
-              {(props) => (
-                <>
-                  {!!props.quantity &&
-                    t("orderRecap.quantity", { count: props.quantity })}
-                </>
-              )}
-            </LineItemQuantity>
-          </LineItemQty>
+          <FlexContainer className="flex-col justify-between mt-2 lg:flex-row">
+            <LineItemQty>
+              <LineItemQuantity>
+                {(props) => (
+                  <>
+                    {!!props.quantity &&
+                      t("orderRecap.quantity", { count: props.quantity })}
+                  </>
+                )}
+              </LineItemQuantity>
+            </LineItemQty>
+            <LineItemField attribute="frequency">
+              {/*  @ts-expect-error typing on attribute */}
+              {({ attributeValue }) => {
+                if (!attributeValue) {
+                  return null
+                }
+                let isCronValid = true
+                try {
+                  cronParser.parseExpression(attributeValue as string)
+                } catch (e) {
+                  isCronValid = false
+                }
+                const frequency = isCronValid
+                  ? cronstrue.toString(attributeValue as string, {
+                      locale: i18n.language,
+                    })
+                  : t(`orderRecap.frequency.${attributeValue}`)
+
+                return (
+                  <LineItemFrequency data-testid="line-items-frequency">
+                    <RepeatIcon />
+                    {frequency}
+                  </LineItemFrequency>
+                )
+              }}
+            </LineItemField>
+          </FlexContainer>
         </LineItemDescription>
       </LineItemWrapper>
     </LineItem>

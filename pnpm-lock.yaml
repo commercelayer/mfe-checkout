@@ -65,6 +65,12 @@ dependencies:
   classnames:
     specifier: ^2.3.2
     version: 2.3.2
+  cron-parser:
+    specifier: ^4.9.0
+    version: 4.9.0
+  cronstrue:
+    specifier: ^2.31.0
+    version: 2.31.0
   dotenv:
     specifier: ^16.3.1
     version: 16.3.1
@@ -2441,6 +2447,18 @@ packages:
     resolution: {integrity: sha512-CpNFuLxiPFxuZqhSKml3M+t0K/484pMAnfYWH14JoD7OZMnmC0Lmo+P7JX9SobqFpRoo7ifA18kOHdxJywYPEA==}
     dev: false
 
+  /cron-parser@4.9.0:
+    resolution: {integrity: sha512-p0SaNjrHOnQeR8/VnfGbmg9te2kfyYSQ7Sc/j/6DtPL3JQvKxmjO9TSjNFpujqV3vEYYBvNNvXSxzyksBWAx1Q==}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      luxon: 3.4.1
+    dev: false
+
+  /cronstrue@2.31.0:
+    resolution: {integrity: sha512-A1cyfGyLSRdvT9MNn/pggoCTlvxnJyiCUItU9XHSXk89ZyK2YY9q9q7Rf4j8NhV9YwN1BjB0wimZlvKYb/9Bwg==}
+    hasBin: true
+    dev: false
+
   /cross-spawn@6.0.5:
     resolution: {integrity: sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==}
     engines: {node: '>=4.8'}
@@ -4238,6 +4256,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: true
@@ -4998,6 +5017,11 @@ packages:
     resolution: {integrity: sha512-ERJq3FOzJTxBbFjZ7iDs+NiK4VI9Wz+RdrrAB8dio1oV+YvdPzUEE4QNiT2VD51DkIbCYRUUzCRkssXCHqSnKQ==}
     engines: {node: 14 || >=16.14}
     dev: true
+
+  /luxon@3.4.1:
+    resolution: {integrity: sha512-2USspxOCXWGIKHwuQ9XElxPPYrDOJHDQ5DQ870CoD+CxJbBnRDIBCfhioUJJjct7BKOy80Ia8cVstIcIMb/0+Q==}
+    engines: {node: '>=12'}
+    dev: false
 
   /make-fetch-happen@11.1.1:
     resolution: {integrity: sha512-rLWS7GCSTcEujjVBs2YqG7Y4643u8ucvCJeSRqiLYhesrDuzeuFIk37xREzAsfQaqzl8b9rNCE4m6J8tvX4Q8w==}

@@ -51,7 +51,20 @@
         "subtotal_amount": "Subtotale",
         "total_amount": "Totale",
         "notSet": "Da calcolare",
-        "returnToCart": "Ritorna al carrello"
+        "returnToCart": "Ritorna al carrello",
+        "frequency.hourly": "Orario",
+        "frequency.daily": "Giornaliero",
+        "frequency.weekly": "Settimanale",
+        "frequency.monthly": "Mensile",
+        "frequency.two-months": "Ogni due mesi",
+        "frequency.two-month": "Ogni due mesi",
+        "frequency.three-months": "Ogni tre mesi",
+        "frequency.three-month": "Ogni tre mesi",
+        "frequency.four-months": "Ogni quattro mesi",
+        "frequency.four-month": "Ogni quattro mesi",
+        "frequency.six-months": "Ogni sei mesi",
+        "frequency.six-month": "Ogni sei mesi",
+        "frequency.yearly": "Annuale"
     },
 
     "stepCustomer": {

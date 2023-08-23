@@ -13,8 +13,12 @@ export const LineItemTitle = styled.div`
   ${tw`flex justify-between text-black`}
 `
 export const LineItemQty = styled.div`
-  ${tw`text-xs mt-2 bg-gray-200 max-w-max py-1 px-2.5 rounded-full tracking-wider text-gray-400 font-bold`}
+  ${tw`text-xs bg-gray-100 max-w-max py-1 px-2.5 rounded lowercase text-gray-500 font-bold first-letter:uppercase`}
 `
+export const LineItemFrequency = styled(LineItemQty)`
+  ${tw`mt-2 flex bg-white border border-primary text-primary lg:mt-0`}
+`
+
 export const StyledLineItemSkuCode = styled(LineItemCode)`
   ${tw`text-xxs uppercase text-gray-400 font-bold mb-1`}
 `
