@@ -178,7 +178,9 @@ export const AddressInputGroup: React.FC<Props> = ({
       </Wrapper>
       {/* TODO: I couldn't figure out how to listen to changes. This was a hack. Please fix it. */}
       {/* Ideally we'd listen to the whole form and output errors below but....... */}
-      {fieldName === "billing_address_state_code" && !valueState ? (
+      {(fieldName === "billing_address_state_code" ||
+        fieldName === "shipping_address_state_code") &&
+      !valueState ? (
         <p className="inline-block py-2 pt-3 pl-3 text-xs text-red-400 placeholder-red-400 border-red-400 focus:ring-red-500 focus:border-red-500">
           This field is required.
         </p>
