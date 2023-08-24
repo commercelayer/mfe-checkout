@@ -1,6 +1,7 @@
 import CustomerContainer from "@commercelayer/react-components/customers/CustomerContainer"
 import OrderContainer from "@commercelayer/react-components/orders/OrderContainer"
 import PlaceOrderContainer from "@commercelayer/react-components/orders/PlaceOrderContainer"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext } from "react"
 import styled from "styled-components"
@@ -100,11 +101,13 @@ const Checkout: React.FC<Props> = ({
         <LayoutDefault
           aside={
             <Sidebar>
-              <Logo
-                logoUrl={logoUrl}
-                companyName={companyName}
-                className="hidden md:block"
-              />
+              <a href={ctx.cartUrl || "#"}>
+                <Logo
+                  logoUrl={logoUrl}
+                  companyName={companyName}
+                  className="hidden md:block"
+                />
+              </a>
               <SummaryWrapper>
                 <OrderSummary appCtx={ctx} />
               </SummaryWrapper>
@@ -113,11 +116,14 @@ const Checkout: React.FC<Props> = ({
           }
           main={
             <div>
-              <Logo
-                logoUrl={logoUrl}
-                companyName={companyName}
-                className="block md:hidden"
-              />
+              <a href={ctx.cartUrl || "#"}>
+                <Logo
+                  logoUrl={logoUrl}
+                  companyName={companyName}
+                  className="block md:hidden"
+                />
+              </a>
+
               <MainHeader orderNumber={orderNumber} />
               <StepNav
                 steps={steps}
