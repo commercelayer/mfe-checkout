@@ -19,6 +19,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_first_name"
           resource="shipping_address"
           type="text"
+          required={true}
           value={shippingAddress?.first_name || ""}
         />
 
@@ -26,6 +27,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_last_name"
           resource="shipping_address"
           type="text"
+          required={true}
           value={shippingAddress?.last_name || ""}
         />
       </Grid>
@@ -34,6 +36,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
         fieldName="shipping_address_line_1"
         resource="shipping_address"
         type="text"
+        required={true}
         value={shippingAddress?.line_1 || ""}
       />
 
@@ -50,6 +53,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_city"
           resource="shipping_address"
           type="text"
+          required={true}
           value={shippingAddress?.city || ""}
         />
 
@@ -57,6 +61,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_country_code"
           resource="shipping_address"
           type="text"
+          required={true}
           value={shippingAddress?.country_code || ""}
         />
       </Grid>
@@ -66,6 +71,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_state_code"
           resource="shipping_address"
           type="text"
+          required={true}
           value={shippingAddress?.state_code || ""}
         />
 
@@ -73,6 +79,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           fieldName="shipping_address_zip_code"
           resource="shipping_address"
           type="text"
+          required={true}
           value={shippingAddress?.zip_code || ""}
         />
       </Grid>
@@ -81,6 +88,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
         fieldName="shipping_address_phone"
         resource="shipping_address"
         type="tel"
+        required={true}
         value={shippingAddress?.phone || ""}
       />
     </Fragment>

@@ -233,6 +233,15 @@ export const StepShipping: React.FC<Props> = () => {
                                   </ShipmentField>
                                 </ShippingTitle>
                               )}
+                              <p className="px-4 py-2 my-3 text-xs border rounded border-[#E88F01] bg-[#FBECCF]">
+                                We are visiting NASA in Florida at the John F.
+                                Kennedy Space Center to wave goodbye to Andreas
+                                and follow the launch. <br />
+                                We will be back and{" "}
+                                <strong>
+                                  start shipping on the 5th of September.
+                                </strong>
+                              </p>
                               <GridContainer className="mb-6">
                                 <ShippingMethod
                                   emptyText={t("stepShipping.notAvailable")}

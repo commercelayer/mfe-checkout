@@ -70,7 +70,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
           </>
         )}
         <Label htmlFor="customer_email">
-          {t("addressForm.customer_email")}
+          {t("addressForm.customer_email") + " *"}
         </Label>
       </div>
     </Wrapper>
