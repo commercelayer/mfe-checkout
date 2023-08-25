@@ -4,6 +4,7 @@ export interface DataLayerItemProps {
   price?: number
   currency?: string
   quantity?: number
+  item_group_id?: string
 }
 export interface RakutenDataLayerItemProps {
   SKU?: string
