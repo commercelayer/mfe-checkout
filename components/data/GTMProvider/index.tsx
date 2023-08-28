@@ -77,6 +77,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     bundle_code,
     quantity,
     total_amount_float,
+    metadata,
   }: LineItem): DataLayerItemProps => {
     return {
       item_id: sku_code || bundle_code,
@@ -84,6 +85,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       price: total_amount_float,
       currency: currency_code,
       quantity: quantity,
+      item_group_id: metadata?.product_reference || "",
     }
   }
   const mapItemsToRakuten = ({
