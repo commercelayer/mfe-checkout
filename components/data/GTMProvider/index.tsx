@@ -94,12 +94,13 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     bundle_code,
     quantity,
     total_amount_float,
+    discount_float,
   }: LineItem): RakutenDataLayerItemProps => {
     return {
       SKU: sku_code || bundle_code,
       productName: name,
-      unitPrice: total_amount_float,
-      unitPriceLessTax: total_amount_float,
+      unitPrice: (total_amount_float || 0) + (discount_float || 0),
+      unitPriceLessTax: (total_amount_float || 0) + (discount_float || 0),
       quantity: quantity,
     }
   }
