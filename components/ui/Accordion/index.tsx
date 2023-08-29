@@ -71,16 +71,16 @@ const AccordionTab = styled.div`
   }
 `
 const AccordionTabHeader = styled.div`
-  ${tw`text-black relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease duration-500 focus:bg-gray-400 md:pt-6 md:pb-0`}
+  ${tw`text-black relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease-in-out duration-500 focus:bg-gray-400 md:pt-6 md:pb-0`}
   .disabled & {
     ${tw`pointer-events-none`}
   }
 `
 const AccordionTitle = styled.div`
-  ${tw`transition ease duration-500`}
+  ${tw`transition ease-in-out duration-500`}
 `
 const AccordionIcon = styled.div`
-  ${tw`transform transition ease duration-500`}
+  ${tw`transform transition ease-in-out duration-500`}
   .active & {
     ${tw`-rotate-180`}
   }

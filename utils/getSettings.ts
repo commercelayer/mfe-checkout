@@ -9,7 +9,7 @@ import jwt_decode from "jwt-decode"
 
 import { TypeAccepted } from "components/data/AppProvider/utils"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
-import hex2hsl, { BLACK_COLOR } from "components/utils/hex2hsl"
+import hex2hsl from "components/utils/hex2hsl"
 
 const RETRIES = 2
 
@@ -233,7 +233,7 @@ export const getSettings = async ({
     logoUrl: organization.logo_url,
     companyName: organization.name || "Test company",
     language: order.language_code || "en",
-    primaryColor: hex2hsl(organization.primary_color as string) || BLACK_COLOR,
+    primaryColor: organization.primary_color || "#000000",
     favicon:
       organization.favicon_url ||
       "https://data.commercelayer.app/assets/images/favicons/favicon-32x32.png",

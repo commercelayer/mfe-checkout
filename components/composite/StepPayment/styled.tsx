@@ -6,7 +6,7 @@ import { CheckCss } from "components/ui/form/CheckBox"
 import { RadioCss } from "components/ui/form/RadioButton"
 
 export const PaymentWrapper = styled.div`
-  ${tw`text-black border border-gray-300 mb-5 p-3 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-primary group-hover:(cursor-pointer) group-last:mb-0`}
+  ${tw`will-change-transform text-black border border-gray-300 mb-5 p-3 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-primary group-hover:(cursor-pointer) group-last:mb-0`}
 
   label {
     ${tw`group-hover:(cursor-pointer)`}
@@ -33,18 +33,35 @@ export const PaymentSummaryValue = styled.p`
   ${tw`flex font-bold uppercase text-ss leading-8`}
 `
 export const PaymentSourceContainer = styled.div`
-  ${tw`mt-2`}
-  .StripeElement, .adyen-checkout__input {
-    ${tw`px-2 py-3 border rounded shadow-sm bg-gradient-to-b from-gray-50 transition duration-500 ease-in-out`}
+  ${tw`mt-2 hidden opacity-0 transition delay-700 duration-100 ease-in-out`}
+
+  .payment.active & {
+    ${tw`block opacity-100`}
+  }
+
+  // .adyen-checkout__input {
+  //   ${tw`px-2 py-3 border rounded shadow-sm bg-gradient-to-b from-gray-50 transition duration-300 ease-in-out`}
+  // }
+
+  .adyen-checkout-form-instruction {
+    ${tw`mb-4 font-sans `}
+  }
+
+  .adyen-checkout__label__text {
+    ${tw`text-base font-medium font-sans`}
+  }
+
+  .adyen-checkout__input {
+    ${tw`px-2 py-3 border rounded shadow-sm bg-gray-50 transition duration-300 ease-in-out`}
   }
 
   .adyen-checkout__input {
     ${tw`p-0 border-gray-200`}
   }
 
-  .StripeElement--focus,
-  .adyen-checkout__input--focus {
-    ${tw`border-gray-300 bg-gradient-to-t`}
+  .adyen-checkout__input--focus,
+  .braintree-hosted-fields-focused {
+    ${tw`border-primary ring ring-offset-0 ring-primary-light ring-opacity-50 bg-white`}
   }
 
   .adyen-checkout__label__text {
