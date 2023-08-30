@@ -122,7 +122,9 @@ export const CouponOrGiftCard: React.FC<Props> = ({
           return hide ? null : (
             <CouponRecap>
               <span data-testid="code-coupon" {...p}>
-                <CouponName>{code}</CouponName>
+                <CouponName className="px-2 py-1 bg-gray-300 border border-gray-400 rounded-sm">
+                  {code}
+                </CouponName>
                 {!readonly && (
                   <StyledGiftCardOrCouponRemoveButton
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
