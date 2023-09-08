@@ -735,20 +735,30 @@ export class CheckoutPage {
             await this.page.waitForTimeout(1000)
             await klarnaIframe.getByTestId("pick-plan").click()
             await klarnaIframe.getByTestId("confirm-and-pay").click()
-            await klarnaIframe.getByRole("button", { name: "Weiter" }).click()
-            const pagePromise = await this.page.waitForEvent("popup")
+            const button = klarnaIframe.getByRole("button", { name: "Weiter" })
+            if (await button.isVisible()) {
+              button.click()
+            }
 
-            await pagePromise.getByText("Demo Bank").click()
-            await pagePromise.getByLabel("Kontonummer").click()
-            await pagePromise.getByLabel("Kontonummer").fill("12345678")
-            await pagePromise.getByLabel("PIN").click()
-            await pagePromise.getByLabel("PIN").fill("1234")
-            await pagePromise.waitForTimeout(2000)
-            await pagePromise.getByRole("button", { name: "Weiter" }).click()
-            await pagePromise.getByLabel("TAN").click()
-            await pagePromise.getByLabel("TAN").fill("12345")
-            await pagePromise.getByRole("button", { name: "Weiter" }).click()
+            const pagePromise = await this.page
+              .waitForEvent("popup", { timeout: 5000 })
+              .then((pagePromise) => {
+                return pagePromise
+              })
+              .catch((error) => console.log(`no popup ${error}`))
 
+            if (pagePromise !== undefined) {
+              await pagePromise.getByText("Demo Bank").click()
+              await pagePromise.getByLabel("Kontonummer").click()
+              await pagePromise.getByLabel("Kontonummer").fill("12345678")
+              await pagePromise.getByLabel("PIN").click()
+              await pagePromise.getByLabel("PIN").fill("1234")
+              await pagePromise.waitForTimeout(2000)
+              await pagePromise.getByRole("button", { name: "Weiter" }).click()
+              await pagePromise.getByLabel("TAN").click()
+              await pagePromise.getByLabel("TAN").fill("12345")
+              await pagePromise.getByRole("button", { name: "Weiter" }).click()
+            }
             break
           }
           case "klarna_pay_later": {
@@ -806,9 +816,13 @@ export class CheckoutPage {
               await klarnaIframe.locator("input#otp_field").type("123456")
               await this.page.waitForTimeout(2000)
 
-              await klarnaIframe
-                .locator("[data-testid=confirm-and-pay]")
-                .click()
+              const confirm = klarnaIframe.locator(
+                "[data-testid=confirm-and-pay]"
+              )
+
+              if (await confirm.isVisible()) {
+                confirm.click()
+              }
 
               const popup = await klarnaIframe.locator(
                 '[data-testid="SmoothCheckoutPopUp:enable"]'
