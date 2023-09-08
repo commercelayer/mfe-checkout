@@ -12,8 +12,8 @@ overrides:
 
 dependencies:
   '@commercelayer/react-components':
-    specifier: 4.5.0-beta.13
-    version: 4.5.0-beta.13(react-dom@18.2.0)(react@18.2.0)
+    specifier: next
+    version: 4.5.0-beta.16(react-dom@18.2.0)(react@18.2.0)
   '@commercelayer/sdk':
     specifier: ^5.13.2
     version: 5.13.2
@@ -214,15 +214,15 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /@adyen/adyen-web@5.49.6:
-    resolution: {integrity: sha512-r+q9vndevf1H2OQPnhxnh+ZhQqSEbct9wuP44mA98+XFh5HZeccKHvcJy4ARHl5kP0OpoEJ74yft1itlV4lH5g==}
+  /@adyen/adyen-web@5.50.1:
+    resolution: {integrity: sha512-dG8+hI3p+CeF35KTBk93TiWsvSwri7/vuluV3ors/1lHeDRV99rQENKmTyuMSI4gz4OMtuSypEYXHmSwCthjBg==}
     dependencies:
       '@babel/runtime': 7.21.5
-      '@babel/runtime-corejs3': 7.21.5
+      '@babel/runtime-corejs3': 7.22.15
       '@types/applepayjs': 3.0.4
-      '@types/googlepay': 0.7.0
+      '@types/googlepay': 0.7.1
       classnames: 2.3.2
-      core-js-pure: 3.30.2
+      core-js-pure: 3.32.2
       preact: 10.13.2
     dev: false
 
@@ -313,12 +313,12 @@ packages:
       '@babel/types': 7.21.5
     dev: false
 
-  /@babel/runtime-corejs3@7.21.5:
-    resolution: {integrity: sha512-FRqFlFKNazWYykft5zvzuEl1YyTDGsIRrjV9rvxvYkUC7W/ueBng1X68Xd6uRMzAaJ0xMKn08/wem5YS1lpX8w==}
+  /@babel/runtime-corejs3@7.22.15:
+    resolution: {integrity: sha512-SAj8oKi8UogVi6eXQXKNPu8qZ78Yzy7zawrlTr0M+IuW/g8Qe9gVDhGcF9h1S69OyACpYoLxEzpjs1M15sI5wQ==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      core-js-pure: 3.30.2
-      regenerator-runtime: 0.13.11
+      core-js-pure: 3.32.2
+      regenerator-runtime: 0.14.0
     dev: false
 
   /@babel/runtime@7.21.5:
@@ -404,20 +404,20 @@ packages:
     dev: true
     optional: true
 
-  /@commercelayer/react-components@4.5.0-beta.13(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-jGuUNAQLwqRxRIWHXucWkZQ3fimInI+VslP/Oyc8FVU3MdN9bnbm/EK0JV1gdJ8cJFQSJh49iT+ll5fPgKQ9tQ==}
+  /@commercelayer/react-components@4.5.0-beta.16(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-FggRU9wTaisB5mioAU+AMv+Zd8HvT1f9c+nNt31xRlKBIhW/rGo8NQWQ6WMnbgNqfCxX9a91Ak+GPgwy5fE0Ew==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
       '@ac-dev/countries-service': 1.2.0
       '@ac-dev/states-service': 1.1.1
-      '@adyen/adyen-web': 5.49.6
+      '@adyen/adyen-web': 5.50.1
       '@commercelayer/sdk': 5.13.2
-      '@stripe/react-stripe-js': 2.1.2(@stripe/stripe-js@2.1.0)(react-dom@18.2.0)(react@18.2.0)
-      '@stripe/stripe-js': 2.1.0
-      '@tanstack/react-table': 8.9.3(react-dom@18.2.0)(react@18.2.0)
+      '@stripe/react-stripe-js': 2.1.2(@stripe/stripe-js@2.1.2)(react-dom@18.2.0)(react@18.2.0)
+      '@stripe/stripe-js': 2.1.2
+      '@tanstack/react-table': 8.9.7(react-dom@18.2.0)(react@18.2.0)
       '@types/iframe-resizer': 3.5.9
-      axios: 1.4.0
+      axios: 1.5.0
       braintree-web: 3.97.1
       frames-react: 1.1.0(react@18.2.0)
       iframe-resizer: 4.3.6
@@ -1110,21 +1110,21 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /@stripe/react-stripe-js@2.1.2(@stripe/stripe-js@2.1.0)(react-dom@18.2.0)(react@18.2.0):
+  /@stripe/react-stripe-js@2.1.2(@stripe/stripe-js@2.1.2)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-2JcKRvOdMD698uGrY0cINLHb6XHnY24L+wlWlw2+TbI2aXlQZ9t8Mc+KssFES+EuNgISbrp7fJR3w/13epfiOw==}
     peerDependencies:
       '@stripe/stripe-js': ^1.44.1 || ^2.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@stripe/stripe-js': 2.1.0
+      '@stripe/stripe-js': 2.1.2
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@stripe/stripe-js@2.1.0:
-    resolution: {integrity: sha512-AdMHWqIq/s3TLmoyuzdb6l21STKDKNm82cjce1VelyQGinVNjVgSEPH5UDtxENEP7OzgMZH8RTphFMi0fMJGLQ==}
+  /@stripe/stripe-js@2.1.2:
+    resolution: {integrity: sha512-xyB/oVoFBPLCVGRUGQphzMnfCVfWGqKLb2+v/sIJAwYlVMrS2uF4iyZHpE7Lg1DtDL5qsPxSTpUGs0kRtMdbRA==}
     dev: false
 
   /@swc/helpers@0.5.1:
@@ -1149,20 +1149,20 @@ packages:
       tailwindcss: 3.3.3
     dev: false
 
-  /@tanstack/react-table@8.9.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Ng9rdm3JPoSCi6cVZvANsYnF+UoGVRxflMb270tVj0+LjeT/ZtZ9ckxF6oLPLcKesza6VKBqtdF9mQ+vaz24Aw==}
+  /@tanstack/react-table@8.9.7(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-UKUekM8JNUyWbjT1q3s1GpH5OtBL9mJ4258Il23fsahvkh3ou9TuFVmqI0/UPiFROgHkRlCBDNPUhcsC9YPFgg==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
     dependencies:
-      '@tanstack/table-core': 8.9.3
+      '@tanstack/table-core': 8.9.7
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/table-core@8.9.3:
-    resolution: {integrity: sha512-NpHZBoHTfqyJk0m/s/+CSuAiwtebhYK90mDuf5eylTvgViNOujiaOaxNDxJkQQAsVvHWZftUGAx1EfO1rkKtLg==}
+  /@tanstack/table-core@8.9.7:
+    resolution: {integrity: sha512-lkhVcGDxa9GSoDFPkplPDvzsiUACPZrxT3U1edPs0DCMKFhBDgZ7d1DPd7cqHH0JoybfbQ/qiTQYOQBg8sinJg==}
     engines: {node: '>=12'}
     dev: false
 
@@ -1194,8 +1194,8 @@ packages:
       '@types/retry': 0.12.2
     dev: false
 
-  /@types/googlepay@0.7.0:
-    resolution: {integrity: sha512-jC7ViexJeV8LlTKLiUBfNs5GICbm0PYsm5Y30JCEBkreY0bMNA+F4KnTEz+WtqBTRldTAxKBKqRstlOUFpW+dA==}
+  /@types/googlepay@0.7.1:
+    resolution: {integrity: sha512-sI06n1sEU7QREs5m4GzgwtQxTNmkNE29xFsPwGdnef0QS8nJmVpf0o6oMUMp4lGSsSQ90ihGtWOPCodYseacng==}
     dev: false
 
   /@types/hoist-non-react-statics@3.3.1:
@@ -1788,16 +1788,6 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /axios@1.4.0:
-    resolution: {integrity: sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==}
-    dependencies:
-      follow-redirects: 1.15.2
-      form-data: 4.0.0
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
   /axios@1.5.0:
     resolution: {integrity: sha512-D4DdjDo5CY50Qms0qGQTTw6Q44jl7zRwY7bthds06pUGfChBCTcQs+N743eFWGEd6pRTMd6A+I87aWyFV5wiZQ==}
     dependencies:
@@ -2365,8 +2355,8 @@ packages:
       split2: 4.2.0
     dev: true
 
-  /core-js-pure@3.30.2:
-    resolution: {integrity: sha512-p/npFUJXXBkCCTIlEGBdghofn00jWG6ZOtdoIXSJmAu2QBvN0IqpZXWweOytcwE6cfx8ZvVUy1vw8zxhe4Y2vg==}
+  /core-js-pure@3.32.2:
+    resolution: {integrity: sha512-Y2rxThOuNywTjnX/PgA5vWM6CZ9QB9sz9oGeCixV8MqXZO70z/5SHzf9EeBrEBK0PN36DnEBBu9O/aGWzKuMZQ==}
     requiresBuild: true
     dev: false
 
@@ -6689,6 +6679,10 @@ packages:
 
   /regenerator-runtime@0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
+
+  /regenerator-runtime@0.14.0:
+    resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
+    dev: false
 
   /regexp.prototype.flags@1.5.0:
     resolution: {integrity: sha512-0SutC3pNudRKgquxGoRGIz946MZVHqbNfPjBdxeOhBrdgDKlRoXmYLQN9xRbrR09ZXWeGAdPuif7egofn6v5LA==}
