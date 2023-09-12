@@ -181,7 +181,7 @@ test.describe("addresses on wallet", () => {
     await checkoutPage.save("Payment")
   })
 
-  test.skip("use address on wallet", async ({ checkoutPage }) => {
+  test("use address on wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Customer", "open")

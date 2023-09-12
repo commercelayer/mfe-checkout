@@ -98,23 +98,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     }
   }, [shipToDifferentAddress])
 
-  useEffect(() => {
-    // temp fix to resolve flag bug
-    if (showBillingAddressForm) {
-      localStorage.setItem(
-        "_save_billing_address_to_customer_address_book",
-        "false"
-      )
-    }
-    if (showShippingAddressForm) {
-      localStorage.setItem(
-        "_save_shipping_address_to_customer_address_book",
-        "false"
-      )
-    }
-    // --
-  }, [showBillingAddressForm, showShippingAddressForm])
-
   const handleScroll = (type: AddressTypeEnum) => {
     const tab = document
       .querySelector(`h3[data-testid="${type}-address"]`)
@@ -245,11 +228,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               </AddressSectionTitle>
             </div>
             <div
-              className={`${
-                shipToDifferentAddress && hasCustomerAddresses
+              className={`${shipToDifferentAddress && hasCustomerAddresses
                   ? "mb-4"
                   : "hidden"
-              }`}
+                }`}
             >
               <Transition
                 show={!showShippingAddressForm}
