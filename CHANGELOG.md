@@ -1,3 +1,12 @@
+## [4.0.14](https://github.com/commercelayer/mfe-checkout/compare/v4.0.13...v4.0.14) (2023-09-13)
+
+
+### Bug Fixes
+
+* add support for External shipping method ([05963db](https://github.com/commercelayer/mfe-checkout/commit/05963dbd95dac3749770900078a6efae56482d58))
+* enable stripe with latest `react-components` package ([64d8eee](https://github.com/commercelayer/mfe-checkout/commit/64d8eee27355e03b0f8d9688bb75dee538c5e5d5))
+* Save addresses on wallet and update `react-components` to the latest version ([27f637a](https://github.com/commercelayer/mfe-checkout/commit/27f637ac4bb723e50093d15fed679739392760bd))
+
 ## [4.0.13](https://github.com/commercelayer/mfe-checkout/compare/v4.0.12...v4.0.13) (2023-08-23)
 
 
