@@ -28,6 +28,6 @@ const Wrapper = styled.label`
   }
 
   a {
-    ${tw`text-gray-900 border-b border-gray-200 transition ease hover:text-gray-500`}
+    ${tw`text-gray-900 border-b border-gray-200 transition ease-in-out hover:text-gray-500`}
   }
 `

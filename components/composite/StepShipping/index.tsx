@@ -283,6 +283,9 @@ export const StepShipping: React.FC<Props> = () => {
                                                 labelFreeOver={t(
                                                   "general.free"
                                                 )}
+                                                labelExternal={t(
+                                                  "stepShipping.externalPrice"
+                                                )}
                                               />
                                             </ShippingSummaryValue>
                                           </label>

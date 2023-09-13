@@ -40,6 +40,7 @@ const Order: NextPage = () => {
     <DynamicCheckoutContainer settings={settings}>
       <DynamicCheckout
         logoUrl={settings.logoUrl}
+        primaryColor={settings.primaryColor}
         orderNumber={settings.orderNumber}
         companyName={settings.companyName}
         supportEmail={settings.supportEmail}

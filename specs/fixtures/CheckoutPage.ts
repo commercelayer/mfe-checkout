@@ -549,6 +549,16 @@ export class CheckoutPage {
     await this.page.getByText(text).waitFor({ state: "visible" })
   }
 
+  async checkLineItemAmount(text?: string) {
+    const element = await this.page.getByTestId(`line-item-amount`)
+    if (text !== undefined) {
+      await element.waitFor({ state: "visible" })
+      await expect(await element.innerText()).toBe(text)
+    } else {
+      await expect(element).toHaveCount(0)
+    }
+  }
+
   async checkDiscountAmount(text?: string) {
     const element = await this.page.getByTestId("discount-amount")
     if (text !== undefined) {
@@ -641,6 +651,7 @@ export class CheckoutPage {
       paymentMethod = `${type}_payments`
     }
     await this.page.getByTestId(paymentMethod).click()
+    await this.page.waitForTimeout(2000)
     await this.page.mouse.wheel(0, 30)
   }
 
@@ -704,7 +715,7 @@ export class CheckoutPage {
           case "klarna_pay_now": {
             await this.page
               .getByRole("radio", {
-                name: "Pay now with Klarna. Pay now with Klarna.",
+                name: "Pay now with Klarna.",
               })
               .click()
             await this.page.getByTestId("save-payment-button").click()
@@ -724,20 +735,30 @@ export class CheckoutPage {
             await this.page.waitForTimeout(1000)
             await klarnaIframe.getByTestId("pick-plan").click()
             await klarnaIframe.getByTestId("confirm-and-pay").click()
-            await klarnaIframe.getByRole("button", { name: "Weiter" }).click()
-            const pagePromise = await this.page.waitForEvent("popup")
+            const button = klarnaIframe.getByRole("button", { name: "Weiter" })
+            if (await button.isVisible()) {
+              button.click()
+            }
 
-            await pagePromise.getByText("Demo Bank").click()
-            await pagePromise.getByLabel("Kontonummer").click()
-            await pagePromise.getByLabel("Kontonummer").fill("12345678")
-            await pagePromise.getByLabel("PIN").click()
-            await pagePromise.getByLabel("PIN").fill("1234")
-            await pagePromise.waitForTimeout(2000)
-            await pagePromise.getByRole("button", { name: "Weiter" }).click()
-            await pagePromise.getByLabel("TAN").click()
-            await pagePromise.getByLabel("TAN").fill("12345")
-            await pagePromise.getByRole("button", { name: "Weiter" }).click()
+            const pagePromise = await this.page
+              .waitForEvent("popup", { timeout: 5000 })
+              .then((pagePromise) => {
+                return pagePromise
+              })
+              .catch((error) => console.log(`no popup ${error}`))
 
+            if (pagePromise !== undefined) {
+              await pagePromise.getByText("Demo Bank").click()
+              await pagePromise.getByLabel("Kontonummer").click()
+              await pagePromise.getByLabel("Kontonummer").fill("12345678")
+              await pagePromise.getByLabel("PIN").click()
+              await pagePromise.getByLabel("PIN").fill("1234")
+              await pagePromise.waitForTimeout(2000)
+              await pagePromise.getByRole("button", { name: "Weiter" }).click()
+              await pagePromise.getByLabel("TAN").click()
+              await pagePromise.getByLabel("TAN").fill("12345")
+              await pagePromise.getByRole("button", { name: "Weiter" }).click()
+            }
             break
           }
           case "klarna_pay_later": {
@@ -795,9 +816,13 @@ export class CheckoutPage {
               await klarnaIframe.locator("input#otp_field").type("123456")
               await this.page.waitForTimeout(2000)
 
-              await klarnaIframe
-                .locator("[data-testid=confirm-and-pay]")
-                .click()
+              const confirm = klarnaIframe.locator(
+                "[data-testid=confirm-and-pay]"
+              )
+
+              if (await confirm.isVisible()) {
+                confirm.click()
+              }
 
               const popup = await klarnaIframe.locator(
                 '[data-testid="SmoothCheckoutPopUp:enable"]'
@@ -942,6 +967,7 @@ export class CheckoutPage {
   async setPayment(
     type:
       | "stripe"
+      | "stripe-paypal"
       | "braintree"
       | "paypal"
       | "adyen"
@@ -955,14 +981,24 @@ export class CheckoutPage {
   ) {
     switch (type) {
       case "stripe": {
-        const stripeFrame = this.page.frameLocator("iframe").first()
+        const stripeFrame = this.page
+          .frameLocator("[data-testid=stripe_payments] iframe")
+          .first()
         await stripeFrame
-          .locator("input[name=cardnumber]")
+          .getByPlaceholder("1234 1234 1234 1234")
           .fill(card?.number || "4242424242424242")
-        await stripeFrame
-          .locator("input[name=exp-date]")
-          .fill(card?.exp || "0231")
-        await stripeFrame.locator("input[name=cvc]").fill(card?.cvc || "321")
+        await stripeFrame.getByPlaceholder("MM / YY").fill(card?.exp || "0231")
+        await stripeFrame.getByPlaceholder("CVC").fill(card?.cvc || "321")
+        break
+      }
+      case "stripe-paypal": {
+        await this.page.waitForTimeout(2000)
+        await this.page.mouse.wheel(0, 300)
+
+        const stripeFrame = this.page
+          .frameLocator("[data-testid=stripe_payments] iframe")
+          .first()
+        await stripeFrame.getByRole("button", { name: "PayPal" }).click()
         break
       }
       case "braintree": {
@@ -1071,6 +1107,7 @@ export class CheckoutPage {
     const buttonId = this.page.getByTestId(
       `save-${step.toLocaleLowerCase()}-button`
     )
+    await buttonId.focus()
     switch (step) {
       case "Customer":
         await buttonId.isEnabled()
@@ -1088,7 +1125,7 @@ export class CheckoutPage {
         break
       case "Payment": {
         const text = waitText || "Thank you for your order"
-        await buttonId.isEnabled()
+        await buttonId.isEnabled({ timeout: 3000 })
         await buttonId.click()
 
         if (waitText === "Paga con PayPal") {

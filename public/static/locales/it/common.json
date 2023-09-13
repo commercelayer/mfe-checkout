@@ -88,6 +88,7 @@
         "methodSelected_other": "Il tuo ordine contiene {{count}} spedizioni",
         "methodUnselected": "Seleziona un metodo di spedizione",
         "deliveryLeadTime" : "<0/> - <1/> giorni",
+        "externalPrice": "Prezzo dopo la selezione",
         "continueToPayment": "Continuare al pagamento",
         "notRequired": "Questo ordine non necessita di spedizione"
     },

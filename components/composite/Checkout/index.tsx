@@ -35,6 +35,7 @@ import { Logo } from "components/ui/Logo"
 
 interface Props {
   logoUrl?: string
+  primaryColor: string
   orderNumber: number
   companyName: string
   supportEmail?: string
@@ -45,6 +46,7 @@ interface Props {
 
 const Checkout: React.FC<Props> = ({
   logoUrl,
+  primaryColor,
   orderNumber,
   companyName,
   supportEmail,
@@ -59,6 +61,7 @@ const Checkout: React.FC<Props> = ({
   let paypalPayerId = ""
   let checkoutComSession = ""
   let redirectResult = ""
+  let redirectStatus = ""
 
   if (query.PayerID) {
     paypalPayerId = query.PayerID as string
@@ -70,6 +73,10 @@ const Checkout: React.FC<Props> = ({
 
   if (query["cko-session-id"]) {
     checkoutComSession = query["cko-session-id"] as string
+  }
+
+  if (query.redirect_status) {
+    redirectStatus = query.redirect_status as string
   }
 
   const { activeStep, lastActivableStep, setActiveStep, steps } =
@@ -176,13 +183,16 @@ const Checkout: React.FC<Props> = ({
                   isStepRequired={ctx.isPaymentRequired}
                   isStepDone={ctx.hasPaymentMethod}
                 >
-                  <PaymentContainer>
+                  <PaymentContainer primaryColor={primaryColor}>
                     <PlaceOrderContainer
                       options={{
                         paypalPayerId,
                         checkoutCom: { session_id: checkoutComSession },
                         adyen: {
                           redirectResult,
+                        },
+                        stripe: {
+                          redirectStatus,
                         },
                       }}
                     >

@@ -2,10 +2,11 @@ import { PaymentMethodsContainer } from "@commercelayer/react-components"
 import { useTranslation } from "react-i18next"
 
 interface Props {
+  primaryColor?: string
   children: JSX.Element[] | JSX.Element
 }
 
-export const PaymentContainer = ({ children }: Props) => {
+export const PaymentContainer = ({ primaryColor, children }: Props) => {
   const { t } = useTranslation()
 
   const checkoutReturnUrl = `${
@@ -62,7 +63,7 @@ export const PaymentContainer = ({ children }: Props) => {
             input: {
               "font-size": "16px",
               "font-family": "monospace",
-              padding: "10px",
+              padding: "12px",
             },
           },
           containerClassName: "flex flex-col",
@@ -71,7 +72,8 @@ export const PaymentContainer = ({ children }: Props) => {
           cardContainerClassName: "grow mb-3 xl:mb-0",
           expDateContainerClassName: "flex-none w-2/4 xl:mx-3 xl:w-24",
           cvvContainerClassName: "flex-none w-2/4 pl-3 xl:w-14 xl:pl-0",
-          inputWrapperClassName: "h-8 border rounded",
+          inputWrapperClassName:
+            "h-10 border rounded bg-gray-50 transition duration-300 ease-in-out",
           fieldLabelClassName: "text-xs text-gray-400",
         },
         stripePayment: {
@@ -81,27 +83,64 @@ export const PaymentContainer = ({ children }: Props) => {
                 "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
             },
           ],
-          options: {
-            style: {
-              base: {
+          appearance: {
+            theme: "stripe",
+            variables: {
+              colorPrimary: primaryColor,
+              fontFamily: "Manrope, sans-serif",
+              fontWeightBold: "700",
+            },
+            rules: {
+              ".AccordionItem--selected": {
+                fontWeight: "var(--fontWeightBold)",
                 color: "#000",
-                fontWeight: "400",
-                fontSize: "16px",
-                fontFamily: "Manrope, sans-serif",
-                ":-webkit-autofill": {
-                  color: "#fce883",
-                },
-                "::placeholder": {
-                  color: "#e0e0e0",
-                },
               },
-              invalid: {
-                iconColor: "#FFC7EE",
-                color: "#FFC7EE",
+              ".Tab, .Input, .Block, .CheckboxInput, .CodeInput": {
+                boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05);",
+                borderColor: "#E6E7E7",
+              },
+              ".Input": {
+                backgroundColor: "#f8f8f8",
+              },
+              ".Input:focus": {
+                backgroundColor: "#fff",
+              },
+              ".Block": {
+                borderColor: "var(--colorPrimary)",
+              },
+              ".BlockDivider": {
+                backgroundColor: "#ebebeb",
+              },
+              ".Tab, .Tab:hover, .Tab:focus": {
+                border: "0",
+              },
+              ".Tab--selected, .Tab--selected:hover": {
+                backgroundColor: "#f360a6",
+                color: "#fff",
               },
             },
-            hideIcon: false,
-            hidePostalCode: true,
+          },
+          options: {
+            // style: {
+            //   base: {
+            //     color: "#000",
+            //     fontWeight: "400",
+            //     fontSize: "16px",
+            //     fontFamily: "Manrope, sans-serif",
+            //     ":-webkit-autofill": {
+            //       color: "#fce883",
+            //     },
+            //     "::placeholder": {
+            //       color: "#e0e0e0",
+            //     },
+            //   },
+            //   invalid: {
+            //     iconColor: "#FFC7EE",
+            //     color: "#FFC7EE",
+            //   },
+            // },
+            // hideIcon: false,
+            // hidePostalCode: true,
           },
         },
         wireTransfer: {
