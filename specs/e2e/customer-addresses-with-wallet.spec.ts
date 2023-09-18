@@ -134,6 +134,65 @@ test.describe("address on wallet", () => {
   })
 })
 
+test.describe("addresses on wallet", () => {
+  test.describe.configure({ mode: "serial" })
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+    },
+  })
+
+  test("save two addresses on wallet", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(euAddress)
+
+    let element = checkoutPage.getSaveAddressBookCheckbox("billing")
+    await expect(element).not.toBeChecked()
+    await element.check()
+
+    await checkoutPage.shipToDifferentAddress()
+
+    await checkoutPage.setShippingAddress(euAddress2)
+
+    element = checkoutPage.getSaveAddressBookCheckbox("shipping")
+    await expect(element).not.toBeChecked()
+    await element.check()
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
+  })
+
+  test("use address on wallet", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    const element = await checkoutPage.page.locator(
+      "[data-testid=customer-billing-address]"
+    )
+    await expect(element).toHaveCount(2)
+  })
+})
+
 test.describe("two address on wallet", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const customerPassword = faker.internet.password()
