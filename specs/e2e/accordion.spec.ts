@@ -192,7 +192,7 @@ test.describe("with single shipping method", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
       ],
@@ -239,7 +239,7 @@ test.describe("with single shipping method and customer step completed", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
       ],

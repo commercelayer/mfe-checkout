@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
-export const StepContent: React.FC = ({ children }) => {
+export const StepContent = ({ children }: { children?: ChildrenType }) => {
   return <Wrapper>{children}</Wrapper>
 }
 

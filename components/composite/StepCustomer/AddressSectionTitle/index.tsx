@@ -1,7 +1,14 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
-export const AddressSectionTitle: React.FC = ({ children, ...rest }) => {
+interface Props {
+  children?: JSX.Element[] | JSX.Element
+}
+
+export const AddressSectionTitle = ({
+  children,
+  ...rest
+}: Props): JSX.Element => {
   return <Wrapper {...rest}>{children}</Wrapper>
 }
 

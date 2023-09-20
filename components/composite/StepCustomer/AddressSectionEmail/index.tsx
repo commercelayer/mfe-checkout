@@ -1,8 +1,5 @@
-import {
-  CustomerInput,
-  Errors,
-  ErrorComponentProps,
-} from "@commercelayer/react-components"
+import CustomerInput from "@commercelayer/react-components/customers/CustomerInput"
+import Errors from "@commercelayer/react-components/errors/Errors"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -14,7 +11,7 @@ import { Label } from "components/ui/form/Label"
 interface Props {
   readonly?: boolean
   setCustomerEmail?: (email: string) => void
-  emailAddress?: string
+  emailAddress: NullableType<string>
 }
 
 export const AddressSectionEmail: React.FC<Props> = ({
@@ -24,7 +21,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
 
-  const messages: ErrorComponentProps["messages"] = [
+  const messages: Parameters<typeof Errors>[0]["messages"] = [
     {
       code: "EMPTY_ERROR",
       resource: "orders",
@@ -48,7 +45,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
     <Wrapper>
       <div className="relative">
         {readonly ? (
-          <ReadOnlyEmail data-test-id="current-customer-email">
+          <ReadOnlyEmail data-testid="current-customer-email">
             {emailAddress}
           </ReadOnlyEmail>
         ) : (
@@ -62,10 +59,10 @@ export const AddressSectionEmail: React.FC<Props> = ({
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               onBlur={saveEmail}
-              value={emailAddress}
+              value={emailAddress ?? ""}
             />
             <StyledErrors
-              data-test-id="customer_email_error"
+              data-testid="customer_email_error"
               resource="orders"
               field="customer_email"
               messages={messages}

@@ -110,7 +110,7 @@ test.describe("with two shipping method", () => {
     await checkoutPage.checkShippingMethodPrice({ index: 1, text: "€12,00" })
 
     const element = checkoutPage.page.locator(
-      '[data-test-id="shipping-method-price"] >> nth=1 >> text=€12,00'
+      '[data-testid="shipping-method-price"] >> nth=1 >> text=€12,00'
     )
 
     await expect(element).toHaveCount(1)
@@ -138,7 +138,7 @@ test.describe("with addresses set and single shipping method", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
       ],
@@ -167,7 +167,7 @@ test.describe("with single shipping method", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
       ],
@@ -242,7 +242,7 @@ test.describe("ship from primary", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SHIP_FROM_PRIMARY,
+      market: "MI",
       lineItemsAttributes: [
         { sku_code: "LSLEEVMM000000E63E74LXXX", quantity: 1 },
         { sku_code: "PSTBIGAU000000FFFFFF1824", quantity: 1 },
@@ -262,7 +262,7 @@ test.describe("ship from primary", () => {
     await checkoutPage.save("Customer")
 
     await checkoutPage.checkStep("Shipping", "open")
-    const element = checkoutPage.page.locator('[data-test-id="line-item-name"]')
+    const element = checkoutPage.page.locator('[data-testid="line-item-name"]')
     await expect(element).toHaveCount(2)
   })
 })
@@ -271,7 +271,7 @@ test.describe("ship from primary with all stock transfers", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SHIP_FROM_PRIMARY,
+      market: "MI",
       lineItemsAttributes: [
         { sku_code: "BABYONBU000000E63E7412MX", quantity: 1 },
         { sku_code: "PSTBIGAU000000FFFFFF1824", quantity: 1 },
@@ -292,7 +292,7 @@ test.describe("ship from primary with all stock transfers", () => {
     await checkoutPage.save("Customer")
 
     await checkoutPage.checkStep("Shipping", "open")
-    const element = checkoutPage.page.locator('[data-test-id="line-item-name"]')
+    const element = checkoutPage.page.locator('[data-testid="line-item-name"]')
 
     await expect(element).toHaveCount(3)
   })

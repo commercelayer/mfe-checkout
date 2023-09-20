@@ -15,9 +15,9 @@ export interface RakutenDataLayerItemProps {
 }
 
 export interface EcommerceProps {
-  coupon?: string
-  currency?: string
-  shipping?: number
+  coupon?: NullableType<string>
+  currency?: NullableType<string>
+  shipping?: NullableType<number>
   items?: (DataLayerItemProps | undefined)[]
   rakutenItems?: (DataLayerItemProps | undefined)[]
   value?: number

@@ -170,11 +170,11 @@ test.describe("with support phone", () => {
     await checkoutPage.save("Payment")
 
     await checkoutPage.checkContinueShoppingLink("present")
-    let element = checkoutPage.page.locator("[data-test-id=support-phone-link]")
+    let element = checkoutPage.page.locator("[data-testid=support-phone-link]")
     await expect(element).toHaveCount(1)
     await element.click({ trial: true })
 
-    element = checkoutPage.page.locator("[data-test-id=support-email-link]")
+    element = checkoutPage.page.locator("[data-testid=support-email-link]")
     await expect(element).toHaveCount(0)
   })
 })
@@ -216,9 +216,9 @@ test.describe("with support email", () => {
     await checkoutPage.save("Payment")
 
     await checkoutPage.checkContinueShoppingLink("present")
-    let element = checkoutPage.page.locator("[data-test-id=support-phone-link]")
+    let element = checkoutPage.page.locator("[data-testid=support-phone-link]")
     await expect(element).toHaveCount(0)
-    element = checkoutPage.page.locator("[data-test-id=support-email-link]")
+    element = checkoutPage.page.locator("[data-testid=support-email-link]")
     await expect(element).toHaveCount(1)
     await element.click({ trial: true })
   })

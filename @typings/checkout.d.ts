@@ -1,3 +1,6 @@
+type NullableType<T> = T | null | undefined
+type ChildrenType = JSX.Element[] | JSX.Element | null
+
 interface HSLProps {
   h: number
   s: string
@@ -12,16 +15,16 @@ interface CheckoutSettings {
   endpoint: string
   domain: string
   slug: string
-  logoUrl?: string
+  logoUrl: NullableType<string>
   companyName: string
   language: string
-  primaryColor: HSLProps
+  primaryColor: string
   favicon: string
-  gtmId?: string
-  supportEmail?: string
-  supportPhone?: string
-  termsUrl?: string
-  privacyUrl?: string
+  gtmId: NullableType<string>
+  supportEmail: NullableType<string>
+  supportPhone: NullableType<string>
+  termsUrl: NullableType<string>
+  privacyUrl: NullableType<string>
 }
 
 interface InvalidCheckoutSettings {

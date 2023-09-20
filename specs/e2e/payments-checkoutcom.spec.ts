@@ -36,7 +36,7 @@ test.describe("guest with checkout.com", () => {
     await checkoutPage.setPayment("checkout_com")
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]"
     )
     expect(element).not.toBeVisible()
 
@@ -102,7 +102,7 @@ test.describe("customer with checkout.com without saving", () => {
     await checkoutPage.setPayment("checkout_com")
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
@@ -164,13 +164,13 @@ test.describe("customer with checkout.com with saving", () => {
     await checkoutPage.setPayment("checkout_com")
 
     let element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]"
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
     await element.check()
     element = await checkoutPage.page.locator(
-      "[data-test-id=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]"
     )
     expect(element).toBeChecked()
 

@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker"
 import { test, expect } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
 
-test.describe("guest with wire transfer", () => {
+test.describe("guest with PayPal", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({
@@ -22,30 +22,10 @@ test.describe("guest with wire transfer", () => {
     },
   })
 
-  test("Checkout", async ({ checkoutPage }) => {
+  test("success", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
-
-    await checkoutPage.save("Shipping")
-
-    await checkoutPage.checkButton({ type: "Payment", status: "disabled" })
-
-    await checkoutPage.selectPayment("wire")
-
-    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
-
-    await checkoutPage.save("Payment")
-
-    await checkoutPage.checkPaymentRecap("Wire transfer")
-
-    await checkoutPage.page.reload()
-
-    await checkoutPage.checkPaymentRecap("Wire transfer")
-  })
-
-  test("Change method and checkout", async ({ checkoutPage }) => {
-    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
@@ -53,22 +33,51 @@ test.describe("guest with wire transfer", () => {
 
     await checkoutPage.selectPayment("stripe")
 
+    await checkoutPage.setPayment("stripe-paypal")
+
     const element = await checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]"
     )
     expect(element).not.toBeVisible()
 
-    await checkoutPage.setPayment("stripe")
+    await checkoutPage.checkPaymentSummary("€10,00")
+
+    await checkoutPage.save("Payment", undefined, true)
+
+    await checkoutPage.page
+      .getByRole("link", { name: "Authorize Test Payment" })
+      .click()
+
+    await checkoutPage.checkPaymentRecap("ending in ****")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("ending in ****")
+  })
+
+  test("failing", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe-paypal")
+
+    const element = await checkoutPage.page.locator(
+      "[data-testid=payment-save-wallet]"
+    )
+    expect(element).not.toBeVisible()
 
     await checkoutPage.checkPaymentSummary("€10,00")
 
-    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
-
-    await checkoutPage.selectPayment("wire")
-    await checkoutPage.page.waitForTimeout(1500)
-
-    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
-
-    await checkoutPage.save("Payment")
+    await checkoutPage.save("Payment", undefined, true)
+    await checkoutPage.page
+      .getByRole("link", { name: "Fail Test Payment" })
+      .click()
   })
 })

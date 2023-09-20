@@ -25,9 +25,7 @@ The Commerce Layer Checkout application (React) provides you with a PCI-complian
 
 2. Set the environment variable `NEXT_PUBLIC_SLUG` on your hosting provider to your organization slug (subdomain) and be sure to build the forked repository using the node environment (`NODE_ENV`) as production.
 
-3. Deploy the forked repository to your preferred hosting service or host it yourself. You can deploy with one click below:
-
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" height="35">](https://app.netlify.com/start/deploy?repository=https://github.com/commercelayer/commercelayer-react-checkout) [<img src="https://vercel.com/button" alt="Deploy to Vercel" height="35">](https://vercel.com/new/clone?repository-url=https://github.com/commercelayer/commercelayer-react-checkout) [<img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" height="35">](https://heroku.com/deploy?template=https://github.com/commercelayer/commercelayer-react-checkout) [<img src="https://www.deploytodo.com/do-btn-blue.svg" alt="Deploy to Digital Ocean" height="35">](https://cloud.digitalocean.com/apps/new?repo=https://github.com/commercelayer/commercelayer-react-checkout/tree/main)
+3. Deploy the forked repository to your preferred hosting service.
 
 4. Build your sales channel with your favorite technologies and frameworks by leveraging our [developer resources](https://commercelayer.io/developers) and [documentation](https://docs.commercelayer.io/api).
 
@@ -45,11 +43,11 @@ The Commerce Layer Checkout application (React) provides you with a PCI-complian
 
 Any Commerce Layer account comes with a hosted version of the Checkout application that is automatically enabled. You can customize it by adding your organization logo, favicon, primary color, Google Tag Manager ID, support telephone, and email address.
 
-You can use the hosted version of the Checkout application with the following URL format: `https://<your-organization-subdomain>.checkout.commercelayer.app/:order_id?accessToken=<your-access-token>`
+You can use the hosted version of the Checkout application with the following URL format: `https://<your-organization-subdomain>.commercelayer.app/checkout/:order_id?accessToken=<your-access-token>`
 
 ### Example
 
-`https://yourbrand.checkout.commercelayer.app/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`
+`https://yourbrand.commercelayer.app/checkout/PrnYhoVeza?accessToken=eyJhbGciOiJIUzUxMiJ9`
 
 ### CLI plugin
 
@@ -117,7 +115,7 @@ If the order has the attribute `shipping_country_code_lock` set, customers can s
 
 ### Delivery step
 
-Here is where customers select a shipping method for each shipment of their order.
+Here is where customers select a shipping method for each shipment of their order. [External shipping cost](https://docs.commercelayer.io/core/external-resources/external-shipping-costs) are not supported by the Checkout application at the moment.
 
 #### Single shipping method
 
@@ -199,12 +197,12 @@ If the _Delivery_ step is [automatically populated](#single-shipping-method), th
 
 ## Contributors guide
 
-1. Fork [this repository](https://github.com/commercelayer/commercelayer-react-checkout) (you can learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
+1. Fork [this repository](https://github.com/commercelayer/mfe-checkout) (you can learn how to do this [here](https://help.github.com/articles/fork-a-repo)).
 
 2. Clone the forked repository like so:
 
 ```bash
-git clone https://github.com/<your username>/commercelayer-react-checkout.git && cd commercelayer-react-checkout
+git clone https://github.com/<your username>/mfe-checkout.git && cd mfe-checkout
 ```
 
 3. First, install dependencies and run the development server:
@@ -226,7 +224,7 @@ yarn dev
 
 1. Join [Commerce Layer's Slack community](https://slack.commercelayer.app).
 
-2. Create an [issue](https://github.com/commercelayer/commercelayer-react-checkout/issues) in this repository.
+2. Create an [issue](https://github.com/commercelayer/mfe-checkout/issues) in this repository.
 
 3. Ping us [on Twitter](https://twitter.com/commercelayer).
 
