@@ -4,7 +4,7 @@ import { Footer } from "components/ui/Footer"
 
 import { Wrapper, LogoWrapper, FullLogo, Main, Error } from "./styled"
 
-export const ErrorContainer: React.FC = ({ children }) => {
+export const ErrorContainer = ({ children }: { children: ChildrenType }) => {
   return (
     <Base>
       <Container>

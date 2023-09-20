@@ -12,7 +12,7 @@ export const CheckoutHead: React.FC<Props> = (props) => {
   return (
     <Head>
       <title>{t("general.title", { companyName: props.title })}</title>
-      <link rel="icon" href={props.favicon} />
+      <link rel="icon" type="image/x-icon" href={props.favicon} />
     </Head>
   )
 }

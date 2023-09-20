@@ -87,24 +87,24 @@ test.describe("quantity and unit price", () => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     let element = checkoutPage.page.locator(
-      "[data-test-id=order-summary] >> text=Quantity: 5"
+      "[data-testid=order-summary] >> text=Quantity: 5"
     )
     await expect(element).toHaveText("QUANTITY: 5")
 
     element = checkoutPage.page.locator(
-      "[data-test-id=order-summary] >> text=Quantity: 1"
+      "[data-testid=order-summary] >> text=Quantity: 1"
     )
     await expect(element).toHaveText("QUANTITY: 1")
 
     await checkoutPage.checkStep("Shipping", "open")
 
     element = checkoutPage.page.locator(
-      "[data-test-id=shipments-container] >> text=Quantity: 5"
+      "[data-testid=shipments-container] >> text=Quantity: 5"
     )
     await expect(element).toHaveText("QUANTITY: 5")
 
     element = checkoutPage.page.locator(
-      "[data-test-id=shipments-container] >> text=Quantity: 1"
+      "[data-testid=shipments-container] >> text=Quantity: 1"
     )
     await expect(element).toHaveText("QUANTITY: 1")
   })
@@ -112,9 +112,9 @@ test.describe("quantity and unit price", () => {
 
 test.describe("sku options", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
-  const company = faker.company.companyName()
-  const firstName = faker.name.firstName()
-  const lastName = faker.name.lastName()
+  const company = faker.company.name()
+  const firstName = faker.person.firstName()
+  const lastName = faker.person.lastName()
   const name = `${firstName} ${lastName}`
 
   test.use({
@@ -169,6 +169,50 @@ test.describe("sku options", () => {
   })
 })
 
+test.describe("sku options with price", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const firstName = faker.person.firstName()
+  const lastName = faker.person.lastName()
+  const letters = `${firstName[0]}${lastName[0]}`
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        {
+          sku_code: "CANVASAU000000FFFFFF1824",
+          quantity: 1,
+          final_quantity: 2,
+          sku_options: [
+            {
+              name: "Initials",
+              value: {
+                letters,
+              },
+            },
+          ],
+        },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("should match SKUs quantity", async ({ checkoutPage }) => {
+    test.skip()
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+    const element = checkoutPage.page.locator(`text=Letters:${letters}`)
+    await expect(element).toHaveCount(1)
+    await checkoutPage.checkLineItemAmount("€200,00")
+  })
+})
+
 test.describe("buying gift card", () => {
   test.use({
     defaultParams: {
@@ -179,7 +223,7 @@ test.describe("buying gift card", () => {
   test("should appear on summary", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
     const element = checkoutPage.page.locator(
-      "[data-test-id=line-items-gift_cards] >> text=Gift card: €100,00"
+      "[data-testid=line-items-gift_cards] >> text=Gift card: €100,00"
     )
 
     await expect(element).toHaveCount(1)
@@ -224,12 +268,12 @@ test.describe("using gift card", () => {
 
     await checkoutPage.checkGiftCardAmount("-€20,00")
     let element = checkoutPage.page.locator(
-      "[data-test-id=line-items-gift_cards]"
+      "[data-testid=line-items-gift_cards]"
     )
     await expect(element).toHaveCount(0)
 
     element = checkoutPage.page.locator(
-      "[data-test-id=items-count] >> text=Your shopping cart contains 3 items"
+      "[data-testid=items-count] >> text=Your shopping cart contains 3 items"
     )
     await expect(element).toHaveCount(1)
   })
@@ -277,7 +321,7 @@ test.describe("with tax not included", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       orderAttributes: {
         cart_url: cartUrl,
         customer_email: customerEmail,
@@ -331,7 +375,7 @@ test.describe("with digital product", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       orderAttributes: {
         customer_email: customerEmail,
       },
@@ -446,5 +490,44 @@ test.describe("count buying gift card", () => {
   test("should count the right items", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
     await checkoutPage.checkLineItemsCount("Your shopping cart contains 1 item")
+  })
+})
+
+test.describe("line item with frequency", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        {
+          sku_code: "TSHIRTMMFFFFFF000000XLXX",
+          quantity: 1,
+          frequency: "monthly",
+        },
+      ],
+    },
+  })
+
+  test("should show the monthly frequency", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkLineItemFrequency("Monthly")
+  })
+})
+
+test.describe("line item without frequency", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        {
+          sku_code: "TSHIRTMMFFFFFF000000XLXX",
+          quantity: 1,
+        },
+      ],
+    },
+  })
+
+  test("should show the monthly frequency", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkLineItemFrequency()
   })
 })

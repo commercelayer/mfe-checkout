@@ -1,10 +1,8 @@
-import {
-  AddressesContainer,
-  BillingAddressForm,
-  SaveAddressesButton,
-  ShippingAddressForm,
-} from "@commercelayer/react-components"
-import { Address } from "@commercelayer/sdk"
+import AddressesContainer from "@commercelayer/react-components/addresses/AddressesContainer"
+import BillingAddressForm from "@commercelayer/react-components/addresses/BillingAddressForm"
+import SaveAddressesButton from "@commercelayer/react-components/addresses/SaveAddressesButton"
+import ShippingAddressForm from "@commercelayer/react-components/addresses/ShippingAddressForm"
+import type { Address, Order } from "@commercelayer/sdk"
 import { useState, Fragment, useEffect, Dispatch, SetStateAction } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
@@ -21,9 +19,9 @@ import { BillingAddressFormNew } from "./BillingAddressFormNew"
 import { ShippingAddressFormNew } from "./ShippingAddressFormNew"
 
 interface Props {
-  billingAddress?: Address
-  shippingAddress?: Address
-  emailAddress?: string
+  billingAddress: NullableType<Address>
+  shippingAddress: NullableType<Address>
+  emailAddress: NullableType<string>
   hasSameAddresses: boolean
   isShipmentRequired: boolean
   isLocalLoader: boolean
@@ -32,7 +30,7 @@ interface Props {
   openShippingAddress: (props: ShippingToggleProps) => void
   disabledShipToDifferentAddress: boolean
   setCustomerEmail: (email: string) => void
-  handleSave: () => void
+  handleSave: (params: { success: boolean; order?: Order }) => void
 }
 
 export const CheckoutAddresses: React.FC<Props> = ({
@@ -51,9 +49,8 @@ export const CheckoutAddresses: React.FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation()
 
-  const [shippingAddressFill, setShippingAddressFill] = useState<
-    Address | undefined
-  >(shippingAddress)
+  const [shippingAddressFill, setShippingAddressFill] =
+    useState<NullableType<Address>>(shippingAddress)
 
   const handleToggleDifferentAddress = () => {
     return [
@@ -91,7 +88,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
         {isShipmentRequired && (
           <Toggle
             disabled={disabledShipToDifferentAddress}
-            data-test-id="button-ship-to-different-address"
+            data-testid="button-ship-to-different-address"
             data-status={shipToDifferentAddress}
             label={t(`addressForm.ship_to_different_address`)}
             checked={shipToDifferentAddress}
@@ -125,7 +122,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
                     : t("stepShipping.continueToPayment")}
                 </>
               }
-              data-test-id="save-customer-button"
+              data-testid="save-customer-button"
               onClick={handleSave}
             />
           </ButtonWrapper>

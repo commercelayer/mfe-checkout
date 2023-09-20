@@ -6,8 +6,8 @@ import { Card } from "components/ui/Card"
 import { Container } from "components/ui/Container"
 
 interface Props {
-  aside: React.ReactNode
-  main: React.ReactNode
+  aside: ChildrenType
+  main: ChildrenType
 }
 
 export const LayoutDefault: React.FC<Props> = ({ main, aside }) => {

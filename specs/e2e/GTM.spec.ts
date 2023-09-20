@@ -8,7 +8,6 @@ const TIMEOUT = 1000
 const customerEmail = faker.internet.email().toLocaleLowerCase()
 
 test.describe("multi shipments", () => {
-
   test.use({
     defaultParams: {
       order: "with-items",
@@ -160,7 +159,6 @@ test.describe("multi shipments", () => {
 })
 
 test.describe("single shipment", () => {
-
   test.use({
     defaultParams: {
       order: "with-items",
@@ -232,14 +230,13 @@ test.describe("single shipment", () => {
 })
 
 test.describe("with single shipping method", () => {
-
   test.use({
     defaultParams: {
       organization: {
         gtm_id_test: "GTM-123456",
       },
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
       ],
@@ -310,14 +307,13 @@ test.describe("with single shipping method", () => {
 })
 
 test.describe("with digital products", () => {
-
   test.use({
     defaultParams: {
       organization: {
         gtm_id_test: "GTM-123456",
       },
       order: "digital",
-      market: process.env.E2E_MARKET_ID_SINGLE_SHIPPING_METHOD,
+      market: "US",
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
       ],
@@ -367,7 +363,6 @@ test.describe("with digital products", () => {
 })
 
 test.describe("with bundle", () => {
-
   test.use({
     defaultParams: {
       order: "with-items",

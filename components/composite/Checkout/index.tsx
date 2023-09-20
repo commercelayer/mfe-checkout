@@ -1,8 +1,6 @@
-import {
-  CustomerContainer,
-  OrderContainer,
-  PlaceOrderContainer,
-} from "@commercelayer/react-components"
+import CustomerContainer from "@commercelayer/react-components/customers/CustomerContainer"
+import OrderContainer from "@commercelayer/react-components/orders/OrderContainer"
+import PlaceOrderContainer from "@commercelayer/react-components/orders/PlaceOrderContainer"
 import { useRouter } from "next/router"
 import { useContext } from "react"
 import styled from "styled-components"
@@ -37,6 +35,7 @@ import { Logo } from "components/ui/Logo"
 
 interface Props {
   logoUrl?: string
+  primaryColor: string
   orderNumber: number
   companyName: string
   supportEmail?: string
@@ -47,6 +46,7 @@ interface Props {
 
 const Checkout: React.FC<Props> = ({
   logoUrl,
+  primaryColor,
   orderNumber,
   companyName,
   supportEmail,
@@ -55,11 +55,13 @@ const Checkout: React.FC<Props> = ({
   privacyUrl,
 }) => {
   const ctx = useContext(AppContext)
+
   const { query } = useRouter()
 
   let paypalPayerId = ""
   let checkoutComSession = ""
   let redirectResult = ""
+  let redirectStatus = ""
 
   if (query.PayerID) {
     paypalPayerId = query.PayerID as string
@@ -71,6 +73,10 @@ const Checkout: React.FC<Props> = ({
 
   if (query["cko-session-id"]) {
     checkoutComSession = query["cko-session-id"] as string
+  }
+
+  if (query.redirect_status) {
+    redirectStatus = query.redirect_status as string
   }
 
   const { activeStep, lastActivableStep, setActiveStep, steps } =
@@ -144,25 +150,30 @@ const Checkout: React.FC<Props> = ({
                     <StepCustomer className="mb-6" step={1} />
                   </AccordionItem>
                 </AccordionProvider>
-                {ctx.isShipmentRequired && (
-                  <AccordionProvider
-                    activeStep={activeStep}
-                    lastActivableStep={lastActivableStep}
-                    setActiveStep={setActiveStep}
-                    step="Shipping"
-                    steps={steps}
-                    isStepRequired={ctx.isShipmentRequired}
-                  >
-                    <AccordionItem
-                      index={2}
-                      header={
-                        <StepHeaderShipping step={getStepNumber("Shipping")} />
-                      }
+                <>
+                  {ctx.isShipmentRequired && (
+                    <AccordionProvider
+                      activeStep={activeStep}
+                      lastActivableStep={lastActivableStep}
+                      setActiveStep={setActiveStep}
+                      step="Shipping"
+                      steps={steps}
+                      isStepRequired={ctx.isShipmentRequired}
+                      isStepDone={ctx.hasShippingMethod}
                     >
-                      <StepShipping className="mb-6" step={2} />
-                    </AccordionItem>
-                  </AccordionProvider>
-                )}
+                      <AccordionItem
+                        index={2}
+                        header={
+                          <StepHeaderShipping
+                            step={getStepNumber("Shipping")}
+                          />
+                        }
+                      >
+                        <StepShipping className="mb-6" step={2} />
+                      </AccordionItem>
+                    </AccordionProvider>
+                  )}
+                </>
                 <AccordionProvider
                   activeStep={activeStep}
                   lastActivableStep={lastActivableStep}
@@ -172,13 +183,16 @@ const Checkout: React.FC<Props> = ({
                   isStepRequired={ctx.isPaymentRequired}
                   isStepDone={ctx.hasPaymentMethod}
                 >
-                  <PaymentContainer>
+                  <PaymentContainer primaryColor={primaryColor}>
                     <PlaceOrderContainer
                       options={{
                         paypalPayerId,
                         checkoutCom: { session_id: checkoutComSession },
                         adyen: {
                           redirectResult,
+                        },
+                        stripe: {
+                          redirectStatus,
                         },
                       }}
                     >
@@ -211,7 +225,7 @@ const Checkout: React.FC<Props> = ({
   }
 
   return (
-    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
+    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder as any}>
       {ctx.isComplete ? renderComplete() : renderSteps()}
     </OrderContainer>
   )

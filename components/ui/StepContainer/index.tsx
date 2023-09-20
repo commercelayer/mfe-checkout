@@ -3,6 +3,7 @@ import tw from "twin.macro"
 
 interface Props {
   className: string
+  children?: ChildrenType
 }
 
 export const StepContainer: React.FC<Props> = ({ children, className }) => (

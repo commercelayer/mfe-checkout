@@ -1,15 +1,7 @@
-import {
-  Errors,
-  AddressInput,
-  AddressCountrySelector,
-  AddressStateSelector,
-  ErrorComponentProps,
-  ResourceErrorType,
-  AddressCountrySelectName,
-  AddressInputName,
-  AddressStateSelectName,
-  BaseInputType,
-} from "@commercelayer/react-components"
+import AddressCountrySelector from "@commercelayer/react-components/addresses/AddressCountrySelector"
+import AddressInput from "@commercelayer/react-components/addresses/AddressInput"
+import AddressStateSelector from "@commercelayer/react-components/addresses/AddressStateSelector"
+import { Errors } from "@commercelayer/react-components/errors/Errors"
 import { ChangeEvent, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
@@ -24,10 +16,19 @@ import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
 
+type TFieldName =
+  | Parameters<typeof AddressCountrySelector>[0]["name"]
+  | Parameters<typeof AddressInput>[0]["name"]
+  | Parameters<typeof AddressStateSelector>[0]["name"]
+
+type TInputType = JSX.IntrinsicElements["input"]["type"]
+type TResource = Parameters<typeof Errors>[0]["resource"]
+type TMessages = Parameters<typeof Errors>[0]["messages"]
+
 interface Props {
-  type: BaseInputType
-  fieldName: AddressInputName | AddressCountrySelectName | "email"
-  resource: ResourceErrorType
+  type: TInputType
+  fieldName: TFieldName
+  resource: TResource
   required?: boolean
   value?: string
   openShippingAddress?: (props: ShippingToggleProps) => void
@@ -43,7 +44,7 @@ export const AddressInputGroup: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
 
-  const messages: ErrorComponentProps["messages"] = [
+  const messages: TMessages = [
     {
       code: "VALIDATION_ERROR",
       resource: "billing_address",
@@ -72,7 +73,7 @@ export const AddressInputGroup: React.FC<Props> = ({
 
   const appCtx = useContext(AppContext)
 
-  let shippingCountryCodeLock: string | undefined = ""
+  let shippingCountryCodeLock: NullableType<string> = ""
 
   if (appCtx) {
     shippingCountryCodeLock = appCtx.shippingCountryCodeLock
@@ -112,8 +113,8 @@ export const AddressInputGroup: React.FC<Props> = ({
           <StyledAddressCountrySelector
             id={fieldName}
             className="form-select"
-            data-test-id={`input_${fieldName}`}
-            name={fieldName as AddressCountrySelectName}
+            data-testid={`input_${fieldName}`}
+            name={fieldName}
             placeholder={{
               label: t(`addressForm.${fieldName}_placeholder`),
               value: "",
@@ -140,8 +141,8 @@ export const AddressInputGroup: React.FC<Props> = ({
             id={fieldName}
             selectClassName="form-select"
             inputClassName="form-input"
-            data-test-id={`input_${fieldName}`}
-            name={fieldName as AddressStateSelectName}
+            data-testid={`input_${fieldName}`}
+            name={fieldName}
             value={value}
           />
           <Label htmlFor={fieldName}>{label}</Label>
@@ -153,8 +154,8 @@ export const AddressInputGroup: React.FC<Props> = ({
           <StyledAddressInput
             id={fieldName}
             required={required}
-            data-test-id={`input_${fieldName}`}
-            name={fieldName as AddressInputName}
+            data-testid={`input_${fieldName}`}
+            name={fieldName}
             type={type}
             value={valueStatus}
             className="form-input"
@@ -171,7 +172,7 @@ export const AddressInputGroup: React.FC<Props> = ({
         <div className="relative h-10">{renderInput()}</div>
       </Wrapper>
       <StyledErrors
-        data-test-id={`error_${fieldName}`}
+        data-testid={`error_${fieldName}`}
         resource={resource}
         field={fieldName}
         messages={messages}

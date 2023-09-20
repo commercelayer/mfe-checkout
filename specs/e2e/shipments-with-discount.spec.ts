@@ -11,7 +11,7 @@ test.describe("discount with coupon", () => {
   test.use({
     defaultParams: {
       order: "with-items",
-      market: process.env.E2E_MARKET_ID_SHIP_FROM_PRIMARY,
+      market: "MI",
       lineItemsAttributes: [
         { sku_code: "TSHIRTMMFFFFFFE63E74MXXX", quantity: 5 },
       ],

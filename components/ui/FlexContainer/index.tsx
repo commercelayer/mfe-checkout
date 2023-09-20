@@ -3,6 +3,7 @@ import tw from "twin.macro"
 
 interface Props {
   className?: string
+  children?: ChildrenType
 }
 
 export const FlexContainer: React.FC<Props> = ({ children, className }) => (
@@ -10,5 +11,5 @@ export const FlexContainer: React.FC<Props> = ({ children, className }) => (
 )
 
 const Wrapper = styled.div`
-  ${tw`flex justify-start`}
+  ${tw`flex`}
 `

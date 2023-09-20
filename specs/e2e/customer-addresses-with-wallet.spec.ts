@@ -134,6 +134,65 @@ test.describe("address on wallet", () => {
   })
 })
 
+test.describe("addresses on wallet", () => {
+  test.describe.configure({ mode: "serial" })
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+    },
+  })
+
+  test("save two addresses on wallet", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(euAddress)
+
+    let element = checkoutPage.getSaveAddressBookCheckbox("billing")
+    await expect(element).not.toBeChecked()
+    await element.check()
+
+    await checkoutPage.shipToDifferentAddress()
+
+    await checkoutPage.setShippingAddress(euAddress2)
+
+    element = checkoutPage.getSaveAddressBookCheckbox("shipping")
+    await expect(element).not.toBeChecked()
+    await element.check()
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
+  })
+
+  test("use address on wallet", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    const element = await checkoutPage.page.locator(
+      "[data-testid=customer-billing-address]"
+    )
+    await expect(element).toHaveCount(2)
+  })
+})
+
 test.describe("two address on wallet", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const customerPassword = faker.internet.password()
@@ -160,7 +219,7 @@ test.describe("two address on wallet", () => {
     await checkoutPage.checkStep("Customer", "open")
 
     const element = await checkoutPage.page.locator(
-      "[data-test-id=customer-billing-address]"
+      "[data-testid=customer-billing-address]"
     )
     await expect(element).toHaveCount(2)
 
@@ -272,7 +331,7 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.checkStep("Customer", "open")
 
     let element = await checkoutPage.page.locator(
-      "[data-test-id=customer-billing-address]"
+      "[data-testid=customer-billing-address]"
     )
     await expect(element).toHaveCount(2)
 
@@ -294,7 +353,7 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.checkShipToDifferentAddressValue(false)
     await checkoutPage.checkShipToDifferentAddressEnabled(true)
 
-    element = await checkoutPage.page.locator("[data-test-id=shipping-address]")
+    element = await checkoutPage.page.locator("[data-testid=shipping-address]")
 
     await expect(element).not.toBeVisible()
 
@@ -305,18 +364,18 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.checkShipToDifferentAddressEnabled(false)
 
     element = await checkoutPage.page.locator(
-      "[data-test-id=shipping-address] >> text=Shipping Address"
+      "[data-testid=shipping-address] >> text=Shipping Address"
     )
 
     await expect(element).toBeVisible()
 
     element = await checkoutPage.page.locator(
-      `[data-test-id=customer-shipping-address]:near(:text("Shipping Address")) >> text=(IT)`
+      `[data-testid=customer-shipping-address]:near(:text("Shipping Address")) >> text=(IT)`
     )
     await expect(element).toHaveCount(1)
 
     element = await checkoutPage.page.locator(
-      `[data-test-id=customer-shipping-address]:near(:text("Shipping Address")) >> text=(FR)`
+      `[data-testid=customer-shipping-address]:near(:text("Shipping Address")) >> text=(FR)`
     )
     await expect(element).toHaveCount(0)
 
@@ -326,7 +385,7 @@ test.describe("two address on wallet and code lock", () => {
     })
 
     element = await checkoutPage.page.locator(
-      "[data-test-id=save-customer-button]"
+      "[data-testid=save-customer-button]"
     )
     await expect(element).toBeEnabled()
 
@@ -391,7 +450,7 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.closeNewAddress("shipping")
 
     element = await checkoutPage.page.locator(
-      "data-test-id=save-customer-button"
+      "data-testid=save-customer-button"
     )
     await expect(element).toBeDisabled()
 
@@ -458,7 +517,7 @@ test.describe("one address on wallet", () => {
     await checkoutPage.clickStep("Customer")
 
     let element = await checkoutPage.page.locator(
-      "[data-test-id=customer-billing-address]"
+      "[data-testid=customer-billing-address]"
     )
     await expect(element).toHaveCount(1)
 
@@ -478,7 +537,7 @@ test.describe("one address on wallet", () => {
     await checkoutPage.clickStep("Customer")
 
     element = await checkoutPage.page.locator(
-      "[data-test-id=customer-billing-address]"
+      "[data-testid=customer-billing-address]"
     )
     await expect(element).toHaveCount(1)
   })

@@ -10,7 +10,7 @@ const Invalid: NextPage = () => {
   return (
     <ErrorContainer>
       <ErrorCode>404</ErrorCode>
-      <Text data-test-id="invalid-checkout">{t("general.invalid")}</Text>
+      <Text data-testid="invalid-checkout">{t("general.invalid")}</Text>
     </ErrorContainer>
   )
 }

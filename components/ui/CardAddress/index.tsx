@@ -4,6 +4,7 @@ import tw from "twin.macro"
 interface Props {
   className?: string
   rounded?: boolean
+  children?: ChildrenType
   // address: string
   // user: string
 }

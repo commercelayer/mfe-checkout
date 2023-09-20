@@ -5,6 +5,7 @@ interface Props {
   dataTestId?: string
   htmlFor: string
   textLabel?: string
+  children?: ChildrenType
 }
 
 export const Label: React.FC<Props> = ({
@@ -14,7 +15,7 @@ export const Label: React.FC<Props> = ({
   children,
 }) => {
   return (
-    <Wrapper data-test-id={dataTestId} htmlFor={htmlFor}>
+    <Wrapper data-testid={dataTestId} htmlFor={htmlFor}>
       {children || textLabel}
     </Wrapper>
   )
@@ -27,6 +28,6 @@ const Wrapper = styled.label`
   }
 
   a {
-    ${tw`text-gray-900 border-b border-gray-200 transition ease hover:text-gray-500`}
+    ${tw`text-gray-900 border-b border-gray-200 transition ease-in-out hover:text-gray-500`}
   }
 `

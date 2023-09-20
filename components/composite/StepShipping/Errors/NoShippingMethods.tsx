@@ -1,10 +1,10 @@
-import { ErrorComponentProps, Errors } from "@commercelayer/react-components"
+import { Errors } from "@commercelayer/react-components/errors/Errors"
 import { Dispatch, SetStateAction, useEffect } from "react"
 
 interface Props {
-  messages: ErrorComponentProps["messages"]
+  messages: Parameters<typeof Errors>[0]["messages"]
   setShippingMethodError: Dispatch<SetStateAction<boolean>>
-  cartUrl?: string
+  cartUrl?: NullableType<string>
 }
 
 export const NoShippingMethods = ({
@@ -17,7 +17,13 @@ export const NoShippingMethods = ({
         useEffect(() => {
           setShippingMethodError(errors.length > 0 && errors[0] !== undefined)
         }, [errors.length])
-        return errors.map((error, index) => <p key={index}>{error}</p>)
+        return (
+          <>
+            {errors.map((error, index) => (
+              <p key={index}>{error}</p>
+            ))}
+          </>
+        )
       }}
     </Errors>
   )

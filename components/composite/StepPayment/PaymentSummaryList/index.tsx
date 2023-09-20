@@ -1,5 +1,4 @@
 import { PaymentMethodPrice } from "@commercelayer/react-components"
-import { useTranslation } from "react-i18next"
 
 import { PaymentMethodNameWithStripe } from "../PaymentMethodNameWithStripe"
 import {
@@ -13,11 +12,10 @@ import {
 import { StyledErrors } from "components/composite/OrderSummary/CouponOrGiftCard/styled"
 
 export const PaymentSummaryList = ({ hasTitle }: { hasTitle: boolean }) => {
-  const { t } = useTranslation()
   return (
     <>
       <PaymentSummary>
-        <PaymentSummaryItem data-test-id="payment-method-item">
+        <PaymentSummaryItem data-testid="payment-method-item">
           <PaymentRadioContainer>
             <StyledPaymentMethodRadioButton className="form-radio" />
           </PaymentRadioContainer>
@@ -25,7 +23,7 @@ export const PaymentSummaryList = ({ hasTitle }: { hasTitle: boolean }) => {
         </PaymentSummaryItem>
         {hasTitle && (
           <PaymentSummaryValue>
-            <PaymentMethodPrice labelFree={t("general.free")} />
+            <PaymentMethodPrice labelFree="&nbsp;" />
           </PaymentSummaryValue>
         )}
       </PaymentSummary>
