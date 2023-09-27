@@ -799,7 +799,7 @@ export class CheckoutPage {
                 }
               )
               await this.page.click("[data-testid=save-payment-button]")
-              await this.page.click("#buy-button")
+              // await this.page.click("#buy-button")
 
               const i = this.page.locator("#klarna-apf-iframe")
               const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
