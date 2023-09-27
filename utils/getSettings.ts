@@ -208,7 +208,7 @@ export const getSettings = async ({
     if (!paymentReturn) {
       const _refresh = !paymentReturn
       try {
-        await cl.orders.update({
+        cl.orders.update({
           id: order.id,
           _refresh,
           payment_method: cl.payment_methods.relationship(null),
