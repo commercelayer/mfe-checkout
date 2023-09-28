@@ -347,17 +347,18 @@ export function calculateAddresses(
 export function calculateSettings(
   order: Order,
   isShipmentRequired: boolean,
+  isGuest: boolean,
   customerAddress?: CustomerAddress[]
 ) {
   // FIX saving customerAddresses because we don't receive
-  // them from fetchORder
+  // them from fetchOrder
   const calculatedAddresses = calculateAddresses(
     order,
     order.customer?.customer_addresses || customerAddress
   )
 
   return {
-    isGuest: Boolean(order.guest),
+    isGuest,
     shippingCountryCodeLock: order.shipping_country_code_lock,
     hasEmailAddress: Boolean(order.customer_email),
     emailAddress: order.customer_email,

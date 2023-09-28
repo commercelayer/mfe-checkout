@@ -25,6 +25,7 @@ const CheckoutContainer = ({ settings, children }: Props): JSX.Element => {
 
         <AppProvider
           orderId={settings.orderId}
+          isGuest={settings.isGuest}
           accessToken={settings.accessToken}
           slug={settings.slug}
           domain={settings.domain}
