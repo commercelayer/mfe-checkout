@@ -97,7 +97,7 @@ If the order has the attribute `cart_url` set, a "Return to cart" link will be d
 
 ### Order refresh
 
-When the checkout is opening, after getting the organization settings, we are going to refresh the order if some conditions are met. Below a flowchart shows how the logic works:
+When the checkout is opening, after getting the organization settings, the order might be refreshed if some conditions are met. Check the flowchart below to better understand how this logic works:
 
 ```mermaid
 flowchart LR
@@ -160,7 +160,7 @@ Here is where customers select a payment method and place the order.
 | [Stripe](https://docs.commercelayer.io/developers/v/how-tos/payments/stripe)                  | Credit card / Apple Pay / Google Pay / PayPal / Klarna                                                                                                  | &check;         |
 | [Manual gateway](https://docs.commercelayer.io/developers/v/how-tos/payments/manual-payments) | Manual payment                                                                                                                                          | &cross;         |
 
-> To automatically accept payment methods enabled in the Stripe dashboard please make sure to properly [set up the auto_payments option](https://docs.commercelayer.io/core/v/api-reference/stripe_gateways) on your Stripe gateway.
+> To automatically accept payment methods enabled in the Stripe dashboard please make sure to properly set up the `auto_payments` option on your [Stripe gateway](https://docs.commercelayer.io/core/v/api-reference/stripe_gateways).
 
 > When using PayPal via Adyen please make sure to properly [set up third-party access](https://docs.adyen.com/payment-methods/paypal/web-drop-in#grant-api-access) on your PayPal first.
 

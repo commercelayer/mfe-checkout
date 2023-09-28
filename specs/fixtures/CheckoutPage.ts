@@ -984,11 +984,17 @@ export class CheckoutPage {
         const stripeFrame = this.page
           .frameLocator("[data-testid=stripe_payments] iframe")
           .first()
+
+        const creditCard = {
+          number: card?.number ?? "4242424242424242",
+          exp: card?.exp ?? "0235",
+          cvc: card?.cvc ?? "321",
+        }
         await stripeFrame
           .getByPlaceholder("1234 1234 1234 1234")
-          .fill(card?.number || "4242424242424242")
-        await stripeFrame.getByPlaceholder("MM / YY").fill(card?.exp || "0231")
-        await stripeFrame.getByPlaceholder("CVC").fill(card?.cvc || "321")
+          .fill(creditCard.number)
+        await stripeFrame.getByPlaceholder("MM / YY").fill(creditCard.exp)
+        await stripeFrame.getByPlaceholder("CVC").fill(creditCard.cvc)
         break
       }
       case "stripe-paypal": {
