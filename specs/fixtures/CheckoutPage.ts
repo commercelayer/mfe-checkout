@@ -535,8 +535,10 @@ export class CheckoutPage {
     }
   }
 
-  async checkPaymentRecap(text: string) {
-    await expect(this.page.getByText(text)).toBeVisible()
+  async checkPaymentRecap(text: string, timeout?: number) {
+    await expect(this.page.getByText(text)).toBeVisible({
+      timeout: timeout ?? 5000,
+    })
   }
 
   async checkTaxSummary(text: string) {

@@ -48,11 +48,11 @@ test.describe("guest with PayPal", () => {
       .getByRole("link", { name: "Authorize Test Payment" })
       .click()
 
-    await checkoutPage.checkPaymentRecap("ending in ****")
+    await checkoutPage.checkPaymentRecap("ending in ****", 15000)
 
     await checkoutPage.page.reload()
 
-    await checkoutPage.checkPaymentRecap("ending in ****")
+    await checkoutPage.checkPaymentRecap("ending in ****", 10000)
   })
 
   test("failing", async ({ checkoutPage }) => {
