@@ -157,7 +157,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setAddresses = async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
     const currentOrder = order ?? (await getOrderFromRef())
-    console.log(currentOrder)
+
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     const others = calculateSettings(
@@ -305,7 +305,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     }
     return unsubscribe()
   }, [orderId, accessToken])
-  console.log(`isGuest before end of context ${isGuest}`)
+
   return (
     <AppContext.Provider
       value={{

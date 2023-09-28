@@ -124,8 +124,6 @@ function getTokenInfo(accessToken: string) {
       test,
     } = jwt_decode(accessToken) as JWTProps
 
-    console.log(`customer token ${!!owner}`)
-
     return { slug, kind, isTest: test, isGuest: !owner }
   } catch (e) {
     console.log(`error decoding access token: ${e}`)
@@ -209,11 +207,6 @@ export const getSettings = async ({
   if (order.status === "draft" || order.status === "pending") {
     // Logic to refresh the order is documented here: https://github.com/commercelayer/mfe-checkout/issues/356
     if (!paymentReturn && (!order.autorefresh || (!isGuest && order.guest))) {
-      console.log(
-        `refresh order / order.autorefresh: ${
-          order.autorefresh
-        } isCustomer: ${!isGuest} order.guest: ${order.guest}`
-      )
       try {
         await cl.orders.update({
           id: order.id,
