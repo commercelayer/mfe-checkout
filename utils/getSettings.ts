@@ -215,7 +215,7 @@ export const getSettings = async ({
         } isCustomer: ${!isGuest} order.guest: ${order.guest}`
       )
       try {
-        cl.orders.update({
+        await cl.orders.update({
           id: order.id,
           _refresh: true,
           payment_method: cl.payment_methods.relationship(null),
