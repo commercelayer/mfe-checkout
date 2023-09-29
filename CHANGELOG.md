@@ -1,3 +1,15 @@
+## [4.0.15](https://github.com/commercelayer/mfe-checkout/compare/v4.0.14...v4.0.15) (2023-09-29)
+
+
+### Bug Fixes
+
+* populate isGuest state based on the access token ([0b51d7d](https://github.com/commercelayer/mfe-checkout/commit/0b51d7de8522e3378c9d252dd0ddf12eb3911737))
+
+
+### Performance Improvements
+
+* avoid sync call for refreshing the order on opening ([e7707e5](https://github.com/commercelayer/mfe-checkout/commit/e7707e5ba67030954b575b11c8ab512e03837d02))
+
 ## [4.0.14](https://github.com/commercelayer/mfe-checkout/compare/v4.0.13...v4.0.14) (2023-09-13)
 
 
