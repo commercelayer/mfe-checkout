@@ -12,8 +12,8 @@ overrides:
 
 dependencies:
   '@commercelayer/react-components':
-    specifier: ^4.5.1
-    version: 4.5.1(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^4.6.0-beta.0
+    version: 4.6.0-beta.0(react-dom@18.2.0)(react@18.2.0)
   '@commercelayer/sdk':
     specifier: ^5.13.2
     version: 5.13.2
@@ -404,23 +404,23 @@ packages:
     dev: true
     optional: true
 
-  /@commercelayer/react-components@4.5.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-juOKsrl64B8+pZEQtaH1qyJFSu0llyKUxpnxKS4VM0dOWiB2VHK8jMGynwFNReyCuplmx9+MWkSG4332nulBkw==}
+  /@commercelayer/react-components@4.6.0-beta.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-P6EUvO4npjAkkD9DiYiSSI27oOVqVsRqS3I4COVOM083w03IZfN07YQIdkVFa/Lt0OSkGNT92oOkUO4kx0VKsg==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
       '@ac-dev/countries-service': 1.2.0
       '@ac-dev/states-service': 1.1.1
       '@adyen/adyen-web': 5.51.0
-      '@commercelayer/sdk': 5.13.2
-      '@stripe/react-stripe-js': 2.2.0(@stripe/stripe-js@2.1.3)(react-dom@18.2.0)(react@18.2.0)
-      '@stripe/stripe-js': 2.1.3
-      '@tanstack/react-table': 8.9.8(react-dom@18.2.0)(react@18.2.0)
-      '@types/iframe-resizer': 3.5.9
+      '@commercelayer/sdk': 5.15.0
+      '@stripe/react-stripe-js': 2.3.0(@stripe/stripe-js@2.1.6)(react-dom@18.2.0)(react@18.2.0)
+      '@stripe/stripe-js': 2.1.6
+      '@tanstack/react-table': 8.10.3(react-dom@18.2.0)(react@18.2.0)
+      '@types/iframe-resizer': 3.5.10
       axios: 1.5.0
-      braintree-web: 3.97.1
+      braintree-web: 3.97.2
       frames-react: 1.1.0(react@18.2.0)
-      iframe-resizer: 4.3.6
+      iframe-resizer: 4.3.7
       jwt-decode: 3.1.2
       lodash: 4.17.21
       rapid-form: 2.1.0
@@ -432,6 +432,15 @@ packages:
 
   /@commercelayer/sdk@5.13.2:
     resolution: {integrity: sha512-QUFGKMVsUI+SlM6iTAaMl+76y5ZqhVADeDmKWuaWsuOMr9sxkeEbIewjs6NjIaKHQtk+a4Ffe2nwEualFfWadg==}
+    engines: {node: '>=16 || ^14.17'}
+    dependencies:
+      axios: 1.5.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /@commercelayer/sdk@5.15.0:
+    resolution: {integrity: sha512-l6vZnifMrrITbpY0a/asVHkILdIyy1VxMDwJaj1N4EEZSKm9Mzc4BneTVsFierOAAGcKGimFZUYlUB/VjkbEuQ==}
     engines: {node: '>=16 || ^14.17'}
     dependencies:
       axios: 1.5.0
@@ -1110,21 +1119,21 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /@stripe/react-stripe-js@2.2.0(@stripe/stripe-js@2.1.3)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Nvqexxh6uu/qfLrmLJNdWERUXWWL3LhCJMc7vKofBKbF1IOh4/dSLYqYrycJYpVF5ApCUJvAYJRGw68y+JPx2Q==}
+  /@stripe/react-stripe-js@2.3.0(@stripe/stripe-js@2.1.6)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-AOxsvRIXfIh0WkebAfITfCQY6NgnEDg3jOH7KfHGQPjPmcxJ+HFj/EZOEuyflDjlB1iTGPDCqK0MqiQ8LjLbag==}
     peerDependencies:
       '@stripe/stripe-js': ^1.44.1 || ^2.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@stripe/stripe-js': 2.1.3
+      '@stripe/stripe-js': 2.1.6
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@stripe/stripe-js@2.1.3:
-    resolution: {integrity: sha512-UJpdIM+BeHgDf+kPJQtHnUgDt6QQvwAsXaLxadsgHjg/pIL11uXPavIAK0RSUfa5vTaVP4bG2aYr0WZ++xCXhA==}
+  /@stripe/stripe-js@2.1.6:
+    resolution: {integrity: sha512-QSzqQIcowgap7a40f3a7oUR+59Xet/i8fp1EsnzzwxK5oPRQsCbbLQ4Cd6qM0y1pdZMonFnCrAWayWdE9Lr0iA==}
     dev: false
 
   /@swc/helpers@0.5.1:
@@ -1149,20 +1158,20 @@ packages:
       tailwindcss: 3.3.3
     dev: false
 
-  /@tanstack/react-table@8.9.8(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-ZUd+ZydvUP8+XLI+oQ3IcG6Pqq3vw94na3fViD/v0dsIVwgQaWanizeh+si/Pn/8eU0XgbSVU9VpejOJEbp/lg==}
+  /@tanstack/react-table@8.10.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Qya1cJ+91arAlW7IRDWksRDnYw28O446jJ/ljkRSc663EaftJoBCAU10M+VV1K6MpCBLrXq1BD5IQc1zj/ZEjA==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
     dependencies:
-      '@tanstack/table-core': 8.9.8
+      '@tanstack/table-core': 8.10.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/table-core@8.9.8:
-    resolution: {integrity: sha512-f2Y/BcJy3IBkdDxWEk6WX6zJSmCDBI5iS0icr5DyeSbWsbnfaBtOIaeBjfnTEedt9Kk3xPmfciA6uSNOQ1BEXA==}
+  /@tanstack/table-core@8.10.3:
+    resolution: {integrity: sha512-hJ55YfJlWbfzRROfcyA/kC1aZr/shsLA8XNAwN8jXylhYWGLnPmiJJISrUfj4dMMWRiFi0xBlnlC7MLH+zSrcw==}
     engines: {node: '>=12'}
     dev: false
 
@@ -1209,8 +1218,8 @@ packages:
     resolution: {integrity: sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==}
     dev: true
 
-  /@types/iframe-resizer@3.5.9:
-    resolution: {integrity: sha512-RQUBI75F+uXruB95BFpC/8V8lPgJg4MQ6HxOCtAZYBB/h0FNCfrFfb4I+u2pZJIV7sKeszZbFqy1UnGeBMrvsA==}
+  /@types/iframe-resizer@3.5.10:
+    resolution: {integrity: sha512-ysUatQrksfp2iOCd1QueAJwAuCcJhiuXonoFBxcVMcwpJa82zTvX9edJs8AWqMpdh/h8VFlp0z4EqVBRQ8bzFA==}
     dev: false
 
   /@types/json-schema@7.0.12:
@@ -1908,8 +1917,8 @@ packages:
     dependencies:
       fill-range: 7.0.1
 
-  /braintree-web@3.97.1:
-    resolution: {integrity: sha512-9f9yNoC+vS9RGrkAaE80BbyX4L1JE9j+ZzgT66MxiU6011J6Bs3E+iLtXodi2bpFTRlBlT0F4GIW5kHT7RC6bQ==}
+  /braintree-web@3.97.2:
+    resolution: {integrity: sha512-QLDK+iQ/7Fg2IRifL8oDAUuvohPseJM4ttEmdX6KOKFreRXDMRc1nOsf9t/YjlTZhn+7D3AH/K/6quVrL+1Smg==}
     dependencies:
       '@braintree/asset-loader': 0.4.4
       '@braintree/browser-detection': 1.17.1
@@ -4287,8 +4296,8 @@ packages:
     dev: true
     optional: true
 
-  /iframe-resizer@4.3.6:
-    resolution: {integrity: sha512-wz0WodRIF6eP0oGQa5NIP1yrITAZ59ZJvVaVJqJRjaeCtfm461vy2C3us6CKx0e7pooqpIGLpVMSTzrfAjX9Sg==}
+  /iframe-resizer@4.3.7:
+    resolution: {integrity: sha512-a3EGVScU9NtUpj6lWvGhVw3EfOw5AopRs5xGsQU385kWdgQt++OsD6PCnTV+8YkgBu/g28rLIh0EztFg9UQr1Q==}
     engines: {node: '>=0.8.0'}
     dev: false
 
