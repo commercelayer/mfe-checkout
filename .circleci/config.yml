@@ -23,9 +23,9 @@ jobs:
       - run:
           name: Install nodejs 18
           command: |
-            apt-get update
-            apt-get install -y curl wget gpg
-            curl -sL https://deb.nodesource.com/setup_18.x | bash -
+            # apt-get update
+            # apt-get install -y curl wget gpg
+            # curl -sL https://deb.nodesource.com/setup_18.x | bash -
             apt-get install -y nodejs
             npm install -g pnpm
       - run:
