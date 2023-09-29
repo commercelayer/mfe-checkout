@@ -18,6 +18,9 @@ interface JWTProps {
     slug: string
     id: string
   }
+  owner?: {
+    id: string
+  }
   application: {
     kind: string
   }
@@ -117,10 +120,11 @@ function getTokenInfo(accessToken: string) {
     const {
       organization: { slug },
       application: { kind },
+      owner,
       test,
     } = jwt_decode(accessToken) as JWTProps
 
-    return { slug, kind, isTest: test }
+    return { slug, kind, isTest: test, isGuest: !owner }
   } catch (e) {
     console.log(`error decoding access token: ${e}`)
     return {}
@@ -155,7 +159,7 @@ export const getSettings = async ({
     return invalidateCheckout()
   }
 
-  const { slug, kind, isTest } = getTokenInfo(accessToken)
+  const { slug, kind, isTest, isGuest } = getTokenInfo(accessToken)
 
   if (!slug) {
     return invalidateCheckout()
@@ -201,16 +205,12 @@ export const getSettings = async ({
   }
 
   if (order.status === "draft" || order.status === "pending") {
-    // If returning from payment (PayPal) skip order refresh and payment_method reset
-    console.log(
-      !paymentReturn ? "refresh order" : "return from external payment"
-    )
-    if (!paymentReturn) {
-      const _refresh = !paymentReturn
+    // Logic to refresh the order is documented here: https://github.com/commercelayer/mfe-checkout/issues/356
+    if (!paymentReturn && (!order.autorefresh || (!isGuest && order.guest))) {
       try {
         await cl.orders.update({
           id: order.id,
-          _refresh,
+          _refresh: true,
           payment_method: cl.payment_methods.relationship(null),
           ...(!order.autorefresh && { autorefresh: true }),
         })
@@ -225,6 +225,7 @@ export const getSettings = async ({
   const appSettings: CheckoutSettings = {
     accessToken,
     endpoint: `https://${slug}.${domain}`,
+    isGuest: !!isGuest,
     domain,
     slug,
     orderNumber: order.number || 0,

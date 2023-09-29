@@ -119,12 +119,8 @@ test.describe("terms and privacy", () => {
     await checkoutPage.page.goBack()
 
     await checkoutPage.checkStep("Customer", "close")
-    await checkoutPage.checkStep("Shipping", "open")
-
-    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
-    await checkoutPage.save("Shipping")
-
-    await checkoutPage.selectPayment("paypal")
+    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.checkStep("Payment", "close")
 
     await checkoutPage.checkTermsAndPrivacyValue(false)
     await checkoutPage.checkButton({ type: "Payment", status: "disabled" })
