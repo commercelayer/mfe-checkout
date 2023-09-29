@@ -7,15 +7,12 @@ import LineItemsContainer from "@commercelayer/react-components/line_items/LineI
 import Shipment from "@commercelayer/react-components/shipments/Shipment"
 import ShipmentField from "@commercelayer/react-components/shipments/ShipmentField"
 import ShipmentsContainer from "@commercelayer/react-components/shipments/ShipmentsContainer"
-import ShippingMethod from "@commercelayer/react-components/shipping_methods/ShippingMethod"
-import ShippingMethodName from "@commercelayer/react-components/shipping_methods/ShippingMethodName"
-import ShippingMethodPrice from "@commercelayer/react-components/shipping_methods/ShippingMethodPrice"
-import DeliveryLeadTime from "@commercelayer/react-components/skus/DeliveryLeadTime"
+import ShippingMethods from "@commercelayer/react-components/shipping_methods/ShippingMethod"
 import StockTransfer from "@commercelayer/react-components/stock_transfers/StockTransfer"
 import StockTransferField from "@commercelayer/react-components/stock_transfers/StockTransferField"
 import type {
   Order,
-  ShippingMethod as ShippingMethodCollection,
+  ShippingMethod as ShippingMethodType,
 } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { useTranslation, Trans } from "next-i18next"
@@ -35,17 +32,14 @@ import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
 
 import { NoShippingMethods } from "./Errors/NoShippingMethods"
 import { OutOfStock } from "./Errors/OutOfStock"
+import { ShippingMethod } from "./ShippingMethod"
 import {
   ShippingWrapper,
   ShippingTitle,
-  ShippingSummary,
-  ShippingSummaryItemDescription,
-  ShippingSummaryValue,
   ShippingLineItem,
   ShippingLineItemDescription,
   ShippingLineItemTitle,
   ShippingLineItemQty,
-  StyledShippingMethodRadioButton,
 } from "./styled"
 
 interface Props {
@@ -139,7 +133,7 @@ export const StepShipping: React.FC<Props> = () => {
   }, [shipments])
 
   const handleChange = (params: {
-    shippingMethod: ShippingMethodCollection
+    shippingMethod: ShippingMethodType
     shipmentId: string
     order?: Order
   }): void => {
@@ -234,66 +228,11 @@ export const StepShipping: React.FC<Props> = () => {
                                 </ShippingTitle>
                               )}
                               <GridContainer className="mb-6">
-                                <ShippingMethod
+                                <ShippingMethods
                                   emptyText={t("stepShipping.notAvailable")}
                                 >
-                                  <ShippingSummary data-testid="shipping-methods-container">
-                                    <StyledShippingMethodRadioButton
-                                      data-testid="shipping-method-button"
-                                      className="form-radio mt-0.5 md:mt-0"
-                                      onChange={(params) =>
-                                        handleChange(params)
-                                      }
-                                    />
-                                    <ShippingMethodName data-testid="shipping-method-name">
-                                      {(props) => {
-                                        const deliveryLeadTime =
-                                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                          // @ts-ignore
-                                          props?.deliveryLeadTimeForShipment
-                                        return (
-                                          <label
-                                            className="flex flex-col p-3 border rounded cursor-pointer hover:border-primary transition duration-200 ease-in"
-                                            htmlFor={props.htmlFor}
-                                          >
-                                            <ShippingLineItemTitle>
-                                              {props.label}
-                                            </ShippingLineItemTitle>
-                                            {deliveryLeadTime?.min_days &&
-                                              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                              // @ts-ignore
-                                              deliveryLeadTime?.max_days && (
-                                                <ShippingSummaryItemDescription>
-                                                  <Trans i18nKey="stepShipping.deliveryLeadTime">
-                                                    <DeliveryLeadTime
-                                                      type="min_days"
-                                                      data-testid="delivery-lead-time-min-days"
-                                                    />
-                                                    <DeliveryLeadTime
-                                                      type="max_days"
-                                                      data-testid="delivery-lead-time-max-days"
-                                                      className="mr-1"
-                                                    />
-                                                  </Trans>
-                                                </ShippingSummaryItemDescription>
-                                              )}
-                                            <ShippingSummaryValue>
-                                              <ShippingMethodPrice
-                                                data-testid="shipping-method-price"
-                                                labelFreeOver={t(
-                                                  "general.free"
-                                                )}
-                                                labelExternal={t(
-                                                  "stepShipping.externalPrice"
-                                                )}
-                                              />
-                                            </ShippingSummaryValue>
-                                          </label>
-                                        )
-                                      }}
-                                    </ShippingMethodName>
-                                  </ShippingSummary>
-                                </ShippingMethod>
+                                  <ShippingMethod handleChange={handleChange} />
+                                </ShippingMethods>
                               </GridContainer>
                               <LineItemsContainer>
                                 {ShippingLineItems.map((type) => (
