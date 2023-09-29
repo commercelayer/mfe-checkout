@@ -9,7 +9,9 @@
         "free" : "Free",
         "apply": "Apply",
         "privacy_and_terms": "By clicking the checkbox you agree to <bold><termsUrl>terms</termsUrl></bold> and <bold><privacyUrl>privacy</privacyUrl></bold>.",
-        "checkoutTitle": "Checkout"
+        "checkoutTitle": "Checkout",
+        "submit": "Submit",
+        "cancel": "Cancel"
     },
 
     "error": {
@@ -151,6 +153,12 @@
         "customer_title": "Customer",
         "email": "E-mail:",
         "free_payment": "This order did not require a payment"
+    },
+
+    "servicePoint": {
+        "title": "Find your service point",
+        "search": "Search",
+        "postalCode": "Postal code"
     }
 
 }

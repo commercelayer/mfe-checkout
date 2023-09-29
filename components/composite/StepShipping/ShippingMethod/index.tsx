@@ -42,7 +42,10 @@ export const ShippingMethod: React.FC<ShippingMethodProps> = ({
       >
         <ShipmondoServicePointSelector
           onCancel={() => setShowServicePointModal(false)}
-          onSelect={() => console.log("ohai")}
+          onSelect={(servicePointId) => {
+            setShowServicePointModal(false)
+            console.log(servicePointId)
+          }}
         />
       </Modal>
 
