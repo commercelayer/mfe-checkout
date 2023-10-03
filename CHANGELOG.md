@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/commercelayer/mfe-checkout/compare/v4.0.15...v4.1.0) (2023-10-03)
+
+
+### Features
+
+* add native Klarna support ([93743be](https://github.com/commercelayer/mfe-checkout/commit/93743be0f8a4d049a352d6589631bc19488e21eb))
+
 ## [4.0.15](https://github.com/commercelayer/mfe-checkout/compare/v4.0.14...v4.0.15) (2023-09-29)
 
 
