@@ -645,6 +645,7 @@ export class CheckoutPage {
       | "adyen"
       | "checkout_com"
       | "adyen-dropin"
+      | "klarna"
   ) {
     let paymentMethod
     if (type === "wire") {
@@ -659,11 +660,11 @@ export class CheckoutPage {
 
   async completePayment({
     type,
-    gateway,
+    gateway = "klarna_pay_now",
     language,
   }: {
-    type: "adyen-dropin"
-    gateway:
+    type: "adyen-dropin" | "klarna"
+    gateway?:
       | "paypal"
       | "card"
       | "card3DS"
@@ -673,6 +674,19 @@ export class CheckoutPage {
     language?: "fr" | "de"
   }) {
     switch (type) {
+      case "klarna": {
+        const [newPage] = await Promise.all([this.page.waitForEvent("popup")])
+        await newPage.locator("#onContinue").click()
+        await newPage.locator("#otp_field__container input").fill("123456")
+        await newPage.getByTestId("select-payment-category").click()
+        await newPage.getByTestId("pick-plan").click()
+        await newPage.getByTestId("confirm-and-pay").click()
+        await this.page
+
+          .locator("text=Thank you for your order!")
+          .waitFor({ state: "visible", timeout: 60000 })
+        break
+      }
       case "adyen-dropin": {
         switch (gateway) {
           case "paypal": {
