@@ -150,7 +150,7 @@ In the case of digital product purchases (i.e. SKUs with the `do_not_ship` flag 
 
 Here is where customers select a payment method and place the order.
 
-> We're working to make all the [payment gateways](https://docs.commercelayer.io/developers/v/how-tos/payments) supported by Commerce Layer available out-of-the-box in the Checkout application. [Klarna](https://docs.commercelayer.io/developers/v/how-tos/payments/klarna) integration will be available soon. [External payments](https://docs.commercelayer.io/developers/v/how-tos/payments/external-payments) are not supported by the Checkout application at the moment. For all the other gateways information please refer to the table below.
+> We're working to make all the [payment gateways](https://docs.commercelayer.io/developers/v/how-tos/payments) supported by Commerce Layer available out-of-the-box in the Checkout application. [External payments](https://docs.commercelayer.io/developers/v/how-tos/payments/external-payments) are not supported by the Checkout application at the moment. For all the other gateways information please refer to the table below.
 
 | Payment gateway                                                                               | Supported payment methods                                                                                                                               | Customer wallet |
 | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
