@@ -25,7 +25,7 @@ interface WrapperProps {
 }
 
 const Wrapper = styled.div<WrapperProps>`
-  ${tw`p-5 lg:p-10 lg:pr-20 xl:pr-48 bg-gray-50 bg-white shadow-sm`}
+  ${tw`p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12 bg-gray-50 bg-white shadow-sm`}
   ${({ rounded }) => (rounded ? tw`rounded-md` : null)}
   ${({ fullHeight }) => (fullHeight ? tw`min-h-full ` : null)}
 `
