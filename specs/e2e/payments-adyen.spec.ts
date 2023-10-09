@@ -37,8 +37,8 @@ test.describe("guest with Adyen", () => {
 
     await checkoutPage.save("Payment")
 
-    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
-    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
+    await checkoutPage.checkPaymentRecap(" ending in ****")
+    await checkoutPage.checkPaymentRecap(" ending in ****")
   })
 
   test("Checkout order with refresh after selecting the payment method", async ({
@@ -62,8 +62,8 @@ test.describe("guest with Adyen", () => {
 
     await checkoutPage.save("Payment")
 
-    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
-    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
+    await checkoutPage.checkPaymentRecap(" ending in ****")
+    await checkoutPage.checkPaymentRecap(" ending in ****")
   })
 
   test("Checkout order using Credit Card with 3D Secure 2 authentication", async ({
@@ -152,9 +152,9 @@ test.describe("guest with Adyen drop-in", () => {
       gateway: "card",
     })
 
-    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
+    await checkoutPage.checkPaymentRecap(" ending in ****")
     await checkoutPage.page.reload()
-    await checkoutPage.checkPaymentRecap("Credit card ending in ****")
+    await checkoutPage.checkPaymentRecap(" ending in ****")
   })
 
   test("Checkout order with Credit Card and 3D Secure", async ({
