@@ -1,3 +1,11 @@
+## [4.1.1](https://github.com/commercelayer/mfe-checkout/compare/v4.1.0...v4.1.1) (2023-10-09)
+
+
+### Bug Fixes
+
+* bump dependencies with vulnerabilities ([981f025](https://github.com/commercelayer/mfe-checkout/commit/981f0256cebc92323d8eb07d5b6b48507fad960a))
+* new layout spacing and margins ([103cb12](https://github.com/commercelayer/mfe-checkout/commit/103cb12ac08be6a3a9af655e109f4e72c4af5e44))
+
 # [4.1.0](https://github.com/commercelayer/mfe-checkout/compare/v4.0.15...v4.1.0) (2023-10-03)
 
 
