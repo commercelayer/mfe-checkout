@@ -20,6 +20,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
   orderId: string
   accessToken: string
+  isGuest: boolean
   slug: string
   domain: string
   isFirstLoading: boolean
@@ -85,6 +86,7 @@ interface AppProviderProps {
   domain: string
   slug: string
   orderId: string
+  isGuest: boolean
   accessToken: string
   children?: ChildrenType
 }
@@ -92,12 +94,13 @@ interface AppProviderProps {
 export const AppProvider: React.FC<AppProviderProps> = ({
   children,
   orderId,
+  isGuest,
   accessToken,
   slug,
   domain,
 }) => {
   const orderRef = useRef<Order>()
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, { ...initialState, isGuest })
 
   const cl = CommerceLayer({
     organization: slug,
@@ -122,7 +125,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       order,
     })
 
-    const others = calculateSettings(order, isShipmentRequired)
+    const others = calculateSettings(
+      order,
+      isShipmentRequired,
+      isGuest,
+      undefined
+    )
 
     dispatch({
       type: ActionType.SET_ORDER,
@@ -149,7 +157,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setAddresses = async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
     const currentOrder = order ?? (await getOrderFromRef())
-    console.log(currentOrder)
+
     const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     const others = calculateSettings(
@@ -157,6 +165,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       isShipmentRequired,
       // FIX We are using customer addresses saved in reducer because
       // we don't receive them from fetchOrder
+      isGuest,
       state.customerAddresses
     )
     setTimeout(() => {
@@ -178,6 +187,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       const others = calculateSettings(
         currentOrder,
         state.isShipmentRequired,
+        isGuest,
         state.customerAddresses
       )
       setTimeout(() => {
@@ -202,6 +212,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     const others = calculateSettings(
       currentOrder,
       state.isShipmentRequired,
+      isGuest,
       state.customerAddresses
     )
 
@@ -225,6 +236,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     const others = calculateSettings(
       currentOrder,
       state.isShipmentRequired,
+      isGuest,
       state.customerAddresses
     )
     setTimeout(() => {
@@ -241,6 +253,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     const others = calculateSettings(
       currentOrder,
       state.isShipmentRequired,
+      isGuest,
       state.customerAddresses
     )
 
@@ -262,6 +275,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     const others = calculateSettings(
       currentOrder,
       state.isShipmentRequired,
+      isGuest,
       state.customerAddresses
     )
 
@@ -298,6 +312,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         ...state,
         orderId,
         accessToken,
+        isGuest,
         slug,
         domain,
         getOrderFromRef,

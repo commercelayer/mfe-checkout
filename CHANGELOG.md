@@ -1,3 +1,30 @@
+## [4.1.1](https://github.com/commercelayer/mfe-checkout/compare/v4.1.0...v4.1.1) (2023-10-09)
+
+
+### Bug Fixes
+
+* bump dependencies with vulnerabilities ([981f025](https://github.com/commercelayer/mfe-checkout/commit/981f0256cebc92323d8eb07d5b6b48507fad960a))
+* new layout spacing and margins ([103cb12](https://github.com/commercelayer/mfe-checkout/commit/103cb12ac08be6a3a9af655e109f4e72c4af5e44))
+
+# [4.1.0](https://github.com/commercelayer/mfe-checkout/compare/v4.0.15...v4.1.0) (2023-10-03)
+
+
+### Features
+
+* add native Klarna support ([93743be](https://github.com/commercelayer/mfe-checkout/commit/93743be0f8a4d049a352d6589631bc19488e21eb))
+
+## [4.0.15](https://github.com/commercelayer/mfe-checkout/compare/v4.0.14...v4.0.15) (2023-09-29)
+
+
+### Bug Fixes
+
+* populate isGuest state based on the access token ([0b51d7d](https://github.com/commercelayer/mfe-checkout/commit/0b51d7de8522e3378c9d252dd0ddf12eb3911737))
+
+
+### Performance Improvements
+
+* avoid sync call for refreshing the order on opening ([e7707e5](https://github.com/commercelayer/mfe-checkout/commit/e7707e5ba67030954b575b11c8ab512e03837d02))
+
 ## [4.0.14](https://github.com/commercelayer/mfe-checkout/compare/v4.0.13...v4.0.14) (2023-09-13)
 
 ### Bug Fixes

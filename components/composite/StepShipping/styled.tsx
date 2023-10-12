@@ -5,7 +5,7 @@ import tw from "twin.macro"
 import { RadioCss } from "components/ui/form/RadioButton"
 
 export const ShippingWrapper = styled.div`
-  ${tw`mb-5`}
+  ${tw`mb-5 mt-6`}
   :not(:first-of-type) {
     ${tw`pt-5 mt-5 border-dashed border-t-2`}
   }
