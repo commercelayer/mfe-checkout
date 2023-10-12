@@ -95,7 +95,7 @@ export const CheckoutSkeleton: React.FC = () => {
 }
 
 const Sidebar = styled.div`
-  ${tw`flex flex-col min-h-full p-5 lg:pl-20 lg:pr-10 pt-10 xl:pl-48`}
+  ${tw`flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12`}
 `
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}

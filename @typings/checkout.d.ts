@@ -12,6 +12,7 @@ interface CheckoutSettings {
   orderId: string
   orderNumber: number
   validCheckout: true
+  isGuest: boolean
   endpoint: string
   domain: string
   slug: string
@@ -37,6 +38,7 @@ type CheckoutPageContextProps = Pick<
   | "accessToken"
   | "orderId"
   | "logoUrl"
+  | "isGuest"
   | "companyName"
   | "endpoint"
   | "language"

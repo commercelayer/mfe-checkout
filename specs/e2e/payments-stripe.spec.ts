@@ -126,6 +126,33 @@ test.describe("customer with Stripe with saving", () => {
 
     await checkoutPage.save("Payment")
   })
+
+  test("Checkout order selecting customer wallet and refreshing the page", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.page.waitForTimeout(1000)
+
+    await checkoutPage.useCustomerCard()
+
+    await checkoutPage.page.waitForTimeout(2000)
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentSummary("€10,00")
+    await checkoutPage.page.waitForTimeout(2000)
+
+    await checkoutPage.save("Payment")
+  })
 })
 
 test.describe("guest with Stripe", () => {
@@ -227,5 +254,46 @@ test.describe("guest with Stripe", () => {
 
     await checkoutPage.save("Payment")
     await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+  })
+
+  test("checkout with 3DS card", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe", {
+      number: "4000002500003155",
+      exp: "03/35",
+      cvc: "123",
+    })
+
+    const element = await checkoutPage.page.locator(
+      "[data-testid=payment-save-wallet]"
+    )
+    expect(element).not.toBeVisible()
+
+    await checkoutPage.checkPaymentSummary("€10,00")
+
+    await checkoutPage.save("Payment", undefined, true)
+
+    await checkoutPage.page.waitForTimeout(10000)
+
+    const myFrames = checkoutPage.page.frames()
+
+    await myFrames[myFrames.length - 1]
+      .locator("#test-source-authorize-3ds")
+      .click()
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 3155")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 3155")
   })
 })

@@ -6,7 +6,7 @@ orbs:
 jobs:
   test: # this can be any name you choose
     docker:
-      - image: mcr.microsoft.com/playwright:v1.37.1-focal
+      - image: mcr.microsoft.com/playwright:v1.38.1-focal
     resource_class: medium+
     parallelism: 10
 
@@ -21,12 +21,8 @@ jobs:
           keys:
             - pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
       - run:
-          name: Install nodejs 18
+          name: Install pnpm
           command: |
-            apt-get update
-            apt-get install -y curl wget gpg
-            curl -sL https://deb.nodesource.com/setup_18.x | bash -
-            apt-get install -y nodejs
             npm install -g pnpm
       - run:
           name: Setup
@@ -59,7 +55,7 @@ jobs:
 
   build:
     docker:
-      - image: cimg/node:18.14.2
+      - image: cimg/node:18.17.0
     resource_class: medium
     environment:
       FOLDER: checkout
@@ -85,7 +81,7 @@ jobs:
 
   build-on-pci-bucket:
     docker:
-      - image: cimg/node:18.14.2
+      - image: cimg/node:18.17.0
     resource_class: medium
     environment:
       FOLDER: checkout

@@ -1,7 +1,0 @@
-spec:
-  name: mfe-checkout
-  services:
-    - name: mfe-checkout
-      git:
-        branch: main
-        repo_clone_url: https://github.com/commercelayer/mfe-checkout.git

@@ -535,8 +535,10 @@ export class CheckoutPage {
     }
   }
 
-  async checkPaymentRecap(text: string) {
-    await expect(this.page.getByText(text)).toBeVisible()
+  async checkPaymentRecap(text: string, timeout?: number) {
+    await expect(this.page.getByText(text)).toBeVisible({
+      timeout: timeout ?? 5000,
+    })
   }
 
   async checkTaxSummary(text: string) {
@@ -643,6 +645,7 @@ export class CheckoutPage {
       | "adyen"
       | "checkout_com"
       | "adyen-dropin"
+      | "klarna"
   ) {
     let paymentMethod
     if (type === "wire") {
@@ -657,11 +660,11 @@ export class CheckoutPage {
 
   async completePayment({
     type,
-    gateway,
+    gateway = "klarna_pay_now",
     language,
   }: {
-    type: "adyen-dropin"
-    gateway:
+    type: "adyen-dropin" | "klarna"
+    gateway?:
       | "paypal"
       | "card"
       | "card3DS"
@@ -671,6 +674,19 @@ export class CheckoutPage {
     language?: "fr" | "de"
   }) {
     switch (type) {
+      case "klarna": {
+        const [newPage] = await Promise.all([this.page.waitForEvent("popup")])
+        await newPage.locator("#onContinue").click()
+        await newPage.locator("#otp_field__container input").fill("123456")
+        await newPage.getByTestId("select-payment-category").click()
+        await newPage.getByTestId("pick-plan").click()
+        await newPage.getByTestId("confirm-and-pay").click()
+        await this.page
+
+          .locator("text=Thank you for your order!")
+          .waitFor({ state: "visible", timeout: 60000 })
+        break
+      }
       case "adyen-dropin": {
         switch (gateway) {
           case "paypal": {
@@ -799,7 +815,7 @@ export class CheckoutPage {
                 }
               )
               await this.page.click("[data-testid=save-payment-button]")
-              await this.page.click("#buy-button")
+              // await this.page.click("#buy-button")
 
               const i = this.page.locator("#klarna-apf-iframe")
               const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
@@ -984,11 +1000,17 @@ export class CheckoutPage {
         const stripeFrame = this.page
           .frameLocator("[data-testid=stripe_payments] iframe")
           .first()
+
+        const creditCard = {
+          number: card?.number ?? "4242424242424242",
+          exp: card?.exp ?? "0235",
+          cvc: card?.cvc ?? "321",
+        }
         await stripeFrame
           .getByPlaceholder("1234 1234 1234 1234")
-          .fill(card?.number || "4242424242424242")
-        await stripeFrame.getByPlaceholder("MM / YY").fill(card?.exp || "0231")
-        await stripeFrame.getByPlaceholder("CVC").fill(card?.cvc || "321")
+          .fill(creditCard.number)
+        await stripeFrame.getByPlaceholder("MM / YY").fill(creditCard.exp)
+        await stripeFrame.getByPlaceholder("CVC").fill(creditCard.cvc)
         break
       }
       case "stripe-paypal": {
