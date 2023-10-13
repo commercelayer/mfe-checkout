@@ -31,6 +31,7 @@ interface Props {
   resource: TResource
   required?: boolean
   value?: string
+  pattern?: React.ComponentProps<typeof AddressInput>["pattern"]
   openShippingAddress?: (props: ShippingToggleProps) => void
 }
 
@@ -39,6 +40,7 @@ export const AddressInputGroup: React.FC<Props> = ({
   resource,
   required,
   type,
+  pattern,
   value,
   openShippingAddress,
 }) => {
@@ -157,6 +159,7 @@ export const AddressInputGroup: React.FC<Props> = ({
             data-testid={`input_${fieldName}`}
             name={fieldName}
             type={type}
+            pattern={pattern}
             value={valueStatus}
             className="form-input"
           />
