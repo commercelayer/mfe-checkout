@@ -1,3 +1,10 @@
+## [4.1.2](https://github.com/commercelayer/mfe-checkout/compare/v4.1.1...v4.1.2) (2023-10-13)
+
+
+### Bug Fixes
+
+* avoid losing focus on shipping method selection ([cfc2916](https://github.com/commercelayer/mfe-checkout/commit/cfc2916e33408e2937c144e787f9444de2ad49cd))
+
 ## [4.1.1](https://github.com/commercelayer/mfe-checkout/compare/v4.1.0...v4.1.1) (2023-10-09)
 
 
