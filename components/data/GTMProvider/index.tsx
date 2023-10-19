@@ -231,6 +231,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
           ? (order?.tax_rate || 0) * 100
           : order?.tax_rate,
         market_id: order?.market?.id,
+        customer_email: order?.customer_email,
       },
     })
   }
