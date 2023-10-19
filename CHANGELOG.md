@@ -1,3 +1,10 @@
+## [4.1.3](https://github.com/commercelayer/mfe-checkout/compare/v4.1.2...v4.1.3) (2023-10-19)
+
+
+### Bug Fixes
+
+* update all deps and types ([e061e98](https://github.com/commercelayer/mfe-checkout/commit/e061e985a8f106d18249dd68a19bc1d19ddbf2c2))
+
 ## [4.1.2](https://github.com/commercelayer/mfe-checkout/compare/v4.1.1...v4.1.2) (2023-10-13)
 
 
