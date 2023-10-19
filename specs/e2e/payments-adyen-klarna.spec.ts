@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { test } from "../fixtures/tokenizedPage"
 import { euAddress2, deAddress } from "../utils/addresses"
 
 test.describe("guest with Adyen and Pay with Klarna in France", () => {

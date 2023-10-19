@@ -3,8 +3,8 @@ import { Trans } from "react-i18next"
 import { Message } from "./styled"
 
 interface Props {
-  supportPhone?: string
-  supportEmail?: string
+  supportPhone: NullableType<string>
+  supportEmail: NullableType<string>
 }
 
 export const SupportMessage: React.FC<Props> = ({

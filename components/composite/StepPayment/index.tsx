@@ -21,7 +21,8 @@ import { CheckoutPayment } from "./CheckoutPayment"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 
 export type THandleClick = (params: {
-  payment?: PaymentMethodType | Record<string, any>
+  payment?: PaymentMethodType | Record<string, unknown>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   paymentSource?: Record<string, any>
 }) => void
 
