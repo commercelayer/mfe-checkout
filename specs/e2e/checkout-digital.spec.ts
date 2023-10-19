@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures/tokenizedPage"
+import { test } from "../fixtures/tokenizedPage"
 
 test.describe("with digital product", () => {
   test.use({

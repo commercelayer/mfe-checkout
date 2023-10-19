@@ -39,10 +39,10 @@ import {
 import { SupportMessage } from "./SupportMessage"
 
 interface Props {
-  logoUrl?: string
+  logoUrl: NullableType<string>
   companyName: string
-  supportEmail?: string
-  supportPhone?: string
+  supportEmail: NullableType<string>
+  supportPhone: NullableType<string>
   orderNumber: number
 }
 

@@ -408,13 +408,9 @@ export function checkPaymentMethod(order: Order) {
 
 export function creditCardPayment(paymentMethod: NullableType<PaymentMethod>) {
   return (
-    // @ts-expect-error - It seems that the sdk is expecting a wrong format for payment_source_type
     paymentMethod?.payment_source_type === "adyen_payments" ||
-    // @ts-expect-error - It seems that the sdk is expecting a wrong format for payment_source_type
     paymentMethod?.payment_source_type === "stripe_payments" ||
-    // @ts-expect-error - It seems that the sdk is expecting a wrong format for payment_source_type
     paymentMethod?.payment_source_type === "braintree_payments" ||
-    // @ts-expect-error - It seems that the sdk is expecting a wrong format for payment_source_type
     paymentMethod?.payment_source_type === "checkout_com_payments"
   )
 }

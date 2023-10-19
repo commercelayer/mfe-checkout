@@ -173,9 +173,8 @@ export class CheckoutPage {
       | "purchase"
   ) {
     await this.page.waitForTimeout(2000)
-    const dataLayer: DataLayerWindowProps[] = await this.page.evaluate(
-      "window.dataLayer"
-    )
+    const dataLayer: DataLayerWindowProps[] =
+      await this.page.evaluate("window.dataLayer")
     return (
       dataLayer &&
       dataLayer.filter(
@@ -392,6 +391,7 @@ export class CheckoutPage {
   }
 
   async setShippingAddress(address?: Partial<Address>) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { billing_info, ...addressToFill } = address || euAddress2
     await this.setAddress({ address: addressToFill, type: "shipping_address" })
   }
@@ -817,7 +817,7 @@ export class CheckoutPage {
               await this.page.click("[data-testid=save-payment-button]")
               // await this.page.click("#buy-button")
 
-              const i = this.page.locator("#klarna-apf-iframe")
+              // const i = this.page.locator("#klarna-apf-iframe")
               const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
 
               await klarnaIframe
@@ -968,7 +968,7 @@ export class CheckoutPage {
     }
   }
 
-  async enter3DSecure({ type, text }: { type: "adyen"; text: string }) {
+  async enter3DSecure({ text }: { type: "adyen"; text: string }) {
     await this.page.waitForTimeout(3000)
     const secureFrame = this.page.frameLocator("iframe[name=threeDSIframe]")
     await this.page.waitForTimeout(2000)

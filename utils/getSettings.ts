@@ -9,7 +9,6 @@ import jwt_decode from "jwt-decode"
 
 import { TypeAccepted } from "components/data/AppProvider/utils"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
-import hex2hsl from "components/utils/hex2hsl"
 
 const RETRIES = 2
 

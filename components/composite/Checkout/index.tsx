@@ -34,14 +34,14 @@ import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 
 interface Props {
-  logoUrl?: string
+  logoUrl: NullableType<string>
   primaryColor: string
   orderNumber: number
   companyName: string
-  supportEmail?: string
-  supportPhone?: string
-  termsUrl?: string
-  privacyUrl?: string
+  supportEmail: NullableType<string>
+  supportPhone: NullableType<string>
+  termsUrl: NullableType<string>
+  privacyUrl: NullableType<string>
 }
 
 const Checkout: React.FC<Props> = ({
@@ -225,7 +225,7 @@ const Checkout: React.FC<Props> = ({
   }
 
   return (
-    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder as any}>
+    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
       {ctx.isComplete ? renderComplete() : renderSteps()}
     </OrderContainer>
   )

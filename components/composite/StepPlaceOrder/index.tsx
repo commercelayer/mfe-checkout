@@ -23,8 +23,8 @@ import {
 
 interface Props {
   isActive: boolean
-  termsUrl?: string
-  privacyUrl?: string
+  termsUrl: NullableType<string>
+  privacyUrl: NullableType<string>
 }
 
 const StepPlaceOrder: React.FC<Props> = ({

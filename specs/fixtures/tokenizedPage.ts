@@ -452,6 +452,7 @@ const createLineItems = async ({
   items: Array<LineItemObject>
 }) => {
   const lineItems = items.map((item) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { sku_options, inventory, final_quantity, ...tail } = item
     const lineItem = {
       ...tail,
