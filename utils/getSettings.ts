@@ -176,7 +176,10 @@ export const getSettings = async ({
     domain,
   })
 
-  const organizationResource = await getOrganization(cl)
+  const [organizationResource, orderResource] = await Promise.all([
+    getOrganization(cl),
+    getOrder(cl, orderId),
+  ])
 
   const organization = organizationResource?.object
 
@@ -185,7 +188,6 @@ export const getSettings = async ({
     return invalidateCheckout(true)
   }
 
-  const orderResource = await getOrder(cl, orderId)
   const order = orderResource?.object
 
   if (!orderResource?.success || !order?.id) {
