@@ -1,3 +1,10 @@
+# [4.2.0](https://github.com/commercelayer/mfe-checkout/compare/v4.1.5...v4.2.0) (2023-10-20)
+
+
+### Features
+
+* improve GTM performances removing calls to Commerce Layer ([95e6840](https://github.com/commercelayer/mfe-checkout/commit/95e68406a38c1ea4a96e902c5596c593a3193669))
+
 ## [4.1.5](https://github.com/commercelayer/mfe-checkout/compare/v4.1.4...v4.1.5) (2023-10-20)
 
 
