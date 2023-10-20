@@ -890,7 +890,7 @@ export class CheckoutPage {
                 .locator("label")
                 .filter({
                   hasText:
-                    "Ich habe die Teilzahlungsbedingungen gelesen und verstanden und bestätige, dass ",
+                    "Ich habe die vorvertraglichen Informationen gelesen und bestätige, dass ich den Kreditvertrag abschließen möchte.",
                 })
                 .locator("div")
                 .nth(1)
