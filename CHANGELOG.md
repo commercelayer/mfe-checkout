@@ -1,3 +1,10 @@
+## [4.1.4](https://github.com/commercelayer/mfe-checkout/compare/v4.1.3...v4.1.4) (2023-10-20)
+
+
+### Bug Fixes
+
+* update selector for Klarna payment terms checkbox (german) ([efcb78f](https://github.com/commercelayer/mfe-checkout/commit/efcb78fe329bb91ec3df84e1df8ec5c3e1d8dfcb))
+
 ## [4.1.3](https://github.com/commercelayer/mfe-checkout/compare/v4.1.2...v4.1.3) (2023-10-19)
 
 
