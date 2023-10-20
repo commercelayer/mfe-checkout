@@ -153,19 +153,19 @@ export const StepShipping: React.FC<Props> = () => {
   const handleSave = async () => {
     setIsLocalLoader(true)
 
-    saveShipments()
+    const updatedOrder = await saveShipments()
 
     setIsLocalLoader(false)
     if (gtmCtx?.fireAddShippingInfo) {
-      await gtmCtx.fireAddShippingInfo()
+      await gtmCtx.fireAddShippingInfo(updatedOrder)
     }
   }
 
   const autoSelectCallback = async (order?: Order) => {
+    const updatedOrder = await appCtx.autoSelectShippingMethod(order)
     if (gtmCtx?.fireAddShippingInfo) {
-      await gtmCtx.fireAddShippingInfo()
+      await gtmCtx.fireAddShippingInfo(updatedOrder)
     }
-    await appCtx.autoSelectShippingMethod(order)
   }
 
   return (

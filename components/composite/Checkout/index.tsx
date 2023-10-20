@@ -27,6 +27,7 @@ import {
 } from "components/composite/StepShipping"
 import { AccordionProvider } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
+import { GTMProvider } from "components/data/GTMProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
@@ -42,6 +43,7 @@ interface Props {
   supportPhone: NullableType<string>
   termsUrl: NullableType<string>
   privacyUrl: NullableType<string>
+  gtmId: NullableType<string>
 }
 
 const Checkout: React.FC<Props> = ({
@@ -53,6 +55,7 @@ const Checkout: React.FC<Props> = ({
   supportPhone,
   termsUrl,
   privacyUrl,
+  gtmId,
 }) => {
   const ctx = useContext(AppContext)
 
@@ -226,7 +229,9 @@ const Checkout: React.FC<Props> = ({
 
   return (
     <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
-      {ctx.isComplete ? renderComplete() : renderSteps()}
+      <GTMProvider gtmId={gtmId}>
+        {ctx.isComplete ? renderComplete() : renderSteps()}
+      </GTMProvider>
     </OrderContainer>
   )
 }

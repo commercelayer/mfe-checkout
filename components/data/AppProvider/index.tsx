@@ -5,7 +5,7 @@ import {
   type Order,
 } from "@commercelayer/sdk"
 import { changeLanguage } from "i18next"
-import { createContext, useEffect, useReducer, useRef } from "react"
+import { createContext, useEffect, useReducer, useRef, useState } from "react"
 
 import { ActionType, reducer } from "components/data/AppProvider/reducer"
 import {
@@ -19,6 +19,7 @@ import {
 export interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
   orderId: string
+  order: NullableType<Order>
   accessToken: string
   isGuest: boolean
   slug: string
@@ -29,7 +30,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   setCustomerEmail: (email: string) => void
   setAddresses: (order?: Order) => Promise<void>
   setCouponOrGiftCard: () => Promise<void>
-  saveShipments: () => void
+  saveShipments: () => Promise<Order>
   placeOrder: (order?: Order) => Promise<void>
   setPayment: (params: { payment?: PaymentMethod; order?: Order }) => void
   selectShipment: (params: {
@@ -39,7 +40,7 @@ export interface AppProviderData extends FetchOrderByIdResponse {
     shipmentId: string
     order?: Order
   }) => Promise<void>
-  autoSelectShippingMethod: (order?: Order) => Promise<void>
+  autoSelectShippingMethod: (order?: Order) => Promise<Order>
 }
 
 export interface AppStateData extends FetchOrderByIdResponse {
@@ -101,6 +102,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 }) => {
   const orderRef = useRef<Order>()
   const [state, dispatch] = useReducer(reducer, { ...initialState, isGuest })
+  const [order, setOrder] = useState<NullableType<Order>>()
 
   const cl = CommerceLayer({
     organization: slug,
@@ -110,6 +112,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const getOrder = (order: Order) => {
     orderRef.current = order
+    setOrder(order)
   }
 
   const fetchInitialOrder = async (orderId?: string, accessToken?: string) => {
@@ -245,6 +248,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         payload: { order: currentOrder, others },
       })
     }, 100)
+
+    return currentOrder
   }
 
   const saveShipments = async () => {
@@ -263,6 +268,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         payload: { order: currentOrder, others },
       })
     }, 100)
+
+    return currentOrder
   }
 
   const setPayment = async (params: {
@@ -311,6 +318,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       value={{
         ...state,
         orderId,
+        order,
         accessToken,
         isGuest,
         slug,
