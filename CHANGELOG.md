@@ -1,3 +1,10 @@
+## [4.1.5](https://github.com/commercelayer/mfe-checkout/compare/v4.1.4...v4.1.5) (2023-10-20)
+
+
+### Performance Improvements
+
+* make two setup calls in parallel ([95dea4b](https://github.com/commercelayer/mfe-checkout/commit/95dea4ba7e5c2458d0025d13c0a8df36e7c5d576))
+
 ## [4.1.4](https://github.com/commercelayer/mfe-checkout/compare/v4.1.3...v4.1.4) (2023-10-20)
 
 
