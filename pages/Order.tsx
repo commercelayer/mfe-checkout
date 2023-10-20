@@ -44,6 +44,7 @@ const Order: NextPage = () => {
         supportPhone={settings.supportPhone}
         termsUrl={settings.termsUrl}
         privacyUrl={settings.privacyUrl}
+        gtmId={settings.gtmId}
       />
     </DynamicCheckoutContainer>
   )

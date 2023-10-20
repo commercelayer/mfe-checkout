@@ -3,7 +3,6 @@ import CommerceLayer from "@commercelayer/react-components/auth/CommerceLayer"
 import { CheckoutHead } from "components/composite/CheckoutTitle"
 import { AppProvider } from "components/data/AppProvider"
 import GlobalStylesProvider from "components/data/GlobalStylesProvider"
-import { GTMProvider } from "components/data/GTMProvider"
 import hex2hsl from "components/utils/hex2hsl"
 
 interface Props {
@@ -30,7 +29,7 @@ const CheckoutContainer = ({ settings, children }: Props): JSX.Element => {
           slug={settings.slug}
           domain={settings.domain}
         >
-          <GTMProvider gtmId={settings.gtmId}>{children}</GTMProvider>
+          {children}
         </AppProvider>
       </CommerceLayer>
     </div>
