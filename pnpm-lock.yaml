@@ -13,8 +13,8 @@ overrides:
 
 dependencies:
   '@commercelayer/react-components':
-    specifier: ^4.7.1
-    version: 4.7.1(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^4.7.3
+    version: 4.7.3(react-dom@18.2.0)(react@18.2.0)
   '@commercelayer/sdk':
     specifier: ^5.19.0
     version: 5.19.0
@@ -221,7 +221,7 @@ packages:
   /@adyen/adyen-web@5.52.0:
     resolution: {integrity: sha512-x83JgvR28BQ18EIR003uATZ5U4SIFKkgP+28I/RToImpsrtkjWDJP3GHVKKGk2DA+5GGnvPwmNJzCLqV2skCvw==}
     dependencies:
-      '@babel/runtime': 7.21.5
+      '@babel/runtime': 7.23.2
       '@babel/runtime-corejs3': 7.23.2
       '@types/applepayjs': 3.0.4
       '@types/googlepay': 0.7.2
@@ -567,8 +567,8 @@ packages:
     dev: true
     optional: true
 
-  /@commercelayer/react-components@4.7.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-gqajv/IGGVvowKG2rTYEJsImQCQZO9gLc7o/Fh4YrFx67bgo/MlHry9FYV4FkYHCRqmexu8+gD7hg0iXqCqrng==}
+  /@commercelayer/react-components@4.7.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-qEIOxIbzsvBodKj5/NDOfxIOqbRZq6Eu88nguRIzdv0+ZXb834O80I29Alvn0K91B6sREI557B5UzQXp331VGw==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
@@ -580,7 +580,7 @@ packages:
       '@stripe/stripe-js': 2.1.7
       '@tanstack/react-table': 8.10.6(react-dom@18.2.0)(react@18.2.0)
       '@types/iframe-resizer': 3.5.10
-      axios: 1.5.0
+      axios: 1.5.1
       braintree-web: 3.97.2
       frames-react: 1.1.0(react@18.2.0)
       iframe-resizer: 4.3.7
@@ -1961,16 +1961,6 @@ packages:
     resolution: {integrity: sha512-sCXXUhA+cljomZ3ZAwb8i1p3oOlkABzPy08ZDAoGcYuvtBPlQ1Ytde129ArXyHWDhfeewq7rlx9F+cUx2SSlkg==}
     engines: {node: '>=4'}
     dev: true
-
-  /axios@1.5.0:
-    resolution: {integrity: sha512-D4DdjDo5CY50Qms0qGQTTw6Q44jl7zRwY7bthds06pUGfChBCTcQs+N743eFWGEd6pRTMd6A+I87aWyFV5wiZQ==}
-    dependencies:
-      follow-redirects: 1.15.2
-      form-data: 4.0.0
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
-    dev: false
 
   /axios@1.5.1:
     resolution: {integrity: sha512-Q28iYCWzNHjAm+yEAot5QaAMxhMghWLFVf7rRdwhUI+c2jix2DUXjAHXVi+s1ibs3mjPO/cCgbA++3BjD0vP/A==}
@@ -3849,16 +3839,6 @@ packages:
   /flatted@3.2.9:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
     dev: true
-
-  /follow-redirects@1.15.2:
-    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dev: false
 
   /follow-redirects@1.15.3:
     resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
