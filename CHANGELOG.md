@@ -1,3 +1,10 @@
+## [4.2.1](https://github.com/commercelayer/mfe-checkout/compare/v4.2.0...v4.2.1) (2023-10-25)
+
+
+### Bug Fixes
+
+* show all form errors and avoid blinking on border ([4c37447](https://github.com/commercelayer/mfe-checkout/commit/4c3744758aa78ebf62450b5d1e2fece6c4c38a66))
+
 # [4.2.0](https://github.com/commercelayer/mfe-checkout/compare/v4.1.5...v4.2.0) (2023-10-20)
 
 
