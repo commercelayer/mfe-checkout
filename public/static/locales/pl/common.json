@@ -3,10 +3,10 @@
         "title": "{{companyName}} - Checkout",
         "systemError": "Przepraszamy, coś poszło nie tak...",
         "retry_error_code": "Problemy z łącznością",
-        "retry_error_description": "Próbuję przeładować stronę",
+        "retry_error_description": "Próbuję załadować stronę ponownie",
         "invalid": "Zamówienie jest nieosiągalne.",
         "edit": "Edytuj",
-        "free" : "Za darmo",
+        "free" : "darmowa",
         "apply": "Wprowadź",
         "privacy_and_terms": "Klikając zgadzasz się na <bold><termsUrl>regulamin</termsUrl></bold> oraz <bold><privacyUrl>zasady prywatności</privacyUrl></bold>.",
         "checkoutTitle": "Checkout"
@@ -14,11 +14,11 @@
 
     "error": {
         "general": "Błąd generalny",
-        "shipments": "Niektóre wysyłki nie mają wybranej metody wysyłki",
-        "paymentMethod": "Krok płatności powinien być wypełniony",
+        "shipments": "Niektóre pozycje nie mają wybranej metody wysyłki",
+        "paymentMethod": "Krok płatności musi być wypełniony",
         "transition": "Transition is not permitted",
         "payer": "Płatnik nie zatwierdził płatności",
-        "resourceID": "Podane resource ID nie zostało odnalezione"
+        "resourceID": "Pozycja o danym ID nie została odnaleziona"
     },
 
     "input":{
@@ -132,7 +132,7 @@
         "shipping_address_country_code": "Kraj",
         "shipping_address_country_code_placeholder": "Wybierz kraj",
         "shipping_address_state_code": "Województwo",
-        "shipping_address_state_code_placeholder": "ybierz województwo",
+        "shipping_address_state_code_placeholder": "Wybierz województwo",
         "shipping_address_zip_code": "Kod pocztowy",
         "shipping_address_phone": "Telefon"
     },
