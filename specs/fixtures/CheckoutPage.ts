@@ -520,6 +520,12 @@ export class CheckoutPage {
     await expect(this.page.locator(`text=${text}`)).toBeVisible()
   }
 
+  async checkCustomerAddressesTitle(text: string) {
+    await expect(
+      this.page.getByTestId("customer-addresses-title")
+    ).toContainText(text)
+  }
+
   async checkShippingSummary(text?: string) {
     if (text === undefined) {
       const element = this.page.getByTestId("shipping-amount")

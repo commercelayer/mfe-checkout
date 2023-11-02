@@ -20,6 +20,9 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
   await checkoutPage.checkOrderSummary("Order Summary")
 
   await checkoutPage.setCustomerMail()
+  await checkoutPage.checkCustomerAddressesTitle(
+    "Fill in your billing/shipping address"
+  )
   await checkoutPage.setBillingAddress()
 
   await checkoutPage.checkStep("Customer", "open")
