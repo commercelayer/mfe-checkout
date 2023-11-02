@@ -108,10 +108,12 @@ export const StepCustomer: React.FC<Props> = () => {
     forceShipping,
     disableToggle,
   }: ShippingToggleProps) => {
-    if (forceShipping) {
-      setShipToDifferentAddress(true)
+    if (isShipmentRequired) {
+      if (forceShipping) {
+        setShipToDifferentAddress(true)
+      }
+      setDisabledShipToDifferentAddress(disableToggle)
     }
-    setDisabledShipToDifferentAddress(disableToggle)
   }
 
   const handleSave = async (params: { success: boolean; order?: Order }) => {

@@ -226,6 +226,17 @@ export class CheckoutPage {
     )
   }
 
+  async isVisibleShipToDifferentAddress(visible: boolean) {
+    const element = this.page.locator(
+      "[data-testid=button-ship-to-different-address]"
+    )
+    if (visible) {
+      await expect(element).toBeVisible()
+    } else {
+      await expect(element).toBeHidden()
+    }
+  }
+
   async useCustomerCard() {
     const element = this.page.getByTestId("customer-card")
     await expect(element).toBeVisible({ timeout: 10000 })

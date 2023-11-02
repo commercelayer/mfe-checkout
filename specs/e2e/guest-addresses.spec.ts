@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 
 import { test, expect } from "../fixtures/tokenizedPage"
-import { euAddress, euAddress2 } from "../utils/addresses"
+import { euAddress, euAddress2, usAddress } from "../utils/addresses"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
 
@@ -260,6 +260,45 @@ test.describe("with customer email and shipping country code lock", () => {
 
     await checkoutPage.checkBillingAddress({ ...euAddress, country_code: "FR" })
     await checkoutPage.checkShippingAddress(shippingAddress)
+  })
+})
+
+test.describe("with digital product and shipping country code lock", () => {
+  test.use({
+    defaultParams: {
+      order: "digital",
+      orderAttributes: {
+        customer_email: customerEmail,
+        shipping_country_code_lock: "IT",
+      },
+    },
+  })
+
+  test.skip("Checkout different country code address", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    const email = await checkoutPage.getCustomerMail()
+
+    await expect(email).toHaveValue(customerEmail)
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.setBillingAddress()
+
+    await checkoutPage.selectCountry("billing_address", "FR")
+    await checkoutPage.page.fill(
+      "[data-testid=input_billing_address_state_code]",
+      "PA"
+    )
+
+    await checkoutPage.isVisibleShipToDifferentAddress(false)
+
+    await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.checkStep("Customer", "close")
   })
 })
 
