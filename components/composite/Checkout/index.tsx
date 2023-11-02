@@ -142,7 +142,12 @@ const Checkout: React.FC<Props> = ({
                   setActiveStep={setActiveStep}
                   step="Customer"
                   steps={steps}
-                  isStepDone={ctx.hasShippingAddress && ctx.hasBillingAddress}
+                  isStepDone={
+                    (ctx.isShipmentRequired &&
+                      ctx.hasShippingAddress &&
+                      ctx.hasBillingAddress) ||
+                    (!ctx.isShipmentRequired && ctx.hasBillingAddress)
+                  }
                 >
                   <AccordionItem
                     index={1}

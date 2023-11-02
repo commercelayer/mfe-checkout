@@ -297,6 +297,17 @@ test.describe("with digital product and shipping country code lock", () => {
 
     await checkoutPage.save("Customer")
     await checkoutPage.checkStep("Customer", "close")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 })
 
