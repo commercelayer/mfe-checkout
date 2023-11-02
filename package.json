@@ -1,6 +1,6 @@
 {
   "name": "mfe-checkout",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "engines": {
     "node": "18.x"
   },

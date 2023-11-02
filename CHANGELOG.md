@@ -1,3 +1,11 @@
+## [4.2.2](https://github.com/commercelayer/mfe-checkout/compare/v4.2.1...v4.2.2) (2023-11-02)
+
+
+### Bug Fixes
+
+* ignore `shipping_country_code_lock` for order with digital products only ([0b41ed1](https://github.com/commercelayer/mfe-checkout/commit/0b41ed1610b9dc978bdbc164bf859616a74b7dcb))
+* refer to billing address for order with digital products only ([11f8e41](https://github.com/commercelayer/mfe-checkout/commit/11f8e4182a1cf01eb0e0c1cebd1bb65f51fb30d5))
+
 ## [4.2.1](https://github.com/commercelayer/mfe-checkout/compare/v4.2.0...v4.2.1) (2023-10-25)
 
 
