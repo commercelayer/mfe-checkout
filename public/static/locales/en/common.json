@@ -71,7 +71,8 @@
         "addNewAddress": "Add new address",
         "saveAddressBook": "Save this address in your account",
         "continueToDelivery": "Continue to delivery",
-        "notSet": "Fill in your Billing/Shipping Address",
+        "notSet": "Fill in your billing/shipping address",
+        "notSetNoDelivery": "Fill in your billing address",
         "closeForm": "Choose address"
     },
 

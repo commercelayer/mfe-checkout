@@ -11,7 +11,6 @@ import { ActionType, reducer } from "components/data/AppProvider/reducer"
 import {
   calculateSettings,
   checkAndSetDefaultAddressForOrder,
-  checkIfShipmentRequired,
   fetchOrder,
   FetchOrderByIdResponse,
 } from "components/data/AppProvider/utils"
@@ -88,6 +87,7 @@ interface AppProviderProps {
   slug: string
   orderId: string
   isGuest: boolean
+  isShipmentRequired: boolean
   accessToken: string
   children?: ChildrenType
 }
@@ -96,6 +96,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   children,
   orderId,
   isGuest,
+  isShipmentRequired,
   accessToken,
   slug,
   domain,
@@ -121,7 +122,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     }
     dispatch({ type: ActionType.START_LOADING })
     const order = await getOrderFromRef()
-    const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     const addressInfos = await checkAndSetDefaultAddressForOrder({
       cl,
@@ -160,8 +160,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setAddresses = async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
     const currentOrder = order ?? (await getOrderFromRef())
-
-    const isShipmentRequired = await checkIfShipmentRequired(cl, orderId)
 
     const others = calculateSettings(
       currentOrder,

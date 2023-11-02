@@ -16,7 +16,6 @@ import {
 } from "@commercelayer/sdk"
 
 import { AppStateData } from "components/data/AppProvider"
-import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
 
 export type LineItemType =
   | "gift_cards"
@@ -281,32 +280,6 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
       "customer.customer_addresses.address",
     ],
   })
-}
-
-export async function checkIfShipmentRequired(
-  cl: CommerceLayerClient,
-  orderId: string
-): Promise<boolean> {
-  const lineItems = (
-    await cl.orders.retrieve(orderId, {
-      fields: {
-        line_items: ["item_type", "item"],
-      },
-      include: ["line_items", "line_items.item"],
-    })
-  ).line_items?.filter(
-    (line_item) =>
-      LINE_ITEMS_SHIPPABLE.includes(line_item.item_type as TypeAccepted) &&
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      !line_item.item?.do_not_ship
-  )
-
-  if (lineItems?.length === undefined) {
-    return false
-  }
-  // riguardare
-  return lineItems.length > 0
 }
 
 export function isPaymentRequired(order: Order) {

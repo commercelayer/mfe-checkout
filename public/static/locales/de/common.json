@@ -73,6 +73,7 @@
         "saveAddressBook": "Speichere diese Adresse in Deinem Konto",
         "continueToDelivery": "Weiter zum Versand",
         "notSet": "Gib Deine Rechnungs- / Lieferadresse ein",
+        "notSetNoDelivery": "Gib Seine Rechnungsadresse ein",
         "closeForm": "Adresse auswählen"
     },
   

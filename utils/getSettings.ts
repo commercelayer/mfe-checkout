@@ -8,7 +8,10 @@ import retry from "async-retry"
 import jwt_decode from "jwt-decode"
 
 import { TypeAccepted } from "components/data/AppProvider/utils"
-import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
+import {
+  LINE_ITEMS_SHIPPABLE,
+  LINE_ITEMS_SHOPPABLE,
+} from "components/utils/constants"
 
 const RETRIES = 2
 
@@ -107,9 +110,9 @@ async function getOrder(
           "privacy_url",
           "line_items",
         ],
-        line_items: ["item_type"],
+        line_items: ["item_type", "item"],
       },
-      include: ["line_items"],
+      include: ["line_items", "line_items.item"],
     })
   )
 }
@@ -205,6 +208,14 @@ export const getSettings = async ({
     return invalidateCheckout()
   }
 
+  const isShipmentRequired = (order.line_items || []).some(
+    (line_item) =>
+      LINE_ITEMS_SHIPPABLE.includes(line_item.item_type as TypeAccepted) &&
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      !line_item.item?.do_not_ship
+  )
+
   if (order.status === "draft" || order.status === "pending") {
     // Logic to refresh the order is documented here: https://github.com/commercelayer/mfe-checkout/issues/356
     if (!paymentReturn && (!order.autorefresh || (!isGuest && order.guest))) {
@@ -231,6 +242,7 @@ export const getSettings = async ({
     slug,
     orderNumber: order.number || 0,
     orderId: order.id,
+    isShipmentRequired,
     validCheckout: true,
     logoUrl: organization.logo_url,
     companyName: organization.name || "Test company",
