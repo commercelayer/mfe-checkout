@@ -95,7 +95,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   const fireAddShippingInfo = async (order: Order) => {
     const shipments = order?.shipments
 
-    shipments?.forEach(async (shipment) => {
+    shipments?.forEach((shipment) => {
       const lineItems = shipment.stock_line_items?.map(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
