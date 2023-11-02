@@ -274,9 +274,7 @@ test.describe("with digital product and shipping country code lock", () => {
     },
   })
 
-  test.skip("Checkout different country code address", async ({
-    checkoutPage,
-  }) => {
+  test("Checkout different country code address", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     const email = await checkoutPage.getCustomerMail()
