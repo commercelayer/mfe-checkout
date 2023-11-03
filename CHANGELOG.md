@@ -1,3 +1,10 @@
+## [4.2.3](https://github.com/commercelayer/mfe-checkout/compare/v4.2.2...v4.2.3) (2023-11-03)
+
+
+### Bug Fixes
+
+* avoid check on country code lock for digital orders ([b34c2d1](https://github.com/commercelayer/mfe-checkout/commit/b34c2d141f85ea66be44aca935ca3b36999b430e))
+
 ## [4.2.2](https://github.com/commercelayer/mfe-checkout/compare/v4.2.1...v4.2.2) (2023-11-02)
 
 
