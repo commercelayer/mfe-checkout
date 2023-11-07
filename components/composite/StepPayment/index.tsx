@@ -112,14 +112,14 @@ export const StepPayment: React.FC = () => {
 
   const { isGuest, isPaymentRequired, setPayment } = appCtx
 
-  const selectPayment: THandleClick = async ({ payment, paymentSource }) => {
+  const selectPayment: THandleClick = ({ payment, paymentSource }) => {
     if (paymentSource?.payment_methods?.paymentMethods?.length > 1) {
       setHasMultiplePaymentMethods(true)
     }
     setPayment({ payment: payment as PaymentMethodType })
   }
 
-  const autoSelectCallback = async () => {
+  const autoSelectCallback = () => {
     setAutoselected(true)
   }
 
