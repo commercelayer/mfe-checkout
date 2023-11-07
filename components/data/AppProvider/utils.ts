@@ -234,7 +234,7 @@ function isBillingAddressSameAsShippingAddress({
   return true
 }
 
-export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
+export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
   return cl.orders.retrieve(orderId, {
     fields: {
       orders: [
