@@ -1,3 +1,10 @@
+## [4.2.4](https://github.com/commercelayer/mfe-checkout/compare/v4.2.3...v4.2.4) (2023-11-07)
+
+
+### Bug Fixes
+
+* enforce check for `require-await` and remove useless `async` ([91f3015](https://github.com/commercelayer/mfe-checkout/commit/91f30156bb2c3ab2cb581e332542da67b9d83095))
+
 ## [4.2.3](https://github.com/commercelayer/mfe-checkout/compare/v4.2.2...v4.2.3) (2023-11-03)
 
 
