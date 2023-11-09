@@ -446,4 +446,117 @@ test.describe("with bundle", () => {
     )
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
   })
+
+  test("check payment and purchase with redirect back from paypal", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("EUR")
+    expect(dataLayer[0].ecommerce.value).toBe(105)
+    expect(
+      dataLayer[0].ecommerce.items?.filter(
+        (item) => item?.item_id === "SHIRTSETSINGLE"
+      )
+    ).toHaveLength(1)
+
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("EUR")
+    expect(dataLayer[0].ecommerce.shipping_tier).toBe("Standard Shipping")
+    expect(dataLayer[0].ecommerce.value).toBe(0)
+    expect(dataLayer[0].ecommerce.items?.length).toBe(2)
+
+    await checkoutPage.setPayment("paypal")
+
+    await checkoutPage.save("Payment", "Paga con PayPal")
+
+    dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    expect(dataLayer.length).toBe(0)
+
+    dataLayer = await checkoutPage.getDataLayer("add_payment_info")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("EUR")
+    expect(dataLayer[0].ecommerce.payment_type).toBe("Paypal Payment")
+    expect(dataLayer[0].ecommerce.value).toBe(0)
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+
+    dataLayer = await checkoutPage.getDataLayer("purchase")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("EUR")
+    expect(dataLayer[0].ecommerce.value).toBe(105)
+    expect(dataLayer[0].ecommerce.shipping).toBe(0)
+    expect(dataLayer[0].ecommerce.tax).toBe(0)
+
+    const orderNumber = await checkoutPage.getOrderNumber()
+
+    expect(dataLayer[0].ecommerce.transaction_id).toBe(
+      parseInt(orderNumber.replace("#", ""))
+    )
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+  })
+
+  test("avoid events when order placed on reload", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("EUR")
+    expect(dataLayer[0].ecommerce.value).toBe(105)
+    expect(
+      dataLayer[0].ecommerce.items?.filter(
+        (item) => item?.item_id === "SHIRTSETSINGLE"
+      )
+    ).toHaveLength(1)
+
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
+
+    dataLayer = await checkoutPage.getDataLayer("add_payment_info")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("EUR")
+    expect(dataLayer[0].ecommerce.payment_type).toBe("Stripe Payment")
+    expect(dataLayer[0].ecommerce.value).toBe(10)
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+
+    dataLayer = await checkoutPage.getDataLayer("purchase")
+    expect(dataLayer.length).toBe(1)
+    expect(dataLayer[0].ecommerce.currency).toBe("EUR")
+    expect(dataLayer[0].ecommerce.value).toBe(115)
+    expect(dataLayer[0].ecommerce.shipping).toBe(0)
+    expect(dataLayer[0].ecommerce.tax).toBe(0)
+
+    const orderNumber = await checkoutPage.getOrderNumber()
+
+    expect(dataLayer[0].ecommerce.transaction_id).toBe(
+      parseInt(orderNumber.replace("#", ""))
+    )
+    expect(dataLayer[0].ecommerce.items?.length).toBe(1)
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+
+    dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    expect(dataLayer.length).toBe(0)
+  })
 })
