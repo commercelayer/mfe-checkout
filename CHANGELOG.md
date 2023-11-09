@@ -1,3 +1,10 @@
+## [4.2.5](https://github.com/commercelayer/mfe-checkout/compare/v4.2.4...v4.2.5) (2023-11-09)
+
+
+### Bug Fixes
+
+* skip `begin_checkout` event when completing payment or reload page on `placed` orders ([5b4c3c4](https://github.com/commercelayer/mfe-checkout/commit/5b4c3c4d93f59f7f875711f4d71f9a09b986fb53))
+
 ## [4.2.4](https://github.com/commercelayer/mfe-checkout/compare/v4.2.3...v4.2.4) (2023-11-07)
 
 
