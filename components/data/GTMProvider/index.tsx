@@ -19,11 +19,13 @@ export const GTMContext = createContext<GTMProviderData | null>(null)
 interface GTMProviderProps {
   children: React.ReactNode
   gtmId: NullableType<string>
+  skipBeginCheckout: boolean
 }
 
 export const GTMProvider: React.FC<GTMProviderProps> = ({
   children,
   gtmId,
+  skipBeginCheckout,
 }) => {
   const isFirstLoading = useRef(true)
 
@@ -42,7 +44,9 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     if (isFirstLoading.current && gtmId != null && order != null) {
       isFirstLoading.current = false
       TagManager.initialize({ gtmId })
-      fireBeginCheckout(order)
+      if (!skipBeginCheckout) {
+        fireBeginCheckout(order)
+      }
     }
   }, [order])
 

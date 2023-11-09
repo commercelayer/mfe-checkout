@@ -82,6 +82,12 @@ const Checkout: React.FC<Props> = ({
     redirectStatus = query.redirect_status as string
   }
 
+  const checkoutAlreadyStarted =
+    !!paypalPayerId ||
+    !!redirectResult ||
+    !!checkoutComSession ||
+    !!redirectStatus
+
   const { activeStep, lastActivableStep, setActiveStep, steps } =
     useActiveStep()
 
@@ -234,7 +240,10 @@ const Checkout: React.FC<Props> = ({
 
   return (
     <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
-      <GTMProvider gtmId={gtmId}>
+      <GTMProvider
+        gtmId={gtmId}
+        skipBeginCheckout={checkoutAlreadyStarted || ctx.isComplete}
+      >
         {ctx.isComplete ? renderComplete() : renderSteps()}
       </GTMProvider>
     </OrderContainer>
