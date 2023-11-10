@@ -33,8 +33,6 @@ test.describe("multi shipments", () => {
   test("check begin and shipments", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
     let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
-    console.log("dataLayer 1")
-    console.log(dataLayer)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.value).toBe(244)
@@ -61,8 +59,6 @@ test.describe("multi shipments", () => {
     await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
 
     dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
-    console.log("dataLayer 2")
-    console.log(dataLayer)
     expect(dataLayer.length).toBe(2)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.shipping_tier).toBe("Standard Shipping")
@@ -89,8 +85,6 @@ test.describe("multi shipments", () => {
     await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
 
     dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
-    console.log("dataLayer 3")
-    console.log(dataLayer)
     expect(dataLayer.length).toBe(4)
     expect(dataLayer[2].ecommerce.currency).toBe("EUR")
     expect(dataLayer[2].ecommerce.shipping_tier).toBe("Express Delivery")
@@ -118,8 +112,6 @@ test.describe("multi shipments", () => {
 
     await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
     dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
-    console.log("dataLayer 4")
-    console.log(dataLayer)
     expect(dataLayer.length).toBe(6)
     expect(dataLayer[4].ecommerce.currency).toBe("EUR")
     expect(dataLayer[4].ecommerce.shipping_tier).toBe("Express Delivery")
@@ -146,8 +138,6 @@ test.describe("multi shipments", () => {
 
     await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
     dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
-    console.log("dataLayer 5")
-    console.log(dataLayer)
     expect(dataLayer.length).toBe(8)
     expect(dataLayer[6].ecommerce.currency).toBe("EUR")
     expect(dataLayer[6].ecommerce.shipping_tier).toBe("Standard Shipping")

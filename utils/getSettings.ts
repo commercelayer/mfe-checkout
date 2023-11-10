@@ -5,7 +5,7 @@ import CommerceLayer, {
   Order,
 } from "@commercelayer/sdk"
 import retry from "async-retry"
-import jwt_decode from "jwt-decode"
+import { jwtDecode } from "jwt-decode"
 
 import { TypeAccepted } from "components/data/AppProvider/utils"
 import {
@@ -70,7 +70,7 @@ async function retryCall<T>(
   )
 }
 
-async function getOrganization(
+function getOrganization(
   cl: CommerceLayerClient
 ): Promise<FetchResource<Organization> | undefined> {
   return retryCall<Organization>(() =>
@@ -92,7 +92,7 @@ async function getOrganization(
   )
 }
 
-async function getOrder(
+function getOrder(
   cl: CommerceLayerClient,
   orderId: string
 ): Promise<FetchResource<Order> | undefined> {
@@ -124,7 +124,7 @@ function getTokenInfo(accessToken: string) {
       application: { kind },
       owner,
       test,
-    } = jwt_decode(accessToken) as JWTProps
+    } = jwtDecode(accessToken) as JWTProps
 
     return { slug, kind, isTest: test, isGuest: !owner }
   } catch (e) {

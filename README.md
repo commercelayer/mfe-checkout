@@ -27,7 +27,7 @@ The Commerce Layer Checkout application (React) provides you with a [PCI-complia
 
 3. Deploy the forked repository to your preferred hosting service. You can deploy with one click below:
 
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" height="35">](https://app.netlify.com/start/deploy?repository=https://github.com/commercelayer/mfe-checkout#NEXT_PUBLIC_SLUG) [<img src="https://vercel.com/button" alt="Deploy to Vercel" height="35">](https://vercel.com/new/clone?repository-url=https://github.com/commercelayer/mfe-checkout&build-command=pnpm%20export&output-directory=out&env=NEXT_PUBLIC_SLUG&envDescription=your%20organization%20slug)
+[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" height="35">](https://app.netlify.com/start/deploy?repository=https://github.com/commercelayer/mfe-checkout#NEXT_PUBLIC_SLUG) [<img src="https://vercel.com/button" alt="Deploy to Vercel" height="35">](https://vercel.com/new/clone?repository-url=https://github.com/commercelayer/mfe-checkout&build-command=pnpm%20build&output-directory=out/dist&env=NEXT_PUBLIC_SLUG&envDescription=your%20organization%20slug)
 
 4. Build your sales channel with your favorite technologies and frameworks by leveraging our [developer resources](https://commercelayer.io/developers) and [documentation](https://docs.commercelayer.io/api).
 
