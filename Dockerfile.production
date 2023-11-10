@@ -17,7 +17,7 @@ COPY . .
 # docker build -t checkout -f Dockerfile.production ./
 # 
 # To export the Next.js application you can run on your shell:
-# docker run --volume ~/path-to-out-folder:/home/circleci/project/out -it checkout pnpm run export
+# docker run --volume ~/path-to-out-folder:/home/circleci/project/out -it checkout pnpm run build
 #
 # you can specify other environment variables directly on .env.production.local file
 
