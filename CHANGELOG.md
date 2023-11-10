@@ -1,3 +1,15 @@
+# [4.3.0](https://github.com/commercelayer/mfe-checkout/compare/v4.2.5...v4.3.0) (2023-11-10)
+
+
+### Bug Fixes
+
+* change export to build command ([e440c4d](https://github.com/commercelayer/mfe-checkout/commit/e440c4d1c8cc263c519580dfd983f7978eb246db))
+
+
+### Features
+
+* upgrade to nextjs `v14` and remove adyen languages not supported ([edbd9c0](https://github.com/commercelayer/mfe-checkout/commit/edbd9c0d00d80190342e6e85748e80a7d55b8b6f))
+
 ## [4.2.5](https://github.com/commercelayer/mfe-checkout/compare/v4.2.4...v4.2.5) (2023-11-09)
 
 
