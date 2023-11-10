@@ -35,7 +35,7 @@ export class CheckoutPage {
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/${orderId}?accessToken=${token}`
 
-    await this.page.route("**/api/organization**", async (route) => {
+    await this.page.route("**/api/organization**", (route) => {
       // // Add a prefix to the title.
       const body = {
         data: {
@@ -109,7 +109,7 @@ export class CheckoutPage {
       .evaluate((e) => e.blur())
   }
 
-  async getCustomerMail() {
+  getCustomerMail() {
     return this.page.locator("input[name=customer_email]")
   }
 
@@ -149,19 +149,19 @@ export class CheckoutPage {
     )
   }
 
-  async clickStep(step: SingleStepEnum) {
+  clickStep(step: SingleStepEnum) {
     this.page.click(`[data-testid=step_${step.toLocaleLowerCase()}]`, {
       force: true,
     })
   }
 
-  async clickAccordion(step: SingleStepEnum) {
+  clickAccordion(step: SingleStepEnum) {
     this.page.click(`[data-testid=accordion_${step.toLocaleLowerCase()}]`, {
       force: true,
     })
   }
 
-  async shipToDifferentAddress() {
+  shipToDifferentAddress() {
     this.page.click(`[data-testid=button-ship-to-different-address]`)
   }
 
@@ -414,9 +414,9 @@ export class CheckoutPage {
     address: Partial<Address>
     type: "billing_address" | "shipping_address"
   }) {
-    const promises = Object.keys(address).map(async (key) => {
+    const promises = Object.keys(address).map((key) => {
       if (type === "shipping_address" && key === "billing_info") {
-        return
+        return undefined
       }
       const fieldType =
         key === "country_code" ||
@@ -433,11 +433,11 @@ export class CheckoutPage {
     await Promise.all(promises)
   }
 
-  async openNewAddress(type: "shipping" | "billing") {
+  openNewAddress(type: "shipping" | "billing") {
     this.page.click(`[data-testid=add_new_${type}_address]`)
   }
 
-  async closeNewAddress(type: "shipping" | "billing") {
+  closeNewAddress(type: "shipping" | "billing") {
     this.page.click(`[data-testid=close-${type}-form]`)
   }
 
@@ -449,7 +449,7 @@ export class CheckoutPage {
     await this.checkAddress({ address, type: "shipping_address" })
   }
 
-  async selectAddressOnBook({
+  selectAddressOnBook({
     type,
     index = 0,
   }: {
@@ -468,7 +468,7 @@ export class CheckoutPage {
   }) {
     const titleizeType = type[0].toLocaleUpperCase() + type.slice(1)
 
-    const element = await this.page.locator(
+    const element = this.page.locator(
       `[data-testid=customer-${type}-address]:near(:text("${titleizeType} Address")) >> text=${composeForCheck(
         address
       )}`

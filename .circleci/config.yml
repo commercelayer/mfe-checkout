@@ -40,7 +40,7 @@ jobs:
       - run:
           name: Export and serve
           command: |
-            pnpm run export
+            pnpm run build
       - run:
           name: Run tests
           command: |
@@ -72,11 +72,11 @@ jobs:
           command: pnpm install
       - run:
           name: Build
-          command: pnpm export
+          command: pnpm build
       - aws-s3/sync:
           aws-access-key-id: AWS_ACCESS_KEY
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          from: out
+          from: out/dist
           to: "s3://$S3_ASSETS_BUCKET/team/fe-static-apps/$FOLDER/<<pipeline.git.tag>>"
 
   build-on-pci-bucket:
@@ -104,11 +104,11 @@ jobs:
           command: pnpm install
       - run:
           name: Build
-          command: pnpm export
+          command: pnpm build
       - aws-s3/sync:
           aws-access-key-id: AWS_ACCESS_KEY
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          from: out
+          from: out/dist
           to: "s3://$S3_PCI_BUCKET/$FOLDER/<<pipeline.git.tag>>-<<pipeline.git.revision>>"
 
 workflows:

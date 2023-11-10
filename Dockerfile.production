@@ -1,8 +1,9 @@
-FROM node:18.14.2-alpine
+FROM node:18.17.0-alpine
 
 WORKDIR /home/circleci/project
 
-RUN corepack enable && corepack prepare pnpm@7.27.1 --activate
+RUN apk add g++ make py3-pip
+RUN corepack enable && corepack prepare pnpm@8.10.2 --activate
 
 COPY package.json pnpm-lock.yaml ./
 
