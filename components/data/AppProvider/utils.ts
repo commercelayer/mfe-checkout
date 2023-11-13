@@ -86,6 +86,7 @@ export interface FetchOrderByIdResponse {
   isCreditCard: boolean
   taxIncluded: NullableType<boolean>
   shippingMethodName?: string
+  hasSubscriptions: boolean
 }
 
 function isNewAddress({
@@ -127,6 +128,7 @@ export async function checkAndSetDefaultAddressForOrder({
   cl,
   order,
 }: CheckAndSetDefaultAddressForOrderProps) {
+  console.log(order)
   const customerAddresses = order?.customer?.customer_addresses
   if (
     order.guest ||
@@ -262,10 +264,12 @@ export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
         "payment_method",
         "payment_source",
         "customer",
+        "line_items",
       ],
       shipments: ["shipping_method", "available_shipping_methods"],
       customer: ["customer_addresses"],
       customer_addresses: ["address"],
+      line_items: ["frequency"],
     },
     include: [
       "shipping_address",
@@ -278,6 +282,7 @@ export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
       "customer",
       "customer.customer_addresses",
       "customer.customer_addresses.address",
+      "line_items",
     ],
   })
 }
@@ -330,6 +335,17 @@ export function calculateSettings(
     order.customer?.customer_addresses || customerAddress
   )
 
+  const hasSubscriptions =
+    order.line_items?.some((item) => {
+      return item.frequency && item.frequency?.length > 0
+    }) || false
+
+  if (hasSubscriptions && !isGuest) {
+    localStorage.setItem("_save_payment_source_to_customer_wallet", "true")
+  } else {
+    localStorage.setItem("_save_payment_source_to_customer_wallet", "false")
+  }
+
   return {
     isGuest,
     shippingCountryCodeLock: order.shipping_country_code_lock,
@@ -347,6 +363,7 @@ export function calculateSettings(
     cartUrl: order.cart_url,
     taxIncluded: order.tax_included,
     requiresBillingInfo: order.requires_billing_info,
+    hasSubscriptions,
   }
 }
 

@@ -23,6 +23,7 @@ interface Props {
   selectPayment: THandleClick
   hasTitle: boolean
   autoSelectCallback: () => void
+  hasSubscriptions: boolean
 }
 
 type TTemplateCustomerCards = Parameters<
@@ -33,6 +34,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   selectPayment,
   hasTitle,
   autoSelectCallback,
+  hasSubscriptions,
 }) => {
   const { t } = useTranslation()
 
@@ -74,23 +76,25 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
     }
 
     return (
-      <div className="flex items-center mt-4">
-        <WalletCheckbox
-          name={name}
-          id={name}
-          data-testid="save-to-wallet"
-          type="checkbox"
-          className="form-checkbox"
-          checked={checked}
-          onClick={handleClick}
-          onChange={handleChange}
-        />
-        <Label
-          htmlFor={name}
-          dataTestId="payment-save-wallet"
-          textLabel={t("stepPayment.saveToWallet")}
-        />
-      </div>
+      !hasSubscriptions && (
+        <div className="flex items-center mt-4">
+          <WalletCheckbox
+            name={name}
+            id={name}
+            data-testid="save-to-wallet"
+            type="checkbox"
+            className="form-checkbox"
+            checked={checked}
+            onClick={handleClick}
+            onChange={handleChange}
+          />
+          <Label
+            htmlFor={name}
+            dataTestId="payment-save-wallet"
+            textLabel={t("stepPayment.saveToWallet")}
+          />
+        </div>
+      )
     )
   }
 

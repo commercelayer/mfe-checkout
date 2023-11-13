@@ -2,6 +2,8 @@ import type { Order } from "@commercelayer/sdk"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
+import { RepeatIcon } from "../OrderSummary/RepeatIcon"
+
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { FlexContainer } from "components/ui/FlexContainer"
@@ -20,6 +22,7 @@ import {
   StyledPrivacyAndTermsCheckbox,
   PlaceOrderButtonWrapper,
 } from "./styled"
+import { WarningIcon } from "./WarningIcon"
 
 interface Props {
   isActive: boolean
@@ -65,6 +68,33 @@ const StepPlaceOrder: React.FC<Props> = ({
 
   return (
     <>
+      {appCtx.hasSubscriptions && isActive && (
+        <div
+          className={`text-gray-500 font-semibold p-4 m-5 mb-0 md:mb-5 md:mx-0 text-sm border border-dashed ${
+            !appCtx.isGuest ? "" : "border-orange-400"
+          }`}
+        >
+          {appCtx.isGuest ? (
+            <div className="flex">
+              <div className="relative w-4 mr-2 top-0.5">
+                <WarningIcon />
+              </div>
+              <p>
+                Your subscription will have issues because you are checking out
+                as a guest and we won&apos;t be able to store your payment
+                details.
+              </p>
+            </div>
+          ) : (
+            <div className="flex">
+              <div className="relative w-4 mr-2 top-0.5">
+                <RepeatIcon />
+              </div>
+              <p>Your customer payment source will be automatically saved</p>
+            </div>
+          )}
+        </div>
+      )}
       <ErrorsContainer data-testid="errors-container">
         <StyledErrors
           resource="orders"

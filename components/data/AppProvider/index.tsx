@@ -78,6 +78,7 @@ const initialState: AppStateData = {
   cartUrl: undefined,
   taxIncluded: false,
   shippingMethodName: undefined,
+  hasSubscriptions: false,
 }
 
 export const AppContext = createContext<AppProviderData | null>(null)

@@ -142,11 +142,14 @@ export const StepPayment: React.FC = () => {
                     hasTitle={hasTitle}
                   />
                 ) : (
-                  <CheckoutCustomerPayment
-                    selectPayment={selectPayment}
-                    autoSelectCallback={autoSelectCallback}
-                    hasTitle={hasTitle}
-                  />
+                  <>
+                    <CheckoutCustomerPayment
+                      selectPayment={selectPayment}
+                      autoSelectCallback={autoSelectCallback}
+                      hasTitle={hasTitle}
+                      hasSubscriptions={appCtx.hasSubscriptions}
+                    />
+                  </>
                 )
               ) : (
                 <p className="text-sm text-gray-400">

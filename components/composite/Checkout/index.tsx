@@ -216,7 +216,7 @@ const Checkout: React.FC<Props> = ({
                           <StepHeaderPayment step={getStepNumber("Payment")} />
                         }
                       >
-                        <div className="mb-6">
+                        <div>
                           <StepPayment />
                         </div>
                       </AccordionItem>
