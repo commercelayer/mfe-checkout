@@ -422,4 +422,46 @@ test.describe("email error validation", () => {
     element = checkoutPage.page.locator("[data-testid=discount-error]")
     await expect(element).toBeEmpty()
   })
+
+  test("email invalid format", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    let element = checkoutPage.page.locator("[data-testid=discount-error]")
+    await expect(element).toHaveCount(0)
+    await checkoutPage.setCustomerMail(customerEmail)
+    await checkoutPage.blurCustomerEmail()
+    await expect(element).toHaveCount(0)
+
+    await checkoutPage.setCustomerMail("john@gmail")
+    await checkoutPage.blurCustomerEmail()
+
+    element = checkoutPage.page.locator("[data-testid=discount-error]")
+    await expect(element).toBeEmpty()
+
+    await checkoutPage.page
+      .locator(
+        "[data-testid=customer_email_error] >> text=Please enter a valid email"
+      )
+      .waitFor({ state: "visible" })
+    await checkoutPage.setBillingAddress()
+    await checkoutPage.checkButton({ type: "Customer", status: "disabled" })
+    await checkoutPage.setCustomerMail("john@gmail.com")
+    await checkoutPage.blurCustomerEmail()
+    await checkoutPage.checkButton({ type: "Customer", status: "enabled" })
+    await checkoutPage.save("Customer")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.clickStep("Customer")
+    await checkoutPage.setCustomerMail("john@gmail")
+    await checkoutPage.blurCustomerEmail()
+    await checkoutPage.checkButton({ type: "Customer", status: "disabled" })
+    await checkoutPage.page.reload()
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.clickStep("Customer")
+    await checkoutPage.checkCustomerEmail("john@gmail.com")
+
+    await checkoutPage.setCustomerMail("john@gmail.c")
+    await checkoutPage.blurCustomerEmail()
+    await checkoutPage.checkButton({ type: "Customer", status: "disabled" })
+    await checkoutPage.page.reload()
+    await checkoutPage.checkCustomerEmail("john@gmail.com")
+  })
 })
