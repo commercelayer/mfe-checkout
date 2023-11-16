@@ -1,3 +1,15 @@
+## [4.3.1](https://github.com/commercelayer/mfe-checkout/compare/v4.3.0...v4.3.1) (2023-11-16)
+
+
+### Bug Fixes
+
+* check email format and form submit validation ([cb982d6](https://github.com/commercelayer/mfe-checkout/commit/cb982d6513f21d7e1ca947c589987f0c27945ade))
+
+
+### Performance Improvements
+
+* reduce bundle size, removing states and countries from react-components ([4e614f9](https://github.com/commercelayer/mfe-checkout/commit/4e614f9fcfb221ca6799f4469b848af586d49cf1))
+
 # [4.3.0](https://github.com/commercelayer/mfe-checkout/compare/v4.2.5...v4.3.0) (2023-11-10)
 
 
