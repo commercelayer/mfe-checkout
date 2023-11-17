@@ -90,7 +90,7 @@ const StepPlaceOrder: React.FC<Props> = ({
               <div className="relative w-4 mr-2 top-0.5">
                 <RepeatIcon />
               </div>
-              <p>Your customer payment source will be automatically saved</p>
+              <p>Your payment details will be automatically saved.</p>
             </div>
           )}
         </div>

@@ -110,7 +110,7 @@ test.describe("Customer checking out a subscription", () => {
 
     await expect(
       checkoutPage.page.locator(
-        "text=Your customer payment source will be automatically saved"
+        "text=Your payment details will be automatically saved."
       )
     ).toBeVisible()
 
