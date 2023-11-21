@@ -1,3 +1,10 @@
+## [4.3.2](https://github.com/commercelayer/mfe-checkout/compare/v4.3.1...v4.3.2) (2023-11-21)
+
+
+### Bug Fixes
+
+* adjust duration and primary light color ([fec09ca](https://github.com/commercelayer/mfe-checkout/commit/fec09ca6a5db9a996b63c73c9903fe0d7cc1b07c))
+
 ## [4.3.1](https://github.com/commercelayer/mfe-checkout/compare/v4.3.0...v4.3.1) (2023-11-16)
 
 
