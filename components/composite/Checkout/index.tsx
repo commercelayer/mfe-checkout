@@ -82,6 +82,12 @@ const Checkout: React.FC<Props> = ({
     redirectStatus = query.redirect_status as string
   }
 
+  const checkoutAlreadyStarted =
+    !!paypalPayerId ||
+    !!redirectResult ||
+    !!checkoutComSession ||
+    !!redirectStatus
+
   const { activeStep, lastActivableStep, setActiveStep, steps } =
     useActiveStep()
 
@@ -142,7 +148,12 @@ const Checkout: React.FC<Props> = ({
                   setActiveStep={setActiveStep}
                   step="Customer"
                   steps={steps}
-                  isStepDone={ctx.hasShippingAddress && ctx.hasBillingAddress}
+                  isStepDone={
+                    (ctx.isShipmentRequired &&
+                      ctx.hasShippingAddress &&
+                      ctx.hasBillingAddress) ||
+                    (!ctx.isShipmentRequired && ctx.hasBillingAddress)
+                  }
                 >
                   <AccordionItem
                     index={1}
@@ -229,7 +240,10 @@ const Checkout: React.FC<Props> = ({
 
   return (
     <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
-      <GTMProvider gtmId={gtmId}>
+      <GTMProvider
+        gtmId={gtmId}
+        skipBeginCheckout={checkoutAlreadyStarted || ctx.isComplete}
+      >
         {ctx.isComplete ? renderComplete() : renderSteps()}
       </GTMProvider>
     </OrderContainer>

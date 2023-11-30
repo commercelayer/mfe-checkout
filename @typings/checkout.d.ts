@@ -13,6 +13,7 @@ interface CheckoutSettings {
   orderNumber: number
   validCheckout: true
   isGuest: boolean
+  isShipmentRequired: boolean
   endpoint: string
   domain: string
   slug: string

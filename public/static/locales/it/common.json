@@ -73,6 +73,7 @@
         "saveAddressBook": "Salva l'indirizzo sulla tua rubrica",
         "continueToDelivery": "Continuare alla consegna",
         "notSet": "Inserisci il tuo indirizzo di fatturazione/spedizione",
+        "notSetNoDelivery": "Inserisci il tuo indirizzo di fatturazione",
         "closeForm": "Scegli indirizzo"
     },
 

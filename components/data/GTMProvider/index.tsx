@@ -9,9 +9,9 @@ import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 import { DataLayerItemProps, DataLayerProps } from "./typings"
 
 interface GTMProviderData {
-  fireAddShippingInfo: (order: Order) => Promise<void>
-  fireAddPaymentInfo: () => Promise<void>
-  firePurchase: () => Promise<void>
+  fireAddShippingInfo: (order: Order) => void
+  fireAddPaymentInfo: () => void
+  firePurchase: () => void
 }
 
 export const GTMContext = createContext<GTMProviderData | null>(null)
@@ -19,11 +19,13 @@ export const GTMContext = createContext<GTMProviderData | null>(null)
 interface GTMProviderProps {
   children: React.ReactNode
   gtmId: NullableType<string>
+  skipBeginCheckout: boolean
 }
 
 export const GTMProvider: React.FC<GTMProviderProps> = ({
   children,
   gtmId,
+  skipBeginCheckout,
 }) => {
   const isFirstLoading = useRef(true)
 
@@ -42,7 +44,9 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     if (isFirstLoading.current && gtmId != null && order != null) {
       isFirstLoading.current = false
       TagManager.initialize({ gtmId })
-      fireBeginCheckout(order)
+      if (!skipBeginCheckout) {
+        fireBeginCheckout(order)
+      }
     }
   }, [order])
 
@@ -76,7 +80,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     }
   }
 
-  const fireBeginCheckout = async (order: Order) => {
+  const fireBeginCheckout = (order: Order) => {
     const lineItems = order.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
@@ -92,10 +96,10 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const fireAddShippingInfo = async (order: Order) => {
+  const fireAddShippingInfo = (order: Order) => {
     const shipments = order?.shipments
 
-    shipments?.forEach(async (shipment) => {
+    shipments?.forEach((shipment) => {
       const lineItems = shipment.stock_line_items?.map(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -115,7 +119,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const fireAddPaymentInfo = async () => {
+  const fireAddPaymentInfo = () => {
     const lineItems = order?.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
@@ -134,7 +138,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const firePurchase = async () => {
+  const firePurchase = () => {
     const lineItems = order?.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })

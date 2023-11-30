@@ -40,6 +40,7 @@
     "no-var": "error",
     "no-param-reassign": "error",
     "prefer-const": "error",
+    "require-await": "error",
     "sort-imports": "off",
     "camelcase": "off",
     "import/named": "off",

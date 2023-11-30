@@ -29,7 +29,12 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
     return null
   }
 
-  const { hasShippingAddress, hasBillingAddress, emailAddress } = appCtx
+  const {
+    hasShippingAddress,
+    hasBillingAddress,
+    emailAddress,
+    isShipmentRequired,
+  } = appCtx
 
   const { t } = useTranslation()
 
@@ -40,7 +45,11 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
     ) {
       return (
         <>
-          <p>{t("stepCustomer.notSet")}</p>
+          <p data-testid="customer-addresses-title">
+            {isShipmentRequired
+              ? t("stepCustomer.notSet")
+              : t("stepCustomer.notSetNoDelivery")}
+          </p>
         </>
       )
     }
@@ -108,10 +117,12 @@ export const StepCustomer: React.FC<Props> = () => {
     forceShipping,
     disableToggle,
   }: ShippingToggleProps) => {
-    if (forceShipping) {
-      setShipToDifferentAddress(true)
+    if (isShipmentRequired) {
+      if (forceShipping) {
+        setShipToDifferentAddress(true)
+      }
+      setDisabledShipToDifferentAddress(disableToggle)
     }
-    setDisabledShipToDifferentAddress(disableToggle)
   }
 
   const handleSave = async (params: { success: boolean; order?: Order }) => {
