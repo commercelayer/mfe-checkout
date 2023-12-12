@@ -131,8 +131,8 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                       {!appCtx.hasShippingMethod
                         ? t("orderRecap.notSet")
                         : props.priceCents === 0
-                        ? t("general.free")
-                        : props.price}
+                          ? t("general.free")
+                          : props.price}
                     </div>
                   </>
                 )
@@ -215,7 +215,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
               className="text-xl font-extrabold"
             />
           </RecapLineTotal>
-          <ReturnToCart cartUrl={appCtx.cartUrl} />
+          {!appCtx.isComplete && <ReturnToCart cartUrl={appCtx.cartUrl} />}
         </AmountWrapper>
       </TotalWrapper>
     </Wrapper>
