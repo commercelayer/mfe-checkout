@@ -338,7 +338,9 @@ export function calculateSettings(
   const hasSubscriptions =
     order.line_items?.some((item) => {
       return item.frequency && item.frequency?.length > 0
-    }) || false
+    }) ||
+    order.subscription_created_at !== null ||
+    false
 
   if (hasSubscriptions && !isGuest) {
     localStorage.setItem("_save_payment_source_to_customer_wallet", "true")
