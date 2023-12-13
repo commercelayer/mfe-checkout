@@ -128,7 +128,6 @@ export async function checkAndSetDefaultAddressForOrder({
   cl,
   order,
 }: CheckAndSetDefaultAddressForOrderProps) {
-  console.log(order)
   const customerAddresses = order?.customer?.customer_addresses
   if (
     order.guest ||
@@ -344,8 +343,6 @@ export function calculateSettings(
 
   if (hasSubscriptions && !isGuest) {
     localStorage.setItem("_save_payment_source_to_customer_wallet", "true")
-  } else {
-    localStorage.setItem("_save_payment_source_to_customer_wallet", "false")
   }
 
   return {

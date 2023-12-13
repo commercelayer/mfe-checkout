@@ -52,7 +52,7 @@ test.describe("Guest checking out a subscription", () => {
 
     await expect(
       checkoutPage.page.locator(
-        "text=Your subscription will have issues because you are checking out as a guest and we won't be able to store your payment details."
+        "text=An account must be created in order to purchase your subscription."
       )
     ).toBeVisible()
 
@@ -110,7 +110,7 @@ test.describe("Customer checking out a subscription", () => {
 
     await expect(
       checkoutPage.page.locator(
-        "text=Your payment details will be automatically saved."
+        "text=By providing your card information, you allow the company to charge your card for future payments in accordance with their terms."
       )
     ).toBeVisible()
 

@@ -79,18 +79,14 @@ const StepPlaceOrder: React.FC<Props> = ({
               <div className="relative w-4 mr-2 top-0.5">
                 <WarningIcon />
               </div>
-              <p>
-                Your subscription will have issues because you are checking out
-                as a guest and we won&apos;t be able to store your payment
-                details.
-              </p>
+              <p>{t("stepPayment.subscriptionWithoutCustomer")}</p>
             </div>
           ) : (
             <div className="flex">
               <div className="relative w-4 mr-2 top-0.5">
                 <RepeatIcon />
               </div>
-              <p>Your payment details will be automatically saved.</p>
+              <p>{t("stepPayment.subscriptionWithCustomer")}</p>
             </div>
           )}
         </div>
