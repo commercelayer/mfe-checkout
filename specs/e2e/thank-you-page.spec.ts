@@ -48,6 +48,50 @@ test.describe("with return url", () => {
   })
 })
 
+test.describe("with cart url", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  const returnUrl = "https://www.google.it"
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        cart_url: "https://cart.example.com",
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("not showing cart link in thankyou page", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkReturnToCartLink("present")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+
+    await checkoutPage.page.reload()
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+
+    await checkoutPage.checkReturnToCartLink("not_present")
+  })
+})
+
 test.describe("without return url", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 

@@ -106,7 +106,9 @@
         "notRequired": "Diese Bestellung erfordert keine Zahlung",
         "amountZero": "Der Gesamtbetrag der Bestellung ist Null. Du kannst die Bestellung so aufgeben, wie sie jetzt ist",
         "saveToWallet": "Speichere eine neue Karte",
-        "expires": "Ablaufdatum"
+        "expires": "Ablaufdatum",
+        "subscriptionWithoutCustomer": "An account must be created in order to purchase your subscription.",
+        "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms."
     },
   
     "addressForm": {

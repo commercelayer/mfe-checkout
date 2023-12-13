@@ -105,7 +105,9 @@
         "notRequired": "This order does not require payment",
         "amountZero": "The total amount of the order is zero, you can place the order as it is right now",
         "saveToWallet": "Save new card on your wallet",
-        "expires": "Expires"
+        "expires": "Expires",
+        "subscriptionWithoutCustomer": "An account must be created in order to purchase your subscription.",
+        "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms."
     },
 
     "addressForm" : {
