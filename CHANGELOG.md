@@ -1,3 +1,16 @@
+# [4.4.0](https://github.com/commercelayer/mfe-checkout/compare/v4.3.2...v4.4.0) (2023-12-13)
+
+
+### Bug Fixes
+
+* remove `return to cart` link on thank you page ([fd600d0](https://github.com/commercelayer/mfe-checkout/commit/fd600d0d5580a7ebce8f92e1477040b7d31e194c))
+
+
+### Features
+
+* improve subscriptions support during checkout flow ([6322538](https://github.com/commercelayer/mfe-checkout/commit/63225389255781421958413956e315621ec22054))
+* save payment details if a customer is paying a failing order originated by an order subscription ([6c25e9b](https://github.com/commercelayer/mfe-checkout/commit/6c25e9bd30159866c6c9a5a20fcec20ba8d2922b))
+
 ## [4.3.2](https://github.com/commercelayer/mfe-checkout/compare/v4.3.1...v4.3.2) (2023-11-21)
 
 
