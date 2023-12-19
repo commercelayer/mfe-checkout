@@ -13,8 +13,8 @@ overrides:
 
 dependencies:
   '@commercelayer/react-components':
-    specifier: ^4.7.11
-    version: 4.7.11(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^4.8.2
+    version: 4.8.2(react-dom@18.2.0)(react@18.2.0)
   '@commercelayer/sdk':
     specifier: 5.21.1
     version: 5.21.1
@@ -562,8 +562,8 @@ packages:
     dev: true
     optional: true
 
-  /@commercelayer/react-components@4.7.11(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Jf7DMV13euAVfn1qvTWeiLpqAcJl3L3E2TRGy0C8Hd0m0JpoEsmR0xyxkBhWrWAi1U4xF7PAS6Oho0+3P+Jbuw==}
+  /@commercelayer/react-components@4.8.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-rdFRjYDazV8GCDNMnKCsACtEv93tFu7S+3IBZs8hsV4dSgWJp2Fgwo7X1HFshbA3sKocQF4QLdPnk0O83T3SPg==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
