@@ -1,3 +1,10 @@
+## [4.4.1](https://github.com/commercelayer/mfe-checkout/compare/v4.4.0...v4.4.1) (2023-12-21)
+
+
+### Bug Fixes
+
+* improve check for `subscription_created_at` attribute ([c5ebb05](https://github.com/commercelayer/mfe-checkout/commit/c5ebb055a0c1cac191518df923bb4d3445875c35))
+
 # [4.4.0](https://github.com/commercelayer/mfe-checkout/compare/v4.3.2...v4.4.0) (2023-12-13)
 
 
