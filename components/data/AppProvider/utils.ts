@@ -338,7 +338,8 @@ export function calculateSettings(
     order.line_items?.some((item) => {
       return item.frequency && item.frequency?.length > 0
     }) ||
-    order.subscription_created_at !== null ||
+    (order.subscription_created_at !== undefined &&
+      order.subscription_created_at !== null) ||
     false
 
   if (hasSubscriptions && !isGuest) {
