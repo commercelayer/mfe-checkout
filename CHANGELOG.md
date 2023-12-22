@@ -1,3 +1,11 @@
+## [4.4.2](https://github.com/commercelayer/mfe-checkout/compare/v4.4.1...v4.4.2) (2023-12-22)
+
+
+### Bug Fixes
+
+* display stock transfer on shipment section ([b4309d9](https://github.com/commercelayer/mfe-checkout/commit/b4309d9a6cafa63832b2cdf24aa48b6a5a207f85))
+* prevent saving a customer payment source if already saved when a subscription is present ([771f253](https://github.com/commercelayer/mfe-checkout/commit/771f253d631fa6ee80a05bcf0130f960c83cfdc8))
+
 ## [4.4.1](https://github.com/commercelayer/mfe-checkout/compare/v4.4.0...v4.4.1) (2023-12-21)
 
 
