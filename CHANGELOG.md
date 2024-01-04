@@ -1,3 +1,10 @@
+## [4.4.3](https://github.com/commercelayer/mfe-checkout/compare/v4.4.2...v4.4.3) (2024-01-04)
+
+
+### Bug Fixes
+
+* avoid saving a customer payment source on order with subscription ([99e6872](https://github.com/commercelayer/mfe-checkout/commit/99e68720bf0760a21038e6e98397e1d41caf713e))
+
 ## [4.4.2](https://github.com/commercelayer/mfe-checkout/compare/v4.4.1...v4.4.2) (2023-12-22)
 
 
