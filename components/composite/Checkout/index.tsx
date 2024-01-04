@@ -37,7 +37,7 @@ import { Logo } from "components/ui/Logo"
 interface Props {
   logoUrl: NullableType<string>
   primaryColor: string
-  orderNumber: number
+  orderNumber: number | string
   companyName: string
   supportEmail: NullableType<string>
   supportPhone: NullableType<string>

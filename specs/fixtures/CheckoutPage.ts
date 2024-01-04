@@ -244,6 +244,12 @@ export class CheckoutPage {
     await this.page.getByTestId("customer-card").click()
   }
 
+  async checkCustomerCardCount(value: number) {
+    const element = this.page.getByTestId("customer-card")
+    await this.page.waitForTimeout(2000)
+    await expect(element).toHaveCount(value)
+  }
+
   async checkShipToDifferentAddressEnabled(value: boolean) {
     const element = this.page.locator(
       "[data-testid=button-ship-to-different-address]"

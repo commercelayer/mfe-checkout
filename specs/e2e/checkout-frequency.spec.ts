@@ -114,6 +114,8 @@ test.describe("Customer checking out a subscription", () => {
       )
     ).toBeVisible()
 
+    await checkoutPage.checkCustomerCardCount(0)
+
     await checkoutPage.setPayment("stripe")
 
     await checkoutPage.save("Payment")
@@ -139,6 +141,8 @@ test.describe("Customer checking out a subscription", () => {
 
     await checkoutPage.page.waitForTimeout(1000)
 
+    await checkoutPage.checkCustomerCardCount(1)
+
     await checkoutPage.useCustomerCard()
 
     await checkoutPage.page.waitForTimeout(2000)
@@ -147,5 +151,29 @@ test.describe("Customer checking out a subscription", () => {
     await checkoutPage.page.waitForTimeout(2000)
 
     await checkoutPage.save("Payment")
+  })
+
+  test("Avoid saving a customer payment source on order subscription", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(euAddress)
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.page.waitForTimeout(1000)
+
+    await checkoutPage.checkCustomerCardCount(1)
   })
 })

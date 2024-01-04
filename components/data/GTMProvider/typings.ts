@@ -13,7 +13,7 @@ export interface EcommerceProps {
   items?: (DataLayerItemProps | undefined)[]
   value?: NullableType<number>
   shipping_tier?: NullableType<string>
-  transaction_id?: NullableType<number>
+  transaction_id?: NullableType<string | number>
   payment_type?: NullableType<string>
   tax?: NullableType<number>
 }
