@@ -39,6 +39,19 @@ export const euAddress3: Partial<Address> = {
   billing_info: "00CDEFGHIJKLMNOPQRSTUVWYXZ",
 }
 
+export const euAddress4: Partial<Address> = {
+  first_name: "John",
+  last_name: "Doe",
+  line_1: "Avenue de Paris 10",
+  line_2: "",
+  city: "Paris",
+  country_code: "FR",
+  state_code: "PR",
+  zip_code: "31000",
+  phone: "+33 022 320132010",
+  billing_info: "BMNDFT32F12D123W",
+}
+
 export const usAddress: Partial<Address> = {
   first_name: "Tim",
   last_name: "Cook",
@@ -51,15 +64,15 @@ export const usAddress: Partial<Address> = {
 }
 
 export const deAddress: Partial<Address> = {
-  first_name: "Steve",
-  last_name: "Jobs",
-  line_1: "Nürnberger Str. 24A",
-  city: "Berlin",
+  first_name: "Tim",
+  last_name: "Cook",
+  line_1: "Berlinstrasse Str. 23",
+  city: "Munich",
   country_code: "DE",
-  state_code: "Berlin",
-  zip_code: "10789",
-  phone: "+49 30 56839568",
-  billing_info: "00CDEFGHIJKLMNOPQRSTUVWYXZ",
+  state_code: "Munich",
+  zip_code: "80336",
+  phone: "+49 89 242078610",
+  billing_info: "MSNREW78D12D612W",
 }
 
 export function composeForCheck(address: Partial<Address>) {
