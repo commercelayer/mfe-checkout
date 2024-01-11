@@ -1,3 +1,10 @@
+## [4.5.1](https://github.com/commercelayer/mfe-checkout/compare/v4.5.0...v4.5.1) (2024-01-11)
+
+
+### Bug Fixes
+
+* adjust klarna test ([c985806](https://github.com/commercelayer/mfe-checkout/commit/c9858069456753838881114b409115e3c5dd2d0d))
+
 # [4.5.0](https://github.com/commercelayer/mfe-checkout/compare/v4.4.3...v4.5.0) (2024-01-11)
 
 
