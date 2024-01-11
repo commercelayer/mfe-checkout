@@ -700,6 +700,15 @@ export class CheckoutPage {
       case "klarna": {
         const [newPage] = await Promise.all([this.page.waitForEvent("popup")])
         await newPage.locator("#onContinue").click()
+        const phone = newPage.getByTestId("kaf-field")
+
+        if (await phone.isVisible()) {
+          await phone.focus()
+          await this.page.waitForTimeout(2000)
+          await phone.fill("+393282243727")
+          await newPage.getByTestId("kaf-button").click()
+        }
+
         await newPage.locator("#otp_field__container input").fill("123456")
         await newPage.getByTestId("select-payment-category").click()
         await newPage.getByTestId("pick-plan").click()
