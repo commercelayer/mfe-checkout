@@ -87,6 +87,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
     isUsingNewShippingAddress
   )
 
+  const [isBusiness, setIsBusiness] = useState(!!billingAddress?.company)
+
   useEffect(() => {
     if (shipToDifferentAddress && !hasCustomerAddresses) {
       // If billing and shipping are equivalent, show form but reset it
@@ -149,7 +151,10 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   return (
     <Fragment>
       <AddressSectionEmail readonly emailAddress={emailAddress as string} />
-      <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
+      <AddressesContainer
+        shipToDifferentAddress={shipToDifferentAddress}
+        isBusiness={isBusiness}
+      >
         <AddressSectionTitle data-testid="billing-address">
           <>{t(`addressForm.billing_address_title`)}</>
         </AddressSectionTitle>
@@ -198,6 +203,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                     <BillingAddressFormNew
                       billingAddress={billingAddressFill}
                       openShippingAddress={openShippingAddress}
+                      isBusiness={isBusiness}
+                      toggleIsBusiness={() => setIsBusiness(!isBusiness)}
                     />
                     <AddressFormBottom
                       addressType="billing"
