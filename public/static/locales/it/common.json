@@ -113,9 +113,11 @@
 
     "addressForm" : {
         "customer_email" : "La tua email",
+        "toggle_company_address": "Sono un'Azienda",
         "billing_address_title": "Indirizzo di fatturazione",
         "billing_address_first_name": "Nome",
         "billing_address_last_name": "Cognome",
+        "billing_address_company": "Ragione sociale",
         "billing_address_line_1": "Indirizzo",
         "billing_address_line_2": "Presso",
         "billing_address_city": "Città",
