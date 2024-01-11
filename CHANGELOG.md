@@ -1,3 +1,10 @@
+# [4.5.0](https://github.com/commercelayer/mfe-checkout/compare/v4.4.3...v4.5.0) (2024-01-11)
+
+
+### Features
+
+* add Polish support and translations ([c05bfc9](https://github.com/commercelayer/mfe-checkout/commit/c05bfc923481f0b9f4ccae2caf255d969ff34d1d))
+
 ## [4.4.3](https://github.com/commercelayer/mfe-checkout/compare/v4.4.2...v4.4.3) (2024-01-04)
 
 
