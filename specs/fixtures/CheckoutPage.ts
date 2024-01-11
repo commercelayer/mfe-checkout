@@ -766,7 +766,7 @@ export class CheckoutPage {
               .waitFor({ state: "visible" })
 
             await klarnaIframe.getByTestId("kaf-field").focus()
-            await klarnaIframe.getByTestId("kaf-field").fill("33312312325")
+            await klarnaIframe.getByTestId("kaf-field").fill("+491711234567")
 
             await klarnaIframe.getByTestId("kaf-button").click()
             await klarnaIframe.locator("input#otp_field").focus()
@@ -818,7 +818,7 @@ export class CheckoutPage {
               .waitFor({ state: "visible" })
 
             await klarnaIframe.getByTestId("kaf-field").focus()
-            await klarnaIframe.getByTestId("kaf-field").fill("33312312325")
+            await klarnaIframe.getByTestId("kaf-field").fill("+491711234567")
 
             await klarnaIframe.getByTestId("kaf-button").click()
             await klarnaIframe.locator("input#otp_field").focus()
@@ -848,19 +848,18 @@ export class CheckoutPage {
                 .waitFor({ state: "visible" })
 
               await klarnaIframe.getByTestId("kaf-field").focus()
-              await klarnaIframe.getByTestId("kaf-field").fill("33312312325")
+              await klarnaIframe.getByTestId("kaf-field").fill("0733211231")
 
               await klarnaIframe.getByTestId("kaf-button").click()
               await klarnaIframe.locator("input#otp_field").focus()
               await klarnaIframe.locator("input#otp_field").type("123456")
-              await this.page.waitForTimeout(2000)
-
+              await this.page.waitForTimeout(5000)
               const confirm = klarnaIframe.locator(
                 "[data-testid=confirm-and-pay]"
               )
 
               if (await confirm.isVisible()) {
-                confirm.click()
+                await confirm.click()
               }
 
               const popup = await klarnaIframe.locator(
@@ -887,7 +886,7 @@ export class CheckoutPage {
                 .waitFor({ state: "visible" })
 
               await klarnaIframe.getByTestId("kaf-field").focus()
-              await klarnaIframe.getByTestId("kaf-field").fill("33312312325")
+              await klarnaIframe.getByTestId("kaf-field").fill("+491711234567")
 
               await klarnaIframe.getByTestId("kaf-button").click()
               await klarnaIframe.locator("input#otp_field").focus()
