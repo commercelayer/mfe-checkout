@@ -1,3 +1,10 @@
+## [4.5.2](https://github.com/commercelayer/mfe-checkout/compare/v4.5.1...v4.5.2) (2024-01-19)
+
+
+### Bug Fixes
+
+* redirect to thank you page skipping errors if order is in a `placed` status ([c3072ea](https://github.com/commercelayer/mfe-checkout/commit/c3072eabe4b10ae8ea0af02a12711a5c1d9e0acd))
+
 ## [4.5.1](https://github.com/commercelayer/mfe-checkout/compare/v4.5.0...v4.5.1) (2024-01-11)
 
 
