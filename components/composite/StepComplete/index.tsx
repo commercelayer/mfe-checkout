@@ -43,7 +43,7 @@ interface Props {
   companyName: string
   supportEmail: NullableType<string>
   supportPhone: NullableType<string>
-  orderNumber: number | string
+  orderNumber: string
 }
 
 export const StepComplete: React.FC<Props> = ({
