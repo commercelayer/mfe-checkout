@@ -1,3 +1,10 @@
+## [4.5.3](https://github.com/commercelayer/mfe-checkout/compare/v4.5.2...v4.5.3) (2024-02-12)
+
+
+### Bug Fixes
+
+* remove empty div for `Errors` component when no errors to display ([aca3f2b](https://github.com/commercelayer/mfe-checkout/commit/aca3f2bbfcbf87c187ab34dc8b62467c8fde4c0d))
+
 ## [4.5.2](https://github.com/commercelayer/mfe-checkout/compare/v4.5.1...v4.5.2) (2024-01-19)
 
 
