@@ -240,7 +240,7 @@ export const getSettings = async ({
     isGuest: !!isGuest,
     domain,
     slug,
-    orderNumber: order.number || 0,
+    orderNumber: order.number || "",
     orderId: order.id,
     isShipmentRequired,
     validCheckout: true,

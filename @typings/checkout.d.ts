@@ -10,7 +10,7 @@ interface HSLProps {
 interface CheckoutSettings {
   accessToken: string
   orderId: string
-  orderNumber: number | string
+  orderNumber: string
   validCheckout: true
   isGuest: boolean
   isShipmentRequired: boolean

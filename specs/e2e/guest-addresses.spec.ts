@@ -420,7 +420,7 @@ test.describe("email error validation", () => {
       .locator("[data-testid=customer_email_error] >> text=Can't be blank")
       .waitFor({ state: "visible" })
     element = checkoutPage.page.locator("[data-testid=discount-error]")
-    await expect(element).toBeEmpty()
+    await expect(element).toHaveCount(0)
   })
 
   test("email invalid format", async ({ checkoutPage }) => {
@@ -435,7 +435,7 @@ test.describe("email error validation", () => {
     await checkoutPage.blurCustomerEmail()
 
     element = checkoutPage.page.locator("[data-testid=discount-error]")
-    await expect(element).toBeEmpty()
+    await expect(element).toHaveCount(0)
 
     await checkoutPage.page
       .locator(
@@ -463,5 +463,30 @@ test.describe("email error validation", () => {
     await checkoutPage.checkButton({ type: "Customer", status: "disabled" })
     await checkoutPage.page.reload()
     await checkoutPage.checkCustomerEmail("john@gmail.com")
+  })
+
+  test("keep error with multiple errors", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    let element = checkoutPage.page.locator("[data-testid=discount-error]")
+    await expect(element).toHaveCount(0)
+    await checkoutPage.setCustomerMail(customerEmail)
+    await checkoutPage.blurCustomerEmail()
+    await expect(element).toHaveCount(0)
+
+    await checkoutPage.setCustomerMail("john")
+    await checkoutPage.blurCustomerEmail()
+    await checkoutPage.setCustomerMail("john")
+    await checkoutPage.blurCustomerEmail()
+
+    await checkoutPage.page.waitForTimeout(3000)
+
+    element = checkoutPage.page.locator("[data-testid=discount-error]")
+    await expect(element).toHaveCount(0)
+
+    await checkoutPage.page
+      .locator(
+        "[data-testid=customer_email_error] >> text=Please enter a valid email"
+      )
+      .waitFor({ state: "visible" })
   })
 })

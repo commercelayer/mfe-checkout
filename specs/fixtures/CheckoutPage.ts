@@ -921,8 +921,7 @@ export class CheckoutPage {
               await klarnaIframe
                 .locator("label")
                 .filter({
-                  hasText:
-                    "Ich habe die vorvertraglichen Informationen gelesen und bestätige, dass ich den Kreditvertrag abschließen möchte.",
+                  hasText: "Indem du fortfährst, bestätigst du, dass du den",
                 })
                 .locator("div")
                 .nth(1)
