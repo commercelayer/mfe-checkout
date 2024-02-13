@@ -1,3 +1,10 @@
+## [4.5.4](https://github.com/commercelayer/mfe-checkout/compare/v4.5.3...v4.5.4) (2024-02-13)
+
+
+### Performance Improvements
+
+* add audit step to ci and update deps ([6f02e2c](https://github.com/commercelayer/mfe-checkout/commit/6f02e2cc3093ce719800035f2fa525c4839ded47))
+
 ## [4.5.3](https://github.com/commercelayer/mfe-checkout/compare/v4.5.2...v4.5.3) (2024-02-12)
 
 
