@@ -1,3 +1,10 @@
+# [4.6.0](https://github.com/commercelayer/mfe-checkout/compare/v4.5.4...v4.6.0) (2024-02-16)
+
+
+### Features
+
+* add Spanish support and translations ([39d91f5](https://github.com/commercelayer/mfe-checkout/commit/39d91f548b15002dc86871b3daadb91e81aa0bb7))
+
 ## [4.5.4](https://github.com/commercelayer/mfe-checkout/compare/v4.5.3...v4.5.4) (2024-02-13)
 
 
