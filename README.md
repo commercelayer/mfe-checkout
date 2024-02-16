@@ -167,7 +167,7 @@ Here is where customers select a payment method and place the order.
 
 > When using PayPal via Adyen please make sure to properly [set up third-party access](https://docs.adyen.com/payment-methods/paypal/web-drop-in#grant-api-access) on your PayPal first.
 
-> Only `v68` of Adyen Payment API is supported by the Checkout application. Make sure that your Adyen payment gateway is configured properly on Commerce Layer.
+> Adyen Payments API supported by the Checkout application are from `v68` to `v71`. Make sure that your Adyen payment gateway is configured properly on Commerce Layer.
 
 #### Logged customers
 
@@ -196,6 +196,8 @@ The Checkout application language is set by the `language_code` attribute of the
 - English
 - Italian
 - German
+- Polish
+- Spanish
 
 > The fallback language is English.
 
