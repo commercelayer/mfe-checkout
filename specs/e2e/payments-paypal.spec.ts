@@ -40,3 +40,34 @@ test.describe("guest with Paypal", () => {
     await checkoutPage.checkPaymentRecap("PayPal")
   })
 })
+
+test.describe("digital products with Paypal", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  test.use({
+    defaultParams: {
+      order: "digital",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("Checkout order", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress()
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "not_present")
+
+    await checkoutPage.setPayment("paypal")
+
+    await checkoutPage.save("Payment", "Paga con PayPal")
+
+    await checkoutPage.checkPaymentRecap("PayPal")
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("PayPal")
+  })
+})

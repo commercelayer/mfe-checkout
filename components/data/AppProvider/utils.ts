@@ -154,10 +154,10 @@ export async function checkAndSetDefaultAddressForOrder({
 
   // Set reference on original address if not present
   // doing this we can lookup the cloned address for the same entity
-  if (address.id && address.reference !== address.id) {
+  if (address.id && address.reference !== customerAddresses[0].id) {
     await cl.addresses.update({
       id: address.id,
-      reference: address.id,
+      reference: customerAddresses[0].id,
     })
   }
 
@@ -186,7 +186,7 @@ export async function checkAndSetDefaultAddressForOrder({
       customerAddresses: [
         {
           ...customerAddresses[0],
-          address: { ...address, reference: address.id },
+          address: { ...address, reference: customerAddresses[0].id },
         },
       ],
       hasSameAddresses: true,
