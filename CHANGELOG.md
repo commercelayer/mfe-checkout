@@ -1,3 +1,10 @@
+## [4.6.1](https://github.com/commercelayer/mfe-checkout/compare/v4.6.0...v4.6.1) (2024-02-20)
+
+
+### Bug Fixes
+
+* use customer address in address reference ([4e23a90](https://github.com/commercelayer/mfe-checkout/commit/4e23a908f2c098f0f44ff0f020971af6617073bf))
+
 # [4.6.0](https://github.com/commercelayer/mfe-checkout/compare/v4.5.4...v4.6.0) (2024-02-16)
 
 
