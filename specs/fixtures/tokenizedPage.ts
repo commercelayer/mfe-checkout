@@ -310,15 +310,16 @@ const getOrder = async (
           const a = await customerCl.addresses.create({
             ...address,
           } as AddressCreate)
-          await customerCl.addresses.update({
-            id: a.id,
-            reference: a.id,
-          })
           // @ts-expect-error sdf
-          return customerCl.customer_addresses.create({
+          const ca = await customerCl.customer_addresses.create({
             customer: customerCl.customers.relationship(id),
             address: customerCl.addresses.relationship(a),
           })
+          await customerCl.addresses.update({
+            id: a.id,
+            reference: ca.id,
+          })
+          return ca
         })
         await Promise.all(promises)
       }
