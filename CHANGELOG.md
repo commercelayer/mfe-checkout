@@ -1,3 +1,15 @@
+## [4.6.2](https://github.com/commercelayer/mfe-checkout/compare/v4.6.1...v4.6.2) (2024-03-05)
+
+
+### Bug Fixes
+
+* prevent changing payment source while placing order ([e162386](https://github.com/commercelayer/mfe-checkout/commit/e162386fd03fb2e5395510ef89251b9fa29a3194))
+
+
+### Performance Improvements
+
+* update all dependencies ([deba076](https://github.com/commercelayer/mfe-checkout/commit/deba0766b1543e1acd6ae245edbcc2f2ec6e42d3))
+
 ## [4.6.1](https://github.com/commercelayer/mfe-checkout/compare/v4.6.0...v4.6.1) (2024-02-20)
 
 
