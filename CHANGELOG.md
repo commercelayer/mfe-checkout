@@ -1,3 +1,11 @@
+# [4.7.0](https://github.com/commercelayer/mfe-checkout/compare/v4.6.2...v4.7.0) (2024-03-08)
+
+
+### Features
+
+* add French translations ([f4de671](https://github.com/commercelayer/mfe-checkout/commit/f4de6713bc938c1a28c66adcfe398949953b0257))
+* enhance order subscription payment source amend ([cb67d11](https://github.com/commercelayer/mfe-checkout/commit/cb67d116bbca3e09e058556f6689f8e304b24f06))
+
 ## [4.6.2](https://github.com/commercelayer/mfe-checkout/compare/v4.6.1...v4.6.2) (2024-03-05)
 
 
