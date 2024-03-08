@@ -1,0 +1,160 @@
+{
+    
+    "general": {
+        "title": "{{companyName}} - Commande",
+        "systemError": "Nous sommes désolés, mais il y a eu un problème.",
+        "retry_error_code": "Problème de connexion",
+        "retry_error_description": "Essayez de recharger la page",
+        "invalid": "Cette commande n’est pas accessible.",
+        "edit": "Éditer",
+        "free" : "Gratuit",
+        "apply": "Appliquer",
+        "privacy_and_terms": "En cliquant sur la case à cocher, vous acceptez <bold><termsUrl>les conditions générales de ventes</termsUrl></bold> et <bold><privacyUrl>la politique de confidentialité des données personnelles</privacyUrl></bold>.",
+        "checkoutTitle": "Commande"
+    },
+
+    "error": {
+        "general": "Erreur système",
+        "shipments": "Certains envois ne comportent pas de méthode d’expédition",
+        "paymentMethod": "Le paiement échelonné ne peut pas être vide",
+        "transition": "La transition n’est pas autorisée",
+        "payer": "Le payeur n’a pas approuvé le paiement",
+        "resourceID": "L’identifiant de la ressource demandée n’a pas été trouvé"
+    },
+
+    "input":{
+        "cantBlank": "Ne peut pas être vide",
+        "mustBeValidFormat": "Format non valide",
+        "mustBeValidEmail": "Veuillez saisir une adressse de courriel valide",
+        "mustBeValidCouponOrGiftCard": "Veuillez saisir une carte cadeau ou un bon de réduction valide",
+        "mustBeValidCoupon": "Veuillez saisir un bon de réduction valide.",
+        "mustBeValidGiftCard": "Veuillez saisir une carte cadeau valide"
+    },
+
+    "orderRecap": {
+        "order_summary": "Résumé de la commande",
+        "cartContains": "Votre panier contient {{count}} article",
+        "cartContains_other": "Votre panier contient {{count}} articles",
+        "coupon_code": "Code promotionel",
+        "gift_card_code": "Code carte cadeau",
+        "gift_card_or_coupon_code": "Carte cadeau ou code promo",
+        "quantity": "Quantité : {{count}}",
+        "quantity_other": "Quantité : {{count}}",
+        "quantity_stock": "Quantité : <0/>",
+        "discount_amount": "Réduction",
+        "adjustment_amount": "Total des régularisations",
+        "giftcard_amount": "Carte cadeau",
+        "tax_amount": "Taxes",
+        "tax_included_amount": "Taxes <style>comprises</style>",
+        "shipping_amount": "Livraison",
+        "payment_method_amount": "Mode de paiement",
+        "subtotal_amount": "Sous-total",
+        "total_amount": "Total",
+        "notSet": "À calculer",
+        "returnToCart": "Retour au panier",
+        "frequency.hourly": "Chaque heure",
+        "frequency.daily": "Chaque jour",
+        "frequency.weekly": "Chaque semaine",
+        "frequency.monthly": "Chaque mois",
+        "frequency.two-months": "Tous les deux mois",
+        "frequency.two-month": "Tous les deux mois",
+        "frequency.three-months": "Tous les trois mois",
+        "frequency.three-month": "Tous les trois mois",
+        "frequency.four-months": "Tous les quatre mois",
+        "frequency.four-month": "Tous les quatre mois",
+        "frequency.six-months": "Tous les six mois",
+        "frequency.six-month": "Tous les six mois",
+        "frequency.yearly": "Chaque année"
+    },
+
+    "stepCustomer": {
+        "title": "Client",
+        "addNewAddress": "Ajouter une adresse",
+        "saveAddressBook": "Enregistrer cette adresse dans votre compte",
+        "continueToDelivery": "Poursuivre vers la livraison",
+        "notSet": "Remplir votre adresse de facturation/livraison",
+        "notSetNoDelivery": "Remplir votre adresse de facturation",
+        "closeForm": "Choisir cette adresse"
+    },
+
+    "stepShipping": {
+        "title": "Livraison",
+        "shipment": "Expédition <Wrap>{{current}} of {{total}}</Wrap>",
+        "notAvailable": "La destination indiquée est en dehors de notre zone de livraison. Veuillez modifier votre adresse de livraison ou nous contacter pour obtenir de l’aide.",
+        "outOfStock": "Un article de votre commande n’est plus disponible.",
+        "outOfStockWithCart": " Cliquer <WrapperStyle><Link>{{link}}</Link></WrapperStyle> pour éditer votre panier.",
+        "outOfStockLink": "ici",
+        "stockTransfer": "<0/> de <1/>  feront l’objet d’un transfert",
+        "methodSelected": "Votre commande contient {{count}} expédition",
+        "methodSelected_other": "Votre commande contient {{count}} expéditions",
+        "methodUnselected": "Choisir un mode de livraison",
+        "deliveryLeadTime" : "<0/> - <1/> jours",
+        "externalPrice": "À la prochaine étape",
+        "continueToPayment": "Poursuivre vers le paiement",
+        "notRequired": "Cette commande ne nécessite pas d’expédition"
+    },
+
+    "stepPayment": {
+        "title": "Paiement",
+        "methodUnselected": "Choisir un mode de paiement",
+        "creditCard": "Carte bancaire",
+        "wireTransfer": "Virement bancaire",
+        "wireTransferDescription": "Lors de la confirmation de la commande, vous recevrez des instructions pour effectuer le paiement.",
+        "paypalDescription": "Après avoir passé la commande, vous serez redirigé vers le site web de PayPal pour vous connecter et autoriser le paiement.",
+        "endingIn": "<0/> se terminant par <1/>",
+        "submit": "Passer commande",
+        "notRequired": "Cette commande ne nécessite pas de paiement",
+        "amountZero": "Le montant total de la commande est nul, vous pouvez passer la commande en l’état.",
+        "saveToWallet": "Enregistrez la nouvelle carte dans votre portefeuille",
+        "expires": "Expiration",
+        "subscriptionWithoutCustomer": "Un compte doit être créé pour pouvoir acheter par abonnement.",
+        "subscriptionWithCustomer": "En fournissant les informations relatives à votre carte, vous autorisez l’entreprise à débiter votre carte pour les paiements futurs, conformément à ses conditions."
+    },
+
+    "addressForm" : {
+        "customer_email" : "Votre courriel",
+        "billing_address_title": "Adresse de facturation",
+        "billing_address_first_name": "Prénom",
+        "billing_address_last_name": "Nom",
+        "billing_address_line_1": "Adresse ligne 1",
+        "billing_address_line_2": "Adresse ligne 2",
+        "billing_address_city": "Ville",
+        "billing_address_country_code_placeholder": "Choisir un pays",
+        "billing_address_country_code": "Pays",
+        "billing_address_state_code": "État/Province",
+        "billing_address_state_code_placeholder": "Choisir un État/Province",
+        "billing_address_zip_code": "Code postal",
+        "billing_address_phone": "Téléphone",
+        "billing_address_billing_info": "Informations de facturation",
+        "ship_to_different_address": "Livrer à une autre adresse",
+        "shipping_address_title": "Adresse de livraison",
+        "shipping_address_first_name": "Prénom",
+        "shipping_address_last_name": "Nom",
+        "shipping_address_line_1": "Adresse ligne 1",
+        "shipping_address_line_2": "Adresse ligne 2",
+        "shipping_address_city": "Ville",
+        "shipping_address_country_code": "Pays",
+        "shipping_address_country_code_placeholder": "Choisir un pays",
+        "shipping_address_state_code": "État/Province",
+        "shipping_address_state_code_placeholder": "Choisir un État/Province",
+        "shipping_address_zip_code": "Code postal",
+        "shipping_address_phone": "Téléphone"
+    },
+
+    "stepComplete": {
+        "title": "Merci pour votre commande !",
+        "description": "Numéro de commande : <WrapperOrderId>#{{orderNumber}}</WrapperOrderId>",
+        "continue": "Poursuivre ses achats",
+        "supportEmail": "Pour toute question, écrivez-nous à <br /><WrapperStyle><WrapperEmail>{{email}}</WrapperEmail></WrapperStyle>",
+        "supportPhone": "Pour toute question, appelez-nous au <br /><WrapperStyle><WrapperPhone>{{phone}}</WrapperPhone></WrapperStyle>",
+        "fullSupport": "Pour toute question, écrivez-nous à <br /><WrapperStyle><WrapperEmail>{{email}}</WrapperEmail></WrapperStyle> au appelez-nous au <WrapperStyle><WrapperPhone>{{phone}}</WrapperPhone></WrapperStyle>",
+        "ship_to": "Livré à :",
+        "billed_to": "Facturé à :",
+        "payment": "Mode de paiement :",
+        "summary_title": "Récapitulatif",
+        "customer_title": "Client",
+        "email": "Courriel :",
+        "free_payment": "Cette commande ne nécessite pas de paiement"
+    }
+
+}
