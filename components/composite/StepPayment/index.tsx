@@ -110,7 +110,7 @@ export const StepPayment: React.FC = () => {
     }
   }, [autoSelected, hasMultiplePaymentMethods])
 
-  const { isGuest, isPaymentRequired, setPayment } = appCtx
+  const { isGuest, isPaymentRequired, setPayment, hasSubscriptions } = appCtx
 
   const selectPayment: THandleClick = ({ payment, paymentSource }) => {
     if (paymentSource?.payment_methods?.paymentMethods?.length > 1) {
@@ -147,7 +147,7 @@ export const StepPayment: React.FC = () => {
                       selectPayment={selectPayment}
                       autoSelectCallback={autoSelectCallback}
                       hasTitle={hasTitle}
-                      hasSubscriptions={appCtx.hasSubscriptions}
+                      hasSubscriptions={hasSubscriptions}
                     />
                   </>
                 )

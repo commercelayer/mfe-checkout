@@ -257,6 +257,7 @@ export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
         "requires_billing_info",
         "total_amount_with_taxes_float",
         "language_code",
+        "subscription_created_at",
         "shipping_address",
         "billing_address",
         "shipments",
