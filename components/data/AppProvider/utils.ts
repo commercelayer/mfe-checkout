@@ -269,7 +269,17 @@ export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
       shipments: ["shipping_method", "available_shipping_methods"],
       customer: ["customer_addresses"],
       customer_addresses: ["address"],
-      line_items: ["frequency"],
+      line_items: [
+        "frequency",
+        // Start fields for GTM
+        "sku_code",
+        "bundle_code",
+        "name",
+        "total_amount_float",
+        "currency_code",
+        "item_type",
+        // End fields for GTM
+      ],
     },
     include: [
       "shipping_address",

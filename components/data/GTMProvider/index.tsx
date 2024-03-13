@@ -10,8 +10,8 @@ import { DataLayerItemProps, DataLayerProps } from "./typings"
 
 interface GTMProviderData {
   fireAddShippingInfo: (order: Order) => void
-  fireAddPaymentInfo: () => void
-  firePurchase: () => void
+  fireAddPaymentInfo: (order: Order) => void
+  firePurchase: (order: Order) => void
 }
 
 export const GTMContext = createContext<GTMProviderData | null>(null)
@@ -119,7 +119,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const fireAddPaymentInfo = () => {
+  const fireAddPaymentInfo = (order: Order) => {
     const lineItems = order?.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
@@ -138,7 +138,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const firePurchase = () => {
+  const firePurchase = (order: Order) => {
     const lineItems = order?.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
