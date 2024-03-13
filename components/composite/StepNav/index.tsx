@@ -38,8 +38,8 @@ export const StepNav: React.FC<Props> = ({
                   onStepChange(step)
                 }
               }}
-              isActive={isActive}
-              isLocked={isLocked}
+              $isActive={isActive}
+              $isLocked={isLocked}
             >
               {t(`step${step}.title`)}
               {step !== "Payment" && (
