@@ -8,6 +8,7 @@ import retry from "async-retry"
 import { jwtDecode } from "jwt-decode"
 
 import { TypeAccepted } from "components/data/AppProvider/utils"
+import { getConfig } from "components/utils/config"
 import {
   LINE_ITEMS_SHIPPABLE,
   LINE_ITEMS_SHOPPABLE,
@@ -23,6 +24,7 @@ interface JWTProps {
   owner?: {
     id: string
   }
+  market: { id: [string] }
   application: {
     kind: string
   }
@@ -86,6 +88,7 @@ function getOrganization(
           "gtm_id_test",
           "support_email",
           "support_phone",
+          "config",
         ],
       },
     })
@@ -122,11 +125,14 @@ function getTokenInfo(accessToken: string) {
     const {
       organization: { slug },
       application: { kind },
+      market: {
+        id: [marketId],
+      },
       owner,
       test,
     } = jwtDecode(accessToken) as JWTProps
 
-    return { slug, kind, isTest: test, isGuest: !owner }
+    return { slug, kind, isTest: test, isGuest: !owner, marketId }
   } catch (e) {
     console.log(`error decoding access token: ${e}`)
     return {}
@@ -161,7 +167,7 @@ export const getSettings = async ({
     return invalidateCheckout()
   }
 
-  const { slug, kind, isTest, isGuest } = getTokenInfo(accessToken)
+  const { slug, kind, isTest, isGuest, marketId } = getTokenInfo(accessToken)
 
   if (!slug) {
     return invalidateCheckout()
@@ -256,6 +262,12 @@ export const getSettings = async ({
     supportPhone: organization.support_phone,
     termsUrl: order.terms_url,
     privacyUrl: order.privacy_url,
+    // @ts-expect-error no config on sdk
+    config: getConfig(organization.config ?? {}, `market:id:${marketId}`, {
+      lang: order.language_code,
+      orderId: order.id,
+      accessToken,
+    }),
   }
 
   return appSettings

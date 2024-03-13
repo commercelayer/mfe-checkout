@@ -69,6 +69,7 @@ interface DefaultParamsProps {
     support_phone?: string
     support_email?: string
     gtm_id_test?: string
+    config?: { mfe: Configs }
   }
   orderAttributes?: {
     language_code?: "en" | "it"
@@ -542,11 +543,16 @@ export const test = base.extend<FixtureType>({
       : getToken(defaultParams.market))
     const cl = getClient(token)
     const { orderId, attributes } = await getOrder(cl, defaultParams)
-    const checkoutPage = new CheckoutPage(page, attributes)
     const id =
       defaultParams.orderId === undefined ? orderId : defaultParams.orderId
     const accessToken =
       defaultParams.token === undefined ? token : defaultParams.token
+
+    const checkoutPage = new CheckoutPage(page, {
+      ...attributes,
+      accessToken,
+      orderId: id,
+    })
 
     await checkoutPage.goto({
       orderId: id,

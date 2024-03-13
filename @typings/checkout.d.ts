@@ -7,6 +7,47 @@ interface HSLProps {
   l: string
 }
 
+interface LinkConfig {
+  cart?: string
+  checkout?: string
+  my_account?: string
+  identity?: string
+}
+
+interface Country {
+  value: string
+  label: string
+}
+
+interface StateConfig {
+  [countryCode: string]: Country[]
+}
+
+interface CheckoutConfig {
+  thankyou_page?: string
+  billing_countries?: Country[]
+  shipping_countries?: Country[]
+  billing_states?: StateConfig[]
+  shipping_states?: StateConfig[]
+  default_country?: string
+}
+
+interface UrlsConfig {
+  privacy: string
+  terms: string
+}
+
+interface DefaultConfig {
+  links?: LinkConfig
+  checkout?: CheckoutConfig
+  urls?: UrlsConfig
+}
+
+interface Configs {
+  default: DefaultConfig
+  [key: string]: Partial<DefaultConfig>
+}
+
 interface CheckoutSettings {
   accessToken: string
   orderId: string
@@ -27,6 +68,7 @@ interface CheckoutSettings {
   supportPhone: NullableType<string>
   termsUrl: NullableType<string>
   privacyUrl: NullableType<string>
+  config: NullableType<DefaultConfig>
 }
 
 interface InvalidCheckoutSettings {
