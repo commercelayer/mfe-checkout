@@ -199,6 +199,24 @@ If a customer's payment source has expired or been deleted, or if the order init
 
 The page is displayed on successful order placement and features a recap of the order in terms of SKUs, bundles, billing/shipping addresses, and payment information. It is possible to show some support references (phone and email) by setting the `support_phone` and `support_email` attributes of the order. If the order's `return_url` attribute is set a link to continue shopping will be displayed on the page as well.
 
+#### Custom thank you page URL
+
+It is possible to provide a custom thank you page URL at the organization level of the Provisioning API by setting the config attribute, as follows:
+
+```json
+{
+  "mfe": {
+    "default": {
+      "checkout": {
+        "thankyou_page": "https://example.com/thanks/:lang/:order_id"
+      }
+    }
+  }
+}
+```
+
+You can use `:lang`, `:order_id` and `:access_token` as parameters that will be replaced with the values used by the Checkout. The option can also be customized per market in scope. You can read more about the organization config [here](https://docs.commercelayer.io/provisioning/api-reference/organizations#micro-frontends-configuration).
+
 ### Supported languages
 
 The Checkout application language is set by the `language_code` attribute of the order. At the moment, languages supported out of the box are:

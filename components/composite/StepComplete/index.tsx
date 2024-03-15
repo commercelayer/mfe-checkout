@@ -2,7 +2,7 @@ import PaymentSource from "@commercelayer/react-components/payment_source/Paymen
 import PaymentSourceBrandIcon from "@commercelayer/react-components/payment_source/PaymentSourceBrandIcon"
 import PaymentSourceBrandName from "@commercelayer/react-components/payment_source/PaymentSourceBrandName"
 import PaymentSourceDetail from "@commercelayer/react-components/payment_source/PaymentSourceDetail"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { useTranslation, Trans } from "react-i18next"
 
 import { OrderSummary } from "components/composite/OrderSummary"
@@ -62,11 +62,13 @@ export const StepComplete: React.FC<Props> = ({
 
   const ctx = useContext(AppContext)
 
-  if (!ctx || !settings) return null
+  useEffect(() => {
+    if (thankyouPageUrl != null) {
+      window.location.href = thankyouPageUrl
+    }
+  }, [thankyouPageUrl])
 
-  if (thankyouPageUrl != null) {
-    window.location.href = thankyouPageUrl
-  }
+  if (!ctx || !settings) return null
 
   const handleClick = () => {
     ctx?.returnUrl && (document.location.href = ctx?.returnUrl)

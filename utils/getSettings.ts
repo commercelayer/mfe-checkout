@@ -1,3 +1,4 @@
+import { getConfig } from "@commercelayer/organization-config"
 import CommerceLayer, {
   CommerceLayerStatic,
   CommerceLayerClient,
@@ -8,7 +9,6 @@ import retry from "async-retry"
 import { jwtDecode } from "jwt-decode"
 
 import { TypeAccepted } from "components/data/AppProvider/utils"
-import { getConfig } from "components/utils/config"
 import {
   LINE_ITEMS_SHIPPABLE,
   LINE_ITEMS_SHOPPABLE,
@@ -262,11 +262,14 @@ export const getSettings = async ({
     supportPhone: organization.support_phone,
     termsUrl: order.terms_url,
     privacyUrl: order.privacy_url,
-    // @ts-expect-error no config on sdk
-    config: getConfig(organization.config ?? {}, `market:id:${marketId}`, {
-      lang: order.language_code,
-      orderId: order.id,
-      accessToken,
+    config: getConfig({
+      jsonConfig: organization.config ?? {},
+      market: `market:id:${marketId}`,
+      params: {
+        lang: order.language_code,
+        orderId: order.id,
+        accessToken,
+      },
     }),
   }
 

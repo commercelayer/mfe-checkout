@@ -1,3 +1,4 @@
+import { type Configs } from "@commercelayer/organization-config"
 import {
   CommerceLayer,
   CommerceLayerClient,
