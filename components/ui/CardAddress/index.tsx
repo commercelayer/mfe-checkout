@@ -5,16 +5,11 @@ interface Props {
   className?: string
   rounded?: boolean
   children?: ChildrenType
-  // address: string
-  // user: string
 }
 
-export const CardAddress: React.FC<Props> = ({
-  className,
-  // address,
-  // user,
-  children,
-}) => <Wrapper className={className}>{children}</Wrapper>
+export const CardAddress: React.FC<Props> = ({ className, children }) => (
+  <Wrapper className={className}>{children}</Wrapper>
+)
 
 interface WrapperProps {
   rounded?: boolean
