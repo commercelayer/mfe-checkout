@@ -1,3 +1,10 @@
+# [4.8.0](https://github.com/commercelayer/mfe-checkout/compare/v4.7.0...v4.8.0) (2024-03-20)
+
+
+### Features
+
+* use custom thank you page from organization config ([79fac55](https://github.com/commercelayer/mfe-checkout/commit/79fac55539ae09376ac2cc46df1fbfa77b152e32))
+
 # [4.7.0](https://github.com/commercelayer/mfe-checkout/compare/v4.6.2...v4.7.0) (2024-03-08)
 
 
