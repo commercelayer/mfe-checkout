@@ -113,9 +113,11 @@
 
   "addressForm" : {
       "customer_email" : "Twój adres e-mail",
+      "toggle_company_address": "Użyj nazwy firmy",
       "billing_address_title": "Adres",
       "billing_address_first_name": "Imię",
       "billing_address_last_name": "Nazwisko",
+      "billing_address_company": "Nazwa firmy",
       "billing_address_line_1": "Adres linijka 1",
       "billing_address_line_2": "Adres linijka 2",
       "billing_address_city": "Miasto",

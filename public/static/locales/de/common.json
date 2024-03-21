@@ -113,9 +113,11 @@
   
     "addressForm": {
         "customer_email": "Deine E-Mail-Adresse",
+        "toggle_company_address": "Firmenname verwenden",
         "billing_address_title": "Rechnungsadresse",
         "billing_address_first_name": "Vorname",
         "billing_address_last_name": "Nachname",
+        "billing_address_company": "Name des Unternehmens",
         "billing_address_line_1": "Straße + Hausnummer",
         "billing_address_line_2": "Weitere Adressangaben",
         "billing_address_city": "Stadt",

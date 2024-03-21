@@ -1,21 +1,28 @@
 import { Address } from "@commercelayer/sdk"
 import { useContext } from "react"
+import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
 
 import { ShippingToggleProps } from "components/composite/StepCustomer"
 import { AddressInputGroup } from "components/composite/StepCustomer/AddressInputGroup"
 import { AppContext } from "components/data/AppProvider"
+import { Toggle } from "components/ui/Toggle"
 
 interface Props {
   billingAddress: NullableType<Address>
   openShippingAddress: (props: ShippingToggleProps) => void
+  isBusiness?: boolean
+  toggleIsBusiness?: () => void
 }
 
 export const BillingAddressFormNew: React.FC<Props> = ({
   billingAddress,
   openShippingAddress,
+  isBusiness,
+  toggleIsBusiness,
 }: Props) => {
+  const { t } = useTranslation()
   const appCtx = useContext(AppContext)
 
   if (!appCtx) {
@@ -26,20 +33,38 @@ export const BillingAddressFormNew: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      <Grid>
+      {!isBusiness ? (
+        <Grid>
+          <AddressInputGroup
+            fieldName="billing_address_first_name"
+            resource="billing_address"
+            type="text"
+            value={billingAddress?.first_name || ""}
+          />
+          <AddressInputGroup
+            fieldName="billing_address_last_name"
+            resource="billing_address"
+            type="text"
+            value={billingAddress?.last_name || ""}
+          />
+        </Grid>
+      ) : (
         <AddressInputGroup
-          fieldName="billing_address_first_name"
+          fieldName="billing_address_company"
           resource="billing_address"
           type="text"
-          value={billingAddress?.first_name || ""}
+          value={billingAddress?.company || ""}
         />
-        <AddressInputGroup
-          fieldName="billing_address_last_name"
-          resource="billing_address"
-          type="text"
-          value={billingAddress?.last_name || ""}
-        />
-      </Grid>
+      )}
+      <Toggle
+        disabled={false}
+        data-testid="button-toggle-company-address"
+        data-status={!!isBusiness}
+        label={t(`addressForm.toggle_company_address`)}
+        checked={!!isBusiness}
+        onChange={() => toggleIsBusiness?.()}
+        wrapperClassName="!-mt-6 !border-t-0 border-b mb-5"
+      />
       <AddressInputGroup
         fieldName="billing_address_line_1"
         resource="billing_address"
