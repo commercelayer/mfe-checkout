@@ -272,7 +272,7 @@ const getOrder = async (
             ...address,
           } as AddressCreate)
           if (jwtIsSalesChannel(payload)) {
-            // @ts-expect-error sdf
+            // @ts-expect-error no customer_email needed
             const ca = await customerCl.customer_addresses.create({
               customer: customerCl.customers.relationship(
                 payload.owner?.id as string

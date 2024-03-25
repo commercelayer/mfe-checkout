@@ -41,9 +41,6 @@ dependencies:
   '@types/async-retry':
     specifier: 1.4.8
     version: 1.4.8
-  '@types/jsonwebtoken':
-    specifier: ^9.0.6
-    version: 9.0.6
   '@types/node':
     specifier: ^20.12.3
     version: 20.12.3
@@ -1396,12 +1393,6 @@ packages:
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
-
-  /@types/jsonwebtoken@9.0.6:
-    resolution: {integrity: sha512-/5hndP5dCjloafCXns6SZyESp3Ldq7YjH3zwzwczYnjxIT0Fqzk5ROSYVGfFyczIue7IUEj8hkvLbPoLQ18vQw==}
-    dependencies:
-      '@types/node': 20.12.3
-    dev: false
 
   /@types/node@20.12.3:
     resolution: {integrity: sha512-sD+ia2ubTeWrOu+YMF+MTAB7E+O7qsMqAbMfW7DG3K1URwhZ5hN1pLlRVGbf4wDFzSfikL05M17EyorS86jShw==}
