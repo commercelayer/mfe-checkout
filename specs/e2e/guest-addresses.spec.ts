@@ -571,11 +571,47 @@ test.describe("with custom countries for billing address", () => {
     },
   })
 
-  test("Checkout guest address", async ({ checkoutPage }) => {
+  test("Billing address override countries and default countries", async ({
+    checkoutPage,
+  }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Customer", "open")
 
-    // await checkoutPage.page.pause()
+    const countries = await checkoutPage.getSelectOptions({
+      type: "billing_address",
+      field: "country_code",
+    })
+
+    expect(countries).toStrictEqual(["", "ES", "FR", "IT", "US"])
+
+    const selected = await checkoutPage.getSelectedOption({
+      type: "billing_address",
+      field: "country_code",
+    })
+    expect(selected).toBe("FR")
+
+    let states = await checkoutPage.getSelectOptions({
+      type: "billing_address",
+      field: "state_code",
+    })
+
+    expect(states).toStrictEqual(["", "PA", "LY", "NI", "MA", "BO"])
+
+    await checkoutPage.selectCountry("billing_address", "IT")
+
+    states = await checkoutPage.getSelectOptions({
+      type: "billing_address",
+      field: "state_code",
+    })
+
+    expect(states).toStrictEqual(["", "FI", "PO", "LI"])
+
+    await checkoutPage.selectCountry("billing_address", "ES")
+    const empty = await checkoutPage.getSelectedOption({
+      type: "billing_address",
+      field: "state_code",
+    })
+    expect(empty).toBe("")
   })
 })
