@@ -1,3 +1,4 @@
+import { jwtDecode, jwtIsSalesChannel } from "@commercelayer/js-auth"
 import { type Configs } from "@commercelayer/organization-config"
 import {
   CommerceLayer,
@@ -8,7 +9,6 @@ import {
 import { test as base } from "@playwright/test"
 import dotenv from "dotenv"
 import jwt from "jsonwebtoken"
-import { jwtDecode } from "jwt-decode"
 
 import path from "path"
 
@@ -48,12 +48,6 @@ interface GiftCardProps {
   balance_cents?: number
   customer_email?: string
   apply?: boolean
-}
-
-interface JWTProps {
-  owner: {
-    id: string
-  }
 }
 
 interface DefaultParamsProps {
@@ -304,26 +298,29 @@ const getOrder = async (
           password: params.customer.password,
         })
         const customerCl = getClient(token)
-        const {
-          owner: { id },
-        } = jwtDecode(token) as JWTProps
+        const { payload } = jwtDecode(token)
 
-        const promises = params.customerAddresses.map(async (address) => {
-          const a = await customerCl.addresses.create({
-            ...address,
-          } as AddressCreate)
-          // @ts-expect-error sdf
-          const ca = await customerCl.customer_addresses.create({
-            customer: customerCl.customers.relationship(id),
-            address: customerCl.addresses.relationship(a),
+        if (jwtIsSalesChannel(payload) && payload.owner) {
+          const {
+            owner: { id },
+          } = payload
+          const promises = params.customerAddresses.map(async (address) => {
+            const a = await customerCl.addresses.create({
+              ...address,
+            } as AddressCreate)
+            // @ts-expect-error sdf
+            const ca = await customerCl.customer_addresses.create({
+              customer: customerCl.customers.relationship(id),
+              address: customerCl.addresses.relationship(a),
+            })
+            await customerCl.addresses.update({
+              id: a.id,
+              reference: ca.id,
+            })
+            return ca
           })
-          await customerCl.addresses.update({
-            id: a.id,
-            reference: ca.id,
-          })
-          return ca
-        })
-        await Promise.all(promises)
+          await Promise.all(promises)
+        }
       }
 
       break
