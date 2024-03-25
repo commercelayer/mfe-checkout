@@ -2,6 +2,10 @@ import AddressCountrySelector from "@commercelayer/react-components/addresses/Ad
 import AddressInput from "@commercelayer/react-components/addresses/AddressInput"
 import AddressStateSelector from "@commercelayer/react-components/addresses/AddressStateSelector"
 import { Errors } from "@commercelayer/react-components/errors/Errors"
+import {
+  Country,
+  States,
+} from "@commercelayer/react-components/lib/esm/utils/countryStateCity"
 import { ChangeEvent, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
@@ -31,6 +35,9 @@ interface Props {
   resource: TResource
   required?: boolean
   value?: string
+  countries?: Country[] | undefined
+  defaultCountry?: string
+  states?: States[]
   pattern?: React.ComponentProps<typeof AddressInput>["pattern"]
   openShippingAddress?: (props: ShippingToggleProps) => void
 }
@@ -41,11 +48,18 @@ export const AddressInputGroup: React.FC<Props> = ({
   required,
   type,
   pattern,
+  countries,
+  defaultCountry,
+  states,
   value,
   openShippingAddress,
 }) => {
   const { t } = useTranslation()
 
+  console.log(countries)
+  console.log(states)
+  console.log(defaultCountry)
+  console.log(value)
   const messages: TMessages = [
     {
       code: "VALIDATION_ERROR",
@@ -122,11 +136,14 @@ export const AddressInputGroup: React.FC<Props> = ({
               value: "",
             }}
             onChange={handleChange}
+            countries={countries}
             value={
               shippingCountryCodeLock &&
               fieldName === "shipping_address_country_code"
                 ? shippingCountryCodeLock
-                : value
+                : value === "" || value == null
+                  ? defaultCountry
+                  : value
             }
             disabled={Boolean(
               shippingCountryCodeLock &&
@@ -144,6 +161,8 @@ export const AddressInputGroup: React.FC<Props> = ({
             selectClassName="form-select"
             inputClassName="form-input"
             data-testid={`input_${fieldName}`}
+            // @ts-expect-error missing
+            states={states}
             name={fieldName}
             value={value}
           />

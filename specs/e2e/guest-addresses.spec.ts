@@ -490,3 +490,92 @@ test.describe("email error validation", () => {
       .waitFor({ state: "visible" })
   })
 })
+
+test.describe("with custom countries for billing address", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 2 },
+      ],
+      organization: {
+        config: {
+          mfe: {
+            default: {
+              checkout: {
+                billing_countries: [
+                  {
+                    value: "ES",
+                    label: "Espana",
+                  },
+                  {
+                    value: "FR",
+                    label: "France",
+                  },
+                  {
+                    value: "IT",
+                    label: "Italia",
+                  },
+                  {
+                    value: "US",
+                    label: "Unites States of America",
+                  },
+                ],
+                default_country: "FR",
+                billing_states: {
+                  FR: [
+                    {
+                      value: "PA",
+                      label: "Paris",
+                    },
+                    {
+                      value: "LY",
+                      label: "Lyon",
+                    },
+                    {
+                      value: "NI",
+                      label: "Nice",
+                    },
+                    {
+                      value: "MA",
+                      label: "Marseille",
+                    },
+                    {
+                      value: "BO",
+                      label: "Bordeaux",
+                    },
+                  ],
+                  IT: [
+                    {
+                      value: "FI",
+                      label: "Firenze",
+                    },
+                    {
+                      value: "PO",
+                      label: "Prato",
+                    },
+                    {
+                      value: "LI",
+                      label: "Livorno",
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      },
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("Checkout guest address", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    // await checkoutPage.page.pause()
+  })
+})
