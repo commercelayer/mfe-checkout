@@ -223,7 +223,7 @@ test.describe("customer with Adyen without saving", () => {
 
     await checkoutPage.selectPayment("adyen")
 
-    const element = await checkoutPage.page.getByTestId("payment-save-wallet")
+    const element = checkoutPage.page.getByTestId("payment-save-wallet")
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
 
@@ -272,11 +272,11 @@ test.describe("customer with Adyen with saving", () => {
 
     await checkoutPage.setPayment("adyen")
 
-    let element = await checkoutPage.page.getByTestId("payment-save-wallet")
+    let element = checkoutPage.page.getByTestId("payment-save-wallet")
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
     await element.check()
-    element = await checkoutPage.page.getByTestId("payment-save-wallet")
+    element = checkoutPage.page.getByTestId("payment-save-wallet")
     expect(element).toBeChecked()
 
     await checkoutPage.save("Payment")

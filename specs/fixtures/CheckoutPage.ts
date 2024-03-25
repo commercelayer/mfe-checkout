@@ -280,12 +280,46 @@ export class CheckoutPage {
 
   async selectCountry(
     type: "billing_address" | "shipping_address",
-    country: "IT" | "US" | "GB" | "FR"
+    country: "IT" | "US" | "GB" | "FR" | "ES"
   ) {
     await this.page.selectOption(
       `[data-testid=input_${type}_country_code]`,
       country
     )
+  }
+
+  async getSelectOptions({
+    type,
+    field,
+  }: {
+    type: "billing_address" | "shipping_address"
+    field: "country_code" | "state_code"
+  }) {
+    const selectElement = await this.page.$(
+      `[data-testid=input_${type}_${field}]`
+    )
+
+    if (selectElement != null) {
+      const options = await selectElement.$$("option")
+
+      const countries = []
+
+      for (const option of options) {
+        countries.push(option.getAttribute("value"))
+      }
+      return Promise.all(countries)
+    }
+  }
+
+  async getSelectedOption({
+    type,
+    field,
+  }: {
+    type: "billing_address" | "shipping_address"
+    field: "country_code" | "state_code"
+  }) {
+    const value = this.page.getByTestId(`input_${type}_${field}`)
+    return await value.inputValue()
   }
 
   async selectState(
@@ -342,9 +376,9 @@ export class CheckoutPage {
       `[data-testid=shipments-container] >> nth=${shipment} >> [data-testid=shipping-methods-container] >> nth=${index} >> input[type=radio]`
     )
     if (value) {
-      await expect(element).toBeTruthy()
+      expect(element).toBeTruthy()
     } else {
-      await expect(element).toBeFalsy()
+      expect(element).toBeFalsy()
     }
   }
 
