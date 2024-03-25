@@ -12,8 +12,8 @@ dependencies:
     specifier: ^1.4.2
     version: 1.4.2(eslint@8.57.0)(typescript@5.4.2)
   '@commercelayer/react-components':
-    specifier: ^4.12.0-beta.0
-    version: 4.12.0-beta.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^4.12.0-beta.1
+    version: 4.12.0-beta.1(react-dom@18.2.0)(react@18.2.0)
   '@commercelayer/sdk':
     specifier: ^5.35.0
     version: 5.35.0
@@ -570,8 +570,8 @@ packages:
       typescript: 5.4.2
     dev: false
 
-  /@commercelayer/react-components@4.12.0-beta.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-VsYQCMPevGHIBVfo0syZntbZduk47B+f0b+5Zt6SfucYp2kQtoPknqSmSQbUXAVYQzFCY7uEZhkf9MMLfAkt/A==}
+  /@commercelayer/react-components@4.12.0-beta.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-o1sesDZRdUqjD7zL8aXuPeuMP1t1JRUmKAsm24dzICPGqlqbSx2XHJDq0dDbm5/+yoXQwwAFAE3oZk7snPcTEA==}
     peerDependencies:
       react: '>=18.0.0'
     dependencies:
