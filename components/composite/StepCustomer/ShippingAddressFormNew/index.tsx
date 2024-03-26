@@ -15,8 +15,8 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
 }: Props) => {
   const { settings } = useSettingsOrInvalid()
 
-  const countries = settings?.config?.checkout?.billing_countries
-  const states = settings?.config?.checkout?.billing_states
+  const countries = settings?.config?.checkout?.shipping_countries
+  const states = settings?.config?.checkout?.shipping_states
   const defaultCountry = settings?.config?.checkout?.default_country
 
   return (
