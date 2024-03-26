@@ -56,10 +56,6 @@ export const AddressInputGroup: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
 
-  console.log(countries)
-  console.log(states)
-  console.log(defaultCountry)
-  console.log(value)
   const messages: TMessages = [
     {
       code: "VALIDATION_ERROR",

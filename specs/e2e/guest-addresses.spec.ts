@@ -615,3 +615,130 @@ test.describe("with custom countries for billing address", () => {
     expect(empty).toBe("")
   })
 })
+
+test.describe("with custom countries for billing address", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      organization: {
+        config: {
+          mfe: {
+            default: {
+              checkout: {
+                shipping_countries: [
+                  {
+                    value: "ES",
+                    label: "Espana",
+                  },
+                  {
+                    value: "FR",
+                    label: "France",
+                  },
+                  {
+                    value: "IT",
+                    label: "Italia",
+                  },
+                  {
+                    value: "US",
+                    label: "Unites States of America",
+                  },
+                ],
+                default_country: "FR",
+                shipping_states: {
+                  FR: [
+                    {
+                      value: "PA",
+                      label: "Paris",
+                    },
+                    {
+                      value: "LY",
+                      label: "Lyon",
+                    },
+                    {
+                      value: "NI",
+                      label: "Nice",
+                    },
+                    {
+                      value: "MA",
+                      label: "Marseille",
+                    },
+                    {
+                      value: "BO",
+                      label: "Bordeaux",
+                    },
+                  ],
+                  IT: [
+                    {
+                      value: "FI",
+                      label: "Firenze",
+                    },
+                    {
+                      value: "PO",
+                      label: "Prato",
+                    },
+                    {
+                      value: "LI",
+                      label: "Livorno",
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        },
+      },
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("Shipping address override countries and default countries", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    const countries = await checkoutPage.getSelectOptions({
+      type: "billing_address",
+      field: "country_code",
+    })
+
+    expect(countries?.join()).toContain("CH")
+
+    const selected = await checkoutPage.getSelectedOption({
+      type: "billing_address",
+      field: "country_code",
+    })
+    expect(selected).toBe("FR")
+
+    const states = await checkoutPage.getSelectOptions({
+      type: "billing_address",
+      field: "state_code",
+    })
+
+    expect(states).toStrictEqual([])
+
+    checkoutPage.shipToDifferentAddress()
+
+    // const selected2 = await checkoutPage.getSelectedOption({
+    //   type: "shipping_address",
+    //   field: "country_code",
+    // })
+    // await checkoutPage.page.pause()
+    // expect(selected2).toBe("FR")
+
+    // await checkoutPage.selectCountry("shipping_address", "IT")
+
+    // states = await checkoutPage.getSelectOptions({
+    //   type: "shipping_address",
+    //   field: "state_code",
+    // })
+
+    // expect(states).toStrictEqual(["", "FI", "PO", "LI"])
+  })
+})
