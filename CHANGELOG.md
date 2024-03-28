@@ -1,3 +1,10 @@
+## [4.8.1](https://github.com/commercelayer/mfe-checkout/compare/v4.8.0...v4.8.1) (2024-03-28)
+
+
+### Bug Fixes
+
+* use correct check on is new address form ([cb30d39](https://github.com/commercelayer/mfe-checkout/commit/cb30d39f57bac06d73d538522d1f6b13fee61bab))
+
 # [4.8.0](https://github.com/commercelayer/mfe-checkout/compare/v4.7.0...v4.8.0) (2024-03-20)
 
 
