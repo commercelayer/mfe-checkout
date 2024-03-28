@@ -100,8 +100,7 @@ function isNewAddress({
 
   const hasAddressIntoAddresses = Boolean(
     customerAddresses?.find(
-      (customerAddress) =>
-        customerAddress?.address?.reference === address?.reference
+      (customerAddress) => customerAddress?.id === address?.reference
     )
   )
 
