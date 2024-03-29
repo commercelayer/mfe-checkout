@@ -267,7 +267,7 @@ test.describe("with support email", () => {
   })
 })
 
-test.describe("with custom thankyou page url", () => {
+test.describe("with custom thankyou page url @organization-config", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const email = faker.internet.email()
   const thankyouPageUrl =
