@@ -160,20 +160,23 @@ export class CheckoutPage {
     )
   }
 
-  clickStep(step: SingleStepEnum) {
-    this.page.click(`[data-testid=step_${step.toLocaleLowerCase()}]`, {
+  async clickStep(step: SingleStepEnum) {
+    await this.page.click(`[data-testid=step_${step.toLocaleLowerCase()}]`, {
       force: true,
     })
   }
 
-  clickAccordion(step: SingleStepEnum) {
-    this.page.click(`[data-testid=accordion_${step.toLocaleLowerCase()}]`, {
-      force: true,
-    })
+  async clickAccordion(step: SingleStepEnum) {
+    await this.page.click(
+      `[data-testid=accordion_${step.toLocaleLowerCase()}]`,
+      {
+        force: true,
+      }
+    )
   }
 
-  shipToDifferentAddress() {
-    this.page.click(`[data-testid=button-ship-to-different-address]`)
+  async shipToDifferentAddress() {
+    await this.page.click(`[data-testid=button-ship-to-different-address]`)
   }
 
   async getDataLayer(
@@ -484,12 +487,12 @@ export class CheckoutPage {
     await Promise.all(promises)
   }
 
-  openNewAddress(type: "shipping" | "billing") {
-    this.page.click(`[data-testid=add_new_${type}_address]`)
+  async openNewAddress(type: "shipping" | "billing") {
+    await this.page.click(`[data-testid=add_new_${type}_address]`)
   }
 
-  closeNewAddress(type: "shipping" | "billing") {
-    this.page.click(`[data-testid=close-${type}-form]`)
+  async closeNewAddress(type: "shipping" | "billing") {
+    await this.page.click(`[data-testid=close-${type}-form]`)
   }
 
   async checkBillingAddress(address: Partial<Address>) {
@@ -500,14 +503,16 @@ export class CheckoutPage {
     await this.checkAddress({ address, type: "shipping_address" })
   }
 
-  selectAddressOnBook({
+  async selectAddressOnBook({
     type,
     index = 0,
   }: {
     type: "billing" | "shipping"
     index: number
   }) {
-    this.page.click(`[data-testid=customer-${type}-address] >> nth=${index}`)
+    await this.page.click(
+      `[data-testid=customer-${type}-address] >> nth=${index}`
+    )
   }
 
   async checkSelectedAddressBook({

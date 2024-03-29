@@ -18,7 +18,7 @@ test.describe("with customer email", () => {
   test("Checkout guest address", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    const email = await checkoutPage.getCustomerMail()
+    const email = checkoutPage.getCustomerMail()
 
     await expect(email).toHaveValue(customerEmail)
 
@@ -216,7 +216,7 @@ test.describe("with customer email and shipping country code lock", () => {
 
     await checkoutPage.changeCustomerEmail("customer@example.com")
     await checkoutPage.blurCustomerEmail()
-    email = await checkoutPage.getCustomerMail()
+    email = checkoutPage.getCustomerMail()
 
     await expect(email).toHaveValue("customer@example.com")
     await checkoutPage.checkStep("Customer", "open")
@@ -241,7 +241,7 @@ test.describe("with customer email and shipping country code lock", () => {
     await checkoutPage.checkShipToDifferentAddressValue(true)
     await checkoutPage.checkShipToDifferentAddressEnabled(false)
 
-    const element = await checkoutPage.page.locator(
+    const element = checkoutPage.page.locator(
       "[data-testid=input_shipping_address_country_code]"
     )
     expect(element).toBeDisabled()
@@ -277,7 +277,7 @@ test.describe("with digital product and shipping country code lock", () => {
   test("Checkout different country code address", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    const email = await checkoutPage.getCustomerMail()
+    const email = checkoutPage.getCustomerMail()
 
     await expect(email).toHaveValue(customerEmail)
 
@@ -363,7 +363,7 @@ test.describe("without customer email and same addresses", () => {
   test("check initial step", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    const email = await checkoutPage.getCustomerMail()
+    const email = checkoutPage.getCustomerMail()
     await expect(email).toBeEmpty()
     await checkoutPage.checkStep("Customer", "open")
 
@@ -377,7 +377,7 @@ test.describe("without customer email and same addresses", () => {
 
     await expect(checkoutPage.page.locator("text=Order Summary")).toBeVisible()
 
-    const email = await checkoutPage.getCustomerMail()
+    const email = checkoutPage.getCustomerMail()
     await expect(email).toBeEmpty()
     await checkoutPage.checkStep("Customer", "open")
 
@@ -455,8 +455,8 @@ test.describe("email error validation", () => {
     await checkoutPage.checkButton({ type: "Customer", status: "disabled" })
     await checkoutPage.page.reload()
     await checkoutPage.checkStep("Shipping", "open")
-    await checkoutPage.clickStep("Customer")
     await checkoutPage.checkCustomerEmail("john@gmail.com")
+    await checkoutPage.clickStep("Customer")
 
     await checkoutPage.setCustomerMail("john@gmail.c")
     await checkoutPage.blurCustomerEmail()
@@ -491,7 +491,7 @@ test.describe("email error validation", () => {
   })
 })
 
-test.describe("with custom countries for billing address", () => {
+test.describe("with custom countries for billing address @organization-config", () => {
   test.use({
     defaultParams: {
       order: "with-items",
@@ -571,7 +571,7 @@ test.describe("with custom countries for billing address", () => {
     },
   })
 
-  test("Billing address override countries and default countries", async ({
+  test("Billing address override countries and default countries @organization-config", async ({
     checkoutPage,
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
@@ -616,7 +616,7 @@ test.describe("with custom countries for billing address", () => {
   })
 })
 
-test.describe("with custom countries for billing address", () => {
+test.describe("with custom countries for billing address @organization-config", () => {
   test.use({
     defaultParams: {
       order: "with-items",
@@ -696,7 +696,79 @@ test.describe("with custom countries for billing address", () => {
     },
   })
 
-  test("Shipping address override countries and default countries", async ({
+  test("Shipping address override countries and default countries @organization-config", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    const countries = await checkoutPage.getSelectOptions({
+      type: "billing_address",
+      field: "country_code",
+    })
+
+    expect(countries?.join()).toContain("CH")
+
+    const selected = await checkoutPage.getSelectedOption({
+      type: "billing_address",
+      field: "country_code",
+    })
+    expect(selected).toBe("FR")
+
+    let states = await checkoutPage.getSelectOptions({
+      type: "billing_address",
+      field: "state_code",
+    })
+
+    expect(states).toStrictEqual([])
+
+    await checkoutPage.shipToDifferentAddress()
+
+    await checkoutPage.page.waitForTimeout(1000)
+
+    const selected2 = await checkoutPage.getSelectedOption({
+      type: "shipping_address",
+      field: "country_code",
+    })
+    expect(selected2).toBe("FR")
+
+    await checkoutPage.selectCountry("shipping_address", "IT")
+
+    states = await checkoutPage.getSelectOptions({
+      type: "shipping_address",
+      field: "state_code",
+    })
+
+    expect(states).toStrictEqual(["", "FI", "PO", "LI"])
+  })
+})
+
+test.describe("with default country @organization-config", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      organization: {
+        config: {
+          mfe: {
+            default: {
+              checkout: {
+                default_country: "FR",
+              },
+            },
+          },
+        },
+      },
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("Check default country selected @organization-config", async ({
     checkoutPage,
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
@@ -723,22 +795,14 @@ test.describe("with custom countries for billing address", () => {
 
     expect(states).toStrictEqual([])
 
-    checkoutPage.shipToDifferentAddress()
+    await checkoutPage.shipToDifferentAddress()
 
-    // const selected2 = await checkoutPage.getSelectedOption({
-    //   type: "shipping_address",
-    //   field: "country_code",
-    // })
-    // await checkoutPage.page.pause()
-    // expect(selected2).toBe("FR")
+    await checkoutPage.page.waitForTimeout(1000)
 
-    // await checkoutPage.selectCountry("shipping_address", "IT")
-
-    // states = await checkoutPage.getSelectOptions({
-    //   type: "shipping_address",
-    //   field: "state_code",
-    // })
-
-    // expect(states).toStrictEqual(["", "FI", "PO", "LI"])
+    const selected2 = await checkoutPage.getSelectedOption({
+      type: "shipping_address",
+      field: "country_code",
+    })
+    expect(selected2).toBe("FR")
   })
 })
