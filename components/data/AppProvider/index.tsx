@@ -5,7 +5,7 @@ import {
   type Order,
 } from "@commercelayer/sdk"
 import { changeLanguage } from "i18next"
-import { createContext, useEffect, useReducer, useRef } from "react"
+import { createContext, useEffect, useReducer, useRef, useState } from "react"
 
 import { ActionType, reducer } from "components/data/AppProvider/reducer"
 import {
@@ -104,6 +104,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 }) => {
   const orderRef = useRef<Order>()
   const [state, dispatch] = useReducer(reducer, { ...initialState, isGuest })
+  const [order, setOrder] = useState<NullableType<Order>>()
 
   const cl = CommerceLayer({
     organization: slug,
@@ -113,6 +114,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const getOrder = (order: Order) => {
     orderRef.current = order
+    setOrder(order)
   }
 
   const fetchInitialOrder = async (orderId?: string, accessToken?: string) => {
@@ -300,11 +302,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }
 
   const getOrderFromRef = async () => {
-    if (!orderRef.current) {
-      const o = await fetchOrder(cl, orderId)
-      orderRef.current = o
-    }
-    return orderRef.current
+    return orderRef.current || (await fetchOrder(cl, orderId))
   }
 
   useEffect(() => {
@@ -319,7 +317,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       value={{
         ...state,
         orderId,
-        order: orderRef.current,
+        order,
         accessToken,
         isGuest,
         slug,
