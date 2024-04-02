@@ -1,3 +1,10 @@
+## [4.8.2](https://github.com/commercelayer/mfe-checkout/compare/v4.8.1...v4.8.2) (2024-04-02)
+
+
+### Bug Fixes
+
+* rollback `AppProvider` logic on fetching initial order ([d60ede0](https://github.com/commercelayer/mfe-checkout/commit/d60ede0dd947cd58a17cd668f953172fae1e9f70))
+
 ## [4.8.1](https://github.com/commercelayer/mfe-checkout/compare/v4.8.0...v4.8.1) (2024-03-28)
 
 
