@@ -227,6 +227,7 @@ The Checkout application language is set by the `language_code` attribute of the
 - Polish
 - Spanish
 - French
+- Hungarian
 
 > The fallback language is English.
 
