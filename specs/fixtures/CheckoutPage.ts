@@ -424,10 +424,11 @@ export class CheckoutPage {
       )
     }
 
-    const command =
-      address.country_code && ["IT", "US"].includes(address.country_code)
-        ? "selectOption"
-        : "fill"
+    const stateInput = this.page
+      .getByTestId(`input_${type}_state_code`)
+      .and(this.page.locator("select"))
+
+    const command = (await stateInput.isVisible()) ? "selectOption" : "fill"
 
     await this.page[command](
       `[data-testid=input_${type}_state_code]`,
@@ -476,6 +477,7 @@ export class CheckoutPage {
         key === "country_code" ||
         (key === "state_code" &&
           address.country_code &&
+          // TODO Adjust to check for select or input
           ["IT", "US"].includes(address.country_code))
           ? "select"
           : "input"

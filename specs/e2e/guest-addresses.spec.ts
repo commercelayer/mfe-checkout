@@ -613,6 +613,32 @@ test.describe("with custom countries for billing address @organization-config", 
       field: "state_code",
     })
     expect(empty).toBe("")
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { country_code, state_code, ...addressNoCountry } = euAddress
+    await checkoutPage.setBillingAddress({
+      ...addressNoCountry,
+      country_code: "FR",
+      state_code: "LY",
+    })
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.clickStep("Customer")
+
+    const savedCountry = await checkoutPage.getSelectedOption({
+      type: "billing_address",
+      field: "country_code",
+    })
+
+    expect(savedCountry).toBe("FR")
+
+    const savedState = await checkoutPage.getSelectedOption({
+      type: "billing_address",
+      field: "state_code",
+    })
+    expect(savedState).toBe("LY")
   })
 })
 
