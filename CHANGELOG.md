@@ -1,3 +1,10 @@
+## [4.8.3](https://github.com/commercelayer/mfe-checkout/compare/v4.8.2...v4.8.3) (2024-04-02)
+
+
+### Bug Fixes
+
+* adjust logic on step complete on page reload ([2722bda](https://github.com/commercelayer/mfe-checkout/commit/2722bda972e51ed5ce531a0b34313a0bcbd4355c))
+
 ## [4.8.2](https://github.com/commercelayer/mfe-checkout/compare/v4.8.1...v4.8.2) (2024-04-02)
 
 
