@@ -1,3 +1,4 @@
+import { jwtDecode, jwtIsSalesChannel } from "@commercelayer/js-auth"
 import { getConfig } from "@commercelayer/organization-config"
 import CommerceLayer, {
   CommerceLayerStatic,
@@ -6,7 +7,6 @@ import CommerceLayer, {
   Order,
 } from "@commercelayer/sdk"
 import retry from "async-retry"
-import { jwtDecode } from "jwt-decode"
 
 import { TypeAccepted } from "components/data/AppProvider/utils"
 import {
@@ -15,21 +15,6 @@ import {
 } from "components/utils/constants"
 
 const RETRIES = 2
-
-interface JWTProps {
-  organization: {
-    slug: string
-    id: string
-  }
-  owner?: {
-    id: string
-  }
-  market: { id: [string] }
-  application: {
-    kind: string
-  }
-  test: boolean
-}
 
 interface FetchResource<T> {
   object: T | undefined
@@ -78,7 +63,7 @@ function getOrganization(
   return retryCall<Organization>(() =>
     cl.organization.retrieve({
       fields: {
-        organizations: [
+        organization: [
           "id",
           "logo_url",
           "name",
@@ -122,17 +107,25 @@ function getOrder(
 
 function getTokenInfo(accessToken: string) {
   try {
-    const {
-      organization: { slug },
-      application: { kind },
-      market: {
-        id: [marketId],
-      },
-      owner,
-      test,
-    } = jwtDecode(accessToken) as JWTProps
+    const { payload } = jwtDecode(accessToken)
 
-    return { slug, kind, isTest: test, isGuest: !owner, marketId }
+    if (jwtIsSalesChannel(payload)) {
+      const {
+        organization: { slug },
+        application: { kind },
+        owner,
+        test,
+      } = payload
+      return {
+        slug,
+        kind,
+        isTest: test,
+        isGuest: !owner,
+        marketId: payload.market?.id[0],
+      }
+    } else {
+      return {}
+    }
   } catch (e) {
     console.log(`error decoding access token: ${e}`)
     return {}
