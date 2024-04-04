@@ -128,6 +128,67 @@ In the case of digital product purchases (i.e. SKUs with the `do_not_ship` flag 
 
 If the order has the attribute `shipping_country_code_lock` set, customers can select only the specified country code in the shipping address form. If they select a different country for the billing address, the shipping address section will open automatically with the country code already selected and disabled.
 
+#### Custom list of countries and states
+
+You can configure a custom list of countries and/or states for billing and shipping address forms, along with specifying a default country preselected at the organization level of the Provisioning API. This can be achieved by setting the config attribute in the following manner:
+
+```json
+{
+  "mfe": {
+    "default": {
+      "checkout": {
+        "default_country": "IT",
+        "billing_countries": [
+          {
+            "value": "ES",
+            "label": "Espana"
+          },
+          {
+            "value": "IT",
+            "label": "Italia"
+          },
+          {
+            "value": "US",
+            "label": "Unites States of America"
+          }
+        ],
+        "billing_states": {
+          "US": [
+            {
+              "value": "CA",
+              "label": "California"
+            },
+            {
+              "value": "TX",
+              "label": "Texas"
+            }
+          ],
+          "IT": [
+            {
+              "value": "FI",
+              "label": "Firenze"
+            },
+            {
+              "value": "PO",
+              "label": "Prato"
+            },
+            {
+              "value": "LI",
+              "label": "Livorno"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+On the example above billing form will have just three countries, custom provinces/states for Italy and USA and the default country preselected for both billing and shipping forms set to Italy. 
+
+You can use `default_country`, `billing_countries`, `billing_states`, `shipping_countries` and `shipping_states` as keys. The option can also be customized per market in scope. You can read more about the organization config [here](https://docs.commercelayer.io/provisioning/api-reference/organizations#micro-frontends-configuration).
+
+
 ### Delivery step
 
 Here is where customers select a shipping method for each shipment of their order. [External shipping cost](https://docs.commercelayer.io/core/external-resources/external-shipping-costs) are partially supported by the Checkout application at the moment.
