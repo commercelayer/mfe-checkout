@@ -266,7 +266,7 @@ export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
         "line_items",
       ],
       shipments: ["shipping_method", "available_shipping_methods"],
-      customer: ["customer_addresses"],
+      customers: ["customer_addresses"],
       customer_addresses: ["address"],
       line_items: ["frequency"],
     },

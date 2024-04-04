@@ -41,7 +41,7 @@ export class CheckoutPage {
       // // Add a prefix to the title.
       const body = {
         data: {
-          id: process.env.E2E_ORGANIZATION_ID as string,
+          id: "organization-id",
           type: "organizations",
           attributes: {
             name: process.env.NEXT_PUBLIC_SLUG as string,

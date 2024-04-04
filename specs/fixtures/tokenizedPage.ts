@@ -1,3 +1,9 @@
+import {
+  createAssertion,
+  authenticate,
+  jwtDecode,
+  jwtIsSalesChannel,
+} from "@commercelayer/js-auth"
 import { type Configs } from "@commercelayer/organization-config"
 import {
   CommerceLayer,
@@ -7,8 +13,6 @@ import {
 } from "@commercelayer/sdk"
 import { test as base } from "@playwright/test"
 import dotenv from "dotenv"
-import jwt from "jsonwebtoken"
-import { jwtDecode } from "jwt-decode"
 
 import path from "path"
 
@@ -48,12 +52,6 @@ interface GiftCardProps {
   balance_cents?: number
   customer_email?: string
   apply?: boolean
-}
-
-interface JWTProps {
-  owner: {
-    id: string
-  }
 }
 
 interface DefaultParamsProps {
@@ -100,58 +98,37 @@ type FixtureType = {
   defaultParams: DefaultParamsProps
 }
 
-function getOrganization() {
-  return {
-    id: process.env.E2E_ORGANIZATION_ID as string,
-    slug: process.env.NEXT_PUBLIC_SLUG as string,
-    enterprise: true,
+const getToken = async (market?: "US" | "EU" | "MI", customerId?: string) => {
+  const scope = market != null ? `market:code:${market}` : "market:code:EU"
+
+  if (customerId == null) {
+    return (
+      await authenticate("client_credentials", {
+        domain: process.env.NEXT_PUBLIC_DOMAIN as string,
+        clientId: process.env.E2E_CLIENT_ID as string,
+        scope,
+      })
+    ).accessToken
+  } else {
+    return (
+      await authenticate("urn:ietf:params:oauth:grant-type:jwt-bearer", {
+        domain: process.env.NEXT_PUBLIC_DOMAIN as string,
+        clientId: process.env.E2E_CLIENT_ID as string,
+        clientSecret: process.env.E2E_CLIENT_SECRET as string,
+        scope,
+        assertion: await createAssertion({
+          payload: {
+            "https://commercelayer.io/claims": {
+              owner: {
+                type: "Customer",
+                id: customerId,
+              },
+            },
+          },
+        }),
+      })
+    ).accessToken
   }
-}
-
-function getMarket(scope: "US" | "EU" | "MI") {
-  return {
-    id: [process.env[`E2E_MARKET_${scope}`] as string],
-    price_list_id: process.env[`E2E_PRICE_LIST_${scope}`] as string,
-    stock_location_ids: (
-      process.env[`E2E_STOCK_LOCATION_${scope}`] as string
-    ).split(","),
-    geocoder_id: null,
-    allows_external_prices: true,
-  }
-}
-
-const getToken = (market?: "US" | "EU" | "MI", customerId?: string) => {
-  const scope = market || "EU"
-
-  const organization = getOrganization()
-  const marketPayload = getMarket(scope)
-
-  const application = {
-    id: process.env.E2E_SALES_CHANNEL_ID as string,
-    kind: "sales_channel",
-    public: true,
-  }
-
-  const payload = {
-    organization,
-    application,
-    market: marketPayload,
-    test: true,
-    rand: Math.random(),
-  }
-
-  const token = jwt.sign(
-    customerId
-      ? { ...payload, owner: { id: customerId, type: "Customer" } }
-      : payload,
-    process.env.E2E_ORGANIZATION_SHARED_SECRET as string,
-    {
-      algorithm: "HS512",
-      expiresIn: 3600,
-    }
-  )
-
-  return token
 }
 
 const getCustomerUserToken = async ({
@@ -161,7 +138,7 @@ const getCustomerUserToken = async ({
   email: string
   password: string
 }) => {
-  const token = getSuperToken()
+  const token = await getSuperToken()
   const cl = getClient(token)
   let customerId
   const existingUser = await cl.customers.list({
@@ -181,30 +158,14 @@ const getCustomerUserToken = async ({
   return getToken(scope, customerId)
 }
 
-const getSuperToken = () => {
-  const organization = getOrganization()
-  const application = {
-    id: process.env.E2E_INTEGRATION_ID as string,
-    kind: "integration",
-    public: false,
-  }
-  const payload = {
-    organization,
-    application,
-    test: true,
-    rand: Math.random(),
-  }
+const getSuperToken = async () => {
+  const token = await authenticate("client_credentials", {
+    domain: process.env.NEXT_PUBLIC_DOMAIN as string,
+    clientId: process.env.E2E_INTEGRATION_CLIENT_ID as string,
+    clientSecret: process.env.E2E_INTEGRATION_CLIENT_SECRET as string,
+  })
 
-  const token = jwt.sign(
-    payload,
-    process.env.E2E_ORGANIZATION_SHARED_SECRET as string,
-    {
-      algorithm: "HS512",
-      expiresIn: 3600,
-    }
-  )
-
-  return token
+  return token.accessToken
 }
 
 const getOrder = async (
@@ -235,7 +196,7 @@ const getOrder = async (
         ) as SkuItem[])
 
       if (noStock && noStock.length > 0) {
-        superToken = getSuperToken()
+        superToken = await getSuperToken()
         superCl = getClient(superToken)
         await updateInventory(superCl, noStock, "quantity")
       }
@@ -245,13 +206,13 @@ const getOrder = async (
         items: params.lineItemsAttributes || [],
       })
       if (noStock && noStock.length > 0) {
-        superToken = getSuperToken()
+        superToken = await getSuperToken()
         superCl = getClient(superToken)
         await updateInventory(superCl, noStock, "inventory")
       }
 
       if (giftCard) {
-        superToken = superToken || getSuperToken()
+        superToken = superToken || (await getSuperToken())
         superCl = superCl || getClient(superToken)
         const card = await createAndPurchaseGiftCard(cl, giftCard)
         const activeCard = await superCl.gift_cards.update({
@@ -304,24 +265,26 @@ const getOrder = async (
           password: params.customer.password,
         })
         const customerCl = getClient(token)
-        const {
-          owner: { id },
-        } = jwtDecode(token) as JWTProps
+        const { payload } = jwtDecode(token)
 
         const promises = params.customerAddresses.map(async (address) => {
           const a = await customerCl.addresses.create({
             ...address,
           } as AddressCreate)
-          // @ts-expect-error sdf
-          const ca = await customerCl.customer_addresses.create({
-            customer: customerCl.customers.relationship(id),
-            address: customerCl.addresses.relationship(a),
-          })
-          await customerCl.addresses.update({
-            id: a.id,
-            reference: ca.id,
-          })
-          return ca
+          if (jwtIsSalesChannel(payload)) {
+            // @ts-expect-error sdf
+            const ca = await customerCl.customer_addresses.create({
+              customer: customerCl.customers.relationship(
+                payload.owner?.id as string
+              ),
+              address: customerCl.addresses.relationship(a),
+            })
+            await customerCl.addresses.update({
+              id: a.id,
+              reference: ca.id,
+            })
+            return ca
+          }
         })
         await Promise.all(promises)
       }
@@ -542,6 +505,7 @@ export const test = base.extend<FixtureType>({
     const token = await (defaultParams.customer
       ? getCustomerUserToken(defaultParams.customer)
       : getToken(defaultParams.market))
+
     const cl = getClient(token)
     const { orderId, attributes } = await getOrder(cl, defaultParams)
     const id =
