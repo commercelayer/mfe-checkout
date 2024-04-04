@@ -6,7 +6,7 @@ import {
   Country,
   States,
 } from "@commercelayer/react-components/lib/esm/utils/countryStateCity"
-import { ChangeEvent, useContext, useEffect, useState } from "react"
+import { ChangeEvent, useContext } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -93,8 +93,6 @@ export const AddressInputGroup: React.FC<Props> = ({
 
   const label = t(`addressForm.${fieldName}`)
 
-  const [valueStatus, setValueStatus] = useState(value)
-
   const isCountry =
     fieldName === "shipping_address_country_code" ||
     fieldName === "billing_address_country_code"
@@ -102,10 +100,6 @@ export const AddressInputGroup: React.FC<Props> = ({
   const isState =
     fieldName === "shipping_address_state_code" ||
     fieldName === "billing_address_state_code"
-
-  useEffect(() => {
-    setValueStatus(value || "")
-  }, [value])
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     if (isCountry && fieldName === "billing_address_country_code") {
@@ -175,7 +169,7 @@ export const AddressInputGroup: React.FC<Props> = ({
             name={fieldName}
             type={type}
             pattern={pattern}
-            value={valueStatus}
+            value={value}
             className="form-input"
           />
           <Label htmlFor={fieldName}>{label}</Label>

@@ -20,7 +20,7 @@ export const BillingAddressFormNew: React.FC<Props> = ({
   const appCtx = useContext(AppContext)
   const { settings } = useSettingsOrInvalid()
 
-  if (!appCtx) {
+  if (!appCtx || !settings) {
     return null
   }
 
