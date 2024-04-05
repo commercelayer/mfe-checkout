@@ -1,3 +1,10 @@
+# [4.10.0](https://github.com/commercelayer/mfe-checkout/compare/v4.9.0...v4.10.0) (2024-04-05)
+
+
+### Features
+
+* add support for Hungarian language ([80e86e1](https://github.com/commercelayer/mfe-checkout/commit/80e86e192f5d006d908c38331a702c2a9ac61d20))
+
 # [4.9.0](https://github.com/commercelayer/mfe-checkout/compare/v4.8.3...v4.9.0) (2024-04-05)
 
 
