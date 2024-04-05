@@ -19,7 +19,7 @@ test.describe("no shipping zone with cart url", () => {
       addresses: {
         billingAddress: {
           ...usAddress,
-          billing_info: faker.random.alphaNumeric(11),
+          billing_info: faker.string.alphanumeric(11),
         },
         sameShippingAddress: true,
       },
@@ -138,7 +138,7 @@ test.describe("no shipping zone and one out of stock", () => {
       addresses: {
         billingAddress: {
           ...usAddress,
-          billing_info: faker.random.alphaNumeric(11),
+          billing_info: faker.string.alphanumeric(11),
         },
         sameShippingAddress: true,
       },
@@ -202,7 +202,7 @@ test.describe("no shipping zone", () => {
       addresses: {
         billingAddress: {
           ...usAddress,
-          billing_info: faker.random.alphaNumeric(11),
+          billing_info: faker.string.alphanumeric(11),
         },
         sameShippingAddress: true,
       },

@@ -2,7 +2,11 @@ import AddressCountrySelector from "@commercelayer/react-components/addresses/Ad
 import AddressInput from "@commercelayer/react-components/addresses/AddressInput"
 import AddressStateSelector from "@commercelayer/react-components/addresses/AddressStateSelector"
 import { Errors } from "@commercelayer/react-components/errors/Errors"
-import { ChangeEvent, useContext, useEffect, useState } from "react"
+import {
+  Country,
+  States,
+} from "@commercelayer/react-components/lib/esm/utils/countryStateCity"
+import { ChangeEvent, useContext } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -31,6 +35,9 @@ interface Props {
   resource: TResource
   required?: boolean
   value?: string
+  countries?: Country[] | undefined
+  defaultCountry?: string
+  states?: States[]
   pattern?: React.ComponentProps<typeof AddressInput>["pattern"]
   openShippingAddress?: (props: ShippingToggleProps) => void
 }
@@ -41,6 +48,9 @@ export const AddressInputGroup: React.FC<Props> = ({
   required,
   type,
   pattern,
+  countries,
+  defaultCountry,
+  states,
   value,
   openShippingAddress,
 }) => {
@@ -83,8 +93,6 @@ export const AddressInputGroup: React.FC<Props> = ({
 
   const label = t(`addressForm.${fieldName}`)
 
-  const [valueStatus, setValueStatus] = useState(value)
-
   const isCountry =
     fieldName === "shipping_address_country_code" ||
     fieldName === "billing_address_country_code"
@@ -92,10 +100,6 @@ export const AddressInputGroup: React.FC<Props> = ({
   const isState =
     fieldName === "shipping_address_state_code" ||
     fieldName === "billing_address_state_code"
-
-  useEffect(() => {
-    setValueStatus(value || "")
-  }, [value])
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     if (isCountry && fieldName === "billing_address_country_code") {
@@ -122,11 +126,14 @@ export const AddressInputGroup: React.FC<Props> = ({
               value: "",
             }}
             onChange={handleChange}
+            countries={countries}
             value={
               shippingCountryCodeLock &&
               fieldName === "shipping_address_country_code"
                 ? shippingCountryCodeLock
-                : value
+                : value === "" || value == null
+                  ? defaultCountry
+                  : value
             }
             disabled={Boolean(
               shippingCountryCodeLock &&
@@ -144,6 +151,8 @@ export const AddressInputGroup: React.FC<Props> = ({
             selectClassName="form-select"
             inputClassName="form-input"
             data-testid={`input_${fieldName}`}
+            // @ts-expect-error missing
+            states={states}
             name={fieldName}
             value={value}
           />
@@ -160,7 +169,7 @@ export const AddressInputGroup: React.FC<Props> = ({
             name={fieldName}
             type={type}
             pattern={pattern}
-            value={valueStatus}
+            value={value}
             className="form-input"
           />
           <Label htmlFor={fieldName}>{label}</Label>

@@ -160,20 +160,23 @@ export class CheckoutPage {
     )
   }
 
-  clickStep(step: SingleStepEnum) {
-    this.page.click(`[data-testid=step_${step.toLocaleLowerCase()}]`, {
+  async clickStep(step: SingleStepEnum) {
+    await this.page.click(`[data-testid=step_${step.toLocaleLowerCase()}]`, {
       force: true,
     })
   }
 
-  clickAccordion(step: SingleStepEnum) {
-    this.page.click(`[data-testid=accordion_${step.toLocaleLowerCase()}]`, {
-      force: true,
-    })
+  async clickAccordion(step: SingleStepEnum) {
+    await this.page.click(
+      `[data-testid=accordion_${step.toLocaleLowerCase()}]`,
+      {
+        force: true,
+      }
+    )
   }
 
-  shipToDifferentAddress() {
-    this.page.click(`[data-testid=button-ship-to-different-address]`)
+  async shipToDifferentAddress() {
+    await this.page.click(`[data-testid=button-ship-to-different-address]`)
   }
 
   async getDataLayer(
@@ -280,12 +283,46 @@ export class CheckoutPage {
 
   async selectCountry(
     type: "billing_address" | "shipping_address",
-    country: "IT" | "US" | "GB" | "FR"
+    country: "IT" | "US" | "GB" | "FR" | "ES"
   ) {
     await this.page.selectOption(
       `[data-testid=input_${type}_country_code]`,
       country
     )
+  }
+
+  async getSelectOptions({
+    type,
+    field,
+  }: {
+    type: "billing_address" | "shipping_address"
+    field: "country_code" | "state_code"
+  }) {
+    const selectElement = await this.page.$(
+      `[data-testid=input_${type}_${field}]`
+    )
+
+    if (selectElement != null) {
+      const options = await selectElement.$$("option")
+
+      const countries = []
+
+      for (const option of options) {
+        countries.push(option.getAttribute("value"))
+      }
+      return Promise.all(countries)
+    }
+  }
+
+  async getSelectedOption({
+    type,
+    field,
+  }: {
+    type: "billing_address" | "shipping_address"
+    field: "country_code" | "state_code"
+  }) {
+    const value = this.page.getByTestId(`input_${type}_${field}`)
+    return await value.inputValue()
   }
 
   async selectState(
@@ -342,9 +379,9 @@ export class CheckoutPage {
       `[data-testid=shipments-container] >> nth=${shipment} >> [data-testid=shipping-methods-container] >> nth=${index} >> input[type=radio]`
     )
     if (value) {
-      await expect(element).toBeTruthy()
+      expect(element).toBeTruthy()
     } else {
-      await expect(element).toBeFalsy()
+      expect(element).toBeFalsy()
     }
   }
 
@@ -387,10 +424,11 @@ export class CheckoutPage {
       )
     }
 
-    const command =
-      address.country_code && ["IT", "US"].includes(address.country_code)
-        ? "selectOption"
-        : "fill"
+    const stateInput = this.page
+      .getByTestId(`input_${type}_state_code`)
+      .and(this.page.locator("select"))
+
+    const command = (await stateInput.isVisible()) ? "selectOption" : "fill"
 
     await this.page[command](
       `[data-testid=input_${type}_state_code]`,
@@ -439,6 +477,7 @@ export class CheckoutPage {
         key === "country_code" ||
         (key === "state_code" &&
           address.country_code &&
+          // TODO Adjust to check for select or input
           ["IT", "US"].includes(address.country_code))
           ? "select"
           : "input"
@@ -450,12 +489,12 @@ export class CheckoutPage {
     await Promise.all(promises)
   }
 
-  openNewAddress(type: "shipping" | "billing") {
-    this.page.click(`[data-testid=add_new_${type}_address]`)
+  async openNewAddress(type: "shipping" | "billing") {
+    await this.page.click(`[data-testid=add_new_${type}_address]`)
   }
 
-  closeNewAddress(type: "shipping" | "billing") {
-    this.page.click(`[data-testid=close-${type}-form]`)
+  async closeNewAddress(type: "shipping" | "billing") {
+    await this.page.click(`[data-testid=close-${type}-form]`)
   }
 
   async checkBillingAddress(address: Partial<Address>) {
@@ -466,14 +505,16 @@ export class CheckoutPage {
     await this.checkAddress({ address, type: "shipping_address" })
   }
 
-  selectAddressOnBook({
+  async selectAddressOnBook({
     type,
     index = 0,
   }: {
     type: "billing" | "shipping"
     index: number
   }) {
-    this.page.click(`[data-testid=customer-${type}-address] >> nth=${index}`)
+    await this.page.click(
+      `[data-testid=customer-${type}-address] >> nth=${index}`
+    )
   }
 
   async checkSelectedAddressBook({
