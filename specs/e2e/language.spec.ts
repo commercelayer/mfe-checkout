@@ -25,3 +25,16 @@ test.describe("it context", () => {
     await checkoutPage.checkOrderSummary("Riepilogo Ordine")
   })
 })
+
+test.describe("locale context", () => {
+  test.use({
+    defaultParams: {
+      order: "plain",
+      orderAttributes: { language_code: "it-IT" },
+    },
+  })
+
+  test("should navigate to italian checkout", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Riepilogo Ordine")
+  })
+})
