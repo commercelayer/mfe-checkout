@@ -1,3 +1,10 @@
+# [4.9.0](https://github.com/commercelayer/mfe-checkout/compare/v4.8.3...v4.9.0) (2024-04-05)
+
+
+### Features
+
+* override countries and states with organization config and preselect a default country ([961dc33](https://github.com/commercelayer/mfe-checkout/commit/961dc33f1eeaee7c990f8993d19a6f28c88dd044))
+
 ## [4.8.3](https://github.com/commercelayer/mfe-checkout/compare/v4.8.2...v4.8.3) (2024-04-02)
 
 
