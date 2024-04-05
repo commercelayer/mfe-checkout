@@ -130,7 +130,7 @@ If the order has the attribute `shipping_country_code_lock` set, customers can s
 
 #### Custom list of countries and states
 
-You can configure a custom list of countries and/or states for billing and shipping address forms, along with specifying a default country preselected at the organization level of the Provisioning API. This can be achieved by setting the config attribute in the following manner:
+You can configure a custom list of countries and/or states for billing and shipping address forms, along with specifying a default country preselected at the organization level of the Provisioning API. This can be achieved by setting the `config` attribute as follows:
 
 ```json
 {
@@ -184,7 +184,7 @@ You can configure a custom list of countries and/or states for billing and shipp
 }
 ```
 
-On the example above billing form will have just three countries, custom provinces/states for Italy and USA and the default country preselected for both billing and shipping forms set to Italy. 
+In the example above, the billing form will have just three countries, custom provinces/states for Italy and USA, and the default country preselected (set to Italy) for both billing and shipping forms.
 
 You can use `default_country`, `billing_countries`, `billing_states`, `shipping_countries` and `shipping_states` as keys. The option can also be customized per market in scope. You can read more about the organization config [here](https://docs.commercelayer.io/provisioning/api-reference/organizations#micro-frontends-configuration).
 
@@ -262,7 +262,7 @@ The page is displayed on successful order placement and features a recap of the 
 
 #### Custom thank you page URL
 
-It is possible to provide a custom thank you page URL at the organization level of the Provisioning API by setting the config attribute, as follows:
+It is possible to provide a custom thank you page URL at the organization level of the Provisioning API by setting the `config` attribute, as follows:
 
 ```json
 {
@@ -288,6 +288,7 @@ The Checkout application language is set by the `language_code` attribute of the
 - Polish
 - Spanish
 - French
+- Hungarian
 
 > The fallback language is English.
 
