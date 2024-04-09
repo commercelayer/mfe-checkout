@@ -17,10 +17,10 @@ import {
   WalletCheckbox,
 } from "./styled"
 
-import { THandleClick } from "."
+import { TOnClickParams } from "."
 
 interface Props {
-  selectPayment: THandleClick
+  selectPayment: (params?: TOnClickParams) => void
   hasTitle: boolean
   autoSelectCallback: () => void
   hasSubscriptions: boolean
@@ -106,7 +106,6 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
         className="payment"
         loader={<PaymentSkeleton />}
         clickableContainer
-        // @ts-expect-error Types of parameters 'params' and 'payment' are incompatible.
         onClick={selectPayment}
       >
         <PaymentWrapper>
