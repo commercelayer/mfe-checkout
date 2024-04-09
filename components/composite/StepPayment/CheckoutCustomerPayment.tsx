@@ -104,8 +104,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
         autoSelectSinglePaymentMethod={autoSelectCallback}
         activeClass="active group"
         className="payment"
-        // @ts-expect-error Type 'FC<{}>' is not assignable to type 'LoaderType'.
-        loader={PaymentSkeleton}
+        loader={<PaymentSkeleton />}
         clickableContainer
         // @ts-expect-error Types of parameters 'params' and 'payment' are incompatible.
         onClick={selectPayment}
@@ -121,8 +120,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
               templateCustomerSaveToWallet={(props) => (
                 <TemplateSaveToWalletCheckbox {...props} />
               )}
-              // @ts-expect-error Type 'FC<{}>' is not assignable to type 'LoaderType'.
-              loader={PaymentSkeleton}
+              loader={<PaymentSkeleton />}
             >
               <PaymentDetailsWrapper>
                 <PaymentDetails hasEditButton />
