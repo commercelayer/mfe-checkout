@@ -9,10 +9,8 @@ import {
   PaymentDetailsWrapper,
 } from "./styled"
 
-import { TOnClickParams } from "."
-
 interface Props {
-  selectPayment: (params?: TOnClickParams) => void
+  selectPayment: Parameters<typeof PaymentMethod>[0]["onClick"]
   hasTitle: boolean
   autoSelectCallback: () => void
 }

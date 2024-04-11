@@ -4,8 +4,9 @@ import {
   PaymentSourceDetail,
   PaymentSource,
   PaymentSourceBrandIcon,
+  PaymentMethodOnClickParams,
 } from "@commercelayer/react-components"
-import { Order, PaymentMethod as PaymentMethodType } from "@commercelayer/sdk"
+import { PaymentMethod as PaymentMethodType } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { useContext, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
@@ -19,12 +20,6 @@ import { StepHeader } from "components/ui/StepHeader"
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
 import { PaymentSkeleton } from "./PaymentSkeleton"
-
-export interface TOnClickParams {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payment?: PaymentMethodType | Record<string, any>
-  order?: Order
-}
 
 interface HeaderProps {
   className?: string
@@ -112,7 +107,7 @@ export const StepPayment: React.FC = () => {
 
   const { isGuest, isPaymentRequired, setPayment, hasSubscriptions } = appCtx
 
-  const selectPayment = ({ payment, order }: TOnClickParams) => {
+  const selectPayment = ({ payment, order }: PaymentMethodOnClickParams) => {
     console.log(payment)
     console.log(order)
     if (

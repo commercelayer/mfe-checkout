@@ -1,4 +1,6 @@
-import PaymentMethod from "@commercelayer/react-components/payment_methods/PaymentMethod"
+import PaymentMethod, {
+  PaymentMethodOnClickParams,
+} from "@commercelayer/react-components/payment_methods/PaymentMethod"
 import PaymentSource, {
   CustomerSaveToWalletProps,
 } from "@commercelayer/react-components/payment_source/PaymentSource"
@@ -17,10 +19,8 @@ import {
   WalletCheckbox,
 } from "./styled"
 
-import { TOnClickParams } from "."
-
 interface Props {
-  selectPayment: (params?: TOnClickParams) => void
+  selectPayment: (params: PaymentMethodOnClickParams) => void
   hasTitle: boolean
   autoSelectCallback: () => void
   hasSubscriptions: boolean
