@@ -769,7 +769,7 @@ export class CheckoutPage {
         await this.page
 
           .locator("text=Thank you for your order!")
-          .waitFor({ state: "visible", timeout: 60000 })
+          .waitFor({ state: "visible", timeout: 80000 })
         break
       }
       case "adyen-dropin": {

@@ -108,8 +108,6 @@ export const StepPayment: React.FC = () => {
   const { isGuest, isPaymentRequired, setPayment, hasSubscriptions } = appCtx
 
   const selectPayment = ({ payment, order }: PaymentMethodOnClickParams) => {
-    console.log(payment)
-    console.log(order)
     if (
       order?.payment_source &&
       // @ts-expect-error available only on adyen
