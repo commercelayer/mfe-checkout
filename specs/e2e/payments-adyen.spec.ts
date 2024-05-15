@@ -296,4 +296,33 @@ test.describe("customer with Adyen with saving", () => {
 
     await checkoutPage.save("Payment")
   })
+
+  test("Checkout order with customer wallet and reload when card selected", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+    await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.useCustomerCard()
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.page.waitForTimeout(2000)
+
+    const element = checkoutPage.page.getByTestId("payment-save-wallet")
+    expect(element).not.toBeVisible()
+    await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap(" ending in ****")
+    await checkoutPage.page.reload()
+    await checkoutPage.checkPaymentRecap(" ending in ****")
+  })
 })

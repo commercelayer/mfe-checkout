@@ -4,6 +4,7 @@ import {
   PaymentSourceDetail,
   PaymentSource,
   PaymentSourceBrandIcon,
+  PaymentMethodOnClickParams,
 } from "@commercelayer/react-components"
 import { PaymentMethod as PaymentMethodType } from "@commercelayer/sdk"
 import classNames from "classnames"
@@ -19,12 +20,6 @@ import { StepHeader } from "components/ui/StepHeader"
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
 import { PaymentSkeleton } from "./PaymentSkeleton"
-
-export type THandleClick = (params: {
-  payment?: PaymentMethodType | Record<string, unknown>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  paymentSource?: Record<string, any>
-}) => void
 
 interface HeaderProps {
   className?: string
@@ -112,8 +107,14 @@ export const StepPayment: React.FC = () => {
 
   const { isGuest, isPaymentRequired, setPayment, hasSubscriptions } = appCtx
 
-  const selectPayment: THandleClick = ({ payment, paymentSource }) => {
-    if (paymentSource?.payment_methods?.paymentMethods?.length > 1) {
+  const selectPayment = ({ payment, order }: PaymentMethodOnClickParams) => {
+    if (
+      order?.payment_source &&
+      // @ts-expect-error available only on adyen
+      order?.payment_source.payment_methods &&
+      // @ts-expect-error available only on adyen
+      order?.payment_source?.payment_methods?.length > 1
+    ) {
       setHasMultiplePaymentMethods(true)
     }
     setPayment({ payment: payment as PaymentMethodType })

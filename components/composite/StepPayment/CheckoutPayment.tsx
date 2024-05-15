@@ -9,10 +9,8 @@ import {
   PaymentDetailsWrapper,
 } from "./styled"
 
-import { THandleClick } from "."
-
 interface Props {
-  selectPayment: THandleClick
+  selectPayment: Parameters<typeof PaymentMethod>[0]["onClick"]
   hasTitle: boolean
   autoSelectCallback: () => void
 }
@@ -30,7 +28,6 @@ export const CheckoutPayment = ({
       loader={<PaymentSkeleton />}
       clickableContainer
       hide={["external_payments"]}
-      // @ts-expect-error Type Types of parameters 'params' and 'payment' are incompatible.
       onClick={selectPayment}
     >
       <PaymentWrapper data-testid="payment-sources-container">
