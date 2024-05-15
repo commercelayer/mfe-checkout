@@ -1,3 +1,12 @@
+## [4.10.1](https://github.com/commercelayer/mfe-checkout/compare/v4.10.0...v4.10.1) (2024-05-15)
+
+
+### Bug Fixes
+
+* avoid automatic place on page reload for adyen when selecting a customer payment source ([c16dc25](https://github.com/commercelayer/mfe-checkout/commit/c16dc258cf76e212e07f3a8050a7b809e0bdb87d))
+* enable Link as selectable saved payment source ([ed4ac0f](https://github.com/commercelayer/mfe-checkout/commit/ed4ac0f8c409bfb2e9015cd1d025c8222602b4ee))
+* use loader for payment methods for logged in customer ([90e30f2](https://github.com/commercelayer/mfe-checkout/commit/90e30f2558f608d2c9f23749ecd0ed2fb65ed99d))
+
 # [4.10.0](https://github.com/commercelayer/mfe-checkout/compare/v4.9.0...v4.10.0) (2024-04-05)
 
 
