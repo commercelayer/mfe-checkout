@@ -74,8 +74,8 @@
   "dependencies": {
     "@commercelayer/js-auth": "^6.3.0",
     "@commercelayer/organization-config": "^1.4.8",
-    "@commercelayer/react-components": "4.13.3",
-    "@commercelayer/sdk": "^6.0.2",
+    "@commercelayer/react-components": "^4.14.3",
+    "@commercelayer/sdk": "^6.9.1",
     "@faker-js/faker": "^8.4.1",
     "@headlessui/react": "^1.7.19",
     "@next/bundle-analyzer": "^14.2.4",
@@ -132,7 +132,7 @@
     "eslint-plugin-tailwind": "^0.2.1",
     "npm-check-updates": "^16.14.20",
     "prettier": "^3.3.2",
-    "semantic-release": "^23.1.1",
+    "semantic-release": "^24.0.0",
     "serve": "^14.2.3",
     "stylelint": "^16.6.1",
     "stylelint-config-standard": "^36.0.1"

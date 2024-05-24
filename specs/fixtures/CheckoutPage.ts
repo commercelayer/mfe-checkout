@@ -928,7 +928,7 @@ export class CheckoutPage {
               // const i = this.page.locator("#klarna-apf-iframe")
               const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
 
-              await klarnaIframe
+              await this.page
                 .getByTestId("kaf-field")
                 .waitFor({ state: "visible" })
 
