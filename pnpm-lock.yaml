@@ -22,8 +22,8 @@ importers:
         specifier: 4.13.6
         version: 4.13.6(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)
       '@commercelayer/sdk':
-        specifier: ^6.8.1
-        version: 6.8.1
+        specifier: 6.0.2
+        version: 6.0.2
       '@faker-js/faker':
         specifier: ^8.4.1
         version: 8.4.1
@@ -404,10 +404,6 @@ packages:
 
   '@commercelayer/sdk@6.0.2':
     resolution: {integrity: sha512-iHdZWb/Lfy3OFUkggeW800155yF464bcIIPrUNV6HTE9NZAbkzvB3K8Z8UGnm4QqskzaByrX36zAVrbI9aUWYQ==}
-    engines: {node: '>=20'}
-
-  '@commercelayer/sdk@6.8.1':
-    resolution: {integrity: sha512-p0QVz2M1b98s72Knfy2dhBougjrwJbNFRg4pZVkw8piheDvAulkm/tb16mOlyRVFSS8wxZRX6pr+J7wx5T9s/Q==}
     engines: {node: '>=20'}
 
   '@csstools/css-parser-algorithms@2.6.3':
@@ -5022,8 +5018,6 @@ snapshots:
       - typescript
 
   '@commercelayer/sdk@6.0.2': {}
-
-  '@commercelayer/sdk@6.8.1': {}
 
   '@csstools/css-parser-algorithms@2.6.3(@csstools/css-tokenizer@2.3.1)':
     dependencies:
