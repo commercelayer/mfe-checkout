@@ -821,7 +821,7 @@ export class CheckoutPage {
               .click()
             await this.page.getByTestId("save-payment-button").click()
 
-            const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
+            const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
 
             await klarnaIframe
               .getByTestId("kaf-field")
@@ -873,7 +873,7 @@ export class CheckoutPage {
             await this.page.click("[data-testid=save-payment-button]")
             await this.page.waitForTimeout(4000)
 
-            const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
+            const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
 
             await klarnaIframe
               .getByTestId("kaf-field")
@@ -903,9 +903,9 @@ export class CheckoutPage {
               // await this.page.click("#buy-button")
 
               // const i = this.page.locator("#klarna-apf-iframe")
-              const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
+              const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
 
-              await klarnaIframe
+              await this.page
                 .getByTestId("kaf-field")
                 .waitFor({ state: "visible" })
 
@@ -941,7 +941,7 @@ export class CheckoutPage {
               await this.page.click("[data-testid=save-payment-button]")
               await this.page.waitForTimeout(5000)
 
-              const klarnaIframe = this.page.frameLocator("#klarna-apf-iframe")
+              const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
 
               await klarnaIframe
                 .getByTestId("kaf-field")
@@ -970,14 +970,14 @@ export class CheckoutPage {
               // await klarnaIframe.getByTestId("kaf-button").click()
               // await this.page.waitForTimeout(2000)
               await klarnaIframe.getByTestId("pick-plan").click()
-              await klarnaIframe
-                .locator("label")
-                .filter({
-                  hasText: "Indem du fortfährst, bestätigst du, dass du den",
-                })
-                .locator("div")
-                .nth(1)
-                .click()
+              // await klarnaIframe
+              //   .locator("label")
+              //   .filter({
+              //     hasText: "Indem du fortfährst, bestätigst du, dass du den",
+              //   })
+              //   .locator("div")
+              //   .nth(1)
+              //   .click()
               await klarnaIframe.getByTestId("confirm-and-pay").click()
 
               const iban = klarnaIframe.getByRole("textbox", {
