@@ -1007,6 +1007,12 @@ export class CheckoutPage {
                 await selectPayment.click()
               }
 
+              await this.page.waitForTimeout(1000)
+
+              if (await selectPayment.isVisible()) {
+                await selectPayment.click()
+              }
+
               await this.page.waitForTimeout(2000)
 
               // await klarnaIframe.getByTestId("pick-plan").click()
