@@ -20,7 +20,7 @@ importers:
         specifier: ^1.4.8
         version: 1.4.8(eslint@8.57.0)(typescript@5.5.3)
       '@commercelayer/react-components':
-        specifier: ^4.13.3
+        specifier: 4.13.3
         version: 4.13.3(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.3)
       '@commercelayer/sdk':
         specifier: ^6.0.2
@@ -207,8 +207,8 @@ packages:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
 
-  '@adyen/adyen-web@5.59.0':
-    resolution: {integrity: sha512-hkIDzek/5bhhamip0ujOQGctrcr44+mwSn34tU4fVqm13TcKsxdY+2SxD79cSplLlDYYQzfMgnlC8azlOmm7Ww==}
+  '@adyen/adyen-web@5.66.1':
+    resolution: {integrity: sha512-VAXK4hZrK5YyHQC/fLqBe/iArwmJj8KMfLD67s6rLPpsBKvKFGglJNB7CkoBUjN0KLCQ/1rSx+IlBnC33sJIxw==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -374,8 +374,8 @@ packages:
   '@braintree/iframer@1.1.0':
     resolution: {integrity: sha512-tVpr7U6u6bqeQlHreEjYMNtnHX62vLnNWziY2kQLqkWhvusPuY5DfuGEIPpWqsd+V/a1slyTQaxK6HWTlH6A/Q==}
 
-  '@braintree/sanitize-url@6.0.4':
-    resolution: {integrity: sha512-s3jaWicZd0pkP0jf5ysyHUI/RE7MHos6qlToFcGWXVp+ykHOy77OUMrfbgJ9it2C5bow7OIQwYYaHjk9XlBQ2A==}
+  '@braintree/sanitize-url@7.0.1':
+    resolution: {integrity: sha512-URg8UM6lfC9ZYqFipItRSxYJdgpU5d2Z4KnjsJ+rj6tgAmGme7E+PQNCiud8g0HDaZKMovu2qjfa0f5Ge0Vlsg==}
 
   '@braintree/uuid@0.1.0':
     resolution: {integrity: sha512-YvZJdlNcK5EnR+7M8AjgEAf4Qx696+FOSYlPfy5ePn80vODtVAUU0FxHnzKZC0og1VbDNQDDiwhthR65D4Na0g==}
@@ -780,15 +780,15 @@ packages:
     resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
     engines: {node: '>=18'}
 
-  '@stripe/react-stripe-js@2.4.0':
-    resolution: {integrity: sha512-1jVQEL3OuhuzNlf4OdfqovHt+MkWh8Uh8xpLxx/xUFUDdF+7/kDOrGKy+xJO3WLCfZUL7NAy+/ypwXbbYZi0tg==}
+  '@stripe/react-stripe-js@2.7.3':
+    resolution: {integrity: sha512-05t6oY7cmAJt7asknmeoI4z4GnutgKRZ7dcdTWCkeYclONzIRMuMTiyjBMQ/q3I2sdNizSl25YZ8G6Lg4nN1aw==}
     peerDependencies:
-      '@stripe/stripe-js': ^1.44.1 || ^2.0.0
+      '@stripe/stripe-js': ^1.44.1 || ^2.0.0 || ^3.0.0 || ^4.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
 
-  '@stripe/stripe-js@3.0.6':
-    resolution: {integrity: sha512-Ef3A0/zvgKbiMdCPT+rZgQBQqhNZ66wuR6Eg2w9YUuqykcIFFKU4nYApBr05WTvInrge8GuOqY5acSDiv6DOjA==}
+  '@stripe/stripe-js@3.5.0':
+    resolution: {integrity: sha512-pKS3wZnJoL1iTyGBXAvCwduNNeghJHY6QSRSNNvpYnrrQrLZ6Owsazjyynu0e0ObRgks0i7Rv+pe2M7/MBTZpQ==}
     engines: {node: '>=12.16'}
 
   '@swc/counter@0.1.3':
@@ -806,12 +806,12 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
 
-  '@tanstack/react-table@8.11.8':
-    resolution: {integrity: sha512-NEwvIq4iSiDQozEyvbdiSdCOiLa+g5xHmdEnvwDb98FObcK6YkBOkRrs/CNqrKdDy+/lqoIllIWHk+M80GW6+g==}
+  '@tanstack/react-table@8.19.2':
+    resolution: {integrity: sha512-itoSIAkA/Vsg+bjY23FSemcTyPhc5/1YjYyaMsr9QSH/cdbZnQxHVWrpWn0Sp2BWN71qkzR7e5ye8WuMmwyOjg==}
     engines: {node: '>=12'}
     peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
+      react: '>=16.8'
+      react-dom: '>=16.8'
 
   '@tanstack/react-virtual@3.0.2':
     resolution: {integrity: sha512-9XbRLPKgnhMwwmuQMnJMv+5a9sitGNCSEtf/AZXzmJdesYk7XsjYHaEDny+IrJzvPNwZliIIDwCRiaUqR3zzCA==}
@@ -819,8 +819,8 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
 
-  '@tanstack/table-core@8.11.8':
-    resolution: {integrity: sha512-DECHvtq4YW4U/gqg6etup7ydt/RB1Bi1pJaMpHUXl65ooW1d71Nv7BzD66rUdHrBSNdyiW3PLTPUQlpXjAgDeA==}
+  '@tanstack/table-core@8.19.2':
+    resolution: {integrity: sha512-KpRjhgehIhbfH78ARm/GJDXGnpdw4bCg3qas6yjWSi7czJhI/J6pWln7NHtmBkGE9ZbohiiNtLqwGzKmBfixig==}
     engines: {node: '>=12'}
 
   '@tanstack/virtual-core@3.0.0':
@@ -838,8 +838,8 @@ packages:
     resolution: {integrity: sha512-qaGV9ltJP0EO25YfFUPhxRVK0evXFIAGicsVXuRim4Ed9cjPxYhNnNJ49SFmbeLgtxpslIkX317IgpfcHPVj/A==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  '@types/applepayjs@3.0.4':
-    resolution: {integrity: sha512-RqaVZWy1Kj4e1PoUoOI8uA+4UuuLpicQFxfU9Y/xWJFZFT6mFB4PiiY911iDxFk7pdvaj5HKH7VsWRisRca1Rg==}
+  '@types/applepayjs@14.0.6':
+    resolution: {integrity: sha512-nyq2+UXJL7rtcaWRtD3Tr028YTtthVFe0Y1vBhm34b+gmFdNi3VFDTsVbIxii3OgyD3CHskICZJd0tEhanqrFg==}
 
   '@types/async-retry@1.4.8':
     resolution: {integrity: sha512-Qup/B5PWLe86yI5I3av6ePGaeQrIHNKCwbsQotD6aHQ6YkHsMUxVZkZsmx/Ry3VZQ6uysHwTjQ7666+k6UjVJA==}
@@ -1206,8 +1206,8 @@ packages:
     resolution: {integrity: sha512-sCXXUhA+cljomZ3ZAwb8i1p3oOlkABzPy08ZDAoGcYuvtBPlQ1Ytde129ArXyHWDhfeewq7rlx9F+cUx2SSlkg==}
     engines: {node: '>=4'}
 
-  axios@1.6.8:
-    resolution: {integrity: sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==}
+  axios@1.7.2:
+    resolution: {integrity: sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==}
 
   axobject-query@3.1.1:
     resolution: {integrity: sha512-goKlv8DZrK9hUh975fnHzhNIO4jUnFCfv/dszV5VwUGDFjI6vQ2VwoyjYjYNEbBE8AH87TduWP5uyDR1D+Iteg==}
@@ -1255,8 +1255,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  braintree-web@3.99.2:
-    resolution: {integrity: sha512-c7J17X0lcfIltObg2fl74IQXX2IWoNZAFIh+6X1na+eqeb169kZ9ipPWYuazZ6IUGrXQKSocmEN5O0mJwYMOeg==}
+  braintree-web@3.102.0:
+    resolution: {integrity: sha512-zQzYi1O8+ovLKKpjjaIl5lXg8+cL9u5sYDQucGrTPntqBeGi86psCcymdJPmUn4ASwYN6GKWmHg7e8tZ80aYOg==}
 
   browserslist@4.23.0:
     resolution: {integrity: sha512-QW8HiM1shhT2GuzkvklfjcKDiWFXHOeFCIA/huJPwHsslwcydgk7X+z2zXpEijP98UCY7HbubZt5J2Zgvf0CaQ==}
@@ -2196,8 +2196,8 @@ packages:
   framebus@5.2.1:
     resolution: {integrity: sha512-K6pw+M2wNBuOhEoFrmMbf1O+fm7PnNDIfA9y0KpAyQzXRIJ420szGgJ/dI2Ikz0XG+5VfspLqA72M6bXhuyKIQ==}
 
-  frames-react@1.1.0:
-    resolution: {integrity: sha512-4mpZsex1GL20OxCVwS7DaWXsRlJz17chy0OegFWuxrY9yhlupA8PNf7/ev/u/YBpxa3iY3f6feW6tdenGJPsLg==}
+  frames-react@1.1.1:
+    resolution: {integrity: sha512-qtGEbj8HdtN8DBPWCrs9casnFNFTxRHQXV3+WuSjInmI27kSe3oygnnuqkzScdsKgf114JnbgH2dPxqWp1AhCQ==}
     peerDependencies:
       react: '>=16.8'
 
@@ -2532,8 +2532,8 @@ packages:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
 
-  iframe-resizer@4.3.9:
-    resolution: {integrity: sha512-MCt+V/THB4a9OcAdrWo5NsI2CRpeMM4ijhTfiLtsdgDJXWYXf62Ve8yO8rKGmYNs991zty/EolYOxActlkfU+A==}
+  iframe-resizer@4.4.4:
+    resolution: {integrity: sha512-9E4+pTpOPEeSz3P/o04uy5hpG+z/fy+BDzQnM3PT/G1zINRqgVJNdHgO8bJ8s8szLFztjKugnjtvZdvBJ5UXWQ==}
     engines: {node: '>=0.8.0'}
 
   ignore-walk@6.0.3:
@@ -4857,11 +4857,11 @@ snapshots:
 
   '@aashutoshrathi/word-wrap@1.2.6': {}
 
-  '@adyen/adyen-web@5.59.0':
+  '@adyen/adyen-web@5.66.1':
     dependencies:
       '@babel/runtime': 7.23.9
       '@babel/runtime-corejs3': 7.23.2
-      '@types/applepayjs': 3.0.4
+      '@types/applepayjs': 14.0.6
       '@types/googlepay': 0.7.2
       classnames: 2.5.1
       core-js-pure: 3.33.0
@@ -5066,7 +5066,7 @@ snapshots:
 
   '@braintree/iframer@1.1.0': {}
 
-  '@braintree/sanitize-url@6.0.4': {}
+  '@braintree/sanitize-url@7.0.1': {}
 
   '@braintree/uuid@0.1.0': {}
 
@@ -5085,17 +5085,17 @@ snapshots:
 
   '@commercelayer/react-components@4.13.3(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.3)':
     dependencies:
-      '@adyen/adyen-web': 5.59.0
+      '@adyen/adyen-web': 5.66.1
       '@commercelayer/organization-config': 1.4.8(eslint@8.57.0)(typescript@5.5.3)
       '@commercelayer/sdk': 6.0.2
-      '@stripe/react-stripe-js': 2.4.0(@stripe/stripe-js@3.0.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@stripe/stripe-js': 3.0.6
-      '@tanstack/react-table': 8.11.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stripe/react-stripe-js': 2.7.3(@stripe/stripe-js@3.5.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stripe/stripe-js': 3.5.0
+      '@tanstack/react-table': 8.19.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/iframe-resizer': 3.5.13
-      axios: 1.6.8
-      braintree-web: 3.99.2
-      frames-react: 1.1.0(react@18.3.1)
-      iframe-resizer: 4.3.9
+      axios: 1.7.2
+      braintree-web: 3.102.0
+      frames-react: 1.1.1(react@18.3.1)
+      iframe-resizer: 4.4.4
       jwt-decode: 4.0.0
       lodash: 4.17.21
       rapid-form: 2.1.0
@@ -5529,14 +5529,14 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
-  '@stripe/react-stripe-js@2.4.0(@stripe/stripe-js@3.0.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@stripe/react-stripe-js@2.7.3(@stripe/stripe-js@3.5.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@stripe/stripe-js': 3.0.6
+      '@stripe/stripe-js': 3.5.0
       prop-types: 15.8.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@stripe/stripe-js@3.0.6': {}
+  '@stripe/stripe-js@3.5.0': {}
 
   '@swc/counter@0.1.3': {}
 
@@ -5554,9 +5554,9 @@ snapshots:
       mini-svg-data-uri: 1.4.4
       tailwindcss: 3.4.4
 
-  '@tanstack/react-table@8.11.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@tanstack/react-table@8.19.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@tanstack/table-core': 8.11.8
+      '@tanstack/table-core': 8.19.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -5566,7 +5566,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@tanstack/table-core@8.11.8': {}
+  '@tanstack/table-core@8.19.2': {}
 
   '@tanstack/virtual-core@3.0.0': {}
 
@@ -5579,7 +5579,7 @@ snapshots:
       '@tufjs/canonical-json': 1.0.0
       minimatch: 9.0.4
 
-  '@types/applepayjs@3.0.4': {}
+  '@types/applepayjs@14.0.6': {}
 
   '@types/async-retry@1.4.8':
     dependencies:
@@ -6015,7 +6015,7 @@ snapshots:
 
   axe-core@4.7.1: {}
 
-  axios@1.6.8:
+  axios@1.7.2:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
@@ -6089,14 +6089,14 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  braintree-web@3.99.2:
+  braintree-web@3.102.0:
     dependencies:
       '@braintree/asset-loader': 0.4.4
       '@braintree/browser-detection': 1.17.1
       '@braintree/event-emitter': 0.4.1
       '@braintree/extended-promise': 0.4.1
       '@braintree/iframer': 1.1.0
-      '@braintree/sanitize-url': 6.0.4
+      '@braintree/sanitize-url': 7.0.1
       '@braintree/uuid': 0.1.0
       '@braintree/wrap-promise': 2.1.0
       card-validator: 8.1.1
@@ -7401,7 +7401,7 @@ snapshots:
     dependencies:
       '@braintree/uuid': 0.1.0
 
-  frames-react@1.1.0(react@18.3.1):
+  frames-react@1.1.1(react@18.3.1):
     dependencies:
       classnames: 2.5.1
       react: 18.3.1
@@ -7791,7 +7791,7 @@ snapshots:
       safer-buffer: 2.1.2
     optional: true
 
-  iframe-resizer@4.3.9: {}
+  iframe-resizer@4.4.4: {}
 
   ignore-walk@6.0.3:
     dependencies:
