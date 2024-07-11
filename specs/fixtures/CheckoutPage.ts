@@ -1003,6 +1003,8 @@ export class CheckoutPage {
                 "select-payment-category-or-method-from-stacked-selector"
               )
 
+              await this.page.waitForTimeout(5000)
+
               if (await selectPayment.isVisible()) {
                 await selectPayment.click()
               }
