@@ -16,13 +16,13 @@ export const euAddress: Partial<Address> = {
 export const euAddress2: Partial<Address> = {
   first_name: "Spider",
   last_name: "Man",
-  line_1: "Ragnatela, 99",
-  line_2: "Via Morte Nera, 13",
-  city: "Canguro",
+  line_1: "18 Pl. du Marché Saint-Honoré",
+  line_2: "interno 1",
+  city: "Paris",
   country_code: "FR",
-  state_code: "RE",
-  zip_code: "32100",
-  phone: "+39 010 010101010",
+  state_code: "PA",
+  zip_code: "75001",
+  phone: "+33 7 40 00 00 00",
   billing_info: "0ABCDEFGHIJKLMNOPQRSTUVWYX",
 }
 

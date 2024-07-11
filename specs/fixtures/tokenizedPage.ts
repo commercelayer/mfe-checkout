@@ -214,7 +214,7 @@ const getOrder = async (
       if (giftCard) {
         superToken = superToken || (await getSuperToken())
         superCl = superCl || getClient(superToken)
-        const card = await createAndPurchaseGiftCard(cl, giftCard)
+        const card = await createAndPurchaseGiftCard(cl, giftCard, true)
         const activeCard = await superCl.gift_cards.update({
           id: card.id,
           _activate: true,
@@ -384,7 +384,8 @@ const updateInventory = async (
 
 const createAndPurchaseGiftCard = async (
   cl: CommerceLayerClient,
-  props?: GiftCardProps
+  props?: GiftCardProps,
+  purchase: boolean = false
 ) => {
   const card = await cl.gift_cards.create({
     currency_code: props?.currency_code ? props.currency_code : "EUR",
@@ -395,7 +396,7 @@ const createAndPurchaseGiftCard = async (
   })
   const activeCard = await cl.gift_cards.update({
     id: card.id,
-    _purchase: true,
+    _purchase: purchase,
   })
   return activeCard
 }
