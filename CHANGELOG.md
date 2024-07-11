@@ -1,3 +1,10 @@
+## [4.10.2](https://github.com/commercelayer/mfe-checkout/compare/v4.10.1...v4.10.2) (2024-07-11)
+
+
+### Bug Fixes
+
+* update dependencies ([3cdde74](https://github.com/commercelayer/mfe-checkout/commit/3cdde749af524ef45c323fece1abfd8494127182))
+
 ## [4.10.1](https://github.com/commercelayer/mfe-checkout/compare/v4.10.0...v4.10.1) (2024-05-15)
 
 
