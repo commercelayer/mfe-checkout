@@ -71,6 +71,12 @@ export const CouponOrGiftCard: React.FC<Props> = ({
     {
       code: "VALIDATION_ERROR",
       resource: "orders",
+      field: "customer_email",
+      message: " ",
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "orders",
       field: "braintree_payments",
       message: " ",
     },

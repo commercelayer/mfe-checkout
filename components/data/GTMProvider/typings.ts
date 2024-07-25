@@ -22,7 +22,7 @@ export interface EcommerceProps {
   rakutenItems?: (RakutenDataLayerItemProps | undefined)[]
   value?: NullableType<number>
   shipping_tier?: NullableType<string>
-  transaction_id?: NullableType<number>
+  transaction_id?: NullableType<string>
   payment_type?: NullableType<string>
   tax?: NullableType<number>
   taxRate?: NullableType<number> // taxRate can be percentage or decimal

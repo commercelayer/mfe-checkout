@@ -1,3 +1,267 @@
+## [4.10.2](https://github.com/commercelayer/mfe-checkout/compare/v4.10.1...v4.10.2) (2024-07-11)
+
+
+### Bug Fixes
+
+* update dependencies ([3cdde74](https://github.com/commercelayer/mfe-checkout/commit/3cdde749af524ef45c323fece1abfd8494127182))
+
+## [4.10.1](https://github.com/commercelayer/mfe-checkout/compare/v4.10.0...v4.10.1) (2024-05-15)
+
+
+### Bug Fixes
+
+* avoid automatic place on page reload for adyen when selecting a customer payment source ([c16dc25](https://github.com/commercelayer/mfe-checkout/commit/c16dc258cf76e212e07f3a8050a7b809e0bdb87d))
+* enable Link as selectable saved payment source ([ed4ac0f](https://github.com/commercelayer/mfe-checkout/commit/ed4ac0f8c409bfb2e9015cd1d025c8222602b4ee))
+* use loader for payment methods for logged in customer ([90e30f2](https://github.com/commercelayer/mfe-checkout/commit/90e30f2558f608d2c9f23749ecd0ed2fb65ed99d))
+
+# [4.10.0](https://github.com/commercelayer/mfe-checkout/compare/v4.9.0...v4.10.0) (2024-04-05)
+
+
+### Features
+
+* add support for Hungarian language ([80e86e1](https://github.com/commercelayer/mfe-checkout/commit/80e86e192f5d006d908c38331a702c2a9ac61d20))
+
+# [4.9.0](https://github.com/commercelayer/mfe-checkout/compare/v4.8.3...v4.9.0) (2024-04-05)
+
+
+### Features
+
+* override countries and states with organization config and preselect a default country ([961dc33](https://github.com/commercelayer/mfe-checkout/commit/961dc33f1eeaee7c990f8993d19a6f28c88dd044))
+
+## [4.8.3](https://github.com/commercelayer/mfe-checkout/compare/v4.8.2...v4.8.3) (2024-04-02)
+
+
+### Bug Fixes
+
+* adjust logic on step complete on page reload ([2722bda](https://github.com/commercelayer/mfe-checkout/commit/2722bda972e51ed5ce531a0b34313a0bcbd4355c))
+
+## [4.8.2](https://github.com/commercelayer/mfe-checkout/compare/v4.8.1...v4.8.2) (2024-04-02)
+
+
+### Bug Fixes
+
+* rollback `AppProvider` logic on fetching initial order ([d60ede0](https://github.com/commercelayer/mfe-checkout/commit/d60ede0dd947cd58a17cd668f953172fae1e9f70))
+
+## [4.8.1](https://github.com/commercelayer/mfe-checkout/compare/v4.8.0...v4.8.1) (2024-03-28)
+
+
+### Bug Fixes
+
+* use correct check on is new address form ([cb30d39](https://github.com/commercelayer/mfe-checkout/commit/cb30d39f57bac06d73d538522d1f6b13fee61bab))
+
+# [4.8.0](https://github.com/commercelayer/mfe-checkout/compare/v4.7.0...v4.8.0) (2024-03-20)
+
+
+### Features
+
+* use custom thank you page from organization config ([79fac55](https://github.com/commercelayer/mfe-checkout/commit/79fac55539ae09376ac2cc46df1fbfa77b152e32))
+
+# [4.7.0](https://github.com/commercelayer/mfe-checkout/compare/v4.6.2...v4.7.0) (2024-03-08)
+
+
+### Features
+
+* add French translations ([f4de671](https://github.com/commercelayer/mfe-checkout/commit/f4de6713bc938c1a28c66adcfe398949953b0257))
+* enhance order subscription payment source amend ([cb67d11](https://github.com/commercelayer/mfe-checkout/commit/cb67d116bbca3e09e058556f6689f8e304b24f06))
+
+## [4.6.2](https://github.com/commercelayer/mfe-checkout/compare/v4.6.1...v4.6.2) (2024-03-05)
+
+
+### Bug Fixes
+
+* prevent changing payment source while placing order ([e162386](https://github.com/commercelayer/mfe-checkout/commit/e162386fd03fb2e5395510ef89251b9fa29a3194))
+
+
+### Performance Improvements
+
+* update all dependencies ([deba076](https://github.com/commercelayer/mfe-checkout/commit/deba0766b1543e1acd6ae245edbcc2f2ec6e42d3))
+
+## [4.6.1](https://github.com/commercelayer/mfe-checkout/compare/v4.6.0...v4.6.1) (2024-02-20)
+
+
+### Bug Fixes
+
+* use customer address in address reference ([4e23a90](https://github.com/commercelayer/mfe-checkout/commit/4e23a908f2c098f0f44ff0f020971af6617073bf))
+
+# [4.6.0](https://github.com/commercelayer/mfe-checkout/compare/v4.5.4...v4.6.0) (2024-02-16)
+
+
+### Features
+
+* add Spanish support and translations ([39d91f5](https://github.com/commercelayer/mfe-checkout/commit/39d91f548b15002dc86871b3daadb91e81aa0bb7))
+
+## [4.5.4](https://github.com/commercelayer/mfe-checkout/compare/v4.5.3...v4.5.4) (2024-02-13)
+
+
+### Performance Improvements
+
+* add audit step to ci and update deps ([6f02e2c](https://github.com/commercelayer/mfe-checkout/commit/6f02e2cc3093ce719800035f2fa525c4839ded47))
+
+## [4.5.3](https://github.com/commercelayer/mfe-checkout/compare/v4.5.2...v4.5.3) (2024-02-12)
+
+
+### Bug Fixes
+
+* remove empty div for `Errors` component when no errors to display ([aca3f2b](https://github.com/commercelayer/mfe-checkout/commit/aca3f2bbfcbf87c187ab34dc8b62467c8fde4c0d))
+
+## [4.5.2](https://github.com/commercelayer/mfe-checkout/compare/v4.5.1...v4.5.2) (2024-01-19)
+
+
+### Bug Fixes
+
+* redirect to thank you page skipping errors if order is in a `placed` status ([c3072ea](https://github.com/commercelayer/mfe-checkout/commit/c3072eabe4b10ae8ea0af02a12711a5c1d9e0acd))
+
+## [4.5.1](https://github.com/commercelayer/mfe-checkout/compare/v4.5.0...v4.5.1) (2024-01-11)
+
+
+### Bug Fixes
+
+* adjust klarna test ([c985806](https://github.com/commercelayer/mfe-checkout/commit/c9858069456753838881114b409115e3c5dd2d0d))
+
+# [4.5.0](https://github.com/commercelayer/mfe-checkout/compare/v4.4.3...v4.5.0) (2024-01-11)
+
+
+### Features
+
+* add Polish support and translations ([c05bfc9](https://github.com/commercelayer/mfe-checkout/commit/c05bfc923481f0b9f4ccae2caf255d969ff34d1d))
+
+## [4.4.3](https://github.com/commercelayer/mfe-checkout/compare/v4.4.2...v4.4.3) (2024-01-04)
+
+
+### Bug Fixes
+
+* avoid saving a customer payment source on order with subscription ([99e6872](https://github.com/commercelayer/mfe-checkout/commit/99e68720bf0760a21038e6e98397e1d41caf713e))
+
+## [4.4.2](https://github.com/commercelayer/mfe-checkout/compare/v4.4.1...v4.4.2) (2023-12-22)
+
+
+### Bug Fixes
+
+* display stock transfer on shipment section ([b4309d9](https://github.com/commercelayer/mfe-checkout/commit/b4309d9a6cafa63832b2cdf24aa48b6a5a207f85))
+* prevent saving a customer payment source if already saved when a subscription is present ([771f253](https://github.com/commercelayer/mfe-checkout/commit/771f253d631fa6ee80a05bcf0130f960c83cfdc8))
+
+## [4.4.1](https://github.com/commercelayer/mfe-checkout/compare/v4.4.0...v4.4.1) (2023-12-21)
+
+
+### Bug Fixes
+
+* improve check for `subscription_created_at` attribute ([c5ebb05](https://github.com/commercelayer/mfe-checkout/commit/c5ebb055a0c1cac191518df923bb4d3445875c35))
+
+# [4.4.0](https://github.com/commercelayer/mfe-checkout/compare/v4.3.2...v4.4.0) (2023-12-13)
+
+
+### Bug Fixes
+
+* remove `return to cart` link on thank you page ([fd600d0](https://github.com/commercelayer/mfe-checkout/commit/fd600d0d5580a7ebce8f92e1477040b7d31e194c))
+
+
+### Features
+
+* improve subscriptions support during checkout flow ([6322538](https://github.com/commercelayer/mfe-checkout/commit/63225389255781421958413956e315621ec22054))
+* save payment details if a customer is paying a failing order originated by an order subscription ([6c25e9b](https://github.com/commercelayer/mfe-checkout/commit/6c25e9bd30159866c6c9a5a20fcec20ba8d2922b))
+
+## [4.3.2](https://github.com/commercelayer/mfe-checkout/compare/v4.3.1...v4.3.2) (2023-11-21)
+
+
+### Bug Fixes
+
+* adjust duration and primary light color ([fec09ca](https://github.com/commercelayer/mfe-checkout/commit/fec09ca6a5db9a996b63c73c9903fe0d7cc1b07c))
+
+## [4.3.1](https://github.com/commercelayer/mfe-checkout/compare/v4.3.0...v4.3.1) (2023-11-16)
+
+
+### Bug Fixes
+
+* check email format and form submit validation ([cb982d6](https://github.com/commercelayer/mfe-checkout/commit/cb982d6513f21d7e1ca947c589987f0c27945ade))
+
+
+### Performance Improvements
+
+* reduce bundle size, removing states and countries from react-components ([4e614f9](https://github.com/commercelayer/mfe-checkout/commit/4e614f9fcfb221ca6799f4469b848af586d49cf1))
+
+# [4.3.0](https://github.com/commercelayer/mfe-checkout/compare/v4.2.5...v4.3.0) (2023-11-10)
+
+
+### Bug Fixes
+
+* change export to build command ([e440c4d](https://github.com/commercelayer/mfe-checkout/commit/e440c4d1c8cc263c519580dfd983f7978eb246db))
+
+
+### Features
+
+* upgrade to nextjs `v14` and remove adyen languages not supported ([edbd9c0](https://github.com/commercelayer/mfe-checkout/commit/edbd9c0d00d80190342e6e85748e80a7d55b8b6f))
+
+## [4.2.5](https://github.com/commercelayer/mfe-checkout/compare/v4.2.4...v4.2.5) (2023-11-09)
+
+
+### Bug Fixes
+
+* skip `begin_checkout` event when completing payment or reload page on `placed` orders ([5b4c3c4](https://github.com/commercelayer/mfe-checkout/commit/5b4c3c4d93f59f7f875711f4d71f9a09b986fb53))
+
+## [4.2.4](https://github.com/commercelayer/mfe-checkout/compare/v4.2.3...v4.2.4) (2023-11-07)
+
+
+### Bug Fixes
+
+* enforce check for `require-await` and remove useless `async` ([91f3015](https://github.com/commercelayer/mfe-checkout/commit/91f30156bb2c3ab2cb581e332542da67b9d83095))
+
+## [4.2.3](https://github.com/commercelayer/mfe-checkout/compare/v4.2.2...v4.2.3) (2023-11-03)
+
+
+### Bug Fixes
+
+* avoid check on country code lock for digital orders ([b34c2d1](https://github.com/commercelayer/mfe-checkout/commit/b34c2d141f85ea66be44aca935ca3b36999b430e))
+
+## [4.2.2](https://github.com/commercelayer/mfe-checkout/compare/v4.2.1...v4.2.2) (2023-11-02)
+
+
+### Bug Fixes
+
+* ignore `shipping_country_code_lock` for order with digital products only ([0b41ed1](https://github.com/commercelayer/mfe-checkout/commit/0b41ed1610b9dc978bdbc164bf859616a74b7dcb))
+* refer to billing address for order with digital products only ([11f8e41](https://github.com/commercelayer/mfe-checkout/commit/11f8e4182a1cf01eb0e0c1cebd1bb65f51fb30d5))
+
+## [4.2.1](https://github.com/commercelayer/mfe-checkout/compare/v4.2.0...v4.2.1) (2023-10-25)
+
+
+### Bug Fixes
+
+* show all form errors and avoid blinking on border ([4c37447](https://github.com/commercelayer/mfe-checkout/commit/4c3744758aa78ebf62450b5d1e2fece6c4c38a66))
+
+# [4.2.0](https://github.com/commercelayer/mfe-checkout/compare/v4.1.5...v4.2.0) (2023-10-20)
+
+
+### Features
+
+* improve GTM performances removing calls to Commerce Layer ([95e6840](https://github.com/commercelayer/mfe-checkout/commit/95e68406a38c1ea4a96e902c5596c593a3193669))
+
+## [4.1.5](https://github.com/commercelayer/mfe-checkout/compare/v4.1.4...v4.1.5) (2023-10-20)
+
+
+### Performance Improvements
+
+* make two setup calls in parallel ([95dea4b](https://github.com/commercelayer/mfe-checkout/commit/95dea4ba7e5c2458d0025d13c0a8df36e7c5d576))
+
+## [4.1.4](https://github.com/commercelayer/mfe-checkout/compare/v4.1.3...v4.1.4) (2023-10-20)
+
+
+### Bug Fixes
+
+* update selector for Klarna payment terms checkbox (german) ([efcb78f](https://github.com/commercelayer/mfe-checkout/commit/efcb78fe329bb91ec3df84e1df8ec5c3e1d8dfcb))
+
+## [4.1.3](https://github.com/commercelayer/mfe-checkout/compare/v4.1.2...v4.1.3) (2023-10-19)
+
+
+### Bug Fixes
+
+* update all deps and types ([e061e98](https://github.com/commercelayer/mfe-checkout/commit/e061e985a8f106d18249dd68a19bc1d19ddbf2c2))
+
+## [4.1.2](https://github.com/commercelayer/mfe-checkout/compare/v4.1.1...v4.1.2) (2023-10-13)
+
+
+### Bug Fixes
+
+* avoid losing focus on shipping method selection ([cfc2916](https://github.com/commercelayer/mfe-checkout/commit/cfc2916e33408e2937c144e787f9444de2ad49cd))
+
 ## [4.1.1](https://github.com/commercelayer/mfe-checkout/compare/v4.1.0...v4.1.1) (2023-10-09)
 
 

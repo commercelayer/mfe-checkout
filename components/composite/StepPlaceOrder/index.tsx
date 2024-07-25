@@ -2,6 +2,8 @@ import type { Order } from "@commercelayer/sdk"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
+import { RepeatIcon } from "../OrderSummary/RepeatIcon"
+
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { FlexContainer } from "components/ui/FlexContainer"
@@ -20,11 +22,12 @@ import {
   StyledPrivacyAndTermsCheckbox,
   PlaceOrderButtonWrapper,
 } from "./styled"
+import { WarningIcon } from "./WarningIcon"
 
 interface Props {
   isActive: boolean
-  termsUrl?: string
-  privacyUrl?: string
+  termsUrl: NullableType<string>
+  privacyUrl: NullableType<string>
 }
 
 const StepPlaceOrder: React.FC<Props> = ({
@@ -56,8 +59,8 @@ const StepPlaceOrder: React.FC<Props> = ({
       setIsPlacingOrder(true)
       await placeOrder(order)
       if (gtmCtx?.firePurchase && gtmCtx?.fireAddPaymentInfo) {
-        await gtmCtx.fireAddPaymentInfo()
-        await gtmCtx.firePurchase()
+        gtmCtx.fireAddPaymentInfo()
+        gtmCtx.firePurchase()
       }
       setIsPlacingOrder(false)
     }
@@ -65,6 +68,29 @@ const StepPlaceOrder: React.FC<Props> = ({
 
   return (
     <>
+      {appCtx.hasSubscriptions && isActive && (
+        <div
+          className={`text-gray-500 font-semibold p-4 m-5 mb-0 md:mb-5 md:mx-0 text-sm border border-dashed ${
+            !appCtx.isGuest ? "" : "border-orange-400"
+          }`}
+        >
+          {appCtx.isGuest ? (
+            <div className="flex">
+              <div className="relative w-4 mr-2 top-0.5">
+                <WarningIcon />
+              </div>
+              <p>{t("stepPayment.subscriptionWithoutCustomer")}</p>
+            </div>
+          ) : (
+            <div className="flex">
+              <div className="relative w-4 mr-2 top-0.5">
+                <RepeatIcon />
+              </div>
+              <p>{t("stepPayment.subscriptionWithCustomer")}</p>
+            </div>
+          )}
+        </div>
+      )}
       <ErrorsContainer data-testid="errors-container">
         <StyledErrors
           resource="orders"

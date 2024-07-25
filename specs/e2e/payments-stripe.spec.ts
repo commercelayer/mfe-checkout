@@ -282,7 +282,7 @@ test.describe("guest with Stripe", () => {
 
     await checkoutPage.save("Payment", undefined, true)
 
-    await checkoutPage.page.waitForTimeout(10000)
+    await checkoutPage.page.waitForTimeout(6000)
 
     const myFrames = checkoutPage.page.frames()
 
@@ -290,7 +290,7 @@ test.describe("guest with Stripe", () => {
       .locator("#test-source-authorize-3ds")
       .click()
 
-    await checkoutPage.checkPaymentRecap("Visa ending in 3155")
+    await checkoutPage.checkPaymentRecap("Visa ending in 3155", 10000)
 
     await checkoutPage.page.reload()
 

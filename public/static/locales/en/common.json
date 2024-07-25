@@ -1,4 +1,5 @@
 {
+    
     "general": {
         "title": "{{companyName}} - Checkout",
         "systemError": "We're sorry but something went wrong!",
@@ -71,7 +72,8 @@
         "addNewAddress": "Add new address",
         "saveAddressBook": "Save this address in your account",
         "continueToDelivery": "Continue to delivery",
-        "notSet": "Fill in your Billing/Shipping Address",
+        "notSet": "Fill in your billing/shipping address",
+        "notSetNoDelivery": "Fill in your billing address",
         "closeForm": "Choose address"
     },
 
@@ -104,7 +106,9 @@
         "notRequired": "This order does not require payment",
         "amountZero": "The total amount of the order is zero, you can place the order as it is right now",
         "saveToWallet": "Save new card on your wallet",
-        "expires": "Expires"
+        "expires": "Expires",
+        "subscriptionWithoutCustomer": "An account must be created in order to purchase your subscription.",
+        "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms."
     },
 
     "addressForm" : {

@@ -4,7 +4,7 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 interface Props {
-  orderNumber: number
+  orderNumber: string
 }
 
 export const MainHeader: React.FC<Props> = ({ orderNumber }) => {
