@@ -11,6 +11,7 @@ import TotalAmount from "@commercelayer/react-components/orders/TotalAmount"
 import { Trans, useTranslation } from "react-i18next"
 
 import { AppProviderData } from "components/data/AppProvider"
+import { LipscoreWidget } from "components/ui/LipscoreWidget"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
@@ -65,6 +66,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
   ) : null
   return (
     <Wrapper data-testid="order-summary">
+      <LipscoreWidget />
       <LineItemsContainer>
         <>
           {lineItems}
