@@ -821,7 +821,7 @@ export class CheckoutPage {
               .click()
             await this.page.getByTestId("save-payment-button").click()
 
-            const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
+            const klarnaIframe = this.page // .frameLocator("#klarna-apf-iframe")
 
             await klarnaIframe
               .getByTestId("kaf-field")
@@ -888,7 +888,7 @@ export class CheckoutPage {
             await this.page.click("[data-testid=save-payment-button]")
             await this.page.waitForTimeout(4000)
 
-            const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
+            const klarnaIframe = this.page // .frameLocator("#klarna-apf-iframe")
 
             await klarnaIframe
               .getByTestId("kaf-field")
@@ -926,7 +926,7 @@ export class CheckoutPage {
               // await this.page.click("#buy-button")
 
               // const i = this.page.locator("#klarna-apf-iframe")
-              const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
+              const klarnaIframe = this.page // .frameLocator("#klarna-apf-iframe")
 
               await klarnaIframe
                 .getByTestId("kaf-field")
@@ -973,7 +973,7 @@ export class CheckoutPage {
               await this.page.click("[data-testid=save-payment-button]")
               await this.page.waitForTimeout(5000)
 
-              const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
+              const klarnaIframe = this.page // .frameLocator("#klarna-apf-iframe")
 
               await klarnaIframe
                 .getByTestId("kaf-field")

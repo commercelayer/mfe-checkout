@@ -46,7 +46,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
       <LineItemWrapper data-testid={`line-items-${type}`}>
         <LineItemImage
           width={85}
-          className="self-start p-1 bg-white border rounded"
+          className="self-start rounded border bg-white p-1"
         />
         <LineItemDescription>
           <StyledLineItemSkuCode type={CODE_LOOKUP[type]} />
@@ -60,7 +60,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
           <StyledLineItemOptions showAll showName={true} className="options">
             <LineItemOption />
           </StyledLineItemOptions>
-          <FlexContainer className="flex-col justify-between mt-2 lg:flex-row">
+          <FlexContainer className="mt-2 flex-col justify-between lg:flex-row">
             <LineItemQty>
               <LineItemQuantity>
                 {(props) => (

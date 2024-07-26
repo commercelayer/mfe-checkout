@@ -10,7 +10,7 @@ export const ErrorContainer = ({ children }: { children: ChildrenType }) => {
       <Container>
         <Wrapper>
           <LogoWrapper>
-            <FullLogo className="self-center text-black md:pl-4 md:self-auto" />
+            <FullLogo className="self-center text-black md:self-auto md:pl-4" />
           </LogoWrapper>
           <Main>
             <Error>{children}</Error>

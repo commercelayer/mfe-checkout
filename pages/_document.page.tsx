@@ -34,7 +34,7 @@ class AppDocument extends Document {
             </Script>
           )}
         </Head>
-        <body className="antialiased font-medium bg-gray-50">
+        <body className="bg-gray-50 font-medium antialiased">
           <Main />
           <NextScript />
         </body>

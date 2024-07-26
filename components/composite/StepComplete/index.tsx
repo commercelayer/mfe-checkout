@@ -82,7 +82,7 @@ export const StepComplete: React.FC<Props> = ({
             <Logo
               logoUrl={logoUrl}
               companyName={companyName}
-              className="self-center pt-10 pl-4 mb-10 md:self-auto"
+              className="mb-10 self-center pl-4 pt-10 md:self-auto"
             />
             <Main>
               <div className="p-8">
@@ -187,7 +187,7 @@ export const StepComplete: React.FC<Props> = ({
                   <RecapItemTitle>{t("stepComplete.payment")}</RecapItemTitle>
                   {ctx.isPaymentRequired ? (
                     <RecapBox>
-                      <FlexContainer className="font-bold text-md">
+                      <FlexContainer className="text-md font-bold">
                         <PaymentContainer>
                           <PaymentSource readonly>
                             <PaymentSourceBrandIcon className="mr-2" />

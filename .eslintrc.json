@@ -12,7 +12,7 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "plugin:tailwind/recommended",
+    "plugin:tailwindcss/recommended",
     "prettier"
   ],
   "globals": {
@@ -28,11 +28,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "prettier",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react", "prettier", "@typescript-eslint"],
   "rules": {
     "prettier/prettier": "warn",
     "react/react-in-jsx-scope": "off",
@@ -49,13 +45,7 @@
       "error",
       {
         "newlines-between": "always",
-        "groups": [
-          "external",
-          "builtin",
-          "parent",
-          "sibling",
-          "index"
-        ],
+        "groups": ["external", "builtin", "parent", "sibling", "index"],
         "pathGroups": [
           {
             "pattern": "components/**",
@@ -63,9 +53,7 @@
             "position": "after"
           }
         ],
-        "pathGroupsExcludedImportTypes": [
-          "parent"
-        ],
+        "pathGroupsExcludedImportTypes": ["parent"],
         "alphabetize": {
           "order": "asc",
           "caseInsensitive": true

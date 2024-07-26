@@ -173,7 +173,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                                   <span
                                     className={
                                       appCtx.taxIncluded
-                                        ? "text-gray-500 font-normal"
+                                        ? "font-normal text-gray-500"
                                         : ""
                                     }
                                   />

@@ -70,20 +70,20 @@ const StepPlaceOrder: React.FC<Props> = ({
     <>
       {appCtx.hasSubscriptions && isActive && (
         <div
-          className={`text-gray-500 font-semibold p-4 m-5 mb-0 md:mb-5 md:mx-0 text-sm border border-dashed ${
+          className={`m-5 mb-0 border border-dashed p-4 text-sm font-semibold text-gray-500 md:mx-0 md:mb-5 ${
             !appCtx.isGuest ? "" : "border-orange-400"
           }`}
         >
           {appCtx.isGuest ? (
             <div className="flex">
-              <div className="relative w-4 mr-2 top-0.5">
+              <div className="relative top-0.5 mr-2 w-4">
                 <WarningIcon />
               </div>
               <p>{t("stepPayment.subscriptionWithoutCustomer")}</p>
             </div>
           ) : (
             <div className="flex">
-              <div className="relative w-4 mr-2 top-0.5">
+              <div className="relative top-0.5 mr-2 w-4">
                 <RepeatIcon />
               </div>
               <p>{t("stepPayment.subscriptionWithCustomer")}</p>
@@ -129,10 +129,10 @@ const StepPlaceOrder: React.FC<Props> = ({
 
       <>
         {!!termsUrl && !!privacyUrl && (
-          <FlexContainer className="items-start mx-5 mt-4 mb-2.5 md:mb-5 md:pb-5 md:mx-0 md:mt-0 md:border-b lg:pl-8">
+          <FlexContainer className="mx-5 mb-2.5 mt-4 items-start md:mx-0 md:mb-5 md:mt-0 md:border-b md:pb-5 lg:pl-8">
             <StyledPrivacyAndTermsCheckbox
               id="privacy-terms"
-              className="relative form-checkbox top-0.5"
+              className="form-checkbox relative top-0.5"
               data-testid="checkbox-privacy-and-terms"
             />
             <Label htmlFor="privacy-terms">

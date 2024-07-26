@@ -53,7 +53,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
               key={k}
               data-testid="customer-card"
               onClick={p.handleClick}
-              className="flex flex-col items-start p-3 mb-4 text-sm border rounded cursor-pointer lg:flex-row lg:items-center shadow-sm hover:border-primary"
+              className="mb-4 flex cursor-pointer flex-col items-start rounded border p-3 text-sm shadow-sm hover:border-primary lg:flex-row lg:items-center"
             >
               <PaymentSourceProvider value={{ ...p.card }}>
                 <PaymentDetails />
@@ -77,7 +77,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
 
     return (
       !hasSubscriptions && (
-        <div className="flex items-center mt-4">
+        <div className="mt-4 flex items-center">
           <WalletCheckbox
             name={name}
             id={name}

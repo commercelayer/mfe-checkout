@@ -45,7 +45,7 @@ export const StepNav: React.FC<Props> = ({
               {step !== "Payment" && (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-3 h-3 mx-3 fill-current"
+                  className="fill-current mx-3 size-3"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >

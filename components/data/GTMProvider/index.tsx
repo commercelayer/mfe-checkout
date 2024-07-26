@@ -85,7 +85,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       item_name: name,
       price: total_amount_float,
       currency: currency_code,
-      quantity: quantity,
+      quantity,
       item_group_id: metadata?.product_reference || "",
     }
   }
@@ -102,7 +102,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
       productName: name,
       unitPrice: (total_amount_float || 0) + (discount_float || 0),
       unitPriceLessTax: (total_amount_float || 0) + (discount_float || 0),
-      quantity: quantity,
+      quantity,
     }
   }
 
