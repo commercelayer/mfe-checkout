@@ -12,7 +12,7 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "plugin:tailwind/recommended",
+    "plugin:tailwindcss/recommended",
     "prettier"
   ],
   "globals": {
@@ -36,6 +36,7 @@
     "no-var": "error",
     "no-param-reassign": "error",
     "prefer-const": "error",
+    "require-await": "error",
     "sort-imports": "off",
     "camelcase": "off",
     "import/named": "off",
@@ -63,11 +64,12 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/prefer-readonly": "error",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "import/no-named-as-default": "off"
   },
   "settings": {
     "react": {
-        "version": "detect"
+      "version": "detect"
     }
   }
 }

@@ -1,6 +1,10 @@
+declare namespace Organization {
+  type DefaultConfig =
+    import("@commercelayer/organization-config").DefaultConfig
+}
+
 type NullableType<T> = T | null | undefined
 type ChildrenType = JSX.Element[] | JSX.Element | null
-
 interface HSLProps {
   h: number
   s: string
@@ -10,9 +14,10 @@ interface HSLProps {
 interface CheckoutSettings {
   accessToken: string
   orderId: string
-  orderNumber: number
+  orderNumber: string
   validCheckout: true
   isGuest: boolean
+  isShipmentRequired: boolean
   endpoint: string
   domain: string
   slug: string
@@ -26,6 +31,7 @@ interface CheckoutSettings {
   supportPhone: NullableType<string>
   termsUrl: NullableType<string>
   privacyUrl: NullableType<string>
+  config: Organization.DefaultConfig | null
 }
 
 interface InvalidCheckoutSettings {

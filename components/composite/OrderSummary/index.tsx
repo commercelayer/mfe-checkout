@@ -11,6 +11,7 @@ import TotalAmount from "@commercelayer/react-components/orders/TotalAmount"
 import { Trans, useTranslation } from "react-i18next"
 
 import { AppProviderData } from "components/data/AppProvider"
+import { LipscoreWidget } from "components/ui/LipscoreWidget"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
@@ -65,6 +66,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
   ) : null
   return (
     <Wrapper data-testid="order-summary">
+      <LipscoreWidget />
       <LineItemsContainer>
         <>
           {lineItems}
@@ -131,8 +133,8 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                       {!appCtx.hasShippingMethod
                         ? t("orderRecap.notSet")
                         : props.priceCents === 0
-                        ? t("general.free")
-                        : props.price}
+                          ? t("general.free")
+                          : props.price}
                     </div>
                   </>
                 )
@@ -173,7 +175,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
                                   <span
                                     className={
                                       appCtx.taxIncluded
-                                        ? "text-gray-500 font-normal"
+                                        ? "font-normal text-gray-500"
                                         : ""
                                     }
                                   />
@@ -215,7 +217,7 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
               className="text-xl font-extrabold"
             />
           </RecapLineTotal>
-          <ReturnToCart cartUrl={appCtx.cartUrl} />
+          {!appCtx.isComplete && <ReturnToCart cartUrl={appCtx.cartUrl} />}
         </AmountWrapper>
       </TotalWrapper>
     </Wrapper>

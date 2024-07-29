@@ -34,7 +34,7 @@ export const OutOfStock = ({
                     }}
                     components={{
                       WrapperStyle: (
-                        <strong className="text-black border-b border-gray-300 cursor-pointer" />
+                        <strong className="cursor-pointer border-b border-gray-300 text-black" />
                       ),
                       Link: (
                         <a

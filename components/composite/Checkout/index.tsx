@@ -27,6 +27,7 @@ import {
 } from "components/composite/StepShipping"
 import { AccordionProvider } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
+import { GTMProvider } from "components/data/GTMProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
@@ -34,14 +35,15 @@ import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 
 interface Props {
-  logoUrl?: string
+  logoUrl: NullableType<string>
   primaryColor: string
-  orderNumber: number
+  orderNumber: string
   companyName: string
-  supportEmail?: string
-  supportPhone?: string
-  termsUrl?: string
-  privacyUrl?: string
+  supportEmail: NullableType<string>
+  supportPhone: NullableType<string>
+  termsUrl: NullableType<string>
+  privacyUrl: NullableType<string>
+  gtmId: NullableType<string>
 }
 
 const Checkout: React.FC<Props> = ({
@@ -53,6 +55,7 @@ const Checkout: React.FC<Props> = ({
   supportPhone,
   termsUrl,
   privacyUrl,
+  gtmId,
 }) => {
   const ctx = useContext(AppContext)
 
@@ -78,6 +81,12 @@ const Checkout: React.FC<Props> = ({
   if (query.redirect_status) {
     redirectStatus = query.redirect_status as string
   }
+
+  const checkoutAlreadyStarted =
+    !!paypalPayerId ||
+    !!redirectResult ||
+    !!checkoutComSession ||
+    !!redirectStatus
 
   const { activeStep, lastActivableStep, setActiveStep, steps } =
     useActiveStep()
@@ -139,7 +148,12 @@ const Checkout: React.FC<Props> = ({
                   setActiveStep={setActiveStep}
                   step="Customer"
                   steps={steps}
-                  isStepDone={ctx.hasShippingAddress && ctx.hasBillingAddress}
+                  isStepDone={
+                    (ctx.isShipmentRequired &&
+                      ctx.hasShippingAddress &&
+                      ctx.hasBillingAddress) ||
+                    (!ctx.isShipmentRequired && ctx.hasBillingAddress)
+                  }
                 >
                   <AccordionItem
                     index={1}
@@ -202,7 +216,7 @@ const Checkout: React.FC<Props> = ({
                           <StepHeaderPayment step={getStepNumber("Payment")} />
                         }
                       >
-                        <div className="mb-6">
+                        <div>
                           <StepPayment />
                         </div>
                       </AccordionItem>
@@ -225,8 +239,13 @@ const Checkout: React.FC<Props> = ({
   }
 
   return (
-    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder as any}>
-      {ctx.isComplete ? renderComplete() : renderSteps()}
+    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
+      <GTMProvider
+        gtmId={gtmId}
+        skipBeginCheckout={checkoutAlreadyStarted || ctx.isComplete}
+      >
+        {ctx.isComplete ? renderComplete() : renderSteps()}
+      </GTMProvider>
     </OrderContainer>
   )
 }

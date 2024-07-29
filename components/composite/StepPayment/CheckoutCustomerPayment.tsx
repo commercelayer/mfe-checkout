@@ -1,4 +1,6 @@
-import PaymentMethod from "@commercelayer/react-components/payment_methods/PaymentMethod"
+import PaymentMethod, {
+  PaymentMethodOnClickParams,
+} from "@commercelayer/react-components/payment_methods/PaymentMethod"
 import PaymentSource, {
   CustomerSaveToWalletProps,
 } from "@commercelayer/react-components/payment_source/PaymentSource"
@@ -17,12 +19,11 @@ import {
   WalletCheckbox,
 } from "./styled"
 
-import { THandleClick } from "."
-
 interface Props {
-  selectPayment: THandleClick
+  selectPayment: (params: PaymentMethodOnClickParams) => void
   hasTitle: boolean
   autoSelectCallback: () => void
+  hasSubscriptions: boolean
 }
 
 type TTemplateCustomerCards = Parameters<
@@ -33,6 +34,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   selectPayment,
   hasTitle,
   autoSelectCallback,
+  hasSubscriptions,
 }) => {
   const { t } = useTranslation()
 
@@ -51,7 +53,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
               key={k}
               data-testid="customer-card"
               onClick={p.handleClick}
-              className="flex flex-col items-start p-3 mb-4 text-sm border rounded cursor-pointer lg:flex-row lg:items-center shadow-sm hover:border-primary"
+              className="mb-4 flex cursor-pointer flex-col items-start rounded border p-3 text-sm shadow-sm hover:border-primary lg:flex-row lg:items-center"
             >
               <PaymentSourceProvider value={{ ...p.card }}>
                 <PaymentDetails />
@@ -74,23 +76,25 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
     }
 
     return (
-      <div className="flex items-center mt-4">
-        <WalletCheckbox
-          name={name}
-          id={name}
-          data-testid="save-to-wallet"
-          type="checkbox"
-          className="form-checkbox"
-          checked={checked}
-          onClick={handleClick}
-          onChange={handleChange}
-        />
-        <Label
-          htmlFor={name}
-          dataTestId="payment-save-wallet"
-          textLabel={t("stepPayment.saveToWallet")}
-        />
-      </div>
+      !hasSubscriptions && (
+        <div className="mt-4 flex items-center">
+          <WalletCheckbox
+            name={name}
+            id={name}
+            data-testid="save-to-wallet"
+            type="checkbox"
+            className="form-checkbox"
+            checked={checked}
+            onClick={handleClick}
+            onChange={handleChange}
+          />
+          <Label
+            htmlFor={name}
+            dataTestId="payment-save-wallet"
+            textLabel={t("stepPayment.saveToWallet")}
+          />
+        </div>
+      )
     )
   }
 
@@ -100,10 +104,8 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
         autoSelectSinglePaymentMethod={autoSelectCallback}
         activeClass="active group"
         className="payment"
-        // @ts-expect-error Type 'FC<{}>' is not assignable to type 'LoaderType'.
-        loader={PaymentSkeleton}
+        loader={<PaymentSkeleton />}
         clickableContainer
-        // @ts-expect-error Types of parameters 'params' and 'payment' are incompatible.
         onClick={selectPayment}
       >
         <PaymentWrapper>
@@ -117,8 +119,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
               templateCustomerSaveToWallet={(props) => (
                 <TemplateSaveToWalletCheckbox {...props} />
               )}
-              // @ts-expect-error Type 'FC<{}>' is not assignable to type 'LoaderType'.
-              loader={PaymentSkeleton}
+              loader={<PaymentSkeleton />}
             >
               <PaymentDetailsWrapper>
                 <PaymentDetails hasEditButton />

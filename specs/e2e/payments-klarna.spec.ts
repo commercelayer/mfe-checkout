@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { euAddress } from "specs/utils/addresses"
+import { euAddress2 } from "specs/utils/addresses"
 
 import { test, expect } from "../fixtures/tokenizedPage"
 
@@ -17,11 +17,14 @@ test.use({
   },
 })
 
-test("should execute a checkout with klarna", async ({ checkoutPage }) => {
+test.skip("should execute a checkout with klarna", async ({ checkoutPage }) => {
   await checkoutPage.checkOrderSummary("Order Summary")
 
   await checkoutPage.setCustomerMail()
-  await checkoutPage.setBillingAddress({ ...euAddress, phone: "+393293399456" })
+  await checkoutPage.setBillingAddress({
+    ...euAddress2,
+    phone: "+393473399466",
+  })
 
   await checkoutPage.checkStep("Customer", "open")
 

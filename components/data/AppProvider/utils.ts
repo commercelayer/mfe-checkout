@@ -16,7 +16,6 @@ import {
 } from "@commercelayer/sdk"
 
 import { AppStateData } from "components/data/AppProvider"
-import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
 
 export type LineItemType =
   | "gift_cards"
@@ -87,6 +86,7 @@ export interface FetchOrderByIdResponse {
   isCreditCard: boolean
   taxIncluded: NullableType<boolean>
   shippingMethodName?: string
+  hasSubscriptions: boolean
 }
 
 function isNewAddress({
@@ -100,8 +100,7 @@ function isNewAddress({
 
   const hasAddressIntoAddresses = Boolean(
     customerAddresses?.find(
-      (customerAddress) =>
-        customerAddress?.address?.reference === address?.reference
+      (customerAddress) => customerAddress?.id === address?.reference
     )
   )
 
@@ -154,10 +153,10 @@ export async function checkAndSetDefaultAddressForOrder({
 
   // Set reference on original address if not present
   // doing this we can lookup the cloned address for the same entity
-  if (address.id && address.reference !== address.id) {
+  if (address.id && address.reference !== customerAddresses[0].id) {
     await cl.addresses.update({
       id: address.id,
-      reference: address.id,
+      reference: customerAddresses[0].id,
     })
   }
 
@@ -186,7 +185,7 @@ export async function checkAndSetDefaultAddressForOrder({
       customerAddresses: [
         {
           ...customerAddresses[0],
-          address: { ...address, reference: address.id },
+          address: { ...address, reference: customerAddresses[0].id },
         },
       ],
       hasSameAddresses: true,
@@ -235,7 +234,7 @@ function isBillingAddressSameAsShippingAddress({
   return true
 }
 
-export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
+export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
   return cl.orders.retrieve(orderId, {
     fields: {
       orders: [
@@ -259,16 +258,19 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
         "requires_billing_info",
         "total_amount_with_taxes_float",
         "language_code",
+        "subscription_created_at",
         "shipping_address",
         "billing_address",
         "shipments",
         "payment_method",
         "payment_source",
         "customer",
+        "line_items",
       ],
       shipments: ["shipping_method", "available_shipping_methods"],
-      customer: ["customer_addresses"],
+      customers: ["customer_addresses"],
       customer_addresses: ["address"],
+      line_items: ["frequency"],
     },
     include: [
       "shipping_address",
@@ -282,34 +284,9 @@ export const fetchOrder = async (cl: CommerceLayerClient, orderId: string) => {
       "customer.customer_addresses",
       "customer.customer_addresses.address",
       "market",
+      "line_items",
     ],
   })
-}
-
-export async function checkIfShipmentRequired(
-  cl: CommerceLayerClient,
-  orderId: string
-): Promise<boolean> {
-  const lineItems = (
-    await cl.orders.retrieve(orderId, {
-      fields: {
-        line_items: ["item_type", "item"],
-      },
-      include: ["line_items", "line_items.item"],
-    })
-  ).line_items?.filter(
-    (line_item) =>
-      LINE_ITEMS_SHIPPABLE.includes(line_item.item_type as TypeAccepted) &&
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      !line_item.item?.do_not_ship
-  )
-
-  if (lineItems?.length === undefined) {
-    return false
-  }
-  // riguardare
-  return lineItems.length > 0
 }
 
 export function isPaymentRequired(order: Order) {
@@ -360,6 +337,13 @@ export function calculateSettings(
     order.customer?.customer_addresses || customerAddress
   )
 
+  const hasSubscriptions =
+    order.line_items?.some((item) => {
+      return item.frequency && item.frequency?.length > 0
+    }) ||
+    order.subscription_created_at != null ||
+    false
+
   return {
     isGuest,
     shippingCountryCodeLock: order.shipping_country_code_lock,
@@ -377,6 +361,7 @@ export function calculateSettings(
     cartUrl: order.cart_url,
     taxIncluded: order.tax_included,
     requiresBillingInfo: order.requires_billing_info,
+    hasSubscriptions,
   }
 }
 
@@ -385,13 +370,11 @@ export function checkPaymentMethod(order: Order) {
 
   const paymentSource: PaymentSourceType | undefined =
     order.payment_source as PaymentSourceType
-
   let hasPaymentMethod = Boolean(
-    paymentSource?.metadata?.card ||
-      paymentSource?.options?.card ||
+    // @ts-expect-error no type for payment_method
+    paymentSource?.payment_method?.lenght > 0 ||
       paymentSource?.payment_response?.source
   )
-
   const paymentRequired = isPaymentRequired(order)
   if (!hasPaymentMethod && !paymentRequired) {
     hasPaymentMethod = true

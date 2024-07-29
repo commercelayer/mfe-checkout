@@ -74,7 +74,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
         <div className="mt-4">
           <AddressSectionTitle>
-            {t(`addressForm.billing_address_title`)}
+            <>{t(`addressForm.billing_address_title`)}</>
           </AddressSectionTitle>
         </div>
         <BillingAddressForm autoComplete="on" errorClassName="hasError">
@@ -103,7 +103,7 @@ export const CheckoutAddresses: React.FC<Props> = ({
             errorClassName="hasError"
           >
             <AddressSectionTitle>
-              {t(`addressForm.shipping_address_title`)}
+              <>{t(`addressForm.shipping_address_title`)}</>
             </AddressSectionTitle>
             <div className="mt-4">
               <ShippingAddressFormNew shippingAddress={shippingAddressFill} />

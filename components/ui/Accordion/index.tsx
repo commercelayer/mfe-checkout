@@ -43,7 +43,7 @@ export const AccordionItem = ({ children, index, header }: Props) => {
         <AccordionIcon>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-5 h-5"
+            className="size-5"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -71,16 +71,16 @@ const AccordionTab = styled.div`
   }
 `
 const AccordionTabHeader = styled.div`
-  ${tw`text-black relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease-in-out duration-500 focus:bg-gray-400 md:pt-6 md:pb-0`}
+  ${tw`text-black relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease-in-out duration-100 focus:bg-gray-400 md:pt-6 md:pb-0`}
   .disabled & {
     ${tw`pointer-events-none`}
   }
 `
 const AccordionTitle = styled.div`
-  ${tw`transition ease-in-out duration-500`}
+  ${tw`transition ease-in-out duration-100`}
 `
 const AccordionIcon = styled.div`
-  ${tw`transform transition ease-in-out duration-500`}
+  ${tw`transform transition ease-in-out duration-100`}
   .active & {
     ${tw`-rotate-180`}
   }
@@ -90,7 +90,7 @@ const AccordionIcon = styled.div`
   }
 `
 const AccordionBody = styled.div`
-  ${tw`max-h-0 transition duration-200 ease-in opacity-0`}
+  ${tw`max-h-0 transition duration-100 ease-in opacity-0`}
   .active & {
     ${tw`max-h-full opacity-100`}
   }

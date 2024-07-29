@@ -71,6 +71,12 @@ export const CouponOrGiftCard: React.FC<Props> = ({
     {
       code: "VALIDATION_ERROR",
       resource: "orders",
+      field: "customer_email",
+      message: " ",
+    },
+    {
+      code: "VALIDATION_ERROR",
+      resource: "orders",
       field: "braintree_payments",
       message: " ",
     },
@@ -105,7 +111,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({
               <StyledGiftCardOrCouponSubmit
                 data-testid="submit_giftcard_coupon"
                 label={t("general.apply")}
-                className={`w-auto -ml-px relative inline-flex items-center space-x-2 px-8 py-3 text-xs font-extrabold text-contrast bg-primary border border-transparent rounded-none hover:opacity-80 focus:outline-none`}
+                className={`relative -ml-px inline-flex w-auto items-center space-x-2 rounded-none border border-transparent bg-primary px-8 py-3 text-xs font-extrabold text-contrast hover:opacity-80 focus:outline-none`}
               />
             </CouponFieldWrapper>
             <StyledErrors

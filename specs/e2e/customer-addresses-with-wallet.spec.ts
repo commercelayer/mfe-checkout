@@ -134,6 +134,45 @@ test.describe("address on wallet", () => {
   })
 })
 
+test.describe("with digital product and shipping country code lock", () => {
+  test.describe.configure({ mode: "serial" })
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "digital",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      orderAttributes: {
+        shipping_country_code_lock: "US",
+      },
+    },
+  })
+
+  test("save one address on wallet and place on different country", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(euAddress)
+
+    const element = checkoutPage.getSaveAddressBookCheckbox("billing")
+    await expect(element).not.toBeChecked()
+    await element.check()
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
+  })
+})
+
 test.describe("addresses on wallet", () => {
   test.describe.configure({ mode: "serial" })
   const customerEmail = faker.internet.email().toLocaleLowerCase()

@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures/tokenizedPage"
+import { test } from "../fixtures/tokenizedPage"
 
 test.describe("with digital product", () => {
   test.use({
@@ -13,8 +13,12 @@ test.describe("with digital product", () => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setCustomerMail()
+    await checkoutPage.checkCustomerAddressesTitle(
+      "Fill in your billing address"
+    )
     await checkoutPage.setBillingAddress()
     await checkoutPage.checkStep("Customer", "open")
+
     await checkoutPage.save("Customer")
 
     await checkoutPage.checkStep("Shipping", "not_present")

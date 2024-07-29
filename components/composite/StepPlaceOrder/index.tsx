@@ -2,6 +2,8 @@ import type { Order } from "@commercelayer/sdk"
 import { useContext, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
+import { RepeatIcon } from "../OrderSummary/RepeatIcon"
+
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { FlexContainer } from "components/ui/FlexContainer"
@@ -20,11 +22,12 @@ import {
   StyledPrivacyAndTermsCheckbox,
   PlaceOrderButtonWrapper,
 } from "./styled"
+import { WarningIcon } from "./WarningIcon"
 
 interface Props {
   isActive: boolean
-  termsUrl?: string
-  privacyUrl?: string
+  termsUrl: NullableType<string>
+  privacyUrl: NullableType<string>
 }
 
 const StepPlaceOrder: React.FC<Props> = ({
@@ -56,8 +59,8 @@ const StepPlaceOrder: React.FC<Props> = ({
       setIsPlacingOrder(true)
       await placeOrder(order)
       if (gtmCtx?.firePurchase && gtmCtx?.fireAddPaymentInfo) {
-        await gtmCtx.fireAddPaymentInfo()
-        await gtmCtx.firePurchase()
+        gtmCtx.fireAddPaymentInfo()
+        gtmCtx.firePurchase()
       }
       setIsPlacingOrder(false)
     }
@@ -65,6 +68,29 @@ const StepPlaceOrder: React.FC<Props> = ({
 
   return (
     <>
+      {appCtx.hasSubscriptions && isActive && (
+        <div
+          className={`m-5 mb-0 border border-dashed p-4 text-sm font-semibold text-gray-500 md:mx-0 md:mb-5 ${
+            !appCtx.isGuest ? "" : "border-orange-400"
+          }`}
+        >
+          {appCtx.isGuest ? (
+            <div className="flex">
+              <div className="relative top-0.5 mr-2 w-4">
+                <WarningIcon />
+              </div>
+              <p>{t("stepPayment.subscriptionWithoutCustomer")}</p>
+            </div>
+          ) : (
+            <div className="flex">
+              <div className="relative top-0.5 mr-2 w-4">
+                <RepeatIcon />
+              </div>
+              <p>{t("stepPayment.subscriptionWithCustomer")}</p>
+            </div>
+          )}
+        </div>
+      )}
       <ErrorsContainer data-testid="errors-container">
         <StyledErrors
           resource="orders"
@@ -103,10 +129,10 @@ const StepPlaceOrder: React.FC<Props> = ({
 
       <>
         {!!termsUrl && !!privacyUrl && (
-          <FlexContainer className="items-start mx-5 mt-4 mb-2.5 md:mb-5 md:pb-5 md:mx-0 md:mt-0 md:border-b lg:pl-8">
+          <FlexContainer className="mx-5 mb-2.5 mt-4 items-start md:mx-0 md:mb-5 md:mt-0 md:border-b md:pb-5 lg:pl-8">
             <StyledPrivacyAndTermsCheckbox
               id="privacy-terms"
-              className="relative form-checkbox top-0.5"
+              className="form-checkbox relative top-0.5"
               data-testid="checkbox-privacy-and-terms"
             />
             <Label htmlFor="privacy-terms">

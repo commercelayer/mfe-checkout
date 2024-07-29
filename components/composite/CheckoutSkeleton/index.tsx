@@ -8,40 +8,40 @@ export const CheckoutSkeleton: React.FC = () => {
     <LayoutDefault
       aside={
         <Sidebar>
-          <div className="flex mb-12 animate-pulse">
-            <SkeletonCircle className="w-10 h-10 mr-5" />
-            <SkeletonBox className="w-1/2 h-10 bg-gray-200" />
+          <div className="mb-12 flex animate-pulse">
+            <SkeletonCircle className="mr-5 size-10" />
+            <SkeletonBox className="h-10 w-1/2 bg-gray-200" />
           </div>
           <SummaryWrapper>
             <div className="animate-pulse">
-              <SkeletonBox className="w-2/6 h-6 bg-gray-200" />
-              <SkeletonBox className="w-1/2 h-4 mt-2 bg-gray-200" />
-              <div className="flex my-8">
-                <SkeletonBox className="w-24 h-24 mr-6" />
-                <div className="flex flex-col flex-1 gap-3">
-                  <SkeletonBox className="w-1/2 h-3" />
-                  <SkeletonBox className="w-full h-6" />
-                  <SkeletonBox className="w-2/5 h-3" />
-                  <SkeletonBox className="w-1/5 h-6" />
+              <SkeletonBox className="h-6 w-2/6 bg-gray-200" />
+              <SkeletonBox className="mt-2 h-4 w-1/2 bg-gray-200" />
+              <div className="my-8 flex">
+                <SkeletonBox className="mr-6 size-24" />
+                <div className="flex flex-1 flex-col gap-3">
+                  <SkeletonBox className="h-3 w-1/2" />
+                  <SkeletonBox className="h-6 w-full" />
+                  <SkeletonBox className="h-3 w-2/5" />
+                  <SkeletonBox className="h-6 w-1/5" />
                 </div>
               </div>
               <div className="flex flex-col md:ml-30">
-                <SkeletonBox className="w-full h-12 mt-5 mb-10" />
-                <div className="flex justify-between mt-2">
-                  <SkeletonBox className="w-2/4 h-4" />
-                  <SkeletonBox className="w-1/5 h-4" />
+                <SkeletonBox className="mb-10 mt-5 h-12 w-full" />
+                <div className="mt-2 flex justify-between">
+                  <SkeletonBox className="h-4 w-2/4" />
+                  <SkeletonBox className="h-4 w-1/5" />
                 </div>
-                <div className="flex justify-between mt-2">
-                  <SkeletonBox className="w-2/4 h-4" />
-                  <SkeletonBox className="w-1/5 h-4" />
+                <div className="mt-2 flex justify-between">
+                  <SkeletonBox className="h-4 w-2/4" />
+                  <SkeletonBox className="h-4 w-1/5" />
                 </div>
-                <div className="flex justify-between mt-2">
-                  <SkeletonBox className="w-2/4 h-4" />
-                  <SkeletonBox className="w-1/5 h-4" />
+                <div className="mt-2 flex justify-between">
+                  <SkeletonBox className="h-4 w-2/4" />
+                  <SkeletonBox className="h-4 w-1/5" />
                 </div>
-                <div className="flex justify-between mt-12">
-                  <SkeletonBox className="w-1/4 h-6" />
-                  <SkeletonBox className="w-1/5 h-6" />
+                <div className="mt-12 flex justify-between">
+                  <SkeletonBox className="h-6 w-1/4" />
+                  <SkeletonBox className="h-6 w-1/5" />
                 </div>
               </div>
             </div>
@@ -51,42 +51,42 @@ export const CheckoutSkeleton: React.FC = () => {
       main={
         <div className="animate-pulse">
           <div className="flex flex-row items-baseline justify-between">
-            <SkeletonBox className="w-40 h-10" />
-            <SkeletonBox className="hidden w-20 h-6 md:block" />
+            <SkeletonBox className="h-10 w-40" />
+            <SkeletonBox className="hidden h-6 w-20 md:block" />
           </div>
           <div className="flex items-baseline justify-between">
-            <SkeletonBox className="w-2/5 h-6 mt-10 md:w-4/6 md:mt-5" />
-            <SkeletonBox className="block w-20 h-6 md:hidden" />
+            <SkeletonBox className="mt-10 h-6 w-2/5 md:mt-5 md:w-4/6" />
+            <SkeletonBox className="block h-6 w-20 md:hidden" />
           </div>
-          <div className="flex mt-16">
-            <div className="w-8 mr-5">
-              <SkeletonCircle className="w-8 h-8" />
+          <div className="mt-16 flex">
+            <div className="mr-5 w-8">
+              <SkeletonCircle className="size-8" />
             </div>
             <div className="w-full">
-              <SkeletonBox className="w-4/6 h-6 mb-3" />
-              <SkeletonBox className="w-2/5 h-3" />
+              <SkeletonBox className="mb-3 h-6 w-4/6" />
+              <SkeletonBox className="h-3 w-2/5" />
             </div>
           </div>
-          <div className="flex mt-16">
-            <div className="w-8 mr-5">
-              <SkeletonCircle className="w-8 h-8" />
+          <div className="mt-16 flex">
+            <div className="mr-5 w-8">
+              <SkeletonCircle className="size-8" />
             </div>
             <div className="w-full">
-              <SkeletonBox className="w-4/6 h-6 mb-3" />
-              <SkeletonBox className="w-2/5 h-3" />
+              <SkeletonBox className="mb-3 h-6 w-4/6" />
+              <SkeletonBox className="h-3 w-2/5" />
             </div>
           </div>
-          <div className="flex mt-16">
-            <div className="w-8 mr-5">
-              <SkeletonCircle className="w-8 h-8" />
+          <div className="mt-16 flex">
+            <div className="mr-5 w-8">
+              <SkeletonCircle className="size-8" />
             </div>
             <div className="w-full">
-              <SkeletonBox className="w-4/6 h-6 mb-3" />
-              <SkeletonBox className="w-2/5 h-3" />
+              <SkeletonBox className="mb-3 h-6 w-4/6" />
+              <SkeletonBox className="h-3 w-2/5" />
             </div>
           </div>
-          <div className="flex justify-end mt-16">
-            <SkeletonBox className="w-2/5 h-10" />
+          <div className="mt-16 flex justify-end">
+            <SkeletonBox className="h-10 w-2/5" />
           </div>
         </div>
       }

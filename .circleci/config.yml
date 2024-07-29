@@ -1,12 +1,13 @@
 version: 2.1
 
 orbs:
-  aws-s3: circleci/aws-s3@3.1.1
+  aws-cli: circleci/aws-cli@4.1.3
+  aws-s3: circleci/aws-s3@4.0.0
 
 jobs:
   test: # this can be any name you choose
     docker:
-      - image: mcr.microsoft.com/playwright:v1.38.1-focal
+      - image: mcr.microsoft.com/playwright:v1.45.1-focal
     resource_class: medium+
     parallelism: 10
 
@@ -29,6 +30,9 @@ jobs:
           command: |
             pnpm install
       - run:
+          name: Audit
+          command: pnpm audit --audit-level high && (pnpm audit || exit 0)
+      - run:
           name: Install Playwright
           command: |
             pnpm playwright install chromium
@@ -40,7 +44,7 @@ jobs:
       - run:
           name: Export and serve
           command: |
-            pnpm run export
+            pnpm run build
       - run:
           name: Run tests
           command: |
@@ -72,11 +76,12 @@ jobs:
           command: pnpm install
       - run:
           name: Build
-          command: pnpm export
+          command: pnpm build
+      - aws-cli/setup:
+          aws_access_key_id: AWS_ACCESS_KEY
+          aws_secret_access_key: AWS_SECRET_ACCESS_KEY
       - aws-s3/sync:
-          aws-access-key-id: AWS_ACCESS_KEY
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          from: out
+          from: out/dist
           to: "s3://$S3_ASSETS_BUCKET/team/fe-static-apps/$FOLDER/<<pipeline.git.tag>>"
 
   build-on-pci-bucket:
@@ -104,11 +109,12 @@ jobs:
           command: pnpm install
       - run:
           name: Build
-          command: pnpm export
+          command: pnpm build
+      - aws-cli/setup:
+          aws_access_key_id: AWS_ACCESS_KEY
+          aws_secret_access_key: AWS_SECRET_ACCESS_KEY
       - aws-s3/sync:
-          aws-access-key-id: AWS_ACCESS_KEY
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          from: out
+          from: out/dist
           to: "s3://$S3_PCI_BUCKET/$FOLDER/<<pipeline.git.tag>>-<<pipeline.git.revision>>"
 
 workflows:
@@ -120,7 +126,7 @@ workflows:
             tags:
               ignore: /v.*/
 
-  test-build-and-push:
+  build-and-push:
     jobs:
       - build:
           context: commercelayer
@@ -130,7 +136,7 @@ workflows:
             branches:
               ignore: /.*/
 
-  test-build-and-push-on-pci-bucket:
+  build-and-push-on-pci-bucket:
     jobs:
       - build-on-pci-bucket:
           context: commercelayer

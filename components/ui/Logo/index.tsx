@@ -2,7 +2,7 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 interface Props {
-  logoUrl?: string
+  logoUrl: NullableType<string>
   companyName: string
   className?: string
 }
