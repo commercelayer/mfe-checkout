@@ -770,7 +770,7 @@ export class CheckoutPage {
         }
         const pickPlan = newPage.getByTestId("pick-plan")
         if (await pickPlan.isVisible()) {
-          pickPlan.click()
+          await pickPlan.click()
         }
         await newPage.getByTestId("confirm-and-pay").click()
         await this.page
@@ -859,13 +859,16 @@ export class CheckoutPage {
             await this.page.waitForTimeout(4000)
             const pickPlan = klarnaIframe.getByTestId("pick-plan")
             if (await pickPlan.isVisible()){
-              pickPlan.click()
+              await pickPlan.click()
             }
             await this.page.waitForTimeout(4000)
             if (await pickPlan.isVisible()){
-              pickPlan.click()
+              await pickPlan.click()
             }
-            await klarnaIframe.getByTestId("confirm-and-pay").click()
+            const confirmAndPay = klarnaIframe.getByTestId("confirm-and-pay")
+            if (await confirmAndPay.isVisible()){
+              await confirmAndPay.click()
+            }
             const button = klarnaIframe.getByRole("button", { name: "Weiter" })
             if (await button.isVisible()) {
               button.click()
@@ -1034,7 +1037,7 @@ export class CheckoutPage {
 
               const pickPlan = klarnaIframe.getByTestId("pick-plan")
               if (await pickPlan.isVisible()) {
-                pickPlan.click()
+                await pickPlan.click()
               }
               // await klarnaIframe
               //   .locator("label")
