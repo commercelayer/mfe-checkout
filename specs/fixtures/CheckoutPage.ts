@@ -763,8 +763,15 @@ export class CheckoutPage {
 
         await newPage.locator("#otp_field__container input").fill("123456")
         // await newPage.getByTestId("kaf-button").click()
-        await newPage.getByTestId("select-payment-category").click()
-        await newPage.getByTestId("pick-plan").click()
+
+        const paymentCategory =  newPage.getByTestId("select-payment-category")
+        if (await paymentCategory.isVisible()) {
+          paymentCategory.click()
+        }
+        const pickPlan = newPage.getByTestId("pick-plan")
+        if (await pickPlan.isVisible()) {
+          pickPlan.click()
+        }
         await newPage.getByTestId("confirm-and-pay").click()
         await this.page
 
@@ -849,7 +856,15 @@ export class CheckoutPage {
               await selectPayment.click()
             }
 
-            // await klarnaIframe.getByTestId("pick-plan").click()
+            await this.page.waitForTimeout(4000)
+            const pickPlan = klarnaIframe.getByTestId("pick-plan")
+            if (await pickPlan.isVisible()){
+              pickPlan.click()
+            }
+            await this.page.waitForTimeout(4000)
+            if (await pickPlan.isVisible()){
+              pickPlan.click()
+            }
             await klarnaIframe.getByTestId("confirm-and-pay").click()
             const button = klarnaIframe.getByRole("button", { name: "Weiter" })
             if (await button.isVisible()) {
@@ -1017,7 +1032,10 @@ export class CheckoutPage {
 
               await this.page.waitForTimeout(2000)
 
-              // await klarnaIframe.getByTestId("pick-plan").click()
+              const pickPlan = klarnaIframe.getByTestId("pick-plan")
+              if (await pickPlan.isVisible()) {
+                pickPlan.click()
+              }
               // await klarnaIframe
               //   .locator("label")
               //   .filter({
