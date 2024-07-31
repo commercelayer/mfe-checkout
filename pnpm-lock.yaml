@@ -20,8 +20,8 @@ importers:
         specifier: ^1.4.8
         version: 1.4.8(eslint@8.57.0)(typescript@5.5.4)
       '@commercelayer/react-components':
-        specifier: ^4.15.4
-        version: 4.15.4(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)
+        specifier: ^4.15.5
+        version: 4.15.5(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)
       '@commercelayer/sdk':
         specifier: ^6.9.0
         version: 6.9.0
@@ -402,8 +402,8 @@ packages:
       eslint: '>=8.0'
       typescript: '>=5.0'
 
-  '@commercelayer/react-components@4.15.4':
-    resolution: {integrity: sha512-Cw4LxZUNYxrpg4eofmmE7XYAqqHBzvfSrjkL2+5yg4CeVlJR6xlYl4RM5SgPrjHS++IhQeb3T8B3CDerrPl9rA==}
+  '@commercelayer/react-components@4.15.5':
+    resolution: {integrity: sha512-AdQK3N9VkFLh8gnSy3nTZaGAPomKvrfXKlPZlwjxPVO6ilYLSLrtbNea96X9OegPuxq5mVJEuAK/9/ktW0iMJw==}
     peerDependencies:
       react: '>=18.0.0'
 
@@ -5034,7 +5034,7 @@ snapshots:
       merge-anything: 5.1.7
       typescript: 5.5.4
 
-  '@commercelayer/react-components@4.15.4(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)':
+  '@commercelayer/react-components@4.15.5(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)':
     dependencies:
       '@adyen/adyen-web': 5.66.1
       '@commercelayer/organization-config': 1.4.8(eslint@8.57.0)(typescript@5.5.4)

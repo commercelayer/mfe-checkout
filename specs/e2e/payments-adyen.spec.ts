@@ -347,7 +347,7 @@ test.describe("API version v68", () => {
     },
   })
 
-  test.skip("checkout with credit card", async ({ checkoutPage }) => {
+  test("checkout with credit card", async ({ checkoutPage }) => {
 
     const TIMEOUT = 3000;
     await checkoutPage.checkOrderSummary("Order Summary")
