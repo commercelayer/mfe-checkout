@@ -763,8 +763,15 @@ export class CheckoutPage {
 
         await newPage.locator("#otp_field__container input").fill("123456")
         // await newPage.getByTestId("kaf-button").click()
-        await newPage.getByTestId("select-payment-category").click()
-        await newPage.getByTestId("pick-plan").click()
+
+        const paymentCategory =  newPage.getByTestId("select-payment-category")
+        if (await paymentCategory.isVisible()) {
+          paymentCategory.click()
+        }
+        const pickPlan = newPage.getByTestId("pick-plan")
+        if (await pickPlan.isVisible()) {
+          await pickPlan.click()
+        }
         await newPage.getByTestId("confirm-and-pay").click()
         await this.page
 
@@ -849,8 +856,19 @@ export class CheckoutPage {
               await selectPayment.click()
             }
 
-            // await klarnaIframe.getByTestId("pick-plan").click()
-            await klarnaIframe.getByTestId("confirm-and-pay").click()
+            await this.page.waitForTimeout(4000)
+            const pickPlan = klarnaIframe.getByTestId("pick-plan")
+            if (await pickPlan.isVisible()){
+              await pickPlan.click()
+            }
+            await this.page.waitForTimeout(4000)
+            if (await pickPlan.isVisible()){
+              await pickPlan.click()
+            }
+            const confirmAndPay = klarnaIframe.getByTestId("confirm-and-pay")
+            if (await confirmAndPay.isVisible()){
+              await confirmAndPay.click()
+            }
             const button = klarnaIframe.getByRole("button", { name: "Weiter" })
             if (await button.isVisible()) {
               button.click()
@@ -928,7 +946,7 @@ export class CheckoutPage {
               // const i = this.page.locator("#klarna-apf-iframe")
               const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
 
-              await klarnaIframe
+              await this.page
                 .getByTestId("kaf-field")
                 .waitFor({ state: "visible" })
 
@@ -1017,7 +1035,10 @@ export class CheckoutPage {
 
               await this.page.waitForTimeout(2000)
 
-              // await klarnaIframe.getByTestId("pick-plan").click()
+              const pickPlan = klarnaIframe.getByTestId("pick-plan")
+              if (await pickPlan.isVisible()) {
+                await pickPlan.click()
+              }
               // await klarnaIframe
               //   .locator("label")
               //   .filter({
@@ -1260,6 +1281,7 @@ export class CheckoutPage {
     const buttonId = this.page.getByTestId(
       `save-${step.toLocaleLowerCase()}-button`
     )
+    await this.page.waitForTimeout(2000)
     await buttonId.focus()
     switch (step) {
       case "Customer":
