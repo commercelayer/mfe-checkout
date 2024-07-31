@@ -1281,6 +1281,7 @@ export class CheckoutPage {
     const buttonId = this.page.getByTestId(
       `save-${step.toLocaleLowerCase()}-button`
     )
+    await this.page.waitForTimeout(2000)
     await buttonId.focus()
     switch (step) {
       case "Customer":
