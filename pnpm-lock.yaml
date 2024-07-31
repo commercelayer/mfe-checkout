@@ -20,8 +20,8 @@ importers:
         specifier: ^1.4.8
         version: 1.4.8(eslint@8.57.0)(typescript@5.5.4)
       '@commercelayer/react-components':
-        specifier: ^4.15.3
-        version: 4.15.3(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)
+        specifier: ^4.15.4
+        version: 4.15.4(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)
       '@commercelayer/sdk':
         specifier: ^6.9.0
         version: 6.9.0
@@ -92,8 +92,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       next-i18next:
-        specifier: ^15.3.0
-        version: 15.3.0(i18next@23.12.2)(next@14.2.5(@babel/core@7.23.9)(@playwright/test@1.45.3)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@15.0.0(i18next@23.12.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        specifier: ^15.3.1
+        version: 15.3.1(i18next@23.12.2)(next@14.2.5(@babel/core@7.23.9)(@playwright/test@1.45.3)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@15.0.0(i18next@23.12.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       postcss:
         specifier: ^8.4.40
         version: 8.4.40
@@ -402,8 +402,8 @@ packages:
       eslint: '>=8.0'
       typescript: '>=5.0'
 
-  '@commercelayer/react-components@4.15.3':
-    resolution: {integrity: sha512-NqN+79kR/fbMHGTwAFYt3G0PkNv7ZjNl0/i3S7bTbOKQQUpUMZODmeQrU2VTJz3wH734xVLeOP0b2X57uyQ3Qg==}
+  '@commercelayer/react-components@4.15.4':
+    resolution: {integrity: sha512-Cw4LxZUNYxrpg4eofmmE7XYAqqHBzvfSrjkL2+5yg4CeVlJR6xlYl4RM5SgPrjHS++IhQeb3T8B3CDerrPl9rA==}
     peerDependencies:
       react: '>=18.0.0'
 
@@ -2494,8 +2494,8 @@ packages:
   humanize-ms@1.2.1:
     resolution: {integrity: sha512-Fl70vYtsAFb/C06PTS9dZBo7ihau+Tu/DNCk/OyHhea07S+aeMWpFFkUaXRa8fI+ScZbEI8dfSxwY7gxZ9SAVQ==}
 
-  i18next-fs-backend@2.3.1:
-    resolution: {integrity: sha512-tvfXskmG/9o+TJ5Fxu54sSO5OkY6d+uMn+K6JiUGLJrwxAVfer+8V3nU8jq3ts9Pe5lXJv4b1N7foIjJ8Iy2Gg==}
+  i18next-fs-backend@2.3.2:
+    resolution: {integrity: sha512-LIwUlkqDZnUI8lnUxBnEj8K/FrHQTT/Sc+1rvDm9E8YvvY5YxzoEAASNx+W5M9DfD5s77lI5vSAFWeTp26B/3Q==}
 
   i18next@23.12.2:
     resolution: {integrity: sha512-XIeh5V+bi8SJSWGL3jqbTEBW5oD6rbP5L+E7dVQh1MNTxxYef0x15rhJVcRb7oiuq4jLtgy2SD8eFlf6P2cmqg==}
@@ -3209,8 +3209,8 @@ packages:
     resolution: {integrity: sha512-B3JCsL/9Z/wkmo3EySukQHCgx89Aw0i4LPi2MEhCboQBJ6wpkYTIu1z6hOYKuw/S1Wy8ZRqCEq0dVY/ST6jGqg==}
     engines: {node: '>=8'}
 
-  next-i18next@15.3.0:
-    resolution: {integrity: sha512-bq7Cc9XJFcmGOCLnyEtHaeJ3+JJNsI/8Pkj9BaHAnhm4sZ9vNNC4ZsaqYnlRZ7VH5ypSo73fEqLK935jLsmCvQ==}
+  next-i18next@15.3.1:
+    resolution: {integrity: sha512-+pa2pZJb7B6k5PKW3TLVMmAodqkNaOBWVYlpWX56mgcEJz0UMW+MKSdKM9Z72CHp6Bp48g7OWwDnLqxXNp/84w==}
     engines: {node: '>=14'}
     peerDependencies:
       i18next: '>= 23.7.13'
@@ -5034,7 +5034,7 @@ snapshots:
       merge-anything: 5.1.7
       typescript: 5.5.4
 
-  '@commercelayer/react-components@4.15.3(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)':
+  '@commercelayer/react-components@4.15.4(eslint@8.57.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.5.4)':
     dependencies:
       '@adyen/adyen-web': 5.66.1
       '@commercelayer/organization-config': 1.4.8(eslint@8.57.0)(typescript@5.5.4)
@@ -7666,7 +7666,7 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
-  i18next-fs-backend@2.3.1: {}
+  i18next-fs-backend@2.3.2: {}
 
   i18next@23.12.2:
     dependencies:
@@ -8300,14 +8300,14 @@ snapshots:
 
   next-build-id@3.0.0: {}
 
-  next-i18next@15.3.0(i18next@23.12.2)(next@14.2.5(@babel/core@7.23.9)(@playwright/test@1.45.3)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@15.0.0(i18next@23.12.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
+  next-i18next@15.3.1(i18next@23.12.2)(next@14.2.5(@babel/core@7.23.9)(@playwright/test@1.45.3)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@15.0.0(i18next@23.12.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.23.9
+      '@babel/runtime': 7.25.0
       '@types/hoist-non-react-statics': 3.3.5
       core-js: 3.30.2
       hoist-non-react-statics: 3.3.2
       i18next: 23.12.2
-      i18next-fs-backend: 2.3.1
+      i18next-fs-backend: 2.3.2
       next: 14.2.5(@babel/core@7.23.9)(@playwright/test@1.45.3)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-i18next: 15.0.0(i18next@23.12.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
