@@ -1,3 +1,11 @@
+## [4.10.3](https://github.com/commercelayer/mfe-checkout/compare/v4.10.2...v4.10.3) (2024-07-31)
+
+
+### Bug Fixes
+
+* disable payment change on order place ([27c381e](https://github.com/commercelayer/mfe-checkout/commit/27c381e5621d6a7cba42d41d0d7297773dc8d386))
+* update components ([b3ed451](https://github.com/commercelayer/mfe-checkout/commit/b3ed451f40e1e1ad85ae99bf946d21b581282752))
+
 ## [4.10.2](https://github.com/commercelayer/mfe-checkout/compare/v4.10.1...v4.10.2) (2024-07-11)
 
 
