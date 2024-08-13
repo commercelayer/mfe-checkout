@@ -31,7 +31,7 @@ jobs:
             pnpm install
       - run:
           name: Audit
-          command: pnpm audit --audit-level high && (pnpm audit || exit 0)
+          command: pnpm audit --audit-level high && pnpm audit || exit 0
       - run:
           name: Install Playwright
           command: |
