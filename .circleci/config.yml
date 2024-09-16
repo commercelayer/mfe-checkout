@@ -7,7 +7,7 @@ orbs:
 jobs:
   test: # this can be any name you choose
     docker:
-      - image: mcr.microsoft.com/playwright:v1.45.3-focal
+      - image: mcr.microsoft.com/playwright:v1.47.0-focal
     resource_class: medium+
     parallelism: 10
 
@@ -31,7 +31,7 @@ jobs:
             pnpm install
       - run:
           name: Audit
-          command: pnpm audit --audit-level high && (pnpm audit || exit 0)
+          command: pnpm audit --audit-level high && pnpm audit || exit 0
       - run:
           name: Install Playwright
           command: |

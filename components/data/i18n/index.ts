@@ -6,9 +6,10 @@ import translationFR from "public/static/locales/fr/common.json"
 import translationHU from "public/static/locales/hu/common.json"
 import translationIT from "public/static/locales/it/common.json"
 import translationPL from "public/static/locales/pl/common.json"
+import translationPT from "public/static/locales/pt/common.json"
 import { initReactI18next } from "react-i18next"
 
-const languages = ["en", "it", "de", "pl", "es", "fr", "hu"]
+const languages = ["en", "it", "de", "pl", "es", "fr", "hu", "pt"]
 
 const resources = {
   en: {
@@ -31,6 +32,9 @@ const resources = {
   },
   hu: {
     translation: translationHU,
+  },
+  pt: {
+    translation: translationPT,
   },
 }
 
