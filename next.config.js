@@ -12,45 +12,7 @@ let nextConfig = {
   distDir: "out/dist",
   poweredByHeader: false,
   swcMinify: false,
-  webpack: (config, { webpack }) => {
-    const AdyenWebExcludedLocales = new Set([
-      "cs-CZ",
-      "el-GR",
-      "hr-HR",
-      "ja-JP",
-      "ko-KR",
-      "ru-RU",
-      "zh-TW",
-      "zh-CN",
-      "ro-RO",
-      "sk-SK",
-      "pt-PT",
-      "pt-BR",
-      "sl-SI",
-      "fi-FI",
-      "ar",
-      "nl-NL",
-      "sv-SE",
-      "da-DK",
-      "no-NO",
-    ])
-
-    const adyenIgnorePluginConfig = new webpack.IgnorePlugin({
-      checkResource(resource, context) {
-        if (!/@adyen\/adyen-web\/dist\/es/.test(context)) return false
-
-        // Extract the filename from the resource path
-        const parts = resource.split("/")
-        const filenameWithExtension = parts[parts.length - 1]
-
-        // Remove the file extension
-        const filename = filenameWithExtension.replace(/\.[^/.]+$/, "")
-
-        return AdyenWebExcludedLocales.has(filename)
-      },
-    })
-
-    config.plugins.push(adyenIgnorePluginConfig)
+  webpack: (config) => {
     return config
   },
   // When when app is exported as SPA and served in a sub-folder
