@@ -1,3 +1,10 @@
+## [4.11.1](https://github.com/commercelayer/mfe-checkout/compare/v4.11.0...v4.11.1) (2024-09-17)
+
+
+### Bug Fixes
+
+* avoid removing adyen supported languages ([9f5901f](https://github.com/commercelayer/mfe-checkout/commit/9f5901f9985066bda538b8a5d74db68c8e282843))
+
 # [4.11.0](https://github.com/commercelayer/mfe-checkout/compare/v4.10.3...v4.11.0) (2024-09-16)
 
 
