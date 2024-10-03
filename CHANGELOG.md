@@ -1,3 +1,11 @@
+## [4.11.2](https://github.com/commercelayer/mfe-checkout/compare/v4.11.1...v4.11.2) (2024-10-03)
+
+
+### Bug Fixes
+
+* show apple pay on stripe ([9b798ce](https://github.com/commercelayer/mfe-checkout/commit/9b798ce2ee90d510e15cbb287a3674510cbfddd3))
+* update dependencies ([307660d](https://github.com/commercelayer/mfe-checkout/commit/307660d618a7a859be78b0454dd5b7c99bf69b49))
+
 ## [4.11.1](https://github.com/commercelayer/mfe-checkout/compare/v4.11.0...v4.11.1) (2024-09-17)
 
 
