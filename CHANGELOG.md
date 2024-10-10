@@ -1,3 +1,10 @@
+## [4.11.3](https://github.com/commercelayer/mfe-checkout/compare/v4.11.2...v4.11.3) (2024-10-10)
+
+
+### Bug Fixes
+
+* avoid infinite loop for expired access token ([48352df](https://github.com/commercelayer/mfe-checkout/commit/48352df71f5919311ccc2ac32957eca53f643b24))
+
 ## [4.11.2](https://github.com/commercelayer/mfe-checkout/compare/v4.11.1...v4.11.2) (2024-10-03)
 
 
