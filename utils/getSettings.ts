@@ -19,6 +19,7 @@ const RETRIES = 2
 interface FetchResource<T> {
   object: T | undefined
   success: boolean
+  bailed?: boolean
 }
 
 function isProduction(): boolean {
@@ -39,13 +40,18 @@ async function retryCall<T>(
       } catch (e: unknown) {
         if (CommerceLayerStatic.isApiError(e) && e.status === 401) {
           console.log("Not authorized")
-          bail(e)
-          return
+
+          return {
+            object: undefined,
+            success: false,
+            bailed: true,
+          }
         }
         if (number === RETRIES + 1) {
           return {
             object: undefined,
             success: false,
+            bailed: false,
           }
         }
         throw e
@@ -187,14 +193,14 @@ export const getSettings = async ({
 
   if (!organizationResource?.success || !organization?.id) {
     console.log("Invalid: organization")
-    return invalidateCheckout(true)
+    return invalidateCheckout(!organizationResource?.bailed)
   }
 
   const order = orderResource?.object
 
   if (!orderResource?.success || !order?.id) {
     console.log("Invalid: order")
-    return invalidateCheckout(true)
+    return invalidateCheckout(!orderResource?.bailed)
   }
 
   const lineItemsShoppable = order.line_items?.filter((line_item) => {
