@@ -764,7 +764,7 @@ export class CheckoutPage {
         await newPage.locator("#otp_field__container input").fill("123456")
         // await newPage.getByTestId("kaf-button").click()
 
-        const paymentCategory =  newPage.getByTestId("select-payment-category")
+        const paymentCategory = newPage.getByTestId("select-payment-category")
         if (await paymentCategory.isVisible()) {
           paymentCategory.click()
         }
@@ -828,7 +828,7 @@ export class CheckoutPage {
               .click()
             await this.page.getByTestId("save-payment-button").click()
 
-            const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
+            const klarnaIframe = this.page // .frameLocator("#klarna-apf-iframe")
 
             await klarnaIframe
               .getByTestId("kaf-field")
@@ -858,15 +858,15 @@ export class CheckoutPage {
 
             await this.page.waitForTimeout(4000)
             const pickPlan = klarnaIframe.getByTestId("pick-plan")
-            if (await pickPlan.isVisible()){
+            if (await pickPlan.isVisible()) {
               await pickPlan.click()
             }
             await this.page.waitForTimeout(4000)
-            if (await pickPlan.isVisible()){
+            if (await pickPlan.isVisible()) {
               await pickPlan.click()
             }
             const confirmAndPay = klarnaIframe.getByTestId("confirm-and-pay")
-            if (await confirmAndPay.isVisible()){
+            if (await confirmAndPay.isVisible()) {
               await confirmAndPay.click()
             }
             const button = klarnaIframe.getByRole("button", { name: "Weiter" })
@@ -906,7 +906,7 @@ export class CheckoutPage {
             await this.page.click("[data-testid=save-payment-button]")
             await this.page.waitForTimeout(4000)
 
-            const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
+            const klarnaIframe = this.page // .frameLocator("#klarna-apf-iframe")
 
             await klarnaIframe
               .getByTestId("kaf-field")
@@ -944,7 +944,7 @@ export class CheckoutPage {
               // await this.page.click("#buy-button")
 
               // const i = this.page.locator("#klarna-apf-iframe")
-              const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
+              const klarnaIframe = this.page // .frameLocator("#klarna-apf-iframe")
 
               await this.page
                 .getByTestId("kaf-field")
@@ -991,7 +991,7 @@ export class CheckoutPage {
               await this.page.click("[data-testid=save-payment-button]")
               await this.page.waitForTimeout(5000)
 
-              const klarnaIframe = this.page //.frameLocator("#klarna-apf-iframe")
+              const klarnaIframe = this.page // .frameLocator("#klarna-apf-iframe")
 
               await klarnaIframe
                 .getByTestId("kaf-field")
@@ -1122,11 +1122,11 @@ export class CheckoutPage {
 
   async enter3DSecure({ text }: { type: "adyen"; text: string }) {
     await this.page.waitForTimeout(3000)
+    await this.page.waitForSelector("iframe[name=threeDSIframe]")
     const secureFrame = this.page.frameLocator("iframe[name=threeDSIframe]")
     await this.page.waitForTimeout(2000)
-    const element = await secureFrame.getByPlaceholder(
-      "enter the word 'password'"
-    )
+
+    const element = secureFrame.getByPlaceholder("enter the word 'password'")
     await element.click()
     await element.fill(text)
     await secureFrame.locator("#buttonSubmit").click()
