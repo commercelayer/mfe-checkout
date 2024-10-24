@@ -1098,7 +1098,7 @@ export class CheckoutPage {
             await this.page.waitForTimeout(3000)
             await cardFrame
               .locator("[data-fieldtype=encryptedCardNumber]")
-              .fill("4917610000000000", { timeout: 5000 })
+              .fill("5454545454545454", { timeout: 5000 })
 
             const expFrame = this.page.frameLocator("iframe >> nth=1")
             await expFrame
@@ -1125,10 +1125,11 @@ export class CheckoutPage {
     await this.page.waitForSelector("iframe[name=threeDSIframe]")
     const secureFrame = this.page.frameLocator("iframe[name=threeDSIframe]")
     await this.page.waitForTimeout(2000)
-
+    await this.page.mouse.wheel(0, 300)
     const element = secureFrame.getByPlaceholder("enter the word 'password'")
     await element.click()
     await element.fill(text)
+    await this.page.waitForTimeout(2000)
     await secureFrame.locator("#buttonSubmit").click()
   }
 
