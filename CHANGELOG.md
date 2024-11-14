@@ -1,3 +1,11 @@
+# [4.12.0](https://github.com/commercelayer/mfe-checkout/compare/v4.11.3...v4.12.0) (2024-11-14)
+
+
+### Features
+
+* upgrade dependencies ([93fceac](https://github.com/commercelayer/mfe-checkout/commit/93fceace252b2288a70938fc9b5a61418c0c57c5))
+* upgrade to nextjs 15 ([380e7d3](https://github.com/commercelayer/mfe-checkout/commit/380e7d303bd92837d268cc903c0bcdacf543e932))
+
 ## [4.11.3](https://github.com/commercelayer/mfe-checkout/compare/v4.11.2...v4.11.3) (2024-10-10)
 
 
