@@ -65,6 +65,7 @@ const Checkout: React.FC<Props> = ({
   let checkoutComSession = ""
   let redirectResult = ""
   let redirectStatus = ""
+  let paymentIntentClientSecret = ""
 
   if (query.PayerID) {
     paypalPayerId = query.PayerID as string
@@ -82,11 +83,16 @@ const Checkout: React.FC<Props> = ({
     redirectStatus = query.redirect_status as string
   }
 
+  if (query.payment_intent_client_secret) {
+    paymentIntentClientSecret = query.payment_intent_client_secret as string
+  }
+
   const checkoutAlreadyStarted =
     !!paypalPayerId ||
     !!redirectResult ||
     !!checkoutComSession ||
-    !!redirectStatus
+    !!redirectStatus ||
+    !!paymentIntentClientSecret
 
   const { activeStep, lastActivableStep, setActiveStep, steps } =
     useActiveStep()
@@ -207,6 +213,7 @@ const Checkout: React.FC<Props> = ({
                         },
                         stripe: {
                           redirectStatus,
+                          paymentIntentClientSecret,
                         },
                       }}
                     >
