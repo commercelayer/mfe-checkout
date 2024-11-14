@@ -59,7 +59,7 @@ jobs:
 
   build:
     docker:
-      - image: cimg/node:18.17.0
+      - image: cimg/node:20.18.0
     resource_class: medium
     environment:
       FOLDER: checkout
@@ -86,7 +86,7 @@ jobs:
 
   build-on-pci-bucket:
     docker:
-      - image: cimg/node:18.17.0
+      - image: cimg/node:20.18.0
     resource_class: medium
     environment:
       FOLDER: checkout
