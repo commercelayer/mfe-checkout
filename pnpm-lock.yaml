@@ -8,6 +8,7 @@ overrides:
   semver: '>=7'
   braces: '>=3.0.3'
   ws: '>=7.5.10'
+  cross-spawn: '>=7.0.5'
   micromatch@<4.0.8: '>=4.0.8'
   path-to-regexp@>=2.0.0 <3.3.0: '=3.3.0'
 
@@ -1521,12 +1522,8 @@ packages:
     resolution: {integrity: sha512-7EG9VaZZ5SRbZ7m25dmP6xaS0qe9ay6wywMskFOU/lMDKa+3gZr2oeT5OUfXwRP/Bcj8wxdYJ65AHU70CI3tsw==}
     hasBin: true
 
-  cross-spawn@6.0.5:
-    resolution: {integrity: sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==}
-    engines: {node: '>=4.8'}
-
-  cross-spawn@7.0.3:
-    resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
+  cross-spawn@7.0.6:
+    resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
 
   crypto-random-string@4.0.0:
@@ -2960,9 +2957,6 @@ packages:
       sass:
         optional: true
 
-  nice-try@1.0.5:
-    resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
-
   node-emoji@2.1.3:
     resolution: {integrity: sha512-E2WEOVsgs7O16zsURJ/eH8BqhF029wGpEOnv7Urwdo2wmQanOACwJQh0devF9D9RhoZru0+9JXIS0dBXIAz+lA==}
     engines: {node: '>=18'}
@@ -3232,10 +3226,6 @@ packages:
 
   path-is-inside@1.0.2:
     resolution: {integrity: sha512-DUWJr3+ULp4zXmol/SZkFf3JGsS9/SIv+Y3Rt93/UjPpDpklB5f1er4O3POIbUuUJ3FXgqte2Q7SrU6zAqwk8w==}
-
-  path-key@2.0.1:
-    resolution: {integrity: sha512-fEHGKCSmUSDPv4uoj8AlD+joPlq3peND+HRYyxFz4KPw4z926S/b8rIuFs2FYJg3BwsxJf6A9/3eIdLaYC+9Dw==}
-    engines: {node: '>=4'}
 
   path-key@3.1.1:
     resolution: {integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==}
@@ -3648,17 +3638,9 @@ packages:
     resolution: {integrity: sha512-haPVm1EkS9pgvHrQ/F3Xy+hgcuMV0Wm9vfIBSiwZ05k+xgb0PkBQpGsAA/oWdDobNaZTH5ppvHtzCFbnSEwHVw==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
 
-  shebang-command@1.2.0:
-    resolution: {integrity: sha512-EV3L1+UQWGor21OmnvojK36mhg+TyIKDh3iFBKBohr5xeXIhNBcx8oWdgkTEEQ+BEFFYdLRuqMfd5L84N1V5Vg==}
-    engines: {node: '>=0.10.0'}
-
   shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
     engines: {node: '>=8'}
-
-  shebang-regex@1.0.0:
-    resolution: {integrity: sha512-wpoSFAxys6b2a2wHZ1XpDSgD7N9iVjg29Ph9uV/uaP9Ex/KXlkTZTeddxDPSYQpgvzKLGJke2UU0AzoGCjNIvQ==}
-    engines: {node: '>=0.10.0'}
 
   shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
@@ -5683,15 +5665,7 @@ snapshots:
 
   cronstrue@2.51.0: {}
 
-  cross-spawn@6.0.5:
-    dependencies:
-      nice-try: 1.0.5
-      path-key: 2.0.1
-      semver: 7.6.0
-      shebang-command: 1.2.0
-      which: 1.3.1
-
-  cross-spawn@7.0.3:
+  cross-spawn@7.0.6:
     dependencies:
       path-key: 3.1.1
       shebang-command: 2.0.0
@@ -6209,7 +6183,7 @@ snapshots:
       '@babel/code-frame': 7.21.4
       ajv: 6.12.6
       chalk: 2.4.2
-      cross-spawn: 6.0.5
+      cross-spawn: 7.0.6
       debug: 4.3.6
       doctrine: 3.0.0
       eslint-scope: 4.0.3
@@ -6257,7 +6231,7 @@ snapshots:
       '@ungap/structured-clone': 1.2.0
       ajv: 6.12.6
       chalk: 4.1.2
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       debug: 4.3.4
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
@@ -6324,7 +6298,7 @@ snapshots:
 
   execa@5.1.1:
     dependencies:
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       get-stream: 6.0.1
       human-signals: 2.1.0
       is-stream: 2.0.1
@@ -6336,7 +6310,7 @@ snapshots:
 
   execa@8.0.1:
     dependencies:
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       get-stream: 8.0.1
       human-signals: 5.0.0
       is-stream: 3.0.0
@@ -6349,7 +6323,7 @@ snapshots:
   execa@9.1.0:
     dependencies:
       '@sindresorhus/merge-streams': 4.0.0
-      cross-spawn: 7.0.3
+      cross-spawn: 7.0.6
       figures: 6.1.0
       get-stream: 9.0.1
       human-signals: 7.0.0
@@ -7271,8 +7245,6 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nice-try@1.0.5: {}
-
   node-emoji@2.1.3:
     dependencies:
       '@sindresorhus/is': 4.6.0
@@ -7459,8 +7431,6 @@ snapshots:
   path-is-absolute@1.0.1: {}
 
   path-is-inside@1.0.2: {}
-
-  path-key@2.0.1: {}
 
   path-key@3.1.1: {}
 
@@ -7922,15 +7892,9 @@ snapshots:
       '@img/sharp-win32-x64': 0.33.5
     optional: true
 
-  shebang-command@1.2.0:
-    dependencies:
-      shebang-regex: 1.0.0
-
   shebang-command@2.0.0:
     dependencies:
       shebang-regex: 3.0.0
-
-  shebang-regex@1.0.0: {}
 
   shebang-regex@3.0.0: {}
 

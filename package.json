@@ -140,7 +140,8 @@
   "resolutions": {
     "semver": ">=7",
     "braces": ">=3.0.3",
-    "ws": ">=7.5.10"
+    "ws": ">=7.5.10",
+    "cross-spawn": ">=7.0.5"
   },
   "babelMacros": {
     "twin": {
