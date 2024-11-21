@@ -1,3 +1,10 @@
+## [4.12.1](https://github.com/commercelayer/mfe-checkout/compare/v4.12.0...v4.12.1) (2024-11-21)
+
+
+### Bug Fixes
+
+* address vulnerability on dependencies ([c790678](https://github.com/commercelayer/mfe-checkout/commit/c790678be0e9960544ca4457dd36ad33fd6fe6ab))
+
 # [4.12.0](https://github.com/commercelayer/mfe-checkout/compare/v4.11.3...v4.12.0) (2024-11-14)
 
 
