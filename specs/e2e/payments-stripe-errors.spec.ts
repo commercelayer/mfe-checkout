@@ -35,7 +35,7 @@ test.describe("stripe errors", () => {
     {
       kind: "lost card decline",
       card: { number: "4000000000009987" },
-      error: "Your card has been declined.",
+      error: "Your card was declined. Please contact your card issuer.",
     },
     {
       kind: "stolen card decline",
