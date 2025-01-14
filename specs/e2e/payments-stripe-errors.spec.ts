@@ -45,18 +45,17 @@ test.describe("stripe errors", () => {
     {
       kind: "expired card decline",
       card: { number: "4000000000000069" },
-      error: "Your card has expired.",
+      error: "Your card is expired.",
     },
     {
       kind: "incorrect CVC card decline",
       card: { number: "4000000000000127" },
-      error: "Your card's security code is incorrect.",
+      error: "Your card’s CVC is incorrect.",
     },
     {
       kind: "processing error decline",
       card: { number: "4000000000000119" },
-      error:
-        "An error occurred while processing your card. Try again in a little bit.",
+      error: "An error occurred while processing your card.",
     },
     {
       kind: "incorrect number decline",
@@ -66,12 +65,12 @@ test.describe("stripe errors", () => {
     {
       kind: "invalid expiry year decline",
       card: { exp: "1221" },
-      error: "Your card's expiration year is in the past.",
+      error: "Your card’s expiration year is in the past.",
     },
     {
       kind: "incomplete cvc decline",
       card: { cvc: "12" },
-      error: "Your card's security code is incomplete.",
+      error: "Your card’s security code is incomplete.",
     },
   ].forEach(({ kind, card, error }) => {
     test(kind, async ({ checkoutPage }) => {
