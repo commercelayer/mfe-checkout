@@ -1,4 +1,4 @@
-import "@adyen/adyen-web/dist/adyen.css"
+import "@adyen/adyen-web/styles/adyen.css"
 import {
   PaymentSourceBrandName,
   PaymentSourceDetail,

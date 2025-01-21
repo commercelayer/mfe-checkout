@@ -69,7 +69,7 @@ function getOrganization(
   return retryCall<Organization>(() =>
     cl.organization.retrieve({
       fields: {
-        organization: [
+        organizations: [
           "id",
           "logo_url",
           "name",

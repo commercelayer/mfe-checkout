@@ -79,8 +79,8 @@ const Checkout: React.FC<Props> = ({
     checkoutComSession = query["cko-session-id"] as string
   }
 
-  if (query.redirect_status) {
-    redirectStatus = query.redirect_status as string
+  if (query.payment_intent_client_secret) {
+    paymentIntentClientSecret = query.payment_intent_client_secret as string
   }
 
   if (query.payment_intent_client_secret) {
@@ -118,7 +118,7 @@ const Checkout: React.FC<Props> = ({
 
   const renderSteps = () => {
     return (
-      <CustomerContainer isGuest={ctx.isGuest}>
+      <CustomerContainer isGuest={ctx.isGuest} addressesPageSize={2}>
         <LayoutDefault
           aside={
             <Sidebar>
