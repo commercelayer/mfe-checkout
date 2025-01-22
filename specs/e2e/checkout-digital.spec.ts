@@ -1,4 +1,7 @@
-import { test } from "../fixtures/tokenizedPage"
+import { faker } from "@faker-js/faker"
+
+import { test, expect } from "../fixtures/tokenizedPage"
+import { euAddress } from "../utils/addresses"
 
 test.describe("with digital product", () => {
   test.use({
@@ -56,6 +59,39 @@ test.describe("with digital product", () => {
     await checkoutPage.selectPayment("stripe")
 
     await checkoutPage.checkPaymentSummary("€10,00")
+
+    await checkoutPage.setPayment("stripe")
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+  })
+})
+
+test.describe("one address on wallet and digital", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      market: "IT",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [{ sku_code: "NFTEBOOK", quantity: 1 }],
+      customerAddresses: [euAddress],
+    },
+  })
+
+  test("check addresses", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    checkoutPage.page.locator(`text=${customerEmail}`)
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "not_present")
+    await checkoutPage.checkStep("Payment", "open")
 
     await checkoutPage.setPayment("stripe")
     await checkoutPage.save("Payment")

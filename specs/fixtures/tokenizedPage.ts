@@ -59,7 +59,7 @@ interface DefaultParamsProps {
   token?: string
   orderId?: string
   order?: OrderType
-  market?: "EU" | "US" | "MI"
+  market?: "EU" | "US" | "MI" | "IT"
   customer?: {
     email: string
     password: string
@@ -98,7 +98,10 @@ type FixtureType = {
   defaultParams: DefaultParamsProps
 }
 
-const getToken = async (market?: "US" | "EU" | "MI", customerId?: string) => {
+const getToken = async (
+  market?: "US" | "EU" | "MI" | "IT",
+  customerId?: string
+) => {
   const scope = market != null ? `market:code:${market}` : "market:code:EU"
 
   if (customerId == null) {
@@ -134,9 +137,11 @@ const getToken = async (market?: "US" | "EU" | "MI", customerId?: string) => {
 const getCustomerUserToken = async ({
   email,
   password,
+  market = "EU",
 }: {
   email: string
   password: string
+  market?: "EU" | "US" | "MI" | "IT"
 }) => {
   const token = await getSuperToken()
   const cl = getClient(token)
@@ -153,7 +158,7 @@ const getCustomerUserToken = async ({
     customerId = existingUser[0].id
   }
 
-  const scope = "EU"
+  const scope = market
 
   return getToken(scope, customerId)
 }
@@ -263,6 +268,7 @@ const getOrder = async (
         const token = await getCustomerUserToken({
           email: params.customer.email,
           password: params.customer.password,
+          market: params.market,
         })
         const customerCl = getClient(token)
         const { payload } = jwtDecode(token)
@@ -504,7 +510,10 @@ export const test = base.extend<FixtureType>({
   defaultParams: { order: "plain" },
   checkoutPage: async ({ page, defaultParams }, use) => {
     const token = await (defaultParams.customer
-      ? getCustomerUserToken(defaultParams.customer)
+      ? getCustomerUserToken({
+          ...defaultParams.customer,
+          market: defaultParams.market,
+        })
       : getToken(defaultParams.market))
 
     const cl = getClient(token)
