@@ -1,5 +1,5 @@
 import { jwtDecode, jwtIsSalesChannel } from "@commercelayer/js-auth"
-import { getConfig } from "@commercelayer/organization-config"
+import { getMfeConfig } from "@commercelayer/organization-config"
 import CommerceLayer, {
   CommerceLayerStatic,
   CommerceLayerClient,
@@ -261,7 +261,7 @@ export const getSettings = async ({
     supportPhone: organization.support_phone,
     termsUrl: order.terms_url,
     privacyUrl: order.privacy_url,
-    config: getConfig({
+    config: getMfeConfig({
       jsonConfig: organization.config ?? {},
       market: `market:id:${marketId}`,
       params: {

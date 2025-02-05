@@ -4,7 +4,7 @@ import {
   jwtDecode,
   jwtIsSalesChannel,
 } from "@commercelayer/js-auth"
-import { type Configs } from "@commercelayer/organization-config"
+import { type MfeConfigs } from "@commercelayer/organization-config"
 import {
   CommerceLayer,
   CommerceLayerClient,
@@ -68,7 +68,7 @@ interface DefaultParamsProps {
     support_phone?: string
     support_email?: string
     gtm_id_test?: string
-    config?: { mfe: Configs }
+    config?: { mfe: MfeConfigs }
   }
   orderAttributes?: {
     language_code?: "en" | "it" | "it-IT"
