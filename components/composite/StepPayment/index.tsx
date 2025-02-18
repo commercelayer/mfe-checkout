@@ -110,7 +110,7 @@ export const StepPayment: React.FC = () => {
   const selectPayment = ({ payment, order }: PaymentMethodOnClickParams) => {
     if (
       // @ts-expect-error available only on adyen
-      order?.payment_source.payment_methods &&
+      order?.payment_source?.payment_methods &&
       // @ts-expect-error available only on adyen
       order?.payment_source?.payment_methods?.length > 1
     ) {
