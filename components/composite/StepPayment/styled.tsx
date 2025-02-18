@@ -39,27 +39,17 @@ export const PaymentSourceContainer = styled.div`
     ${tw`block opacity-100`}
   }
 
-  // .adyen-checkout__input {
-  //   ${tw`px-2 py-3 border rounded shadow-sm bg-gradient-to-b from-gray-50 transition duration-300 ease-in-out`}
-  // }
-
-  .adyen-checkout-form-instruction {
-    ${tw`mb-4 font-sans `}
+  .adyen-checkout__input-wrapper {
+    ${tw`transition duration-300 ease-in-out`}
+  }
+  .adyen-checkout__input-wrapper:hover {
+    ${tw`border-gray-200`}
   }
 
-  .adyen-checkout__label__text {
-    ${tw`text-base font-medium font-sans`}
+  .adyen-checkout__label--focused + .adyen-checkout__input-wrapper {
+    ${tw`border-primary ring ring-offset-0 ring-primary-light ring-opacity-50 bg-white`}
   }
 
-  .adyen-checkout__input {
-    ${tw`px-2 py-3 border rounded shadow-sm bg-gray-50 transition duration-300 ease-in-out`}
-  }
-
-  .adyen-checkout__input {
-    ${tw`p-0 border-gray-200`}
-  }
-
-  .adyen-checkout__input--focus,
   .braintree-hosted-fields-focused {
     ${tw`border-primary ring ring-offset-0 ring-primary-light ring-opacity-50 bg-white`}
   }

@@ -49,9 +49,7 @@ export const PaymentContainer = ({ primaryColor, children }: Props) => {
         adyenPayment: {
           styles: {
             card: {
-              placeholder: {
-                fontSize: "16px",
-                padding: "12px",
+              base: {
                 fontFamily: "monospace",
               },
             },
