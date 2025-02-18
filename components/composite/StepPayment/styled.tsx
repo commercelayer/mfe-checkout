@@ -55,8 +55,13 @@ export const PaymentSourceContainer = styled.div`
   }
 
   .adyen-checkout__label__text {
-    ${tw`transition-none text-gray-500`}
+    ${tw`font-bold text-gray-700`}
   }
+
+  .adyen-checkout-contextual-text {
+    ${tw`text-gray-500`}
+  }
+
   .frame--activated {
     ${tw`h-12 mb-3`}
     &.expiry-date-frame, 
