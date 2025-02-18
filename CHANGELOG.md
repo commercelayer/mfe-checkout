@@ -1,3 +1,15 @@
+# [5.0.0](https://github.com/commercelayer/mfe-checkout/compare/v4.13.0...v5.0.0) (2025-02-18)
+
+
+### Performance Improvements
+
+* replace eslint with biome ([dad7f74](https://github.com/commercelayer/mfe-checkout/commit/dad7f74b3f2ed4013e06688fb71f97ad5cd16a00))
+
+
+### BREAKING CHANGES
+
+* we decided to replace eslint and prettier with biome. No new feature, just syntax changes
+
 # [4.13.0](https://github.com/commercelayer/mfe-checkout/compare/v4.12.1...v4.13.0) (2025-02-18)
 
 
