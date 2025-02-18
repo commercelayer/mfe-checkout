@@ -18,7 +18,9 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const accessToken = searchParams.get("accessToken")
   const paymentReturn = searchParams.get("paymentReturn")
   const redirectResult = searchParams.get("redirectResult")
-  const redirectStatus = searchParams.get("redirect_status")
+  const paymentIntentClientSecret = searchParams.get(
+    "payment_intent_client_secret"
+  )
   const [settings, setSettings] = useState<
     CheckoutSettings | InvalidCheckoutSettings | undefined
   >(undefined)
@@ -30,7 +32,7 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   )
 
   const isPaymentReturn =
-    paymentReturn === "true" || !!redirectResult || !!redirectStatus
+    paymentReturn === "true" || !!redirectResult || !!paymentIntentClientSecret
 
   useEffect(() => {
     if (accessToken && accessToken !== savedAccessToken) {
