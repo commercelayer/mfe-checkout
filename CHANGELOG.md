@@ -1,3 +1,10 @@
+# [4.13.0](https://github.com/commercelayer/mfe-checkout/compare/v4.12.1...v4.13.0) (2025-02-18)
+
+
+### Features
+
+* upgrade to next v15.1.6 ([40ffb35](https://github.com/commercelayer/mfe-checkout/commit/40ffb35f237acfe64bd8ab443d1d8c26f119df8d))
+
 ## [4.12.1](https://github.com/commercelayer/mfe-checkout/compare/v4.12.0...v4.12.1) (2024-11-21)
 
 
