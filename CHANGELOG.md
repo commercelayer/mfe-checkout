@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/commercelayer/mfe-checkout/compare/v5.0.0...v5.0.1) (2025-02-18)
+
+
+### Bug Fixes
+
+* adjust input styles to support new adyen dropin ([0e94070](https://github.com/commercelayer/mfe-checkout/commit/0e940703a241873d9bdf1b40b833060b6a97285c))
+
 # [5.0.0](https://github.com/commercelayer/mfe-checkout/compare/v4.13.0...v5.0.0) (2025-02-18)
 
 
