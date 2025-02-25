@@ -1,3 +1,16 @@
+# [5.1.0](https://github.com/commercelayer/mfe-checkout/compare/v5.0.1...v5.1.0) (2025-02-25)
+
+
+### Bug Fixes
+
+* change wire transfer to manual payment ([f1a18c5](https://github.com/commercelayer/mfe-checkout/commit/f1a18c5e1bb59003f343931f8501ef71c6359212))
+* replace slug on cart url with organization ([86ce969](https://github.com/commercelayer/mfe-checkout/commit/86ce9697937f42c010a49304a896327c376c7768))
+
+
+### Features
+
+* add optional billing info ([ddddaef](https://github.com/commercelayer/mfe-checkout/commit/ddddaef3b15e8752d5aa9558aeb8bf4674f7d9b2))
+
 ## [5.0.1](https://github.com/commercelayer/mfe-checkout/compare/v5.0.0...v5.0.1) (2025-02-18)
 
 
