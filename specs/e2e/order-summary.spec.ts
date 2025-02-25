@@ -37,6 +37,36 @@ test.describe("with return to cart", () => {
   })
 })
 
+test.describe("with return to cart and slug as parameter", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  const cartUrl = "https://:slug.commercelayer.io"
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      orderAttributes: {
+        cart_url: cartUrl,
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("check that slug is replaced", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkReturnToCartLink("present")
+
+    await checkoutPage.checkCartLink("https://alessani.commercelayer.io")
+  })
+})
+
 test.describe("without return to cart", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 

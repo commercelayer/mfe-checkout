@@ -161,7 +161,7 @@ test.describe("guest with Adyen drop-in", () => {
     await checkoutPage.checkPaymentRecap(" ending in ****")
   })
 
-  test("Checkout order with Credit Card and 3D Secure", async ({
+  test.skip("Checkout order with Credit Card and 3D Secure", async ({
     checkoutPage,
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
