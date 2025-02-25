@@ -547,8 +547,15 @@ export class CheckoutPage {
   }
 
   async checkReturnToCartLink(status: "present" | "not_present") {
-    const element = await this.page.locator("[data-testid=edit-cart-link]")
+    const element = this.page.getByTestId("edit-cart-link")
     await expect(element).toHaveCount(status === "not_present" ? 0 : 1)
+  }
+  
+  async checkCartLink(link: string) {
+    const element = this.page.locator("[data-testid=edit-cart-link] a").first()
+    await expect(element).toBeVisible()
+    const href = await element.getAttribute("href")
+    expect(href).toBe(link)
   }
 
   async clickReturnToCartLink() {

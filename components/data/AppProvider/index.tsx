@@ -316,6 +316,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     <AppContext.Provider
       value={{
         ...state,
+        cartUrl: state.cartUrl?.replace(":slug", slug),
         orderId,
         order,
         accessToken,
