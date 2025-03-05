@@ -142,13 +142,17 @@
       "preset": "styled-components"
     }
   },
-  "cacheDirectories": [
-    ".next/cache"
-  ],
+  "cacheDirectories": [".next/cache"],
   "pnpm": {
     "overrides": {
       "micromatch@<4.0.8": ">=4.0.8",
       "path-to-regexp@>=2.0.0 <3.3.0": "=3.3.0"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@biomejs/biome",
+      "core-js",
+      "iframe-resizer",
+      "sharp"
+    ]
   }
 }
