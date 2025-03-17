@@ -96,6 +96,7 @@
         "paypalDescription": "Po złożeniu zamówienia zostaniesz przekierowany na stronę PayPal, gdzie trzeba się zalogować i dokończyć płatność",
         "endingIn": "<0/> numer zakończony cyframi <1/>",
         "submit": "Złóż zamówienie",
+        "submitting": "Składanie zamówienia…",
         "notRequired": "To zamówienie nie wymaga płatności",
         "amountZero": "Suma zamówienia wynosi zero. Możesz złożyć je bez płatności.",
         "saveToWallet": "Zapisz kartę do walleta",

@@ -153,6 +153,7 @@ const StepPlaceOrder: React.FC<Props> = ({
             data-testid="save-payment-button"
             isActive={isActive}
             onClick={handlePlaceOrder}
+            loadingLabel={t("stepPayment.submitting")}
             label={
               <>
                 {isPlacingOrder && <SpinnerIcon />}

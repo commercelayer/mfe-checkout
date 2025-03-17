@@ -96,6 +96,7 @@
         "paypalDescription": "Después de realizar el pedido, serás redirigido al sitio web de PayPal para iniciar sesión y autorizar el pago",
         "endingIn": "<0/> que termina en <1/>",
         "submit": "Realizar pedido",
+        "submitting": "Realizando pedido…",
         "notRequired": "Este pedido no requiere pago",
         "amountZero": "El total del pedido es cero, puedes realizar el pedido tal como está ahora",
         "saveToWallet": "Guardar nueva tarjeta en tu billetera",

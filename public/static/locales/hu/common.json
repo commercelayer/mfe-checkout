@@ -96,6 +96,7 @@
     "paypalDescription": "A rendelés megerősítése után, átirányításra kerül a PayPal honlapjára, hogy megerősítse a fizetést",
     "endingIn": "<0/> végződik <1/>",
     "submit": "Megrendelés elküldése",
+    "submitting": "Megrendelés folyamatban…",
     "notRequired": "Ez a megrendelés nem igényel fizetést",
     "amountZero": "A rendelés teljes összege nulla, így a rendelést most így is leadhatja",
     "saveToWallet": "Az új bankkártya elmentése",

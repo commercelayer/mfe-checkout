@@ -96,6 +96,7 @@
         "paypalDescription": "Nach der Bestellung wirst Du auf die PayPal-Website weitergeleitet, um Dich anzumelden und die Zahlung zu autorisieren.",
         "endingIn": "<0/> endet mit <1/>",
         "submit": "Jetzt bestellen",
+        "submitting": "Bestellung wird aufgegeben…",
         "notRequired": "Diese Bestellung erfordert keine Zahlung",
         "amountZero": "Der Gesamtbetrag der Bestellung ist Null. Du kannst die Bestellung so aufgeben, wie sie jetzt ist",
         "saveToWallet": "Speichere eine neue Karte",

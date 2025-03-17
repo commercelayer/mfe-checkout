@@ -96,6 +96,7 @@
     "paypalDescription": "Após colocar a encomenda, será redirecionado para o website do PayPal para iniciar sessão e autorizar o pagamento",
     "endingIn": "<0/> terminando em <1/>",
     "submit": "Concluir encomenda",
+    "submitting": "A concluir encomenda…",
     "notRequired": "Esta encomenda não requer pagamento",
     "amountZero": "O valor total da encomenda é zero, pode concluir a encomenda como está neste momento",
     "saveToWallet": "Guardar novo cartão na sua carteira",

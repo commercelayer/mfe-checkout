@@ -96,6 +96,7 @@
         "paypalDescription": "After placing the order, you will be redirected to the PayPal website to sign in and authorize the payment",
         "endingIn": "<0/> ending in <1/>",
         "submit": "Place order",
+        "submitting": "Placing order…",
         "notRequired": "This order does not require payment",
         "amountZero": "The total amount of the order is zero, you can place the order as it is right now",
         "saveToWallet": "Save new card on your wallet",
