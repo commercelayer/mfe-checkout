@@ -1,3 +1,15 @@
+# [5.2.0](https://github.com/commercelayer/mfe-checkout/compare/v5.1.0...v5.2.0) (2025-03-18)
+
+
+### Bug Fixes
+
+* add translated placeholder to state/province select and upgrade dependencies ([118cb83](https://github.com/commercelayer/mfe-checkout/commit/118cb8321613a37ee499c497daca11c4f7586e76))
+
+
+### Features
+
+* refine Italian translations and add placing translations ([1cd7a46](https://github.com/commercelayer/mfe-checkout/commit/1cd7a46eda320007a3ab95539f7533247b121218))
+
 # [5.1.0](https://github.com/commercelayer/mfe-checkout/compare/v5.0.1...v5.1.0) (2025-02-25)
 
 
