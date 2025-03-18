@@ -29,6 +29,7 @@ type OrderType =
   | "gift-card"
   | "with-items"
 
+type ValidMarket = "EU" | "US" | "MI" | "IT" | "IE" | "LP" | "UY" | "VV"
 interface BaseLineItemObject {
   quantity: number
   inventory?: number
@@ -59,7 +60,7 @@ interface DefaultParamsProps {
   token?: string
   orderId?: string
   order?: OrderType
-  market?: "EU" | "US" | "MI" | "IT" | "IE"
+  market?: ValidMarket
   customer?: {
     email: string
     password: string
@@ -99,7 +100,7 @@ type FixtureType = {
 }
 
 const getToken = async (
-  market?: "US" | "EU" | "MI" | "IT" | "IE",
+  market?: ValidMarket,
   customerId?: string
 ) => {
   const scope = market != null ? `market:code:${market}` : "market:code:EU"
@@ -141,7 +142,7 @@ const getCustomerUserToken = async ({
 }: {
   email: string
   password: string
-  market?: "EU" | "US" | "MI" | "IT" | "IE"
+  market?: ValidMarket
 }) => {
   const token = await getSuperToken()
   const cl = getClient(token)

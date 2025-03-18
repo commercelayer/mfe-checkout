@@ -8,7 +8,7 @@
         "edit": "Modifica",
         "free": "Gratis",
         "apply": "Applica",
-        "privacy_and_terms": "Spuntando la casella accetti i <bold><termsUrl>termini</termsUrl></bold> e la <bold><privacyUrl>privacy</privacyUrl></bold>.",
+        "privacy_and_terms": "Accetto i <bold><termsUrl>termini del servizio</termsUrl></bold> e la <bold><privacyUrl>privacy policy</privacyUrl></bold>.",
         "checkoutTitle": "Checkout"
     },
     "error": {
@@ -66,8 +66,8 @@
         "title": "Cliente",
         "addNewAddress": "Aggiungi nuovo indirizzo",
         "saveAddressBook": "Salva l'indirizzo sulla tua rubrica",
-        "continueToDelivery": "Continuare alla consegna",
-        "notSet": "Inserisci il tuo indirizzo di fatturazione/spedizione",
+        "continueToDelivery": "Continua alla consegna",
+        "notSet": "Inserisci i tuoi dati personali",
         "notSetNoDelivery": "Inserisci il tuo indirizzo di fatturazione",
         "closeForm": "Scegli indirizzo"
     },
@@ -84,7 +84,7 @@
         "methodUnselected": "Seleziona un metodo di spedizione",
         "deliveryLeadTime": "<0/> - <1/> giorni",
         "externalPrice": "Prezzo dopo la selezione",
-        "continueToPayment": "Continuare al pagamento",
+        "continueToPayment": "Continua al pagamento",
         "notRequired": "Questo ordine non necessita di spedizione"
     },
     "stepPayment": {
@@ -95,7 +95,8 @@
         "wireTransferDescription": "Dopo la conferma dell'ordine riceverai le istruzioni per completare il pagamento",
         "paypalDescription": "Dopo aver effettuato l'ordine, sarai reindirizzato verso il sito PayPal per accedere e autorizzare il pagamento",
         "endingIn": "<0/> finisce con <1/>",
-        "submit": "Invia l'ordine",
+        "submit": "Conferma ordine",
+        "submitting": "Conferma ordine in corso…",
         "notRequired": "Questo ordine non necessita di pagamento",
         "amountZero": "L'importo totale dell'ordine è zero, puoi effettuare l'ordine così com'è adesso",
         "saveToWallet": "Salva la nuova carta sul tuo portafoglio",
