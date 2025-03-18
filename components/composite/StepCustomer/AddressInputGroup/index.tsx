@@ -38,7 +38,6 @@ interface Props {
   countries?: Country[] | undefined
   defaultCountry?: string
   states?: States[]
-  pattern?: React.ComponentProps<typeof AddressInput>["pattern"]
   openShippingAddress?: (props: ShippingToggleProps) => void
 }
 
@@ -47,7 +46,6 @@ export const AddressInputGroup: React.FC<Props> = ({
   resource,
   required,
   type,
-  pattern,
   countries,
   defaultCountry,
   states,
@@ -151,6 +149,14 @@ export const AddressInputGroup: React.FC<Props> = ({
             selectClassName="form-select"
             inputClassName="form-input"
             data-testid={`input_${fieldName}`}
+            selectPlaceholder={
+              {
+                label: t(`addressForm.${fieldName}_placeholder`),
+                value: "",
+                disabled: true
+
+              }
+            }
             // @ts-expect-error missing
             states={states}
             name={fieldName}
@@ -168,7 +174,6 @@ export const AddressInputGroup: React.FC<Props> = ({
           data-testid={`input_${fieldName}`}
           name={fieldName}
           type={type}
-          pattern={pattern}
           value={value}
           className="form-input"
         />

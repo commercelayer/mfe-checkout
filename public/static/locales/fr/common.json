@@ -96,7 +96,7 @@
         "paypalDescription": "Après avoir passé la commande, vous serez redirigé vers le site web de PayPal pour vous connecter et autoriser le paiement.",
         "endingIn": "<0/> se terminant par <1/>",
         "submit": "Passer commande",
-        "submitting": "Realizando pedido…",
+        "submitting": "Commande en cours…",
         "notRequired": "Cette commande ne nécessite pas de paiement",
         "amountZero": "Le montant total de la commande est nul, vous pouvez passer la commande en l’état.",
         "saveToWallet": "Enregistrez la nouvelle carte dans votre portefeuille",
