@@ -29,8 +29,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0
       '@commercelayer/react-components':
-        specifier: ^4.20.3
-        version: 4.20.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.2)
+        specifier: 4.22.0-beta.0
+        version: 4.22.0-beta.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.2)
       '@commercelayer/sdk':
         specifier: ^6.35.0
         version: 6.35.0
@@ -173,8 +173,8 @@ importers:
 
 packages:
 
-  '@adyen/adyen-web@6.9.0':
-    resolution: {integrity: sha512-R4TbMuDT7rzSwpUEmgD/idW/a7x3gMv1LIdvHdwiNOEhJeLyCZTCSZBbP0r9SecpRFN1BM1L57FJc4WZfhRS+w==}
+  '@adyen/adyen-web@6.11.0':
+    resolution: {integrity: sha512-OSpTq+VN84hNPOV5RpHM8T4TYMgL8sMr0UDa+2yDeTEBTIlNdigCKgDWTXzOHIW/BuPWna4e9n1fuGYnCJgXlQ==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -409,13 +409,17 @@ packages:
     resolution: {integrity: sha512-v7vfLru0WiqocrPWfldmqhbG6VKYQcdu480SUCU4wTnDcXLVnlKfgaadkNnv+tVVZXh0qke8/uwrkNoi3VY/Bw==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@4.20.3':
-    resolution: {integrity: sha512-oACl1TLayCr0IflfYQbKEmYf+ajxT/WI9JI5a/o10Pp7U2O+O3UqBbGVs300zo8ZpumNhHk6Dqh98ffOtFFgrg==}
+  '@commercelayer/react-components@4.22.0-beta.0':
+    resolution: {integrity: sha512-aoDFW4yPNVEGp2VfJFx4tE1OiWgrBhnroCowtTuwX67Gsi0JTN88YV0xd50UKef/iAH9v4KFE10qY3Abydlrrg==}
     peerDependencies:
       react: '>=18.0.0'
 
   '@commercelayer/sdk@6.35.0':
     resolution: {integrity: sha512-0Afbon6//2KHCTb6bILk2L9Idj9dP8pw06V1CFtaz1wtAsX4iifubGpOPxHH6CuGi4DFHzgASJRz6+ZZbqb3kA==}
+    engines: {node: '>=20'}
+
+  '@commercelayer/sdk@6.38.0':
+    resolution: {integrity: sha512-fv6GrTFWkQJC4yb86Fix560+S/lKLegTEFpQNTsnNpE8JLkzF63B1dyCWpbGcOtsbCK37I/CXsQf6eof1R15qA==}
     engines: {node: '>=20'}
 
   '@csstools/css-parser-algorithms@3.0.4':
@@ -975,15 +979,15 @@ packages:
     resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
     engines: {node: '>=18'}
 
-  '@stripe/react-stripe-js@3.5.0':
-    resolution: {integrity: sha512-oo5J2SNbuAUjE9XmQv/SOD7vgZCa1Y9OcZyRAfvQPkyrDrru35sg5c64ANdHEmOWUibism3+25rKdARSw3HOfA==}
+  '@stripe/react-stripe-js@3.6.0':
+    resolution: {integrity: sha512-zEnaUmTOsu7zhl3RWbZ0l1dRiad+QIbcAYzQfF+yYelURJowhAwesRHKWH+qGAIBEpkO6/VCLFHhVLH9DtPlnw==}
     peerDependencies:
-      '@stripe/stripe-js': '>=1.44.1 <7.0.0'
+      '@stripe/stripe-js': '>=1.44.1 <8.0.0'
       react: '>=16.8.0 <20.0.0'
       react-dom: '>=16.8.0 <20.0.0'
 
-  '@stripe/stripe-js@5.10.0':
-    resolution: {integrity: sha512-PTigkxMdMUP6B5ISS7jMqJAKhgrhZwjprDqR1eATtFfh0OpKVNp110xiH+goeVdrJ29/4LeZJR4FaHHWstsu0A==}
+  '@stripe/stripe-js@7.0.0':
+    resolution: {integrity: sha512-0AWkP+hoIXB5O34FGY7jh687ZPlOqLqMkJDkiSXcp4TaWWidnxjsZSp0xkjyAWbIz4+j1BFXDAK01Rqb7ceBRA==}
     engines: {node: '>=12.16'}
 
   '@swc/counter@0.1.3':
@@ -1017,8 +1021,8 @@ packages:
   '@tanstack/virtual-core@3.10.9':
     resolution: {integrity: sha512-kBknKOKzmeR7lN+vSadaKWXaLS0SZZG+oqpQ/k80Q6g9REn6zRHS/ZYdrIzHnpHgy/eWs00SujveUN/GJT2qTw==}
 
-  '@types/applepayjs@14.0.8':
-    resolution: {integrity: sha512-Yzf5OSitdS+/G8cjaAkPJ0+pBOEf9Vik1XUCdw6ul7Qh6Xb18wTlG/sWA5jKIme3x4fbyTGlSd4mfkvdtP9mRw==}
+  '@types/applepayjs@14.0.9':
+    resolution: {integrity: sha512-xEprYbb0TEP/XIiDPbVnTYpDai8fTFpsQfVSfTd81Is2GOMUy7ie019eyX6Mz2ECxfjoUVKaiGSL577roIeHCg==}
 
   '@types/async-retry@1.4.8':
     resolution: {integrity: sha512-Qup/B5PWLe86yI5I3av6ePGaeQrIHNKCwbsQotD6aHQ6YkHsMUxVZkZsmx/Ry3VZQ6uysHwTjQ7666+k6UjVJA==}
@@ -1205,8 +1209,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  braintree-web@3.116.3:
-    resolution: {integrity: sha512-pZVhmCA88g40XOZonKjD7RaS66tLJBA/EFfHqdqBr4+3IX73ssgmq2OfnWWOrVICgtMhFyG6fqtwwcYFewQ9Sg==}
+  braintree-web@3.117.1:
+    resolution: {integrity: sha512-Jv4NO0s90VYpbKMVL7IMigCyWhi+BlCqxS6Ub7auk6Jd4MUPToygKO3ryvvYVMmasm7pEVKRIAH16UMVfcq4FA==}
 
   browserslist@4.24.4:
     resolution: {integrity: sha512-KDi1Ny1gSePi1vm0q4oxSF8b4DR44GF4BbmS2YdhPLOEqd8pDviZOGH/GsmRwoWJ2+5Lr085X7naowMwKHDG1A==}
@@ -3255,9 +3259,9 @@ packages:
 
 snapshots:
 
-  '@adyen/adyen-web@6.9.0':
+  '@adyen/adyen-web@6.11.0':
     dependencies:
-      '@types/applepayjs': 14.0.8
+      '@types/applepayjs': 14.0.9
       '@types/googlepay': 0.7.6
       classnames: 2.5.1
       preact: 10.22.1
@@ -3500,16 +3504,16 @@ snapshots:
     dependencies:
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@4.20.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.2)':
+  '@commercelayer/react-components@4.22.0-beta.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.2)':
     dependencies:
-      '@adyen/adyen-web': 6.9.0
+      '@adyen/adyen-web': 6.11.0
       '@commercelayer/organization-config': 2.2.0
-      '@commercelayer/sdk': 6.35.0
-      '@stripe/react-stripe-js': 3.5.0(@stripe/stripe-js@5.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@stripe/stripe-js': 5.10.0
+      '@commercelayer/sdk': 6.38.0
+      '@stripe/react-stripe-js': 3.6.0(@stripe/stripe-js@7.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stripe/stripe-js': 7.0.0
       '@tanstack/react-table': 8.21.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/iframe-resizer': 3.5.13
-      braintree-web: 3.116.3
+      braintree-web: 3.117.1
       frames-react: 1.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.2)
       iframe-resizer: 4.4.5
       jwt-decode: 4.0.0
@@ -3522,6 +3526,8 @@ snapshots:
       - typescript
 
   '@commercelayer/sdk@6.35.0': {}
+
+  '@commercelayer/sdk@6.38.0': {}
 
   '@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3)':
     dependencies:
@@ -4049,14 +4055,14 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
-  '@stripe/react-stripe-js@3.5.0(@stripe/stripe-js@5.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@stripe/react-stripe-js@3.6.0(@stripe/stripe-js@7.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@stripe/stripe-js': 5.10.0
+      '@stripe/stripe-js': 7.0.0
       prop-types: 15.8.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@stripe/stripe-js@5.10.0': {}
+  '@stripe/stripe-js@7.0.0': {}
 
   '@swc/counter@0.1.3': {}
 
@@ -4085,7 +4091,7 @@ snapshots:
 
   '@tanstack/virtual-core@3.10.9': {}
 
-  '@types/applepayjs@14.0.8': {}
+  '@types/applepayjs@14.0.9': {}
 
   '@types/async-retry@1.4.8':
     dependencies:
@@ -4276,7 +4282,7 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  braintree-web@3.116.3:
+  braintree-web@3.117.1:
     dependencies:
       '@braintree/asset-loader': 2.0.2
       '@braintree/browser-detection': 2.0.2
