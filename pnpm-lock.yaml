@@ -23,8 +23,8 @@ importers:
   .:
     dependencies:
       '@commercelayer/js-auth':
-        specifier: ^6.7.1
-        version: 6.7.1
+        specifier: ^6.7.2
+        version: 6.7.2
       '@commercelayer/organization-config':
         specifier: ^2.2.0
         version: 2.2.0
@@ -32,8 +32,8 @@ importers:
         specifier: 4.22.0-beta.0
         version: 4.22.0-beta.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.2)
       '@commercelayer/sdk':
-        specifier: ^6.35.0
-        version: 6.35.0
+        specifier: ^6.38.0
+        version: 6.38.0
       '@faker-js/faker':
         specifier: ^9.6.0
         version: 9.6.0
@@ -401,8 +401,8 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@commercelayer/js-auth@6.7.1':
-    resolution: {integrity: sha512-GOfOGeLKhdjKa1qTq2KTF14rEKYYX7yvUYH1GYc4YuX3d5DNLqwQJK4eJN054GnAYl4YeyimVSqmLhiwC5OfBA==}
+  '@commercelayer/js-auth@6.7.2':
+    resolution: {integrity: sha512-kk4VqN2iEOreXFq76YqTP83KhBs09Z5Ez9nZNlikXWf5DXzkrOfShqqEwq8ezHjSOlqs4xVyxgQzsEdPP35CeQ==}
     engines: {node: '>=18.0.0'}
 
   '@commercelayer/organization-config@2.2.0':
@@ -413,10 +413,6 @@ packages:
     resolution: {integrity: sha512-aoDFW4yPNVEGp2VfJFx4tE1OiWgrBhnroCowtTuwX67Gsi0JTN88YV0xd50UKef/iAH9v4KFE10qY3Abydlrrg==}
     peerDependencies:
       react: '>=18.0.0'
-
-  '@commercelayer/sdk@6.35.0':
-    resolution: {integrity: sha512-0Afbon6//2KHCTb6bILk2L9Idj9dP8pw06V1CFtaz1wtAsX4iifubGpOPxHH6CuGi4DFHzgASJRz6+ZZbqb3kA==}
-    engines: {node: '>=20'}
 
   '@commercelayer/sdk@6.38.0':
     resolution: {integrity: sha512-fv6GrTFWkQJC4yb86Fix560+S/lKLegTEFpQNTsnNpE8JLkzF63B1dyCWpbGcOtsbCK37I/CXsQf6eof1R15qA==}
@@ -3498,7 +3494,7 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@commercelayer/js-auth@6.7.1': {}
+  '@commercelayer/js-auth@6.7.2': {}
 
   '@commercelayer/organization-config@2.2.0':
     dependencies:
@@ -3524,8 +3520,6 @@ snapshots:
       - react-dom
       - rollup
       - typescript
-
-  '@commercelayer/sdk@6.35.0': {}
 
   '@commercelayer/sdk@6.38.0': {}
 
