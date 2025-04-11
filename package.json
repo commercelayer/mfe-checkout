@@ -75,8 +75,8 @@
   "dependencies": {
     "@commercelayer/js-auth": "^6.7.2",
     "@commercelayer/organization-config": "^2.2.0",
-    "@commercelayer/react-components": "4.22.0-beta.0",
-    "@commercelayer/sdk": "^6.38.0",
+    "@commercelayer/react-components": "4.22.0",
+    "@commercelayer/sdk": "^6.39.0",
     "@faker-js/faker": "^9.6.0",
     "@headlessui/react": "^2.2.0",
     "@next/bundle-analyzer": "^15.2.3",
@@ -109,7 +109,7 @@
     "styled-components": "^6.1.16",
     "tailwindcss": "^3.4.14",
     "twin.macro": "^3.4.1",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
@@ -142,9 +142,7 @@
       "preset": "styled-components"
     }
   },
-  "cacheDirectories": [
-    ".next/cache"
-  ],
+  "cacheDirectories": [".next/cache"],
   "pnpm": {
     "overrides": {
       "micromatch@<4.0.8": ">=4.0.8",

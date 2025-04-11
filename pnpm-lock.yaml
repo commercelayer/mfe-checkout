@@ -29,11 +29,11 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0
       '@commercelayer/react-components':
-        specifier: 4.22.0-beta.0
-        version: 4.22.0-beta.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.2)
+        specifier: 4.22.0
+        version: 4.22.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)
       '@commercelayer/sdk':
-        specifier: ^6.38.0
-        version: 6.38.0
+        specifier: ^6.39.0
+        version: 6.39.0
       '@faker-js/faker':
         specifier: ^9.6.0
         version: 9.6.0
@@ -93,7 +93,7 @@ importers:
         version: 16.4.7
       i18next:
         specifier: ^24.2.3
-        version: 24.2.3(typescript@5.8.2)
+        version: 24.2.3(typescript@5.8.3)
       next:
         specifier: ^15.2.3
         version: 15.2.3(@babel/core@7.23.9)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -102,7 +102,7 @@ importers:
         version: 3.0.0
       next-i18next:
         specifier: ^15.4.2
-        version: 15.4.2(i18next@24.2.3(typescript@5.8.2))(next@15.2.3(@babel/core@7.23.9)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@15.4.1(i18next@24.2.3(typescript@5.8.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        version: 15.4.2(i18next@24.2.3(typescript@5.8.3))(next@15.2.3(@babel/core@7.23.9)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@15.4.1(i18next@24.2.3(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       postcss:
         specifier: ^8.5.3
         version: 8.5.3
@@ -117,7 +117,7 @@ importers:
         version: 2.0.11
       react-i18next:
         specifier: ^15.4.1
-        version: 15.4.1(i18next@24.2.3(typescript@5.8.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 15.4.1(i18next@24.2.3(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-router-dom:
         specifier: ^6.28.0
         version: 6.28.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -131,45 +131,45 @@ importers:
         specifier: ^3.4.1
         version: 3.4.1(tailwindcss@3.4.14)
       typescript:
-        specifier: ^5.8.2
-        version: 5.8.2
+        specifier: ^5.8.3
+        version: 5.8.3
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
       '@semantic-release/changelog':
         specifier: ^6.0.3
-        version: 6.0.3(semantic-release@24.2.3(typescript@5.8.2))
+        version: 6.0.3(semantic-release@24.2.3(typescript@5.8.3))
       '@semantic-release/commit-analyzer':
         specifier: ^13.0.1
-        version: 13.0.1(semantic-release@24.2.3(typescript@5.8.2))
+        version: 13.0.1(semantic-release@24.2.3(typescript@5.8.3))
       '@semantic-release/git':
         specifier: ^10.0.1
-        version: 10.0.1(semantic-release@24.2.3(typescript@5.8.2))
+        version: 10.0.1(semantic-release@24.2.3(typescript@5.8.3))
       '@semantic-release/github':
         specifier: ^11.0.1
-        version: 11.0.1(semantic-release@24.2.3(typescript@5.8.2))
+        version: 11.0.1(semantic-release@24.2.3(typescript@5.8.3))
       '@semantic-release/npm':
         specifier: ^12.0.1
-        version: 12.0.1(semantic-release@24.2.3(typescript@5.8.2))
+        version: 12.0.1(semantic-release@24.2.3(typescript@5.8.3))
       '@semantic-release/release-notes-generator':
         specifier: ^14.0.3
-        version: 14.0.3(semantic-release@24.2.3(typescript@5.8.2))
+        version: 14.0.3(semantic-release@24.2.3(typescript@5.8.3))
       npm-check-updates:
         specifier: ^17.1.15
         version: 17.1.15
       semantic-release:
         specifier: ^24.2.3
-        version: 24.2.3(typescript@5.8.2)
+        version: 24.2.3(typescript@5.8.3)
       serve:
         specifier: ^14.2.4
         version: 14.2.4
       stylelint:
         specifier: ^16.16.0
-        version: 16.16.0(typescript@5.8.2)
+        version: 16.16.0(typescript@5.8.3)
       stylelint-config-standard:
         specifier: ^36.0.1
-        version: 36.0.1(stylelint@16.16.0(typescript@5.8.2))
+        version: 36.0.1(stylelint@16.16.0(typescript@5.8.3))
 
 packages:
 
@@ -409,13 +409,13 @@ packages:
     resolution: {integrity: sha512-v7vfLru0WiqocrPWfldmqhbG6VKYQcdu480SUCU4wTnDcXLVnlKfgaadkNnv+tVVZXh0qke8/uwrkNoi3VY/Bw==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@4.22.0-beta.0':
-    resolution: {integrity: sha512-aoDFW4yPNVEGp2VfJFx4tE1OiWgrBhnroCowtTuwX67Gsi0JTN88YV0xd50UKef/iAH9v4KFE10qY3Abydlrrg==}
+  '@commercelayer/react-components@4.22.0':
+    resolution: {integrity: sha512-Gy4CTwaRCOvjupRG/vcCGY81a+b6Mrsoz66hrkQGu/b9XlhyyCYFzJCqiST0pbQvX8z8yZE/ex78IeDgsntjuQ==}
     peerDependencies:
       react: '>=18.0.0'
 
-  '@commercelayer/sdk@6.38.0':
-    resolution: {integrity: sha512-fv6GrTFWkQJC4yb86Fix560+S/lKLegTEFpQNTsnNpE8JLkzF63B1dyCWpbGcOtsbCK37I/CXsQf6eof1R15qA==}
+  '@commercelayer/sdk@6.39.0':
+    resolution: {integrity: sha512-HzfXTAXvAe8UOd8E0SOokxjS9K/OVZJ+xX12nLxPS5OEPyAz5AnIzSfn9AVYiuii8QWAkVsjFfTq+4JouZzdEA==}
     engines: {node: '>=20'}
 
   '@csstools/css-parser-algorithms@3.0.4':
@@ -3101,8 +3101,8 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
 
-  typescript@5.8.2:
-    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -3500,17 +3500,17 @@ snapshots:
     dependencies:
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@4.22.0-beta.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.2)':
+  '@commercelayer/react-components@4.22.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)':
     dependencies:
       '@adyen/adyen-web': 6.11.0
       '@commercelayer/organization-config': 2.2.0
-      '@commercelayer/sdk': 6.38.0
+      '@commercelayer/sdk': 6.39.0
       '@stripe/react-stripe-js': 3.6.0(@stripe/stripe-js@7.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@stripe/stripe-js': 7.0.0
       '@tanstack/react-table': 8.21.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/iframe-resizer': 3.5.13
       braintree-web: 3.117.1
-      frames-react: 1.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.2)
+      frames-react: 1.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)
       iframe-resizer: 4.4.5
       jwt-decode: 4.0.0
       lodash: 4.17.21
@@ -3521,7 +3521,7 @@ snapshots:
       - rollup
       - typescript
 
-  '@commercelayer/sdk@6.38.0': {}
+  '@commercelayer/sdk@6.39.0': {}
 
   '@csstools/css-parser-algorithms@3.0.4(@csstools/css-tokenizer@3.0.3)':
     dependencies:
@@ -3948,15 +3948,15 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@semantic-release/changelog@6.0.3(semantic-release@24.2.3(typescript@5.8.2))':
+  '@semantic-release/changelog@6.0.3(semantic-release@24.2.3(typescript@5.8.3))':
     dependencies:
       '@semantic-release/error': 3.0.0
       aggregate-error: 3.1.0
       fs-extra: 11.1.1
       lodash: 4.17.21
-      semantic-release: 24.2.3(typescript@5.8.2)
+      semantic-release: 24.2.3(typescript@5.8.3)
 
-  '@semantic-release/commit-analyzer@13.0.1(semantic-release@24.2.3(typescript@5.8.2))':
+  '@semantic-release/commit-analyzer@13.0.1(semantic-release@24.2.3(typescript@5.8.3))':
     dependencies:
       conventional-changelog-angular: 8.0.0
       conventional-changelog-writer: 8.0.0
@@ -3966,7 +3966,7 @@ snapshots:
       import-from-esm: 2.0.0
       lodash-es: 4.17.21
       micromatch: 4.0.8
-      semantic-release: 24.2.3(typescript@5.8.2)
+      semantic-release: 24.2.3(typescript@5.8.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -3974,7 +3974,7 @@ snapshots:
 
   '@semantic-release/error@4.0.0': {}
 
-  '@semantic-release/git@10.0.1(semantic-release@24.2.3(typescript@5.8.2))':
+  '@semantic-release/git@10.0.1(semantic-release@24.2.3(typescript@5.8.3))':
     dependencies:
       '@semantic-release/error': 3.0.0
       aggregate-error: 3.1.0
@@ -3984,11 +3984,11 @@ snapshots:
       lodash: 4.17.21
       micromatch: 4.0.8
       p-reduce: 2.1.0
-      semantic-release: 24.2.3(typescript@5.8.2)
+      semantic-release: 24.2.3(typescript@5.8.3)
     transitivePeerDependencies:
       - supports-color
 
-  '@semantic-release/github@11.0.1(semantic-release@24.2.3(typescript@5.8.2))':
+  '@semantic-release/github@11.0.1(semantic-release@24.2.3(typescript@5.8.3))':
     dependencies:
       '@octokit/core': 6.0.1
       '@octokit/plugin-paginate-rest': 11.4.2(@octokit/core@6.0.1)
@@ -4005,12 +4005,12 @@ snapshots:
       lodash-es: 4.17.21
       mime: 4.0.1
       p-filter: 4.1.0
-      semantic-release: 24.2.3(typescript@5.8.2)
+      semantic-release: 24.2.3(typescript@5.8.3)
       url-join: 5.0.0
     transitivePeerDependencies:
       - supports-color
 
-  '@semantic-release/npm@12.0.1(semantic-release@24.2.3(typescript@5.8.2))':
+  '@semantic-release/npm@12.0.1(semantic-release@24.2.3(typescript@5.8.3))':
     dependencies:
       '@semantic-release/error': 4.0.0
       aggregate-error: 5.0.0
@@ -4023,11 +4023,11 @@ snapshots:
       rc: 1.2.8
       read-pkg: 9.0.0
       registry-auth-token: 5.0.2
-      semantic-release: 24.2.3(typescript@5.8.2)
+      semantic-release: 24.2.3(typescript@5.8.3)
       semver: 7.6.0
       tempy: 3.0.0
 
-  '@semantic-release/release-notes-generator@14.0.3(semantic-release@24.2.3(typescript@5.8.2))':
+  '@semantic-release/release-notes-generator@14.0.3(semantic-release@24.2.3(typescript@5.8.3))':
     dependencies:
       conventional-changelog-angular: 8.0.0
       conventional-changelog-writer: 8.0.0
@@ -4039,7 +4039,7 @@ snapshots:
       into-stream: 7.0.0
       lodash-es: 4.17.21
       read-package-up: 11.0.0
-      semantic-release: 24.2.3(typescript@5.8.2)
+      semantic-release: 24.2.3(typescript@5.8.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -4509,14 +4509,14 @@ snapshots:
       path-type: 4.0.0
       yaml: 1.10.2
 
-  cosmiconfig@9.0.0(typescript@5.8.2):
+  cosmiconfig@9.0.0(typescript@5.8.3):
     dependencies:
       env-paths: 2.2.1
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
     optionalDependencies:
-      typescript: 5.8.2
+      typescript: 5.8.3
 
   credit-card-type@10.0.2: {}
 
@@ -4759,12 +4759,12 @@ snapshots:
     dependencies:
       '@braintree/uuid': 1.0.1
 
-  frames-react@1.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.2):
+  frames-react@1.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3):
     dependencies:
       classnames: 2.5.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      rollup-plugin-typescript2: 0.36.0(rollup@4.31.0)(typescript@5.8.2)
+      rollup-plugin-typescript2: 0.36.0(rollup@4.31.0)(typescript@5.8.3)
       tslib: 2.8.1
     transitivePeerDependencies:
       - rollup
@@ -4945,11 +4945,11 @@ snapshots:
 
   i18next-fs-backend@2.6.0: {}
 
-  i18next@24.2.3(typescript@5.8.2):
+  i18next@24.2.3(typescript@5.8.3):
     dependencies:
       '@babel/runtime': 7.26.10
     optionalDependencies:
-      typescript: 5.8.2
+      typescript: 5.8.3
 
   ieee754@1.2.1: {}
 
@@ -5235,17 +5235,17 @@ snapshots:
 
   next-build-id@3.0.0: {}
 
-  next-i18next@15.4.2(i18next@24.2.3(typescript@5.8.2))(next@15.2.3(@babel/core@7.23.9)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@15.4.1(i18next@24.2.3(typescript@5.8.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
+  next-i18next@15.4.2(i18next@24.2.3(typescript@5.8.3))(next@15.2.3(@babel/core@7.23.9)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@15.4.1(i18next@24.2.3(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.26.10
       '@types/hoist-non-react-statics': 3.3.6
       core-js: 3.30.2
       hoist-non-react-statics: 3.3.2
-      i18next: 24.2.3(typescript@5.8.2)
+      i18next: 24.2.3(typescript@5.8.3)
       i18next-fs-backend: 2.6.0
       next: 15.2.3(@babel/core@7.23.9)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
-      react-i18next: 15.4.1(i18next@24.2.3(typescript@5.8.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next: 15.4.1(i18next@24.2.3(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   next@15.2.3(@babel/core@7.23.9)(@playwright/test@1.51.1)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -5549,11 +5549,11 @@ snapshots:
 
   react-gtm-module@2.0.11: {}
 
-  react-i18next@15.4.1(i18next@24.2.3(typescript@5.8.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-i18next@15.4.1(i18next@24.2.3(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.26.10
       html-parse-stringify: 3.0.1
-      i18next: 24.2.3(typescript@5.8.2)
+      i18next: 24.2.3(typescript@5.8.3)
       react: 18.3.1
     optionalDependencies:
       react-dom: 18.3.1(react@18.3.1)
@@ -5644,7 +5644,7 @@ snapshots:
 
   reusify@1.0.4: {}
 
-  rollup-plugin-typescript2@0.36.0(rollup@4.31.0)(typescript@5.8.2):
+  rollup-plugin-typescript2@0.36.0(rollup@4.31.0)(typescript@5.8.3):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       find-cache-dir: 3.3.2
@@ -5652,7 +5652,7 @@ snapshots:
       rollup: 4.31.0
       semver: 7.7.1
       tslib: 2.8.1
-      typescript: 5.8.2
+      typescript: 5.8.3
 
   rollup@4.31.0:
     dependencies:
@@ -5691,15 +5691,15 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  semantic-release@24.2.3(typescript@5.8.2):
+  semantic-release@24.2.3(typescript@5.8.3):
     dependencies:
-      '@semantic-release/commit-analyzer': 13.0.1(semantic-release@24.2.3(typescript@5.8.2))
+      '@semantic-release/commit-analyzer': 13.0.1(semantic-release@24.2.3(typescript@5.8.3))
       '@semantic-release/error': 4.0.0
-      '@semantic-release/github': 11.0.1(semantic-release@24.2.3(typescript@5.8.2))
-      '@semantic-release/npm': 12.0.1(semantic-release@24.2.3(typescript@5.8.2))
-      '@semantic-release/release-notes-generator': 14.0.3(semantic-release@24.2.3(typescript@5.8.2))
+      '@semantic-release/github': 11.0.1(semantic-release@24.2.3(typescript@5.8.3))
+      '@semantic-release/npm': 12.0.1(semantic-release@24.2.3(typescript@5.8.3))
+      '@semantic-release/release-notes-generator': 14.0.3(semantic-release@24.2.3(typescript@5.8.3))
       aggregate-error: 5.0.0
-      cosmiconfig: 9.0.0(typescript@5.8.2)
+      cosmiconfig: 9.0.0(typescript@5.8.3)
       debug: 4.4.0
       env-ci: 11.0.0
       execa: 9.1.0
@@ -5923,16 +5923,16 @@ snapshots:
       '@babel/core': 7.23.9
       babel-plugin-macros: 3.1.0
 
-  stylelint-config-recommended@14.0.1(stylelint@16.16.0(typescript@5.8.2)):
+  stylelint-config-recommended@14.0.1(stylelint@16.16.0(typescript@5.8.3)):
     dependencies:
-      stylelint: 16.16.0(typescript@5.8.2)
+      stylelint: 16.16.0(typescript@5.8.3)
 
-  stylelint-config-standard@36.0.1(stylelint@16.16.0(typescript@5.8.2)):
+  stylelint-config-standard@36.0.1(stylelint@16.16.0(typescript@5.8.3)):
     dependencies:
-      stylelint: 16.16.0(typescript@5.8.2)
-      stylelint-config-recommended: 14.0.1(stylelint@16.16.0(typescript@5.8.2))
+      stylelint: 16.16.0(typescript@5.8.3)
+      stylelint-config-recommended: 14.0.1(stylelint@16.16.0(typescript@5.8.3))
 
-  stylelint@16.16.0(typescript@5.8.2):
+  stylelint@16.16.0(typescript@5.8.3):
     dependencies:
       '@csstools/css-parser-algorithms': 3.0.4(@csstools/css-tokenizer@3.0.3)
       '@csstools/css-tokenizer': 3.0.3
@@ -5941,7 +5941,7 @@ snapshots:
       '@dual-bundle/import-meta-resolve': 4.1.0
       balanced-match: 2.0.0
       colord: 2.9.3
-      cosmiconfig: 9.0.0(typescript@5.8.2)
+      cosmiconfig: 9.0.0(typescript@5.8.3)
       css-functions-list: 3.2.3
       css-tree: 3.1.0
       debug: 4.4.0
@@ -6116,7 +6116,7 @@ snapshots:
 
   typescript@4.9.5: {}
 
-  typescript@5.8.2: {}
+  typescript@5.8.3: {}
 
   uglify-js@3.17.4:
     optional: true
