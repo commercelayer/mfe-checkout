@@ -374,9 +374,11 @@ export function checkPaymentMethod(order: Order) {
   if (!hasPaymentMethod && !paymentRequired) {
     hasPaymentMethod = true
   }
-
-  const isComplete =
-    order.status === "placed" && order.payment_status === "authorized"
+  const isValidPaymentStatus = ["authorized", "free"].includes(
+    order.payment_status,
+  )
+  const isPlaced = order.status === "placed"
+  const isComplete = isPlaced && isValidPaymentStatus
 
   return {
     hasPaymentMethod,
