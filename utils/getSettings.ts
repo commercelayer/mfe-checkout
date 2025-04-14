@@ -2,13 +2,13 @@ import { jwtDecode, jwtIsSalesChannel } from "@commercelayer/js-auth"
 import { getMfeConfig } from "@commercelayer/organization-config"
 import CommerceLayer, {
   CommerceLayerStatic,
-  CommerceLayerClient,
-  Organization,
-  Order,
+  type CommerceLayerClient,
+  type Organization,
+  type Order,
 } from "@commercelayer/sdk"
 import retry from "async-retry"
 
-import { TypeAccepted } from "components/data/AppProvider/utils"
+import type { TypeAccepted } from "components/data/AppProvider/utils"
 import {
   LINE_ITEMS_SHIPPABLE,
   LINE_ITEMS_SHOPPABLE,
@@ -27,7 +27,7 @@ function isProduction(): boolean {
 }
 
 async function retryCall<T>(
-  f: () => Promise<T>
+  f: () => Promise<T>,
 ): Promise<FetchResource<T> | undefined> {
   return await retry(
     async (bail, number) => {
@@ -59,12 +59,12 @@ async function retryCall<T>(
     },
     {
       retries: RETRIES,
-    }
+    },
   )
 }
 
 function getOrganization(
-  cl: CommerceLayerClient
+  cl: CommerceLayerClient,
 ): Promise<FetchResource<Organization> | undefined> {
   return retryCall<Organization>(() =>
     cl.organization.retrieve({
@@ -82,13 +82,13 @@ function getOrganization(
           "config",
         ],
       },
-    })
+    }),
   )
 }
 
 function getOrder(
   cl: CommerceLayerClient,
-  orderId: string
+  orderId: string,
 ): Promise<FetchResource<Order> | undefined> {
   return retryCall<Order>(() =>
     cl.orders.retrieve(orderId, {
@@ -103,11 +103,12 @@ function getOrder(
           "terms_url",
           "privacy_url",
           "line_items",
+          "payment_status",
         ],
         line_items: ["item_type", "item"],
       },
       include: ["line_items", "line_items.item"],
-    })
+    }),
   )
 }
 
@@ -218,7 +219,7 @@ export const getSettings = async ({
       LINE_ITEMS_SHIPPABLE.includes(line_item.item_type as TypeAccepted) &&
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      !line_item.item?.do_not_ship
+      !line_item.item?.do_not_ship,
   )
 
   if (order.status === "draft" || order.status === "pending") {
