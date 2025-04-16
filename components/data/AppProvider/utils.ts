@@ -265,6 +265,7 @@ export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
         "payment_source",
         "customer",
         "line_items",
+        "payment_status",
       ],
       shipments: ["shipping_method", "available_shipping_methods"],
       customers: ["customer_addresses"],
@@ -373,8 +374,11 @@ export function checkPaymentMethod(order: Order) {
   if (!hasPaymentMethod && !paymentRequired) {
     hasPaymentMethod = true
   }
-
-  const isComplete = order.status === "placed"
+  const isValidPaymentStatus = ["authorized", "free", "paid"].includes(
+    order.payment_status,
+  )
+  const isPlaced = order.status === "placed"
+  const isComplete = isPlaced && isValidPaymentStatus
 
   return {
     hasPaymentMethod,
