@@ -1,3 +1,15 @@
+# [5.3.0](https://github.com/commercelayer/mfe-checkout/compare/v5.2.0...v5.3.0) (2025-05-05)
+
+
+### Bug Fixes
+
+* remove contraints on customer address ([61a164e](https://github.com/commercelayer/mfe-checkout/commit/61a164e9c42744600ca85a08ceded314a921b3e1))
+
+
+### Features
+
+* Add Stripe Connected Account. Closes [#510](https://github.com/commercelayer/mfe-checkout/issues/510). ([de27ff1](https://github.com/commercelayer/mfe-checkout/commit/de27ff18c18dc5ccd42498f2bedbc464075e5675))
+
 # [5.2.0](https://github.com/commercelayer/mfe-checkout/compare/v5.1.0...v5.2.0) (2025-03-18)
 
 
