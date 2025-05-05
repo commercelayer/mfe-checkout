@@ -116,7 +116,7 @@ const Checkout: React.FC<Props> = ({
 
   const renderSteps = () => {
     return (
-      <CustomerContainer isGuest={ctx.isGuest} addressesPageSize={2}>
+      <CustomerContainer isGuest={ctx.isGuest}>
         <LayoutDefault
           aside={
             <Sidebar>
