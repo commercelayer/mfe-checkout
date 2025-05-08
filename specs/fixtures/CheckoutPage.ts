@@ -18,6 +18,7 @@ interface DataLayerWindowProps {
 interface AttributesProps {
   giftCard: NullableType<string>
   orderId: NullableType<string>
+  orderToken: NullableType<string>
   accessToken: NullableType<string>
   organization: NullableType<object>
 }
@@ -103,6 +104,10 @@ export class CheckoutPage {
 
   getAccessToken() {
     return this.attributes?.accessToken
+  }
+
+  getOrderToken() {
+    return this.attributes?.orderToken
   }
 
   async setCustomerMail(email?: string) {

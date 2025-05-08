@@ -1,20 +1,20 @@
 import {
-  createAssertion,
   authenticate,
+  createAssertion,
   jwtDecode,
   jwtIsSalesChannel,
 } from "@commercelayer/js-auth"
-import { type MfeConfigs } from "@commercelayer/organization-config"
+import type { MfeConfigs } from "@commercelayer/organization-config"
 import {
+  type Address,
+  type AddressCreate,
   CommerceLayer,
-  CommerceLayerClient,
-  Address,
-  AddressCreate,
+  type CommerceLayerClient,
 } from "@commercelayer/sdk"
 import { test as base } from "@playwright/test"
 import dotenv from "dotenv"
 
-import path from "path"
+import path from "node:path"
 
 import { CheckoutPage } from "./CheckoutPage"
 
@@ -99,10 +99,7 @@ type FixtureType = {
   defaultParams: DefaultParamsProps
 }
 
-const getToken = async (
-  market?: ValidMarket,
-  customerId?: string
-) => {
+const getToken = async (market?: ValidMarket, customerId?: string) => {
   const scope = market != null ? `market:code:${market}` : "market:code:EU"
 
   if (customerId == null) {
@@ -176,7 +173,7 @@ const getSuperToken = async () => {
 
 const getOrder = async (
   cl: CommerceLayerClient,
-  params: DefaultParamsProps
+  params: DefaultParamsProps,
 ) => {
   const email = params.customer?.email || params.orderAttributes?.customer_email
   const attributes = {
@@ -198,7 +195,7 @@ const getOrder = async (
       const noStock =
         (params.lineItemsAttributes?.length || 0) > 0 &&
         (params.lineItemsAttributes?.filter(
-          ({ inventory }) => inventory !== undefined && inventory >= 0
+          ({ inventory }) => inventory !== undefined && inventory >= 0,
         ) as SkuItem[])
 
       if (noStock && noStock.length > 0) {
@@ -244,7 +241,7 @@ const getOrder = async (
         const { billingAddress, shippingAddress, sameShippingAddress } =
           params.addresses
         const addressToAttach = await cl.addresses.create(
-          billingAddress as AddressCreate
+          billingAddress as AddressCreate,
         )
         await cl.orders.update({
           id: order.id,
@@ -253,7 +250,7 @@ const getOrder = async (
         })
         if (!sameShippingAddress && shippingAddress) {
           const addressToAttach = await cl.addresses.create(
-            shippingAddress as AddressCreate
+            shippingAddress as AddressCreate,
           )
           await cl.orders.update({
             id: order.id,
@@ -282,7 +279,7 @@ const getOrder = async (
             // @ts-expect-error no customer_email needed
             const ca = await customerCl.customer_addresses.create({
               customer: customerCl.customers.relationship(
-                payload.owner?.id as string
+                payload.owner?.id as string,
               ),
               address: customerCl.addresses.relationship(a),
             })
@@ -356,6 +353,7 @@ const getOrder = async (
   }
   return {
     orderId: order.id,
+    orderToken: order.token,
     attributes: {
       giftCard: giftCardCode,
       organization: { ...params.organization },
@@ -366,7 +364,7 @@ const getOrder = async (
 const updateInventory = async (
   cl: CommerceLayerClient,
   lineItems: SkuItem[],
-  quantity: "quantity" | "inventory"
+  quantity: "quantity" | "inventory",
 ) => {
   const skus = await cl.skus.list({
     include: ["stock_items"],
@@ -392,7 +390,7 @@ const updateInventory = async (
 const createAndPurchaseGiftCard = async (
   cl: CommerceLayerClient,
   props?: GiftCardProps,
-  purchase: boolean = false
+  purchase = false,
 ) => {
   const card = await cl.gift_cards.create({
     currency_code: props?.currency_code ? props.currency_code : "EUR",
@@ -460,7 +458,7 @@ const createLineItems = async ({
     })
 
     await Promise.all(
-      lineItemsOptions.filter((item) => item !== undefined).flat(2)
+      lineItemsOptions.filter((item) => item !== undefined).flat(2),
     )
 
     // update line_items with final_quantity
@@ -471,7 +469,7 @@ const createLineItems = async ({
         item.final_quantity > 0
       ) {
         const toUpdate = lineItemsCreated.find(
-          (i) => i.sku_code === item.sku_code
+          (i) => i.sku_code === item.sku_code,
         )
         if (toUpdate) {
           return cl.line_items.update({
@@ -494,7 +492,7 @@ function isSkuItem(item: SkuItem | BundleItem): item is SkuItem {
 
 const createDefaultLineItem = async (
   cl: CommerceLayerClient,
-  orderId: string
+  orderId: string,
 ) => {
   const sku = (await cl.skus.list()).first()
 
@@ -518,7 +516,11 @@ export const test = base.extend<FixtureType>({
       : getToken(defaultParams.market))
 
     const cl = getClient(token)
-    const { orderId, attributes } = await getOrder(cl, defaultParams)
+    const { orderId, orderToken, attributes } = await getOrder(
+      cl,
+      defaultParams,
+    )
+
     const id =
       defaultParams.orderId === undefined ? orderId : defaultParams.orderId
     const accessToken =
@@ -528,6 +530,7 @@ export const test = base.extend<FixtureType>({
       ...attributes,
       accessToken,
       orderId: id,
+      orderToken: orderToken,
     })
 
     await checkoutPage.goto({

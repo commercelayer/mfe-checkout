@@ -8,7 +8,7 @@ import LineItemImage from "@commercelayer/react-components/line_items/LineItemIm
 import LineItemName from "@commercelayer/react-components/line_items/LineItemName"
 import LineItemOption from "@commercelayer/react-components/line_items/LineItemOption"
 import LineItemQuantity from "@commercelayer/react-components/line_items/LineItemQuantity"
-import cronParser from "cron-parser"
+import { CronExpressionParser } from "cron-parser"
 import cronstrue from "cronstrue"
 import { useTranslation } from "next-i18next"
 import type React from "react"
@@ -79,7 +79,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
                 }
                 let isCronValid = true
                 try {
-                  cronParser.parseExpression(attributeValue as string)
+                  CronExpressionParser.parse(attributeValue as string)
                 } catch (e) {
                   isCronValid = false
                 }

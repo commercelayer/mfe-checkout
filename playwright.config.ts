@@ -1,7 +1,7 @@
-import { PlaywrightTestConfig, devices } from "@playwright/test"
+import { type PlaywrightTestConfig, devices } from "@playwright/test"
 import dotenv from "dotenv"
 
-import path from "path"
+import path from "node:path"
 
 dotenv.config({ path: path.resolve(__dirname, "./.env.local") })
 
@@ -22,7 +22,7 @@ const config: PlaywrightTestConfig = {
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
   webServer: {
     command: "pnpm run dev",
-    port: 3000,
+    port: 4000,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },

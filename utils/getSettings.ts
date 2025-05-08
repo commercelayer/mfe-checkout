@@ -99,6 +99,7 @@ function getOrder(
           "status",
           "number",
           "guest",
+          "token",
           "language_code",
           "terms_url",
           "privacy_url",
@@ -268,6 +269,7 @@ export const getSettings = async ({
       params: {
         lang: order.language_code,
         orderId: order.id,
+        token: order.token,
         accessToken,
       },
     }),
