@@ -1,3 +1,10 @@
+# [5.4.0](https://github.com/commercelayer/mfe-checkout/compare/v5.3.0...v5.4.0) (2025-05-09)
+
+
+### Features
+
+* add support to order `token` attribute on organization config urls ([329a6d0](https://github.com/commercelayer/mfe-checkout/commit/329a6d09befae3d1a9d404358405a0cf6e2b2c52))
+
 # [5.3.0](https://github.com/commercelayer/mfe-checkout/compare/v5.2.0...v5.3.0) (2025-05-05)
 
 
