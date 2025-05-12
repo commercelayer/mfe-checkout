@@ -270,6 +270,7 @@ export const getSettings = async ({
         lang: order.language_code,
         orderId: order.id,
         token: order.token,
+        slug: slug,
         accessToken,
       },
     }),
