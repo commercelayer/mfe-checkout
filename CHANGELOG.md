@@ -1,3 +1,10 @@
+# [5.5.0](https://github.com/commercelayer/mfe-checkout/compare/v5.4.0...v5.5.0) (2025-05-14)
+
+
+### Features
+
+* add organization slug support on config URLs ([bf3f3dd](https://github.com/commercelayer/mfe-checkout/commit/bf3f3dd11954a616a449e0b203fe08146d06eb35))
+
 # [5.4.0](https://github.com/commercelayer/mfe-checkout/compare/v5.3.0...v5.4.0) (2025-05-09)
 
 
