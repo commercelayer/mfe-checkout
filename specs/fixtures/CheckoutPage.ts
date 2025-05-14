@@ -1308,19 +1308,17 @@ export class CheckoutPage {
       }
       case "checkout_com": {
         const cardFrame = this.page.frameLocator(
-          'iframe[name="checkout-frames-cardNumber"]',
+          'iframe[data-testid="card-number"]',
         )
         const expFrame = this.page.frameLocator(
-          'iframe[name="checkout-frames-expiryDate"]',
+          'iframe[data-testid="card-expiry-date"]',
         )
         const cvvFrame = this.page.frameLocator(
-          'iframe[name="checkout-frames-cvv"]',
+          'iframe[data-testid="card-cvv"]',
         )
-        await cardFrame
-          .locator("#checkout-frames-card-number")
-          .fill("4242424242424242")
-        await expFrame.locator("#checkout-frames-expiry-date").fill("102030")
-        await cvvFrame.locator("#checkout-frames-cvv").fill("100")
+        await cardFrame.locator("#card-number").fill("4242424242424242")
+        await expFrame.locator("#card-expiry-date").fill("102030")
+        await cvvFrame.locator("#card-cvv").fill("100")
         break
       }
       case "adyen": {

@@ -75,7 +75,7 @@
   "dependencies": {
     "@commercelayer/js-auth": "^6.7.2",
     "@commercelayer/organization-config": "^2.3.0",
-    "@commercelayer/react-components": "4.22.0",
+    "@commercelayer/react-components": "4.23.0",
     "@commercelayer/sdk": "^6.41.0",
     "@faker-js/faker": "^9.7.0",
     "@headlessui/react": "^2.2.2",
@@ -142,9 +142,7 @@
       "preset": "styled-components"
     }
   },
-  "cacheDirectories": [
-    ".next/cache"
-  ],
+  "cacheDirectories": [".next/cache"],
   "pnpm": {
     "overrides": {
       "micromatch@<4.0.8": ">=4.0.8",

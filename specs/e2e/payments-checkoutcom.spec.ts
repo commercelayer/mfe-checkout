@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
 
 test.describe("guest with checkout.com", () => {
@@ -22,7 +22,7 @@ test.describe("guest with checkout.com", () => {
     },
   })
 
-  test.skip("checkout", async ({ checkoutPage }) => {
+  test("checkout", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Shipping", "open")
@@ -36,7 +36,7 @@ test.describe("guest with checkout.com", () => {
     await checkoutPage.setPayment("checkout_com")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     expect(element).not.toBeVisible()
 
@@ -88,7 +88,7 @@ test.describe("customer with checkout.com without saving", () => {
     },
   })
 
-  test.skip("checkout", async ({ checkoutPage }) => {
+  test("checkout", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Shipping", "open")
@@ -102,7 +102,7 @@ test.describe("customer with checkout.com without saving", () => {
     await checkoutPage.setPayment("checkout_com")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
@@ -150,7 +150,7 @@ test.describe("customer with checkout.com with saving", () => {
     },
   })
 
-  test.skip("save card in customer wallet", async ({ checkoutPage }) => {
+  test("save card in customer wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Shipping", "open")
@@ -164,13 +164,13 @@ test.describe("customer with checkout.com with saving", () => {
     await checkoutPage.setPayment("checkout_com")
 
     let element = await checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     expect(element).toBeVisible()
     expect(element).not.toBeChecked()
     await element.check()
     element = await checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     expect(element).toBeChecked()
 
@@ -193,7 +193,7 @@ test.describe("customer with checkout.com with saving", () => {
     await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 
-  test.skip("use card in customer wallet", async ({ checkoutPage }) => {
+  test("use card in customer wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Shipping", "open")
