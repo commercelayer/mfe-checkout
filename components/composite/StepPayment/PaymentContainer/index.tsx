@@ -19,32 +19,6 @@ export const PaymentContainer = ({ primaryColor, children }: Props) => {
         checkoutComPayment: {
           success_url: checkoutReturnUrl,
           failure_url: checkoutReturnUrl,
-          options: {
-            style: {
-              base: {
-                padding: "10px",
-                border: "1px solid #E6E7E7",
-                borderRadius: "0.25rem",
-                transition: "border 0.5s ease-out",
-                fontSize: "16px",
-              },
-              valid: {
-                color: "#1FDA8",
-              },
-              invalid: {
-                color: "#FF656B",
-              },
-              placeholder: {
-                base: {
-                  color: "#DBDCDC",
-                  fontFamily: "monospace",
-                },
-                focus: {
-                  color: "#101111",
-                },
-              },
-            },
-          },
         },
         adyenPayment: {
           styles: {
