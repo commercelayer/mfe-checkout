@@ -323,7 +323,8 @@ test.describe("with custom thankyou page url @organization-config", () => {
 test.describe("with custom thankyou page url @organization-config and token", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const email = faker.internet.email()
-  const thankyouPageUrl = "https://www.google.it/:lang/:order_id/:token"
+  const thankyouPageUrl =
+    "https://www.google.it/:lang/:order_id/:token?slug=:slug"
 
   test.use({
     defaultParams: {
@@ -369,7 +370,8 @@ test.describe("with custom thankyou page url @organization-config and token", ()
       thankyouPageUrl
         .replace(":lang", "it-IT")
         .replace(":order_id", checkoutPage.getOrderId() as string)
-        .replace(":token", checkoutPage.getOrderToken() as string),
+        .replace(":token", checkoutPage.getOrderToken() as string)
+        .replace(":slug", process.env.NEXT_PUBLIC_SLUG as string),
     )
   })
 })
