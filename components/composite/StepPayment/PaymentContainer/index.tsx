@@ -19,6 +19,27 @@ export const PaymentContainer = ({ primaryColor, children }: Props) => {
         checkoutComPayment: {
           success_url: checkoutReturnUrl,
           failure_url: checkoutReturnUrl,
+          options: {
+            appearance: {
+              colorAction: primaryColor,
+              colorBorder: "#E6E7E7",
+              colorFormBackground: "#fff",
+              colorFormBorder: "#E6E7E7",
+              colorPrimary: "#30313d",
+              colorOutline: "var(--primary-light)",
+              // @ts-expect-error no types
+              label: {
+                fontFamily: "Manrope, sans-serif",
+                fontSize: "14px",
+                fontWeight: 400,
+              },
+              input: {
+                fontFamily: "monospace",
+                fontSize: "14px",
+                fontWeight: 700,
+              },
+            },
+          },
         },
         adyenPayment: {
           styles: {
