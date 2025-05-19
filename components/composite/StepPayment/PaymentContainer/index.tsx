@@ -27,7 +27,6 @@ export const PaymentContainer = ({ primaryColor, children }: Props) => {
               colorFormBorder: "#E6E7E7",
               colorPrimary: "#30313d",
               colorOutline: "var(--primary-light)",
-              // @ts-expect-error no types
               label: {
                 fontFamily: "Manrope, sans-serif",
                 fontSize: "14px",
