@@ -139,24 +139,22 @@ export const StepShipping: React.FC<Props> = () => {
     }
   }, [appCtx])
 
-  const handleChange = useCallback(
-    (params: {
-      shippingMethod: ShippingMethodCollection
-      shipmentId: string
-      order?: Order
-    }): void => {
-      if (!appCtx) return
-      appCtx.selectShipment({
-        shippingMethod: params.shippingMethod,
-        shipmentId: params.shipmentId,
-        order: params.order,
-      })
-    },
-    [appCtx],
-  )
+  const handleChange = (params: {
+    shippingMethod: ShippingMethodCollection
+    shipmentId: string
+    order?: Order
+  }): void => {
+    if (!appCtx) return
+    appCtx.selectShipment({
+      shippingMethod: params.shippingMethod,
+      shipmentId: params.shipmentId,
+      order: params.order,
+    })
+  }
 
-  const handleSave = useCallback(async () => {
-    if (!appCtx || !gtmCtx) return
+  const handleSave = async () => {
+
+    if (!appCtx) return
 
     setIsLocalLoader(true)
 
@@ -166,18 +164,17 @@ export const StepShipping: React.FC<Props> = () => {
     if (gtmCtx?.fireAddShippingInfo) {
       gtmCtx.fireAddShippingInfo(updatedOrder)
     }
-  }, [appCtx, gtmCtx])
+  }
 
-  const autoSelectCallback = useCallback(
-    async (order?: Order) => {
-      if (!appCtx || !gtmCtx) return
-      const updatedOrder = await appCtx.autoSelectShippingMethod(order)
-      if (gtmCtx?.fireAddShippingInfo) {
-        gtmCtx.fireAddShippingInfo(updatedOrder)
-      }
-    },
-    [appCtx, gtmCtx],
-  )
+  const autoSelectCallback = async (order?: Order) => {
+
+    if (!appCtx) return
+
+    const updatedOrder = await appCtx.autoSelectShippingMethod(order)
+    if (gtmCtx?.fireAddShippingInfo) {
+      gtmCtx.fireAddShippingInfo(updatedOrder)
+    }
+  }
 
   if (!appCtx || !accordionCtx) {
     return null

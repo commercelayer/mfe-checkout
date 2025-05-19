@@ -37,8 +37,7 @@ export const useActiveStep = (): UseActiveStep => {
   const isFirstLoading = ctx?.isFirstLoading ?? true
 
   useEffect(() => {
-    if (!ctx) return
-    if (isFirstLoading || !ctx.isLoading) {
+    if (ctx && (isFirstLoading || !ctx.isLoading)) {
       // Alter steps of checkout
       if (ctx.isShipmentRequired) {
         setSteps(["Customer", "Shipping", "Payment"])
@@ -79,7 +78,7 @@ export const useActiveStep = (): UseActiveStep => {
         setLastActivableStep("Customer")
       }
     }
-  }, [ctx, isFirstLoading, isLoading])
+  }, [isFirstLoading, isLoading])
 
   return {
     activeStep,
