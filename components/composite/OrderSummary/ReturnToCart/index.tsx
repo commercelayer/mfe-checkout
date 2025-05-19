@@ -8,9 +8,9 @@ interface Props {
 }
 
 export const ReturnToCart = ({ cartUrl }: Props) => {
-  if (!cartUrl) return <></>
-
   const { t } = useTranslation()
+
+  if (!cartUrl) return <></>
 
   return (
     <CartLinkWrapper data-testid="edit-cart-link">

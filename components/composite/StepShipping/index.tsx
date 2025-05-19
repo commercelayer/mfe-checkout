@@ -19,7 +19,7 @@ import type {
 } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { Trans, useTranslation } from "next-i18next"
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useMemo, useState } from "react"
 
 import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
@@ -60,16 +60,17 @@ interface HeaderProps {
 }
 
 export const StepHeaderShipping: React.FC<HeaderProps> = ({ step }) => {
+  const { t } = useTranslation()
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
 
-  if (!appCtx || !accordionCtx) {
-    return null
-  }
-  const { t } = useTranslation()
-  const { hasShippingMethod, isShipmentRequired, shipments } = appCtx
+  const recapText = useMemo(() => {
+    if (!appCtx || !accordionCtx) {
+      return ""
+    }
 
-  const recapText = () => {
+    const { hasShippingMethod, isShipmentRequired, shipments } = appCtx
+
     if (!isShipmentRequired) {
       return t("stepShipping.notRequired")
     }
@@ -83,6 +84,10 @@ export const StepHeaderShipping: React.FC<HeaderProps> = ({ step }) => {
       return t("stepShipping.methodSelected", { count: shipments.length })
     }
     return t("stepShipping.methodUnselected")
+  }, [appCtx, accordionCtx, t])
+
+  if (!appCtx || !accordionCtx) {
+    return null
   }
 
   return (
@@ -90,8 +95,10 @@ export const StepHeaderShipping: React.FC<HeaderProps> = ({ step }) => {
       stepNumber={step}
       status={accordionCtx.status}
       label={t("stepShipping.title")}
-      info={recapText()}
-      onEditRequest={isShipmentRequired ? accordionCtx.setStep : undefined}
+      info={recapText}
+      onEditRequest={
+        appCtx.isShipmentRequired ? accordionCtx.setStep : undefined
+      }
     />
   )
 }
@@ -104,9 +111,10 @@ export const StepShipping: React.FC<Props> = () => {
   const gtmCtx = useContext(GTMContext)
   const { t } = useTranslation()
 
-  if (!appCtx || !accordionCtx) {
-    return null
-  }
+  const [canContinue, setCanContinue] = useState(false)
+  const [isLocalLoader, setIsLocalLoader] = useState(false)
+  const [outOfStockError, setOutOfStockError] = useState(false)
+  const [shippingMethodError, setShippingMethodError] = useState(false)
 
   const messages: Parameters<typeof Errors>[0]["messages"] = [
     {
@@ -121,50 +129,65 @@ export const StepShipping: React.FC<Props> = () => {
     },
   ]
 
-  const { shipments, isShipmentRequired, saveShipments, selectShipment } =
-    appCtx
-
-  const [canContinue, setCanContinue] = useState(false)
-  const [isLocalLoader, setIsLocalLoader] = useState(false)
-  const [outOfStockError, setOutOfStockError] = useState(false)
-  const [shippingMethodError, setShippingMethodError] = useState(false)
-
   useEffect(() => {
+    if (!appCtx) return
+    const { shipments } = appCtx
     if (shipments.length > 0) {
       setCanContinue(
         !shipments?.map((s) => s.shippingMethodId).includes(undefined),
       )
     }
-  }, [shipments])
+  }, [appCtx])
 
-  const handleChange = (params: {
-    shippingMethod: ShippingMethodCollection
-    shipmentId: string
-    order?: Order
-  }): void => {
-    selectShipment({
-      shippingMethod: params.shippingMethod,
-      shipmentId: params.shipmentId,
-      order: params.order,
-    })
-  }
+  const handleChange = useCallback(
+    (params: {
+      shippingMethod: ShippingMethodCollection
+      shipmentId: string
+      order?: Order
+    }): void => {
+      if (!appCtx) return
+      appCtx.selectShipment({
+        shippingMethod: params.shippingMethod,
+        shipmentId: params.shipmentId,
+        order: params.order,
+      })
+    },
+    [appCtx],
+  )
 
-  const handleSave = async () => {
+  const handleSave = useCallback(async () => {
+    if (!appCtx || !gtmCtx) return
+
     setIsLocalLoader(true)
 
-    const updatedOrder = await saveShipments()
+    const updatedOrder = await appCtx.saveShipments()
 
     setIsLocalLoader(false)
     if (gtmCtx?.fireAddShippingInfo) {
-      await gtmCtx.fireAddShippingInfo(updatedOrder)
+      gtmCtx.fireAddShippingInfo(updatedOrder)
     }
+  }, [appCtx, gtmCtx])
+
+  const autoSelectCallback = useCallback(
+    async (order?: Order) => {
+      if (!appCtx || !gtmCtx) return
+      const updatedOrder = await appCtx.autoSelectShippingMethod(order)
+      if (gtmCtx?.fireAddShippingInfo) {
+        gtmCtx.fireAddShippingInfo(updatedOrder)
+      }
+    },
+    [appCtx, gtmCtx],
+  )
+
+  if (!appCtx || !accordionCtx) {
+    return null
   }
 
-  const autoSelectCallback = async (order?: Order) => {
-    const updatedOrder = await appCtx.autoSelectShippingMethod(order)
-    if (gtmCtx?.fireAddShippingInfo) {
-      await gtmCtx.fireAddShippingInfo(updatedOrder)
-    }
+  const { isShipmentRequired, shipments } = appCtx
+
+  // Render nothing if shipping is not required
+  if (!isShipmentRequired) {
+    return null
   }
 
   return (

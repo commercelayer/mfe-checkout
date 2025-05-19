@@ -25,6 +25,8 @@ export interface ShippingToggleProps {
 export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
+  const { t } = useTranslation()
+
   if (!appCtx || !accordionCtx) {
     return null
   }
@@ -35,8 +37,6 @@ export const StepHeaderCustomer: React.FC<Props> = ({ step }) => {
     emailAddress,
     isShipmentRequired,
   } = appCtx
-
-  const { t } = useTranslation()
 
   const recapText = () => {
     if (
@@ -78,6 +78,24 @@ export const StepCustomer: React.FC<Props> = () => {
 
   const [isLocalLoader, setIsLocalLoader] = useState(false)
 
+  const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
+    !appCtx?.hasSameAddresses,
+  )
+
+  useEffect(() => {
+    if (!appCtx) return
+    setShipToDifferentAddress(!appCtx.hasSameAddresses)
+  }, [appCtx])
+
+  const [disabledShipToDifferentAddress, setDisabledShipToDifferentAddress] =
+    useState(
+      !!(
+        appCtx?.shippingCountryCodeLock &&
+        appCtx?.billingAddress?.country_code &&
+        appCtx?.billingAddress?.country_code !== appCtx?.shippingCountryCodeLock
+      ),
+    )
+
   if (!appCtx || !accordionCtx) {
     return null
   }
@@ -95,23 +113,6 @@ export const StepCustomer: React.FC<Props> = () => {
     setAddresses,
     setCustomerEmail,
   } = appCtx
-
-  const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
-    !hasSameAddresses,
-  )
-
-  useEffect(() => {
-    setShipToDifferentAddress(!hasSameAddresses)
-  }, [hasSameAddresses])
-
-  const [disabledShipToDifferentAddress, setDisabledShipToDifferentAddress] =
-    useState(
-      !!(
-        shippingCountryCodeLock &&
-        billingAddress?.country_code &&
-        billingAddress?.country_code !== shippingCountryCodeLock
-      ),
-    )
 
   const openShippingAddress = ({
     forceShipping,

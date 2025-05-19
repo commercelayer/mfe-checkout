@@ -28,27 +28,25 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   skipBeginCheckout,
 }) => {
   const isFirstLoading = useRef(true)
-
-  if (!gtmId) {
-    return <>{children}</>
-  }
   const ctx = useContext(AppContext)
 
-  if (!ctx) {
+  useEffect(() => {
+    if (!gtmId || !ctx || !ctx.order) return
+
+    if (isFirstLoading.current) {
+      isFirstLoading.current = false
+      TagManager.initialize({ gtmId })
+      if (!skipBeginCheckout) {
+        fireBeginCheckout(ctx.order)
+      }
+    }
+  }, [gtmId, ctx, skipBeginCheckout])
+
+  if (!gtmId || !ctx) {
     return <>{children}</>
   }
 
   const { order } = ctx
-
-  useEffect(() => {
-    if (isFirstLoading.current && gtmId != null && order != null) {
-      isFirstLoading.current = false
-      TagManager.initialize({ gtmId })
-      if (!skipBeginCheckout) {
-        fireBeginCheckout(order)
-      }
-    }
-  }, [order])
 
   const pushDataLayer = ({ eventName, dataLayer }: DataLayerProps) => {
     try {
