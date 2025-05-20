@@ -30,14 +30,13 @@ interface HeaderProps {
 export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
+  const { t } = useTranslation()
 
   if (!appCtx || !accordionCtx) {
     return null
   }
 
   const { hasPaymentMethod, isPaymentRequired, isCreditCard } = appCtx
-
-  const { t } = useTranslation()
 
   const recapText = () => {
     if (!isPaymentRequired) {
@@ -92,18 +91,18 @@ export const StepPayment: React.FC = () => {
 
   const { t } = useTranslation()
 
-  // if (!appCtx || !appCtx.hasShippingMethod) {
-  // this exit on shippingMethod is causing an error in useEffect to enable button
-  if (!appCtx || !accordionCtx) {
-    return null
-  }
-
   useEffect(() => {
     // If single payment methods and has multiple payment methods, we hide the label of the box
     if (autoSelected && hasMultiplePaymentMethods) {
       setHasTitle(false)
     }
   }, [autoSelected, hasMultiplePaymentMethods])
+
+  // if (!appCtx || !appCtx.hasShippingMethod) {
+  // this exit on shippingMethod is causing an error in useEffect to enable button
+  if (!appCtx || !accordionCtx) {
+    return null
+  }
 
   const { isGuest, isPaymentRequired, setPayment, hasSubscriptions } = appCtx
 

@@ -149,14 +149,11 @@ export const AddressInputGroup: React.FC<Props> = ({
             selectClassName="form-select"
             inputClassName="form-input"
             data-testid={`input_${fieldName}`}
-            selectPlaceholder={
-              {
-                label: t(`addressForm.${fieldName}_placeholder`),
-                value: "",
-                disabled: true
-
-              }
-            }
+            selectPlaceholder={{
+              label: t(`addressForm.${fieldName}_placeholder`),
+              value: "",
+              disabled: true,
+            }}
             // @ts-expect-error missing
             states={states}
             name={fieldName}

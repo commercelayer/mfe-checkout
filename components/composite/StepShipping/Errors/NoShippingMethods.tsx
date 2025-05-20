@@ -14,11 +14,12 @@ export const NoShippingMethods = ({
   return (
     <Errors resource="shipments" messages={messages}>
       {({ errors }) => {
-        useEffect(() => {
-          setShippingMethodError(errors.length > 0 && errors[0] !== undefined)
-        }, [errors.length])
         return (
           <>
+            <ErrorEffect
+              errors={errors}
+              setShippingMethodError={setShippingMethodError}
+            />
             {errors.map((error, index) => (
               <p key={index}>{error}</p>
             ))}
@@ -27,4 +28,18 @@ export const NoShippingMethods = ({
       }}
     </Errors>
   )
+}
+
+const ErrorEffect = ({
+  errors,
+  setShippingMethodError,
+}: {
+  errors: any[]
+  setShippingMethodError: Dispatch<SetStateAction<boolean>>
+}) => {
+  useEffect(() => {
+    setShippingMethodError(errors.length > 0 && errors[0] !== undefined)
+  }, [errors.length, setShippingMethodError])
+
+  return null
 }

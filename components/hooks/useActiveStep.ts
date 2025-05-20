@@ -33,20 +33,12 @@ export const useActiveStep = (): UseActiveStep => {
 
   const ctx = useContext(AppContext)
 
-  if (!ctx)
-    return {
-      activeStep,
-      lastActivableStep,
-      setActiveStep,
-      isLoading: true,
-      steps,
-    }
-
-  const { isFirstLoading, isLoading } = ctx
+  const isLoading = ctx?.isLoading ?? true
+  const isFirstLoading = ctx?.isFirstLoading ?? true
 
   useEffect(() => {
     if (ctx && (isFirstLoading || !ctx.isLoading)) {
-      // Use it to alter steps of checkout
+      // Alter steps of checkout
       if (ctx.isShipmentRequired) {
         setSteps(["Customer", "Shipping", "Payment"])
       } else {
@@ -71,6 +63,7 @@ export const useActiveStep = (): UseActiveStep => {
         canSelectShippingMethod &&
         canSelectPayment &&
         ctx.hasPaymentMethod
+
       if (canPlaceOrder) {
         setActiveStep("Complete")
         setLastActivableStep("Complete")

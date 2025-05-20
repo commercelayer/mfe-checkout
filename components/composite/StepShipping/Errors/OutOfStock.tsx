@@ -17,12 +17,12 @@ export const OutOfStock = ({
   return (
     <Errors resource="line_items" messages={messages}>
       {({ errors }) => {
-        useEffect(() => {
-          setOutOfStockError(errors.length > 0 && errors[0] !== undefined)
-        }, [errors.length])
-
         return (
           <>
+            <ErrorEffect
+              errors={errors}
+              setOutOfStockError={setOutOfStockError}
+            />
             {errors.map((error, index) => (
               <p key={index}>
                 {error}
@@ -52,4 +52,18 @@ export const OutOfStock = ({
       }}
     </Errors>
   )
+}
+
+const ErrorEffect = ({
+  errors,
+  setOutOfStockError,
+}: {
+  errors: any[]
+  setOutOfStockError: Dispatch<SetStateAction<boolean>>
+}) => {
+  useEffect(() => {
+    setOutOfStockError(errors.length > 0 && errors[0] !== undefined)
+  }, [errors.length, setOutOfStockError])
+
+  return null
 }
