@@ -25,7 +25,7 @@ export const ErrorIco = styled.div`
 `
 export const ErrorMessage = styled.div`
   ${ErrorCss}
-  ${tw`flex-1 pt-0 pl-0 text-sm p-3 break-words break-all`}
+  ${tw`flex-1 text-sm p-3 break-words break-all`}
 `
 export const StyledErrors = styled(Errors)`
   ${ErrorCss}

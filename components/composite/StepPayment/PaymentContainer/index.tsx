@@ -20,28 +20,22 @@ export const PaymentContainer = ({ primaryColor, children }: Props) => {
           success_url: checkoutReturnUrl,
           failure_url: checkoutReturnUrl,
           options: {
-            style: {
-              base: {
-                padding: "10px",
-                border: "1px solid #E6E7E7",
-                borderRadius: "0.25rem",
-                transition: "border 0.5s ease-out",
-                fontSize: "16px",
+            appearance: {
+              colorAction: primaryColor,
+              colorBorder: "#E6E7E7",
+              colorFormBackground: "#fff",
+              colorFormBorder: "#E6E7E7",
+              colorPrimary: "#30313d",
+              colorOutline: "var(--primary-light)",
+              label: {
+                fontFamily: "Manrope, sans-serif",
+                fontSize: "14px",
+                fontWeight: 400,
               },
-              valid: {
-                color: "#1FDA8",
-              },
-              invalid: {
-                color: "#FF656B",
-              },
-              placeholder: {
-                base: {
-                  color: "#DBDCDC",
-                  fontFamily: "monospace",
-                },
-                focus: {
-                  color: "#101111",
-                },
+              input: {
+                fontFamily: "monospace",
+                fontSize: "14px",
+                fontWeight: 700,
               },
             },
           },
