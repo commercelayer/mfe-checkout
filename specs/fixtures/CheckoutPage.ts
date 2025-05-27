@@ -1307,6 +1307,11 @@ export class CheckoutPage {
         break
       }
       case "checkout_com": {
+        const creditCard = {
+          number: card?.number ?? "4242424242424242",
+          exp: card?.exp ?? "0235",
+          cvc: card?.cvc ?? "321",
+        }
         const cardFrame = this.page.frameLocator(
           'iframe[data-testid="card-number"]',
         )
@@ -1316,9 +1321,9 @@ export class CheckoutPage {
         const cvvFrame = this.page.frameLocator(
           'iframe[data-testid="card-cvv"]',
         )
-        await cardFrame.locator("#card-number").fill("4242424242424242")
-        await expFrame.locator("#card-expiry-date").fill("102030")
-        await cvvFrame.locator("#card-cvv").fill("100")
+        await cardFrame.locator("#card-number").fill(creditCard.number)
+        await expFrame.locator("#card-expiry-date").fill(creditCard.exp)
+        await cvvFrame.locator("#card-cvv").fill(creditCard.cvc)
         break
       }
       case "adyen": {
