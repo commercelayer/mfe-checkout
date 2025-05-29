@@ -75,16 +75,15 @@
   "dependencies": {
     "@commercelayer/js-auth": "^6.7.2",
     "@commercelayer/organization-config": "^2.3.0",
-    "@commercelayer/react-components": "4.22.0",
-    "@commercelayer/sdk": "^6.41.0",
-    "@faker-js/faker": "^9.7.0",
-    "@headlessui/react": "^2.2.2",
+    "@commercelayer/react-components": "4.23.3",
+    "@commercelayer/sdk": "^6.42.0",
+    "@faker-js/faker": "^9.8.0",
+    "@headlessui/react": "^2.2.4",
     "@next/bundle-analyzer": "^15.3.2",
     "@next/eslint-plugin-next": "^15.3.2",
-    "@playwright/test": "1.52.0",
     "@tailwindcss/forms": "^0.5.10",
     "@types/async-retry": "1.4.8",
-    "@types/node": "^22.15.17",
+    "@types/node": "^22.15.23",
     "@types/react": "^18.3.12",
     "@types/react-gtm-module": "^2.0.4",
     "@types/styled-components": "^5.1.34",
@@ -93,10 +92,10 @@
     "babel-plugin-macros": "^3.1.0",
     "babel-plugin-styled-components": "^2.1.4",
     "classnames": "^2.5.1",
-    "cron-parser": "^5.1.1",
-    "cronstrue": "^2.60.0",
+    "cron-parser": "^5.2.0",
+    "cronstrue": "^2.61.0",
     "dotenv": "^16.5.0",
-    "i18next": "^25.1.2",
+    "i18next": "^25.2.1",
     "next": "^15.3.2",
     "next-build-id": "^3.0.0",
     "next-i18next": "^15.4.2",
@@ -104,7 +103,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-gtm-module": "^2.0.11",
-    "react-i18next": "^15.5.1",
+    "react-i18next": "^15.5.2",
     "react-router-dom": "^6.28.0",
     "styled-components": "^6.1.18",
     "tailwindcss": "^3.4.14",
@@ -113,14 +112,15 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@playwright/test": "1.52.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^11.0.2",
+    "@semantic-release/github": "^11.0.3",
     "@semantic-release/npm": "^12.0.1",
     "@semantic-release/release-notes-generator": "^14.0.3",
     "npm-check-updates": "^18.0.1",
-    "semantic-release": "^24.2.3",
+    "semantic-release": "^24.2.5",
     "serve": "^14.2.4",
     "stylelint": "^16.19.1",
     "stylelint-config-standard": "^36.0.1"
@@ -142,9 +142,7 @@
       "preset": "styled-components"
     }
   },
-  "cacheDirectories": [
-    ".next/cache"
-  ],
+  "cacheDirectories": [".next/cache"],
   "pnpm": {
     "overrides": {
       "micromatch@<4.0.8": ">=4.0.8",

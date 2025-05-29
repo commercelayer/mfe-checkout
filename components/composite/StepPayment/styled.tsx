@@ -13,7 +13,7 @@ export const PaymentWrapper = styled.div`
   }
 
   .payment.active & {
-    ${tw`border-2 border-primary bg-white cursor-default shadow-md`}
+    ${tw`border-2 !border-primary !bg-white cursor-default shadow-md`}
 
     input[type="radio"] + label {
       ${tw`pointer-events-none cursor-default`}
@@ -62,15 +62,21 @@ export const PaymentSourceContainer = styled.div`
     ${tw`text-gray-500`}
   }
 
-  .frame--activated {
-    ${tw`h-12 mb-3`}
-    &.expiry-date-frame, 
-    &.cvv-frame {
-      ${tw`inline-block w-1/2 mb-0`}
-    }
-    &:last-of-type {
-      ${tw`pl-3`}
-    }
+  #cardAccordionContainer button > div,
+  #cardAccordionPanel > div,
+  #googlepayAccordionContainer button > div,
+  #googlepayAccordionPanel > div {
+    ${tw`p-3`}
+  }
+
+  #cardAccordionContainer button *,
+  #googlepayAccordionContainer button * {
+    ${tw`!text-black`}
+  }
+
+  #cardAccordionContainer button,
+  #googlepayAccordionContainer button {
+    ${tw`!border-black`}
   }
 `
 export const PaymentDetailsWrapper = styled.div`
