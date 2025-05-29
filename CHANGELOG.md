@@ -1,3 +1,17 @@
+# [5.6.0](https://github.com/commercelayer/mfe-checkout/compare/v5.5.0...v5.6.0) (2025-05-29)
+
+
+### Bug Fixes
+
+* avoid confirming a payment if order become `draft` during checkout ([f6e70dc](https://github.com/commercelayer/mfe-checkout/commit/f6e70dcaabd3869788d2ab9fc269ca0183371c41))
+* pnpm-lock.yaml ([d1cd8ba](https://github.com/commercelayer/mfe-checkout/commit/d1cd8ba80baa192983abf4d577dff8c0fce876a9))
+
+
+### Features
+
+* Add CKO styles ([637abb5](https://github.com/commercelayer/mfe-checkout/commit/637abb58fa2317e590f1969e5e9999c60028ed7e))
+* Update commercelayer react components to the latest version. Closes [#524](https://github.com/commercelayer/mfe-checkout/issues/524). ([90cb106](https://github.com/commercelayer/mfe-checkout/commit/90cb10649fd35ce3613f120b4edcc43f4f764e1b))
+
 # [5.5.0](https://github.com/commercelayer/mfe-checkout/compare/v5.4.0...v5.5.0) (2025-05-14)
 
 
