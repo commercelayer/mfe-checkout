@@ -1250,9 +1250,11 @@ export class CheckoutPage {
           cvc: card?.cvc ?? "321",
         }
 
-        const cardButton = stripeFrame.getByRole("button", { name: "Card" })
+        await this.page.pause()
+        const cardInput = stripeFrame.locator("text=Card number")
 
-        if (await cardButton.isEnabled()) {
+        if (!(await cardInput.isVisible())) {
+          const cardButton = stripeFrame.getByRole("button", { name: "Card" })
           await cardButton.click()
         }
 
