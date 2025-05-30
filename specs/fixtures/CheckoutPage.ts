@@ -1252,6 +1252,8 @@ export class CheckoutPage {
           exp: card?.exp ?? "0235",
           cvc: card?.cvc ?? "321",
         }
+        await stripeFrame.getByRole("button", { name: "Card" }).click()
+
         await stripeFrame
           .getByPlaceholder("1234 1234 1234 1234")
           .fill(creditCard.number)
