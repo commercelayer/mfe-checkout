@@ -194,11 +194,8 @@ export class CheckoutPage {
     await this.page.waitForTimeout(2000)
     const dataLayer: DataLayerWindowProps[] =
       await this.page.evaluate("window.dataLayer")
-    return (
-      dataLayer &&
-      dataLayer.filter(
-        ({ event }: DataLayerWindowProps) => event === eventToTrack,
-      )
+    return dataLayer?.filter(
+      ({ event }: DataLayerWindowProps) => event === eventToTrack,
     )
   }
 
@@ -1252,7 +1249,12 @@ export class CheckoutPage {
           exp: card?.exp ?? "0235",
           cvc: card?.cvc ?? "321",
         }
-        await stripeFrame.getByRole("button", { name: "Card" }).click()
+
+        const cardButton = stripeFrame.getByRole("button", { name: "Card" })
+
+        if (await cardButton.isEnabled()) {
+          await cardButton.click()
+        }
 
         await stripeFrame
           .getByPlaceholder("1234 1234 1234 1234")
