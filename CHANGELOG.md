@@ -1,3 +1,10 @@
+## [5.6.1](https://github.com/commercelayer/mfe-checkout/compare/v5.6.0...v5.6.1) (2025-06-03)
+
+
+### Bug Fixes
+
+* check order status on stripe dropin change to avoid delay on Apple Pay ([8a53ca6](https://github.com/commercelayer/mfe-checkout/commit/8a53ca617deac13c8be555a3d8b87866637588e3))
+
 # [5.6.0](https://github.com/commercelayer/mfe-checkout/compare/v5.5.0...v5.6.0) (2025-05-29)
 
 
