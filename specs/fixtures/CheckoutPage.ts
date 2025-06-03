@@ -194,11 +194,8 @@ export class CheckoutPage {
     await this.page.waitForTimeout(2000)
     const dataLayer: DataLayerWindowProps[] =
       await this.page.evaluate("window.dataLayer")
-    return (
-      dataLayer &&
-      dataLayer.filter(
-        ({ event }: DataLayerWindowProps) => event === eventToTrack,
-      )
+    return dataLayer?.filter(
+      ({ event }: DataLayerWindowProps) => event === eventToTrack,
     )
   }
 
@@ -1252,6 +1249,15 @@ export class CheckoutPage {
           exp: card?.exp ?? "0235",
           cvc: card?.cvc ?? "321",
         }
+
+        await this.page.pause()
+        const cardInput = stripeFrame.locator("text=Card number")
+
+        if (!(await cardInput.isVisible())) {
+          const cardButton = stripeFrame.getByRole("button", { name: "Card" })
+          await cardButton.click()
+        }
+
         await stripeFrame
           .getByPlaceholder("1234 1234 1234 1234")
           .fill(creditCard.number)
