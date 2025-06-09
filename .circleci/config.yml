@@ -47,6 +47,7 @@ jobs:
             pnpm run build
       - run:
           name: Run tests
+          no_output_timeout: 15m
           command: |
             mkdir test-results
             pnpm run serve &
