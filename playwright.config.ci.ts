@@ -1,7 +1,9 @@
-import { PlaywrightTestConfig } from "@playwright/test"
+import type { PlaywrightTestConfig } from "@playwright/test"
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
+  reporter: "list",
+
   // Timeout per test
   timeout: 1 * 60 * 1000,
   // Timeout per expect
@@ -42,4 +44,5 @@ const config: PlaywrightTestConfig = {
     },
   ],
 }
+
 export default config
