@@ -1233,6 +1233,8 @@ export class CheckoutPage {
       await expect(button).toBeVisible()
     }).toPass()
 
+    await this.page.mouse.wheel(0, 300)
+
     const cardButton = stripeFrameLocator.getByRole("button", {
       name: label,
     })
@@ -1294,23 +1296,14 @@ export class CheckoutPage {
         break
       }
       case "stripe-paypal": {
-        await this.page.waitForTimeout(2000)
-        await this.page.mouse.wheel(0, 300)
-
         await this.selectStripePaymentMethod("paypal")
         break
       }
       case "stripe-affirm": {
-        await this.page.waitForTimeout(2000)
-        await this.page.mouse.wheel(0, 300)
-
         await this.selectStripePaymentMethod("affirm")
         break
       }
       case "stripe-klarna": {
-        await this.page.waitForTimeout(2000)
-        await this.page.mouse.wheel(0, 300)
-
         await this.selectStripePaymentMethod("klarna")
         break
       }
