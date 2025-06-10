@@ -2,9 +2,5 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "biome.enabled": true,
   "editor.defaultFormatter": "biomejs.biome",
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "quickfix.biome": "explicit",
-    "source.organizeImports.biome": "explicit"
-  }
+  "editor.formatOnSave": true
 }
