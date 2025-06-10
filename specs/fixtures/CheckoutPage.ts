@@ -1218,14 +1218,21 @@ export class CheckoutPage {
       affirm: "Affirm",
       klarna: "Klarna",
     }
+
     const label = labelMap[method]
-    const stripeFrame = this.page
-      .locator("[data-testid=stripe_payments] iframe")
-      .first()
-    await stripeFrame.waitFor({ state: "visible" })
+
     const stripeFrameLocator = this.page.frameLocator(
       "[data-testid=stripe_payments] iframe",
     )
+
+    // Wait until the button is visible on the Stripe frame
+    await expect(async () => {
+      const button = stripeFrameLocator.getByRole("button", {
+        name: label,
+      })
+      await expect(button).toBeVisible()
+    }).toPass()
+
     const cardButton = stripeFrameLocator.getByRole("button", {
       name: label,
     })
