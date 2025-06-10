@@ -21,7 +21,7 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
 
   await checkoutPage.setCustomerMail()
   await checkoutPage.checkCustomerAddressesTitle(
-    "Fill in your billing/shipping address"
+    "Fill in your billing/shipping address",
   )
   await checkoutPage.setBillingAddress()
 
@@ -34,7 +34,7 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
   await checkoutPage.checkShippingSummary("To be calculated")
 
   await expect(
-    checkoutPage.page.locator("text=Standard Shipping")
+    checkoutPage.page.locator("text=Standard Shipping"),
   ).toBeVisible()
   await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
@@ -70,7 +70,7 @@ test("should keep shipping and payment methods with a refresh", async ({
   await checkoutPage.checkShippingSummary("To be calculated")
 
   await expect(
-    checkoutPage.page.locator("text=Standard Shipping")
+    checkoutPage.page.locator("text=Standard Shipping"),
   ).toBeVisible()
   await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 

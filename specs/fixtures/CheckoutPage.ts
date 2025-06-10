@@ -1209,6 +1209,44 @@ export class CheckoutPage {
     }
   }
 
+  async selectStripePaymentMethod(
+    method: "card" | "paypal" | "affirm" | "klarna",
+  ) {
+    const labelMap = {
+      card: "Card",
+      paypal: "PayPal",
+      affirm: "Affirm",
+      klarna: "Klarna",
+    }
+
+    const label = labelMap[method]
+
+    const stripeFrameLocator = this.page.frameLocator(
+      "[data-testid=stripe_payments] iframe",
+    )
+
+    // Wait until the button is visible on the Stripe frame
+    await expect(async () => {
+      const button = stripeFrameLocator.getByRole("button", {
+        name: label,
+      })
+      await expect(button).toBeVisible()
+    }).toPass()
+
+    await this.page.mouse.wheel(0, 300)
+
+    const cardButton = stripeFrameLocator.getByRole("button", {
+      name: label,
+    })
+    if (await cardButton.isVisible()) {
+      // Click the card button if it is visible
+      await cardButton.click({ force: true })
+    } else {
+      throw new Error(`Payment method ${method} is not available`)
+    }
+    return stripeFrameLocator
+  }
+
   async enter3DSecure({ text }: { type: "adyen"; text: string }) {
     await this.page.waitForTimeout(3000)
     const secureFrame = this.page.frameLocator("iframe[name=threeDSIframe]")
@@ -1240,9 +1278,7 @@ export class CheckoutPage {
   ) {
     switch (type) {
       case "stripe": {
-        const stripeFrame = this.page
-          .frameLocator("[data-testid=stripe_payments] iframe")
-          .first()
+        const stripeFrameLocator = await this.selectStripePaymentMethod("card")
 
         const creditCard = {
           number: card?.number ?? "4242424242424242",
@@ -1250,48 +1286,25 @@ export class CheckoutPage {
           cvc: card?.cvc ?? "321",
         }
 
-        const cardInput = stripeFrame.locator("text=Card number")
-
-        if (!(await cardInput.isVisible())) {
-          const cardButton = stripeFrame.getByRole("button", { name: "Card" })
-          await cardButton.click()
-        }
-
-        await stripeFrame
+        await stripeFrameLocator
           .getByPlaceholder("1234 1234 1234 1234")
           .fill(creditCard.number)
-        await stripeFrame.getByPlaceholder("MM / YY").fill(creditCard.exp)
-        await stripeFrame.locator("#Field-cvcInput").fill(creditCard.cvc)
+        await stripeFrameLocator
+          .getByPlaceholder("MM / YY")
+          .fill(creditCard.exp)
+        await stripeFrameLocator.locator("#Field-cvcInput").fill(creditCard.cvc)
         break
       }
       case "stripe-paypal": {
-        await this.page.waitForTimeout(2000)
-        await this.page.mouse.wheel(0, 300)
-
-        const stripeFrame = this.page
-          .frameLocator("[data-testid=stripe_payments] iframe")
-          .first()
-        await stripeFrame.getByRole("button", { name: "PayPal" }).click()
+        await this.selectStripePaymentMethod("paypal")
         break
       }
       case "stripe-affirm": {
-        await this.page.waitForTimeout(2000)
-        await this.page.mouse.wheel(0, 300)
-
-        const stripeFrame = this.page
-          .frameLocator("[data-testid=stripe_payments] iframe")
-          .first()
-        await stripeFrame.getByRole("button", { name: "Affirm" }).click()
+        await this.selectStripePaymentMethod("affirm")
         break
       }
       case "stripe-klarna": {
-        await this.page.waitForTimeout(2000)
-        await this.page.mouse.wheel(0, 300)
-
-        const stripeFrame = this.page
-          .frameLocator("[data-testid=stripe_payments] iframe")
-          .first()
-        await stripeFrame.getByRole("button", { name: "Klarna" }).click()
+        await this.selectStripePaymentMethod("klarna")
         break
       }
       case "braintree": {
