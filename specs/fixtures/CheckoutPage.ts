@@ -1250,7 +1250,6 @@ export class CheckoutPage {
           cvc: card?.cvc ?? "321",
         }
 
-        await this.page.pause()
         const cardInput = stripeFrame.locator("text=Card number")
 
         if (!(await cardInput.isVisible())) {

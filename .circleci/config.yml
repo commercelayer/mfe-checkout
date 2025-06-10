@@ -47,11 +47,12 @@ jobs:
             pnpm run build
       - run:
           name: Run tests
+          no_output_timeout: 15m
           command: |
             mkdir test-results
             pnpm run serve &
             TESTFILES=$(circleci tests glob "specs/e2e/**/*.spec.ts")
-            echo $TESTFILES | circleci tests run --command="xargs pnpm playwright test --config=playwright.config.ci.ts --reporter=junit" --verbose --split-by=timings
+            echo $TESTFILES | circleci tests run --command="xargs pnpm playwright test --config=playwright.config.ci.ts --reporter=list" --verbose --split-by=timings
       - store_test_results:
           path: test-results/junit.xml
       - store_artifacts:
