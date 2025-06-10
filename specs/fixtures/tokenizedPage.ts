@@ -181,7 +181,6 @@ const getOrder = async (
     ...params.orderAttributes,
     customer_email: email,
   }
-
   const giftCard = params.giftCardAttributes
   const order = await cl.orders.create(attributes)
   let giftCardCode
@@ -374,7 +373,7 @@ const updateInventory = async (
     },
   })
   const promises = skus.map((sku) => {
-    if (sku && sku.stock_items) {
+    if (sku?.stock_items) {
       const lineItem = lineItems.find((li) => li.sku_code === sku.code)
       if (lineItem) {
         return cl.stock_items.update({
@@ -415,6 +414,11 @@ const getClient = (token: string) => {
   })
 }
 
+export const getSuperClient = async () => {
+  const token = await getSuperToken()
+  return getClient(token)
+}
+
 const createLineItems = async ({
   cl,
   orderId,
@@ -441,7 +445,7 @@ const createLineItems = async ({
     const sku_options = await cl.sku_options.list()
     if (sku_options && sku_options.length === 0) return
     const lineItemsOptions = items.map((item, index) => {
-      if (item.sku_options && item.sku_options.length) {
+      if (item?.sku_options?.length) {
         return item.sku_options.map((sku_option) => {
           const option = sku_options.find((so) => so.name === sku_option.name)
           if (option) {

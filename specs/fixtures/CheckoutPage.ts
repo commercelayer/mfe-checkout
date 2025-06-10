@@ -4,6 +4,7 @@ import { type Page, expect } from "@playwright/test"
 
 import type { EcommerceProps } from "../../components/data/GTMProvider/typings"
 import { composeForCheck, euAddress, euAddress2 } from "../utils/addresses"
+import { getSuperClient } from "./tokenizedPage"
 
 interface GoToProps {
   orderId: string
@@ -99,7 +100,7 @@ export class CheckoutPage {
   }
 
   getOrderId() {
-    return this.attributes?.orderId
+    return this.attributes?.orderId as string
   }
 
   getAccessToken() {
@@ -108,6 +109,10 @@ export class CheckoutPage {
 
   getOrderToken() {
     return this.attributes?.orderToken
+  }
+
+  getAdminClient() {
+    return this.attributes?.adminClient
   }
 
   async setCustomerMail(email?: string) {
@@ -1469,5 +1474,11 @@ export class CheckoutPage {
         break
       }
     }
+  }
+
+  async approveOrder() {
+    const client = await getSuperClient()
+
+    await client.orders.update({ id: this.getOrderId(), _approve: true })
   }
 }
