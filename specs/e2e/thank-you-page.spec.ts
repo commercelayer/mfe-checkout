@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import type { CommerceLayerClient } from "@commercelayer/sdk"
 
 test.describe("with return url", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -373,5 +374,48 @@ test.describe("with custom thankyou page url @organization-config and token", ()
         .replace(":token", checkoutPage.getOrderToken() as string)
         .replace(":slug", process.env.NEXT_PUBLIC_SLUG as string),
     )
+  })
+})
+
+test.describe("with approved order", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("reload successfully in thankyou page", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+
+    await checkoutPage.approveOrder()
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 })

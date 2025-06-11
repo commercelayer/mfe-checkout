@@ -377,7 +377,7 @@ export function checkPaymentMethod(order: Order) {
   const isValidPaymentStatus = ["authorized", "free", "paid"].includes(
     order.payment_status,
   )
-  const isPlaced = order.status === "placed"
+  const isPlaced = order.status === "placed" || order.status === "approved"
   const isComplete = isPlaced && isValidPaymentStatus
 
   return {

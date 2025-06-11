@@ -104,11 +104,12 @@ function getOrder(
           "terms_url",
           "privacy_url",
           "line_items",
+          "customer",
           "payment_status",
         ],
         line_items: ["item_type", "item"],
       },
-      include: ["line_items", "line_items.item"],
+      include: ["line_items", "line_items.item", "customer"],
     }),
   )
 }
@@ -129,6 +130,7 @@ function getTokenInfo(accessToken: string) {
         kind,
         isTest: test,
         isGuest: !owner,
+        owner,
         marketId: payload.market?.id[0],
       }
     } else {
@@ -168,7 +170,8 @@ export const getSettings = async ({
     return invalidateCheckout()
   }
 
-  const { slug, kind, isTest, isGuest, marketId } = getTokenInfo(accessToken)
+  const { slug, kind, isTest, isGuest, owner, marketId } =
+    getTokenInfo(accessToken)
 
   if (!slug) {
     return invalidateCheckout()
@@ -237,7 +240,12 @@ export const getSettings = async ({
         console.log("error refreshing order")
       }
     }
-  } else if (order.status !== "placed") {
+  } else if (
+    order.status !== "placed" &&
+    // Invalid if status not placed with guest token or if the order is not owned by the customer
+    // Latest check is done by the API, but just to reinforce it here
+    (isGuest || owner?.id !== order.customer?.id)
+  ) {
     return invalidateCheckout()
   }
 
