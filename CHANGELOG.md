@@ -1,3 +1,10 @@
+# [5.7.0](https://github.com/commercelayer/mfe-checkout/compare/v5.6.1...v5.7.0) (2025-06-11)
+
+
+### Features
+
+* allow thank you page with customer token even if order is approved ([3e7d227](https://github.com/commercelayer/mfe-checkout/commit/3e7d227b1fd5f1b463603a1af2a0a09570e5d71e))
+
 ## [5.6.1](https://github.com/commercelayer/mfe-checkout/compare/v5.6.0...v5.6.1) (2025-06-03)
 
 
