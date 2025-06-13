@@ -2,7 +2,7 @@ import PaymentSource from "@commercelayer/react-components/payment_source/Paymen
 import PaymentSourceBrandIcon from "@commercelayer/react-components/payment_source/PaymentSourceBrandIcon"
 import PaymentSourceBrandName from "@commercelayer/react-components/payment_source/PaymentSourceBrandName"
 import PaymentSourceDetail from "@commercelayer/react-components/payment_source/PaymentSourceDetail"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { OrderSummary } from "components/composite/OrderSummary"
@@ -55,20 +55,28 @@ export const StepComplete: React.FC<Props> = ({
   orderNumber,
 }) => {
   const { t } = useTranslation()
-
   const { settings } = useSettingsOrInvalid()
+  const [isReady, setIsReady] = useState(false)
 
   const thankyouPageUrl = settings?.config?.checkout?.thankyou_page
-
   const ctx = useContext(AppContext)
 
   useEffect(() => {
-    if (thankyouPageUrl != null) {
+    // Wait until settings are loaded and thankyouPageUrl is resolved
+    if (settings !== undefined) {
+      setIsReady(true)
+    }
+  }, [settings])
+
+  useEffect(() => {
+    if (isReady && thankyouPageUrl != null) {
       window.location.href = thankyouPageUrl
     }
-  }, [thankyouPageUrl])
+  }, [isReady, thankyouPageUrl])
 
+  if (!isReady) return null
   if (!ctx) return null
+  if (thankyouPageUrl != null) return null
 
   const handleClick = () => {
     if (ctx?.returnUrl) {
