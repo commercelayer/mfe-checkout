@@ -57,7 +57,6 @@ export const StepComplete: React.FC<Props> = ({
   thankyouPageUrl = null,
 }) => {
   const { t } = useTranslation()
-
   const ctx = useContext(AppContext)
 
   useEffect(() => {
