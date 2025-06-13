@@ -307,7 +307,7 @@ test.describe("with custom thankyou page url @organization-config", () => {
 
     await checkoutPage.save("Payment", undefined, true)
 
-    await checkoutPage.page.waitForTimeout(3000)
+    await checkoutPage.page.waitForTimeout(5000)
 
     await checkoutPage.checkContinueShoppingLink("not_present")
 
@@ -361,7 +361,7 @@ test.describe("with custom thankyou page url @organization-config and token", ()
 
     await checkoutPage.save("Payment", undefined, true)
 
-    await checkoutPage.page.waitForTimeout(3000)
+    await checkoutPage.page.waitForTimeout(5000)
 
     await checkoutPage.checkContinueShoppingLink("not_present")
 
