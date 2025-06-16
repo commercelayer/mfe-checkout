@@ -1,3 +1,10 @@
+## [5.7.1](https://github.com/commercelayer/mfe-checkout/compare/v5.7.0...v5.7.1) (2025-06-16)
+
+
+### Bug Fixes
+
+* avoid start rendering thankyou page if there is a custom one ([a7f7e09](https://github.com/commercelayer/mfe-checkout/commit/a7f7e0970dbbb32b67711a1f3e508ed6ed8cc34b))
+
 # [5.7.0](https://github.com/commercelayer/mfe-checkout/compare/v5.6.1...v5.7.0) (2025-06-11)
 
 
