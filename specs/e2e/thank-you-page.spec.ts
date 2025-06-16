@@ -2,12 +2,11 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
-import type { CommerceLayerClient } from "@commercelayer/sdk"
 
 test.describe("with return url", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
-  const returnUrl = "https://www.google.it"
+  const returnUrl = "https://mock.httpstatus.io/200"
   test.use({
     defaultParams: {
       order: "with-items",
@@ -133,7 +132,7 @@ test.describe("with support phone and email", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const phone = faker.phone.number()
   const email = faker.internet.email()
-  const returnUrl = "https://www.google.it"
+  const returnUrl = "https://mock.httpstatus.io/200"
 
   test.use({
     defaultParams: {
@@ -180,7 +179,7 @@ test.describe("with support phone and email", () => {
 test.describe("with support phone", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const phone = faker.phone.number()
-  const returnUrl = "https://www.google.it"
+  const returnUrl = "https://mock.httpstatus.io/200"
 
   test.use({
     defaultParams: {
@@ -226,7 +225,7 @@ test.describe("with support phone", () => {
 test.describe("with support email", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const email = faker.internet.email()
-  const returnUrl = "https://www.google.it"
+  const returnUrl = "https://mock.httpstatus.io/200"
 
   test.use({
     defaultParams: {
@@ -272,7 +271,7 @@ test.describe("with custom thankyou page url @organization-config", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const email = faker.internet.email()
   const thankyouPageUrl =
-    "https://www.google.it/:order_id?accessToken=:access_token"
+    "https://mock.httpstatus.io/200?id=:order_id&accessToken=:access_token"
 
   test.use({
     defaultParams: {
@@ -325,7 +324,7 @@ test.describe("with custom thankyou page url @organization-config and token", ()
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const email = faker.internet.email()
   const thankyouPageUrl =
-    "https://www.google.it/:lang/:order_id/:token?slug=:slug"
+    "https://mock.httpstatus.io/200?lang=:lang&id=:order_id&token=:token&slug=:slug"
 
   test.use({
     defaultParams: {
