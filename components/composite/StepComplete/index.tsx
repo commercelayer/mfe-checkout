@@ -2,7 +2,7 @@ import PaymentSource from "@commercelayer/react-components/payment_source/Paymen
 import PaymentSourceBrandIcon from "@commercelayer/react-components/payment_source/PaymentSourceBrandIcon"
 import PaymentSourceBrandName from "@commercelayer/react-components/payment_source/PaymentSourceBrandName"
 import PaymentSourceDetail from "@commercelayer/react-components/payment_source/PaymentSourceDetail"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { OrderSummary } from "components/composite/OrderSummary"
@@ -44,6 +44,7 @@ interface Props {
   companyName: string
   supportEmail: NullableType<string>
   supportPhone: NullableType<string>
+  thankyouPageUrl: NullableType<string>
   orderNumber: string
 }
 
@@ -53,12 +54,9 @@ export const StepComplete: React.FC<Props> = ({
   supportEmail,
   supportPhone,
   orderNumber,
+  thankyouPageUrl = null,
 }) => {
   const { t } = useTranslation()
-
-  const { settings } = useSettingsOrInvalid()
-
-  const thankyouPageUrl = settings?.config?.checkout?.thankyou_page
 
   const ctx = useContext(AppContext)
 

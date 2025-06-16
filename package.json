@@ -76,7 +76,7 @@
     "@commercelayer/js-auth": "^6.7.2",
     "@commercelayer/organization-config": "^2.3.0",
     "@commercelayer/react-components": "4.23.4",
-    "@commercelayer/sdk": "^6.42.0",
+    "@commercelayer/sdk": "^6.43.0",
     "@faker-js/faker": "^9.8.0",
     "@headlessui/react": "^2.2.4",
     "@next/bundle-analyzer": "^15.3.3",
@@ -112,7 +112,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@playwright/test": "1.52.0",
+    "@playwright/test": "1.53.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
@@ -142,13 +142,12 @@
       "preset": "styled-components"
     }
   },
-  "cacheDirectories": [
-    ".next/cache"
-  ],
+  "cacheDirectories": [".next/cache"],
   "pnpm": {
     "overrides": {
       "micromatch@<4.0.8": ">=4.0.8",
-      "path-to-regexp@>=2.0.0 <3.3.0": "=3.3.0"
+      "path-to-regexp@>=2.0.0 <3.3.0": "=3.3.0",
+      "brace-expansion": ">=1.1.12"
     },
     "onlyBuiltDependencies": [
       "@biomejs/biome",

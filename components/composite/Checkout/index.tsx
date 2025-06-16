@@ -41,6 +41,7 @@ interface Props {
   companyName: string
   supportEmail: NullableType<string>
   supportPhone: NullableType<string>
+  thankyouPageUrl: NullableType<string>
   termsUrl: NullableType<string>
   privacyUrl: NullableType<string>
   gtmId: NullableType<string>
@@ -53,6 +54,7 @@ const Checkout: React.FC<Props> = ({
   companyName,
   supportEmail,
   supportPhone,
+  thankyouPageUrl,
   termsUrl,
   privacyUrl,
   gtmId,
@@ -110,6 +112,7 @@ const Checkout: React.FC<Props> = ({
         supportEmail={supportEmail}
         supportPhone={supportPhone}
         orderNumber={orderNumber}
+        thankyouPageUrl={thankyouPageUrl}
       />
     )
   }
