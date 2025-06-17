@@ -6,7 +6,7 @@ import { euAddress, usAddress } from "../utils/addresses"
 test.describe("with return to cart", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
-  const cartUrl = "https://www.google.it"
+  const cartUrl = "https://www.google.com"
   test.use({
     defaultParams: {
       order: "with-items",
@@ -117,24 +117,24 @@ test.describe("quantity and unit price", () => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     let element = checkoutPage.page.locator(
-      "[data-testid=order-summary] >> text=Quantity: 5"
+      "[data-testid=order-summary] >> text=Quantity: 5",
     )
     await expect(element).toHaveText("QUANTITY: 5")
 
     element = checkoutPage.page.locator(
-      "[data-testid=order-summary] >> text=Quantity: 1"
+      "[data-testid=order-summary] >> text=Quantity: 1",
     )
     await expect(element).toHaveText("QUANTITY: 1")
 
     await checkoutPage.checkStep("Shipping", "open")
 
     element = checkoutPage.page.locator(
-      "[data-testid=shipments-container] >> text=Quantity: 5"
+      "[data-testid=shipments-container] >> text=Quantity: 5",
     )
     await expect(element).toHaveText("QUANTITY: 5")
 
     element = checkoutPage.page.locator(
-      "[data-testid=shipments-container] >> text=Quantity: 1"
+      "[data-testid=shipments-container] >> text=Quantity: 1",
     )
     await expect(element).toHaveText("QUANTITY: 1")
   })
@@ -253,7 +253,7 @@ test.describe("buying gift card", () => {
   test("should appear on summary", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
     const element = checkoutPage.page.locator(
-      "[data-testid=line-items-gift_cards] >> text=Gift card: €100,00"
+      "[data-testid=line-items-gift_cards] >> text=Gift card: €100,00",
     )
 
     await expect(element).toHaveCount(1)
@@ -265,7 +265,7 @@ test.describe("buying gift card", () => {
 test.describe("using gift card", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const phone = faker.phone.number()
-  const returnUrl = "https://www.google.it"
+  const returnUrl = "https://www.google.com"
 
   test.use({
     defaultParams: {
@@ -298,12 +298,12 @@ test.describe("using gift card", () => {
 
     await checkoutPage.checkGiftCardAmount("-€20,00")
     let element = checkoutPage.page.locator(
-      "[data-testid=line-items-gift_cards]"
+      "[data-testid=line-items-gift_cards]",
     )
     await expect(element).toHaveCount(0)
 
     element = checkoutPage.page.locator(
-      "[data-testid=items-count] >> text=Your shopping cart contains 3 items"
+      "[data-testid=items-count] >> text=Your shopping cart contains 3 items",
     )
     await expect(element).toHaveCount(1)
   })
@@ -312,7 +312,7 @@ test.describe("using gift card", () => {
 test.describe("with tax included", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
-  const cartUrl = "https://www.google.it"
+  const cartUrl = "https://www.google.com"
   test.use({
     defaultParams: {
       order: "with-items",
@@ -347,7 +347,7 @@ test.describe("with tax included", () => {
 test.describe("with tax not included", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
-  const cartUrl = "https://www.google.it"
+  const cartUrl = "https://www.google.com"
   test.use({
     defaultParams: {
       order: "with-items",
@@ -458,7 +458,7 @@ test.describe("count with only free items", () => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkLineItemsCount(
-      "Your shopping cart contains 2 items"
+      "Your shopping cart contains 2 items",
     )
   })
 })
@@ -483,7 +483,7 @@ test.describe("count with mixed items", () => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkLineItemsCount(
-      "Your shopping cart contains 5 items"
+      "Your shopping cart contains 5 items",
     )
   })
 })
@@ -505,7 +505,7 @@ test.describe("count using gift card", () => {
   test("should count the right items", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
     await checkoutPage.checkLineItemsCount(
-      "Your shopping cart contains 5 items"
+      "Your shopping cart contains 5 items",
     )
   })
 })
