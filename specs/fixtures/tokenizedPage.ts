@@ -29,7 +29,17 @@ type OrderType =
   | "gift-card"
   | "with-items"
 
-type ValidMarket = "EU" | "US" | "MI" | "MT" | "IT" | "IE" | "LP" | "UY" | "VV"
+type ValidMarket =
+  | "EU"
+  | "US"
+  | "MI"
+  | "MT"
+  | "IT"
+  | "IE"
+  | "LP"
+  | "UY"
+  | "VV"
+  | "PT"
 
 interface BaseLineItemObject {
   quantity: number

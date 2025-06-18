@@ -2,7 +2,7 @@ import PaymentSource from "@commercelayer/react-components/payment_source/Paymen
 import PaymentSourceBrandIcon from "@commercelayer/react-components/payment_source/PaymentSourceBrandIcon"
 import PaymentSourceBrandName from "@commercelayer/react-components/payment_source/PaymentSourceBrandName"
 import PaymentSourceDetail from "@commercelayer/react-components/payment_source/PaymentSourceDetail"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { OrderSummary } from "components/composite/OrderSummary"
@@ -59,12 +59,21 @@ export const StepComplete: React.FC<Props> = ({
   const { t } = useTranslation()
 
   const ctx = useContext(AppContext)
+  const topRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (thankyouPageUrl != null) {
       window.location.href = thankyouPageUrl
     }
   }, [thankyouPageUrl])
+
+  useEffect(() => {
+    if (topRef.current != null) {
+      topRef.current.scrollIntoView({
+        behavior: "smooth",
+      })
+    }
+  }, [topRef.current])
 
   if (!ctx) return null
 
@@ -77,7 +86,7 @@ export const StepComplete: React.FC<Props> = ({
   return (
     thankyouPageUrl == null && (
       <Base>
-        <Top>
+        <Top ref={topRef}>
           <Wrapper>
             <Logo
               logoUrl={logoUrl}

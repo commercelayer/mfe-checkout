@@ -53,12 +53,13 @@ test.describe("with customer email", () => {
   test("missing fields on billing address", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    const { name, address } = faker
+    const { firstName, lastName } = faker.person
+    const { streetAddress } = faker.location
 
     const newAddress = {
-      first_name: name.firstName(),
-      last_name: name.lastName(),
-      line_1: address.streetAddress(),
+      first_name: firstName(),
+      last_name: lastName(),
+      line_1: streetAddress(),
     }
     await checkoutPage.setBillingAddress(newAddress)
 
@@ -242,7 +243,7 @@ test.describe("with customer email and shipping country code lock", () => {
     await checkoutPage.checkShipToDifferentAddressEnabled(false)
 
     const element = checkoutPage.page.locator(
-      "[data-testid=input_shipping_address_country_code]"
+      "[data-testid=input_shipping_address_country_code]",
     )
     expect(element).toBeDisabled()
     const shippingAddress = {
@@ -288,7 +289,7 @@ test.describe("with digital product and shipping country code lock", () => {
     await checkoutPage.selectCountry("billing_address", "FR")
     await checkoutPage.page.fill(
       "[data-testid=input_billing_address_state_code]",
-      "PA"
+      "PA",
     )
 
     await checkoutPage.isVisibleShipToDifferentAddress(false)
@@ -439,7 +440,7 @@ test.describe("email error validation", () => {
 
     await checkoutPage.page
       .locator(
-        "[data-testid=customer_email_error] >> text=Please enter a valid email"
+        "[data-testid=customer_email_error] >> text=Please enter a valid email",
       )
       .waitFor({ state: "visible" })
     await checkoutPage.setBillingAddress()
@@ -485,7 +486,7 @@ test.describe("email error validation", () => {
 
     await checkoutPage.page
       .locator(
-        "[data-testid=customer_email_error] >> text=Please enter a valid email"
+        "[data-testid=customer_email_error] >> text=Please enter a valid email",
       )
       .waitFor({ state: "visible" })
   })
