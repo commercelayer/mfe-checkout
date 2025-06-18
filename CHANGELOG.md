@@ -1,3 +1,15 @@
+# [5.8.0](https://github.com/commercelayer/mfe-checkout/compare/v5.7.1...v5.8.0) (2025-06-18)
+
+
+### Bug Fixes
+
+* show place order button on payment step on mobile ([c472943](https://github.com/commercelayer/mfe-checkout/commit/c47294377c000cda8f9b5dd7e061c2d4ba59c11a))
+
+
+### Features
+
+* scroll to top on thankyou page ([0c9084f](https://github.com/commercelayer/mfe-checkout/commit/0c9084fcc2ae2294bad7cec6cc6edb1d1f64391d))
+
 ## [5.7.1](https://github.com/commercelayer/mfe-checkout/compare/v5.7.0...v5.7.1) (2025-06-16)
 
 
