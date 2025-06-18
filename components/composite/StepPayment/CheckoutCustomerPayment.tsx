@@ -4,10 +4,9 @@ import PaymentMethod, {
 import PaymentSource, {
   type CustomerSaveToWalletProps,
 } from "@commercelayer/react-components/payment_source/PaymentSource"
+import { Label } from "components/ui/Label"
 import { type MouseEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
-
-import { Label } from "components/ui/Label"
 
 import { PaymentDetails } from "./PaymentDetails"
 import { PaymentSkeleton } from "./PaymentSkeleton"
@@ -30,74 +29,73 @@ type TTemplateCustomerCards = Parameters<
   typeof PaymentSource
 >[0]["templateCustomerCards"]
 
+const TemplateCustomerCards: TTemplateCustomerCards = ({
+  customerPayments,
+  PaymentSourceProvider,
+}) => {
+  const { t } = useTranslation()
+
+  return (
+    <>
+      {customerPayments?.map((p, k) => {
+        return (
+          <button
+            key={k}
+            type="button"
+            data-testid="customer-card"
+            onClick={p.handleClick}
+            className="flex flex-col items-start p-3 mb-4 text-sm border rounded cursor-pointer lg:flex-row lg:items-center shadow-sm hover:border-gray-400"
+            tabIndex={0}
+            aria-label={t("stepPayment.selectCard")}
+          >
+            <PaymentSourceProvider value={{ ...p.card }}>
+              <PaymentDetails />
+            </PaymentSourceProvider>
+          </button>
+        )
+      })}
+    </>
+  )
+}
+
+const TemplateSaveToWalletCheckbox = ({ name }: CustomerSaveToWalletProps) => {
+  const [checked, setChecked] = useState(false)
+  const { t } = useTranslation()
+
+  const handleClick = (
+    e: MouseEvent<HTMLInputElement, globalThis.MouseEvent>,
+  ) => e?.stopPropagation()
+  const handleChange = () => {
+    setChecked(!checked)
+  }
+
+  return (
+    <div className="flex items-center mt-4">
+      <WalletCheckbox
+        name={name}
+        id={name}
+        data-testid="save-to-wallet"
+        type="checkbox"
+        className="form-checkbox"
+        checked={checked}
+        onClick={handleClick}
+        onChange={handleChange}
+      />
+      <Label
+        htmlFor={name}
+        dataTestId="payment-save-wallet"
+        textLabel={t("stepPayment.saveToWallet")}
+      />
+    </div>
+  )
+}
+
 export const CheckoutCustomerPayment: React.FC<Props> = ({
   selectPayment,
   hasTitle,
   autoSelectCallback,
   hasSubscriptions,
 }) => {
-  const { t } = useTranslation()
-
-  // TemplateSaveToWalletCheckbox
-  const [checked, setChecked] = useState(false)
-
-  const TemplateCustomerCards: TTemplateCustomerCards = ({
-    customerPayments,
-    PaymentSourceProvider,
-  }) => {
-    return (
-      <>
-        {customerPayments?.map((p, k) => {
-          return (
-            <div
-              key={k}
-              data-testid="customer-card"
-              onClick={p.handleClick}
-              className="flex flex-col items-start p-3 mb-4 text-sm border rounded cursor-pointer lg:flex-row lg:items-center shadow-sm hover:border-gray-400"
-            >
-              <PaymentSourceProvider value={{ ...p.card }}>
-                <PaymentDetails />
-              </PaymentSourceProvider>
-            </div>
-          )
-        })}
-      </>
-    )
-  }
-
-  const TemplateSaveToWalletCheckbox = ({
-    name,
-  }: CustomerSaveToWalletProps) => {
-    const handleClick = (
-      e: MouseEvent<HTMLInputElement, globalThis.MouseEvent>,
-    ) => e?.stopPropagation()
-    const handleChange = () => {
-      setChecked(!checked)
-    }
-
-    return (
-      !hasSubscriptions && (
-        <div className="flex items-center mt-4">
-          <WalletCheckbox
-            name={name}
-            id={name}
-            data-testid="save-to-wallet"
-            type="checkbox"
-            className="form-checkbox"
-            checked={checked}
-            onClick={handleClick}
-            onChange={handleChange}
-          />
-          <Label
-            htmlFor={name}
-            dataTestId="payment-save-wallet"
-            textLabel={t("stepPayment.saveToWallet")}
-          />
-        </div>
-      )
-    )
-  }
-
   return (
     <>
       <PaymentMethod
@@ -116,9 +114,13 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
               templateCustomerCards={(props) => (
                 <TemplateCustomerCards {...props} />
               )}
-              templateCustomerSaveToWallet={(props) => (
-                <TemplateSaveToWalletCheckbox {...props} />
-              )}
+              templateCustomerSaveToWallet={(props) =>
+                hasSubscriptions ? (
+                  <></> // No save to wallet checkbox for subscriptions
+                ) : (
+                  <TemplateSaveToWalletCheckbox {...props} />
+                )
+              }
               loader={<PaymentSkeleton />}
             >
               <PaymentDetailsWrapper>

@@ -1,7 +1,6 @@
-import { useTranslation } from "next-i18next"
-
 import { ErrorContainer } from "components/composite/ErrorContainer"
 import { ErrorCode, Text } from "components/composite/ErrorContainer/styled"
+import { useTranslation } from "next-i18next"
 
 export const RetryError = () => {
   const { t } = useTranslation()

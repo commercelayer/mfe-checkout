@@ -1,28 +1,26 @@
 import type { Order } from "@commercelayer/sdk"
-import { useContext, useState } from "react"
-import { Trans, useTranslation } from "react-i18next"
-
-import { RepeatIcon } from "../OrderSummary/RepeatIcon"
-
 import { AppContext } from "components/data/AppProvider"
 import { GTMContext } from "components/data/GTMProvider"
 import { FlexContainer } from "components/ui/FlexContainer"
 import { Label } from "components/ui/Label"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
+import { useContext, useState } from "react"
+import { Trans, useTranslation } from "react-i18next"
+import { RepeatIcon } from "../OrderSummary/RepeatIcon"
 
 import { ErrorIcon } from "./ErrorIcon"
-import { WarningIcon } from "./WarningIcon"
 import { messages } from "./messages"
 import {
   ErrorIco,
   ErrorMessage,
-  ErrorWrapper,
   ErrorsContainer,
+  ErrorWrapper,
   PlaceOrderButtonWrapper,
   StyledErrors,
   StyledPlaceOrderButton,
   StyledPrivacyAndTermsCheckbox,
 } from "./styled"
+import { WarningIcon } from "./WarningIcon"
 
 interface Props {
   isActive: boolean

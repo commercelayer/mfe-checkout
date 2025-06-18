@@ -1,10 +1,9 @@
 import type { LineItem, Order } from "@commercelayer/sdk"
-import { createContext, useContext, useEffect, useRef } from "react"
-import TagManager from "react-gtm-module"
-
 import { AppContext } from "components/data/AppProvider"
 import type { TypeAccepted } from "components/data/AppProvider/utils"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
+import { createContext, useContext, useEffect, useRef } from "react"
+import TagManager from "react-gtm-module"
 
 import type { DataLayerItemProps, DataLayerProps } from "./typings"
 

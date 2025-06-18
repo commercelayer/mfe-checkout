@@ -4,11 +4,10 @@ import {
   PaymentSourceDetail,
   PaymentSourceEditButton,
 } from "@commercelayer/react-components"
-import { Fragment, useContext } from "react"
-import { Trans, useTranslation } from "react-i18next"
-
 import { AppContext } from "components/data/AppProvider"
 import { getTranslations } from "components/utils/payments"
+import { Fragment, useContext } from "react"
+import { Trans, useTranslation } from "react-i18next"
 
 interface Props {
   hasEditButton?: boolean

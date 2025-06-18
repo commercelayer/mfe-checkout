@@ -1,13 +1,12 @@
+import NewRelicSnippet from "components/data/NewRelicSnippet"
 import Document, {
+  type DocumentContext,
+  Head,
   Html,
   Main,
   NextScript,
-  Head,
-  type DocumentContext,
 } from "next/document"
 import Script from "next/script"
-
-import NewRelicSnippet from "components/data/NewRelicSnippet"
 
 class AppDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
