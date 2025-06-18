@@ -1,5 +1,4 @@
 import CommerceLayer from "@commercelayer/react-components/auth/CommerceLayer"
-
 import { CheckoutHead } from "components/composite/CheckoutTitle"
 import { AppProvider } from "components/data/AppProvider"
 import GlobalStylesProvider from "components/data/GlobalStylesProvider"

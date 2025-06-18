@@ -75,7 +75,7 @@
   "dependencies": {
     "@commercelayer/js-auth": "^6.7.2",
     "@commercelayer/organization-config": "^2.3.0",
-    "@commercelayer/react-components": "4.23.4",
+    "@commercelayer/react-components": "4.24.0",
     "@commercelayer/sdk": "^6.43.0",
     "@faker-js/faker": "^9.8.0",
     "@headlessui/react": "^2.2.4",
@@ -92,26 +92,26 @@
     "babel-plugin-macros": "^3.1.0",
     "babel-plugin-styled-components": "^2.1.4",
     "classnames": "^2.5.1",
-    "cron-parser": "^5.2.0",
+    "cron-parser": "^5.3.0",
     "cronstrue": "^2.61.0",
     "dotenv": "^16.5.0",
     "i18next": "^25.2.1",
     "next": "^15.3.3",
     "next-build-id": "^3.0.0",
     "next-i18next": "^15.4.2",
-    "postcss": "^8.5.4",
+    "postcss": "^8.5.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-gtm-module": "^2.0.11",
-    "react-i18next": "^15.5.2",
+    "react-i18next": "^15.5.3",
     "react-router-dom": "^6.28.0",
-    "styled-components": "^6.1.18",
+    "styled-components": "^6.1.19",
     "tailwindcss": "^3.4.14",
     "twin.macro": "^3.4.1",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.0.0",
     "@playwright/test": "1.53.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
@@ -142,9 +142,7 @@
       "preset": "styled-components"
     }
   },
-  "cacheDirectories": [
-    ".next/cache"
-  ],
+  "cacheDirectories": [".next/cache"],
   "pnpm": {
     "overrides": {
       "micromatch@<4.0.8": ">=4.0.8",

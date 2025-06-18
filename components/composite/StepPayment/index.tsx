@@ -8,14 +8,13 @@ import {
 } from "@commercelayer/react-components"
 import type { PaymentMethod as PaymentMethodType } from "@commercelayer/sdk"
 import classNames from "classnames"
-import { useContext, useEffect, useState } from "react"
-import { Trans, useTranslation } from "react-i18next"
-
 import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
+import { useContext, useEffect, useState } from "react"
+import { Trans, useTranslation } from "react-i18next"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"

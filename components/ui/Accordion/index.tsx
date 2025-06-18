@@ -1,10 +1,9 @@
 import classNames from "classnames"
+import { AccordionContext } from "components/data/AccordionProvider"
+import { AppContext } from "components/data/AppProvider"
 import { type ReactNode, useContext } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
-
-import { AccordionContext } from "components/data/AccordionProvider"
-import { AppContext } from "components/data/AppProvider"
 
 interface Props {
   index: number

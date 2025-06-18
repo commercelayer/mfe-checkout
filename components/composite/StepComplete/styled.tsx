@@ -1,7 +1,6 @@
+import { FlexContainer } from "components/ui/FlexContainer"
 import styled from "styled-components"
 import tw from "twin.macro"
-
-import { FlexContainer } from "components/ui/FlexContainer"
 
 export const Top = styled.div`
   ${tw`bg-white`}

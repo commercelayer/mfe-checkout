@@ -1,12 +1,11 @@
 import type { Address } from "@commercelayer/sdk"
-import { useContext } from "react"
-import styled from "styled-components"
-import tw from "twin.macro"
-
 import type { ShippingToggleProps } from "components/composite/StepCustomer"
 import { AddressInputGroup } from "components/composite/StepCustomer/AddressInputGroup"
 import { AppContext } from "components/data/AppProvider"
 import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
+import { useContext } from "react"
+import styled from "styled-components"
+import tw from "twin.macro"
 
 interface Props {
   billingAddress: NullableType<Address>

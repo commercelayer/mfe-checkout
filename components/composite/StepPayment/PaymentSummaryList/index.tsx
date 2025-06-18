@@ -1,5 +1,5 @@
 import { PaymentMethodPrice } from "@commercelayer/react-components"
-
+import { StyledErrors } from "components/composite/OrderSummary/CouponOrGiftCard/styled"
 import { PaymentMethodNameWithStripe } from "../PaymentMethodNameWithStripe"
 import {
   PaymentRadioContainer,
@@ -8,8 +8,6 @@ import {
   PaymentSummaryValue,
   StyledPaymentMethodRadioButton,
 } from "../styled"
-
-import { StyledErrors } from "components/composite/OrderSummary/CouponOrGiftCard/styled"
 
 export const PaymentSummaryList = ({ hasTitle }: { hasTitle: boolean }) => {
   return (

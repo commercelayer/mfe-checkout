@@ -1,12 +1,11 @@
 import CustomerInput from "@commercelayer/react-components/customers/CustomerInput"
 import Errors from "@commercelayer/react-components/errors/Errors"
-import { useTranslation } from "react-i18next"
-import styled from "styled-components"
-import tw from "twin.macro"
-
 import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
+import { useTranslation } from "react-i18next"
+import styled from "styled-components"
+import tw from "twin.macro"
 
 interface Props {
   readonly?: boolean

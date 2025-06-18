@@ -1,5 +1,4 @@
 import { PaymentMethod, PaymentSource } from "@commercelayer/react-components"
-
 import { PaymentDetails } from "./PaymentDetails"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 import { PaymentSummaryList } from "./PaymentSummaryList"

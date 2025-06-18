@@ -1,7 +1,6 @@
+import { LayoutDefault } from "components/layouts/LayoutDefault"
 import styled from "styled-components"
 import tw from "twin.macro"
-
-import { LayoutDefault } from "components/layouts/LayoutDefault"
 
 export const CheckoutSkeleton: React.FC = () => {
   return (

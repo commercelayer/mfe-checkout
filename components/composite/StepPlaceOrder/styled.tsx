@@ -3,12 +3,11 @@ import {
   PlaceOrderButton,
   PrivacyAndTermsCheckbox,
 } from "@commercelayer/react-components"
-import styled from "styled-components"
-import tw from "twin.macro"
-
 import { ButtonCss, ButtonWrapper } from "components/ui/Button"
 import { CheckCss } from "components/ui/form/CheckBox"
 import { ErrorCss } from "components/ui/form/Error"
+import styled from "styled-components"
+import tw from "twin.macro"
 
 interface StyledPlaceOrderButtonProps {
   isActive: boolean
@@ -38,8 +37,8 @@ export const ErrorsContainer = styled.div`
 `
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomPlaceOrderButton = (props: any) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { isActive, ...rest } = props
+  const { ...rest } = props
+  delete rest.isActive // Remove isActive prop to avoid passing it down to the component
   return <PlaceOrderButton {...rest} />
 }
 

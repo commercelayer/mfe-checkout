@@ -1,8 +1,7 @@
 import { ShippingMethodRadioButton } from "@commercelayer/react-components"
+import { RadioCss } from "components/ui/form/RadioButton"
 import styled from "styled-components"
 import tw from "twin.macro"
-
-import { RadioCss } from "components/ui/form/RadioButton"
 
 export const ShippingWrapper = styled.div`
   ${tw`mb-5 mt-6`}

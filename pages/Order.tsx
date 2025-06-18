@@ -1,9 +1,8 @@
-import type { NextPage } from "next"
-import dynamic from "next/dynamic"
-
 import CheckoutSkeleton from "components/composite/CheckoutSkeleton"
 import { RetryError } from "components/composite/RetryError"
 import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
+import type { NextPage } from "next"
+import dynamic from "next/dynamic"
 
 const DynamicCheckoutContainer = dynamic(
   () => import("components/composite/CheckoutContainer"),

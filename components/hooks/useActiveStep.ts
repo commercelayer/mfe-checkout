@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react"
-
 import { AppContext } from "components/data/AppProvider"
+import { useContext, useEffect, useState } from "react"
 
 interface UseActiveStep {
   activeStep: SingleStepEnum

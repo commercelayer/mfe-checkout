@@ -8,10 +8,9 @@ import ShippingAmount from "@commercelayer/react-components/orders/ShippingAmoun
 import SubTotalAmount from "@commercelayer/react-components/orders/SubTotalAmount"
 import TaxesAmount from "@commercelayer/react-components/orders/TaxesAmount"
 import TotalAmount from "@commercelayer/react-components/orders/TotalAmount"
-import { Trans, useTranslation } from "react-i18next"
-
 import type { AppProviderData } from "components/data/AppProvider"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
+import { Trans, useTranslation } from "react-i18next"
 
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
 import { LineItemTypes } from "./LineItemTypes"
