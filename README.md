@@ -116,6 +116,22 @@ flowchart LR
 
 Here is where customers provide their email address, billing and shipping information.
 
+#### Optional billing info
+
+It is possible to display an optional billing info, if not required by the market configuration, by setting the organization's `config` attribute, as follows:
+
+```json
+{
+  "mfe": {
+    "default": {
+      "checkout": {
+        "optional_billing_info": true
+      }
+    }
+  }
+}
+```
+
 #### Logged customers
 
 If the access token used to build the checkout URL is a [customer token](https://docs.commercelayer.io/developers/authentication/password) customers can select one of their saved addresses from their address book and use it as the billing and/or shipping address. If the customer has only one address in the address book the Checkout application will use this address as the billing and shipping address and skip the _Customer_ step.
@@ -222,7 +238,7 @@ Here is where customers select a payment method and place the order.
 | [Checkout.com](https://docs.commercelayer.io/core/how-tos/placing-orders/payments/checkout.com) | Credit card                                                                                                                                             | &check;         |
 | [Klarna](https://docs.commercelayer.io/developers/v/how-tos/payments/klarna)                    | Klarna                                                                                                                                                  | &cross;         |
 | [PayPal](https://docs.commercelayer.io/developers/v/how-tos/payments/paypal)                    | PayPal                                                                                                                                                  | &cross;         |
-| [Stripe](https://docs.commercelayer.io/developers/v/how-tos/payments/stripe)                    | Credit card / Apple Pay / Google Pay / PayPal / Klarna                                                                                                  | &check;         |
+| [Stripe](https://docs.commercelayer.io/developers/v/how-tos/payments/stripe)                    | Credit card / Apple Pay / Google Pay / PayPal / Klarna / Link / Affirm                                                                                                  | &check;         |
 | [Manual gateway](https://docs.commercelayer.io/developers/v/how-tos/payments/manual-payments)   | Manual payment                                                                                                                                          | &cross;         |
 
 > To automatically accept payment methods enabled in the Stripe dashboard please make sure to properly set up the `auto_payments` option on your [Stripe gateway](https://docs.commercelayer.io/core/v/api-reference/stripe_gateways).
@@ -233,7 +249,7 @@ Here is where customers select a payment method and place the order.
 
 #### Logged customers
 
-If the access token used to build the checkout URL is a [customer token](https://docs.commercelayer.io/developers/authentication/password) customers will see their saved credit cards in their customer wallet and will be able to reuse them to accelerate the payment process.
+If the access token used to build the checkout URL is a [customer token](https://docs.commercelayer.io/developers/authentication/password) customers will see their saved credit cards in their customer wallet and will be able to reuse them to accelerate the payment process. The customer will also be able to view the thank you page after an order is approved.
 
 #### Single payment method
 
