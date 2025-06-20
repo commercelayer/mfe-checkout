@@ -3,6 +3,10 @@ import BillingAddressForm from "@commercelayer/react-components/addresses/Billin
 import SaveAddressesButton from "@commercelayer/react-components/addresses/SaveAddressesButton"
 import ShippingAddressForm from "@commercelayer/react-components/addresses/ShippingAddressForm"
 import type { Address, Order } from "@commercelayer/sdk"
+import type { ShippingToggleProps } from "components/composite/StepCustomer"
+import { ButtonCss, ButtonWrapper } from "components/ui/Button"
+import { SpinnerIcon } from "components/ui/SpinnerIcon"
+import { Toggle } from "components/ui/Toggle"
 import {
   type Dispatch,
   Fragment,
@@ -12,11 +16,6 @@ import {
 } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
-
-import type { ShippingToggleProps } from "components/composite/StepCustomer"
-import { ButtonCss, ButtonWrapper } from "components/ui/Button"
-import { SpinnerIcon } from "components/ui/SpinnerIcon"
-import { Toggle } from "components/ui/Toggle"
 
 import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionSaveForm } from "./AddressSectionSaveForm"

@@ -16,9 +16,8 @@ import "cronstrue/locales/en"
 import "cronstrue/locales/it"
 import "cronstrue/locales/de"
 
-import { RepeatIcon } from "../RepeatIcon"
-
 import { FlexContainer } from "components/ui/FlexContainer"
+import { RepeatIcon } from "../RepeatIcon"
 
 import {
   LineItemDescription,
@@ -80,7 +79,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
                 let isCronValid = true
                 try {
                   CronExpressionParser.parse(attributeValue as string)
-                } catch (e) {
+                } catch (_e) {
                   isCronValid = false
                 }
                 const frequency = isCronValid

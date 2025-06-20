@@ -2,12 +2,11 @@ import Errors from "@commercelayer/react-components/errors/Errors"
 import GiftCardOrCouponInput from "@commercelayer/react-components/gift_cards/GiftCardOrCouponInput"
 import GiftCardOrCouponRemoveButton from "@commercelayer/react-components/gift_cards/GiftCardOrCouponRemoveButton"
 import GiftCardOrCouponSubmit from "@commercelayer/react-components/gift_cards/GiftCardOrCouponSubmit"
-import styled from "styled-components"
-import tw from "twin.macro"
-
 import { ButtonCss } from "components/ui/Button"
 import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"
+import styled from "styled-components"
+import tw from "twin.macro"
 
 export const CouponFormWrapper = styled.div`
   ${tw`pb-8 mb-8 border-b`}

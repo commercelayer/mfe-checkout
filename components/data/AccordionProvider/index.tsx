@@ -1,6 +1,5 @@
-import { createContext, useEffect, useState } from "react"
-
 import { checkIfCannotGoNext } from "components/hooks/useActiveStep"
+import { createContext, useEffect, useState } from "react"
 
 interface AccordionProviderData {
   isActive: boolean

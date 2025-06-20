@@ -6,19 +6,18 @@ import type {
   Country,
   States,
 } from "@commercelayer/react-components/lib/esm/utils/countryStateCity"
-import { type ChangeEvent, useContext } from "react"
-import { useTranslation } from "react-i18next"
-import styled from "styled-components"
-import tw from "twin.macro"
-
 import {
-  type ShippingToggleProps,
   evaluateShippingToggle,
+  type ShippingToggleProps,
 } from "components/composite/StepCustomer"
 import { AppContext } from "components/data/AppProvider"
 import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
+import { type ChangeEvent, useContext } from "react"
+import { useTranslation } from "react-i18next"
+import styled from "styled-components"
+import tw from "twin.macro"
 
 type TFieldName =
   | Parameters<typeof AddressCountrySelector>[0]["name"]

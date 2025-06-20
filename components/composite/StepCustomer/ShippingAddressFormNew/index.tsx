@@ -1,10 +1,9 @@
 import type { Address } from "@commercelayer/sdk"
+import { AddressInputGroup } from "components/composite/StepCustomer/AddressInputGroup"
+import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
 import { Fragment } from "react"
 import styled from "styled-components"
 import tw from "twin.macro"
-
-import { AddressInputGroup } from "components/composite/StepCustomer/AddressInputGroup"
-import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
 
 interface Props {
   shippingAddress: NullableType<Address>

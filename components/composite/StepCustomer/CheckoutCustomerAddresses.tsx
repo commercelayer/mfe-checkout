@@ -7,6 +7,16 @@ import ShippingAddressForm from "@commercelayer/react-components/addresses/Shipp
 import type { Address, Order } from "@commercelayer/sdk"
 import { Transition } from "@headlessui/react"
 import {
+  evaluateShippingToggle,
+  type ShippingToggleProps,
+} from "components/composite/StepCustomer"
+import { AddButton } from "components/ui/AddButton"
+import { ButtonCss, ButtonWrapper } from "components/ui/Button"
+import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
+import { GridContainer } from "components/ui/GridContainer"
+import { SpinnerIcon } from "components/ui/SpinnerIcon"
+import { Toggle } from "components/ui/Toggle"
+import {
   type Dispatch,
   Fragment,
   type SetStateAction,
@@ -15,17 +25,6 @@ import {
 } from "react"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
-
-import {
-  type ShippingToggleProps,
-  evaluateShippingToggle,
-} from "components/composite/StepCustomer"
-import { AddButton } from "components/ui/AddButton"
-import { ButtonCss, ButtonWrapper } from "components/ui/Button"
-import { CustomerAddressCard } from "components/ui/CustomerAddressCard"
-import { GridContainer } from "components/ui/GridContainer"
-import { SpinnerIcon } from "components/ui/SpinnerIcon"
-import { Toggle } from "components/ui/Toggle"
 
 import { AddressFormBottom } from "./AddressFormBottom"
 import { AddressSectionEmail } from "./AddressSectionEmail"

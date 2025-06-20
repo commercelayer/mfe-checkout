@@ -18,9 +18,6 @@ import type {
   ShippingMethod as ShippingMethodCollection,
 } from "@commercelayer/sdk"
 import classNames from "classnames"
-import { Trans, useTranslation } from "next-i18next"
-import { useCallback, useContext, useEffect, useMemo, useState } from "react"
-
 import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
 import type { TypeAccepted } from "components/data/AppProvider/utils"
@@ -32,6 +29,8 @@ import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
+import { Trans, useTranslation } from "next-i18next"
+import { useContext, useEffect, useMemo, useState } from "react"
 
 import { NoShippingMethods } from "./Errors/NoShippingMethods"
 import { OutOfStock } from "./Errors/OutOfStock"
@@ -153,7 +152,6 @@ export const StepShipping: React.FC<Props> = () => {
   }
 
   const handleSave = async () => {
-
     if (!appCtx) return
 
     setIsLocalLoader(true)
@@ -167,7 +165,6 @@ export const StepShipping: React.FC<Props> = () => {
   }
 
   const autoSelectCallback = async (order?: Order) => {
-
     if (!appCtx) return
 
     const updatedOrder = await appCtx.autoSelectShippingMethod(order)

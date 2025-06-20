@@ -1,6 +1,4 @@
-// eslint-disable-next-line import/order
 import { useTranslation } from "next-i18next"
-
 import { CartLinkWrapper, LinkWrapper } from "./styled"
 
 interface Props {

@@ -4,16 +4,15 @@ import {
   type PaymentMethod,
   type ShippingMethod as ShippingMethodCollection,
 } from "@commercelayer/sdk"
-import { changeLanguage } from "i18next"
-import { createContext, useEffect, useReducer, useRef, useState } from "react"
-
 import { ActionType, reducer } from "components/data/AppProvider/reducer"
 import {
-  type FetchOrderByIdResponse,
   calculateSettings,
   checkAndSetDefaultAddressForOrder,
+  type FetchOrderByIdResponse,
   fetchOrder,
 } from "components/data/AppProvider/utils"
+import { changeLanguage } from "i18next"
+import { createContext, useEffect, useReducer, useRef, useState } from "react"
 
 export interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean

@@ -1,10 +1,9 @@
 import { AddressInput } from "@commercelayer/react-components"
+import { FlexContainer } from "components/ui/FlexContainer"
+import { CheckCss } from "components/ui/form/CheckBox"
+import { Label } from "components/ui/Label"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
-
-import { FlexContainer } from "components/ui/FlexContainer"
-import { Label } from "components/ui/Label"
-import { CheckCss } from "components/ui/form/CheckBox"
 
 interface Props {
   addressType: "billing" | "shipping"

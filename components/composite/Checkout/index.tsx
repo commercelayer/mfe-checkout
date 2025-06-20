@@ -1,11 +1,6 @@
 import CustomerContainer from "@commercelayer/react-components/customers/CustomerContainer"
 import OrderContainer from "@commercelayer/react-components/orders/OrderContainer"
 import PlaceOrderContainer from "@commercelayer/react-components/orders/PlaceOrderContainer"
-import { useRouter } from "next/router"
-import { useContext } from "react"
-import styled from "styled-components"
-import tw from "twin.macro"
-
 import { CheckoutSkeleton } from "components/composite/CheckoutSkeleton"
 import { MainHeader } from "components/composite/MainHeader"
 import { OrderSummary } from "components/composite/OrderSummary"
@@ -33,6 +28,10 @@ import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
+import { useRouter } from "next/router"
+import { useContext } from "react"
+import styled from "styled-components"
+import tw from "twin.macro"
 
 interface Props {
   logoUrl: NullableType<string>
