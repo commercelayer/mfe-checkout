@@ -30,8 +30,8 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       '@commercelayer/react-components':
-        specifier: 4.24.0
-        version: 4.24.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)
+        specifier: 4.24.1-beta.4
+        version: 4.24.1-beta.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)
       '@commercelayer/sdk':
         specifier: ^6.44.0
         version: 6.44.0
@@ -174,8 +174,8 @@ importers:
 
 packages:
 
-  '@adyen/adyen-web@6.15.0':
-    resolution: {integrity: sha512-Ormyln86jo365jIHEDyb1xZETLxqg/XD1/sYf0Kb1H+8XCzVURKYVhdBTxpc4l9B3gcHq43tiNhzwf9sL4nc6g==}
+  '@adyen/adyen-web@6.17.0':
+    resolution: {integrity: sha512-8w7OmfD0OnwDY87EBm21nSkFGd4k27olhOV05cpgUd74Jze6Z2K7CnM5++5340pkzhj0/duLqYP7E6eN7RXzrQ==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -371,8 +371,8 @@ packages:
   '@braintree/asset-loader@2.0.0':
     resolution: {integrity: sha512-7Zs3/g3lPTfkdtWr7cKh3tk1pDruXR++TXwGKkx7BPuTjjLNFul2JSfI+ScHzNU4u/gZNPNQagsSTlYxIhBgMA==}
 
-  '@braintree/asset-loader@2.0.2':
-    resolution: {integrity: sha512-0ArGSdgEpg9nTdZsi5zvcB/rHW0A+Jo9WOA4ArAO/UB1fbDm4qimX0P3e1QydqvdDkQs0jZgR7Uke1WL81RIKA==}
+  '@braintree/asset-loader@2.0.3':
+    resolution: {integrity: sha512-uREap1j30wKRlC0mK99nNPMpEp77NtB6XixpDfFJPZHmkrmw7IB4skKe+26LZBK1H6oSainFhAyKoP7x3eyOKA==}
 
   '@braintree/browser-detection@1.17.2':
     resolution: {integrity: sha512-DdEX09uYs6kHwGt4cbONlxlta/0hfmrDUncP6EtfZxFVywNF9LeRUyon+2LihJTbqgSnGqz9ZL450hkqBd6oSw==}
@@ -410,8 +410,8 @@ packages:
     resolution: {integrity: sha512-VVmp+HDBNYL0auAdxsMFWA2+ol9yX/QKPLKDK5VPiVF2CgdB6AK5m1ktHkeb1ztL+724zyK+LEg+bfmvTKn/WQ==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@4.24.0':
-    resolution: {integrity: sha512-R174xmMt87huXrtCcPTVM47YWu5WorYcBVYB5AVhwfM4rkDiggNjt1GrONKc1nxK9NYmsOyiGsyh12lhwBUEZw==}
+  '@commercelayer/react-components@4.24.1-beta.4':
+    resolution: {integrity: sha512-CJMOg53nXyzkTzcwP4Nuv3ALC8l0VFVFYCgxt5L6zIsy4agIueCmzxAtAgWs0fwB/FSlAgp/yyw99yarDf/Hig==}
     peerDependencies:
       react: '>=18.0.0'
 
@@ -1223,8 +1223,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  braintree-web@3.120.2:
-    resolution: {integrity: sha512-GdA495PforvIDABd2OSRp1tXWiY2C/1GoD7bSV0yNHvzYbFL4JEWHcZay2/r1QKfcaTsPiP3EQ6YBKu2dW4j9g==}
+  braintree-web@3.123.0:
+    resolution: {integrity: sha512-uuPgr/47w/bkjhVKxUNraXRuOLv1nbjQlJbprCQFWIoSTKGdut+6YRAAVpLldHeg2FMzpZ7dSDxUhrBQvJnoAQ==}
 
   browserslist@4.24.4:
     resolution: {integrity: sha512-KDi1Ny1gSePi1vm0q4oxSF8b4DR44GF4BbmS2YdhPLOEqd8pDviZOGH/GsmRwoWJ2+5Lr085X7naowMwKHDG1A==}
@@ -3284,7 +3284,7 @@ packages:
 
 snapshots:
 
-  '@adyen/adyen-web@6.15.0':
+  '@adyen/adyen-web@6.17.0':
     dependencies:
       '@types/applepayjs': 14.0.9
       '@types/googlepay': 0.7.6
@@ -3502,7 +3502,7 @@ snapshots:
 
   '@braintree/asset-loader@2.0.0': {}
 
-  '@braintree/asset-loader@2.0.2': {}
+  '@braintree/asset-loader@2.0.3': {}
 
   '@braintree/browser-detection@1.17.2': {}
 
@@ -3529,16 +3529,16 @@ snapshots:
     dependencies:
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@4.24.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)':
+  '@commercelayer/react-components@4.24.1-beta.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)':
     dependencies:
-      '@adyen/adyen-web': 6.15.0
+      '@adyen/adyen-web': 6.17.0
       '@commercelayer/organization-config': 2.3.0
       '@commercelayer/sdk': 6.44.0
       '@stripe/react-stripe-js': 3.7.0(@stripe/stripe-js@7.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@stripe/stripe-js': 7.3.1
       '@tanstack/react-table': 8.21.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/iframe-resizer': 3.5.13
-      braintree-web: 3.120.2
+      braintree-web: 3.123.0
       frames-react: 1.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)
       iframe-resizer: 4.4.5
       jwt-decode: 4.0.0
@@ -4319,9 +4319,9 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  braintree-web@3.120.2:
+  braintree-web@3.123.0:
     dependencies:
-      '@braintree/asset-loader': 2.0.2
+      '@braintree/asset-loader': 2.0.3
       '@braintree/browser-detection': 2.0.2
       '@braintree/event-emitter': 0.4.1
       '@braintree/extended-promise': 1.0.0
