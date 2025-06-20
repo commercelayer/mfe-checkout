@@ -1,3 +1,10 @@
+## [5.8.1](https://github.com/commercelayer/mfe-checkout/compare/v5.8.0...v5.8.1) (2025-06-20)
+
+
+### Bug Fixes
+
+* update to biomejs 2.0 ([3ffd94d](https://github.com/commercelayer/mfe-checkout/commit/3ffd94dea0c2d01589a2179d339deb07647e9abc))
+
 # [5.8.0](https://github.com/commercelayer/mfe-checkout/compare/v5.7.1...v5.8.0) (2025-06-18)
 
 
