@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
 
 test.describe("guest with PayPal", () => {
@@ -36,7 +36,7 @@ test.describe("guest with PayPal", () => {
     await checkoutPage.setPayment("stripe-paypal")
 
     const element = checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     await expect(element).not.toBeVisible()
 
@@ -69,7 +69,7 @@ test.describe("guest with PayPal", () => {
     await checkoutPage.setPayment("stripe-paypal")
 
     const element = checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     await expect(element).not.toBeVisible()
 

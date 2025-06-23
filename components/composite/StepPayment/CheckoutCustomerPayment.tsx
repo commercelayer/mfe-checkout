@@ -23,6 +23,7 @@ interface Props {
   hasTitle: boolean
   autoSelectCallback: () => void
   hasSubscriptions: boolean
+  isPaymentLoading: boolean
 }
 
 type TTemplateCustomerCards = Parameters<
@@ -95,11 +96,13 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   hasTitle,
   autoSelectCallback,
   hasSubscriptions,
+  isPaymentLoading,
 }) => {
   return (
     <>
       <PaymentMethod
         autoSelectSinglePaymentMethod={autoSelectCallback}
+        showLoader={isPaymentLoading}
         activeClass="active group"
         className="payment"
         loader={<PaymentSkeleton />}

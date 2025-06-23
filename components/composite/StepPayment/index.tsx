@@ -80,7 +80,9 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
   )
 }
 
-export const StepPayment: React.FC = () => {
+export const StepPayment: React.FC<{ isPaymentLoading: boolean }> = ({
+  isPaymentLoading,
+}) => {
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
   const [hasMultiplePaymentMethods, setHasMultiplePaymentMethods] =
@@ -135,6 +137,7 @@ export const StepPayment: React.FC = () => {
               {isPaymentRequired ? (
                 isGuest ? (
                   <CheckoutPayment
+                    isPaymentLoading={isPaymentLoading}
                     selectPayment={selectPayment}
                     autoSelectCallback={autoSelectCallback}
                     hasTitle={hasTitle}
@@ -142,6 +145,7 @@ export const StepPayment: React.FC = () => {
                 ) : (
                   <>
                     <CheckoutCustomerPayment
+                      isPaymentLoading={isPaymentLoading}
                       selectPayment={selectPayment}
                       autoSelectCallback={autoSelectCallback}
                       hasTitle={hasTitle}

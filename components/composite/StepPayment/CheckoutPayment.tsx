@@ -12,15 +12,18 @@ interface Props {
   selectPayment: Parameters<typeof PaymentMethod>[0]["onClick"]
   hasTitle: boolean
   autoSelectCallback: () => void
+  isPaymentLoading: boolean
 }
 
 export const CheckoutPayment = ({
   selectPayment,
   hasTitle,
   autoSelectCallback,
+  isPaymentLoading,
 }: Props): JSX.Element => {
   return (
     <PaymentMethod
+      showLoader={isPaymentLoading}
       autoSelectSinglePaymentMethod={autoSelectCallback}
       activeClass="active"
       className="payment group"

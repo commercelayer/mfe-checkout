@@ -75,7 +75,7 @@
   "dependencies": {
     "@commercelayer/js-auth": "^6.7.2",
     "@commercelayer/organization-config": "^2.3.0",
-    "@commercelayer/react-components": "4.24.1-beta.4",
+    "@commercelayer/react-components": "4.25.0",
     "@commercelayer/sdk": "^6.44.0",
     "@faker-js/faker": "^9.8.0",
     "@headlessui/react": "^2.2.4",
@@ -111,7 +111,7 @@
     "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.0.0",
+    "@biomejs/biome": "^2.0.5",
     "@playwright/test": "1.53.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
