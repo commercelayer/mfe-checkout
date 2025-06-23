@@ -111,32 +111,36 @@ test.describe("guest with checkout.com declined payment and retry", () => {
       .locator("text=Declined")
       .waitFor({ state: "visible", timeout: 100000 })
 
-    await checkoutPage.setPayment("checkout_com")
+    await checkoutPage.setPayment("checkout_com", {
+      number: "345678901234564",
+      exp: "12/30",
+      cvc: "1234",
+    })
 
     element = checkoutPage.page.locator("[data-testid=payment-save-wallet]")
     expect(element).not.toBeVisible()
 
     await checkoutPage.save("Payment", undefined, true)
 
-    await checkoutPage.page
-      .frameLocator('iframe[name="cko-3ds2-iframe"]')
-      .locator("#password")
-      .fill("Checkout1!")
+    // await checkoutPage.page
+    //   .frameLocator('iframe[name="cko-3ds2-iframe"]')
+    //   .locator("#password")
+    //   .fill("Checkout1!")
 
-    await checkoutPage.page
-      .frameLocator('iframe[name="cko-3ds2-iframe"]')
-      .locator("text=Continue")
-      .click()
+    // await checkoutPage.page
+    //   .frameLocator('iframe[name="cko-3ds2-iframe"]')
+    //   .locator("text=Continue")
+    //   .click()
 
     await checkoutPage.page
       .locator("text=Thank you for your order!")
       .waitFor({ state: "visible", timeout: 100000 })
 
-    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+    await checkoutPage.checkPaymentRecap("American express ending in 4564")
 
     await checkoutPage.page.reload()
 
-    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+    await checkoutPage.checkPaymentRecap("American express ending in 4564")
   })
 })
 

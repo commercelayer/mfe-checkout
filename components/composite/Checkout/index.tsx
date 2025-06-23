@@ -116,6 +116,8 @@ const Checkout: React.FC<Props> = ({
     )
   }
 
+  const isPaymentLoading = checkoutAlreadyStarted && !ctx.isComplete
+
   const renderSteps = () => {
     return (
       <CustomerContainer isGuest={ctx.isGuest}>
@@ -223,7 +225,7 @@ const Checkout: React.FC<Props> = ({
                         }
                       >
                         <div>
-                          <StepPayment />
+                          <StepPayment isPaymentLoading={isPaymentLoading} />
                         </div>
                       </AccordionItem>
                       <StepPlaceOrder
