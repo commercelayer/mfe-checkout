@@ -1,3 +1,10 @@
+## [5.8.2](https://github.com/commercelayer/mfe-checkout/compare/v5.8.1...v5.8.2) (2025-06-24)
+
+
+### Bug Fixes
+
+* skip delivery step with default shipping method and one customer address ([5f8fc15](https://github.com/commercelayer/mfe-checkout/commit/5f8fc15a7e833aa926ea7a122abdf589c75cec18))
+
 ## [5.8.1](https://github.com/commercelayer/mfe-checkout/compare/v5.8.0...v5.8.1) (2025-06-20)
 
 
