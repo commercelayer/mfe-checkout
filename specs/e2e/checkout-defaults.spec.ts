@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { test } from "../fixtures/tokenizedPage"
 import { euAddressNoBillingInfo } from "../utils/addresses"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -19,12 +19,14 @@ test.describe("with single defaults", () => {
     },
   })
 
-  test("should execute a checkout with valid token", async ({ checkoutPage }) => {
+  test("should execute a checkout with valid token", async ({
+    checkoutPage,
+  }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setCustomerMail()
     await checkoutPage.checkCustomerAddressesTitle(
-      "Fill in your billing/shipping address"
+      "Fill in your billing/shipping address",
     )
     await checkoutPage.setBillingAddress(euAddressNoBillingInfo)
 
@@ -35,7 +37,7 @@ test.describe("with single defaults", () => {
     await checkoutPage.checkStep("Shipping", "close")
 
     await checkoutPage.checkShippingSummary("FREE")
- 
+
     await checkoutPage.checkStep("Payment", "open")
 
     await checkoutPage.save("Payment")
@@ -69,7 +71,7 @@ test.describe("with single defaults and customer", () => {
     await checkoutPage.checkStep("Shipping", "close")
 
     await checkoutPage.checkShippingSummary("FREE")
- 
+
     await checkoutPage.checkStep("Payment", "open")
 
     await checkoutPage.save("Payment")
@@ -91,12 +93,14 @@ test.describe("with multi shipping single payment defaults", () => {
     },
   })
 
-  test("should execute a checkout with valid token", async ({ checkoutPage }) => {
+  test("should execute a checkout with valid token", async ({
+    checkoutPage,
+  }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setCustomerMail()
     await checkoutPage.checkCustomerAddressesTitle(
-      "Fill in your billing/shipping address"
+      "Fill in your billing/shipping address",
     )
     await checkoutPage.setBillingAddress(euAddressNoBillingInfo)
 
@@ -117,7 +121,7 @@ test.describe("with multi shipping single payment defaults", () => {
     await checkoutPage.checkShippingSummary("10")
 
     await checkoutPage.checkStep("Payment", "open")
-    
+
     await checkoutPage.save("Payment")
     await checkoutPage.checkPaymentRecap("Manual Payment")
   })
@@ -136,12 +140,14 @@ test.describe("with multi shipping multi payment defaults", () => {
       },
       addresses: {
         billingAddress: euAddressNoBillingInfo,
-        sameShippingAddress: true
-      }
+        sameShippingAddress: true,
+      },
     },
   })
 
-  test("should execute a checkout with valid token", async ({ checkoutPage }) => {
+  test("should execute a checkout with valid token", async ({
+    checkoutPage,
+  }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Customer", "close")
@@ -158,5 +164,43 @@ test.describe("with multi shipping multi payment defaults", () => {
 
     await checkoutPage.save("Payment")
     await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+  })
+})
+
+test.describe("customer with address multi shipping single payment defaults", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      market: "UY",
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "TSHIRTMS000000FFFFFFLXXX", quantity: 1 },
+      ],
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      customerAddresses: [euAddressNoBillingInfo],
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+    },
+  })
+
+  test("should execute a checkout with valid token", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Shipping", "close")
+
+    await checkoutPage.checkShippingSummary("FREE")
+
+    await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("Manual Payment")
   })
 })

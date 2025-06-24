@@ -166,12 +166,14 @@ export async function checkAndSetDefaultAddressForOrder({
     _shipping_address_clone_id: address.id,
   }
   try {
-    const { billing_address, shipping_address } = await cl.orders.update(
-      updateObjet,
-      {
-        include: ["billing_address", "shipping_address"],
-      },
-    )
+    const { billing_address, shipping_address, shipments } =
+      await cl.orders.update(updateObjet, {
+        include: [
+          "billing_address",
+          "shipping_address",
+          "shipments.shipping_method",
+        ],
+      })
 
     localStorage.setItem(
       "_save_billing_address_to_customer_address_book",
@@ -195,6 +197,7 @@ export async function checkAndSetDefaultAddressForOrder({
       isUsingNewShippingAddress: false,
       billingAddress: billing_address,
       shippingAddress: shipping_address,
+      shipments,
     }
   } catch (error) {
     console.log(error)

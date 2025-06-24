@@ -123,13 +123,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     dispatch({ type: ActionType.START_LOADING })
     const order = await getOrderFromRef()
 
-    const addressInfos = await checkAndSetDefaultAddressForOrder({
-      cl,
-      order,
-    })
+    const { shipments, ...addressInfos } =
+      await checkAndSetDefaultAddressForOrder({
+        cl,
+        order,
+      })
 
     const others = calculateSettings(
-      order,
+      shipments != null ? { ...order, shipments: shipments } : order,
       isShipmentRequired,
       isGuest,
       undefined,
