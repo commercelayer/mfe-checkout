@@ -284,7 +284,7 @@ test.describe("customer with checkout.com with saving", () => {
   })
 })
 
-test.skip("guest with checkout.com as single payment method", () => {
+test.describe("guest with checkout.com as single payment method", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({
@@ -307,18 +307,15 @@ test.skip("guest with checkout.com as single payment method", () => {
   test("checkout", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    await checkoutPage.checkStep("Shipping", "open")
-
-    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
-
-    await checkoutPage.save("Shipping")
-
-    await checkoutPage.setPayment("checkout_com")
+    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.checkStep("Payment", "open")
 
     const element = checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
     expect(element).not.toBeVisible()
+
+    await checkoutPage.setPayment("checkout_com")
 
     await checkoutPage.save("Payment", undefined, true)
 
