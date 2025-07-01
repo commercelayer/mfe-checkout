@@ -1,3 +1,11 @@
+## [5.8.3](https://github.com/commercelayer/mfe-checkout/compare/v5.8.2...v5.8.3) (2025-07-01)
+
+
+### Bug Fixes
+
+* improve checkout.com support ([8e3e4fe](https://github.com/commercelayer/mfe-checkout/commit/8e3e4fe74f72a30b5a5e3bacb144c52c562f4081))
+* support checkout.com when is the only payment method ([69bb04e](https://github.com/commercelayer/mfe-checkout/commit/69bb04e9852dd5cf61c9e53d848f6e213119e678))
+
 ## [5.8.2](https://github.com/commercelayer/mfe-checkout/compare/v5.8.1...v5.8.2) (2025-06-24)
 
 
