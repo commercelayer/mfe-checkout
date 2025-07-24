@@ -1,3 +1,15 @@
+# [5.9.0](https://github.com/commercelayer/mfe-checkout/compare/v5.8.3...v5.9.0) (2025-07-24)
+
+
+### Bug Fixes
+
+* avoid checkout.com credit card form to clear when details are entered ([9066d39](https://github.com/commercelayer/mfe-checkout/commit/9066d39b50842851f05d2c46add0726b09417ef2))
+
+
+### Features
+
+* add loader to payment step with third party payment providers ([ffd859f](https://github.com/commercelayer/mfe-checkout/commit/ffd859f1ad0d4e83d0fff785d42eb8941a6120b6))
+
 ## [5.8.3](https://github.com/commercelayer/mfe-checkout/compare/v5.8.2...v5.8.3) (2025-07-01)
 
 
