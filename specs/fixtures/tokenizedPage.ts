@@ -1,3 +1,4 @@
+import path from "node:path"
 import {
   authenticate,
   createAssertion,
@@ -13,8 +14,6 @@ import {
 } from "@commercelayer/sdk"
 import { test as base } from "@playwright/test"
 import dotenv from "dotenv"
-
-import path from "node:path"
 
 import { CheckoutPage } from "./CheckoutPage"
 
@@ -121,26 +120,25 @@ const getToken = async (market?: ValidMarket, customerId?: string) => {
         scope,
       })
     ).accessToken
-  } else {
-    return (
-      await authenticate("urn:ietf:params:oauth:grant-type:jwt-bearer", {
-        domain: process.env.NEXT_PUBLIC_DOMAIN as string,
-        clientId: process.env.E2E_CLIENT_ID as string,
-        clientSecret: process.env.E2E_CLIENT_SECRET as string,
-        scope,
-        assertion: await createAssertion({
-          payload: {
-            "https://commercelayer.io/claims": {
-              owner: {
-                type: "Customer",
-                id: customerId,
-              },
+  }
+  return (
+    await authenticate("urn:ietf:params:oauth:grant-type:jwt-bearer", {
+      domain: process.env.NEXT_PUBLIC_DOMAIN as string,
+      clientId: process.env.E2E_CLIENT_ID as string,
+      clientSecret: process.env.E2E_CLIENT_SECRET as string,
+      scope,
+      assertion: await createAssertion({
+        payload: {
+          "https://commercelayer.io/claims": {
+            owner: {
+              type: "Customer",
+              id: customerId,
             },
           },
-        }),
-      })
-    ).accessToken
-  }
+        },
+      }),
+    })
+  ).accessToken
 }
 
 const getCustomerUserToken = async ({
@@ -517,7 +515,13 @@ const createDefaultLineItem = async (
     order: cl.orders.relationship(orderId),
   }
 
-  await cl.line_items.create(lineItem)
+  try {
+    console.log("create lineItem for order", orderId)
+    console.log(lineItem)
+    await cl.line_items.create(lineItem)
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export const test = base.extend<FixtureType>({

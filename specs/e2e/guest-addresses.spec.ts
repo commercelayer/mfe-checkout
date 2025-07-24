@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, euAddress2 } from "../utils/addresses"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -401,6 +401,7 @@ test.describe("without customer email and same addresses", () => {
 
     await checkoutPage.save("Customer")
 
+    await checkoutPage.checkStep("Customer", "close")
     await checkoutPage.checkStep("Shipping", "open")
   })
 })
