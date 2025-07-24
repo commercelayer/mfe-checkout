@@ -18,6 +18,7 @@ overrides:
   micromatch@<4.0.8: '>=4.0.8'
   path-to-regexp@>=2.0.0 <3.3.0: '=3.3.0'
   brace-expansion: '>=1.1.12'
+  on-headers: '>=1.1.0'
 
 importers:
 
@@ -30,8 +31,8 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       '@commercelayer/react-components':
-        specifier: 4.25.3-beta.0
-        version: 4.25.3-beta.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)
+        specifier: 4.25.3
+        version: 4.25.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)
       '@commercelayer/sdk':
         specifier: ^6.45.0
         version: 6.45.0
@@ -410,8 +411,8 @@ packages:
     resolution: {integrity: sha512-VVmp+HDBNYL0auAdxsMFWA2+ol9yX/QKPLKDK5VPiVF2CgdB6AK5m1ktHkeb1ztL+724zyK+LEg+bfmvTKn/WQ==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@4.25.3-beta.0':
-    resolution: {integrity: sha512-04pRS0FH6Un20T1rbAkAIHw0Z4AokPoyVUCDijgGLsD/aBOtKf65hvjfPVezjgBvVlCtsDrKDEigVkwdSIO+dg==}
+  '@commercelayer/react-components@4.25.3':
+    resolution: {integrity: sha512-VNwEwyRq4H4ZsDGFDD1bdodYtjGR8j5+LTD+M/qSge3XD9Yt85Op/9qCLFAB244JclPrQB2FXql2SZyaJjl5QA==}
     peerDependencies:
       react: '>=18.0.0'
 
@@ -2409,8 +2410,8 @@ packages:
     resolution: {integrity: sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==}
     engines: {node: '>= 6'}
 
-  on-headers@1.0.2:
-    resolution: {integrity: sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==}
+  on-headers@1.1.0:
+    resolution: {integrity: sha512-737ZY3yNnXy37FHkQxPzt4UZ2UWPWiCZWLvFZ4fu5cueciegX0zGPnrlY6bwRg4FdQOe9YU8MkmJwGhoMybl8A==}
     engines: {node: '>= 0.8'}
 
   once@1.4.0:
@@ -3516,7 +3517,7 @@ snapshots:
     dependencies:
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@4.25.3-beta.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)':
+  '@commercelayer/react-components@4.25.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.8.3)':
     dependencies:
       '@adyen/adyen-web': 6.17.0
       '@commercelayer/organization-config': 2.3.0
@@ -4492,7 +4493,7 @@ snapshots:
       bytes: 3.0.0
       compressible: 2.0.18
       debug: 2.6.9
-      on-headers: 1.0.2
+      on-headers: 1.1.0
       safe-buffer: 5.1.2
       vary: 1.1.2
     transitivePeerDependencies:
@@ -5342,7 +5343,7 @@ snapshots:
 
   object-hash@3.0.0: {}
 
-  on-headers@1.0.2: {}
+  on-headers@1.1.0: {}
 
   once@1.4.0:
     dependencies:

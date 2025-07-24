@@ -75,7 +75,7 @@
   "dependencies": {
     "@commercelayer/js-auth": "^6.7.2",
     "@commercelayer/organization-config": "^2.3.0",
-    "@commercelayer/react-components": "4.25.3-beta.0",
+    "@commercelayer/react-components": "4.25.3",
     "@commercelayer/sdk": "^6.45.0",
     "@faker-js/faker": "^9.9.0",
     "@headlessui/react": "^2.2.5",
@@ -149,7 +149,8 @@
     "overrides": {
       "micromatch@<4.0.8": ">=4.0.8",
       "path-to-regexp@>=2.0.0 <3.3.0": "=3.3.0",
-      "brace-expansion": ">=1.1.12"
+      "brace-expansion": ">=1.1.12",
+      "on-headers": ">=1.1.0"
     },
     "onlyBuiltDependencies": [
       "@biomejs/biome",
