@@ -31,10 +31,15 @@ import {
 
 interface Props {
   appCtx: AppProviderData
+  hideItemCodes?: NullableType<boolean>
   readonly?: boolean
 }
 
-export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
+export const OrderSummary: React.FC<Props> = ({
+  appCtx,
+  readonly,
+  hideItemCodes,
+}) => {
   const { t } = useTranslation()
 
   const isTaxCalculated = appCtx.isShipmentRequired
@@ -70,7 +75,11 @@ export const OrderSummary: React.FC<Props> = ({ appCtx, readonly }) => {
           {
             <>
               {LINE_ITEMS_SHOPPABLE.map((type) => (
-                <LineItemTypes type={type} key={type} />
+                <LineItemTypes
+                  type={type}
+                  key={type}
+                  hideItemCodes={hideItemCodes}
+                />
               ))}
             </>
           }

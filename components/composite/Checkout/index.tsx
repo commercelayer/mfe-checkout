@@ -41,6 +41,7 @@ interface Props {
   supportEmail: NullableType<string>
   supportPhone: NullableType<string>
   thankyouPageUrl: NullableType<string>
+  hideItemCodes?: NullableType<boolean>
   termsUrl: NullableType<string>
   privacyUrl: NullableType<string>
   gtmId: NullableType<string>
@@ -54,6 +55,7 @@ const Checkout: React.FC<Props> = ({
   supportEmail,
   supportPhone,
   thankyouPageUrl,
+  hideItemCodes,
   termsUrl,
   privacyUrl,
   gtmId,
@@ -130,7 +132,7 @@ const Checkout: React.FC<Props> = ({
                 className="hidden md:block"
               />
               <SummaryWrapper>
-                <OrderSummary appCtx={ctx} />
+                <OrderSummary appCtx={ctx} hideItemCodes={hideItemCodes} />
               </SummaryWrapper>
               <Footer />
             </Sidebar>
