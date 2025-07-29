@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
 
 test.describe("with return to cart", () => {
@@ -559,5 +559,56 @@ test.describe("line item without frequency", () => {
   test("should show the monthly frequency", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
     await checkoutPage.checkLineItemFrequency()
+  })
+})
+
+test.describe("line item without item codes", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        {
+          sku_code: "TSHIRTMMFFFFFF000000XLXX",
+          quantity: 1,
+        },
+      ],
+      organization: {
+        config: {
+          mfe: {
+            default: {
+              checkout: {
+                hide_item_codes: true,
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+
+  test("should show the monthly frequency", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    const element = checkoutPage.page.getByText("TSHIRTMMFFFFFF000000XLXX")
+    await expect(element).toHaveCount(0)
+  })
+})
+
+test.describe("line item with item codes", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        {
+          sku_code: "TSHIRTMMFFFFFF000000XLXX",
+          quantity: 1,
+        },
+      ],
+    },
+  })
+
+  test("should show the monthly frequency", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    const element = checkoutPage.page.getByText("TSHIRTMMFFFFFF000000XLXX")
+    await expect(element).toHaveCount(1)
   })
 })

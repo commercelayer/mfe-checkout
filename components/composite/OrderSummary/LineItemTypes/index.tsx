@@ -31,6 +31,7 @@ import {
 
 interface Props {
   type: TLineItem
+  hideItemCodes?: NullableType<boolean>
 }
 
 const CODE_LOOKUP: { [k: string]: "sku_code" | "bundle_code" | undefined } = {
@@ -38,7 +39,7 @@ const CODE_LOOKUP: { [k: string]: "sku_code" | "bundle_code" | undefined } = {
   bundles: "bundle_code",
 }
 
-export const LineItemTypes: React.FC<Props> = ({ type }) => {
+export const LineItemTypes: React.FC<Props> = ({ type, hideItemCodes }) => {
   const { t, i18n } = useTranslation()
   return (
     <LineItem type={type}>
@@ -48,7 +49,7 @@ export const LineItemTypes: React.FC<Props> = ({ type }) => {
           className="self-start p-1 bg-white border rounded"
         />
         <LineItemDescription>
-          <StyledLineItemSkuCode type={CODE_LOOKUP[type]} />
+          {!hideItemCodes && <StyledLineItemSkuCode type={CODE_LOOKUP[type]} />}
           <LineItemTitle>
             <LineItemName className="font-bold" />
             <LineItemAmount

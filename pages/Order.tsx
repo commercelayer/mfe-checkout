@@ -42,6 +42,7 @@ const Order: NextPage = () => {
         supportEmail={settings.supportEmail}
         supportPhone={settings.supportPhone}
         thankyouPageUrl={settings.config?.checkout?.thankyou_page}
+        hideItemCodes={settings.config?.checkout?.hide_item_codes}
         termsUrl={settings.termsUrl}
         privacyUrl={settings.privacyUrl}
         gtmId={settings.gtmId}
