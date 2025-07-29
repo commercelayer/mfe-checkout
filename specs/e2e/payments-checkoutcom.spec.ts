@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
-import { euAddress } from "../utils/addresses"
+import { euAddress, usAddress } from "../utils/addresses"
 
 test.describe("guest with checkout.com", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -30,6 +30,62 @@ test.describe("guest with checkout.com", () => {
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("checkout_com")
+
+    await checkoutPage.setPayment("checkout_com")
+
+    const element = checkoutPage.page.locator(
+      "[data-testid=payment-save-wallet]",
+    )
+    expect(element).not.toBeVisible()
+
+    await checkoutPage.save("Payment", undefined, true)
+
+    await checkoutPage.page
+      .frameLocator('iframe[name="cko-3ds2-iframe"]')
+      .locator("#password")
+      .fill("Checkout1!")
+
+    await checkoutPage.page
+      .frameLocator('iframe[name="cko-3ds2-iframe"]')
+      .locator("text=Continue")
+      .click()
+
+    await checkoutPage.page
+      .locator("text=Thank you for your order!")
+      .waitFor({ state: "visible", timeout: 100000 })
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+  })
+})
+
+test.describe("guest with checkout.com and autocapture", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      market: "US",
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: usAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("checkout", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.selectPayment("checkout_com")
 
