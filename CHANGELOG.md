@@ -1,3 +1,10 @@
+# [5.10.0](https://github.com/commercelayer/mfe-checkout/compare/v5.9.0...v5.10.0) (2025-07-29)
+
+
+### Features
+
+* add support to `hide_item_codes` configuration ([8496efb](https://github.com/commercelayer/mfe-checkout/commit/8496efb1f8bceadc69fcda616606867240eeb70a))
+
 # [5.9.0](https://github.com/commercelayer/mfe-checkout/compare/v5.8.3...v5.9.0) (2025-07-24)
 
 
