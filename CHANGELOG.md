@@ -1,3 +1,10 @@
+## [5.10.1](https://github.com/commercelayer/mfe-checkout/compare/v5.10.0...v5.10.1) (2025-07-30)
+
+
+### Bug Fixes
+
+* allow checkout.com with and without auto capture ([d1acc29](https://github.com/commercelayer/mfe-checkout/commit/d1acc2911e95b6964110ac10fb46e0ee2a8c779a))
+
 # [5.10.0](https://github.com/commercelayer/mfe-checkout/compare/v5.9.0...v5.10.0) (2025-07-29)
 
 
