@@ -1,7 +1,12 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
-import { euAddress, euAddress2, euAddress3 } from "../utils/addresses"
+import { expect, test } from "../fixtures/tokenizedPage"
+import {
+  euAddress,
+  euAddress2,
+  euAddress3,
+  usAddress,
+} from "../utils/addresses"
 
 test.describe("address on wallet", () => {
   test.describe.configure({ mode: "serial" })
@@ -134,6 +139,237 @@ test.describe("address on wallet", () => {
   })
 })
 
+test.describe("address on wallet and payment with checkout.com", () => {
+  test.describe.configure({ mode: "serial" })
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+    },
+  })
+
+  test.skip("save one address on wallet", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(euAddress)
+
+    const checkbox = checkoutPage.getSaveAddressBookCheckbox("billing")
+    await expect(checkbox).not.toBeChecked()
+    await checkbox.check()
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("checkout_com")
+
+    await checkoutPage.setPayment("checkout_com")
+
+    const element = checkoutPage.page.locator(
+      "[data-testid=payment-save-wallet]",
+    )
+    expect(element).not.toBeVisible()
+
+    await checkoutPage.save("Payment", undefined, true)
+
+    await checkoutPage.page
+      .frameLocator('iframe[name="cko-3ds2-iframe"]')
+      .locator("#password")
+      .fill("Checkout1!")
+
+    await checkoutPage.page
+      .frameLocator('iframe[name="cko-3ds2-iframe"]')
+      .locator("text=Continue")
+      .click()
+
+    await checkoutPage.page
+      .locator("text=Thank you for your order!")
+      .waitFor({ state: "visible", timeout: 100000 })
+  })
+
+  test.skip("use address on wallet", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+  })
+})
+
+test.describe("address on wallet and payment with adyen and klarna", () => {
+  test.describe.configure({ mode: "serial" })
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      incognito: true,
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+    },
+  })
+
+  test.skip("save one address on wallet", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(euAddress2)
+
+    const checkbox = checkoutPage.getSaveAddressBookCheckbox("billing")
+    await expect(checkbox).not.toBeChecked()
+    await checkbox.check()
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.completePayment({
+      type: "adyen-dropin",
+      gateway: "klarna_pay_over_time",
+      language: "fr",
+    })
+
+    await checkoutPage.checkPaymentRecap("Klarna ending in ****")
+    await checkoutPage.page.reload()
+    await checkoutPage.checkPaymentRecap("Klarna ending in ****")
+  })
+
+  test.skip("use address on wallet", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+  })
+})
+
+test.describe("address on wallet and payment with adyen and credit card", () => {
+  test.describe.configure({ mode: "serial" })
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      incognito: true,
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+    },
+  })
+
+  test.skip("save one address on wallet", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(euAddress2)
+
+    const checkbox = checkoutPage.getSaveAddressBookCheckbox("billing")
+    await expect(checkbox).not.toBeChecked()
+    await checkbox.check()
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.setPayment("adyen")
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap(" ending in ****")
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap(" ending in ****")
+  })
+
+  test.skip("use address on wallet", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+  })
+})
+
+test.describe("address on wallet and payment with affirm", () => {
+  test.describe.configure({ mode: "serial" })
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      incognito: true,
+      market: "US",
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+    },
+  })
+
+  test.skip("success", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setBillingAddress(usAddress)
+
+    const checkbox = checkoutPage.getSaveAddressBookCheckbox("billing")
+    await expect(checkbox).not.toBeChecked()
+    await checkbox.check()
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Shipping", "close")
+
+    await checkoutPage.selectPayment("stripe")
+
+    await checkoutPage.setPayment("stripe-affirm")
+
+    await checkoutPage.save("Payment", undefined, true)
+
+    await checkoutPage.page
+      .getByRole("button", { name: "Authorize Test Payment" })
+      .click()
+
+    await checkoutPage.checkPaymentRecap("Affirm ending in ****", 15000)
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Affirm ending in ****", 10000)
+  })
+
+  test.skip("use address on wallet", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+  })
+})
+
 test.describe("with digital product and shipping country code lock", () => {
   test.describe.configure({ mode: "serial" })
   const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -226,7 +462,7 @@ test.describe("addresses on wallet", () => {
     await checkoutPage.checkStep("Customer", "open")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=customer-billing-address]"
+      "[data-testid=customer-billing-address]",
     )
     await expect(element).toHaveCount(2)
   })
@@ -258,7 +494,7 @@ test.describe("two address on wallet", () => {
     await checkoutPage.checkStep("Customer", "open")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=customer-billing-address]"
+      "[data-testid=customer-billing-address]",
     )
     await expect(element).toHaveCount(2)
 
@@ -370,7 +606,7 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.checkStep("Customer", "open")
 
     let element = await checkoutPage.page.locator(
-      "[data-testid=customer-billing-address]"
+      "[data-testid=customer-billing-address]",
     )
     await expect(element).toHaveCount(2)
 
@@ -403,18 +639,18 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.checkShipToDifferentAddressEnabled(false)
 
     element = await checkoutPage.page.locator(
-      "[data-testid=shipping-address] >> text=Shipping Address"
+      "[data-testid=shipping-address] >> text=Shipping Address",
     )
 
     await expect(element).toBeVisible()
 
     element = await checkoutPage.page.locator(
-      `[data-testid=customer-shipping-address]:near(:text("Shipping Address")) >> text=(IT)`
+      `[data-testid=customer-shipping-address]:near(:text("Shipping Address")) >> text=(IT)`,
     )
     await expect(element).toHaveCount(1)
 
     element = await checkoutPage.page.locator(
-      `[data-testid=customer-shipping-address]:near(:text("Shipping Address")) >> text=(FR)`
+      `[data-testid=customer-shipping-address]:near(:text("Shipping Address")) >> text=(FR)`,
     )
     await expect(element).toHaveCount(0)
 
@@ -424,7 +660,7 @@ test.describe("two address on wallet and code lock", () => {
     })
 
     element = await checkoutPage.page.locator(
-      "[data-testid=save-customer-button]"
+      "[data-testid=save-customer-button]",
     )
     await expect(element).toBeEnabled()
 
@@ -489,7 +725,7 @@ test.describe("two address on wallet and code lock", () => {
     await checkoutPage.closeNewAddress("shipping")
 
     element = await checkoutPage.page.locator(
-      "data-testid=save-customer-button"
+      "data-testid=save-customer-button",
     )
     await expect(element).toBeDisabled()
 
@@ -556,7 +792,7 @@ test.describe("one address on wallet", () => {
     await checkoutPage.clickStep("Customer")
 
     let element = await checkoutPage.page.locator(
-      "[data-testid=customer-billing-address]"
+      "[data-testid=customer-billing-address]",
     )
     await expect(element).toHaveCount(1)
 
@@ -566,7 +802,7 @@ test.describe("one address on wallet", () => {
     await checkoutPage.checkStep("Shipping", "open")
 
     await expect(
-      checkoutPage.page.locator("text=Standard Shipping")
+      checkoutPage.page.locator("text=Standard Shipping"),
     ).toBeVisible()
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
@@ -576,7 +812,7 @@ test.describe("one address on wallet", () => {
     await checkoutPage.clickStep("Customer")
 
     element = await checkoutPage.page.locator(
-      "[data-testid=customer-billing-address]"
+      "[data-testid=customer-billing-address]",
     )
     await expect(element).toHaveCount(1)
   })
