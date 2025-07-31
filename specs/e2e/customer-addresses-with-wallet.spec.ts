@@ -157,7 +157,7 @@ test.describe("address on wallet and payment with checkout.com", () => {
     },
   })
 
-  test.skip("save one address on wallet", async ({ checkoutPage }) => {
+  test("save one address on wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setBillingAddress(euAddress)
@@ -197,7 +197,7 @@ test.describe("address on wallet and payment with checkout.com", () => {
       .waitFor({ state: "visible", timeout: 100000 })
   })
 
-  test.skip("use address on wallet", async ({ checkoutPage }) => {
+  test("use address on wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Customer", "close")
@@ -224,7 +224,7 @@ test.describe("address on wallet and payment with adyen and klarna", () => {
     },
   })
 
-  test.skip("save one address on wallet", async ({ checkoutPage }) => {
+  test("save one address on wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setBillingAddress(euAddress2)
@@ -251,7 +251,7 @@ test.describe("address on wallet and payment with adyen and klarna", () => {
     await checkoutPage.checkPaymentRecap("Klarna ending in ****")
   })
 
-  test.skip("use address on wallet", async ({ checkoutPage }) => {
+  test("use address on wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Customer", "close")
@@ -278,7 +278,7 @@ test.describe("address on wallet and payment with adyen and credit card", () => 
     },
   })
 
-  test.skip("save one address on wallet", async ({ checkoutPage }) => {
+  test("save one address on wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setBillingAddress(euAddress2)
@@ -304,7 +304,7 @@ test.describe("address on wallet and payment with adyen and credit card", () => 
     await checkoutPage.checkPaymentRecap(" ending in ****")
   })
 
-  test.skip("use address on wallet", async ({ checkoutPage }) => {
+  test("use address on wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Customer", "close")
@@ -332,7 +332,7 @@ test.describe("address on wallet and payment with affirm", () => {
     },
   })
 
-  test.skip("success", async ({ checkoutPage }) => {
+  test("success", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setBillingAddress(usAddress)
@@ -362,11 +362,12 @@ test.describe("address on wallet and payment with affirm", () => {
     await checkoutPage.checkPaymentRecap("Affirm ending in ****", 10000)
   })
 
-  test.skip("use address on wallet", async ({ checkoutPage }) => {
+  test("use address on wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Customer", "close")
-    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.checkStep("Payment", "open")
   })
 })
 
