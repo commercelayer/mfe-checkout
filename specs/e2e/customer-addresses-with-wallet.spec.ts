@@ -366,7 +366,8 @@ test.describe("address on wallet and payment with affirm", () => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Customer", "close")
-    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.checkStep("Payment", "open")
   })
 })
 
