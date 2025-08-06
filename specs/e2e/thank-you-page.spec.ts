@@ -306,17 +306,16 @@ test.describe("with custom thankyou page url @organization-config", () => {
 
     await checkoutPage.save("Payment", undefined, true)
 
-    await checkoutPage.page.waitForTimeout(3000)
+    await expect(checkoutPage.page.getByText("200 OK")).toHaveCount(1)
 
-    await checkoutPage.checkContinueShoppingLink("not_present")
+    const thankyouPageReplaced = thankyouPageUrl
+      .replace(":order_id", checkoutPage.getOrderId() as string)
+      .replace(":access_token", checkoutPage.getAccessToken() as string)
 
-    const url = checkoutPage.page.url()
-
-    expect(url).toMatch(
-      thankyouPageUrl
-        .replace(":order_id", checkoutPage.getOrderId() as string)
-        .replace(":access_token", checkoutPage.getAccessToken() as string),
-    )
+    await checkoutPage.page.waitForURL(thankyouPageReplaced, {
+      timeout: 10000,
+      waitUntil: "commit",
+    })
   })
 })
 
@@ -360,19 +359,18 @@ test.describe("with custom thankyou page url @organization-config and token", ()
 
     await checkoutPage.save("Payment", undefined, true)
 
-    await checkoutPage.page.waitForTimeout(3000)
+    await expect(checkoutPage.page.getByText("200 OK")).toHaveCount(1)
 
-    await checkoutPage.checkContinueShoppingLink("not_present")
+    const thankyouPageReplaced = thankyouPageUrl
+      .replace(":lang", "it-IT")
+      .replace(":order_id", checkoutPage.getOrderId() as string)
+      .replace(":token", checkoutPage.getOrderToken() as string)
+      .replace(":slug", process.env.NEXT_PUBLIC_SLUG as string)
 
-    const url = checkoutPage.page.url()
-
-    expect(url).toMatch(
-      thankyouPageUrl
-        .replace(":lang", "it-IT")
-        .replace(":order_id", checkoutPage.getOrderId() as string)
-        .replace(":token", checkoutPage.getOrderToken() as string)
-        .replace(":slug", process.env.NEXT_PUBLIC_SLUG as string),
-    )
+    await checkoutPage.page.waitForURL(thankyouPageReplaced, {
+      timeout: 10000,
+      waitUntil: "commit",
+    })
   })
 })
 
