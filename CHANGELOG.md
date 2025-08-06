@@ -1,3 +1,10 @@
+## [5.10.2](https://github.com/commercelayer/mfe-checkout/compare/v5.10.1...v5.10.2) (2025-08-06)
+
+
+### Bug Fixes
+
+* save customer address on third party payments ([2494efb](https://github.com/commercelayer/mfe-checkout/commit/2494efb7bc848b3dec49ed02ec192878aef73ef2))
+
 ## [5.10.1](https://github.com/commercelayer/mfe-checkout/compare/v5.10.0...v5.10.1) (2025-07-30)
 
 
