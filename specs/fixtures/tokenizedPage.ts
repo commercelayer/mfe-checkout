@@ -39,6 +39,7 @@ type ValidMarket =
   | "UY"
   | "VV"
   | "PT"
+  | "AT"
 
 interface BaseLineItemObject {
   quantity: number
@@ -516,8 +517,6 @@ const createDefaultLineItem = async (
   }
 
   try {
-    console.log("create lineItem for order", orderId)
-    console.log(lineItem)
     await cl.line_items.create(lineItem)
   } catch (e) {
     console.log(e)
