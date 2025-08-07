@@ -1,4 +1,4 @@
-import { Address } from "@commercelayer/sdk"
+import type { Address } from "@commercelayer/sdk"
 
 export const euAddress: Partial<Address> = {
   first_name: "Darth",
@@ -22,7 +22,7 @@ export const euAddressNoBillingInfo: Partial<Address> = {
   country_code: "IT",
   state_code: "GE",
   zip_code: "16030",
-  phone: "+39 055 1234567890"
+  phone: "+39 055 1234567890",
 }
 
 export const euAddress2: Partial<Address> = {
@@ -85,6 +85,17 @@ export const deAddress: Partial<Address> = {
   zip_code: "80336",
   phone: "+49 89 242078610",
   billing_info: "MSNREW78D12D612W",
+}
+
+export const atAddress = {
+  first_name: "Jerome",
+  last_name: "Powell",
+  line_1: "Test Street",
+  city: "Wien",
+  country_code: "AT",
+  state_code: "Wien",
+  zip_code: "1010",
+  phone: "+43123456789",
 }
 
 export function composeForCheck(address: Partial<Address>) {
