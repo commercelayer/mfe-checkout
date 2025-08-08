@@ -1,8 +1,7 @@
 import { LayoutDefault } from "components/layouts/LayoutDefault"
-import styled from "styled-components"
-import tw from "twin.macro"
+import type { FC } from "react"
 
-export const CheckoutSkeleton: React.FC = () => {
+export const CheckoutSkeleton: FC = () => {
   return (
     <LayoutDefault
       aside={
@@ -93,17 +92,29 @@ export const CheckoutSkeleton: React.FC = () => {
   )
 }
 
-const Sidebar = styled.div`
-  ${tw`flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12`}
-`
-const SummaryWrapper = styled.div`
-  ${tw`flex-1`}
-`
-const SkeletonBox = styled.div`
-  ${tw`bg-gray-200 rounded-xl`}
-`
-const SkeletonCircle = styled(SkeletonBox)`
-  ${tw`rounded-full`}
-`
+const Sidebar: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className="flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12"
+  />
+)
+
+const SummaryWrapper: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} className="flex-1" />
+)
+
+const SkeletonBox: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`bg-gray-200 rounded-xl ${props.className || ""}`}
+  />
+)
+
+const SkeletonCircle: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`bg-gray-200 rounded-full ${props.className || ""}`}
+  />
+)
 
 export default CheckoutSkeleton

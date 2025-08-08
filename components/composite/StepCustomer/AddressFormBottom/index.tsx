@@ -2,8 +2,6 @@ import { LinkButton } from "components/ui/LinkButton"
 import { useTranslation } from "react-i18next"
 import { AddressSectionSaveOnAddressBook } from "../AddressSectionSaveOnAddressBook"
 
-import { Wrapper } from "./styled"
-
 interface Props {
   addressType: "billing" | "shipping"
   hasCustomerAddresses: boolean
@@ -20,7 +18,9 @@ export const AddressFormBottom: React.FC<Props> = ({
   const { t } = useTranslation()
 
   return (
-    <Wrapper className={className}>
+    <div
+      className={`flex flex-col-reverse justify-between md:flex-row ${className}`}
+    >
       <AddressSectionSaveOnAddressBook addressType={addressType} />
       {hasCustomerAddresses && (
         <LinkButton
@@ -29,6 +29,6 @@ export const AddressFormBottom: React.FC<Props> = ({
           onClick={onClick}
         />
       )}
-    </Wrapper>
+    </div>
   )
 }

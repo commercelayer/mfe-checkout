@@ -1,11 +1,10 @@
 import CustomerInput from "@commercelayer/react-components/customers/CustomerInput"
 import Errors from "@commercelayer/react-components/errors/Errors"
-import { ErrorCss } from "components/ui/form/Error"
+import classNames from "classnames"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
+import type { FC } from "react"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
-import tw from "twin.macro"
 
 interface Props {
   readonly?: boolean
@@ -76,20 +75,32 @@ export const AddressSectionEmail: React.FC<Props> = ({
   )
 }
 
-const Wrapper = styled.div`
-  ${tw`mt-6 mb-2`}
-`
-const ReadOnlyEmail = styled.div`
-  ${InputCss}
-  ${tw`w-full inline-block bg-gray-50`}
-`
+const Wrapper: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} className="mt-6 mb-2" />
+)
 
-const StyledCustomInput = styled(CustomerInput)`
-  ${InputCss}
-  &.hasError {
-    ${tw`border-red-400 border-2 focus:ring-offset-0 focus:ring-red-400 focus:ring-opacity-50`}
-  }
-`
-const StyledErrors = styled(Errors)`
-  ${ErrorCss}
-`
+const ReadOnlyEmail: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={classNames(InputCss, "w-full inline-block bg-gray-50")}
+  />
+)
+
+const StyledCustomInput: FC<React.ComponentProps<typeof CustomerInput>> = ({
+  className,
+  errorClassName,
+  ...props
+}) => (
+  <CustomerInput
+    {...props}
+    className={classNames(InputCss, className)}
+    errorClassName={classNames(
+      errorClassName,
+      "border-red-400 border-2 focus:ring-offset-0 focus:ring-red-400 focus:ring-opacity-50",
+    )}
+  />
+)
+
+const StyledErrors: FC<React.ComponentProps<typeof Errors>> = (props) => (
+  <Errors {...props} className="text-red-400 text-sm mt-1" />
+)

@@ -29,9 +29,7 @@ import { Accordion, AccordionItem } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 import { useRouter } from "next/router"
-import { useContext } from "react"
-import styled from "styled-components"
-import tw from "twin.macro"
+import { type FC, useContext } from "react"
 
 interface Props {
   logoUrl: NullableType<string>
@@ -260,10 +258,15 @@ const Checkout: React.FC<Props> = ({
   )
 }
 
-const Sidebar = styled.div`
-  ${tw`flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12 bg-gray-50`}
-`
-const SummaryWrapper = styled.div`
-  ${tw`flex-1`}
-`
+const Sidebar: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className="flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12 bg-gray-50"
+  />
+)
+
+const SummaryWrapper: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} className="flex-1" />
+)
+
 export default Checkout
