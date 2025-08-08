@@ -15,8 +15,6 @@ import {
   useState,
 } from "react"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
-
 import { AddressSectionEmail } from "./AddressSectionEmail"
 import { AddressSectionSaveForm } from "./AddressSectionSaveForm"
 import { AddressSectionTitle } from "./AddressSectionTitle"
@@ -117,7 +115,8 @@ export const CheckoutAddresses: React.FC<Props> = ({
         )}
         <AddressSectionSaveForm>
           <ButtonWrapper>
-            <StyledSaveAddressesButton
+            <SaveAddressesButton
+              className={ButtonCss}
               disabled={isLocalLoader}
               label={
                 <>
@@ -136,7 +135,3 @@ export const CheckoutAddresses: React.FC<Props> = ({
     </Fragment>
   )
 }
-
-const StyledSaveAddressesButton = styled(SaveAddressesButton)`
-  ${ButtonCss}
-`

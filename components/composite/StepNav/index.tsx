@@ -1,6 +1,4 @@
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
-import tw from "twin.macro"
 
 import { Step } from "./Step"
 
@@ -20,8 +18,8 @@ export const StepNav: React.FC<Props> = ({
   const { t } = useTranslation()
 
   return (
-    <Wrapper aria-label="Breadcrumb">
-      <StepList>
+    <nav aria-label="Breadcrumb" className="mb-12 pt-2 hidden md:block">
+      <ol className="list-none p-0 inline-flex text-gray-900 text-sm font-medium">
         {(steps || []).map((step, index) => {
           const isActive = step === activeStep
           const isLocked =
@@ -60,15 +58,7 @@ export const StepNav: React.FC<Props> = ({
             </Step>
           )
         })}
-      </StepList>
-    </Wrapper>
+      </ol>
+    </nav>
   )
 }
-
-const Wrapper = styled.nav`
-  ${tw`mb-12 pt-2 hidden md:block`}
-`
-
-const StepList = styled.ol`
-  ${tw`list-none p-0 inline-flex text-gray-900 text-sm font-medium`}
-`

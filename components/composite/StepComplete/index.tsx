@@ -12,7 +12,7 @@ import { FlexContainer } from "components/ui/FlexContainer"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 import { getTranslations } from "components/utils/payments"
-import { useContext, useEffect, useRef } from "react"
+import { type MutableRefObject, useContext, useEffect, useRef } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { CheckIcon } from "./CheckIcon"

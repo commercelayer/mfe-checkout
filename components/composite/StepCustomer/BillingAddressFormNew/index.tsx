@@ -3,9 +3,8 @@ import type { ShippingToggleProps } from "components/composite/StepCustomer"
 import { AddressInputGroup } from "components/composite/StepCustomer/AddressInputGroup"
 import { AppContext } from "components/data/AppProvider"
 import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
+import type { FC } from "react"
 import { useContext } from "react"
-import styled from "styled-components"
-import tw from "twin.macro"
 
 interface Props {
   billingAddress: NullableType<Address>
@@ -31,7 +30,7 @@ export const BillingAddressFormNew: React.FC<Props> = ({
   const optionalBillingInfo = settings?.config?.checkout?.optional_billing_info
 
   return (
-    <Wrapper>
+    <div className="mt-0">
       <Grid>
         <AddressInputGroup
           fieldName="billing_address_first_name"
@@ -106,14 +105,10 @@ export const BillingAddressFormNew: React.FC<Props> = ({
           value={billingAddress?.billing_info || ""}
         />
       )}
-    </Wrapper>
+    </div>
   )
 }
 
-const Wrapper = styled.div`
-  ${tw`mt-0`}
-`
-
-const Grid = styled.div`
-  ${tw`grid lg:grid-cols-2 lg:gap-4`}
-`
+const Grid: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} className="grid lg:grid-cols-2 lg:gap-4" />
+)
