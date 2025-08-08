@@ -40,6 +40,7 @@ type ValidMarket =
   | "VV"
   | "PT"
   | "AT"
+  | "NO"
 
 interface BaseLineItemObject {
   quantity: number

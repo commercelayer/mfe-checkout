@@ -1,6 +1,6 @@
 import type { Address } from "@commercelayer/sdk"
 import { faker } from "@faker-js/faker"
-import { type Page, expect } from "@playwright/test"
+import { expect, type Page } from "@playwright/test"
 
 import type { EcommerceProps } from "../../components/data/GTMProvider/typings"
 import { composeForCheck, euAddress, euAddress2 } from "../utils/addresses"
@@ -186,7 +186,7 @@ export class CheckoutPage {
   }
 
   async shipToDifferentAddress() {
-    await this.page.click(`[data-testid=button-ship-to-different-address]`)
+    await this.page.click("[data-testid=button-ship-to-different-address]")
   }
 
   async getDataLayer(
@@ -301,7 +301,7 @@ export class CheckoutPage {
 
   async selectCountry(
     type: "billing_address" | "shipping_address",
-    country: "IT" | "US" | "GB" | "FR" | "ES",
+    country: "IT" | "US" | "GB" | "FR" | "ES" | "NO",
   ) {
     await this.page.selectOption(
       `[data-testid=input_${type}_country_code]`,
@@ -622,12 +622,12 @@ export class CheckoutPage {
   }
 
   async checkLineItemsCount(text: string) {
-    const element = this.page.locator(`[data-testid=items-count]`)
+    const element = this.page.locator("[data-testid=items-count]")
     await expect(element).toHaveText(text)
   }
 
   async checkLineItemFrequency(text?: string) {
-    const element = this.page.locator(`[data-testid=line-items-frequency]`)
+    const element = this.page.locator("[data-testid=line-items-frequency]")
     if (text) {
       await expect(element).toContainText(text)
     } else {
@@ -652,7 +652,7 @@ export class CheckoutPage {
   }
 
   async checkLineItemAmount(text?: string) {
-    const element = await this.page.getByTestId(`line-item-amount`)
+    const element = await this.page.getByTestId("line-item-amount")
     if (text !== undefined) {
       await element.waitFor({ state: "visible" })
       await expect(await element.innerText()).toBe(text)
@@ -731,9 +731,8 @@ export class CheckoutPage {
     }
     if (status === "disabled") {
       return expect(element).toBeDisabled()
-    } else {
-      return expect(element).toBeEnabled()
     }
+    return expect(element).toBeEnabled()
   }
 
   async selectPayment(
