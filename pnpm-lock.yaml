@@ -27,8 +27,8 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0
       '@commercelayer/react-components':
-        specifier: 4.25.6
-        version: 4.25.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.9.2)
+        specifier: 4.25.7
+        version: 4.25.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.9.2)
       '@commercelayer/sdk':
         specifier: ^6.45.1
         version: 6.45.1
@@ -280,8 +280,8 @@ packages:
     resolution: {integrity: sha512-65r3YS3GssircqSyScQhKNXWm4iN5eegA7u/FUhD+5Ny+X1kq/CylzysQmZ+HR3UciMhDFIV0BvATaAZuJVPEw==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@4.25.6':
-    resolution: {integrity: sha512-VJMCLtBUKYb0SoV3PavQw1GBA36b6/WFe9bUIFpNkJZ54v7ViAL1UxSB6lwEAi9N9H03v42z5TjvMqaAGVBmLw==}
+  '@commercelayer/react-components@4.25.7':
+    resolution: {integrity: sha512-6MfZMAsXRhx0g0ZLZovomzhJJj2JgjeuJr6GGPbEwC1Ol2yxntuAwlX6TT5W61YYJAdSc2VLjdD0o6ZT6B/8XQ==}
     peerDependencies:
       react: '>=18.0.0'
 
@@ -2963,7 +2963,7 @@ snapshots:
     dependencies:
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@4.25.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.9.2)':
+  '@commercelayer/react-components@4.25.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.9.2)':
     dependencies:
       '@adyen/adyen-web': 6.17.0
       '@commercelayer/organization-config': 2.4.0
