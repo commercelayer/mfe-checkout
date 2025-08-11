@@ -41,7 +41,8 @@ export const CouponOrGiftCard: React.FC<Props> = ({
     return setCodeError(false)
   }
 
-  const classError = codeError ? "hasError" : ""
+  // Classe CSS per indicare lo stato di errore nell'input
+  const inputErrorClass = codeError ? "hasError" : ""
 
   const messages: TErrorComponent["messages"] = [
     {
@@ -102,7 +103,7 @@ export const CouponOrGiftCard: React.FC<Props> = ({
             <CouponFieldWrapper>
               <StyledGiftCardOrCouponInput
                 data-testid="input_giftcard_coupon"
-                className={`form-input ${classError}`}
+                className={`form-input ${inputErrorClass}`}
                 required={false}
                 placeholderTranslation={(codeType) =>
                   t(`orderRecap.${codeType}`)

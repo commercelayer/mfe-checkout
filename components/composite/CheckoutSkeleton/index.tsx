@@ -5,12 +5,12 @@ export const CheckoutSkeleton: FC = () => {
   return (
     <LayoutDefault
       aside={
-        <Sidebar>
+        <div className="flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12">
           <div className="flex mb-12 animate-pulse">
             <SkeletonCircle className="w-10 h-10 mr-5" />
             <SkeletonBox className="w-1/2 h-10 bg-gray-200" />
           </div>
-          <SummaryWrapper>
+          <div className="flex-1">
             <div className="animate-pulse">
               <SkeletonBox className="w-2/6 h-6 bg-gray-200" />
               <SkeletonBox className="w-1/2 h-4 mt-2 bg-gray-200" />
@@ -43,8 +43,8 @@ export const CheckoutSkeleton: FC = () => {
                 </div>
               </div>
             </div>
-          </SummaryWrapper>
-        </Sidebar>
+          </div>
+        </div>
       }
       main={
         <div className="animate-pulse">
@@ -91,17 +91,6 @@ export const CheckoutSkeleton: FC = () => {
     />
   )
 }
-
-const Sidebar: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
-  <div
-    {...props}
-    className="flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12"
-  />
-)
-
-const SummaryWrapper: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
-  <div {...props} className="flex-1" />
-)
 
 const SkeletonBox: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
   <div
