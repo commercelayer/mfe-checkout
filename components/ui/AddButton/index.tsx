@@ -1,6 +1,4 @@
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
-import tw from "twin.macro"
 
 interface Props {
   dataTestId: string
