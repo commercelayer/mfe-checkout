@@ -42,7 +42,7 @@ export const StyledGiftCardOrCouponInput: FC<
 > = (props) => (
   <GiftCardOrCouponInput
     {...props}
-    className={`${InputCss} rounded-none rounded-l-md z-10 [&.hasError]:placeholder-red-400 [&.hasError]:border-red-400 [&.hasError]:border-2 [&.hasError]:focus:ring-offset-0 [&.hasError]:focus:ring-red-400 [&.hasError]:focus:ring-opacity-50 ${props.className || ""}`}
+    className={`${InputCss} rounded-none rounded-l-md z-10 ${props.className || ""}`}
   />
 )
 

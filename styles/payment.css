@@ -1,0 +1,66 @@
+.payment-wrapper {
+  @apply will-change-transform text-black border border-gray-300 mb-5 p-4 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-gray-400 group-first:mt-6 group-last:mb-0;
+}
+
+.payment-wrapper label {
+  @apply group-hover:cursor-pointer;
+}
+
+.payment.active .payment-wrapper {
+  @apply border-2 border-primary bg-white cursor-default shadow-md;
+}
+
+.payment.active .payment-wrapper input[type="radio"] + label {
+  @apply pointer-events-none cursor-default;
+}
+
+.payment-source-container {
+  @apply mt-2 hidden opacity-0 transition delay-700 duration-100 ease-in-out;
+}
+
+.payment.active .payment-source-container {
+  @apply block opacity-100;
+}
+
+.payment-source-container .adyen-checkout__input-wrapper {
+  @apply transition duration-300 ease-in-out;
+}
+
+.payment-source-container .adyen-checkout__input-wrapper:hover {
+  @apply border-gray-200;
+}
+
+.payment-source-container
+  .adyen-checkout__label--focused
+  + .adyen-checkout__input-wrapper {
+  @apply border-primary ring ring-offset-0 ring-primary-light ring-opacity-50 bg-white;
+}
+
+.payment-source-container .braintree-hosted-fields-focused {
+  @apply border-primary ring ring-offset-0 ring-primary-light ring-opacity-50 bg-white;
+}
+
+.payment-source-container .adyen-checkout__label__text {
+  @apply font-bold text-gray-700;
+}
+
+.payment-source-container .adyen-checkout-contextual-text {
+  @apply text-gray-500;
+}
+
+.payment-source-container #cardAccordionContainer button > div,
+.payment-source-container #cardAccordionPanel > div,
+.payment-source-container #googlepayAccordionContainer button > div,
+.payment-source-container #googlepayAccordionPanel > div {
+  @apply p-3;
+}
+
+.payment-source-container #cardAccordionContainer button *,
+.payment-source-container #googlepayAccordionContainer button * {
+  @apply text-black;
+}
+
+.payment-source-container #cardAccordionContainer button,
+.payment-source-container #googlepayAccordionContainer button {
+  @apply border-black;
+}

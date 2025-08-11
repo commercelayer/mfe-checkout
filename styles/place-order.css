@@ -1,0 +1,16 @@
+.error-wrapper + .error-wrapper {
+  @apply mb-10 mt-5;
+}
+
+.errors-container > div:only-of-type {
+  @apply mb-10;
+}
+
+.place-order-button-wrapper {
+  @apply fixed w-full bottom-9 p-5 bg-gray-50 z-20 border-t md:static md:flex md:justify-end md:z-auto md:p-0 md:bg-white md:border-0;
+}
+
+.place-order-button-wrapper::before {
+  content: "";
+  @apply top-0 absolute left-0 w-full z-10 h-2 shadow-top hidden;
+}

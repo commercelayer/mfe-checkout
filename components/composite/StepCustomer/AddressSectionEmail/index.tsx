@@ -1,6 +1,7 @@
 import CustomerInput from "@commercelayer/react-components/customers/CustomerInput"
 import Errors from "@commercelayer/react-components/errors/Errors"
 import classNames from "classnames"
+import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
 import type { FC } from "react"
@@ -94,13 +95,10 @@ const StyledCustomInput: FC<React.ComponentProps<typeof CustomerInput>> = ({
   <CustomerInput
     {...props}
     className={classNames(InputCss, className)}
-    errorClassName={classNames(
-      errorClassName,
-      "border-red-400 border-2 focus:ring-offset-0 focus:ring-red-400 focus:ring-opacity-50",
-    )}
+    errorClassName={classNames(errorClassName, ErrorCss)}
   />
 )
 
 const StyledErrors: FC<React.ComponentProps<typeof Errors>> = (props) => (
-  <Errors {...props} className="text-red-400 text-sm mt-1" />
+  <Errors {...props} className={`${ErrorCss} mt-1`} />
 )

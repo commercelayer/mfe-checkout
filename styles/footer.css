@@ -1,0 +1,4 @@
+.footer-wrapper::before {
+  content: "";
+  @apply hidden md:block top-0 absolute left-0 w-full z-10 h-2 shadow-top;
+}

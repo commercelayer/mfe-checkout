@@ -11,7 +11,12 @@ export const AddButton: React.FC<Props> = ({ dataTestId, action }) => {
   const { t } = useTranslation()
 
   return (
-    <Wrapper data-testid={dataTestId} onClick={action}>
+    //biome-ignore lint/a11y/noStaticElementInteractions: This is a button-like elements
+    <div
+      data-testid={dataTestId}
+      className="w-full flex py-2 justify-center items-center text-center px-2 bg-gray-50 text-gray-400 border rounded cursor-pointer hover:border-gray-400/50 transition duration-200 ease-in"
+      onClick={action}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="w-5 h-5"
@@ -25,14 +30,7 @@ export const AddButton: React.FC<Props> = ({ dataTestId, action }) => {
           clipRule="evenodd"
         />
       </svg>
-      <Label>{t("stepCustomer.addNewAddress")}</Label>
-    </Wrapper>
+      <p className="text-xs pl-0.5">{t("stepCustomer.addNewAddress")}</p>
+    </div>
   )
 }
-
-const Wrapper = styled.div`
-  ${tw`w-full flex py-2 justify-center items-center text-center px-2 bg-gray-50 text-gray-400 border rounded cursor-pointer hover:border-gray-400/50 transition duration-200 ease-in`}
-`
-const Label = styled.p`
-  ${tw`text-xs pl-0.5`}
-`

@@ -1,6 +1,3 @@
-import styled from "styled-components"
-import tw from "twin.macro"
-
 import { Badge } from "../Badge"
 
 interface Props {
@@ -10,19 +7,11 @@ interface Props {
 
 export const StepLine: React.FC<Props> = ({ status, stepNumber }) => {
   return (
-    <Wrapper>
+    <div className="flex-col items-center hidden md:flex md:-left-3 md:relative">
       <div>
         <Badge status={status} stepNumber={stepNumber} />
       </div>
-      <Line />
-    </Wrapper>
+      <div className="w-px bg-gray-200 h-full hidden md:block" />
+    </div>
   )
 }
-
-const Wrapper = styled.div`
-  ${tw`flex-col items-center hidden md:flex md:-left-3 md:relative`}
-`
-
-const Line = styled.div`
-  ${tw`w-px bg-gray-200 h-full hidden md:block`}
-`

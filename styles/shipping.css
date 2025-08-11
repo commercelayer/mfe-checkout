@@ -1,0 +1,7 @@
+.shipping-wrapper {
+  @apply mb-5 mt-6;
+}
+
+.shipping-wrapper:not(:first-of-type) {
+  @apply pt-5 mt-5 border-dashed border-t-2;
+}

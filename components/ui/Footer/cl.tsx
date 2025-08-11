@@ -1,6 +1,3 @@
-import styled from "styled-components"
-import tw from "twin.macro"
-
 interface Props {
   width?: string
   height?: string
@@ -9,14 +6,15 @@ interface Props {
 
 export const Logo: React.FC<Props> = ({ width, height, className }) => {
   return (
-    <Svg
+    <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={`text-gray-500 ${className || ""}`}
       width={width}
       height={height}
       viewBox="0 0 114 19"
       fill="currentColor"
     >
+      <title>Logo</title>
       <g clipPath="url(#clip0)">
         <path
           d="M7.71125 7.25977H4.07959V10.8896H7.71125V7.25977Z"
@@ -92,10 +90,6 @@ export const Logo: React.FC<Props> = ({ width, height, className }) => {
           <rect width="114" height="18.1493" fill="white" />
         </clipPath>
       </defs>
-    </Svg>
+    </svg>
   )
 }
-
-const Svg = styled.svg`
-  ${tw`text-gray-500`}
-`

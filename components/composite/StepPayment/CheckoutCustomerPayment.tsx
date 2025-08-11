@@ -76,7 +76,6 @@ const TemplateSaveToWalletCheckbox = ({ name }: CustomerSaveToWalletProps) => {
         name={name}
         id={name}
         data-testid="save-to-wallet"
-        type="checkbox"
         className="form-checkbox"
         checked={checked}
         onClick={handleClick}
