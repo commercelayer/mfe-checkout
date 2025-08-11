@@ -44,12 +44,6 @@ export const StyledLineItemSkuCode: FC<
 export const StyledLineItemOptions: FC<
   React.ComponentProps<typeof LineItemOptions>
 > = (props) => {
-  const addSelectorToClasses = (classes: string, selector: string) =>
-    classes
-      .split(" ")
-      .map((cls) => `${selector}:${cls}`)
-      .join(" ")
-
   const lineItemOptionsStyles = {
     h6: "[&>h6]:font-bold [&>h6]:text-xs [&>h6]:text-gray-600 [&>h6]:mt-2 [&>h6]:bg-no-repeat [&>h6]:bg-16 [&>h6]:pl-5 [&>h6]:[background-image:url('data:image/svg+xml;utf8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJoLTUgdy01IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGZpbGw9ImN1cnJlbnRDb2xvciI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTAuMjkzIDUuMjkzYTEgMSAwIDAxMS40MTQgMGw0IDRhMSAxIDAgMDEwIDEuNDE0bC00IDRhMSAxIDAgMDEtMS40MTQtMS40MTRMMTIuNTg2IDExSDVhMSAxIDAgMTEwLTJoNy41ODZsLTIuMjkzLTIuMjkzYTEgMSAwIDAxMC0xLjQxNHoiIGNsaXAtcnVsZT0iZXZlbm9kZCIgLz4KPC9zdmc+')]",
     li: "[&_li]:text-gray-400 [&_li]:text-xs [&_li]:flex [&_li]:font-medium [&_li]:capitalize [&_li]:pl-5 [&_li]:pt-1 [&_li]:bg-no-repeat [&_li]:bg-16 [&_li]:not(span):font-medium [&_li]:last-of-type:mb-2",
