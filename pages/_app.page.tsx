@@ -8,6 +8,7 @@ import "../styles/place-order.css"
 import "../styles/step-container.css"
 import "../styles/address-input.css"
 import "../styles/accordion.css"
+import "../styles/theme.css"
 
 // eslint-disable-next-line import/order
 import { appWithTranslation } from "next-i18next"
