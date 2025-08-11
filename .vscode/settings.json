@@ -5,5 +5,9 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.biome": "explicit"
-  }
+  },
+  "i18n-ally.localesPaths": [
+    "components/data/i18n",
+    "public/static/locales"
+  ]
 }

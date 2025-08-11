@@ -262,7 +262,7 @@ export const getSettings = async ({
     logoUrl: organization.logo_url,
     companyName: organization.name || "Test company",
     language: order.language_code || "en",
-    primaryColor: organization.primary_color || "#000000",
+    primaryColor: "#770099",
     favicon:
       organization.favicon_url ||
       "https://data.commercelayer.app/assets/images/favicons/favicon-32x32.png",

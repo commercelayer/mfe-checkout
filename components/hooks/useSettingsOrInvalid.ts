@@ -12,6 +12,7 @@ interface UseSettingsOrInvalid {
 }
 
 export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
+      console.log("useSettingsOrInvalid")
   const navigate = useNavigate()
   const { orderId } = useParams()
   const [searchParams] = useSearchParams()

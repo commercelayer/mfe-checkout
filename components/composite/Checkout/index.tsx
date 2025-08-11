@@ -165,14 +165,14 @@ const Checkout: React.FC<Props> = ({
                     (!ctx.isShipmentRequired && ctx.hasBillingAddress)
                   }
                 >
-                  <AccordionItem
+                  {/* <AccordionItem
                     index={1}
                     header={
                       <StepHeaderCustomer step={getStepNumber("Customer")} />
                     }
                   >
                     <StepCustomer className="mb-6" step={1} />
-                  </AccordionItem>
+                  </AccordionItem> */}
                 </AccordionProvider>
                 <>
                   {ctx.isShipmentRequired && (
