@@ -1,5 +1,4 @@
 import { Trans } from "react-i18next"
-import { Message } from "./styled"
 
 interface Props {
   supportPhone: NullableType<string>

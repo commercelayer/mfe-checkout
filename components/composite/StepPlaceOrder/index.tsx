@@ -4,7 +4,7 @@ import { GTMContext } from "components/data/GTMProvider"
 import { FlexContainer } from "components/ui/FlexContainer"
 import { Label } from "components/ui/Label"
 import { SpinnerIcon } from "components/ui/SpinnerIcon"
-import { useContext, useState } from "react"
+import { useContext, useId, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { RepeatIcon } from "../OrderSummary/RepeatIcon"
 
@@ -37,6 +37,7 @@ const StepPlaceOrder: React.FC<Props> = ({
 
   const [isPlacingOrder, setIsPlacingOrder] = useState(false)
 
+  const privacyAndTermsId = useId()
   const appCtx = useContext(AppContext)
   const gtmCtx = useContext(GTMContext)
 
@@ -126,11 +127,11 @@ const StepPlaceOrder: React.FC<Props> = ({
         {!!termsUrl && !!privacyUrl && (
           <FlexContainer className="items-start mx-5 mt-4 mb-2.5 md:mb-5 md:pb-5 md:mx-0 md:mt-0 md:border-b lg:pl-8">
             <StyledPrivacyAndTermsCheckbox
-              id="privacy-terms"
+              id={privacyAndTermsId}
               className="relative form-checkbox top-0.5"
               data-testid="checkbox-privacy-and-terms"
             />
-            <Label htmlFor="privacy-terms">
+            <Label htmlFor={privacyAndTermsId}>
               <Trans
                 i18nKey="general.privacy_and_terms"
                 components={{

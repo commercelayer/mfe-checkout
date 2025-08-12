@@ -7,6 +7,7 @@ interface Props {
 export const Logo: React.FC<Props> = ({ logoUrl, companyName, className }) => {
   if (logoUrl) {
     return (
+      // biome-ignore lint/performance/noImgElement: static build, cannot use Image
       <img
         src={logoUrl}
         alt={companyName}
