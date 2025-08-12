@@ -1,49 +1,47 @@
-// @ts-check
+// next.config.js
+const nextBuildId = require("next-build-id");
 
-const nextBuildId = require("next-build-id")
+const shouldAnalyzeBundles = process.env.ANALYZE === "true";
 
-const shouldAnalyzeBundles = process.env.ANALYZE === "true"
-
-/** @type { import('next').NextConfig } */
+/** @type {import('next').NextConfig} */
 let nextConfig = {
   reactStrictMode: true,
   eslint: {},
   output: process.env.NODE_ENV === "production" ? "export" : "standalone",
   distDir: "out/dist",
   poweredByHeader: false,
-  webpack: (config) => {
-    return config
-  },
-  // When when app is exported as SPA and served in a sub-folder
+  webpack: (config) => config,
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH
     ? `${process.env.NEXT_PUBLIC_BASE_PATH}/`
     : undefined,
-  // https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions#including-non-page-files-in-the-pages-directory
   pageExtensions: ["page.tsx"],
   generateBuildId: () => nextBuildId({ dir: __dirname }),
-  logging: {    incomingRequests: false,  }
-}
+  logging: {
+    incomingRequests: process.env.NODE_ENV !== "production", // true in dev
+  },
+};
 
-// rewrite rules affect only development mode, since Next router will return 404 for paths that only exist in react-router
+// Rewrite: in dev ONLY, riscrivi tutte le richieste tranne API, _next e favicon verso la root per fallback SPA
 if (process.env.NODE_ENV !== "production") {
   nextConfig = {
     ...nextConfig,
     async rewrites() {
       return [
         {
-          source: "/:any*",
+          source: "/((?!api|_next|favicon.ico).*)",
           destination: "/",
         },
-      ]
+      ];
     },
-  }
+  };
 }
 
+// Bundle analyzer abilitato con flag ANALYZE=true
 if (shouldAnalyzeBundles) {
   const withBundleAnalyzer = require("@next/bundle-analyzer")({
     enabled: true,
-  })
-  nextConfig = withBundleAnalyzer(nextConfig)
+  });
+  nextConfig = withBundleAnalyzer(nextConfig);
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;
