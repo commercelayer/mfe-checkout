@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -39,7 +39,7 @@ test.describe("customer with Stripe without saving", () => {
     await checkoutPage.selectPayment("stripe")
 
     const element = checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     await expect(element).toBeVisible()
     await expect(element).not.toBeChecked()
@@ -186,7 +186,7 @@ test.describe("guest with Stripe", () => {
     await checkoutPage.setPayment("stripe")
 
     const element = checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     await expect(element).not.toBeVisible()
 
@@ -272,7 +272,7 @@ test.describe("guest with Stripe", () => {
     })
 
     const element = checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     await expect(element).not.toBeVisible()
 

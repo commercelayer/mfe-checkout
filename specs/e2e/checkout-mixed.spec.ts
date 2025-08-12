@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 
 test.use({
   defaultParams: {

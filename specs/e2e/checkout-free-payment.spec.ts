@@ -1,6 +1,6 @@
 import { usAddress } from "specs/utils/addresses"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 
 test.describe("with shippable sku", () => {
   test.use({
@@ -35,7 +35,7 @@ test.describe("with shippable sku", () => {
     await checkoutPage.checkStep("Payment", "close")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment",
     )
 
     expect(element).toBeVisible()
@@ -112,7 +112,7 @@ test.describe("with shippable sku single free shipping method", () => {
     await checkoutPage.checkStep("Payment", "close")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment",
     )
 
     expect(element).toBeVisible()
@@ -154,7 +154,7 @@ test.describe("with digital sku", () => {
     await checkoutPage.checkStep("Payment", "close")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment",
     )
 
     await expect(element).toBeVisible()
@@ -196,10 +196,10 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.checkTaxSummary("To be calculated")
 
     expect(
-      checkoutPage.page.locator("text=Standard Shipping >> nth=0")
+      checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
     expect(
-      checkoutPage.page.locator("text=Express Delivery >> nth=0")
+      checkoutPage.page.locator("text=Express Delivery >> nth=0"),
     ).toBeVisible()
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
@@ -232,10 +232,10 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.checkTaxSummary("To be calculated")
 
     expect(
-      checkoutPage.page.locator("text=Standard Shipping >> nth=0")
+      checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
     expect(
-      checkoutPage.page.locator("text=Express Delivery >> nth=0")
+      checkoutPage.page.locator("text=Express Delivery >> nth=0"),
     ).toBeVisible()
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
@@ -250,7 +250,7 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.checkTotalAmount("€0,00")
 
     let element = await checkoutPage.page.locator(
-      "[data-testid=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment",
     )
 
     expect(element).toBeVisible()
@@ -278,10 +278,10 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.checkTaxSummary("To be calculated")
 
     expect(
-      checkoutPage.page.locator("text=Standard Shipping >> nth=0")
+      checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
     expect(
-      checkoutPage.page.locator("text=Express Delivery >> nth=0")
+      checkoutPage.page.locator("text=Express Delivery >> nth=0"),
     ).toBeVisible()
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
@@ -296,7 +296,7 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.checkTotalAmount("€0,00")
 
     let element = checkoutPage.page.locator(
-      "[data-testid=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment",
     )
 
     expect(element).toBeVisible()
@@ -304,7 +304,7 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.removeGiftCard()
 
     element = checkoutPage.page.locator(
-      "[data-testid=step-header-info] >> text=This order does not require payment"
+      "[data-testid=step-header-info] >> text=This order does not require payment",
     )
 
     expect(element).toHaveCount(0)
@@ -352,10 +352,10 @@ test.describe("with coupon down to zero", () => {
     await checkoutPage.checkTaxSummary("To be calculated")
 
     expect(
-      checkoutPage.page.locator("text=Standard Shipping >> nth=0")
+      checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
     expect(
-      checkoutPage.page.locator("text=Express Delivery >> nth=0")
+      checkoutPage.page.locator("text=Express Delivery >> nth=0"),
     ).toBeVisible()
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })

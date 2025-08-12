@@ -111,10 +111,6 @@ export class CheckoutPage {
     return this.attributes?.orderToken
   }
 
-  getAdminClient() {
-    return this.attributes?.adminClient
-  }
-
   async setCustomerMail(email?: string) {
     let customerEmail = email || ""
     if (email === undefined) {
@@ -745,7 +741,7 @@ export class CheckoutPage {
       | "adyen-dropin"
       | "klarna",
   ) {
-    let paymentMethod
+    let paymentMethod: string
     if (type === "wire") {
       paymentMethod = `${type}_transfers`
     } else {

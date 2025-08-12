@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { usAddress } from "../utils/addresses"
 
 test.describe("guest with Affirm", () => {
@@ -33,7 +33,7 @@ test.describe("guest with Affirm", () => {
     await checkoutPage.setPayment("stripe-affirm")
 
     const element = checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     await expect(element).not.toBeVisible()
 
@@ -62,7 +62,7 @@ test.describe("guest with Affirm", () => {
     await checkoutPage.setPayment("stripe-affirm")
 
     const element = checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     await expect(element).not.toBeVisible()
 
@@ -111,7 +111,7 @@ test.describe("guest with Klarna", () => {
     await checkoutPage.setPayment("stripe-klarna")
 
     const element = checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     await expect(element).not.toBeVisible()
 

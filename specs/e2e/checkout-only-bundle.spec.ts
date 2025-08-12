@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -26,7 +26,7 @@ test.describe("bundle with shippable skus", () => {
     await checkoutPage.checkShippingSummary("To be calculated")
 
     await expect(
-      checkoutPage.page.locator("text=Standard Shipping")
+      checkoutPage.page.locator("text=Standard Shipping"),
     ).toBeVisible()
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })

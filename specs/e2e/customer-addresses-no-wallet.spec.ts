@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, euAddress2, euAddress3 } from "../utils/addresses"
 
 test.describe("without addresses", () => {
@@ -68,7 +68,7 @@ test.describe("without addresses", () => {
     await checkoutPage.checkShipToDifferentAddressValue(false)
 
     const element = await checkoutPage.page.locator(
-      'h3:has-text("Shipping Address")'
+      'h3:has-text("Shipping Address")',
     )
 
     await expect(element).not.toBeVisible()
@@ -137,7 +137,7 @@ test.describe("same addresses", () => {
     await checkoutPage.checkShipToDifferentAddressValue(false)
 
     const element = await checkoutPage.page.locator(
-      'h3:has-text("Shipping Address")'
+      'h3:has-text("Shipping Address")',
     )
 
     await expect(element).not.toBeVisible()

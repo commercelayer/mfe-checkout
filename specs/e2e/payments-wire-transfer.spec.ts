@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
 
 test.describe("guest with wire transfer", () => {
@@ -54,7 +54,7 @@ test.describe("guest with wire transfer", () => {
     await checkoutPage.selectPayment("stripe")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     expect(element).not.toBeVisible()
 
