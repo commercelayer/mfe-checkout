@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
-import { Badge } from "../Badge"
+// import { Badge } from "../Badge"
 
 interface Props {
   status: "edit" | "done" | "disabled" | "skip"
