@@ -1,3 +1,5 @@
+@reference "./globals.css";
+
 .error-wrapper + .error-wrapper {
   @apply mb-10 mt-5;
 }

@@ -88,7 +88,7 @@ export const RecapItemDescription: FC<
 > = (props) => <p {...props} className="text-sm font-semibold" />
 
 export const RecapBox: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
-  <div {...props} className="p-3 rounded border" />
+  <div {...props} className="p-3 rounded-sm border" />
 )
 
 export const AddressContainer: FC<

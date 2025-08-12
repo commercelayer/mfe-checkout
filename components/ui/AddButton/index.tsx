@@ -12,7 +12,7 @@ export const AddButton: React.FC<Props> = ({ dataTestId, action }) => {
     //biome-ignore lint/a11y/noStaticElementInteractions: This is a button-like elements
     <div
       data-testid={dataTestId}
-      className="w-full flex py-2 justify-center items-center text-center px-2 bg-gray-50 text-gray-400 border rounded cursor-pointer hover:border-gray-400/50 transition duration-200 ease-in"
+      className="w-full flex py-2 justify-center items-center text-center px-2 bg-gray-50 text-gray-400 border rounded-sm cursor-pointer hover:border-gray-400/50 transition duration-200 ease-in"
       onClick={action}
     >
       <svg

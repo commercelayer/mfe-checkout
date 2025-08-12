@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app"
+import "../styles/theme.css"
 import "../styles/globals.css"
 import "../styles/CheckIcon.css"
 import "../styles/footer.css"
@@ -8,7 +9,6 @@ import "../styles/place-order.css"
 import "../styles/step-container.css"
 import "../styles/address-input.css"
 import "../styles/accordion.css"
-import "../styles/theme.css"
 
 import { appWithTranslation } from "next-i18next"
 
