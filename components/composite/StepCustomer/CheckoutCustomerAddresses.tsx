@@ -5,7 +5,6 @@ import SaveAddressesButton from "@commercelayer/react-components/addresses/SaveA
 import ShippingAddressContainer from "@commercelayer/react-components/addresses/ShippingAddressContainer"
 import ShippingAddressForm from "@commercelayer/react-components/addresses/ShippingAddressForm"
 import type { Address, Order } from "@commercelayer/sdk"
-import { Transition } from "@headlessui/react"
 import {
   evaluateShippingToggle,
   type ShippingToggleProps,
@@ -72,22 +71,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   const { t } = useTranslation()
 
   const [billingAddressFill, setBillingAddressFill] = useState(billingAddress)
-  const [shippingAddressFill, setShippingAddressFill] =
-    useState(shippingAddress)
+  const [shippingAddressFill, setShippingAddressFill] = useState(shippingAddress)
 
   const [showBillingAddressForm, setShowBillingAddressForm] = useState<boolean>(
     isUsingNewBillingAddress,
   )
 
-  const [mountBillingAddressForm, setMountBillingAddressForm] = useState(
-    isUsingNewBillingAddress,
-  )
-
   const [showShippingAddressForm, setShowShippingAddressForm] = useState(
-    isUsingNewShippingAddress,
-  )
-
-  const [mountShippingAddressForm, setMountShippingAddressForm] = useState(
     isUsingNewShippingAddress,
   )
 
@@ -98,7 +88,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
         setShippingAddressFill(undefined)
       }
       setShowShippingAddressForm(true)
-      setMountShippingAddressForm(true)
     }
   }, [shipToDifferentAddress])
 
@@ -128,7 +117,6 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
       handleShowShippingForm()
     }
     if (hasCustomerAddresses) {
-      setMountShippingAddressForm(false)
       setShowShippingAddressForm(false)
     }
     setShipToDifferentAddress(!shipToDifferentAddress)
@@ -161,21 +149,19 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
           <>
             {hasCustomerAddresses && (
               <>
-                <Transition
-                  as="div"
-                  show={!showBillingAddressForm}
-                  {...addressesTransition}
-                >
-                  <GridContainer className="mb-4">
-                    <BillingAddressContainer>
-                      <CustomerAddressCard
-                        addressType="billing"
-                        deselect={showBillingAddressForm}
-                        onSelect={onSelect}
-                      />
-                    </BillingAddressContainer>
-                  </GridContainer>
-                </Transition>
+                {!showBillingAddressForm && (
+                  <div className="transition duration-400 ease-in opacity-100 translate-y-0 mb-4">
+                    <GridContainer>
+                      <BillingAddressContainer>
+                        <CustomerAddressCard
+                          addressType="billing"
+                          deselect={showBillingAddressForm}
+                          onSelect={onSelect}
+                        />
+                      </BillingAddressContainer>
+                    </GridContainer>
+                  </div>
+                )}
 
                 {!showBillingAddressForm && hasCustomerAddresses && (
                   <AddButton
@@ -187,35 +173,35 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
             )}
           </>
           <div className="top-0 mt-4">
-            <Transition
-              as="div"
-              show={showBillingAddressForm}
-              beforeEnter={() => setMountBillingAddressForm(true)}
-              afterLeave={() => setMountBillingAddressForm(false)}
-              {...formTransition}
-            >
-              <BillingAddressForm
-                autoComplete="on"
-                reset={!showBillingAddressForm}
-                errorClassName="hasError"
+            {showBillingAddressForm && (
+              <div
+                className={`${
+                  showBillingAddressForm ? "opacity-100 translate-y-0" : ""
+                } transition-all duration-400 ease-in-out`}
               >
-                {mountBillingAddressForm || !hasCustomerAddresses ? (
-                  <>
-                    <BillingAddressFormNew
-                      billingAddress={billingAddressFill}
-                      openShippingAddress={openShippingAddress}
-                    />
-                    <AddressFormBottom
-                      addressType="billing"
-                      onClick={handleShowBillingForm}
-                      hasCustomerAddresses={hasCustomerAddresses}
-                    />
-                  </>
-                ) : (
-                  <Fragment />
-                )}
-              </BillingAddressForm>
-            </Transition>
+                <BillingAddressForm
+                  autoComplete="on"
+                  reset={!showBillingAddressForm}
+                  errorClassName="hasError"
+                >
+                  {!hasCustomerAddresses ? (
+                    <>
+                      <BillingAddressFormNew
+                        billingAddress={billingAddressFill}
+                        openShippingAddress={openShippingAddress}
+                      />
+                      <AddressFormBottom
+                        addressType="billing"
+                        onClick={handleShowBillingForm}
+                        hasCustomerAddresses={hasCustomerAddresses}
+                      />
+                    </>
+                  ) : (
+                    <Fragment />
+                  )}
+                </BillingAddressForm>
+              </div>
+            )}
           </div>
         </div>
         {isShipmentRequired && (
@@ -240,26 +226,24 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   : "hidden"
               }`}
             >
-              <Transition
-                show={!showShippingAddressForm}
-                as="div"
-                {...addressesTransition}
-              >
-                <GridContainer className="mb-4">
-                  <ShippingAddressContainer>
-                    <CustomerAddressCard
-                      addressType="shipping"
-                      deselect={showShippingAddressForm}
-                      onSelect={() =>
-                        localStorage.setItem(
-                          "_save_shipping_address_to_customer_address_book",
-                          "false",
-                        )
-                      }
-                    />
-                  </ShippingAddressContainer>
-                </GridContainer>
-              </Transition>
+              {!showShippingAddressForm && (
+                <div className="transition duration-400 ease-in opacity-100 translate-y-0 mb-4">
+                  <GridContainer className="mb-4">
+                    <ShippingAddressContainer>
+                      <CustomerAddressCard
+                        addressType="shipping"
+                        deselect={showShippingAddressForm}
+                        onSelect={() =>
+                          localStorage.setItem(
+                            "_save_shipping_address_to_customer_address_book",
+                            "false",
+                          )
+                        }
+                      />
+                    </ShippingAddressContainer>
+                  </GridContainer>
+                </div>
+              )}
 
               {!showShippingAddressForm && (
                 <AddButton
@@ -269,37 +253,37 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
               )}
             </div>
             <div className="mt-4">
-              <Transition
-                as="div"
-                show={showShippingAddressForm}
-                beforeEnter={() => setMountShippingAddressForm(true)}
-                beforeLeave={() => setMountShippingAddressForm(false)}
-                {...formTransition}
-              >
-                <ShippingAddressForm
-                  autoComplete="on"
-                  hidden={!shipToDifferentAddress}
-                  reset={!mountShippingAddressForm}
-                  errorClassName="hasError"
-                  className="pt-2"
+              {showShippingAddressForm && (
+                <div
+                  className={`${
+                    showShippingAddressForm ? "opacity-100 translate-y-0" : ""
+                  } transition-all duration-400 ease-in-out`}
                 >
-                  {mountShippingAddressForm ? (
-                    <>
-                      <ShippingAddressFormNew
-                        shippingAddress={shippingAddressFill}
-                      />
-                      <AddressFormBottom
-                        className="mb-4"
-                        addressType="shipping"
-                        onClick={handleShowShippingForm}
-                        hasCustomerAddresses={hasCustomerAddresses}
-                      />
-                    </>
-                  ) : (
-                    <Fragment />
-                  )}
-                </ShippingAddressForm>
-              </Transition>
+                  <ShippingAddressForm
+                    autoComplete="on"
+                    hidden={!shipToDifferentAddress}
+                    reset={!shipToDifferentAddress}
+                    errorClassName="hasError"
+                    className="pt-2"
+                  >
+                    {shipToDifferentAddress ? (
+                      <>
+                        <ShippingAddressFormNew
+                          shippingAddress={shippingAddressFill}
+                        />
+                        <AddressFormBottom
+                          className="mb-4"
+                          addressType="shipping"
+                          onClick={handleShowShippingForm}
+                          hasCustomerAddresses={hasCustomerAddresses}
+                        />
+                      </>
+                    ) : (
+                      <Fragment />
+                    )}
+                  </ShippingAddressForm>
+                </div>
+              )}
             </div>
           </>
         )}
@@ -324,22 +308,4 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
       </AddressesContainer>
     </Fragment>
   )
-}
-
-const addressesTransition = {
-  enter: "transition duration-400 ease-in",
-  enterFrom: "opacity-0  -translate-y-full",
-  enterTo: "opacity-100 translate-y-0",
-  leave: "duration-200 transition ease-out absolute top-0 w-full",
-  leaveFrom: "opacity-100 translate-y-0 ",
-  leaveTo: "opacity-0 -translate-y-full",
-}
-
-const formTransition = {
-  enter: "transition duration-400 ease-in",
-  enterFrom: "opacity-0 translate-y-full",
-  enterTo: "opacity-100 translate-y-0",
-  leave: "duration-400 transition ease-out absolute top-0 w-full",
-  leaveFrom: "opacity-100 translate-y-0",
-  leaveTo: "opacity-0 translate-y-full",
 }
