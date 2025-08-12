@@ -4,10 +4,10 @@ export const runtime = "nodejs";
 
 export async function GET(
   req: Request,
-  { params }: { params: { partnerId: string } }
+  context: { params: { partnerId: string } }
 ) {
-  const { partnerId } = params;
-
+  const { partnerId } = await context.params;
+  console.log("API partner-settings called with partnerId:", partnerId);
   if (!partnerId) {
     return new Response(JSON.stringify({ message: "Invalid partner ID" }), {
       status: 400,
