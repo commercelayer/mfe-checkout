@@ -19,7 +19,7 @@ export const LineItemQty: FC<React.HTMLAttributes<HTMLDivElement>> = (
 ) => (
   <div
     {...props}
-    className="text-xs bg-gray-100 max-w-max py-1 px-2.5 rounded lowercase text-gray-500 font-bold first-letter:uppercase"
+    className="text-xs bg-gray-100 max-w-max py-1 px-2.5 rounded-sm lowercase text-gray-500 font-bold first-letter:uppercase"
   />
 )
 
@@ -28,7 +28,7 @@ export const LineItemFrequency: FC<React.HTMLAttributes<HTMLDivElement>> = (
 ) => (
   <div
     {...props}
-    className="mt-2 flex bg-white border border-primary text-primary lg:mt-0 text-xs max-w-max py-1 px-2.5 rounded lowercase font-bold first-letter:uppercase"
+    className="mt-2 flex bg-white border border-primary text-primary lg:mt-0 text-xs max-w-max py-1 px-2.5 rounded-sm lowercase font-bold first-letter:uppercase"
   />
 )
 

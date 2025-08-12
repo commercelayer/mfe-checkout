@@ -45,7 +45,7 @@ const TemplateCustomerCards: TTemplateCustomerCards = ({
             type="button"
             data-testid="customer-card"
             onClick={p.handleClick}
-            className="flex flex-col items-start p-3 mb-4 text-sm border rounded cursor-pointer lg:flex-row lg:items-center shadow-xs hover:border-gray-400"
+            className="flex flex-col items-start p-3 mb-4 text-sm border rounded-sm cursor-pointer lg:flex-row lg:items-center shadow-xs hover:border-gray-400"
             tabIndex={0}
             aria-label={t("stepPayment.selectCard")}
           >

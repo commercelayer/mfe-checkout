@@ -1,5 +1,7 @@
+@reference "./globals.css";
+
 .payment-wrapper {
-  @apply will-change-transform text-black border border-gray-300 mb-5 p-4 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-gray-400 group-first:mt-6 group-last:mb-0;
+  @apply will-change-transform text-black border border-gray-300 mb-5 p-4 rounded-sm bg-gray-50 relative transition duration-200 ease-in hover:border-gray-400 group-first:mt-6 group-last:mb-0;
 }
 
 .payment-wrapper label {
@@ -33,11 +35,11 @@
 .payment-source-container
   .adyen-checkout__label--focused
   + .adyen-checkout__input-wrapper {
-  @apply border-primary ring ring-offset-0 ring-primary-light ring-opacity-50 bg-white;
+  @apply border-primary ring ring-offset-0 ring-primary-light/50 bg-white;
 }
 
 .payment-source-container .braintree-hosted-fields-focused {
-  @apply border-primary ring ring-offset-0 ring-primary-light ring-opacity-50 bg-white;
+  @apply border-primary ring ring-offset-0 ring-primary-light/50 bg-white;
 }
 
 .payment-source-container .adyen-checkout__label__text {

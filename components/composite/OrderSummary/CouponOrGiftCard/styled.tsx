@@ -33,7 +33,7 @@ export const StyledGiftCardOrCouponRemoveButton: FC<
 > = (props) => (
   <GiftCardOrCouponRemoveButton
     {...props}
-    className={`ml-2 text-sm font-bold text-primary border-b leading-none border-black border-opacity-10 transition ease-in duration-200 hover:border-opacity-50 hover:text-primary-dark focus:outline-hidden ${props.className || ""}`}
+    className={`ml-2 text-sm font-bold text-primary border-b leading-none border-black/10 transition ease-in duration-200 hover:border-black/50 hover:text-primary-dark focus:outline-hidden ${props.className || ""}`}
   />
 )
 
@@ -42,7 +42,7 @@ export const StyledGiftCardOrCouponInput: FC<
 > = (props) => (
   <GiftCardOrCouponInput
     {...props}
-    className={`${InputCss} rounded-none rounded-l-md z-10 [&.hasError]:border-red-400 [&.hasError]:border-2 [&.hasError]:focus:ring-offset-0 [&.hasError]:focus:ring-red-400 [&.hasError]:focus:ring-opacity-50 ${props.className || ""}`}
+    className={`${InputCss} rounded-none rounded-l-md z-10 [&.hasError]:border-red-400 [&.hasError]:border-2 [&.hasError]:focus:ring-offset-0 [&.hasError]:focus:ring-red-400/50 ${props.className || ""}`}
   />
 )
 

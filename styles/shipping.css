@@ -1,3 +1,5 @@
+@reference "./globals.css";
+
 .shipping-wrapper {
   @apply mb-5 mt-6;
 }
