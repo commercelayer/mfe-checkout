@@ -25,16 +25,17 @@ CheckoutSkeleton.displayName = "Skeleton Loader"
 
 const Order: NextPage = () => {
   const { settings, retryOnError, isLoading } = useSettingsOrInvalid()
-  const [_partnerTheme, setPartnerTheme] = useState<PartnerSettings | undefined>(undefined)
+  const [_partnerTheme, setPartnerTheme] = useState<
+    PartnerSettings | undefined
+  >(undefined)
 
   useEffect(() => {
-    if(settings?.validCheckout) {
-        getPartnerSettings(settings.partnerId).then((partnerSettings) => {
-            console.log("Fetched partner settings:", partnerSettings)
-            setPartnerTheme(partnerSettings)
-        })
+    if (settings?.validCheckout) {
+      getPartnerSettings(settings.partnerId).then((partnerSettings) => {
+        console.log("Fetched partner settings:", partnerSettings)
+        setPartnerTheme(partnerSettings)
+      })
     }
-
   }, [settings])
 
   if (isLoading || (!settings && !retryOnError)) return <CheckoutSkeleton />

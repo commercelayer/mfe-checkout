@@ -35,22 +35,29 @@ interface CheckoutSettings {
   config: Organization.DefaultConfig | null
 }
 
+interface BrandColors {
+    dark: string,
+    accent: string,
+    base: string
+}
+
 interface PartnerSettings {
-  brandName: string
-  email: string
-  phone: string
-  linkPartner: string
-  currency: string
-  logoHeaderPath: string
-  logoHeaderAlt: string
-  logoFooterPath: string
-  logoFooterAlt: string
-  faviconIcoPath: string
-  splashFilePath: string
-  splashFileAlt: string
-  splashFileType: string
-  privacyPolicy: string
-  termsAndConditions: string
+//   brandName: string
+    brandColors: BrandColors
+//   email: string
+//   phone: string
+//   linkPartner: string
+//   currency: string
+//   logoHeaderPath: string
+//   logoHeaderAlt: string
+//   logoFooterPath: string
+//   logoFooterAlt: string
+//   faviconIcoPath: string
+//   splashFilePath: string
+//   splashFileAlt: string
+//   splashFileType: string
+//   privacyPolicy: string
+//   termsAndConditions: string
 }
 
 interface InvalidCheckoutSettings {

@@ -14,26 +14,26 @@ let nextConfig = {
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH
     ? `${process.env.NEXT_PUBLIC_BASE_PATH}/`
     : undefined,
-  pageExtensions: ["page.tsx"],
+  pageExtensions: ["page.tsx", "route.ts"],
   generateBuildId: () => nextBuildId({ dir: __dirname }),
   logging: {
     incomingRequests: process.env.NODE_ENV !== "production", // true in dev
   },
 };
 
-// Rewrite: in dev ONLY, riscrivi tutte le richieste tranne API, _next e favicon verso la root per fallback SPA
+// rewrite rules affect only development mode, since Next router will return 404 for paths that only exist in react-router
 if (process.env.NODE_ENV !== "production") {
   nextConfig = {
     ...nextConfig,
     async rewrites() {
       return [
         {
-          source: "/((?!api|_next|favicon.ico).*)",
+          source: "/:any*",
           destination: "/",
         },
-      ];
+      ]
     },
-  };
+  }
 }
 
 // Bundle analyzer abilitato con flag ANALYZE=true
