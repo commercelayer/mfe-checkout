@@ -45,7 +45,7 @@ export const AccordionItem: FC<AccordionItemProps> = ({
       <button
         type="button"
         data-testid={`accordion_${ctx.step.toLocaleLowerCase()}`}
-        className="accordion-header text-black relative flex w-full items-start justify-between pb-3 pt-5 cursor-pointer transition-all ease-in-out duration-100 focus:outline-none md:pt-6 md:pb-0"
+        className="accordion-header text-black relative flex w-full items-start justify-between pb-3 pt-5 cursor-pointer transition-all ease-in-out duration-100 focus:outline-hidden md:pt-6 md:pb-0"
         onClick={handleSelection}
       >
         <div className="transition-all ease-in-out duration-100">{header}</div>

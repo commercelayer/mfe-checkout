@@ -13,7 +13,7 @@ export const ButtonCss = [
   "transition duration-300 ease-in",
   // Interactive states
   "hover:opacity-80",
-  "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary",
+  "focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-primary",
   // Disabled states
   "disabled:bg-primary disabled:opacity-50",
   // Cursor

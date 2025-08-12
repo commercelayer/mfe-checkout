@@ -23,7 +23,7 @@ export const Main: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
 export const Wrapper: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
   <div
     {...props}
-    className="flex flex-col p-5 md:p-10 lg:px-20 2xl:max-w-screen-2xl 2xl:mx-auto"
+    className="flex flex-col p-5 md:p-10 lg:px-20 2xl:max-w-(--breakpoint-2xl) 2xl:mx-auto"
   />
 )
 

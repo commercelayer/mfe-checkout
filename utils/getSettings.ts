@@ -30,7 +30,7 @@ async function retryCall<T>(
   f: () => Promise<T>,
 ): Promise<FetchResource<T> | undefined> {
   return await retry(
-    async (bail, number) => {
+    async (_bail, number) => {
       try {
         const object = await f()
         return {

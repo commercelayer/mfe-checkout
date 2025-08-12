@@ -26,7 +26,7 @@ export const AmountWrapper: FC<React.HTMLAttributes<HTMLDivElement>> = (
 
 export const AmountSpacer: FC<React.HTMLAttributes<HTMLDivElement>> = (
   props,
-) => <div {...props} className="hidden lg:flex lg:flex-85" />
+) => <div {...props} className="hidden lg:flex lg:w-[85px]" />
 
 export const RecapLine: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
   <div

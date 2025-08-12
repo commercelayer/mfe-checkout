@@ -50,7 +50,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
         ) : (
           <>
             <StyledCustomInput
-              className="block w-full border-gray-300 form-input shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+              className="block w-full border-gray-300 form-input shadow-xs focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
               data-testid="customer_email"
               errorClassName="hasError"
               saveOnBlur={true}

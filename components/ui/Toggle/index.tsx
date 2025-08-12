@@ -22,7 +22,7 @@ export const Toggle: React.FC<Props> = ({
           disabled={disabled}
           onClick={onChange}
           data-state={checked ? "checked" : "unchecked"}
-          className="relative inline-flex h-4 w-7 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary bg-gray-200 data-[state=checked]:bg-primary"
+          className="relative inline-flex h-4 w-7 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-primary bg-gray-200 data-[state=checked]:bg-primary"
           {...rest}
         >
           <span className="sr-only">Use setting</span>

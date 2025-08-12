@@ -67,10 +67,6 @@ module.exports = {
       minHeight: {
         inherit: "inherit",
       },
-      flex: {
-        75: "0 0 75px",
-        85: "0 0 85px",
-      },
       margin: {
         30: "7.5rem",
       },

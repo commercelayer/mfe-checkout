@@ -142,7 +142,7 @@ export const StepComplete: React.FC<Props> = ({
                   <RecapItem>{ctx.emailAddress}</RecapItem>
                 </RecapCol>
                 <RecapCol>
-                  <AddressContainer className="lg:!grid-cols-1 xl:!grid-cols-2">
+                  <AddressContainer className="lg:grid-cols-1! xl:grid-cols-2!">
                     <div data-testid="billing-address-recap">
                       <RecapItemTitle>
                         {t("stepComplete.billed_to")}
