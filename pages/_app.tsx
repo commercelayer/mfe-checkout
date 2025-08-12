@@ -10,7 +10,6 @@ import "../styles/address-input.css"
 import "../styles/accordion.css"
 import "../styles/theme.css"
 
-// eslint-disable-next-line import/order
 import { appWithTranslation } from "next-i18next"
 
 import "components/data/i18n"

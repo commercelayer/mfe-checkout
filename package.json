@@ -79,7 +79,6 @@
     "@commercelayer/sdk": "^6.45.0",
     "@faker-js/faker": "^9.9.0",
     "@headlessui/react": "^2.2.7",
-    "@next/eslint-plugin-next": "^15.4.6",
     "@tailwindcss/forms": "^0.5.10",
     "@types/async-retry": "1.4.8",
     "@types/node": "^24.2.1",

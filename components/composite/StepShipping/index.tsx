@@ -264,7 +264,6 @@ export const StepShipping: React.FC<Props> = () => {
                                     <ShippingMethodName data-testid="shipping-method-name">
                                       {(props) => {
                                         const deliveryLeadTime =
-                                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                           // @ts-ignore
                                           props?.deliveryLeadTimeForShipment
                                         return (
@@ -276,7 +275,6 @@ export const StepShipping: React.FC<Props> = () => {
                                               {props.label}
                                             </ShippingLineItemTitle>
                                             {deliveryLeadTime?.min_days &&
-                                              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                               // @ts-ignore
                                               deliveryLeadTime?.max_days && (
                                                 <ShippingSummaryItemDescription>

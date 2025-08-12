@@ -202,7 +202,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }
 
   const selectShipment = async (params: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     shippingMethod: ShippingMethodCollection | Record<string, any>
     shipmentId: string
     order?: Order

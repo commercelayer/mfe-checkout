@@ -90,7 +90,7 @@ test.describe("guest with Adyen", () => {
     await checkoutPage.enter3DSecure({ type: "adyen", text: "password" })
 
     await checkoutPage.page
-      .locator(`text=Thank you for your order!`)
+      .locator("text=Thank you for your order!")
       .waitFor({ state: "visible", timeout: 10000 })
 
     await checkoutPage.checkPaymentRecap(" ending in ****")
@@ -184,7 +184,7 @@ test.describe("guest with Adyen drop-in", () => {
     await checkoutPage.enter3DSecure({ type: "adyen", text: "password" })
 
     await checkoutPage.page
-      .locator(`text=Thank you for your order!`)
+      .locator("text=Thank you for your order!")
       .waitFor({ state: "visible", timeout: 10000 })
     await checkoutPage.checkPaymentRecap(" ending in ****")
     await checkoutPage.page.reload()
@@ -212,7 +212,7 @@ test.describe("API version v68", () => {
     const TIMEOUT = 3000
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // biome-ignore lint/correctness/noUnusedVariables: here we use the rest
     const { billing_info, ...address } = euAddress
     await checkoutPage.setBillingAddress(address)
     await checkoutPage.save("Customer")

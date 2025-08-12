@@ -153,7 +153,7 @@ const getCustomerUserToken = async ({
 }) => {
   const token = await getSuperToken()
   const cl = getClient(token)
-  let customerId
+  let customerId: string
   const existingUser = await cl.customers.list({
     filters: {
       email_eq: email,
@@ -192,7 +192,7 @@ const getOrder = async (
   }
   const giftCard = params.giftCardAttributes
   const order = await cl.orders.create(attributes)
-  let giftCardCode
+  let giftCardCode: string | undefined | null
   switch (params.order) {
     case "plain":
       await createDefaultLineItem(cl, order.id)
@@ -246,7 +246,7 @@ const getOrder = async (
           coupon_code: params.couponCode,
         })
       }
-      if (params.addresses && params.addresses.billingAddress) {
+      if (params?.addresses?.billingAddress) {
         const { billingAddress, shippingAddress, sameShippingAddress } =
           params.addresses
         const addressToAttach = await cl.addresses.create(
@@ -438,7 +438,7 @@ const createLineItems = async ({
   items: Array<LineItemObject>
 }) => {
   const lineItems = items.map((item) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // biome-ignore lint/correctness/noUnusedVariables: here we use the tail
     const { sku_options, inventory, final_quantity, ...tail } = item
     const lineItem = {
       ...tail,

@@ -24,7 +24,7 @@ test.describe("discount with coupon", () => {
   test("check right shipping price", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // biome-ignore lint/correctness/noUnusedVariables: here we use the rest
     const { billing_info, ...address } = euAddress
     await checkoutPage.setBillingAddress(address)
     await checkoutPage.save("Customer")

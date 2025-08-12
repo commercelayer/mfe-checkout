@@ -132,8 +132,6 @@ export const CouponOrGiftCard: React.FC<Props> = ({
                 <CouponName>{code}</CouponName>
                 {!readonly && (
                   <StyledGiftCardOrCouponRemoveButton
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
                     onClick={handleSubmit}
                     data-testid="remove_coupon"
                     type="coupon"
@@ -157,8 +155,6 @@ export const CouponOrGiftCard: React.FC<Props> = ({
                 {code}
                 {!readonly && (
                   <StyledGiftCardOrCouponRemoveButton
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
                     onClick={handleSubmit}
                     data-testid="remove_giftcard"
                     type="gift_card"
