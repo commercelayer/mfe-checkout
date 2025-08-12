@@ -1,8 +1,11 @@
 import CheckoutSkeleton from "components/composite/CheckoutSkeleton"
 import { RetryError } from "components/composite/RetryError"
 import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
+import { get } from "http"
 import type { NextPage } from "next"
 import dynamic from "next/dynamic"
+import { useEffect, useState } from "react"
+import { getPartnerSettings } from "utils/getPartnerSettings"
 
 const DynamicCheckoutContainer = dynamic(
   () => import("components/composite/CheckoutContainer"),
@@ -22,6 +25,17 @@ CheckoutSkeleton.displayName = "Skeleton Loader"
 
 const Order: NextPage = () => {
   const { settings, retryOnError, isLoading } = useSettingsOrInvalid()
+  const [_partnerTheme, setPartnerTheme] = useState<PartnerSettings | undefined>(undefined)
+
+  useEffect(() => {
+    if(settings?.validCheckout) {
+        getPartnerSettings(settings.partnerId).then((partnerSettings) => {
+            console.log("Fetched partner settings:", partnerSettings)
+            setPartnerTheme(partnerSettings)
+        })
+    }
+
+  }, [settings])
 
   if (isLoading || (!settings && !retryOnError)) return <CheckoutSkeleton />
 

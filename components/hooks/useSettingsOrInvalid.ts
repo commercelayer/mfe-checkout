@@ -56,15 +56,8 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
         subdomain: getSubdomain(window.location.hostname),
       }).then((fetchedSettings) => {
         setSettings(fetchedSettings)
-
-        if (fetchedSettings.validCheckout) {
-          getPartnerSettings(fetchedSettings.partnerId).then((partnerSettings) => {
-            console.log("Partner settings fetched:", partnerSettings)
-            setPartnerTheme(partnerSettings)
-          })
-        }
-      }).finally(() =>
-        setIsFetching(false))
+        setIsFetching(false)
+      })
     }
   }, [syncedAccessToken])
 
