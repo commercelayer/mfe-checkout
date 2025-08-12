@@ -9,7 +9,6 @@ export const CheckIcon: React.FC = () => {
       <g fill="none" stroke="#1FDA8A" strokeWidth="2">
         <circle cx="77" cy="77" r="72" className="circle" />
         <circle
-          id="colored"
           className="colored_circle"
           fill="#1FDA8A"
           cx="77"

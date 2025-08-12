@@ -27,7 +27,7 @@
   animation: checkmark-circle 0.6s ease-in-out backwards;
 }
 
-.icon-order-success circle#colored {
+.icon-order-success circle.colored_circle {
   animation: colored-circle 0.6s ease-in-out 0.7s backwards;
 }
 

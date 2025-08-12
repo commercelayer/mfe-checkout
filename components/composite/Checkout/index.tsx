@@ -29,7 +29,7 @@ import { Accordion, AccordionItem } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 import { useRouter } from "next/router"
-import { type FC, useContext } from "react"
+import { useContext } from "react"
 
 interface Props {
   logoUrl: NullableType<string>
