@@ -8,16 +8,16 @@ interface Props {
   stepNumber?: number
 }
 
-// export const Badge: React.FC<Props> = ({ status, stepNumber }) => (
-//   <StepBadge
-//     data-testid="step-header-badge"
-//     $active={status === "edit"}
-//     $done={status === "done"}
-//     $skip={status === "skip"}
-//   >
-//     {status === "done" || status === "skip" ? <CheckmarkIcon /> : stepNumber}
-//   </StepBadge>
-// )
+export const Badge: React.FC<Props> = ({ status, stepNumber }) => (
+  <StepBadge
+    data-testid="step-header-badge"
+    $active={status === "edit"}
+    $done={status === "done"}
+    $skip={status === "skip"}
+  >
+    {status === "done" || status === "skip" ? <CheckmarkIcon /> : stepNumber}
+  </StepBadge>
+)
 
 interface BadgeProps {
   $active: boolean

@@ -223,7 +223,7 @@ export const OrderSummary: React.FC<Props> = ({
               className="text-xl font-extrabold"
             />
           </RecapLineTotal>
-          {!appCtx.isComplete && <ReturnToCart cartUrl={appCtx.cartUrl} />}
+          {/* {!appCtx.isComplete && <ReturnToCart cartUrl={appCtx.cartUrl} />} */}
         </AmountWrapper>
       </TotalWrapper>
     </Wrapper>

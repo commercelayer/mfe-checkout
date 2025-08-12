@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams, useSearchParams } from "react-router-dom"
+import { getPartnerSettings } from "utils/getPartnerSettings"
 import { getSettings } from "utils/getSettings"
 import { getSubdomain } from "utils/getSubdomain"
-
 import { useLocalStorageToken } from "./useLocalStorageToken"
 
 interface UseSettingsOrInvalid {
@@ -12,7 +12,6 @@ interface UseSettingsOrInvalid {
 }
 
 export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
-      console.log("useSettingsOrInvalid")
   const navigate = useNavigate()
   const { orderId } = useParams()
   const [searchParams] = useSearchParams()
@@ -25,6 +24,9 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const [settings, setSettings] = useState<
     CheckoutSettings | InvalidCheckoutSettings | undefined
   >(undefined)
+  const [partnerTheme, setPartnerTheme] = useState<PartnerSettings | undefined>(
+    undefined,
+  )
   const [isFetching, setIsFetching] = useState(true)
 
   const [savedAccessToken, setAccessToken] = useLocalStorageToken(
@@ -54,8 +56,15 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
         subdomain: getSubdomain(window.location.hostname),
       }).then((fetchedSettings) => {
         setSettings(fetchedSettings)
-        setIsFetching(false)
-      })
+
+        if (fetchedSettings.validCheckout) {
+          getPartnerSettings(fetchedSettings.partnerId).then((partnerSettings) => {
+            console.log("Partner settings fetched:", partnerSettings)
+            setPartnerTheme(partnerSettings)
+          })
+        }
+      }).finally(() =>
+        setIsFetching(false))
     }
   }, [syncedAccessToken])
 
