@@ -4,8 +4,10 @@ import { type FC, forwardRef } from "react"
 export const Top = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
-  // biome-ignore lint/style/noParameterAssign: we pass the ref to the div
->((props, ref) => <div {...props} className="bg-white" ref={ref} />)
+>((props, ref) => {
+  const local = ref as React.RefObject<HTMLDivElement>
+  return <div {...props} className="bg-white" ref={local} />
+})
 
 export const Bottom: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
   <div {...props} className="bg-gray-50" />
