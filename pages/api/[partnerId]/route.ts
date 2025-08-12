@@ -8,6 +8,7 @@ export async function GET(
 ) {
   const { partnerId } = await context.params;
   console.log("API partner-settings called with partnerId:", partnerId);
+
   if (!partnerId) {
     return new Response(JSON.stringify({ message: "Invalid partner ID" }), {
       status: 400,
