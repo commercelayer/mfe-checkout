@@ -33,7 +33,7 @@ if (process.env.NODE_ENV !== "production") {
     async rewrites() {
       return [
         {
-          source: "/:any*",
+          source: "/((?!api|_next|favicon.ico).*)",
           destination: "/",
         },
       ]
