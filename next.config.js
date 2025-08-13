@@ -7,7 +7,7 @@ const shouldAnalyzeBundles = process.env.ANALYZE === "true";
 let nextConfig = {
   reactStrictMode: true,
   eslint: {},
-  output: "standalone",
+  output: process.env.NODE_ENV === "production" ? "export" : "standalone",
   distDir: "out/dist",
   images: {
     remotePatterns: [
@@ -19,7 +19,7 @@ let nextConfig = {
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH
     ? `${process.env.NEXT_PUBLIC_BASE_PATH}/`
     : undefined,
-  pageExtensions: ["page.tsx", "ts"],
+  pageExtensions: ["page.tsx", "route.ts"],
   generateBuildId: () => nextBuildId({ dir: __dirname }),
   logging: {
     incomingRequests: process.env.NODE_ENV !== "production", // true in dev

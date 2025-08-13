@@ -4,7 +4,7 @@ const DEFAULT_PARTNER_SETTINGS: PartnerSettings =  {brandColors: {dark: "#000A1C
 
 
 export async function getPartnerSettings(partnerId: string) {
-       try {const response = await fetch(`/api/partner-settings/${partnerId}`, { method: "GET", headers: { "Content-Type": "application/json" }, cache: "reload"});
+       try {const response = await fetch(`/api/partner-settings/${partnerId}`, { method: "GET", headers: { "Content-Type": "application/json" }});
        const data: {content: SettingsGlobalAppStoryblok} =await response.json();
        if (!data?.content) {
         throw new Error("Settings not found");
