@@ -1,6 +1,3 @@
-const colors = require("tailwindcss/colors")
-const defaultTheme = require("tailwindcss/defaultTheme")
-
 module.exports = {
   content: [
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -25,11 +22,6 @@ module.exports = {
       black: "#101111",
       white: "#fff",
       gray: {
-        // 100: "#f8f8f8",
-        // 300: "#E6E6E6",
-        // 400: "#C4C4C4",
-        // 500: "#8D8D8D",
-        // 600: "#666666",
         50: "#f8f8f8",
         100: "#EDEEEE",
         200: "#E6E7E7",
@@ -74,10 +66,6 @@ module.exports = {
       },
       minHeight: {
         inherit: "inherit",
-      },
-      flex: {
-        75: "0 0 75px",
-        85: "0 0 85px",
       },
       margin: {
         30: "7.5rem",

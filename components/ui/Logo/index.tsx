@@ -1,6 +1,3 @@
-import styled from "styled-components"
-import tw from "twin.macro"
-
 interface Props {
   logoUrl: NullableType<string>
   companyName: string
@@ -9,15 +6,20 @@ interface Props {
 
 export const Logo: React.FC<Props> = ({ logoUrl, companyName, className }) => {
   if (logoUrl) {
-    return <Image src={logoUrl} alt={companyName} className={className} />
+    return (
+      // biome-ignore lint/performance/noImgElement: static build, cannot use Image
+      <img
+        src={logoUrl}
+        alt={companyName}
+        className={`w-60 max-w-full mb-5 md:mb-10 ${className || ""}`}
+      />
+    )
   }
-  return <Label className={className}>{companyName}</Label>
+  return (
+    <h1
+      className={`mb-5 md:mb-12 font-extrabold uppercase tracking-wide text-xl text-black ${className || ""}`}
+    >
+      {companyName}
+    </h1>
+  )
 }
-
-const Image = styled.img`
-  ${tw`w-60 max-w-full mb-5 md:mb-10`}
-`
-
-const Label = styled.h1`
-  ${tw`mb-5 md:mb-12 font-extrabold uppercase tracking-wide text-xl text-black`}
-`

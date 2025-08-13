@@ -54,7 +54,7 @@ test.describe("braintree errors", () => {
         await checkoutPage.save("Payment", undefined, true)
 
         const cardinalFrame = checkoutPage.page.frameLocator(
-          "text=<head></head> <body> <div></div> </body>"
+          "text=<head></head> <body> <div></div> </body>",
         )
         await cardinalFrame
           .locator('[placeholder="\\ Enter\\ Code\\ Here"]')

@@ -87,7 +87,7 @@ export const PaymentContainer = ({ primaryColor, children }: Props) => {
           expDateContainerClassName: "flex-none w-2/4 xl:mx-3 xl:w-24",
           cvvContainerClassName: "flex-none w-2/4 pl-3 xl:w-14 xl:pl-0",
           inputWrapperClassName:
-            "h-10 border rounded bg-gray-50 transition duration-300 ease-in-out",
+            "h-10 border rounded-sm bg-gray-50 transition duration-300 ease-in-out",
           fieldLabelClassName: "text-xs text-gray-400",
         },
         stripePayment: {

@@ -22,10 +22,10 @@ export const CustomerAddressCard: React.FC<AddressCardProps> = ({
     <Address
       data-testid={dataTestId}
       addresses={addresses}
-      className={`text-black p-3 rounded border ${
+      className={`text-black p-3 rounded-sm border ${
         onSelect && "hover:border-gray-400 cursor-pointer"
       } transition duration-200 ease-in`}
-      selectedClassName="!border-2 border-primary shadow-md bg-gray-50"
+      selectedClassName="border-2! border-primary hover:border-primary shadow-md bg-gray-50"
       deselect={deselect}
       onSelect={(address) => onSelect?.(address as AddressCollection)}
       disabledClassName="opacity-50 cursor-not-allowed"

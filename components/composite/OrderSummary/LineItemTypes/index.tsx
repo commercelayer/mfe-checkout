@@ -46,7 +46,7 @@ export const LineItemTypes: React.FC<Props> = ({ type, hideItemCodes }) => {
       <LineItemWrapper data-testid={`line-items-${type}`}>
         <LineItemImage
           width={85}
-          className="self-start p-1 bg-white border rounded"
+          className="self-start p-1 bg-white border rounded-sm"
         />
         <LineItemDescription>
           {!hideItemCodes && <StyledLineItemSkuCode type={CODE_LOOKUP[type]} />}

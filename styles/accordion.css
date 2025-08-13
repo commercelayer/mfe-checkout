@@ -1,0 +1,38 @@
+.accordion-tab {
+  outline: none;
+}
+
+.accordion-tab[tabindex="3"] {
+  @media (min-width: 768px) {
+    margin-bottom: 1.25rem;
+  }
+}
+
+.accordion-tab.disabled .accordion-header {
+  pointer-events: none;
+}
+
+.accordion-tab.active .accordion-icon {
+  --tw-rotate: -180deg;
+  transform: rotate(var(--tw-rotate));
+}
+
+.accordion-tab.disabled .accordion-icon {
+  color: #d1d5db;
+}
+
+.accordion-body {
+  max-height: 0;
+  opacity: 0;
+  transition: all 100ms ease-in;
+}
+
+.accordion-tab.active .accordion-body {
+  max-height: none;
+  opacity: 1;
+}
+
+.accordion-tab.disabled .accordion-body {
+  max-height: 0;
+  opacity: 0;
+}

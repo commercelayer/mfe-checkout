@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
 
 test.describe("with digital product", () => {
@@ -17,7 +17,7 @@ test.describe("with digital product", () => {
 
     await checkoutPage.setCustomerMail()
     await checkoutPage.checkCustomerAddressesTitle(
-      "Fill in your billing address"
+      "Fill in your billing address",
     )
     await checkoutPage.setBillingAddress()
     await checkoutPage.checkStep("Customer", "open")

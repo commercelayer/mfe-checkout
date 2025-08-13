@@ -1,38 +1,55 @@
-import styled from "styled-components"
-import tw from "twin.macro"
+import type { FC } from "react"
 
-export const Wrapper = styled.div``
-export const SummaryHeader = styled.div`
-  ${tw`mb-12`}
-`
-export const SummaryTitle = styled.h2`
-  ${tw`text-xl text-black font-semibold`}
-`
-export const SummarySubTitle = styled.p`
-  ${tw`text-gray-400`}
-`
-export const TotalWrapper = styled.div`
-  ${tw`flex flex-row`}
-`
-export const AmountWrapper = styled.div`
-  ${tw`flex flex-col flex-1 pb-32 md:pb-0 lg:pl-8`}
-`
-export const AmountSpacer = styled.div`
-  ${tw`hidden lg:flex lg:flex-85`}
-`
-export const RecapLine = styled.div`
-  ${tw`flex flex-row justify-between py-0.5 text-black`}
+export const Wrapper: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} />
+)
 
-  &:empty {
-    ${tw`hidden`}
-  }
-`
-export const RecapLineItem = styled.p`
-  ${tw`font-semibold`}
-`
-export const RecapLineTotal = styled(RecapLine)`
-  ${tw`border-t border-gray-400 mt-7 pt-6`}
-`
-export const RecapLineItemTotal = styled(RecapLineItem)`
-  ${tw`text-xl font-normal invisible lg:visible`}
-`
+export const SummaryHeader: FC<React.HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => <div {...props} className="mb-12" />
+
+export const SummaryTitle: FC<React.HTMLAttributes<HTMLHeadingElement>> = (
+  props,
+) => <h2 {...props} className="text-xl text-black font-semibold" />
+
+export const SummarySubTitle: FC<React.HTMLAttributes<HTMLParagraphElement>> = (
+  props,
+) => <p {...props} className="text-gray-400" />
+
+export const TotalWrapper: FC<React.HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => <div {...props} className="flex flex-row" />
+
+export const AmountWrapper: FC<React.HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => <div {...props} className="flex flex-col flex-1 pb-32 md:pb-0 lg:pl-8" />
+
+export const AmountSpacer: FC<React.HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => <div {...props} className="hidden lg:flex lg:w-[85px]" />
+
+export const RecapLine: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`flex flex-row justify-between py-0.5 text-black ${!props.children ? "hidden" : ""}`}
+  />
+)
+
+export const RecapLineItem: FC<React.HTMLAttributes<HTMLParagraphElement>> = (
+  props,
+) => <p {...props} className="font-semibold" />
+
+export const RecapLineTotal: FC<React.HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => (
+  <div
+    {...props}
+    className={`flex flex-row justify-between py-0.5 text-black border-t border-gray-400 mt-7 pt-6 ${!props.children ? "hidden" : ""}`}
+  />
+)
+
+export const RecapLineItemTotal: FC<
+  React.HTMLAttributes<HTMLParagraphElement>
+> = (props) => (
+  <p {...props} className="text-xl font-semibold invisible lg:visible" />
+)

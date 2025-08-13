@@ -28,6 +28,7 @@ class AppDocument extends Document {
           {process.env[
             `NEXT_PUBLIC_NEWRELIC_LOADER_CONFIG_${process.env.NEXT_PUBLIC_STAGE}`
           ] !== null && (
+            // biome-ignore lint/nursery/useUniqueElementIds: cannot use useId here
             <Script id="new-relic" strategy="afterInteractive">
               {NewRelicSnippet}
             </Script>

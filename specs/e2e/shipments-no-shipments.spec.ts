@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -71,7 +71,7 @@ test.describe("with two shipment (one do not ship)", () => {
     await checkoutPage.page.waitForTimeout(TIMEOUT)
 
     const element = await checkoutPage.page.locator(
-      "[ data-testid=save-shipping-button]"
+      "[ data-testid=save-shipping-button]",
     )
     await expect(element).toBeEnabled()
     await checkoutPage.save("Shipping")

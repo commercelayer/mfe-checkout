@@ -16,8 +16,6 @@ import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
 import { type ChangeEvent, useContext } from "react"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
-import tw from "twin.macro"
 
 type TFieldName =
   | Parameters<typeof AddressCountrySelector>[0]["name"]
@@ -181,8 +179,9 @@ export const AddressInputGroup: React.FC<Props> = ({
   return (
     <div className="mb-8">
       <Wrapper>
-        <div className="relative h-10">{renderInput()}</div>
+        <div className="relative h-10 mb-2">{renderInput()}</div>
       </Wrapper>
+
       <StyledErrors
         data-testid={`error_${fieldName}`}
         resource={resource}
@@ -193,33 +192,41 @@ export const AddressInputGroup: React.FC<Props> = ({
   )
 }
 
-const Wrapper = styled.div`
-  position: relative;
-`
+const Wrapper: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`address-input-wrapper ${props.className || ""}`}
+  />
+)
 
-const StyledAddressInput = styled(AddressInput)`
-  ${InputCss}
-  &.hasError {
-    ${tw`border-red-400 border-2 focus:ring-offset-0 focus:ring-red-400 focus:ring-opacity-50`}
-  }
-`
+const StyledAddressInput: React.FC<
+  React.ComponentProps<typeof AddressInput>
+> = ({ className = "", ...props }) => (
+  <AddressInput
+    {...props}
+    className={`address-input ${InputCss} ${className} ${className?.includes("hasError") ? "hasError" : ""}`}
+  />
+)
 
-const StyledAddressCountrySelector = styled(AddressCountrySelector)`
-  ${InputCss}
-  &:disabled {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-2 w-2' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z' clip-rule='evenodd' /%3E%3C/svg%3E");
-    background-size: 1rem;
-  }
-  ${tw`disabled:bg-gray-50`}
-`
+const StyledAddressCountrySelector: React.FC<
+  React.ComponentProps<typeof AddressCountrySelector>
+> = ({ className = "", ...props }) => (
+  <AddressCountrySelector
+    {...props}
+    className={`address-country-selector ${InputCss} ${className}`}
+  />
+)
 
-const StyledAddressStateSelector = styled(AddressStateSelector)`
-  ${InputCss}
-  &.hasError {
-    ${tw`border-red-400 border-2 focus:ring-offset-0 focus:ring-red-400 focus:ring-opacity-50`}
-  }
-`
+const StyledAddressStateSelector: React.FC<
+  React.ComponentProps<typeof AddressStateSelector>
+> = ({ className = "", ...props }) => (
+  <AddressStateSelector
+    {...props}
+    className={`address-input ${InputCss} ${className} ${className?.includes("hasError") ? "hasError" : ""}`}
+  />
+)
 
-const StyledErrors = styled(Errors)`
-  ${ErrorCss}
-`
+const StyledErrors: React.FC<React.ComponentProps<typeof Errors>> = ({
+  className = "",
+  ...props
+}) => <Errors {...props} className={`${ErrorCss} ${className}`} />

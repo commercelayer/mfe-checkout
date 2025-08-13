@@ -1,5 +1,4 @@
 import { useTranslation } from "next-i18next"
-import { CartLinkWrapper, LinkWrapper } from "./styled"
 
 interface Props {
   cartUrl: NullableType<string>
@@ -11,12 +10,13 @@ export const ReturnToCart = ({ cartUrl }: Props) => {
   if (!cartUrl) return <></>
 
   return (
-    <CartLinkWrapper data-testid="edit-cart-link">
-      <a href={cartUrl}>
-        <LinkWrapper>
-          <>&lt;</> {t("orderRecap.returnToCart")}
-        </LinkWrapper>
+    <div
+      className="flex flex-row justify-between mt-7 pt-6 border-t"
+      data-testid="edit-cart-link"
+    >
+      <a href={cartUrl} className="text-xs font-bold border-b">
+        <>&lt;</> {t("orderRecap.returnToCart")}
       </a>
-    </CartLinkWrapper>
+    </div>
   )
 }

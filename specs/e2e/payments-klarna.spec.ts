@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 import { euAddress2 } from "specs/utils/addresses"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
 
@@ -18,7 +18,9 @@ test.describe("with physical product", () => {
     },
   })
 
-  test.skip("should execute a checkout with klarna", async ({ checkoutPage }) => {
+  test.skip("should execute a checkout with klarna", async ({
+    checkoutPage,
+  }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setCustomerMail()
@@ -36,7 +38,7 @@ test.describe("with physical product", () => {
     await checkoutPage.checkShippingSummary("To be calculated")
 
     await expect(
-      checkoutPage.page.locator("text=Standard Shipping")
+      checkoutPage.page.locator("text=Standard Shipping"),
     ).toBeVisible()
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
@@ -70,7 +72,9 @@ test.describe("with digital product", () => {
     },
   })
 
-  test.skip("should execute a checkout with klarna", async ({ checkoutPage }) => {
+  test.skip("should execute a checkout with klarna", async ({
+    checkoutPage,
+  }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.setCustomerMail()

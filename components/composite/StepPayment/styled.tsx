@@ -1,95 +1,87 @@
 import { PaymentMethodRadioButton } from "@commercelayer/react-components"
 import { CheckCss } from "components/ui/form/CheckBox"
 import { RadioCss } from "components/ui/form/RadioButton"
-import styled from "styled-components"
-import tw from "twin.macro"
+import type { FC, HTMLAttributes, InputHTMLAttributes } from "react"
 
-export const PaymentWrapper = styled.div`
-  ${tw`will-change-transform text-black border border-gray-300 mb-5 p-4 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-gray-400 group-hover:(cursor-pointer) group-first:mt-6 group-last:mb-0`}
+export const PaymentWrapper: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} className={`payment-wrapper ${props.className || ""}`} />
+)
 
-  label {
-    ${tw`group-hover:(cursor-pointer)`}
-  }
+export const PaymentSummary: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`flex flex-row justify-around text-sm items-center ${props.className || ""}`}
+  />
+)
 
-  .payment.active & {
-    ${tw`border-2 !border-primary !bg-white cursor-default shadow-md`}
+export const PaymentSummaryItem: FC<HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => (
+  <div
+    {...props}
+    className={`flex flex-1 font-bold leading-none ${props.className || ""}`}
+  />
+)
 
-    input[type="radio"] + label {
-      ${tw`pointer-events-none cursor-default`}
-    }
-  }
-`
-export const PaymentSummary = styled.div`
-  ${tw`flex flex-row justify-around text-sm items-center`}
-`
-export const PaymentSummaryItem = styled.div`
-  ${tw`flex flex-1 font-bold leading-none`}
-`
-export const PaymentRadioContainer = styled.div`
-  ${tw`hidden`}
-`
-export const PaymentSummaryValue = styled.p`
-  ${tw`flex font-bold uppercase text-ss leading-8`}
-`
-export const PaymentSourceContainer = styled.div`
-  ${tw`mt-2 hidden opacity-0 transition delay-700 duration-100 ease-in-out`}
+export const PaymentRadioContainer: FC<HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => <div {...props} className={`hidden ${props.className || ""}`} />
 
-  .payment.active & {
-    ${tw`block opacity-100`}
-  }
+export const PaymentSummaryValue: FC<HTMLAttributes<HTMLParagraphElement>> = (
+  props,
+) => (
+  <p
+    {...props}
+    className={`flex font-bold uppercase text-ss leading-8 ${props.className || ""}`}
+  />
+)
 
-  .adyen-checkout__input-wrapper {
-    ${tw`transition duration-300 ease-in-out`}
-  }
-  .adyen-checkout__input-wrapper:hover {
-    ${tw`border-gray-200`}
-  }
+export const PaymentSourceContainer: FC<HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => (
+  <div
+    {...props}
+    className={`payment-source-container ${props.className || ""}`}
+  />
+)
+export const PaymentDetailsWrapper: FC<HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => (
+  <div
+    {...props}
+    className={`flex flex-row items-start justify-between lg:justify-start lg:items-center text-sm ${props.className || ""}`}
+  />
+)
 
-  .adyen-checkout__label--focused + .adyen-checkout__input-wrapper {
-    ${tw`border-primary ring ring-offset-0 ring-primary-light ring-opacity-50 bg-white`}
-  }
+export const PaymentItemTitle: FC<HTMLAttributes<HTMLHeadingElement>> = (
+  props,
+) => <h5 {...props} className={`text-sm font-bold ${props.className || ""}`} />
 
-  .braintree-hosted-fields-focused {
-    ${tw`border-primary ring ring-offset-0 ring-primary-light ring-opacity-50 bg-white`}
-  }
+export const ShippingLineItemQty: FC<HTMLAttributes<HTMLParagraphElement>> = (
+  props,
+) => (
+  <p
+    {...props}
+    className={`text-lg text-gray-500 lowercase pt-1 ${props.className || ""}`}
+  />
+)
 
-  .adyen-checkout__label__text {
-    ${tw`font-bold text-gray-700`}
-  }
+interface WalletCheckboxProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+  name: string
+}
 
-  .adyen-checkout-contextual-text {
-    ${tw`text-gray-500`}
-  }
+export const WalletCheckbox: FC<WalletCheckboxProps> = (props) => (
+  <input
+    type="checkbox"
+    {...props}
+    className={`${CheckCss} ${props.className || ""}`}
+  />
+)
 
-  #cardAccordionContainer button > div,
-  #cardAccordionPanel > div,
-  #googlepayAccordionContainer button > div,
-  #googlepayAccordionPanel > div {
-    ${tw`p-3`}
-  }
-
-  #cardAccordionContainer button *,
-  #googlepayAccordionContainer button * {
-    ${tw`!text-black`}
-  }
-
-  #cardAccordionContainer button,
-  #googlepayAccordionContainer button {
-    ${tw`!border-black`}
-  }
-`
-export const PaymentDetailsWrapper = styled.div`
-  ${tw`flex flex-row items-start justify-between lg:justify-start lg:items-center text-sm`}
-`
-export const PaymentItemTitle = styled.h5`
-  ${tw`text-sm font-bold`}
-`
-export const ShippingLineItemQty = styled.p`
-  ${tw`text-lg text-gray-500 lowercase pt-1`}
-`
-export const WalletCheckbox = styled.input`
-  ${CheckCss}
-`
-export const StyledPaymentMethodRadioButton = styled(PaymentMethodRadioButton)`
-  ${RadioCss}
-`
+export const StyledPaymentMethodRadioButton: FC<any> = (props) => (
+  <PaymentMethodRadioButton
+    {...props}
+    className={`${RadioCss} ${props.className || ""}`}
+  />
+)

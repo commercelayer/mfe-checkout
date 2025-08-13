@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -110,7 +110,7 @@ test.describe("with two shipping method", () => {
     await checkoutPage.checkShippingMethodPrice({ index: 1, text: "€12,00" })
 
     const element = checkoutPage.page.locator(
-      '[data-testid="shipping-method-price"] >> nth=1 >> text=€12,00'
+      '[data-testid="shipping-method-price"] >> nth=1 >> text=€12,00',
     )
 
     await expect(element).toHaveCount(1)
@@ -256,7 +256,7 @@ test.describe("ship from primary", () => {
   test("can see both article in delivery step", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // biome-ignore lint/correctness/noUnusedVariables: here we use the rest
     const { billing_info, ...address } = euAddress
     await checkoutPage.setBillingAddress(address)
     await checkoutPage.save("Customer")
@@ -286,7 +286,7 @@ test.describe("ship from primary with all stock transfers", () => {
   test("can see both article in delivery step", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // biome-ignore lint/correctness/noUnusedVariables: here we use the rest
     const { billing_info, ...address } = euAddress
     await checkoutPage.setBillingAddress(address)
     await checkoutPage.save("Customer")

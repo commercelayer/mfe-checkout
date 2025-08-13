@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 
 import { test } from "../fixtures/tokenizedPage"
-import { euAddress2, deAddress } from "../utils/addresses"
+import { deAddress, euAddress2 } from "../utils/addresses"
 
 test.describe("guest with Adyen and Pay with Klarna in France", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()

@@ -1,5 +1,4 @@
 import { Trans } from "react-i18next"
-import { Message } from "./styled"
 
 interface Props {
   supportPhone: NullableType<string>
@@ -27,7 +26,7 @@ export const SupportMessage: React.FC<Props> = ({
   }
 
   return (
-    <Message>
+    <div className="my-8 text-gray-400 [&>br]:hidden [&>br]:md:block [&+div]:mt-0">
       <Trans
         i18nKey={setI18nKey()}
         values={{ email: supportEmail, phone: supportPhone }}
@@ -49,6 +48,6 @@ export const SupportMessage: React.FC<Props> = ({
           ),
         }}
       />
-    </Message>
+    </div>
   )
 }

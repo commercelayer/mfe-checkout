@@ -1,22 +1,14 @@
-import styled from "styled-components"
-import tw from "twin.macro"
+import type { FC } from "react"
 
 interface Props {
-  className: string
-  children?: ChildrenType
+  className?: string
+  children?: React.ReactNode
 }
 
-export const StepContainer: React.FC<Props> = ({ children, className }) => (
-  <Container className={className}>{children}</Container>
+export const StepContainer: FC<Props> = ({ children, className = "" }) => (
+  <div
+    className={`step-container flex flex-row items-stretch justify-start mb-10 pb-5 md:pb-5 ${className}`}
+  >
+    {children}
+  </div>
 )
-
-const Container = styled.div`
-  ${tw`flex flex-row items-stretch justify-start mb-10 pb-5 md:pb-5`}
-  &.submitting {
-    filter: opacity(25%);
-  }
-
-  &:nth-last-of-type(1) {
-    ${tw`mb-0`}
-  }
-`

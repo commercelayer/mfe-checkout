@@ -24,7 +24,6 @@ import {
   useState,
 } from "react"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
 
 import { AddressFormBottom } from "./AddressFormBottom"
 import { AddressSectionEmail } from "./AddressSectionEmail"
@@ -306,7 +305,8 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
         )}
         <AddressSectionSaveForm>
           <ButtonWrapper>
-            <StyledSaveAddressesButton
+            <SaveAddressesButton
+              className={ButtonCss}
               disabled={isLocalLoader}
               label={
                 <>
@@ -343,7 +343,3 @@ const formTransition = {
   leaveFrom: "opacity-100 translate-y-0",
   leaveTo: "opacity-0 translate-y-full",
 }
-
-const StyledSaveAddressesButton = styled(SaveAddressesButton)`
-  ${ButtonCss}
-`
