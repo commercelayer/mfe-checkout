@@ -4,10 +4,8 @@ const DEFAULT_PARTNER_SETTINGS: PartnerSettings =  {brandColors: {dark: "#000A1C
 
 
 export async function getPartnerSettings(partnerId: string) {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-       try {
-        const response = await fetch(`${baseUrl}/api/partner-settings/${partnerId}`, { method: "GET",  headers: { "Content-Type": "application/json" }, cache: "force-cache" });
-       const data: {content: SettingsGlobalAppStoryblok} = await response.json();
+       try {const response = await fetch(`/api/partner-settings/${partnerId}`, { method: "GET", headers: { "Content-Type": "application/json" }, cache: "reload"});
+       const data: {content: SettingsGlobalAppStoryblok} =await response.json();
        if (!data?.content) {
         throw new Error("Settings not found");
        }

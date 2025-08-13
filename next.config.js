@@ -19,7 +19,7 @@ let nextConfig = {
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH
     ? `${process.env.NEXT_PUBLIC_BASE_PATH}/`
     : undefined,
-  pageExtensions: ["page.tsx", "route.ts"],
+  pageExtensions: ["page.tsx", "ts"],
   generateBuildId: () => nextBuildId({ dir: __dirname }),
   logging: {
     incomingRequests: process.env.NODE_ENV !== "production", // true in dev
@@ -33,7 +33,7 @@ if (process.env.NODE_ENV !== "production") {
     async rewrites() {
       return [
         {
-          source: "/:any*",
+          source: "/((?!api|_next|favicon.ico).*)",
           destination: "/",
         },
       ]
