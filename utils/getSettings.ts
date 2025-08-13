@@ -1,10 +1,10 @@
 import { jwtDecode, jwtIsSalesChannel } from "@commercelayer/js-auth"
 import { getMfeConfig } from "@commercelayer/organization-config"
 import CommerceLayer, {
-  CommerceLayerStatic,
   type CommerceLayerClient,
-  type Organization,
+  CommerceLayerStatic,
   type Order,
+  type Organization,
 } from "@commercelayer/sdk"
 import retry from "async-retry"
 
@@ -104,6 +104,7 @@ function getOrder(
           "terms_url",
           "privacy_url",
           "line_items",
+          // "expire_at",
           "customer",
           "payment_status",
         ],
@@ -133,9 +134,8 @@ function getTokenInfo(accessToken: string) {
         owner,
         marketId: payload.market?.id[0],
       }
-    } else {
-      return {}
     }
+    return {}
   } catch (e) {
     console.log(`error decoding access token: ${e}`)
     return {}
@@ -147,11 +147,13 @@ export const getSettings = async ({
   orderId,
   subdomain,
   paymentReturn,
+  expireAt,
 }: {
   accessToken: string
   orderId: string
   paymentReturn?: boolean
   subdomain: string
+  expireAt?: string | null
 }) => {
   const domain = process.env.NEXT_PUBLIC_DOMAIN || "commercelayer.io"
 
@@ -179,7 +181,8 @@ export const getSettings = async ({
 
   if (isProduction() && (subdomain !== slug || kind !== "sales_channel")) {
     return invalidateCheckout()
-  } else if (kind !== "sales_channel") {
+  }
+  if (kind !== "sales_channel") {
     return invalidateCheckout()
   }
 
@@ -257,6 +260,8 @@ export const getSettings = async ({
     slug,
     orderNumber: order.number || "",
     orderId: order.id,
+    // expireAt: order.expire_at,
+    expireAt,
     isShipmentRequired,
     validCheckout: true,
     logoUrl: organization.logo_url,

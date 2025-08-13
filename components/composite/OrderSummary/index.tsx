@@ -11,8 +11,8 @@ import TotalAmount from "@commercelayer/react-components/orders/TotalAmount"
 import type { AppProviderData } from "components/data/AppProvider"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 import { Trans, useTranslation } from "react-i18next"
-
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
+import { ExpiryTimer } from "./ExpiryTimer"
 import { LineItemTypes } from "./LineItemTypes"
 import { ReturnToCart } from "./ReturnToCart"
 import {
@@ -33,15 +33,19 @@ interface Props {
   appCtx: AppProviderData
   hideItemCodes?: NullableType<boolean>
   readonly?: boolean
+  isFinished?: () => void
+  expireAt?: NullableType<string>
 }
 
 export const OrderSummary: React.FC<Props> = ({
   appCtx,
   readonly,
   hideItemCodes,
+  isFinished,
+  expireAt,
 }) => {
   const { t } = useTranslation()
-
+  console.log("tempo in orderSummary component")
   const isTaxCalculated = appCtx.isShipmentRequired
     ? appCtx.hasBillingAddress &&
       appCtx.hasShippingAddress &&
@@ -50,6 +54,9 @@ export const OrderSummary: React.FC<Props> = ({
 
   const lineItems = !readonly ? (
     <SummaryHeader>
+      {expireAt != null && (
+        <ExpiryTimer expireAt={expireAt} isFinished={isFinished} />
+      )}
       <SummaryTitle data-testid="test-summary">
         {t("orderRecap.order_summary")}
       </SummaryTitle>
