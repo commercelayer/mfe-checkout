@@ -25,20 +25,23 @@ CheckoutSkeleton.displayName = "Skeleton Loader"
 
 const Order: NextPage = () => {
   const { settings, retryOnError, isLoading } = useSettingsOrInvalid()
-  const [_partnerTheme, setPartnerTheme] = useState<
-    PartnerSettings | undefined
-  >(undefined)
+  const [partnerTheme, setPartnerTheme] = useState<PartnerSettings | undefined>(
+    undefined,
+  )
+  const [isLoadingPartner, setIsLoadingPartner] = useState(true)
 
   useEffect(() => {
     if (settings?.validCheckout) {
       getPartnerSettings(settings.partnerId).then((partnerSettings) => {
         console.log("Fetched partner settings:", partnerSettings)
         setPartnerTheme(partnerSettings)
+        setIsLoadingPartner(false)
       })
     }
   }, [settings])
 
-  if (isLoading || (!settings && !retryOnError)) return <CheckoutSkeleton />
+  if (isLoading || (!settings && !retryOnError) || isLoadingPartner)
+    return <CheckoutSkeleton />
 
   if (!settings) {
     if (retryOnError) {
@@ -49,8 +52,10 @@ const Order: NextPage = () => {
 
   return (
     <DynamicCheckoutContainer settings={settings}>
+      <pre>{`${JSON.stringify(partnerTheme, null, 2) ?? "content not found"}`}</pre>
       <DynamicCheckout
         logoUrl={settings.logoUrl}
+        headerLogo={partnerTheme?.headerLogo}
         primaryColor={settings.primaryColor}
         orderNumber={settings.orderNumber}
         companyName={settings.companyName}

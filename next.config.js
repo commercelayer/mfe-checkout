@@ -9,6 +9,11 @@ let nextConfig = {
   eslint: {},
   output: process.env.NODE_ENV === "production" ? "export" : "standalone",
   distDir: "out/dist",
+  images: {
+    remotePatterns: [
+ new URL ("https://a-us.storyblok.com/**")
+    ],
+  },
   poweredByHeader: false,
   webpack: (config) => config,
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH

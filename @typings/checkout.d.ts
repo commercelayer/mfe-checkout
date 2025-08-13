@@ -41,9 +41,15 @@ interface BrandColors {
     base: string
 }
 
+interface HeaderLogo {
+  image: string
+  alt: string
+}
+
 interface PartnerSettings {
 //   brandName: string
     brandColors: BrandColors
+    headerLogo: HeaderLogo
 //   email: string
 //   phone: string
 //   linkPartner: string

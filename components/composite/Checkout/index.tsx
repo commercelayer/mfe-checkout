@@ -28,6 +28,7 @@ import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
+import RenewUsHeader from "components/ui/RenewUsHeader"
 import { useRouter } from "next/router"
 import { useContext } from "react"
 import styled from "styled-components"
@@ -35,6 +36,7 @@ import tw from "twin.macro"
 
 interface Props {
   logoUrl: NullableType<string>
+  headerLogo?: HeaderLogo
   primaryColor: string
   orderNumber: string
   companyName: string
@@ -49,6 +51,7 @@ interface Props {
 
 const Checkout: React.FC<Props> = ({
   logoUrl,
+  headerLogo,
   primaryColor,
   orderNumber,
   companyName,
@@ -139,11 +142,7 @@ const Checkout: React.FC<Props> = ({
           }
           main={
             <div>
-              <Logo
-                logoUrl={logoUrl}
-                companyName={companyName}
-                className="block md:hidden"
-              />
+              {headerLogo?.image && <RenewUsHeader logo={{ ...headerLogo }} />}
               <MainHeader orderNumber={orderNumber} />
               <StepNav
                 steps={steps}
