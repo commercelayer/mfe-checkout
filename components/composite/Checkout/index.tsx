@@ -29,7 +29,11 @@ import { Accordion, AccordionItem } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 import { useRouter } from "next/router"
-import { useContext } from "react"
+import Invalid from "pages/404"
+import { useContext, useState } from "react"
+import { useTranslation } from "react-i18next"
+import styled from "styled-components"
+import tw from "twin.macro"
 
 interface Props {
   logoUrl: NullableType<string>
@@ -43,6 +47,7 @@ interface Props {
   termsUrl: NullableType<string>
   privacyUrl: NullableType<string>
   gtmId: NullableType<string>
+  expireAt: NullableType<string>
 }
 
 const Checkout: React.FC<Props> = ({
@@ -57,8 +62,11 @@ const Checkout: React.FC<Props> = ({
   termsUrl,
   privacyUrl,
   gtmId,
+  expireAt,
 }) => {
   const ctx = useContext(AppContext)
+  const [isExpired, setIsExpired] = useState(false)
+  const { t } = useTranslation()
 
   const { query } = useRouter()
 
@@ -100,8 +108,19 @@ const Checkout: React.FC<Props> = ({
     return steps.indexOf(stepName) + 1
   }
 
+  const isFinished = () => {
+    console.log("Ho finito di contare")
+    setIsExpired(true)
+  }
+
+  console.log("tempo in checkout component")
+
   if (!ctx || ctx.isFirstLoading) {
     return <CheckoutSkeleton />
+  }
+
+  const renderExpired = () => {
+    return <Invalid errorCode={419} message={t("orderRecap.timer.error")} />
   }
   const renderComplete = () => {
     return (
@@ -130,7 +149,12 @@ const Checkout: React.FC<Props> = ({
                 className="hidden md:block"
               />
               <div className="flex-1">
-                <OrderSummary appCtx={ctx} hideItemCodes={hideItemCodes} />
+                <OrderSummary
+                  appCtx={ctx}
+                  hideItemCodes={hideItemCodes}
+                  isFinished={isFinished}
+                  expireAt={expireAt}
+                />
               </div>
               <Footer />
             </div>
@@ -252,7 +276,11 @@ const Checkout: React.FC<Props> = ({
         gtmId={gtmId}
         skipBeginCheckout={checkoutAlreadyStarted || ctx.isComplete}
       >
-        {ctx.isComplete ? renderComplete() : renderSteps()}
+        {ctx.isComplete
+          ? renderComplete()
+          : isExpired
+            ? renderExpired()
+            : renderSteps()}
       </GTMProvider>
     </OrderContainer>
   )

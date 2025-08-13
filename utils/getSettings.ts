@@ -104,6 +104,7 @@ function getOrder(
           "terms_url",
           "privacy_url",
           "line_items",
+          // "expire_at",
           "customer",
           "payment_status",
         ],
@@ -146,11 +147,13 @@ export const getSettings = async ({
   orderId,
   subdomain,
   paymentReturn,
+  expireAt,
 }: {
   accessToken: string
   orderId: string
   paymentReturn?: boolean
   subdomain: string
+  expireAt?: string | null
 }) => {
   const domain = process.env.NEXT_PUBLIC_DOMAIN || "commercelayer.io"
 
@@ -256,6 +259,8 @@ export const getSettings = async ({
     slug,
     orderNumber: order.number || "",
     orderId: order.id,
+    // expireAt: order.expire_at,
+    expireAt,
     isShipmentRequired,
     validCheckout: true,
     logoUrl: organization.logo_url,

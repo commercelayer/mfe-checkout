@@ -1,6 +1,6 @@
 declare namespace Organization {
   type DefaultConfig =
-    import('@commercelayer/organization-config').DefaultConfig
+    import("@commercelayer/organization-config").DefaultConfig
 }
 
 type NullableType<T> = T | null | undefined
@@ -18,6 +18,7 @@ interface CheckoutSettings {
   validCheckout: true
   isGuest: boolean
   isShipmentRequired: boolean
+  expireAt: NullableType<string>
   endpoint: string
   domain: string
   slug: string
@@ -41,18 +42,19 @@ interface InvalidCheckoutSettings {
 
 type CheckoutPageContextProps = Pick<
   CheckoutSettings,
-  | 'accessToken'
-  | 'orderId'
-  | 'logoUrl'
-  | 'isGuest'
-  | 'companyName'
-  | 'endpoint'
-  | 'language'
-  | 'primaryColor'
-  | 'favicon'
-  | 'gtmId'
-  | 'supportEmail'
-  | 'supportPhone'
-  | 'termsUrl'
-  | 'privacyUrl'
+  | "accessToken"
+  | "orderId"
+  | "logoUrl"
+  | "isGuest"
+  | "expireAt"
+  | "companyName"
+  | "endpoint"
+  | "language"
+  | "primaryColor"
+  | "favicon"
+  | "gtmId"
+  | "supportEmail"
+  | "supportPhone"
+  | "termsUrl"
+  | "privacyUrl"
 >
