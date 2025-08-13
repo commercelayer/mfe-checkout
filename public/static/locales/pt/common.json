@@ -60,7 +60,9 @@
     "frequency.four-month": "A cada quatro meses",
     "frequency.six-months": "A cada seis meses",
     "frequency.six-month": "A cada seis meses",
-    "frequency.yearly": "Anualmente"
+    "frequency.yearly": "Anualmente",
+    "timer.title": "A compra deve ser concluída até",
+    "timer.error": "O checkout expirou"
   },
   "stepCustomer": {
     "title": "Cliente",

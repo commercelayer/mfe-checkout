@@ -3,13 +3,18 @@ import { ErrorCode, Text } from "components/composite/ErrorContainer/styled"
 import type { NextPage } from "next"
 import { useTranslation } from "react-i18next"
 
-const Invalid: NextPage = () => {
+const Invalid: NextPage<{ errorCode?: 404 | 419; message?: string }> = ({
+  errorCode = 404,
+  message = "general.invalid",
+}) => {
   const { t } = useTranslation()
 
   return (
     <ErrorContainer>
-      <ErrorCode>404</ErrorCode>
-      <Text data-testid="invalid-checkout">{t("general.invalid")}</Text>
+      <ErrorCode>{errorCode}</ErrorCode>
+      <Text data-testid="invalid-checkout">
+        {message === "general.invalid" ? t(message) : message}
+      </Text>
     </ErrorContainer>
   )
 }
