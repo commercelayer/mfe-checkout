@@ -21,6 +21,7 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const paymentIntentClientSecret = searchParams.get(
     "payment_intent_client_secret",
   )
+  const expireAt = searchParams.get("expireAt")
   const [settings, setSettings] = useState<
     CheckoutSettings | InvalidCheckoutSettings | undefined
   >(undefined)
@@ -51,6 +52,7 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
         orderId: orderId as string,
         paymentReturn: isPaymentReturn,
         subdomain: getSubdomain(window.location.hostname),
+        expireAt: expireAt || undefined,
       }).then((fetchedSettings) => {
         setSettings(fetchedSettings)
         setIsFetching(false)
