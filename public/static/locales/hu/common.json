@@ -60,7 +60,9 @@
     "frequency.four-month": "Négy havonta",
     "frequency.six-months": "Hat havonta",
     "frequency.six-month": "Hat havonta",
-    "frequency.yearly": "Évente"
+    "frequency.yearly": "Évente",
+    "timer.title": "A vásárlást be kell fejezni",
+    "timer.error": "A pénztár lejárt"
   },
   "stepCustomer": {
     "title": "Vásárló",
