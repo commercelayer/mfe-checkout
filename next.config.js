@@ -7,7 +7,7 @@ const shouldAnalyzeBundles = process.env.ANALYZE === "true";
 let nextConfig = {
   reactStrictMode: true,
   eslint: {},
-  output: process.env.NODE_ENV === "production" ? "export" : "standalone",
+  output: "standalone",
   distDir: "out/dist",
   images: {
     remotePatterns: [
