@@ -13,6 +13,7 @@ import {
   LINE_ITEMS_SHIPPABLE,
   LINE_ITEMS_SHOPPABLE,
 } from "components/utils/constants"
+import { DEFAULT_PARTNER_SETTINGS } from "./mapPartnerSettingsWithDefaults"
 
 const RETRIES = 2
 
@@ -106,6 +107,7 @@ function getOrder(
           "line_items",
           "customer",
           "payment_status",
+          "metadata"
         ],
         line_items: ["item_type", "item"],
       },
@@ -203,7 +205,7 @@ export const getSettings = async ({
 
   const order = orderResource?.object
 
-  if (!orderResource?.success || !order?.id) {
+  if (!orderResource?.success || !order?.id || !order?.metadata?.partner) {
     console.log("Invalid: order")
     return invalidateCheckout(!orderResource?.bailed)
   }
@@ -249,6 +251,8 @@ export const getSettings = async ({
     return invalidateCheckout()
   }
 
+  console.log("ORDER METADATA", order)
+
   const appSettings: CheckoutSettings = {
     accessToken,
     endpoint: `https://${slug}.${domain}`,
@@ -262,7 +266,7 @@ export const getSettings = async ({
     logoUrl: organization.logo_url,
     companyName: organization.name || "Test company",
     language: order.language_code || "en",
-    primaryColor: organization.primary_color || "#000000",
+    primaryColor: DEFAULT_PARTNER_SETTINGS.brandColors.accent,
     favicon:
       organization.favicon_url ||
       "https://data.commercelayer.app/assets/images/favicons/favicon-32x32.png",
@@ -282,7 +286,10 @@ export const getSettings = async ({
         accessToken,
       },
     }),
+    // TODO: put a bloody error handler here
+    partnerId: order.metadata.partner,
   }
 
   return appSettings
 }
+

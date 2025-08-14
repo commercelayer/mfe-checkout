@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams, useSearchParams } from "react-router-dom"
+import { getPartnerSettings } from "utils/getPartnerSettings"
 import { getSettings } from "utils/getSettings"
 import { getSubdomain } from "utils/getSubdomain"
-
 import { useLocalStorageToken } from "./useLocalStorageToken"
 
 interface UseSettingsOrInvalid {
@@ -24,6 +24,9 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const [settings, setSettings] = useState<
     CheckoutSettings | InvalidCheckoutSettings | undefined
   >(undefined)
+  const [partnerTheme, setPartnerTheme] = useState<PartnerSettings | undefined>(
+    undefined,
+  )
   const [isFetching, setIsFetching] = useState(true)
 
   const [savedAccessToken, setAccessToken] = useLocalStorageToken(

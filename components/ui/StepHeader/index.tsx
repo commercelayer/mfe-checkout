@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
-import { Badge } from "../Badge"
+// import { Badge } from "../Badge"
 
 interface Props {
   status: "edit" | "done" | "disabled" | "skip"
@@ -21,7 +21,7 @@ export const StepHeader: React.FC<Props> = ({
     <Wrapper disabled={status === "disabled"}>
       <Body>
         <Top>
-          <Badge status={status} stepNumber={stepNumber} />
+          {/* <Badge status={status} stepNumber={stepNumber} /> */}
           <Title data-testid="step-header-customer">{label}</Title>
         </Top>
         <Info data-testid="step-header-info">

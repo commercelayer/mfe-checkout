@@ -19,5 +19,5 @@ const Image = styled.img`
 `
 
 const Label = styled.h1`
-  ${tw`mb-5 md:mb-12 font-extrabold uppercase tracking-wide text-xl text-black`}
+  ${tw`mb-5 md:mb-12 font-extrabold uppercase tracking-wide text-xl text-brand-dark`}
 `

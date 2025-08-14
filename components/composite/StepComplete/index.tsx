@@ -104,7 +104,7 @@ export const StepComplete: React.FC<Props> = ({
                   i18nKey={"stepComplete.description"}
                   values={{ orderNumber }}
                   components={{
-                    WrapperOrderId: <strong className="text-black" />,
+                    WrapperOrderId: <strong className="text-brand-dark" />,
                   }}
                 />
               </Text>

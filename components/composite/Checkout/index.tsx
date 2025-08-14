@@ -28,6 +28,7 @@ import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
+import RenewUsHeader from "components/ui/RenewUsHeader"
 import { useRouter } from "next/router"
 import { useContext } from "react"
 import styled from "styled-components"
@@ -35,6 +36,7 @@ import tw from "twin.macro"
 
 interface Props {
   logoUrl: NullableType<string>
+  headerLogo?: HeaderLogo
   primaryColor: string
   orderNumber: string
   companyName: string
@@ -49,6 +51,7 @@ interface Props {
 
 const Checkout: React.FC<Props> = ({
   logoUrl,
+  headerLogo,
   primaryColor,
   orderNumber,
   companyName,
@@ -124,6 +127,11 @@ const Checkout: React.FC<Props> = ({
     return (
       <CustomerContainer isGuest={ctx.isGuest}>
         <LayoutDefault
+          topPageHeader={
+            <>
+              {headerLogo?.image && <RenewUsHeader logo={{ ...headerLogo }} />}
+            </>
+          }
           aside={
             <Sidebar>
               <Logo
@@ -134,16 +142,11 @@ const Checkout: React.FC<Props> = ({
               <SummaryWrapper>
                 <OrderSummary appCtx={ctx} hideItemCodes={hideItemCodes} />
               </SummaryWrapper>
-              <Footer />
+              {/* <Footer /> */}
             </Sidebar>
           }
           main={
             <div>
-              <Logo
-                logoUrl={logoUrl}
-                companyName={companyName}
-                className="block md:hidden"
-              />
               <MainHeader orderNumber={orderNumber} />
               <StepNav
                 steps={steps}
@@ -165,14 +168,14 @@ const Checkout: React.FC<Props> = ({
                     (!ctx.isShipmentRequired && ctx.hasBillingAddress)
                   }
                 >
-                  <AccordionItem
+                  {/* <AccordionItem
                     index={1}
                     header={
                       <StepHeaderCustomer step={getStepNumber("Customer")} />
                     }
                   >
                     <StepCustomer className="mb-6" step={1} />
-                  </AccordionItem>
+                  </AccordionItem> */}
                 </AccordionProvider>
                 <>
                   {ctx.isShipmentRequired && (
@@ -261,7 +264,7 @@ const Checkout: React.FC<Props> = ({
 }
 
 const Sidebar = styled.div`
-  ${tw`flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12 bg-gray-50`}
+  ${tw`flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12 bg-brand-base`}
 `
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}

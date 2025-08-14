@@ -5,7 +5,7 @@ import styled from "styled-components"
 import tw from "twin.macro"
 
 export const PaymentWrapper = styled.div`
-  ${tw`will-change-transform text-black border border-gray-300 mb-5 p-4 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-gray-400 group-hover:(cursor-pointer) group-first:mt-6 group-last:mb-0`}
+  ${tw`will-change-transform text-brand-dark border border-gray-300 mb-5 p-4 rounded bg-gray-50 relative transition duration-200 ease-in hover:border-gray-400 group-hover:(cursor-pointer) group-first:mt-6 group-last:mb-0`}
 
   label {
     ${tw`group-hover:(cursor-pointer)`}
@@ -70,7 +70,7 @@ export const PaymentSourceContainer = styled.div`
 
   #cardAccordionContainer button *,
   #googlepayAccordionContainer button * {
-    ${tw`!text-black`}
+    ${tw`!text-brand-dark`}
   }
 
   #cardAccordionContainer button,

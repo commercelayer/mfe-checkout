@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import tw from "twin.macro"
 
-import { Badge } from "../Badge"
+// import { Badge } from "../Badge"
 
 interface Props {
   status: "edit" | "done" | "disabled"
@@ -11,9 +11,7 @@ interface Props {
 export const StepLine: React.FC<Props> = ({ status, stepNumber }) => {
   return (
     <Wrapper>
-      <div>
-        <Badge status={status} stepNumber={stepNumber} />
-      </div>
+      <div>{/* <Badge status={status} stepNumber={stepNumber} /> */}</div>
       <Line />
     </Wrapper>
   )

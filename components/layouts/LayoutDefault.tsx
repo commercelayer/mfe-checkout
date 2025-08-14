@@ -1,3 +1,4 @@
+import { C } from "@faker-js/faker/dist/airline-CLphikKp"
 import { Base } from "components/ui/Base"
 import { Card } from "components/ui/Card"
 import { Container } from "components/ui/Container"
@@ -7,15 +8,21 @@ import tw from "twin.macro"
 interface Props {
   aside: ChildrenType
   main: ChildrenType
+  topPageHeader?: ChildrenType
 }
 
-export const LayoutDefault: React.FC<Props> = ({ main, aside }) => {
+export const LayoutDefault: React.FC<Props> = ({
+  main,
+  aside,
+  topPageHeader,
+}) => {
   return (
     <Base>
       <Container>
         <Wrapper>
           <Aside>{aside}</Aside>
           <Main>
+            {topPageHeader}
             <Card $fullHeight>{main}</Card>
           </Main>
         </Wrapper>

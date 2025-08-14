@@ -22,7 +22,7 @@ export const ShippingSummaryItemDescription = styled.p`
   ${tw`text-gray-500 font-normal text-ss`}
 `
 export const ShippingSummaryValue = styled.p`
-  ${tw`text-black font-bold uppercase text-sm pt-2`}
+  ${tw`text-brand-dark font-bold uppercase text-sm pt-2`}
 `
 export const ShippingLineItem = styled.div`
   ${tw`flex mt-4`}
@@ -31,7 +31,7 @@ export const ShippingLineItemDescription = styled.div`
   ${tw`flex flex-col ml-3`}
 `
 export const ShippingLineItemTitle = styled.h5`
-  ${tw`text-black text-sm font-bold`}
+  ${tw`text-brand-dark text-sm font-bold`}
 `
 export const ShippingLineItemQty = styled.p`
   ${tw`text-xs font-semibold text-gray-400 lowercase pt-1 first-letter:uppercase`}

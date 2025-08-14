@@ -22,7 +22,7 @@ export const CustomerAddressCard: React.FC<AddressCardProps> = ({
     <Address
       data-testid={dataTestId}
       addresses={addresses}
-      className={`text-black p-3 rounded border ${
+      className={`text-brand-dark p-3 rounded border ${
         onSelect && "hover:border-gray-400 cursor-pointer"
       } transition duration-200 ease-in`}
       selectedClassName="!border-2 border-primary shadow-md bg-gray-50"

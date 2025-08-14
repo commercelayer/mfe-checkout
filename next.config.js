@@ -1,27 +1,30 @@
-// @ts-check
+// next.config.js
+const nextBuildId = require("next-build-id");
 
-const nextBuildId = require("next-build-id")
+const shouldAnalyzeBundles = process.env.ANALYZE === "true";
 
-const shouldAnalyzeBundles = process.env.ANALYZE === "true"
-
-/** @type { import('next').NextConfig } */
+/** @type {import('next').NextConfig} */
 let nextConfig = {
   reactStrictMode: true,
   eslint: {},
   output: process.env.NODE_ENV === "production" ? "export" : "standalone",
   distDir: "out/dist",
-  poweredByHeader: false,
-  webpack: (config) => {
-    return config
+  images: {
+    remotePatterns: [
+ new URL ("https://a-us.storyblok.com/**")
+    ],
   },
-  // When when app is exported as SPA and served in a sub-folder
+  poweredByHeader: false,
+  webpack: (config) => config,
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH
     ? `${process.env.NEXT_PUBLIC_BASE_PATH}/`
     : undefined,
-  // https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions#including-non-page-files-in-the-pages-directory
-  pageExtensions: ["page.tsx"],
+  pageExtensions: ["page.tsx", "ts"],
   generateBuildId: () => nextBuildId({ dir: __dirname }),
-}
+  logging: {
+    incomingRequests: process.env.NODE_ENV !== "production", // true in dev
+  },
+};
 
 // rewrite rules affect only development mode, since Next router will return 404 for paths that only exist in react-router
 if (process.env.NODE_ENV !== "production") {
@@ -30,7 +33,7 @@ if (process.env.NODE_ENV !== "production") {
     async rewrites() {
       return [
         {
-          source: "/:any*",
+          source: "/((?!api|_next|favicon.ico).*)",
           destination: "/",
         },
       ]
@@ -38,11 +41,12 @@ if (process.env.NODE_ENV !== "production") {
   }
 }
 
+// Bundle analyzer abilitato con flag ANALYZE=true
 if (shouldAnalyzeBundles) {
   const withBundleAnalyzer = require("@next/bundle-analyzer")({
     enabled: true,
-  })
-  nextConfig = withBundleAnalyzer(nextConfig)
+  });
+  nextConfig = withBundleAnalyzer(nextConfig);
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;

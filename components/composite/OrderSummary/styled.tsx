@@ -6,7 +6,7 @@ export const SummaryHeader = styled.div`
   ${tw`mb-12`}
 `
 export const SummaryTitle = styled.h2`
-  ${tw`text-xl text-black font-semibold`}
+  ${tw`text-xl text-brand-dark font-semibold`}
 `
 export const SummarySubTitle = styled.p`
   ${tw`text-gray-400`}
@@ -21,7 +21,7 @@ export const AmountSpacer = styled.div`
   ${tw`hidden lg:flex lg:flex-85`}
 `
 export const RecapLine = styled.div`
-  ${tw`flex flex-row justify-between py-0.5 text-black`}
+  ${tw`flex flex-row justify-between py-0.5 text-brand-dark`}
 
   &:empty {
     ${tw`hidden`}

@@ -9,9 +9,9 @@ export const ErrorContainer = ({ children }: { children: ChildrenType }) => {
     <Base>
       <Container>
         <Wrapper>
-          <LogoWrapper>
-            <FullLogo className="self-center text-black md:pl-4 md:self-auto" />
-          </LogoWrapper>
+          {/* <LogoWrapper>
+            <FullLogo className="self-center text-brand-dark md:pl-4 md:self-auto" />
+          </LogoWrapper> */}
           <Main>
             <StyledError>{children}</StyledError>
           </Main>
