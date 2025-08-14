@@ -71,7 +71,7 @@ const AccordionTab = styled.div`
   }
 `
 const AccordionTabHeader = styled.div`
-  ${tw`text-black relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease-in-out duration-100 focus:bg-gray-400 md:pt-6 md:pb-0`}
+  ${tw`text-brand-dark relative flex items-start justify-between pb-3 pt-5 cursor-pointer transition ease-in-out duration-100 focus:bg-gray-400 md:pt-6 md:pb-0`}
   .disabled & {
     ${tw`pointer-events-none`}
   }

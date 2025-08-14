@@ -22,5 +22,5 @@ export const LogoWrapper = styled.div`
   ${tw`md:max-w-xs`}
 `
 export const FullLogo = styled(Logo)`
-  ${tw`text-black`}
+  ${tw`text-brand-dark`}
 `
