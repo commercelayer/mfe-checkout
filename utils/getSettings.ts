@@ -13,6 +13,7 @@ import {
   LINE_ITEMS_SHIPPABLE,
   LINE_ITEMS_SHOPPABLE,
 } from "components/utils/constants"
+import { DEFAULT_PARTNER_SETTINGS } from "./mapPartnerSettingsWithDefaults"
 
 const RETRIES = 2
 
@@ -265,7 +266,7 @@ export const getSettings = async ({
     logoUrl: organization.logo_url,
     companyName: organization.name || "Test company",
     language: order.language_code || "en",
-    primaryColor: "#770099",
+    primaryColor: DEFAULT_PARTNER_SETTINGS.brandColors.accent,
     favicon:
       organization.favicon_url ||
       "https://data.commercelayer.app/assets/images/favicons/favicon-32x32.png",

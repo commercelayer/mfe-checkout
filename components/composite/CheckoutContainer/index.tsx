@@ -6,11 +6,16 @@ import hex2hsl from "components/utils/hex2hsl"
 
 interface Props {
   settings: CheckoutSettings
+  brandColors: BrandColors
   children: JSX.Element[] | JSX.Element
 }
 
-const CheckoutContainer = ({ settings, children }: Props): JSX.Element => {
-  const primaryColor = hex2hsl(settings.primaryColor)
+const CheckoutContainer = ({
+  settings,
+  brandColors,
+  children,
+}: Props): JSX.Element => {
+  const primaryColor = hex2hsl(brandColors.accent)
 
   return (
     <div>
@@ -19,7 +24,11 @@ const CheckoutContainer = ({ settings, children }: Props): JSX.Element => {
         accessToken={settings.accessToken}
         endpoint={settings.endpoint}
       >
-        <GlobalStylesProvider primaryColor={primaryColor} />
+        <GlobalStylesProvider
+          primaryColor={primaryColor}
+          brandDark={brandColors.dark}
+          brandBase={brandColors.base}
+        />
 
         <AppProvider
           orderId={settings.orderId}

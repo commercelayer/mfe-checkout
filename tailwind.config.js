@@ -20,6 +20,8 @@ module.exports = {
         DEFAULT: "var(--primary)",
         dark: "var(--primary-dark)",
       },
+      "brand-dark": "var(--brand-dark)",
+      "brand-base": "var(--brand-base)",
       contrast: "var(--contrast)",
       transparent: "transparent",
       black: "#101111",

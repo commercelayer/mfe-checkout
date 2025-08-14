@@ -6,6 +6,10 @@ import type { NextPage } from "next"
 import dynamic from "next/dynamic"
 import { useEffect, useState } from "react"
 import { getPartnerSettings } from "utils/getPartnerSettings"
+import {
+  DEFAULT_PARTNER_SETTINGS,
+  mapPartnerSettingsWithDefaults,
+} from "utils/mapPartnerSettingsWithDefaults"
 
 const DynamicCheckoutContainer = dynamic(
   () => import("components/composite/CheckoutContainer"),
@@ -25,18 +29,23 @@ CheckoutSkeleton.displayName = "Skeleton Loader"
 
 const Order: NextPage = () => {
   const { settings, retryOnError, isLoading } = useSettingsOrInvalid()
-  const [partnerTheme, setPartnerTheme] = useState<PartnerSettings | undefined>(
-    undefined,
-  )
+  const [partnerTheme, setPartnerTheme] = useState<PartnerSettings>({
+    ...DEFAULT_PARTNER_SETTINGS,
+  })
   const [isLoadingPartner, setIsLoadingPartner] = useState(true)
 
   useEffect(() => {
     if (settings?.validCheckout) {
       getPartnerSettings(settings.partnerId).then((partnerSettings) => {
         console.log("Fetched partner settings:", partnerSettings)
-        setPartnerTheme(partnerSettings)
+        const mappedSettings = mapPartnerSettingsWithDefaults(partnerSettings)
+        setPartnerTheme(mappedSettings)
         setIsLoadingPartner(false)
       })
+    } else {
+      console.warn("Invalid checkout settings, skipping partner theme fetch.")
+      console.info("Using default settings for partner theme.")
+      setIsLoadingPartner(false)
     }
   }, [settings])
 
@@ -51,12 +60,16 @@ const Order: NextPage = () => {
   }
 
   return (
-    <DynamicCheckoutContainer settings={settings}>
-      <pre>{`${JSON.stringify(partnerTheme, null, 2) ?? "content not found"}`}</pre>
+    <DynamicCheckoutContainer
+      settings={settings}
+      brandColors={partnerTheme.brandColors}
+    >
       <DynamicCheckout
         logoUrl={settings.logoUrl}
         headerLogo={partnerTheme?.headerLogo}
-        primaryColor={settings.primaryColor}
+        primaryColor={
+          partnerTheme?.brandColors?.accent || settings.primaryColor
+        }
         orderNumber={settings.orderNumber}
         companyName={settings.companyName}
         supportEmail={settings.supportEmail}
