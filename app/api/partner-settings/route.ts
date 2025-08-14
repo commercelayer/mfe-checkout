@@ -1,12 +1,11 @@
-
-export const runtime = "nodejs";
+import type { NextRequest } from "next/server";
+// export const runtime = "nodejs";
 
 export async function GET(
-  req: Request,
-  context: { params: Promise<{ "partner-id": string }> }
+  req: NextRequest
 ) {
-  const params = await context.params;
-  const partnerId = params["partner-id"];
+  const searchParams = req.nextUrl.searchParams
+  const partnerId = searchParams.get('partner-id');
   console.log("API partner-settings called with partnerId:", partnerId);
 
   if (!partnerId) {
