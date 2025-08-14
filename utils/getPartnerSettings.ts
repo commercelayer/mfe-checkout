@@ -2,7 +2,7 @@ import { SettingsGlobalAppStoryblok } from "@typings/storyblok";
 
 export async function getPartnerSettings(partnerId: string) {
        try {
-        const response = await fetch(`/api/partner-settings/${partnerId}`, { method: "GET",  headers: { "Content-Type": "application/json" } });
+        const response = await fetch(`/api/partner-settings/${partnerId}`, { method: "GET",  headers: { "Content-Type": "application/json" }, next:{revalidate: 0} });
        const data: {content: SettingsGlobalAppStoryblok} = await response.json();
        if (!data?.content) {
         throw new Error("Settings not found");
