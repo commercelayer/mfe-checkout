@@ -13,5 +13,5 @@ export const AddressSectionTitle = ({
 }
 
 const Wrapper = styled.h3`
-  ${tw`mt-4 mb-2 font-normal text-black text-sm`}
+  ${tw`mt-4 mb-2 font-normal text-brand-dark text-sm`}
 `

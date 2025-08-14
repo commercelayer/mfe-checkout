@@ -10,7 +10,7 @@ interface RenewUsHeaderProps {
 
 export default function RenewUsHeader({ logo }: RenewUsHeaderProps) {
   return (
-    <header className="bg-light flex h-16 w-full items-center justify-center px-3 py-2">
+    <header className="bg-light flex h-16 w-full items-center justify-center px-3 py-2 -mb-5">
       {logo?.image && (
         <div className="flex h-12 w-36 items-center justify-center">
           <Image

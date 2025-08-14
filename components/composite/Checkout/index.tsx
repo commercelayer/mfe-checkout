@@ -127,6 +127,11 @@ const Checkout: React.FC<Props> = ({
     return (
       <CustomerContainer isGuest={ctx.isGuest}>
         <LayoutDefault
+          topPageHeader={
+            <>
+              {headerLogo?.image && <RenewUsHeader logo={{ ...headerLogo }} />}
+            </>
+          }
           aside={
             <Sidebar>
               <Logo
@@ -137,12 +142,11 @@ const Checkout: React.FC<Props> = ({
               <SummaryWrapper>
                 <OrderSummary appCtx={ctx} hideItemCodes={hideItemCodes} />
               </SummaryWrapper>
-              <Footer />
+              {/* <Footer /> */}
             </Sidebar>
           }
           main={
             <div>
-              {headerLogo?.image && <RenewUsHeader logo={{ ...headerLogo }} />}
               <MainHeader orderNumber={orderNumber} />
               <StepNav
                 steps={steps}
@@ -260,7 +264,7 @@ const Checkout: React.FC<Props> = ({
 }
 
 const Sidebar = styled.div`
-  ${tw`flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12 bg-gray-50`}
+  ${tw`flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12 bg-brand-base`}
 `
 const SummaryWrapper = styled.div`
   ${tw`flex-1`}

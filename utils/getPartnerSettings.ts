@@ -1,30 +1,17 @@
 import { SettingsGlobalAppStoryblok } from "@typings/storyblok";
 
-const DEFAULT_PARTNER_SETTINGS: PartnerSettings =  {brandColors: {dark: "#000A1C", accent: "#003596", base: "#F1F2F9" }, headerLogo: {alt: '', image: ''}};
-
-
 export async function getPartnerSettings(partnerId: string) {
-       try {const response = await fetch(`/api/partner-settings/${partnerId}`, { method: "GET", headers: { "Content-Type": "application/json" }});
-       const data: {content: SettingsGlobalAppStoryblok} =await response.json();
+       try {
+        const response = await fetch(`/api/partner-settings/${partnerId}`, { method: "GET",  headers: { "Content-Type": "application/json" } });
+       const data: {content: SettingsGlobalAppStoryblok} = await response.json();
        if (!data?.content) {
         throw new Error("Settings not found");
        }
-       return mapPartnerThemeFromSettings(data.content);
+       return data.content;
      } catch (error) {
         console.error("Error fetching partner settings:", error);
         console.info("Returning default settings");
-        return DEFAULT_PARTNER_SETTINGS;
+        return undefined;
      }
    
-}
-
-export function mapPartnerThemeFromSettings(data: SettingsGlobalAppStoryblok) {
-    return {
-        brandColors: {
-            dark: data?.dark || DEFAULT_PARTNER_SETTINGS.brandColors.dark,
-            accent: data?.accent || DEFAULT_PARTNER_SETTINGS.brandColors.accent,
-            base: data?.base || DEFAULT_PARTNER_SETTINGS.brandColors.base,
-        },
-        headerLogo: {alt: data?.logo?.alt ?? '', image: data?.logo?.filename ?? ''},
-    }
 }

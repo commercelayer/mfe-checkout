@@ -10,7 +10,7 @@ export const LineItemDescription = styled.div`
   ${tw`pl-4 flex flex-col flex-1 lg:pl-8`}
 `
 export const LineItemTitle = styled.div`
-  ${tw`flex justify-between text-black`}
+  ${tw`flex justify-between text-brand-dark`}
 `
 export const LineItemQty = styled.div`
   ${tw`text-xs bg-gray-100 max-w-max py-1 px-2.5 rounded lowercase text-gray-500 font-bold first-letter:uppercase`}
