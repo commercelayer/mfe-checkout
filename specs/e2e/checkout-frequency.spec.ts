@@ -64,6 +64,7 @@ test.describe("Guest checking out a subscription", () => {
 })
 
 test.describe("Customer checking out a subscription", () => {
+  test.describe.configure({ mode: "serial" })
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const customerPassword = faker.internet.password()
 
@@ -89,7 +90,7 @@ test.describe("Customer checking out a subscription", () => {
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    await checkoutPage.page.locator(`text=${customerEmail}`)
+    checkoutPage.page.locator(`text=${customerEmail}`)
 
     await checkoutPage.setBillingAddress(euAddress)
 
