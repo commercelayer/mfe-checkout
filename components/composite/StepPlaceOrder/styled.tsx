@@ -54,7 +54,7 @@ export const StyledPlaceOrderButton: FC<StyledPlaceOrderButtonProps> = ({
 }) => (
   <PlaceOrderButton
     {...props}
-    className={`${ButtonCss} ${isActive ? "" : "hidden"} ${className}`}
+    className={`${ButtonCss} ${isActive ? "inline-flex" : "hidden"} ${className}`}
   />
 )
 

@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app"
 import "../styles/theme.css"
 import "../styles/globals.css"
-import "../styles/CheckIcon.css"
+import "../styles/check-icon.css"
 import "../styles/footer.css"
 import "../styles/payment.css"
 import "../styles/shipping.css"

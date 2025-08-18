@@ -89,13 +89,15 @@ const StyledCustomInput: FC<React.ComponentProps<typeof CustomerInput>> = ({
   className,
   errorClassName,
   ...props
-}) => (
-  <CustomerInput
-    {...props}
-    className={classNames(InputCss, className)}
-    errorClassName={classNames(errorClassName, ErrorCss)}
-  />
-)
+}) => {
+  return (
+    <CustomerInput
+      {...props}
+      errorClassName={errorClassName}
+      className={classNames(InputCss, className)}
+    />
+  )
+}
 
 const StyledErrors: FC<React.ComponentProps<typeof Errors>> = (props) => (
   <Errors {...props} className={`${ErrorCss} mt-1`} />

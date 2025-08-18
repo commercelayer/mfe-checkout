@@ -1,5 +1,9 @@
 @reference "./globals.css";
 
+.hasError {
+  @apply border-red-400 border-2 focus:ring-offset-0 focus:ring-red-400/50 focus:border-red-400;
+}
+
 .error-wrapper + .error-wrapper {
   @apply mb-10 mt-5;
 }

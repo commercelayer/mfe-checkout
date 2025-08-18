@@ -2,7 +2,7 @@ import type { FC } from "react"
 
 export const ButtonCss = [
   // Layout
-  "inline-flex items-center justify-center w-full lg:w-48",
+  "items-center justify-center w-full lg:w-48",
   // Spacing and size
   "p-3",
   // Typography
@@ -12,10 +12,10 @@ export const ButtonCss = [
   // Transitions
   "transition duration-300 ease-in",
   // Interactive states
-  "hover:opacity-80",
+  "hover:bg-primary/80",
   "focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-primary",
   // Disabled states
-  "disabled:bg-primary disabled:opacity-50",
+  "disabled:bg-primary/50 disabled:border-primary/10",
   // Cursor
   "cursor-pointer disabled:cursor-default",
 ].join(" ")
