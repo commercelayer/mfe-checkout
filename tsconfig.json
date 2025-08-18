@@ -17,6 +17,6 @@
     "baseUrl": ".",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "public", ".next", "playwright.config.*", "specs"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "specs"],
+  "exclude": ["node_modules", "public", ".next", "playwright.config.*"]
 }

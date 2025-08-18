@@ -1,11 +1,9 @@
-import styled from "styled-components"
-import tw from "twin.macro"
-
 interface Props {
   dataTestId?: string
   htmlFor: string
   textLabel?: string
   children?: ChildrenType
+  className?: string
 }
 
 export const Label: React.FC<Props> = ({
@@ -13,21 +11,15 @@ export const Label: React.FC<Props> = ({
   htmlFor,
   textLabel,
   children,
+  className,
 }) => {
   return (
-    <Wrapper data-testid={dataTestId} htmlFor={htmlFor}>
+    <label
+      data-testid={dataTestId}
+      htmlFor={htmlFor}
+      className={`ml-2 cursor-pointer text-sm text-gray-500 [&.hasError]:text-red-400 [&_a]:text-gray-900 [&_a]:border-b [&_a]:border-gray-200 [&_a]:transition [&_a]:ease-in-out [&_a:hover]:text-gray-500 ${className ?? ""}`}
+    >
       {children || textLabel}
-    </Wrapper>
+    </label>
   )
 }
-
-const Wrapper = styled.label`
-  ${tw`ml-2 cursor-pointer text-sm text-gray-500`}
-  &.hasError {
-    ${tw`text-red-400`}
-  }
-
-  a {
-    ${tw`text-gray-900 border-b border-gray-200 transition ease-in-out hover:text-gray-500`}
-  }
-`

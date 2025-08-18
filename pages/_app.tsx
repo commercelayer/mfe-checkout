@@ -1,6 +1,15 @@
 import type { AppProps } from "next/app"
+import "../styles/theme.css"
 import "../styles/globals.css"
-// eslint-disable-next-line import/order
+import "../styles/check-icon.css"
+import "../styles/footer.css"
+import "../styles/payment.css"
+import "../styles/shipping.css"
+import "../styles/place-order.css"
+import "../styles/step-container.css"
+import "../styles/address-input.css"
+import "../styles/accordion.css"
+
 import { appWithTranslation } from "next-i18next"
 
 import "components/data/i18n"

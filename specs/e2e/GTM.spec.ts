@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
 
 const TIMEOUT = 200
@@ -39,8 +39,8 @@ test.describe("multi shipments", () => {
     expect(dataLayer[0].ecommerce.items?.length).toBe(2)
     expect(
       dataLayer[0].ecommerce.items?.filter(
-        (item) => item?.item_id === "CANVASAU000000FFFFFF1824"
-      )
+        (item) => item?.item_id === "CANVASAU000000FFFFFF1824",
+      ),
     ).toHaveLength(1)
 
     await checkoutPage.checkStep("Shipping", "open")
@@ -225,7 +225,7 @@ test.describe("single shipment", () => {
     const orderNumber = await checkoutPage.getOrderNumber()
 
     expect(dataLayer[0].ecommerce.transaction_id).toBe(
-      orderNumber.replace("#", "")
+      orderNumber.replace("#", ""),
     )
     expect(dataLayer[0].ecommerce.items?.length).toBe(2)
   })
@@ -390,8 +390,8 @@ test.describe("with bundle", () => {
     expect(dataLayer[0].ecommerce.value).toBe(105)
     expect(
       dataLayer[0].ecommerce.items?.filter(
-        (item) => item?.item_id === "SHIRTSETSINGLE"
-      )
+        (item) => item?.item_id === "SHIRTSETSINGLE",
+      ),
     ).toHaveLength(1)
 
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
@@ -432,7 +432,7 @@ test.describe("with bundle", () => {
     const orderNumber = await checkoutPage.getOrderNumber()
 
     expect(dataLayer[0].ecommerce.transaction_id).toBe(
-      orderNumber.replace("#", "")
+      orderNumber.replace("#", ""),
     )
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
   })
@@ -447,8 +447,8 @@ test.describe("with bundle", () => {
     expect(dataLayer[0].ecommerce.value).toBe(105)
     expect(
       dataLayer[0].ecommerce.items?.filter(
-        (item) => item?.item_id === "SHIRTSETSINGLE"
-      )
+        (item) => item?.item_id === "SHIRTSETSINGLE",
+      ),
     ).toHaveLength(1)
 
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
@@ -490,7 +490,7 @@ test.describe("with bundle", () => {
     const orderNumber = await checkoutPage.getOrderNumber()
 
     expect(dataLayer[0].ecommerce.transaction_id).toBe(
-      orderNumber.replace("#", "")
+      orderNumber.replace("#", ""),
     )
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
   })
@@ -503,8 +503,8 @@ test.describe("with bundle", () => {
     expect(dataLayer[0].ecommerce.value).toBe(105)
     expect(
       dataLayer[0].ecommerce.items?.filter(
-        (item) => item?.item_id === "SHIRTSETSINGLE"
-      )
+        (item) => item?.item_id === "SHIRTSETSINGLE",
+      ),
     ).toHaveLength(1)
 
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
@@ -538,7 +538,7 @@ test.describe("with bundle", () => {
     const orderNumber = await checkoutPage.getOrderNumber()
 
     expect(dataLayer[0].ecommerce.transaction_id).toBe(
-      orderNumber.replace("#", "")
+      orderNumber.replace("#", ""),
     )
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
 

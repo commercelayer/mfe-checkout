@@ -616,7 +616,7 @@ test.describe("with custom countries for billing address @organization-config", 
     })
     expect(empty).toBe("")
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // biome-ignore lint/correctness/noUnusedVariables: here we use the rest
     const { country_code, state_code, ...addressNoCountry } = euAddress
     await checkoutPage.setBillingAddress({
       ...addressNoCountry,

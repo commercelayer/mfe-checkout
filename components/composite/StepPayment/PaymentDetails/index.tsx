@@ -55,7 +55,7 @@ export const PaymentDetails: React.FC<Props> = ({ hasEditButton = false }) => {
         <div className="ml-10 lg:ml-3">
           <PaymentSourceEditButton
             label={t("general.edit")}
-            className="text-sm font-bold leading-none border-b border-black text-primary border-opacity-10 md: transition ease-in duration-200 hover:border-opacity-50 hover:text-primary-dark focus:outline-none"
+            className="text-sm font-bold leading-none border-b text-primary border-black/10 md: transition ease-in duration-200 hover:border-black/50 hover:text-primary-dark focus:outline-hidden"
           />
         </div>
       )}

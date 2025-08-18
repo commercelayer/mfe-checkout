@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 
 test.describe("with coupon code", () => {
   test.use({
@@ -26,7 +26,7 @@ test.describe("with coupon code", () => {
     await checkoutPage.checkShippingSummary("To be calculated")
 
     await expect(
-      checkoutPage.page.locator("text=Standard Shipping")
+      checkoutPage.page.locator("text=Standard Shipping"),
     ).toBeVisible()
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
@@ -74,7 +74,7 @@ test.describe("with coupon code", () => {
     await checkoutPage.checkShippingSummary("To be calculated")
 
     await expect(
-      checkoutPage.page.locator("text=Standard Shipping")
+      checkoutPage.page.locator("text=Standard Shipping"),
     ).toBeVisible()
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
@@ -120,7 +120,7 @@ test.describe("without coupon code", () => {
 
     await checkoutPage.checkShippingSummary("To be calculated")
     await expect(
-      checkoutPage.page.locator("text=Standard Shipping")
+      checkoutPage.page.locator("text=Standard Shipping"),
     ).toBeVisible()
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
@@ -173,7 +173,7 @@ test.describe("without coupon code", () => {
 
     await checkoutPage.checkShippingSummary("To be calculated")
     await expect(
-      checkoutPage.page.locator("text=Standard Shipping")
+      checkoutPage.page.locator("text=Standard Shipping"),
     ).toBeVisible()
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
@@ -216,7 +216,7 @@ test.describe("without applied coupon code", () => {
 
     await checkoutPage.checkShippingSummary("To be calculated")
     await expect(
-      checkoutPage.page.locator("text=Standard Shipping")
+      checkoutPage.page.locator("text=Standard Shipping"),
     ).toBeVisible()
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
@@ -260,7 +260,7 @@ test.describe("without applied coupon code", () => {
     await checkoutPage.setCoupon("wrongcoupon")
 
     await checkoutPage.checkCouponError(
-      "Please enter a valid gift card or coupon"
+      "Please enter a valid gift card or coupon",
     )
 
     await checkoutPage.setCoupon("testcoupon")
@@ -301,10 +301,10 @@ test.describe("with giftcard", () => {
     await checkoutPage.checkTaxSummary("To be calculated")
 
     expect(
-      checkoutPage.page.locator("text=Standard Shipping >> nth=0")
+      checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
     expect(
-      checkoutPage.page.locator("text=Standard Shipping >> nth=1")
+      checkoutPage.page.locator("text=Standard Shipping >> nth=1"),
     ).toBeVisible()
 
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
@@ -374,10 +374,10 @@ test.describe("without applied giftcard", () => {
 
     await checkoutPage.checkShippingSummary("To be calculated")
     expect(
-      checkoutPage.page.locator("text=Standard Shipping >> nth=0")
+      checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
     expect(
-      checkoutPage.page.locator("text=Standard Shipping >> nth=1")
+      checkoutPage.page.locator("text=Standard Shipping >> nth=1"),
     ).toBeVisible()
     await checkoutPage.selectShippingMethod({
       text: "Standard Shipping",
@@ -422,7 +422,7 @@ test.describe("without applied giftcard", () => {
     await checkoutPage.page.waitForTimeout(1000)
 
     await checkoutPage.checkCouponError(
-      "Please enter a valid gift card or coupon"
+      "Please enter a valid gift card or coupon",
     )
 
     await checkoutPage.setCoupon("testcoupon")

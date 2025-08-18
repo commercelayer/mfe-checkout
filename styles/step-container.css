@@ -1,0 +1,7 @@
+.submitting {
+  filter: opacity(25%);
+}
+
+.step-container:nth-last-of-type(1) {
+  margin-bottom: 0;
+}

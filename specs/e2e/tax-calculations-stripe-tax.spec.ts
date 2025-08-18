@@ -26,14 +26,11 @@ test.use({
 
 test("should show 20% VAT for Austrian customer", async ({ checkoutPage }) => {
   await checkoutPage.checkOrderSummary("Order Summary")
-
-  await checkoutPage.selectPayment("stripe")
+  await checkoutPage.checkTaxSummary("€4,83") // 20% of €29,00
   await checkoutPage.setPayment("stripe")
   await checkoutPage.save("Payment")
 
   // Verify tax amount is 20% of subtotal
-
-  await checkoutPage.checkTaxSummary("€4,83") // 20% of €29,00
 
   await checkoutPage.checkPaymentRecap("Visa ending in 4242")
 })

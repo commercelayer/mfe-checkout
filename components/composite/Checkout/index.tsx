@@ -30,8 +30,6 @@ import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 import { useRouter } from "next/router"
 import { useContext } from "react"
-import styled from "styled-components"
-import tw from "twin.macro"
 
 interface Props {
   logoUrl: NullableType<string>
@@ -125,17 +123,17 @@ const Checkout: React.FC<Props> = ({
       <CustomerContainer isGuest={ctx.isGuest}>
         <LayoutDefault
           aside={
-            <Sidebar>
+            <div className="flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12 bg-gray-50">
               <Logo
                 logoUrl={logoUrl}
                 companyName={companyName}
                 className="hidden md:block"
               />
-              <SummaryWrapper>
+              <div className="flex-1">
                 <OrderSummary appCtx={ctx} hideItemCodes={hideItemCodes} />
-              </SummaryWrapper>
+              </div>
               <Footer />
-            </Sidebar>
+            </div>
           }
           main={
             <div>
@@ -260,10 +258,4 @@ const Checkout: React.FC<Props> = ({
   )
 }
 
-const Sidebar = styled.div`
-  ${tw`flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12 bg-gray-50`}
-`
-const SummaryWrapper = styled.div`
-  ${tw`flex-1`}
-`
 export default Checkout

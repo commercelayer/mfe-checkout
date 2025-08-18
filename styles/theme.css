@@ -1,0 +1,21 @@
+/* Questo file viene generato dinamicamente con i valori corretti in runtime */
+:root {
+  --primary-h: 0;
+  --primary-s: 0%;
+  --primary-l: 0%;
+  --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+  --primary-light: hsla(
+    var(--primary-h),
+    var(--primary-s),
+    var(--primary-l),
+    0.4
+  );
+  --primary-dark: hsl(
+    var(--primary-h),
+    var(--primary-s),
+    calc(var(--primary-l) * 0.5)
+  );
+  --contrast-threshold: 75%;
+  --switch: calc((var(--primary-l) - var(--contrast-threshold)) * -10000);
+  --contrast: hsl(0, 0%, var(--switch));
+}

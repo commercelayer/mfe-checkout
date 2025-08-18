@@ -98,8 +98,7 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
 
     shipments?.forEach((shipment) => {
       const lineItems = shipment.stock_line_items?.map(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        // @ts-expect-error: No compatible type in StockLineItem
         (e) => e && mapItemsToGTM(e.line_item),
       )
 

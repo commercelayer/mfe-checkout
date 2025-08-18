@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -195,7 +195,7 @@ test.describe("with single shipping method per shipment", () => {
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkButton({ type: "Shipping", status: "not_present" })
     const element = checkoutPage.page.locator(
-      "text=Your order contains 2 shipments"
+      "text=Your order contains 2 shipments",
     )
     await expect(element).toHaveCount(1)
     await checkoutPage.selectPayment("stripe")

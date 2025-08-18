@@ -5,7 +5,7 @@ const config: PlaywrightTestConfig = {
   reporter: "list",
 
   // Timeout per test
-  timeout: 1 * 60 * 1000,
+  timeout: 75 * 1000,
   // Timeout per expect
   expect: {
     timeout: 10 * 1000,

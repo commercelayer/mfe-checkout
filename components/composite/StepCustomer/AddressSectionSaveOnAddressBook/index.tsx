@@ -3,7 +3,6 @@ import { FlexContainer } from "components/ui/FlexContainer"
 import { CheckCss } from "components/ui/form/CheckBox"
 import { Label } from "components/ui/Label"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
 
 interface Props {
   addressType: "billing" | "shipping"
@@ -25,14 +24,14 @@ export const AddressSectionSaveOnAddressBook: React.FC<Props> = ({
 
   return (
     <FlexContainer className="items-center">
-      <StyledAddressInput
+      <AddressInput
         data-testid={dataTestId}
         // @ts-expect-error Missing attribute
         name={fieldName}
         id={fieldName}
         type="checkbox"
         required={false}
-        className="form-checkbox"
+        className={`form-checkbox ${CheckCss}`}
       />
       <Label
         htmlFor={fieldName}
@@ -42,7 +41,3 @@ export const AddressSectionSaveOnAddressBook: React.FC<Props> = ({
     </FlexContainer>
   )
 }
-
-const StyledAddressInput = styled(AddressInput)`
-  ${CheckCss}
-`

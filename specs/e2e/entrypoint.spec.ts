@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 
 test("should navigate to the 404 page with no params", async ({ page }) => {
   page.goto(`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`)
@@ -24,7 +24,7 @@ test.describe("add default params to page", () => {
     checkoutPage,
   }) => {
     await expect(
-      checkoutPage.page.locator("text=This order is not accessible.")
+      checkoutPage.page.locator("text=This order is not accessible."),
     ).toBeVisible()
   })
 
@@ -39,7 +39,7 @@ test.describe("add default params to page", () => {
     checkoutPage,
   }) => {
     await expect(
-      checkoutPage.page.locator("text=This order is not accessible.")
+      checkoutPage.page.locator("text=This order is not accessible."),
     ).toBeVisible()
   })
 
@@ -54,7 +54,7 @@ test.describe("add default params to page", () => {
     checkoutPage,
   }) => {
     await expect(
-      checkoutPage.page.locator("text=This order is not accessible.")
+      checkoutPage.page.locator("text=This order is not accessible."),
     ).toBeVisible()
   })
 
@@ -72,10 +72,10 @@ test.describe("add default params to page", () => {
     page.goto(
       `${
         process.env.NEXT_PUBLIC_BASE_PATH || ""
-      }/wrongOrderId?accessToken=wrongToken`
+      }/wrongOrderId?accessToken=wrongToken`,
     )
     await expect(
-      page.locator("text=This order is not accessible.")
+      page.locator("text=This order is not accessible."),
     ).toBeVisible()
   })
 
@@ -89,7 +89,7 @@ test.describe("add default params to page", () => {
     checkoutPage,
   }) => {
     await expect(
-      checkoutPage.page.locator("text=This order is not accessible.")
+      checkoutPage.page.locator("text=This order is not accessible."),
     ).toBeVisible()
   })
 })
@@ -113,7 +113,7 @@ test.describe("override token", () => {
     checkoutPage,
   }) => {
     await expect(
-      checkoutPage.page.locator("text=This order is not accessible.")
+      checkoutPage.page.locator("text=This order is not accessible."),
     ).toBeVisible()
   })
 })

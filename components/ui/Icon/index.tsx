@@ -1,10 +1,5 @@
-import styled, { css } from "styled-components"
-import tw from "twin.macro"
+import type { FC, HTMLAttributes } from "react"
 
-export const IconCss = css`
-  ${tw`w-7 text-gray-500`}
-`
-
-export const Icon = styled.div`
-  ${IconCss}
-`
+export const Icon: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} className={`w-7 text-gray-500 ${props.className || ""}`} />
+)

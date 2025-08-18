@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 import { euAddress } from "specs/utils/addresses"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
 
@@ -29,7 +29,7 @@ test.describe("Guest checking out a subscription", () => {
 
     await checkoutPage.setCustomerMail()
     await checkoutPage.checkCustomerAddressesTitle(
-      "Fill in your billing/shipping address"
+      "Fill in your billing/shipping address",
     )
     await checkoutPage.setBillingAddress()
 
@@ -52,8 +52,8 @@ test.describe("Guest checking out a subscription", () => {
 
     await expect(
       checkoutPage.page.locator(
-        "text=An account must be created in order to purchase your subscription."
-      )
+        "text=An account must be created in order to purchase your subscription.",
+      ),
     ).toBeVisible()
 
     await checkoutPage.setPayment("stripe")
@@ -64,6 +64,7 @@ test.describe("Guest checking out a subscription", () => {
 })
 
 test.describe("Customer checking out a subscription", () => {
+  test.describe.configure({ mode: "serial" })
   const customerEmail = faker.internet.email().toLocaleLowerCase()
   const customerPassword = faker.internet.password()
 
@@ -89,7 +90,7 @@ test.describe("Customer checking out a subscription", () => {
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    await checkoutPage.page.locator(`text=${customerEmail}`)
+    checkoutPage.page.locator(`text=${customerEmail}`)
 
     await checkoutPage.setBillingAddress(euAddress)
 
@@ -110,8 +111,8 @@ test.describe("Customer checking out a subscription", () => {
 
     await expect(
       checkoutPage.page.locator(
-        "text=By providing your card information, you allow the company to charge your card for future payments in accordance with their terms."
-      )
+        "text=By providing your card information, you allow the company to charge your card for future payments in accordance with their terms.",
+      ),
     ).toBeVisible()
 
     await checkoutPage.checkCustomerCardCount(0)

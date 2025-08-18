@@ -264,20 +264,17 @@ export const StepShipping: React.FC<Props> = () => {
                                     <ShippingMethodName data-testid="shipping-method-name">
                                       {(props) => {
                                         const deliveryLeadTime =
-                                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                          // @ts-ignore
+                                          // @ts-expect-error
                                           props?.deliveryLeadTimeForShipment
                                         return (
                                           <label
-                                            className="flex flex-col p-3 border rounded cursor-pointer hover:border-gray-400 transition duration-200 ease-in peer-checked:border-2 peer-checked:border-primary peer-checked:shadow-md peer-checked:bg-gray-50"
+                                            className="flex flex-col p-3 border rounded-sm cursor-pointer hover:border-gray-400 transition duration-200 ease-in peer-checked:border-2 peer-checked:border-primary peer-checked:hover:border-primary peer-checked:shadow-md peer-checked:bg-gray-50"
                                             htmlFor={props.htmlFor}
                                           >
                                             <ShippingLineItemTitle>
                                               {props.label}
                                             </ShippingLineItemTitle>
                                             {deliveryLeadTime?.min_days &&
-                                              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                              // @ts-ignore
                                               deliveryLeadTime?.max_days && (
                                                 <ShippingSummaryItemDescription>
                                                   <Trans i18nKey="stepShipping.deliveryLeadTime">
@@ -317,7 +314,7 @@ export const StepShipping: React.FC<Props> = () => {
                                     <ShippingLineItem>
                                       <LineItemImage
                                         width={50}
-                                        className="self-start p-1 border rounded"
+                                        className="self-start p-1 border rounded-sm"
                                       />
                                       <ShippingLineItemDescription>
                                         <ShippingLineItemTitle>
@@ -343,7 +340,7 @@ export const StepShipping: React.FC<Props> = () => {
                                           attribute="image_url"
                                           tagElement="img"
                                           width={50}
-                                          className="self-start p-1 border rounded"
+                                          className="self-start p-1 border rounded-sm"
                                         />
                                         <ShippingLineItemDescription>
                                           <ShippingLineItemTitle>

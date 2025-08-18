@@ -1,10 +1,10 @@
 import { jwtDecode, jwtIsSalesChannel } from "@commercelayer/js-auth"
 import { getMfeConfig } from "@commercelayer/organization-config"
 import CommerceLayer, {
-  CommerceLayerStatic,
   type CommerceLayerClient,
-  type Organization,
+  CommerceLayerStatic,
   type Order,
+  type Organization,
 } from "@commercelayer/sdk"
 import retry from "async-retry"
 
@@ -30,7 +30,7 @@ async function retryCall<T>(
   f: () => Promise<T>,
 ): Promise<FetchResource<T> | undefined> {
   return await retry(
-    async (bail, number) => {
+    async (_bail, number) => {
       try {
         const object = await f()
         return {
@@ -133,9 +133,8 @@ function getTokenInfo(accessToken: string) {
         owner,
         marketId: payload.market?.id[0],
       }
-    } else {
-      return {}
     }
+    return {}
   } catch (e) {
     console.log(`error decoding access token: ${e}`)
     return {}
@@ -179,7 +178,8 @@ export const getSettings = async ({
 
   if (isProduction() && (subdomain !== slug || kind !== "sales_channel")) {
     return invalidateCheckout()
-  } else if (kind !== "sales_channel") {
+  }
+  if (kind !== "sales_channel") {
     return invalidateCheckout()
   }
 
@@ -221,7 +221,6 @@ export const getSettings = async ({
   const isShipmentRequired = (order.line_items || []).some(
     (line_item) =>
       LINE_ITEMS_SHIPPABLE.includes(line_item.item_type as TypeAccepted) &&
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       !line_item.item?.do_not_ship,
   )

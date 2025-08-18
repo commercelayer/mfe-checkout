@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -20,7 +20,6 @@
     "enabled": true,
     "rules": {
       "nursery": {
-        "useUniqueElementIds": "warn"
       },
       "suspicious": {
         "noArrayIndexKey": "off",
@@ -37,6 +36,7 @@
       },
       "correctness": {
         "useExhaustiveDependencies": "off",
+        "useUniqueElementIds": "warn",
         "useHookAtTopLevel": "error"
       },
       "style": {

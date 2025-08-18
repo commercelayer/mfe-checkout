@@ -6,56 +6,72 @@ import {
 import { ButtonCss, ButtonWrapper } from "components/ui/Button"
 import { CheckCss } from "components/ui/form/CheckBox"
 import { ErrorCss } from "components/ui/form/Error"
-import styled from "styled-components"
-import tw from "twin.macro"
+import type { FC, HTMLAttributes } from "react"
 
-interface StyledPlaceOrderButtonProps {
+interface StyledPlaceOrderButtonProps
+  extends React.ComponentProps<typeof PlaceOrderButton> {
   isActive: boolean
+  className?: string
 }
 
-export const ErrorWrapper = styled.div`
-  ${tw`bg-red-50 flex justify-center border border-2 border-red-400 ml-8 `}
-  & + & {
-    ${tw`mb-10 mt-5`}
-  }
-`
-export const ErrorIco = styled.div`
-  ${tw`flex items-center bg-red-400`}
-`
-export const ErrorMessage = styled.div`
-  ${ErrorCss}
-  ${tw`flex-1 text-sm p-3 break-words break-all`}
-`
-export const StyledErrors = styled(Errors)`
-  ${ErrorCss}
-  ${tw`pt-0 pl-0 text-sm p-3`}
-`
-export const ErrorsContainer = styled.div`
-  & > div:only-of-type {
-    ${tw`mb-10`}
-  }
-`
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CustomPlaceOrderButton = (props: any) => {
-  const { ...rest } = props
-  delete rest.isActive // Remove isActive prop to avoid passing it down to the component
-  return <PlaceOrderButton {...rest} />
-}
+export const ErrorWrapper: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`error-wrapper bg-red-50 flex justify-center border-2 border-red-400 ml-8 ${props.className || ""}`}
+  />
+)
 
-export const StyledPlaceOrderButton = styled(
-  CustomPlaceOrderButton,
-)<StyledPlaceOrderButtonProps>`
-  ${ButtonCss}
-  ${({ isActive }) => (isActive ? null : tw`hidden`)}
-`
-export const StyledPrivacyAndTermsCheckbox = styled(PrivacyAndTermsCheckbox)`
-  ${CheckCss}
-`
-export const PlaceOrderButtonWrapper = styled(ButtonWrapper)`
-  ${tw`fixed w-full bottom-9 p-5 bg-gray-50 z-20 border-t md:(static flex justify-end z-auto p-0 bg-white border-0)`}
-  &::before {
-    ${tw`top-0 absolute left-0 w-full z-10 h-2 shadow-top hidden`}
+export const ErrorIco: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`flex items-center bg-red-400 ${props.className || ""}`}
+  />
+)
 
-    content: "";
-  }
-`
+export const ErrorMessage: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`${ErrorCss} flex-1 text-sm p-3 break-words break-all ${props.className || ""}`}
+  />
+)
+
+export const StyledErrors: FC<React.ComponentProps<typeof Errors>> = (
+  props,
+) => (
+  <Errors
+    {...props}
+    className={`${ErrorCss} pt-0 pl-0 text-sm p-3 ${props.className || ""}`}
+  />
+)
+
+export const ErrorsContainer: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} className={`errors-container ${props.className || ""}`} />
+)
+export const StyledPlaceOrderButton: FC<StyledPlaceOrderButtonProps> = ({
+  isActive,
+  className = "",
+  ...props
+}) => (
+  <PlaceOrderButton
+    {...props}
+    className={`${ButtonCss} ${isActive ? "inline-flex" : "hidden"} ${className}`}
+  />
+)
+
+export const StyledPrivacyAndTermsCheckbox: FC<
+  React.ComponentProps<typeof PrivacyAndTermsCheckbox>
+> = (props) => (
+  <PrivacyAndTermsCheckbox
+    {...props}
+    className={`${CheckCss} ${props.className || ""}`}
+  />
+)
+
+export const PlaceOrderButtonWrapper: FC<
+  React.ComponentProps<typeof ButtonWrapper>
+> = (props) => (
+  <ButtonWrapper
+    {...props}
+    className={`place-order-button-wrapper ${props.className || ""}`}
+  />
+)

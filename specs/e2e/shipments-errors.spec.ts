@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
 
 const customerEmail = faker.internet.email().toLocaleLowerCase()
@@ -31,7 +31,7 @@ test.describe("no shipping zone with cart url", () => {
     await checkoutPage.checkStep("Shipping", "open")
     await checkoutPage.checkButton({ type: "Shipping", status: "not_present" })
     const element = checkoutPage.page.locator(
-      "text=The entered destination is outside our shipping zone."
+      "text=The entered destination is outside our shipping zone.",
     )
     await expect(element).toHaveCount(1)
   })
@@ -64,7 +64,7 @@ test.describe("one item shippable and one item out of stock with cartUrl", () =>
       status: "not_present",
     })
     const element = checkoutPage.page.locator(
-      "text=An item in your order is no longer available. Click here to edit your cart."
+      "text=An item in your order is no longer available. Click here to edit your cart.",
     )
     await expect(element).toHaveCount(1)
   })
@@ -91,7 +91,7 @@ test.describe("only out of stock", () => {
     await checkoutPage.checkStep("Shipping", "open")
     await checkoutPage.checkButton({ type: "Shipping", status: "not_present" })
     const element = checkoutPage.page.locator(
-      "text=An item in your order is no longer available. Click here to edit your cart."
+      "text=An item in your order is no longer available. Click here to edit your cart.",
     )
     await expect(element).toHaveCount(1)
   })
@@ -117,7 +117,7 @@ test.describe("partial out of stock no cart_url", () => {
     await checkoutPage.checkStep("Shipping", "open")
     await checkoutPage.checkButton({ type: "Shipping", status: "not_present" })
     const element = checkoutPage.page.locator(
-      "text=An item in your order is no longer available."
+      "text=An item in your order is no longer available.",
     )
     await expect(element).toHaveCount(1)
   })
@@ -150,7 +150,7 @@ test.describe("no shipping zone and one out of stock", () => {
     await checkoutPage.checkStep("Shipping", "open")
     await checkoutPage.checkButton({ type: "Shipping", status: "not_present" })
     const element = checkoutPage.page.locator(
-      "text=An item in your order is no longer available. Click here to edit your cart."
+      "text=An item in your order is no longer available. Click here to edit your cart.",
     )
     await expect(element).toHaveCount(1)
   })
@@ -183,7 +183,7 @@ test.describe("with single shipping method, not shippable", () => {
     await checkoutPage.checkStep("Shipping", "open")
     await checkoutPage.checkButton({ type: "Shipping", status: "not_present" })
     const element = checkoutPage.page.locator(
-      "text=The entered destination is outside our shipping zone."
+      "text=The entered destination is outside our shipping zone.",
     )
     await expect(element).toHaveCount(1)
   })
@@ -214,7 +214,7 @@ test.describe("no shipping zone", () => {
     await checkoutPage.checkStep("Shipping", "open")
     await checkoutPage.checkButton({ type: "Shipping", status: "not_present" })
     const element = checkoutPage.page.locator(
-      "text=The entered destination is outside our shipping zone. Please change your shipping address or contact us for help"
+      "text=The entered destination is outside our shipping zone. Please change your shipping address or contact us for help",
     )
     await expect(element).toHaveCount(1)
   })

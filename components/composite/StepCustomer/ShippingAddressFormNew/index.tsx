@@ -1,9 +1,8 @@
 import type { Address } from "@commercelayer/sdk"
 import { AddressInputGroup } from "components/composite/StepCustomer/AddressInputGroup"
 import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
+import type { FC } from "react"
 import { Fragment } from "react"
-import styled from "styled-components"
-import tw from "twin.macro"
 
 interface Props {
   shippingAddress: NullableType<Address>
@@ -100,6 +99,6 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
   )
 }
 
-const Grid = styled.div`
-  ${tw`grid lg:grid-cols-2 lg:gap-4`}
-`
+const Grid: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} className="grid lg:grid-cols-2 lg:gap-4" />
+)

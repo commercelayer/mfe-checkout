@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { test, expect } from "../fixtures/tokenizedPage"
+import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
 
 const TIMEOUT = 2000
@@ -36,7 +36,7 @@ test.describe("guest with Braintree", () => {
     await checkoutPage.selectPayment("braintree")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     expect(element).not.toBeVisible()
 
@@ -45,7 +45,7 @@ test.describe("guest with Braintree", () => {
     await checkoutPage.save("Payment", undefined, true)
 
     const cardinalFrame = checkoutPage.page.frameLocator(
-      "text=<head></head> <body> <div></div> </body>"
+      "text=<head></head> <body> <div></div> </body>",
     )
     await cardinalFrame
       .locator('[placeholder="\\ Enter\\ Code\\ Here"]')
@@ -54,7 +54,7 @@ test.describe("guest with Braintree", () => {
     await cardinalFrame.locator("text=SUBMIT").click()
 
     await checkoutPage.page
-      .locator(`text=Thank you for your order!`)
+      .locator("text=Thank you for your order!")
       .waitFor({ state: "visible", timeout: 100000 })
 
     await checkoutPage.checkPaymentRecap("Visa ending in 0004")
@@ -74,7 +74,7 @@ test.describe("guest with Braintree", () => {
     await checkoutPage.selectPayment("braintree")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     expect(element).not.toBeVisible()
 
@@ -114,7 +114,7 @@ test.describe("guest with Braintree", () => {
     await checkoutPage.selectPayment("braintree")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     expect(element).not.toBeVisible()
 
@@ -127,7 +127,7 @@ test.describe("guest with Braintree", () => {
     await checkoutPage.save("Payment", undefined, true)
 
     const cardinalFrame = checkoutPage.page.frameLocator(
-      "text=<head></head> <body> <div></div> </body>"
+      "text=<head></head> <body> <div></div> </body>",
     )
     await cardinalFrame
       .locator('[placeholder="\\ Enter\\ Code\\ Here"]')
@@ -136,7 +136,7 @@ test.describe("guest with Braintree", () => {
     await cardinalFrame.locator("text=SUBMIT").click()
 
     await checkoutPage.page
-      .locator(`text=Thank you for your order!`)
+      .locator("text=Thank you for your order!")
       .waitFor({ state: "visible", timeout: 100000 })
 
     await checkoutPage.checkPaymentRecap("Visa ending in 0004")
@@ -183,7 +183,7 @@ test.describe("customer with Braintree without saving", () => {
     await checkoutPage.selectPayment("braintree")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     await expect(element).toBeVisible()
     await expect(element).not.toBeChecked()
@@ -194,7 +194,7 @@ test.describe("customer with Braintree without saving", () => {
     await checkoutPage.save("Payment", undefined, true)
 
     const cardinalFrame = checkoutPage.page.frameLocator(
-      "text=<head></head> <body> <div></div> </body>"
+      "text=<head></head> <body> <div></div> </body>",
     )
     await cardinalFrame
       .locator('[placeholder="\\ Enter\\ Code\\ Here"]')
@@ -203,7 +203,7 @@ test.describe("customer with Braintree without saving", () => {
     await cardinalFrame.locator("text=SUBMIT").click()
 
     await checkoutPage.page
-      .locator(`text=Thank you for your order!`)
+      .locator("text=Thank you for your order!")
       .waitFor({ state: "visible", timeout: 100000 })
   })
 })
@@ -243,7 +243,7 @@ test.describe("customer with Braintree with saving", () => {
     await checkoutPage.selectPayment("braintree")
 
     const element = await checkoutPage.page.locator(
-      "[data-testid=payment-save-wallet]"
+      "[data-testid=payment-save-wallet]",
     )
     await expect(element).toBeVisible()
     await expect(element).not.toBeChecked()
@@ -254,7 +254,7 @@ test.describe("customer with Braintree with saving", () => {
     await checkoutPage.save("Payment", undefined, true)
 
     const cardinalFrame = checkoutPage.page.frameLocator(
-      "text=<head></head> <body> <div></div> </body>"
+      "text=<head></head> <body> <div></div> </body>",
     )
     await cardinalFrame
       .locator('[placeholder="\\ Enter\\ Code\\ Here"]')
@@ -263,7 +263,7 @@ test.describe("customer with Braintree with saving", () => {
     await cardinalFrame.locator("text=SUBMIT").click()
 
     await checkoutPage.page
-      .locator(`text=Thank you for your order!`)
+      .locator("text=Thank you for your order!")
       .waitFor({ state: "visible", timeout: 100000 })
   })
 
@@ -287,7 +287,7 @@ test.describe("customer with Braintree with saving", () => {
     await checkoutPage.save("Payment", undefined, true)
 
     await checkoutPage.page
-      .locator(`text=Thank you for your order!`)
+      .locator("text=Thank you for your order!")
       .waitFor({ state: "visible", timeout: 100000 })
 
     await checkoutPage.checkPaymentRecap("Visa ending in 0004")
