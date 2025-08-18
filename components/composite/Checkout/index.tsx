@@ -26,14 +26,13 @@ import { GTMProvider } from "components/data/GTMProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
+import { Button } from "components/ui/Button"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 import { useRouter } from "next/router"
-import Invalid from "pages/404"
-import { useContext, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
-import tw from "twin.macro"
+import { CheckIcon } from "../StepComplete/CheckIcon"
 
 interface Props {
   logoUrl: NullableType<string>
@@ -67,6 +66,7 @@ const Checkout: React.FC<Props> = ({
   const ctx = useContext(AppContext)
   const [isExpired, setIsExpired] = useState(false)
   const { t } = useTranslation()
+  const topRef = useRef<HTMLDivElement | null>(null)
 
   const { query } = useRouter()
 
@@ -119,9 +119,49 @@ const Checkout: React.FC<Props> = ({
     return <CheckoutSkeleton />
   }
 
-  const renderExpired = () => {
-    return <Invalid errorCode={419} message={t("orderRecap.timer.error")} />
+  const handleClick = () => {
+    if (ctx?.returnUrl) {
+      document.location.href = ctx?.returnUrl
+    }
   }
+
+  const renderExpiredPage = () => (
+    <div className="bg-white min-h-screen">
+      <div ref={topRef}>
+        <div className="flex flex-col p-5 md:p-10 lg:px-20 2xl:max-w-screen-2xl 2xl:mx-auto">
+          <Logo
+            logoUrl={logoUrl}
+            companyName={companyName}
+            className="self-center pt-10 pl-4 mb-10 md:self-auto"
+          />
+          <div className="flex flex-col justify-center items-center text-center">
+            <div className="p-8">
+              <CheckIcon />
+            </div>
+            <h1 className="text-black text-2xl lg:text-4xl font-semibold mb-4">
+              {t("orderRecap.timer.error")}
+            </h1>
+            <p
+              data-testid="complete-checkout-summary"
+              className="py-2 text-gray-400"
+            >
+              Please go back to the shop and start a new order.
+            </p>
+
+            <div className="flex items-center justify-center w-full mt-8">
+              <Button
+                data-testid="button-continue-to-shop"
+                onClick={handleClick}
+              >
+                {t("stepComplete.continue")}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
   const renderComplete = () => {
     return (
       <StepComplete
@@ -279,7 +319,7 @@ const Checkout: React.FC<Props> = ({
         {ctx.isComplete
           ? renderComplete()
           : isExpired
-            ? renderExpired()
+            ? renderExpiredPage()
             : renderSteps()}
       </GTMProvider>
     </OrderContainer>
