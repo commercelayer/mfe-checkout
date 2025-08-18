@@ -95,7 +95,7 @@ export const OrderSummary: React.FC<Props> = ({
           <RecapLine>
             <RecapLineItem>{t("orderRecap.subtotal_amount")}</RecapLineItem>
             <SubTotalAmount />
-          </RecapLine>          
+          </RecapLine>
           <DiscountAmount>
             {(props) => {
               if (props.priceCents === 0) return <></>
@@ -109,56 +109,53 @@ export const OrderSummary: React.FC<Props> = ({
               )
             }}
           </DiscountAmount>
-            <AdjustmentAmount>
-              {(props) => {
-                if (props.priceCents === 0) return <></>
-                return (
-          <RecapLine>
+          <AdjustmentAmount>
+            {(props) => {
+              if (props.priceCents === 0) return <></>
+              return (
+                <RecapLine>
+                  <RecapLineItem>
+                    {t("orderRecap.adjustment_amount")}
+                  </RecapLineItem>
+                  <div data-testid="adjustment-amount">{props.price}</div>
+                </RecapLine>
+              )
+            }}
+          </AdjustmentAmount>
 
-                    <RecapLineItem>
-                      {t("orderRecap.adjustment_amount")}
-                    </RecapLineItem>
-                    <div data-testid="adjustment-amount">{props.price}</div>
-                    </RecapLine>
-                )
-              }}
-            </AdjustmentAmount>
+          <ShippingAmount>
+            {(props) => {
+              if (!appCtx.isShipmentRequired) return <></>
+              return (
+                <RecapLine>
+                  <RecapLineItem>
+                    {t("orderRecap.shipping_amount")}
+                  </RecapLineItem>
+                  <div data-testid="shipping-amount">
+                    {!appCtx.hasShippingMethod
+                      ? t("orderRecap.notSet")
+                      : props.priceCents === 0
+                        ? t("general.free")
+                        : props.price}
+                  </div>
+                </RecapLine>
+              )
+            }}
+          </ShippingAmount>
 
-          
-            <ShippingAmount>
-              {(props) => {
-                if (!appCtx.isShipmentRequired) return <></>
-                return (
-                  <RecapLine>
-                    <RecapLineItem>
-                      {t("orderRecap.shipping_amount")}
-                    </RecapLineItem>
-                    <div data-testid="shipping-amount">
-                      {!appCtx.hasShippingMethod
-                        ? t("orderRecap.notSet")
-                        : props.priceCents === 0
-                          ? t("general.free")
-                          : props.price}
-                    </div>
-                  </RecapLine>
-                )
-              }}
-            </ShippingAmount>
-          
-          
-            <PaymentMethodAmount>
-              {(props) => {
-                if (props.priceCents === 0) return <></>
-                return (
-                  <RecapLine data-testid="payment-method-amount">
-                    <RecapLineItem>
-                      {t("orderRecap.payment_method_amount")}
-                    </RecapLineItem>
-                    {props.price}
-                  </RecapLine>
-                )
-              }}
-            </PaymentMethodAmount>
+          <PaymentMethodAmount>
+            {(props) => {
+              if (props.priceCents === 0) return <></>
+              return (
+                <RecapLine data-testid="payment-method-amount">
+                  <RecapLineItem>
+                    {t("orderRecap.payment_method_amount")}
+                  </RecapLineItem>
+                  {props.price}
+                </RecapLine>
+              )
+            }}
+          </PaymentMethodAmount>
           <RecapLine>
             <TaxesAmount>
               {(props) => {
@@ -196,20 +193,20 @@ export const OrderSummary: React.FC<Props> = ({
               }}
             </TaxesAmount>
           </RecapLine>
-          
-            <GiftCardAmount>
-              {(props) => {
-                if (props.priceCents === 0) return <></>
-                return (
-                  <RecapLine>
-                    <RecapLineItem>
-                      {t("orderRecap.giftcard_amount")}
-                    </RecapLineItem>
-                    <div data-testid="giftcard-amount">{props.price}</div>
-                  </RecapLine>
-                )
-              }}
-            </GiftCardAmount>
+
+          <GiftCardAmount>
+            {(props) => {
+              if (props.priceCents === 0) return <></>
+              return (
+                <RecapLine>
+                  <RecapLineItem>
+                    {t("orderRecap.giftcard_amount")}
+                  </RecapLineItem>
+                  <div data-testid="giftcard-amount">{props.price}</div>
+                </RecapLine>
+              )
+            }}
+          </GiftCardAmount>
           <RecapLineTotal>
             <RecapLineItemTotal>
               {t("orderRecap.total_amount")}

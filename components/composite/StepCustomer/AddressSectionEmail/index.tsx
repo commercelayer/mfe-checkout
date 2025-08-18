@@ -54,7 +54,7 @@ export const AddressSectionEmail: React.FC<Props> = ({
               data-testid="customer_email"
               errorClassName="hasError"
               saveOnBlur={true}
-              // @ts-ignore
+              // @ts-expect-error: No compatible type in CustomerInput
               onBlur={saveEmail}
               value={emailAddress ?? ""}
             />

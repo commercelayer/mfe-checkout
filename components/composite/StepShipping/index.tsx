@@ -264,7 +264,7 @@ export const StepShipping: React.FC<Props> = () => {
                                     <ShippingMethodName data-testid="shipping-method-name">
                                       {(props) => {
                                         const deliveryLeadTime =
-                                          // @ts-ignore
+                                          // @ts-expect-error
                                           props?.deliveryLeadTimeForShipment
                                         return (
                                           <label
@@ -275,7 +275,6 @@ export const StepShipping: React.FC<Props> = () => {
                                               {props.label}
                                             </ShippingLineItemTitle>
                                             {deliveryLeadTime?.min_days &&
-                                              // @ts-ignore
                                               deliveryLeadTime?.max_days && (
                                                 <ShippingSummaryItemDescription>
                                                   <Trans i18nKey="stepShipping.deliveryLeadTime">
