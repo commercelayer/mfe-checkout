@@ -12,7 +12,7 @@ import type { AppProviderData } from "components/data/AppProvider"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 import { Trans, useTranslation } from "react-i18next"
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
-import { ExpiryTimer } from "./ExpiryTimer"
+import { ExpireTimer } from "./ExpireTimer"
 import { LineItemTypes } from "./LineItemTypes"
 import { ReturnToCart } from "./ReturnToCart"
 import {
@@ -55,7 +55,7 @@ export const OrderSummary: React.FC<Props> = ({
   const lineItems = !readonly ? (
     <SummaryHeader>
       {expireAt != null && (
-        <ExpiryTimer expireAt={expireAt} isFinished={isFinished} />
+        <ExpireTimer expireAt={expireAt} isFinished={isFinished} />
       )}
       <SummaryTitle data-testid="test-summary">
         {t("orderRecap.order_summary")}
