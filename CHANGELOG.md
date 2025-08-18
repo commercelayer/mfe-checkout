@@ -1,3 +1,21 @@
+# [6.0.0](https://github.com/commercelayer/mfe-checkout/compare/v5.10.2...v6.0.0) (2025-08-18)
+
+
+### Bug Fixes
+
+* avoid hover effect on selected customer address ([a207ec2](https://github.com/commercelayer/mfe-checkout/commit/a207ec228788c59f3f8a824a7f6b58340d268c78))
+
+
+### Features
+
+* remove twin-macro and styled components ([0224504](https://github.com/commercelayer/mfe-checkout/commit/02245043fd692de948efb3202411729665384fa3))
+* upgrade to tailwind v4 ([1b0d68d](https://github.com/commercelayer/mfe-checkout/commit/1b0d68dbb7c7fbbedea3c587b1b4cfa32a0854fa))
+
+
+### BREAKING CHANGES
+
+* mfe-checkout is now upgraded to tailwind 4.x and support to styled-compoments and twin.macro has been dropped
+
 ## [5.10.2](https://github.com/commercelayer/mfe-checkout/compare/v5.10.1...v5.10.2) (2025-08-06)
 
 
