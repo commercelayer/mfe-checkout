@@ -45,7 +45,7 @@ export const OrderSummary: React.FC<Props> = ({
   expireAt,
 }) => {
   const { t } = useTranslation()
-  console.log("tempo in orderSummary component")
+
   const isTaxCalculated = appCtx.isShipmentRequired
     ? appCtx.hasBillingAddress &&
       appCtx.hasShippingAddress &&
