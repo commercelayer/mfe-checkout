@@ -62,7 +62,9 @@
     "frequency.six-month": "Ogni sei mesi",
     "frequency.yearly": "Annuale",
     "timer.title": "L'acquisto va terminato entro",
-    "timer.error": "Il checkout è scaduto"
+    "timer.summary_message": "Allo scadere del tempo sarà necessario ricominciare l'acquisto con un nuovo ordine.",
+    "timer.error": "Il checkout è scaduto",
+    "timer.expiration_message": "Il tempo per completare l'acquisto è scaduto. Torna al negozio per ricominciare."
   },
   "stepCustomer": {
     "title": "Cliente",

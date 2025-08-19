@@ -9,6 +9,7 @@ import {
   StepCustomer,
   StepHeaderCustomer,
 } from "components/composite/StepCustomer"
+import { StepExpired } from "components/composite/StepExpired"
 import { StepNav } from "components/composite/StepNav"
 import {
   StepHeaderPayment,
@@ -26,13 +27,10 @@ import { GTMProvider } from "components/data/GTMProvider"
 import { useActiveStep } from "components/hooks/useActiveStep"
 import { LayoutDefault } from "components/layouts/LayoutDefault"
 import { Accordion, AccordionItem } from "components/ui/Accordion"
-import { Button } from "components/ui/Button"
 import { Footer } from "components/ui/Footer"
 import { Logo } from "components/ui/Logo"
 import { useRouter } from "next/router"
-import { useContext, useRef, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { CheckIcon } from "../StepComplete/CheckIcon"
+import { useContext, useState } from "react"
 
 interface Props {
   logoUrl: NullableType<string>
@@ -65,8 +63,6 @@ const Checkout: React.FC<Props> = ({
 }) => {
   const ctx = useContext(AppContext)
   const [isExpired, setIsExpired] = useState(false)
-  const { t } = useTranslation()
-  const topRef = useRef<HTMLDivElement | null>(null)
 
   const { query } = useRouter()
 
@@ -109,57 +105,19 @@ const Checkout: React.FC<Props> = ({
   }
 
   const isFinished = () => {
-    console.log("Ho finito di contare")
     setIsExpired(true)
   }
-
-  console.log("tempo in checkout component")
 
   if (!ctx || ctx.isFirstLoading) {
     return <CheckoutSkeleton />
   }
 
-  const handleClick = () => {
-    if (ctx?.returnUrl) {
-      document.location.href = ctx?.returnUrl
-    }
-  }
-
   const renderExpiredPage = () => (
-    <div className="bg-white min-h-screen">
-      <div ref={topRef}>
-        <div className="flex flex-col p-5 md:p-10 lg:px-20 2xl:max-w-screen-2xl 2xl:mx-auto">
-          <Logo
-            logoUrl={logoUrl}
-            companyName={companyName}
-            className="self-center pt-10 pl-4 mb-10 md:self-auto"
-          />
-          <div className="flex flex-col justify-center items-center text-center">
-            <div className="p-8">
-              <CheckIcon />
-            </div>
-            <h1 className="text-black text-2xl lg:text-4xl font-semibold mb-4">
-              {t("orderRecap.timer.error")}
-            </h1>
-            <p
-              data-testid="complete-checkout-summary"
-              className="py-2 text-gray-400"
-            >
-              Please go back to the shop and start a new order.
-            </p>
-
-            <div className="flex items-center justify-center w-full mt-8">
-              <Button
-                data-testid="button-continue-to-shop"
-                onClick={handleClick}
-              >
-                {t("stepComplete.continue")}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <StepExpired
+      logoUrl={logoUrl}
+      companyName={companyName}
+      thankyouPageUrl={thankyouPageUrl}
+    />
   )
 
   const renderComplete = () => {

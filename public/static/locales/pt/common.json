@@ -62,7 +62,9 @@
     "frequency.six-month": "A cada seis meses",
     "frequency.yearly": "Anualmente",
     "timer.title": "A compra deve ser concluída até",
-    "timer.error": "O checkout expirou"
+    "timer.summary_message": "Quando o tempo expirar, será necessário reiniciar a compra com um novo pedido.",
+    "timer.error": "O checkout expirou",
+    "timer.expiration_message": "O tempo para concluir a compra expirou. Volte à loja para começar novamente."
   },
   "stepCustomer": {
     "title": "Cliente",
