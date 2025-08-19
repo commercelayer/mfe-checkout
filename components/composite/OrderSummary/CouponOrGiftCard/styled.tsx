@@ -42,7 +42,7 @@ export const StyledGiftCardOrCouponInput: FC<
 > = (props) => (
   <GiftCardOrCouponInput
     {...props}
-    className={`${InputCss} rounded-none rounded-l-md z-10 [&.hasError]:border-red-400 [&.hasError]:border-2 [&.hasError]:focus:ring-offset-0 [&.hasError]:focus:ring-red-400/50 ${props.className || ""}`}
+    className={`${InputCss} rounded-none rounded-l-md z-10 [&.hasError]:border-red-400 [&.hasError]:border-2 [&.hasError]:focus:ring-offset-0 [&.hasError]:focus:ring-red-400/50 basis-2/3 md:basis-auto ${props.className || ""}`}
   />
 )
 
@@ -51,7 +51,7 @@ export const StyledGiftCardOrCouponSubmit: FC<
 > = (props) => (
   <GiftCardOrCouponSubmit
     {...props}
-    className={`${ButtonCss} w-auto -ml-px relative space-x-2 px-8 py-3 border-transparent rounded-none rounded-r-md ${props.className || ""}`}
+    className={`${ButtonCss} w-auto -ml-px relative space-x-2 px-8 py-3 border-transparent rounded-none rounded-r-md basis-1/3 md:basis-auto ${props.className || ""}`}
   />
 )
 

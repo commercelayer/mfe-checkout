@@ -2,7 +2,7 @@ import path from "node:path"
 import type { PlaywrightTestConfig } from "@playwright/test"
 import dotenv from "dotenv"
 
-dotenv.config({ path: path.resolve(__dirname, "./.env.local") })
+dotenv.config({ path: path.resolve(__dirname, "./.env.local"), quiet: true })
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
