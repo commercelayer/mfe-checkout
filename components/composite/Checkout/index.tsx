@@ -164,7 +164,11 @@ const Checkout: React.FC<Props> = ({
                 companyName={companyName}
                 className="block md:hidden"
               />
-              <MainHeader orderNumber={orderNumber} />
+              <MainHeader
+                orderNumber={orderNumber}
+                expireAt={expireAt}
+                isFinished={isFinished}
+              />
               <StepNav
                 steps={steps}
                 activeStep={activeStep}
