@@ -28,7 +28,7 @@ export const ExpireTimer: React.FC<{
   const minutes = Math.floor(duration / 60000) % 60
   const seconds = Math.floor((duration % 60000) / 1000)
   return (
-    <div className="border border-dashed border-primary-light rounded-lg p-4 mb-8 bg-white max-w">
+    <div className="border border-dashed border-primary-light rounded-lg p-4 mb-4 md:mb-8 bg-white max-w">
       <div className="flex items-center justify-between text-xs gap-1 border-b border-dashed pb-2">
         <div className="flex items-center gap-2 font-semibold">
           <svg
