@@ -9,7 +9,7 @@ export const ExpireTimer: React.FC<{
 }> = ({ expireAt, isFinished }) => {
   const { t } = useTranslation()
   const { duration, isExpired, hasTimer } = useExpiry(expireAt)
-  console.log("tempo in expiryTimer component")
+
   useEffect(() => {
     if (hasTimer && isExpired && isFinished) {
       isFinished()
@@ -63,8 +63,7 @@ export const ExpireTimer: React.FC<{
       </div>
 
       <p className="text-gray-500 text-xs mt-4">
-        Allo scadere del tempo i biglietti non saranno più riservati e sarà
-        necessario aggiungerli di nuovo all'ordine
+        {t("orderRecap.timer.summary_message")}
       </p>
     </div>
   )
