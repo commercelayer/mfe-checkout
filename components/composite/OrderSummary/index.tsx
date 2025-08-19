@@ -9,6 +9,7 @@ import SubTotalAmount from "@commercelayer/react-components/orders/SubTotalAmoun
 import TaxesAmount from "@commercelayer/react-components/orders/TaxesAmount"
 import TotalAmount from "@commercelayer/react-components/orders/TotalAmount"
 import type { AppProviderData } from "components/data/AppProvider"
+import useDeviceDetect from "components/hooks/useDeviceDetect"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 import { Trans, useTranslation } from "react-i18next"
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
@@ -45,6 +46,7 @@ export const OrderSummary: React.FC<Props> = ({
   expireAt,
 }) => {
   const { t } = useTranslation()
+  const { isMobile } = useDeviceDetect()
 
   const isTaxCalculated = appCtx.isShipmentRequired
     ? appCtx.hasBillingAddress &&
@@ -54,7 +56,7 @@ export const OrderSummary: React.FC<Props> = ({
 
   const lineItems = !readonly ? (
     <SummaryHeader>
-      {expireAt != null && (
+      {expireAt != null && !isMobile && (
         <ExpireTimer expireAt={expireAt} isFinished={isFinished} />
       )}
       <SummaryTitle data-testid="test-summary">
