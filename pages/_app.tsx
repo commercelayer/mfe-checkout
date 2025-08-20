@@ -13,13 +13,18 @@ import "../styles/accordion.css"
 import { appWithTranslation } from "next-i18next"
 
 import "components/data/i18n"
+import { loadNewRelicAgent } from "components/data/NewRelic"
 import { useEffect, useState } from "react"
 
 function CheckoutApp(props: AppProps) {
   const { Component, pageProps } = props
   const [browser, setBrowser] = useState(false)
+
   useEffect(() => {
-    if (typeof window !== "undefined") setBrowser(true)
+    if (typeof window !== "undefined") {
+      setBrowser(true)
+      loadNewRelicAgent()
+    }
   }, [])
 
   return browser ? <Component {...pageProps} /> : null
