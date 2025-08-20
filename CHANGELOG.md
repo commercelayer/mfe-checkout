@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/commercelayer/mfe-checkout/compare/v6.0.0...v6.0.1) (2025-08-20)
+
+
+### Bug Fixes
+
+* improve coupon button on mobile ([f7bf3b5](https://github.com/commercelayer/mfe-checkout/commit/f7bf3b5eb2b6829f818df8657039e6b157d73090))
+
 # [6.0.0](https://github.com/commercelayer/mfe-checkout/compare/v5.10.2...v6.0.0) (2025-08-18)
 
 
