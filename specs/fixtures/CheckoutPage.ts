@@ -91,7 +91,7 @@ export class CheckoutPage {
       })
     })
     await this.page.goto(`${url}`, {
-      waitUntil: "networkidle",
+      waitUntil: "load",
     })
   }
 
@@ -496,7 +496,7 @@ export class CheckoutPage {
           ? "select"
           : "input"
       const element = this.page.locator(`${fieldType}[name=${type}_${key}]`)
-      // @ts-ignore
+      // @ts-expect-error
       return expect(element).toHaveValue(address[key])
     })
     await Promise.all(promises)

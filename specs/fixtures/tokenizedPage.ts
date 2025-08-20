@@ -17,7 +17,10 @@ import dotenv from "dotenv"
 
 import { CheckoutPage } from "./CheckoutPage"
 
-dotenv.config({ path: path.resolve(__dirname, "../../.env.local") })
+dotenv.config({
+  path: path.resolve(__dirname, "../../.env.local"),
+  quiet: true,
+})
 
 type OrderType =
   | "plain"
