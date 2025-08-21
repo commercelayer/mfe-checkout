@@ -1,3 +1,10 @@
+## [6.0.2](https://github.com/commercelayer/mfe-checkout/compare/v6.0.1...v6.0.2) (2025-08-21)
+
+
+### Bug Fixes
+
+* upgrade deps and use new relic browser agent package ([fff151d](https://github.com/commercelayer/mfe-checkout/commit/fff151db1fb8f033e9fb80741e56ba51419d848d))
+
 ## [6.0.1](https://github.com/commercelayer/mfe-checkout/compare/v6.0.0...v6.0.1) (2025-08-20)
 
 
