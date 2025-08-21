@@ -1,4 +1,3 @@
-import NewRelicSnippet from "components/data/NewRelicSnippet"
 import Document, {
   type DocumentContext,
   Head,
@@ -6,7 +5,6 @@ import Document, {
   Main,
   NextScript,
 } from "next/document"
-import Script from "next/script"
 
 class AppDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -24,14 +22,6 @@ class AppDocument extends Document {
             rel="stylesheet"
           />
           <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
-
-          {process.env[
-            `NEXT_PUBLIC_NEWRELIC_LOADER_CONFIG_${process.env.NEXT_PUBLIC_STAGE}`
-          ] !== null && (
-            <Script id="new-relic" strategy="afterInteractive">
-              {NewRelicSnippet}
-            </Script>
-          )}
         </Head>
         <body className="antialiased font-medium bg-gray-50">
           <Main />
