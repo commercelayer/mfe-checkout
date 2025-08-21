@@ -1,20 +1,8 @@
 import type { AgentOptions } from "@newrelic/browser-agent/loaders/agent"
 
-const NR_LOADER_CONFIG = {
-  DEV: process.env.NEXT_PUBLIC_NEWRELIC_LOADER_CONFIG_DEV,
-  STG: process.env.NEXT_PUBLIC_NEWRELIC_LOADER_CONFIG_STG,
-  PRD: process.env.NEXT_PUBLIC_NEWRELIC_LOADER_CONFIG_PRD,
-}
-
-const NR_LOADER_INFO = {
-  DEV: process.env.NEXT_PUBLIC_NEWRELIC_INFO_DEV,
-  STG: process.env.NEXT_PUBLIC_NEWRELIC_INFO_STG,
-  PRD: process.env.NEXT_PUBLIC_NEWRELIC_INFO_PRD,
-}
-
 export function loadNewRelicAgent() {
-  const env = process.env.NEXT_PUBLIC_STAGE as keyof typeof NR_LOADER_INFO
-  if (NR_LOADER_CONFIG[env] == null) {
+  const env = process.env.NEXT_PUBLIC_STAGE as "DEV" | "STG" | "PRD"
+  if (process.env[`NEXT_PUBLIC_NEWRELIC_LOADER_CONFIG_${env}`] == null) {
     return null
   }
   const options: AgentOptions = {
@@ -23,8 +11,10 @@ export function loadNewRelicAgent() {
       privacy: { cookies_enabled: true },
       ajax: { deny_list: ["bam.eu01.nr-data.net"] },
     },
-    info: JSON.parse(NR_LOADER_INFO[env] as string),
-    loader_config: JSON.parse(NR_LOADER_CONFIG[env] as string),
+    info: JSON.parse(process.env[`NEXT_PUBLIC_NEWRELIC_INFO_${env}`] as string),
+    loader_config: JSON.parse(
+      process.env[`NEXT_PUBLIC_NEWRELIC_LOADER_CONFIG_${env}`] as string,
+    ),
   }
   import("@newrelic/browser-agent/loaders/browser-agent").then(
     ({ BrowserAgent }) => {
