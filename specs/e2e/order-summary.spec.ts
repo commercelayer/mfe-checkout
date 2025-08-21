@@ -556,7 +556,7 @@ test.describe("line item without frequency", () => {
     },
   })
 
-  test("should show the monthly frequency", async ({ checkoutPage }) => {
+  test("should not show the monthly frequency", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
     await checkoutPage.checkLineItemFrequency()
   })
@@ -586,7 +586,7 @@ test.describe("line item without item codes", () => {
     },
   })
 
-  test("should show the monthly frequency", async ({ checkoutPage }) => {
+  test("should hide the code", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
     const element = checkoutPage.page.getByText("TSHIRTMMFFFFFF000000XLXX")
     await expect(element).toHaveCount(0)
@@ -606,7 +606,7 @@ test.describe("line item with item codes", () => {
     },
   })
 
-  test("should show the monthly frequency", async ({ checkoutPage }) => {
+  test("should show the code", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
     const element = checkoutPage.page.getByText("TSHIRTMMFFFFFF000000XLXX")
     await expect(element).toHaveCount(1)
