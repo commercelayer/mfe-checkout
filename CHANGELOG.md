@@ -1,3 +1,10 @@
+## [6.0.3](https://github.com/commercelayer/mfe-checkout/compare/v6.0.2...v6.0.3) (2025-08-26)
+
+
+### Bug Fixes
+
+* set place order button as fixed on mobile ([0cb5a2f](https://github.com/commercelayer/mfe-checkout/commit/0cb5a2ffd877f85a650493cfa555b57212323bc6))
+
 ## [6.0.2](https://github.com/commercelayer/mfe-checkout/compare/v6.0.1...v6.0.2) (2025-08-21)
 
 
