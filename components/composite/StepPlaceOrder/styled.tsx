@@ -3,7 +3,7 @@ import {
   PlaceOrderButton,
   PrivacyAndTermsCheckbox,
 } from "@commercelayer/react-components"
-import { ButtonCss, ButtonWrapper } from "components/ui/Button"
+import { ButtonCss } from "components/ui/Button"
 import { CheckCss } from "components/ui/form/CheckBox"
 import { ErrorCss } from "components/ui/form/Error"
 import type { FC, HTMLAttributes } from "react"
@@ -64,14 +64,5 @@ export const StyledPrivacyAndTermsCheckbox: FC<
   <PrivacyAndTermsCheckbox
     {...props}
     className={`${CheckCss} ${props.className || ""}`}
-  />
-)
-
-export const PlaceOrderButtonWrapper: FC<
-  React.ComponentProps<typeof ButtonWrapper>
-> = (props) => (
-  <ButtonWrapper
-    {...props}
-    className={`place-order-button-wrapper ${props.className || ""}`}
   />
 )

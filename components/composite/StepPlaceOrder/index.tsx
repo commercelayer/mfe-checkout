@@ -15,7 +15,6 @@ import {
   ErrorMessage,
   ErrorsContainer,
   ErrorWrapper,
-  PlaceOrderButtonWrapper,
   StyledErrors,
   StyledPlaceOrderButton,
   StyledPrivacyAndTermsCheckbox,
@@ -147,7 +146,7 @@ const StepPlaceOrder: React.FC<Props> = ({
             </Label>
           </FlexContainer>
         )}
-        <PlaceOrderButtonWrapper>
+        <div className="place-order-button-wrapper ">
           <StyledPlaceOrderButton
             data-testid="save-payment-button"
             isActive={isActive}
@@ -160,7 +159,7 @@ const StepPlaceOrder: React.FC<Props> = ({
               </>
             }
           />
-        </PlaceOrderButtonWrapper>
+        </div>
       </>
     </>
   )
