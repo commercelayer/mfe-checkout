@@ -62,7 +62,7 @@
     "frequency.six-month": "Co sześć miesięcy",
     "frequency.yearly": "Co roku",
     "timer.title": "Zakup musi zostać zakończony do",
-    "timer.summary_message": "Po upływie czasu konieczne będzie ponowne rozpoczęcie zakupu z nowym zamówieniem.",
+    "timer.active_message": "Po upływie czasu konieczne będzie ponowne rozpoczęcie zakupu z nowym zamówieniem.",
     "timer.error": "Checkout wygasł",
     "timer.expiration_message": "Czas na sfinalizowanie zakupu minął. Wróć do sklepu, aby rozpocząć od nowa."
   },

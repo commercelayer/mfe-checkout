@@ -5,8 +5,9 @@ import { useTranslation } from "react-i18next"
 
 export const ExpireTimer: React.FC<{
   expireAt: string | null
+  expirationInfo: NullableType<ExpirationInfo>
   isFinished?: () => void
-}> = ({ expireAt, isFinished }) => {
+}> = ({ expireAt, expirationInfo, isFinished }) => {
   const { t } = useTranslation()
   const { duration, isExpired, hasTimer } = useExpiry(expireAt)
 
@@ -63,7 +64,7 @@ export const ExpireTimer: React.FC<{
       </div>
 
       <p className="text-gray-500 text-xs mt-4">
-        {t("orderRecap.timer.summary_message")}
+        {expirationInfo?.active_message || t("orderRecap.timer.active_message")}
       </p>
     </div>
   )

@@ -36,6 +36,7 @@ interface Props {
   readonly?: boolean
   isFinished?: () => void
   expireAt?: NullableType<string>
+  expirationInfo?: NullableType<ExpirationInfo>
 }
 
 export const OrderSummary: React.FC<Props> = ({
@@ -44,6 +45,7 @@ export const OrderSummary: React.FC<Props> = ({
   hideItemCodes,
   isFinished,
   expireAt,
+  expirationInfo,
 }) => {
   const { t } = useTranslation()
   const { isMobile } = useDeviceDetect()
@@ -57,7 +59,11 @@ export const OrderSummary: React.FC<Props> = ({
   const lineItems = !readonly ? (
     <SummaryHeader>
       {expireAt != null && !isMobile && (
-        <ExpireTimer expireAt={expireAt} isFinished={isFinished} />
+        <ExpireTimer
+          expireAt={expireAt}
+          expirationInfo={expirationInfo}
+          isFinished={isFinished}
+        />
       )}
       <SummaryTitle data-testid="test-summary">
         {t("orderRecap.order_summary")}
