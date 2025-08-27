@@ -297,7 +297,7 @@ export class CheckoutPage {
 
   async selectCountry(
     type: "billing_address" | "shipping_address",
-    country: "IT" | "US" | "GB" | "FR" | "ES",
+    country: "IT" | "US" | "GB" | "FR" | "ES" | "NO",
   ) {
     await this.page.selectOption(
       `[data-testid=input_${type}_country_code]`,

@@ -211,7 +211,7 @@ test.describe("with customer email and shipping country code lock", () => {
   test("Checkout guest address", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    let email = await checkoutPage.getCustomerMail()
+    let email = checkoutPage.getCustomerMail()
 
     await expect(email).toHaveValue(customerEmail)
 
