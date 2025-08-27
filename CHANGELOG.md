@@ -1,3 +1,10 @@
+## [6.0.4](https://github.com/commercelayer/mfe-checkout/compare/v6.0.3...v6.0.4) (2025-08-27)
+
+
+### Bug Fixes
+
+* calculate proper taxes on address change ([79f12ad](https://github.com/commercelayer/mfe-checkout/commit/79f12ad86216dba6858d0a22d8b825f3909cd381))
+
 ## [6.0.3](https://github.com/commercelayer/mfe-checkout/compare/v6.0.2...v6.0.3) (2025-08-26)
 
 
