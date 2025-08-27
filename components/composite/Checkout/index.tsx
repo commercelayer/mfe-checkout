@@ -45,6 +45,7 @@ interface Props {
   privacyUrl: NullableType<string>
   gtmId: NullableType<string>
   expireAt: NullableType<string>
+  expirationInfo: NullableType<ExpirationInfo>
 }
 
 const Checkout: React.FC<Props> = ({
@@ -60,6 +61,7 @@ const Checkout: React.FC<Props> = ({
   privacyUrl,
   gtmId,
   expireAt,
+  expirationInfo,
 }) => {
   const ctx = useContext(AppContext)
   const [isExpired, setIsExpired] = useState(false)
@@ -117,6 +119,7 @@ const Checkout: React.FC<Props> = ({
       logoUrl={logoUrl}
       companyName={companyName}
       thankyouPageUrl={thankyouPageUrl}
+      expirationInfo={expirationInfo}
     />
   )
 
@@ -152,6 +155,7 @@ const Checkout: React.FC<Props> = ({
                   hideItemCodes={hideItemCodes}
                   isFinished={isFinished}
                   expireAt={expireAt}
+                  expirationInfo={expirationInfo}
                 />
               </div>
               <Footer />
@@ -168,6 +172,7 @@ const Checkout: React.FC<Props> = ({
                 orderNumber={orderNumber}
                 expireAt={expireAt}
                 isFinished={isFinished}
+                expirationInfo={expirationInfo}
               />
               <StepNav
                 steps={steps}

@@ -8,12 +8,14 @@ interface Props {
   orderNumber: string
   expireAt: NullableType<string>
   isFinished: () => void
+  expirationInfo: NullableType<ExpirationInfo>
 }
 
 export const MainHeader: FC<Props> = ({
   orderNumber,
   expireAt,
   isFinished,
+  expirationInfo,
 }) => {
   const { t } = useTranslation()
   const { isMobile } = useDeviceDetect()
@@ -35,7 +37,11 @@ export const MainHeader: FC<Props> = ({
         </div>
       </div>
       {expireAt != null && isMobile && (
-        <ExpireTimer expireAt={expireAt} isFinished={isFinished} />
+        <ExpireTimer
+          expireAt={expireAt}
+          isFinished={isFinished}
+          expirationInfo={expirationInfo}
+        />
       )}
     </>
   )

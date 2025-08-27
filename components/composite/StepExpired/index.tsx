@@ -10,20 +10,20 @@ interface Props {
   logoUrl: NullableType<string>
   companyName: string
   thankyouPageUrl: NullableType<string>
+  expirationInfo: NullableType<ExpirationInfo>
 }
 
 export const StepExpired: React.FC<Props> = ({
   logoUrl,
   companyName,
   thankyouPageUrl = null,
+  expirationInfo,
 }) => {
   const { t } = useTranslation()
 
   const ctx = useContext(AppContext)
   const topRef = useRef<HTMLDivElement | null>(null)
-  const returnExpireUrl =
-    // @ts-expect-error
-    ctx?.expirationInfo?.returnExpiredUrl || ctx?.returnUrl
+  const returnExpireUrl = expirationInfo?.return_url || ctx?.returnUrl
 
   useEffect(() => {
     if (thankyouPageUrl != null) {
@@ -67,7 +67,8 @@ export const StepExpired: React.FC<Props> = ({
               data-testid="complete-checkout-summary"
               className="py-2 text-gray-400"
             >
-              {t("orderRecap.timer.expiration_message")}
+              {expirationInfo?.expired_message ||
+                t("orderRecap.timer.expiration_message")}
             </p>
 
             {returnExpireUrl != null && (

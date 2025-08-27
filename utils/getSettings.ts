@@ -105,6 +105,7 @@ function getOrder(
           "privacy_url",
           "line_items",
           // "expire_at",
+          // "expiration_info",
           "customer",
           "payment_status",
         ],
@@ -224,7 +225,7 @@ export const getSettings = async ({
   const isShipmentRequired = (order.line_items || []).some(
     (line_item) =>
       LINE_ITEMS_SHIPPABLE.includes(line_item.item_type as TypeAccepted) &&
-      // @ts-ignore
+      // @ts-expect-error
       !line_item.item?.do_not_ship,
   )
 
@@ -261,6 +262,13 @@ export const getSettings = async ({
     orderId: order.id,
     // expireAt: order.expire_at,
     expireAt,
+    // expirationInfo: order.expiration_info,
+    expirationInfo: {
+      active_message: "Your tickets are reserved for the remaining time.",
+      expired_message:
+        "Your session has expired. Please start your checkout again.",
+      return_url: "https://yourshop.com/",
+    },
     isShipmentRequired,
     validCheckout: true,
     logoUrl: organization.logo_url,

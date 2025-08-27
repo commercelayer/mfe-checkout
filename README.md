@@ -305,14 +305,14 @@ The timed checkout feature is enabled by filling the `expire_at` attribute of th
 
 - `expire_at`: a timestamp (ISO 8601 format) indicating when the checkout session expires.
 - `expiration_info`: a JSON object containing:
-  - `summary_message`: a message shown in the order summary to inform the user about the expiry.
+  - `active_message`: a message shown in the order summary to inform the user about the expiry.
   - `expired_message`: a message displayed on the expired checkout page.
-  - `return_expired_url`: a URL to redirect the user from the expired page (e.g., back to the cart or a custom page).
+  - `return_url`: a URL to redirect the user from the expired page (e.g., back to the cart or a custom page).
 
 #### Options and UI behavior
 
-- While the checkout is active, a countdown timer is shown in the summary, using the `summary_message` from `expiration_info`.
-- If the timer expires, the checkout page will display the `expired_message` and optionally provide a button or link to the `redirect_url`.
+- While the checkout is active, a countdown timer is shown in the summary, using the `active_message` from `expiration_info`.
+- If the timer expires, the checkout page will display the `expired_message` and optionally provide a button or link to the `return_url`.
 - The timer and messages are fully customizable via the `expiration_info` JSON.
 
 #### Example order attributes
@@ -321,14 +321,14 @@ The timed checkout feature is enabled by filling the `expire_at` attribute of th
 {
   "expire_at": "2025-08-19T15:30:00Z",
   "expiration_info": {
-    "summary_message": "You have 10 minutes to complete your purchase.",
+    "active_message": "You have 10 minutes to complete your purchase.",
     "expired_message": "Your session has expired. Please start your checkout again.",
-    "redirect_url": "https://yourshop.com/cart"
+    "return_url": "https://yourshop.com/cart"
   }
 }
 ```
 
-This configuration will show a timer and summary message during checkout, display a custom message if the session expires, and provide a redirect option for the user.
+This configuration will show a timer and custom message during checkout, display a custom message if the session expires, and provide a redirect option for the user.
 
 Timed checkout is ideal for ticketing, limited inventory, or flash sale scenarios.
 

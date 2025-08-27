@@ -11,6 +11,12 @@ interface HSLProps {
   l: string
 }
 
+type ExpirationInfo = {
+  active_message?: string
+  expired_message?: string
+  return_url?: string
+}
+
 interface CheckoutSettings {
   accessToken: string
   orderId: string
@@ -19,6 +25,7 @@ interface CheckoutSettings {
   isGuest: boolean
   isShipmentRequired: boolean
   expireAt: NullableType<string>
+  expirationInfo: NullableType<ExpirationInfo>
   endpoint: string
   domain: string
   slug: string
