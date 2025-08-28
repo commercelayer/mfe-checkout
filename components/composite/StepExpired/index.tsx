@@ -63,10 +63,7 @@ export const StepExpired: React.FC<Props> = ({
             <h1 className="text-black text-2xl lg:text-4xl font-semibold mb-4">
               {t("orderRecap.timer.error")}
             </h1>
-            <p
-              data-testid="complete-checkout-summary"
-              className="py-2 text-gray-400"
-            >
+            <p data-testid="expired-message" className="py-2 text-gray-400">
               {expirationInfo?.expired_message ||
                 t("orderRecap.timer.expiration_message")}
             </p>
@@ -74,7 +71,7 @@ export const StepExpired: React.FC<Props> = ({
             {returnExpireUrl != null && (
               <div className="flex items-center justify-center w-full mt-8">
                 <Button
-                  data-testid="button-continue-to-shop"
+                  data-testid="button-expire-url-to-shop"
                   onClick={handleClick}
                 >
                   {t("stepComplete.continue")}

@@ -92,6 +92,7 @@ function getOrder(
 ): Promise<FetchResource<Order> | undefined> {
   return retryCall<Order>(() =>
     cl.orders.retrieve(orderId, {
+      // @ts-expect-error: sdk needs to be upgraded with latest schema
       fields: {
         orders: [
           "id",
@@ -104,8 +105,8 @@ function getOrder(
           "terms_url",
           "privacy_url",
           "line_items",
-          // "expires_at",
-          // "expiration_info",
+          "expires_at",
+          "expiration_info",
           "customer",
           "payment_status",
         ],
@@ -148,13 +149,11 @@ export const getSettings = async ({
   orderId,
   subdomain,
   paymentReturn,
-  expiresAt,
 }: {
   accessToken: string
   orderId: string
   paymentReturn?: boolean
   subdomain: string
-  expiresAt?: string | null
 }) => {
   const domain = process.env.NEXT_PUBLIC_DOMAIN || "commercelayer.io"
 
@@ -260,15 +259,10 @@ export const getSettings = async ({
     slug,
     orderNumber: order.number || "",
     orderId: order.id,
-    // expiresAt: order.expires_at,
-    expiresAt,
-    // expirationInfo: order.expiration_info,
-    expirationInfo: {
-      active_message: "Your tickets are reserved for the remaining time.",
-      expired_message:
-        "Your session has expired. Please start your checkout again.",
-      return_url: "https://yourshop.com/",
-    },
+    // @ts-expect-error: sdk needs to be upgraded with latest schema
+    expiresAt: order.expires_at,
+    // @ts-expect-error: sdk needs to be upgraded with latest schema
+    expirationInfo: order.expiration_info,
     isShipmentRequired,
     validCheckout: true,
     logoUrl: organization.logo_url,

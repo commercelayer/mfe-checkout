@@ -66,7 +66,7 @@ export const ExpireTimer: React.FC<{
         </div>
       </div>
 
-      <p className="text-gray-500 text-xs mt-4">
+      <p data-testid="active-message" className="text-gray-500 text-xs mt-4">
         {expirationInfo?.active_message || t("orderRecap.timer.active_message")}
       </p>
     </div>
