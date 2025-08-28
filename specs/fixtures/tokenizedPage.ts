@@ -197,7 +197,8 @@ const getOrder = async (
     customer_email: email,
   }
   const giftCard = params.giftCardAttributes
-  const order = await cl.orders.create(attributes)
+  const { expires_at, expiration_info, ...orderAttributes } = attributes
+  const order = await cl.orders.create(orderAttributes)
   let giftCardCode: string | undefined | null
   switch (params.order) {
     case "plain":
@@ -206,6 +207,17 @@ const getOrder = async (
     case "with-items": {
       let superToken: string | undefined
       let superCl: CommerceLayerClient | undefined
+
+      if (expires_at != null) {
+        superToken = await getSuperToken()
+        superCl = getClient(superToken)
+        await superCl.orders.update({
+          id: order.id,
+          //@ts-expect-error
+          expires_at,
+          expiration_info,
+        })
+      }
 
       const noStock =
         (params.lineItemsAttributes?.length || 0) > 0 &&
