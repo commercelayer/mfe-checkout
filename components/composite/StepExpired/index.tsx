@@ -48,7 +48,7 @@ export const StepExpired: React.FC<Props> = ({
   }
 
   return (
-    <div className="bg-white min-h-screen">
+    <div data-testid="expired-page" className="bg-white min-h-screen">
       <div ref={topRef}>
         <div className="flex flex-col p-5 md:p-10 lg:px-20 2xl:max-w-screen-2xl 2xl:mx-auto">
           <Logo

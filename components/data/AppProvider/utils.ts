@@ -269,7 +269,7 @@ export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
         "customer",
         "line_items",
         "payment_status",
-        // "expire_at",
+        // "expires_at",
       ],
       shipments: ["shipping_method", "available_shipping_methods"],
       customers: ["customer_addresses"],

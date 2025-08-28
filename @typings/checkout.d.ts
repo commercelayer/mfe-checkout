@@ -24,7 +24,7 @@ interface CheckoutSettings {
   validCheckout: true
   isGuest: boolean
   isShipmentRequired: boolean
-  expireAt: NullableType<string>
+  expiresAt: NullableType<string>
   expirationInfo: NullableType<ExpirationInfo>
   endpoint: string
   domain: string
@@ -53,7 +53,7 @@ type CheckoutPageContextProps = Pick<
   | "orderId"
   | "logoUrl"
   | "isGuest"
-  | "expireAt"
+  | "expiresAt"
   | "companyName"
   | "endpoint"
   | "language"

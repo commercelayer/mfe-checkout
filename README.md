@@ -301,13 +301,15 @@ The Commerce Layer Checkout supports timed sessions for orders, allowing you to 
 
 #### How it works
 
-The timed checkout feature is enabled by filling the `expire_at` attribute of the order resource. The behaviour can be customized by using the optional `expiration_info` attribute (JSON object):
+The timed checkout feature is enabled by filling the `expires_at` attribute of the order resource. The behaviour can be customized by using the optional `expiration_info` attribute (JSON object):
 
-- `expire_at`: a timestamp (ISO 8601 format) indicating when the checkout session expires.
+- `expires_at`: a timestamp (ISO 8601 format) indicating when the checkout session expires.
 - `expiration_info`: a JSON object containing:
   - `active_message`: a message shown in the order summary to inform the user about the expiry.
   - `expired_message`: a message displayed on the expired checkout page.
   - `return_url`: a URL to redirect the user from the expired page (e.g., back to the cart or a custom page).
+
+If the `expiration_info` is partially or not populated, default messages will be displayed. If the `return_url` is missing, the checkout will use the order's `return_url` if present.
 
 #### Options and UI behavior
 
@@ -319,7 +321,7 @@ The timed checkout feature is enabled by filling the `expire_at` attribute of th
 
 ```json
 {
-  "expire_at": "2025-08-19T15:30:00Z",
+  "expires_at": "2025-08-19T15:30:00Z",
   "expiration_info": {
     "active_message": "You have 10 minutes to complete your purchase.",
     "expired_message": "Your session has expired. Please start your checkout again.",
@@ -328,9 +330,8 @@ The timed checkout feature is enabled by filling the `expire_at` attribute of th
 }
 ```
 
-This configuration will show a timer and custom message during checkout, display a custom message if the session expires, and provide a redirect option for the user.
-
-Timed checkout is ideal for ticketing, limited inventory, or flash sale scenarios.
+> [!TIP]
+> Timed checkout is ideal for ticketing, limited inventory, or flash sale scenarios.
 
 ### Supported languages
 
