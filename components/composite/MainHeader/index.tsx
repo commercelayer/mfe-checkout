@@ -6,14 +6,14 @@ import { ExpireTimer } from "../OrderSummary/ExpireTimer"
 
 interface Props {
   orderNumber: string
-  expireAt: NullableType<string>
+  expiresAt: NullableType<string>
   isFinished: () => void
   expirationInfo: NullableType<ExpirationInfo>
 }
 
 export const MainHeader: FC<Props> = ({
   orderNumber,
-  expireAt,
+  expiresAt,
   isFinished,
   expirationInfo,
 }) => {
@@ -36,9 +36,9 @@ export const MainHeader: FC<Props> = ({
           <TotalAmount />
         </div>
       </div>
-      {expireAt != null && isMobile && (
+      {expiresAt != null && isMobile && (
         <ExpireTimer
-          expireAt={expireAt}
+          expiresAt={expiresAt}
           isFinished={isFinished}
           expirationInfo={expirationInfo}
         />

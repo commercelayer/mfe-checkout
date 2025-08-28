@@ -94,6 +94,8 @@ interface DefaultParamsProps {
     privacy_url?: string
     cart_url?: string
     return_url?: string
+    expires_at?: string
+    expiration_info?: ExpirationInfo
   }
   lineItemsAttributes?: LineItemObject[]
   giftCardAttributes?: GiftCardProps
@@ -561,18 +563,6 @@ export const test = base.extend<FixtureType>({
     })
     await use(checkoutPage)
   },
-
-  // This is the option to avoid incognito mode
-  // context: [
-  //   async ({ defaultParams: { incognito } }, use) => {
-  //     if (!incognito) {
-  //       const context = await chromium.launchPersistentContext("/tmp")
-  //       await use(context)
-  //       await context.close()
-  //     }
-  //   },
-  //   { scope: "test" },
-  // ],
 })
 
 export { expect } from "@playwright/test"

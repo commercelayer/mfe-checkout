@@ -104,7 +104,7 @@ function getOrder(
           "terms_url",
           "privacy_url",
           "line_items",
-          // "expire_at",
+          // "expires_at",
           // "expiration_info",
           "customer",
           "payment_status",
@@ -148,13 +148,13 @@ export const getSettings = async ({
   orderId,
   subdomain,
   paymentReturn,
-  expireAt,
+  expiresAt,
 }: {
   accessToken: string
   orderId: string
   paymentReturn?: boolean
   subdomain: string
-  expireAt?: string | null
+  expiresAt?: string | null
 }) => {
   const domain = process.env.NEXT_PUBLIC_DOMAIN || "commercelayer.io"
 
@@ -260,8 +260,8 @@ export const getSettings = async ({
     slug,
     orderNumber: order.number || "",
     orderId: order.id,
-    // expireAt: order.expire_at,
-    expireAt,
+    // expiresAt: order.expires_at,
+    expiresAt,
     // expirationInfo: order.expiration_info,
     expirationInfo: {
       active_message: "Your tickets are reserved for the remaining time.",

@@ -4,12 +4,12 @@ import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 
 export const ExpireTimer: React.FC<{
-  expireAt: string | null
+  expiresAt: string | null
   expirationInfo: NullableType<ExpirationInfo>
   isFinished?: () => void
-}> = ({ expireAt, expirationInfo, isFinished }) => {
+}> = ({ expiresAt, expirationInfo, isFinished }) => {
   const { t } = useTranslation()
-  const { duration, isExpired, hasTimer } = useExpiry(expireAt)
+  const { duration, isExpired, hasTimer } = useExpiry(expiresAt)
 
   useEffect(() => {
     if (hasTimer && isExpired && isFinished) {
@@ -29,7 +29,10 @@ export const ExpireTimer: React.FC<{
   const minutes = Math.floor(duration / 60000) % 60
   const seconds = Math.floor((duration % 60000) / 1000)
   return (
-    <div className="border border-dashed border-primary-light rounded-lg p-4 mb-4 md:mb-8 bg-white max-w">
+    <div
+      data-testid="expiration-timer"
+      className="border border-dashed border-primary-light rounded-lg p-4 mb-4 md:mb-8 bg-white max-w"
+    >
       <div className="flex items-center justify-between text-xs gap-1 border-b border-dashed pb-2">
         <div className="flex items-center gap-2 font-semibold">
           <svg

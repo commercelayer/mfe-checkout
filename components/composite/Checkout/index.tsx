@@ -44,7 +44,7 @@ interface Props {
   termsUrl: NullableType<string>
   privacyUrl: NullableType<string>
   gtmId: NullableType<string>
-  expireAt: NullableType<string>
+  expiresAt: NullableType<string>
   expirationInfo: NullableType<ExpirationInfo>
 }
 
@@ -60,7 +60,7 @@ const Checkout: React.FC<Props> = ({
   termsUrl,
   privacyUrl,
   gtmId,
-  expireAt,
+  expiresAt,
   expirationInfo,
 }) => {
   const ctx = useContext(AppContext)
@@ -154,7 +154,7 @@ const Checkout: React.FC<Props> = ({
                   appCtx={ctx}
                   hideItemCodes={hideItemCodes}
                   isFinished={isFinished}
-                  expireAt={expireAt}
+                  expiresAt={expiresAt}
                   expirationInfo={expirationInfo}
                 />
               </div>
@@ -170,7 +170,7 @@ const Checkout: React.FC<Props> = ({
               />
               <MainHeader
                 orderNumber={orderNumber}
-                expireAt={expireAt}
+                expiresAt={expiresAt}
                 isFinished={isFinished}
                 expirationInfo={expirationInfo}
               />
