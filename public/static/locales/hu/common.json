@@ -60,7 +60,11 @@
     "frequency.four-month": "Négy havonta",
     "frequency.six-months": "Hat havonta",
     "frequency.six-month": "Hat havonta",
-    "frequency.yearly": "Évente"
+    "frequency.yearly": "Évente",
+    "timer.title": "Hátralévő idő a pénztárig",
+    "timer.active_message": "Győződjön meg róla, hogy addig befejezi a vásárlást.",
+    "timer.error": "A pénztár lejárt",
+    "timer.expiration_message": "A rendelés nem fejeződött be. Kérjük, próbálja újra egy új rendeléssel."
   },
   "stepCustomer": {
     "title": "Vásárló",

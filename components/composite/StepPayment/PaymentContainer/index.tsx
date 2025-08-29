@@ -52,7 +52,6 @@ export const PaymentContainer = ({ primaryColor, children }: Props) => {
             recurringDetailReference,
             shopperReference,
           }) => {
-            console.log("Stored payment method disabled")
             const res = await fetch("your-server-side-endpoint", {
               method: "POST",
               headers: {
@@ -64,7 +63,6 @@ export const PaymentContainer = ({ primaryColor, children }: Props) => {
               }),
             })
             if (res.status === 200) {
-              console.log("Stored payment method disabled")
               return true
             }
             console.error("Error disabling stored payment method")

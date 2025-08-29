@@ -9,10 +9,11 @@ import SubTotalAmount from "@commercelayer/react-components/orders/SubTotalAmoun
 import TaxesAmount from "@commercelayer/react-components/orders/TaxesAmount"
 import TotalAmount from "@commercelayer/react-components/orders/TotalAmount"
 import type { AppProviderData } from "components/data/AppProvider"
+import useDeviceDetect from "components/hooks/useDeviceDetect"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 import { Trans, useTranslation } from "react-i18next"
-
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
+import { ExpireTimer } from "./ExpireTimer"
 import { LineItemTypes } from "./LineItemTypes"
 import { ReturnToCart } from "./ReturnToCart"
 import {
@@ -33,14 +34,21 @@ interface Props {
   appCtx: AppProviderData
   hideItemCodes?: NullableType<boolean>
   readonly?: boolean
+  isFinished?: () => void
+  expiresAt?: NullableType<string>
+  expirationInfo?: NullableType<ExpirationInfo>
 }
 
 export const OrderSummary: React.FC<Props> = ({
   appCtx,
   readonly,
   hideItemCodes,
+  isFinished,
+  expiresAt,
+  expirationInfo,
 }) => {
   const { t } = useTranslation()
+  const { isMobile } = useDeviceDetect()
 
   const isTaxCalculated = appCtx.isShipmentRequired
     ? appCtx.hasBillingAddress &&
@@ -50,6 +58,13 @@ export const OrderSummary: React.FC<Props> = ({
 
   const lineItems = !readonly ? (
     <SummaryHeader>
+      {expiresAt != null && !isMobile && (
+        <ExpireTimer
+          expiresAt={expiresAt}
+          expirationInfo={expirationInfo}
+          isFinished={isFinished}
+        />
+      )}
       <SummaryTitle data-testid="test-summary">
         {t("orderRecap.order_summary")}
       </SummaryTitle>

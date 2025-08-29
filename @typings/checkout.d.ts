@@ -1,6 +1,6 @@
 declare namespace Organization {
   type DefaultConfig =
-    import('@commercelayer/organization-config').DefaultConfig
+    import("@commercelayer/organization-config").DefaultConfig
 }
 
 type NullableType<T> = T | null | undefined
@@ -11,6 +11,12 @@ interface HSLProps {
   l: string
 }
 
+type ExpirationInfo = {
+  active_message?: string
+  expired_message?: string
+  return_url?: string
+}
+
 interface CheckoutSettings {
   accessToken: string
   orderId: string
@@ -18,6 +24,8 @@ interface CheckoutSettings {
   validCheckout: true
   isGuest: boolean
   isShipmentRequired: boolean
+  expiresAt: NullableType<string>
+  expirationInfo: NullableType<ExpirationInfo>
   endpoint: string
   domain: string
   slug: string
@@ -41,18 +49,19 @@ interface InvalidCheckoutSettings {
 
 type CheckoutPageContextProps = Pick<
   CheckoutSettings,
-  | 'accessToken'
-  | 'orderId'
-  | 'logoUrl'
-  | 'isGuest'
-  | 'companyName'
-  | 'endpoint'
-  | 'language'
-  | 'primaryColor'
-  | 'favicon'
-  | 'gtmId'
-  | 'supportEmail'
-  | 'supportPhone'
-  | 'termsUrl'
-  | 'privacyUrl'
+  | "accessToken"
+  | "orderId"
+  | "logoUrl"
+  | "isGuest"
+  | "expiresAt"
+  | "companyName"
+  | "endpoint"
+  | "language"
+  | "primaryColor"
+  | "favicon"
+  | "gtmId"
+  | "supportEmail"
+  | "supportPhone"
+  | "termsUrl"
+  | "privacyUrl"
 >
