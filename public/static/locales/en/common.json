@@ -61,10 +61,10 @@
     "frequency.six-months": "Every six months",
     "frequency.six-month": "Every six months",
     "frequency.yearly": "Yearly",
-    "timer.title": "The purchase must be completed by",
-    "timer.active_message": "When the time expires, you will need to restart the purchase with a new order.",
-    "timer.error": "The checkout has expired",
-    "timer.expiration_message": "The time to complete the purchase has expired. Please return to the shop to start again."
+    "timer.title": "Time left to checkout",
+    "timer.active_message": "Make sure to complete your purchase before then.",
+    "timer.error": "Your checkout has expired",
+    "timer.expiration_message": "Your order was not completed. Please try again with a new order."
   },
   "stepCustomer": {
     "title": "Customer",

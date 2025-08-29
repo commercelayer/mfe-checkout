@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 interface UseExpiryResult {
   expiresAt: string | null | undefined
-  duration: number | null // ms rimanenti, null se non c'è scadenza
+  duration: number | null // ms remaining, null if no expiry
   isExpired: boolean
   hasTimer: boolean
 }

@@ -61,10 +61,10 @@
     "frequency.six-months": "Alle sechs Monate",
     "frequency.six-month": "Alle sechs Monate",
     "frequency.yearly": "Jährlich",
-    "timer.title": "Der Kauf muss bis zum Ablauf abgeschlossen werden",
-    "timer.active_message": "Nach Ablauf der Zeit muss der Kauf mit einer neuen Bestellung neu gestartet werden.",
-    "timer.error": "Der Checkout ist abgelaufen",
-    "timer.expiration_message": "Die Zeit für den Abschluss des Kaufs ist abgelaufen. Kehren Sie zum Shop zurück, um erneut zu beginnen."
+    "timer.title": "Verbleibende Zeit bis zum Checkout",
+    "timer.active_message": "Stellen Sie sicher, dass Sie Ihren Kauf vor diesem Zeitpunkt abschließen.",
+    "timer.error": "Ihr Checkout ist abgelaufen",
+    "timer.expiration_message": "Ihre Bestellung wurde nicht abgeschlossen. Bitte versuchen Sie es mit einer neuen Bestellung erneut."
   },
   "stepCustomer": {
     "title": "Adresse",

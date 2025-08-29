@@ -61,10 +61,10 @@
     "frequency.six-months": "Hat havonta",
     "frequency.six-month": "Hat havonta",
     "frequency.yearly": "Évente",
-    "timer.title": "A vásárlást be kell fejezni",
-    "timer.active_message": "Az idő lejárta után új rendelés indításával kell újrakezdeni a vásárlást.",
+    "timer.title": "Hátralévő idő a pénztárig",
+    "timer.active_message": "Győződjön meg róla, hogy addig befejezi a vásárlást.",
     "timer.error": "A pénztár lejárt",
-    "timer.expiration_message": "A vásárlás befejezésére szánt idő lejárt. Térjen vissza az áruházba, hogy újra kezdje."
+    "timer.expiration_message": "A rendelés nem fejeződött be. Kérjük, próbálja újra egy új rendeléssel."
   },
   "stepCustomer": {
     "title": "Vásárló",
