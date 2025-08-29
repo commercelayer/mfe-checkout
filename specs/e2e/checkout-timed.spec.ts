@@ -24,7 +24,7 @@ test.describe("with expires_at in the future", () => {
       await checkoutPage.page.getByTestId("expiration-timer").waitFor()
       const message = checkoutPage.page.getByTestId("active-message")
       await expect(message).toHaveText(
-        "When the time expires, you will need to restart the purchase with a new order.",
+        "Make sure to complete your purchase before then.",
       )
     })
   })
@@ -78,7 +78,7 @@ test.describe("with expires_at in the past", () => {
       await expiredMessageElement.waitFor()
 
       expect(expiredMessageElement).toHaveText(
-        "The time to complete the purchase has expired. Please return to the shop to start again.",
+        "Your order was not completed. Please try again with a new order.",
       )
     })
   })
