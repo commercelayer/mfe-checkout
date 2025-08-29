@@ -213,7 +213,7 @@ const getOrder = async (
         superCl = getClient(superToken)
         await superCl.orders.update({
           id: order.id,
-          //@ts-expect-error
+          //@ts-expect-error: sdk needs to be upgraded with latest schema
           expires_at,
           expiration_info,
         })
