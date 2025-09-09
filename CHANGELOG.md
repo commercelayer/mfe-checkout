@@ -1,3 +1,10 @@
+# [6.1.0](https://github.com/commercelayer/mfe-checkout/compare/v6.0.4...v6.1.0) (2025-09-09)
+
+
+### Features
+
+* add support for Croatian and Slovenian languages ([aeb6e7e](https://github.com/commercelayer/mfe-checkout/commit/aeb6e7e5d1c28fca13d51dfaa7e800c01ea48afc))
+
 ## [6.0.4](https://github.com/commercelayer/mfe-checkout/compare/v6.0.3...v6.0.4) (2025-08-27)
 
 
