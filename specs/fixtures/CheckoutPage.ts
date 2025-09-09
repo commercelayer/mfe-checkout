@@ -945,11 +945,11 @@ export class CheckoutPage {
             }
 
             // select  the card payment method if present
-            const paymentToSelect = klarnaIframe.locator(
-              "#global_paybycard_kp\\.1__label",
-            )
-            if (await paymentToSelect.isVisible()) {
-              await paymentToSelect.click()
+            const paymentCardToSelect = klarnaIframe.getByRole("radio", {
+              name: "Karte Speichere deine",
+            })
+            if (await paymentCardToSelect.isVisible()) {
+              await paymentCardToSelect.click()
             }
 
             await this.page.waitForTimeout(4000)
