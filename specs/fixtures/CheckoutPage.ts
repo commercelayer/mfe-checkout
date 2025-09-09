@@ -944,6 +944,14 @@ export class CheckoutPage {
               await selectPayment.click()
             }
 
+            // select  the card payment method if present
+            const paymentCardToSelect = klarnaIframe.getByRole("radio", {
+              name: "Karte Speichere deine",
+            })
+            if (await paymentCardToSelect.isVisible()) {
+              await paymentCardToSelect.click()
+            }
+
             await this.page.waitForTimeout(4000)
             const pickPlan = klarnaIframe.getByTestId("pick-plan")
             if (await pickPlan.isVisible()) {
