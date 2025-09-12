@@ -92,7 +92,6 @@ function getOrder(
 ): Promise<FetchResource<Order> | undefined> {
   return retryCall<Order>(() =>
     cl.orders.retrieve(orderId, {
-      // @ts-expect-error: sdk needs to be upgraded with latest schema
       fields: {
         orders: [
           "id",
@@ -259,9 +258,7 @@ export const getSettings = async ({
     slug,
     orderNumber: order.number || "",
     orderId: order.id,
-    // @ts-expect-error: sdk needs to be upgraded with latest schema
     expiresAt: order.expires_at,
-    // @ts-expect-error: sdk needs to be upgraded with latest schema
     expirationInfo: order.expiration_info,
     isShipmentRequired,
     validCheckout: true,
