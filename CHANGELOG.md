@@ -1,3 +1,10 @@
+# [6.2.0](https://github.com/commercelayer/mfe-checkout/compare/v6.1.0...v6.2.0) (2025-09-12)
+
+
+### Features
+
+* add support to timed checkout using future order's `expire_at` attribute ([fa21744](https://github.com/commercelayer/mfe-checkout/commit/fa2174482de25cf63ef063066e2246687353fa0a))
+
 # [6.1.0](https://github.com/commercelayer/mfe-checkout/compare/v6.0.4...v6.1.0) (2025-09-09)
 
 
