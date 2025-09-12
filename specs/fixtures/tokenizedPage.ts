@@ -94,6 +94,8 @@ interface DefaultParamsProps {
     privacy_url?: string
     cart_url?: string
     return_url?: string
+    expires_at?: string
+    expiration_info?: ExpirationInfo
   }
   lineItemsAttributes?: LineItemObject[]
   giftCardAttributes?: GiftCardProps
@@ -195,7 +197,8 @@ const getOrder = async (
     customer_email: email,
   }
   const giftCard = params.giftCardAttributes
-  const order = await cl.orders.create(attributes)
+  const { expires_at, expiration_info, ...orderAttributes } = attributes
+  const order = await cl.orders.create(orderAttributes)
   let giftCardCode: string | undefined | null
   switch (params.order) {
     case "plain":
@@ -204,6 +207,16 @@ const getOrder = async (
     case "with-items": {
       let superToken: string | undefined
       let superCl: CommerceLayerClient | undefined
+
+      if (expires_at != null) {
+        superToken = await getSuperToken()
+        superCl = getClient(superToken)
+        await superCl.orders.update({
+          id: order.id,
+          expires_at,
+          expiration_info,
+        })
+      }
 
       const noStock =
         (params.lineItemsAttributes?.length || 0) > 0 &&
@@ -561,18 +574,6 @@ export const test = base.extend<FixtureType>({
     })
     await use(checkoutPage)
   },
-
-  // This is the option to avoid incognito mode
-  // context: [
-  //   async ({ defaultParams: { incognito } }, use) => {
-  //     if (!incognito) {
-  //       const context = await chromium.launchPersistentContext("/tmp")
-  //       await use(context)
-  //       await context.close()
-  //     }
-  //   },
-  //   { scope: "test" },
-  // ],
 })
 
 export { expect } from "@playwright/test"

@@ -40,7 +40,8 @@ jobs:
           name: Save pnpm Package Cache
           key: pnpm-packages-{{ checksum "pnpm-lock.yaml" }}
           paths:
-            - node_modules
+            - ./node_modules
+            - ./.next/cache
       - run:
           name: Export and serve
           command: |

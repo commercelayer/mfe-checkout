@@ -46,6 +46,8 @@ const Order: NextPage = () => {
         termsUrl={settings.termsUrl}
         privacyUrl={settings.privacyUrl}
         gtmId={settings.gtmId}
+        expiresAt={settings.expiresAt}
+        expirationInfo={settings.expirationInfo}
       />
     </DynamicCheckoutContainer>
   )

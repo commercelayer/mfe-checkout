@@ -104,6 +104,8 @@ function getOrder(
           "terms_url",
           "privacy_url",
           "line_items",
+          "expires_at",
+          "expiration_info",
           "customer",
           "payment_status",
         ],
@@ -221,7 +223,7 @@ export const getSettings = async ({
   const isShipmentRequired = (order.line_items || []).some(
     (line_item) =>
       LINE_ITEMS_SHIPPABLE.includes(line_item.item_type as TypeAccepted) &&
-      // @ts-ignore
+      // @ts-expect-error
       !line_item.item?.do_not_ship,
   )
 
@@ -256,6 +258,8 @@ export const getSettings = async ({
     slug,
     orderNumber: order.number || "",
     orderId: order.id,
+    expiresAt: order.expires_at,
+    expirationInfo: order.expiration_info,
     isShipmentRequired,
     validCheckout: true,
     logoUrl: organization.logo_url,
