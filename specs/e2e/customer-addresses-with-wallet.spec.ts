@@ -351,9 +351,7 @@ test.describe("address on wallet and payment with affirm", () => {
 
     await checkoutPage.save("Payment", undefined, true)
 
-    await checkoutPage.page
-      .getByRole("button", { name: "Authorize Test Payment" })
-      .click()
+    await checkoutPage.page.getByTestId("authorize-test-payment-button").click()
 
     await checkoutPage.checkPaymentRecap("Affirm ending in ****", 15000)
 

@@ -41,9 +41,11 @@ test.describe("guest with Affirm", () => {
 
     await checkoutPage.save("Payment", undefined, true)
 
-    await checkoutPage.page
-      .getByRole("button", { name: "Authorize Test Payment" })
-      .click()
+    await (
+      await checkoutPage.page.waitForSelector(
+        "[data-testid=authorize-test-payment-button]",
+      )
+    ).click()
 
     await checkoutPage.checkPaymentRecap("Affirm ending in ****", 15000)
 
@@ -70,9 +72,11 @@ test.describe("guest with Affirm", () => {
 
     await checkoutPage.save("Payment", undefined, true)
 
-    await checkoutPage.page
-      .getByRole("button", { name: "Fail Test Payment" })
-      .click()
+    await (
+      await checkoutPage.page.waitForSelector(
+        "[data-testid=fail-test-payment-button]",
+      )
+    ).click()
 
     await checkoutPage.checkPaymentError({
       type: "stripe",
