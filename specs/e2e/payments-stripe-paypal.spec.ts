@@ -44,9 +44,11 @@ test.describe("guest with PayPal", () => {
 
     await checkoutPage.save("Payment", undefined, true)
 
-    await checkoutPage.page
-      .getByRole("link", { name: "Authorize Test Payment" })
-      .click()
+    await (
+      await checkoutPage.page.waitForSelector(
+        "[data-testid=authorize-test-payment-button]",
+      )
+    ).click()
 
     await checkoutPage.checkPaymentRecap("ending in ****", 15000)
 
@@ -76,8 +78,15 @@ test.describe("guest with PayPal", () => {
     await checkoutPage.checkPaymentSummary("€10,00")
 
     await checkoutPage.save("Payment", undefined, true)
-    await checkoutPage.page
-      .getByRole("link", { name: "Fail Test Payment" })
-      .click()
+    await (
+      await checkoutPage.page.waitForSelector(
+        "[data-testid=fail-test-payment-button]",
+      )
+    ).click()
+
+    await checkoutPage.checkPaymentError({
+      type: "stripe",
+      text: "The provided PaymentMethod has failed authentication.",
+    })
   })
 })
