@@ -16,7 +16,6 @@ interface Props {
 export const StepExpired: React.FC<Props> = ({
   logoUrl,
   companyName,
-  thankyouPageUrl = null,
   expirationInfo,
 }) => {
   const { t } = useTranslation()
@@ -24,12 +23,6 @@ export const StepExpired: React.FC<Props> = ({
   const ctx = useContext(AppContext)
   const topRef = useRef<HTMLDivElement | null>(null)
   const returnExpireUrl = expirationInfo?.return_url || ctx?.returnUrl
-
-  useEffect(() => {
-    if (thankyouPageUrl != null) {
-      window.location.href = thankyouPageUrl
-    }
-  }, [thankyouPageUrl])
 
   useEffect(() => {
     if (topRef.current != null) {
