@@ -1,3 +1,10 @@
+## [6.2.1](https://github.com/commercelayer/mfe-checkout/compare/v6.2.0...v6.2.1) (2025-09-23)
+
+
+### Bug Fixes
+
+* avoid a redirect to the thankyou page url if present on expired pending order ([ed98925](https://github.com/commercelayer/mfe-checkout/commit/ed98925429a137e28d3826e194be9cab6934bb91))
+
 # [6.2.0](https://github.com/commercelayer/mfe-checkout/compare/v6.1.0...v6.2.0) (2025-09-12)
 
 
