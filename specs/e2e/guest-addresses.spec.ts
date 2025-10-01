@@ -48,6 +48,22 @@ test.describe("with customer email", () => {
     await checkoutPage.clickStep("Customer")
     await checkoutPage.checkBillingAddress(euAddress)
     await checkoutPage.checkShippingAddress(euAddress2)
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("wire")
+
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
   })
 
   test("missing fields on billing address", async ({ checkoutPage }) => {
@@ -96,6 +112,23 @@ test.describe("with customer email", () => {
     await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkBillingAddress({ ...euAddress, line_2: "" })
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("wire")
+
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
   })
 
   test("line_2 optional attribute on shipping address", async ({
@@ -125,6 +158,23 @@ test.describe("with customer email", () => {
     await checkoutPage.clickStep("Customer")
 
     await checkoutPage.checkShippingAddress({ ...euAddress2, line_2: "" })
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("wire")
+
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
   })
 })
 
@@ -261,6 +311,23 @@ test.describe("with customer email and shipping country code lock", () => {
 
     await checkoutPage.checkBillingAddress({ ...euAddress, country_code: "FR" })
     await checkoutPage.checkShippingAddress(shippingAddress)
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("wire")
+
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
   })
 })
 
@@ -402,7 +469,20 @@ test.describe("without customer email and same addresses", () => {
     await checkoutPage.save("Customer")
 
     await checkoutPage.checkStep("Customer", "close")
-    await checkoutPage.checkStep("Shipping", "open")
+    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.selectPayment("wire")
+
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
   })
 })
 
@@ -466,6 +546,21 @@ test.describe("email error validation", () => {
     await checkoutPage.checkButton({ type: "Customer", status: "disabled" })
     await checkoutPage.page.reload()
     await checkoutPage.checkCustomerEmail("john@gmail.com")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.selectPayment("wire")
+
+    await checkoutPage.checkButton({ type: "Payment", status: "enabled" })
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Manual payment")
   })
 
   test("keep error with multiple errors", async ({ checkoutPage }) => {
