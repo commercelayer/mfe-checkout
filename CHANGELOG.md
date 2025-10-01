@@ -1,3 +1,10 @@
+## [6.2.2](https://github.com/commercelayer/mfe-checkout/compare/v6.2.1...v6.2.2) (2025-10-01)
+
+
+### Bug Fixes
+
+* avoid refresh on address save with no changes ([236b305](https://github.com/commercelayer/mfe-checkout/commit/236b305381016783303d7c2f48f11069e465c252))
+
 ## [6.2.1](https://github.com/commercelayer/mfe-checkout/compare/v6.2.0...v6.2.1) (2025-09-23)
 
 
