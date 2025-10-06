@@ -36,6 +36,16 @@ test.describe("address on wallet", () => {
     await element.check()
 
     await checkoutPage.save("Customer")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkBillingAddress(euAddress)
+
+    const element2 = checkoutPage.getSaveAddressBookCheckbox("billing")
+    await expect(element2).toBeChecked()
+
+    await checkoutPage.save("Customer")
+
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.save("Shipping")

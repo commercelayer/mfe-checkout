@@ -28,6 +28,7 @@ export const AddressSectionSaveOnAddressBook: React.FC<Props> = ({
         data-testid={dataTestId}
         // @ts-expect-error Missing attribute
         name={fieldName}
+        value={"true"}
         id={fieldName}
         type="checkbox"
         required={false}
