@@ -1,3 +1,10 @@
+## [6.2.4](https://github.com/commercelayer/mfe-checkout/compare/v6.2.3...v6.2.4) (2025-10-08)
+
+
+### Bug Fixes
+
+* always display customer email even when cleared ([3ae22a7](https://github.com/commercelayer/mfe-checkout/commit/3ae22a7853922129de6028e423f3ddd34864127d))
+
 ## [6.2.3](https://github.com/commercelayer/mfe-checkout/compare/v6.2.2...v6.2.3) (2025-10-08)
 
 
