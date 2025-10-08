@@ -26,7 +26,6 @@ export const AddressSectionSaveOnAddressBook: React.FC<Props> = ({
     <FlexContainer className="items-center">
       <AddressInput
         data-testid={dataTestId}
-        // @ts-expect-error Missing attribute
         name={fieldName}
         id={fieldName}
         type="checkbox"
