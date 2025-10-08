@@ -292,6 +292,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const placeOrder = async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
+    if (order && order.customer_email != null) {
+      setCustomerEmail(order.customer_email)
+    }
     const currentOrder = order ?? (await getOrderFromRef())
 
     dispatch({
