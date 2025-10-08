@@ -1,3 +1,10 @@
+## [6.2.3](https://github.com/commercelayer/mfe-checkout/compare/v6.2.2...v6.2.3) (2025-10-08)
+
+
+### Bug Fixes
+
+* save customer address checkbox on step re-opening ([58ccf01](https://github.com/commercelayer/mfe-checkout/commit/58ccf018760260fd174438aaad474ae62ac07ea6))
+
 ## [6.2.2](https://github.com/commercelayer/mfe-checkout/compare/v6.2.1...v6.2.2) (2025-10-01)
 
 
