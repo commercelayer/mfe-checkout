@@ -105,6 +105,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const [state, dispatch] = useReducer(reducer, { ...initialState, isGuest })
   const [order, setOrder] = useState<NullableType<Order>>()
 
+  useEffect(() => {
+    if (order && order.customer_email !== state.emailAddress) {
+      setCustomerEmail(order.customer_email || "")
+    } 
+  }, [order])
+
   const cl = CommerceLayer({
     organization: slug,
     accessToken,
