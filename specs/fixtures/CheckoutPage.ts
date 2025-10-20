@@ -185,6 +185,16 @@ export class CheckoutPage {
     await this.page.click("[data-testid=button-ship-to-different-address]")
   }
 
+  async checkShipToDifferentAddress(value: boolean) {
+    const element = this.page.locator(
+      "[data-testid=button-ship-to-different-address]",
+    )
+    await expect(element).toHaveAttribute(
+      "data-status",
+      value ? "true" : "false",
+    )
+  }
+
   async getDataLayer(
     eventToTrack:
       | "begin_checkout"
