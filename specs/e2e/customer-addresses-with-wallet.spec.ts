@@ -498,7 +498,7 @@ test.describe("two address on wallet", () => {
   test("check addresses", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    await checkoutPage.page.locator(`text=${customerEmail}`)
+    checkoutPage.page.locator(`text=${customerEmail}`)
 
     await checkoutPage.checkStep("Customer", "open")
 
@@ -583,6 +583,78 @@ test.describe("two address on wallet", () => {
       type: "billing",
       address: euAddress,
     })
+  })
+
+  test("check shipping address on customer", async ({ checkoutPage }) => {
+    // await checkoutPage.page.pause()
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    checkoutPage.page.locator(`text=${customerEmail}`)
+
+    await checkoutPage.checkStep("Customer", "open")
+
+    const element = checkoutPage.page.locator(
+      "[data-testid=customer-billing-address]",
+    )
+    await expect(element).toHaveCount(2)
+
+    await checkoutPage.selectAddressOnBook({ type: "billing", index: 0 })
+    await checkoutPage.page.waitForTimeout(1000)
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress,
+    })
+
+    await checkoutPage.selectAddressOnBook({ type: "billing", index: 1 })
+    await checkoutPage.page.waitForTimeout(1000)
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress2,
+    })
+
+    await checkoutPage.shipToDifferentAddress()
+
+    await checkoutPage.selectAddressOnBook({ type: "shipping", index: 0 })
+
+    await checkoutPage.save("Customer")
+
+    await checkoutPage.checkStep("Customer", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress2,
+    })
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "shipping",
+      address: euAddress,
+    })
+
+    await checkoutPage.shipToDifferentAddress()
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.clickStep("Customer")
+
+    await checkoutPage.checkSelectedAddressBook({
+      type: "billing",
+      address: euAddress2,
+    })
+    await checkoutPage.checkShipToDifferentAddress(false)
   })
 })
 
