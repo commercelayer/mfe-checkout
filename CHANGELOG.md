@@ -1,3 +1,10 @@
+## [6.2.5](https://github.com/commercelayer/mfe-checkout/compare/v6.2.4...v6.2.5) (2025-10-24)
+
+
+### Bug Fixes
+
+* keep checkbox status on customer step ([910fb0f](https://github.com/commercelayer/mfe-checkout/commit/910fb0f0e08e7d9361d69f6d03a14e668976471c))
+
 ## [6.2.4](https://github.com/commercelayer/mfe-checkout/compare/v6.2.3...v6.2.4) (2025-10-08)
 
 
