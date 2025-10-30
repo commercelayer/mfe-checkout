@@ -75,7 +75,7 @@
   "dependencies": {
     "@commercelayer/js-auth": "^7.0.0",
     "@commercelayer/organization-config": "^2.4.0",
-    "@commercelayer/react-components": "4.28.1",
+    "@commercelayer/react-components": "https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@007ef67",
     "@commercelayer/sdk": "^6.47.0",
     "@faker-js/faker": "^10.1.0",
     "@headlessui/react": "^2.2.9",
