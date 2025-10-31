@@ -469,7 +469,12 @@ test.describe("without customer email and same addresses", () => {
     await checkoutPage.save("Customer")
 
     await checkoutPage.checkStep("Customer", "close")
-    await checkoutPage.checkStep("Shipping", "close")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+
+    await checkoutPage.save("Shipping")
+
     await checkoutPage.checkStep("Payment", "open")
 
     await checkoutPage.selectPayment("wire")
