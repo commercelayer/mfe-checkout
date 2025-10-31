@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "downlevelIteration": true,
     "allowJs": true,
     "skipLibCheck": true,
@@ -21,16 +17,6 @@
     "baseUrl": ".",
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "specs"
-  ],
-  "exclude": [
-    "node_modules",
-    "public",
-    ".next",
-    "playwright.config.*"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "specs"],
+  "exclude": ["node_modules", "public", ".next", "playwright.config.*"]
 }
