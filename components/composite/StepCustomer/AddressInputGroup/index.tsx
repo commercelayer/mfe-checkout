@@ -5,7 +5,7 @@ import { Errors } from "@commercelayer/react-components/errors/Errors"
 import type {
   Country,
   States,
-} from "@commercelayer/react-components/lib/esm/utils/countryStateCity"
+} from "@commercelayer/react-components/utils/countryStateCity"
 import {
   evaluateShippingToggle,
   type ShippingToggleProps,
