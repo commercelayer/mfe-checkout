@@ -22,8 +22,8 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0
       '@commercelayer/react-components':
-        specifier: 4.28.3
-        version: 4.28.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.9.3)
+        specifier: 4.28.3-beta.0
+        version: 4.28.3-beta.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.9.3)
       '@commercelayer/sdk':
         specifier: ^6.47.0
         version: 6.47.0
@@ -275,8 +275,8 @@ packages:
     resolution: {integrity: sha512-65r3YS3GssircqSyScQhKNXWm4iN5eegA7u/FUhD+5Ny+X1kq/CylzysQmZ+HR3UciMhDFIV0BvATaAZuJVPEw==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@4.28.3':
-    resolution: {integrity: sha512-JW2CZhHckL+mNccwS0pF8gJlzM9aiuVz0YG3NQuu9TgtA3ky3AoA//eWR01DIyZtdRkeT/n13lyj+ZlQb9d+cw==}
+  '@commercelayer/react-components@4.28.3-beta.0':
+    resolution: {integrity: sha512-D2LDphX2Z4dmU/I+nQCJowd7KVpCTPp/aGQq7bXPiydHJyao1a1nzE9JMvwY+Omn1kU9H0oPTiMZ9KCZ+2gnSw==}
     peerDependencies:
       react: '>=18.0.0'
 
@@ -2940,7 +2940,7 @@ snapshots:
     dependencies:
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@4.28.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.9.3)':
+  '@commercelayer/react-components@4.28.3-beta.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.31.0)(typescript@5.9.3)':
     dependencies:
       '@adyen/adyen-web': 6.25.0
       '@commercelayer/organization-config': 2.4.0
@@ -4850,7 +4850,7 @@ snapshots:
       find-cache-dir: 3.3.2
       fs-extra: 10.1.0
       rollup: 4.31.0
-      semver: 7.7.1
+      semver: 7.7.3
       tslib: 2.8.1
       typescript: 5.9.3
 
@@ -4934,8 +4934,7 @@ snapshots:
 
   semver@7.7.1: {}
 
-  semver@7.7.3:
-    optional: true
+  semver@7.7.3: {}
 
   serve-handler@6.1.6:
     dependencies:
