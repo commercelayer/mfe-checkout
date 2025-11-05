@@ -676,7 +676,7 @@ export class CheckoutPage {
   }
 
   async checkGiftCardAmount(text?: string) {
-    const element = await this.page.locator(
+    const element = this.page.locator(
       `[data-testid=giftcard-amount] >> text=${text}`,
     )
     if (text !== undefined) {
@@ -776,6 +776,7 @@ export class CheckoutPage {
       | "klarna_pay_later"
       | "klarna_pay_now"
       | "klarna"
+      | "givex"
     language?: "fr" | "de" | "us"
   }) {
     switch (type) {
@@ -916,6 +917,16 @@ export class CheckoutPage {
             }
             await newPage.click('[data-testid="submit-button-initial"]')
 
+            break
+          }
+          case "givex": {
+            await this.page
+              .getByRole("radio", { name: "Givex" })
+              .click()
+            await this.page.locator('iframe[title="Iframe for card number"] >> nth=1').contentFrame().getByRole('textbox', { name: 'Card Number' }).fill('6036280000000000000')
+            await this.page.locator('iframe[title="Iframe for pin"]').contentFrame().getByRole('textbox', { name: 'Pin' }).fill('1234')
+            await this.page.getByRole('button', { name: 'Redeem' }).click()
+            await this.page.waitForTimeout(2000)
             break
           }
           case "klarna_pay_now": {
@@ -1222,6 +1233,30 @@ export class CheckoutPage {
 
           .locator("text=Thank you for your order!")
           .waitFor({ state: "visible", timeout: 60000 })
+      }
+    }
+  }
+
+async partialPayment({
+    type = "adyen-dropin",
+    gateway = "givex",
+  }: {
+    type?: "adyen-dropin"
+    gateway?: "givex"
+  }) {
+    switch (type) {
+      case "adyen-dropin": {
+        switch (gateway) {
+          case "givex": {
+            await this.page
+              .getByRole("radio", { name: "Givex" })
+              .click()
+            await this.page.locator('iframe[title="Iframe for card number"] >> nth=1').contentFrame().getByRole('textbox', { name: 'Card Number' }).fill('6036280000000000000')
+            await this.page.locator('iframe[title="Iframe for pin"]').contentFrame().getByRole('textbox', { name: 'Pin' }).fill('1234')
+            await this.page.getByRole('button', { name: 'Redeem' }).click()
+            break
+          }
+        }
       }
     }
   }
