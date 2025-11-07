@@ -73,16 +73,16 @@
     "commercelayer"
   ],
   "dependencies": {
-    "@adyen/adyen-web": "^6.25.0",
+    "@adyen/adyen-web": "^6.25.1",
     "@commercelayer/js-auth": "^7.1.0",
     "@commercelayer/organization-config": "^2.4.0",
-    "@commercelayer/react-components": "https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@49a9f81",
+    "@commercelayer/react-components": "4.28.5-beta.0",
     "@commercelayer/sdk": "^6.47.0",
     "@faker-js/faker": "^10.1.0",
     "@headlessui/react": "^2.2.9",
     "@newrelic/browser-agent": "^1.302.0",
     "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/postcss": "4.1.13",
+    "@tailwindcss/postcss": "4.1.17",
     "@types/async-retry": "1.4.8",
     "@types/node": "^24.10.0",
     "@types/react": "^18.3.12",
@@ -92,7 +92,7 @@
     "cron-parser": "^5.4.0",
     "cronstrue": "^3.9.0",
     "dotenv": "^17.2.3",
-    "i18next": "^25.5.2",
+    "i18next": "^25.6.1",
     "next": "^16.0.1",
     "next-build-id": "^3.0.0",
     "next-i18next": "^15.4.2",
@@ -106,7 +106,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.3",
+    "@biomejs/biome": "^2.3.4",
     "@next/bundle-analyzer": "^16.0.1",
     "@playwright/test": "1.56.1",
     "@semantic-release/changelog": "^6.0.3",
