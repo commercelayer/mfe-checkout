@@ -20,11 +20,13 @@ test.describe("guest with Adyen using givex", () => {
         billingAddress: euAddress2,
         sameShippingAddress: true,
       },
-      market: "IT4"
+      market: "IT4",
     },
   })
 
-  test("Checkout order with givex and credit card", async ({ checkoutPage }) => {
+  test("Checkout order with givex and credit card", async ({
+    checkoutPage,
+  }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Payment", "open")
@@ -33,7 +35,7 @@ test.describe("guest with Adyen using givex", () => {
 
     await checkoutPage.partialPayment({})
 
-    await checkoutPage.checkGiftCardAmount("-€50.00")
+    await checkoutPage.checkGiftCardAmount("-€50,00")
 
     await checkoutPage.setPayment("adyen")
 
@@ -62,7 +64,7 @@ test.describe("guest with Adyen using givex", () => {
         billingAddress: euAddress2,
         sameShippingAddress: true,
       },
-      market: "IT4"
+      market: "IT4",
     },
   })
 
@@ -75,7 +77,7 @@ test.describe("guest with Adyen using givex", () => {
 
     await checkoutPage.partialPayment({})
 
-    await checkoutPage.checkGiftCardAmount("-€40.00")
+    await checkoutPage.checkGiftCardAmount("-€40,00")
 
     await checkoutPage.checkPaymentRecap("Giftcard ending in 0000")
     await checkoutPage.page.reload()
