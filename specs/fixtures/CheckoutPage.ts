@@ -423,6 +423,12 @@ export class CheckoutPage {
       `[data-testid=input_${type}_last_name]`,
       (address.last_name as string) || "",
     )
+    if (address.company) {
+      await this.page.fill(
+        `[data-testid=input_${type}_company]`,
+        (address.company as string) || "",
+      )
+    }
     await this.page.fill(
       `[data-testid=input_${type}_line_1]`,
       (address.line_1 as string) || "",
@@ -594,6 +600,22 @@ export class CheckoutPage {
   async setCoupon(code: string) {
     await this.page.fill("[data-testid=input_giftcard_coupon]", code)
     await this.page.click("[data-testid=submit_giftcard_coupon]")
+  }
+
+  async checkCouponInput({ presence }: { presence: boolean }) {
+    const element = this.page.locator("[data-testid=input_giftcard_coupon]")
+    await expect(element).toHaveCount(presence ? 1 : 0)
+  }
+
+  async checkOptionalCompanyName({
+    presence,
+    type,
+  }: {
+    presence: boolean
+    type: "billing_address" | "shipping_address"
+  }) {
+    const element = this.page.locator(`[data-testid=input_${type}_company]`)
+    await expect(element).toHaveCount(presence ? 1 : 0)
   }
 
   async removeCoupon() {
@@ -920,12 +942,18 @@ export class CheckoutPage {
             break
           }
           case "givex": {
+            await this.page.getByRole("radio", { name: "Givex" }).click()
             await this.page
-              .getByRole("radio", { name: "Givex" })
-              .click()
-            await this.page.locator('iframe[title="Iframe for card number"] >> nth=1').contentFrame().getByRole('textbox', { name: 'Card Number' }).fill('6036280000000000000')
-            await this.page.locator('iframe[title="Iframe for pin"]').contentFrame().getByRole('textbox', { name: 'Pin' }).fill('1234')
-            await this.page.getByRole('button', { name: 'Redeem' }).click()
+              .locator('iframe[title="Iframe for card number"] >> nth=1')
+              .contentFrame()
+              .getByRole("textbox", { name: "Card Number" })
+              .fill("6036280000000000000")
+            await this.page
+              .locator('iframe[title="Iframe for pin"]')
+              .contentFrame()
+              .getByRole("textbox", { name: "Pin" })
+              .fill("1234")
+            await this.page.getByRole("button", { name: "Redeem" }).click()
             await this.page.waitForTimeout(2000)
             break
           }
@@ -1237,7 +1265,7 @@ export class CheckoutPage {
     }
   }
 
-async partialPayment({
+  async partialPayment({
     type = "adyen-dropin",
     gateway = "givex",
   }: {
@@ -1248,12 +1276,18 @@ async partialPayment({
       case "adyen-dropin": {
         switch (gateway) {
           case "givex": {
+            await this.page.getByRole("radio", { name: "Givex" }).click()
             await this.page
-              .getByRole("radio", { name: "Givex" })
-              .click()
-            await this.page.locator('iframe[title="Iframe for card number"] >> nth=1').contentFrame().getByRole('textbox', { name: 'Card Number' }).fill('6036280000000000000')
-            await this.page.locator('iframe[title="Iframe for pin"]').contentFrame().getByRole('textbox', { name: 'Pin' }).fill('1234')
-            await this.page.getByRole('button', { name: 'Redeem' }).click()
+              .locator('iframe[title="Iframe for card number"] >> nth=1')
+              .contentFrame()
+              .getByRole("textbox", { name: "Card Number" })
+              .fill("6036280000000000000")
+            await this.page
+              .locator('iframe[title="Iframe for pin"]')
+              .contentFrame()
+              .getByRole("textbox", { name: "Pin" })
+              .fill("1234")
+            await this.page.getByRole("button", { name: "Redeem" }).click()
             break
           }
         }
