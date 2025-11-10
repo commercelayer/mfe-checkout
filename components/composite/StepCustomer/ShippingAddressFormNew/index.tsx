@@ -20,6 +20,7 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
   const countries = settings?.config?.checkout?.shipping_countries
   const states = settings?.config?.checkout?.shipping_states
   const defaultCountry = settings?.config?.checkout?.default_country
+  const optionalCompanyName = settings?.config?.checkout?.optional_company_name
 
   return (
     <Fragment>
@@ -38,7 +39,14 @@ export const ShippingAddressFormNew: React.FC<Props> = ({
           value={shippingAddress?.last_name || ""}
         />
       </Grid>
-
+      {optionalCompanyName && (
+        <AddressInputGroup
+          fieldName="shipping_address_company"
+          resource="shipping_address"
+          type="text"
+          value={shippingAddress?.company || ""}
+        />
+      )}
       <AddressInputGroup
         fieldName="shipping_address_line_1"
         resource="shipping_address"

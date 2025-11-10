@@ -28,6 +28,7 @@ export const BillingAddressFormNew: React.FC<Props> = ({
   const states = settings?.config?.checkout?.billing_states
   const defaultCountry = settings?.config?.checkout?.default_country
   const optionalBillingInfo = settings?.config?.checkout?.optional_billing_info
+  const optionalCompanyName = settings?.config?.checkout?.optional_company_name
 
   return (
     <div className="mt-0">
@@ -45,6 +46,14 @@ export const BillingAddressFormNew: React.FC<Props> = ({
           value={billingAddress?.last_name || ""}
         />
       </Grid>
+      {optionalCompanyName && (
+        <AddressInputGroup
+          fieldName="billing_address_company"
+          resource="billing_address"
+          type="text"
+          value={billingAddress?.company || ""}
+        />
+      )}
       <AddressInputGroup
         fieldName="billing_address_line_1"
         resource="billing_address"

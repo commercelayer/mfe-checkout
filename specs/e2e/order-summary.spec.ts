@@ -612,3 +612,53 @@ test.describe("line item with item codes", () => {
     await expect(element).toHaveCount(1)
   })
 })
+
+test.describe("summary without promo code", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        {
+          sku_code: "TSHIRTMMFFFFFF000000XLXX",
+          quantity: 1,
+        },
+      ],
+      organization: {
+        config: {
+          mfe: {
+            default: {
+              checkout: {
+                // @ts-expect-error not yet typed
+                hide_promo_code: true,
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+
+  test("should hide the input", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkCouponInput({ presence: false })
+  })
+})
+
+test.describe("summary with promo code", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        {
+          sku_code: "TSHIRTMMFFFFFF000000XLXX",
+          quantity: 1,
+        },
+      ],
+    },
+  })
+
+  test("should hide the input", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkCouponInput({ presence: true })
+  })
+})

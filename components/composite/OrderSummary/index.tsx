@@ -10,6 +10,7 @@ import TaxesAmount from "@commercelayer/react-components/orders/TaxesAmount"
 import TotalAmount from "@commercelayer/react-components/orders/TotalAmount"
 import type { AppProviderData } from "components/data/AppProvider"
 import useDeviceDetect from "components/hooks/useDeviceDetect"
+import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
 import { LINE_ITEMS_SHOPPABLE } from "components/utils/constants"
 import { Trans, useTranslation } from "react-i18next"
 import { CouponOrGiftCard } from "./CouponOrGiftCard"
@@ -49,7 +50,9 @@ export const OrderSummary: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
   const { isMobile } = useDeviceDetect()
+  const { settings } = useSettingsOrInvalid()
 
+  const hide_promo_code = settings?.config?.checkout?.hide_promo_code
   const isTaxCalculated = appCtx.isShipmentRequired
     ? appCtx.hasBillingAddress &&
       appCtx.hasShippingAddress &&
@@ -103,10 +106,12 @@ export const OrderSummary: React.FC<Props> = ({
       <TotalWrapper>
         <AmountSpacer />
         <AmountWrapper>
-          <CouponOrGiftCard
-            readonly={readonly}
-            setCouponOrGiftCard={appCtx.setCouponOrGiftCard}
-          />
+          {!hide_promo_code && (
+            <CouponOrGiftCard
+              readonly={readonly}
+              setCouponOrGiftCard={appCtx.setCouponOrGiftCard}
+            />
+          )}
           <RecapLine>
             <RecapLineItem>{t("orderRecap.subtotal_amount")}</RecapLineItem>
             <SubTotalAmount />
