@@ -1,3 +1,10 @@
+# [6.3.0](https://github.com/commercelayer/mfe-checkout/compare/v6.2.6...v6.3.0) (2025-11-12)
+
+
+### Features
+
+* enable partial payment with givex on adyen ([e98dbaf](https://github.com/commercelayer/mfe-checkout/commit/e98dbaf94fd8b289dfb12ec07e91b0ea90fa8858))
+
 ## [6.2.6](https://github.com/commercelayer/mfe-checkout/compare/v6.2.5...v6.2.6) (2025-11-04)
 
 
