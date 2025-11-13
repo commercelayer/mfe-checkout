@@ -1,3 +1,10 @@
+# [6.4.0](https://github.com/commercelayer/mfe-checkout/compare/v6.3.0...v6.4.0) (2025-11-13)
+
+
+### Features
+
+* add optional company and option to hide promo code ([d162643](https://github.com/commercelayer/mfe-checkout/commit/d16264378f1e476e390d9f4b864d0d950619d460))
+
 # [6.3.0](https://github.com/commercelayer/mfe-checkout/compare/v6.2.6...v6.3.0) (2025-11-12)
 
 
