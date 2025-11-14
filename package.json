@@ -76,7 +76,7 @@
     "@adyen/adyen-web": "^6.25.1",
     "@commercelayer/js-auth": "^7.1.0",
     "@commercelayer/organization-config": "^2.4.0",
-    "@commercelayer/react-components": "4.28.5",
+    "@commercelayer/react-components": "4.28.6-beta.1",
     "@commercelayer/sdk": "^6.47.0",
     "@faker-js/faker": "^10.1.0",
     "@headlessui/react": "^2.2.9",
