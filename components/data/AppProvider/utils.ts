@@ -373,7 +373,8 @@ export function checkPaymentMethod(order: Order) {
 
   const paymentSource: PaymentSourceType | undefined =
     order.payment_source as PaymentSourceType
-  let hasPaymentMethod = Boolean(paymentSource?.payment_response?.source)
+
+  let hasPaymentMethod = Boolean(paymentSource?.payment_response?.source && order.payment_status !== 'unpaid')
   const paymentRequired = isPaymentRequired(order)
   if (!hasPaymentMethod && !paymentRequired) {
     hasPaymentMethod = true
