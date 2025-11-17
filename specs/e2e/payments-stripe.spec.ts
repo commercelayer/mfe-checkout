@@ -90,14 +90,15 @@ test.describe("customer with Stripe with saving", () => {
 
     await checkoutPage.checkPaymentSummary("€10,00")
 
-    let element = checkoutPage.page.locator("[data-testid=payment-save-wallet]")
-    await expect(element).toBeVisible()
-    await expect(element).not.toBeChecked()
+    let element = await checkoutPage.page.waitForSelector("[data-testid=payment-save-wallet]")
+    expect(await element.isVisible()).toBeTruthy()
+    expect(await element.isChecked()).toBeFalsy()
+    await checkoutPage.page.mouse.wheel(0, 300)
     await checkoutPage.page.waitForTimeout(2000)
     await element.check({ force: true })
 
-    element = checkoutPage.page.locator("[data-testid=payment-save-wallet]")
-    await expect(element).toBeChecked()
+    element = await checkoutPage.page.waitForSelector("[data-testid=payment-save-wallet]")
+    expect(await element.isChecked()).toBeTruthy()
 
     await checkoutPage.save("Payment")
   })

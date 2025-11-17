@@ -1,0 +1,21 @@
+{
+  "servers": {
+    "commerce-layer-core-docs": {
+      "url": "https://docs.commercelayer.io/core/~gitbook/mcp",
+      "type": "http"
+    },
+    "commerce-layer-metrics-docs": {
+      "url": "https://docs.commercelayer.io/metrics/~gitbook/mcp",
+      "type": "http"
+    },
+    "commerce-layer-provisioning-docs": {
+      "url": "https://docs.commercelayer.io/provisioning/~gitbook/mcp",
+      "type": "http"
+    },
+    "commerce-layer-rules-engine-docs": {
+      "url": "https://docs.commercelayer.io/rules-engine/~gitbook/mcp",
+      "type": "http"
+    }
+  },
+  "inputs": []
+}
