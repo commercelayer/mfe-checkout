@@ -76,7 +76,7 @@
     "@adyen/adyen-web": "^6.25.1",
     "@commercelayer/js-auth": "^7.1.0",
     "@commercelayer/organization-config": "^2.5.0",
-    "@commercelayer/react-components": "4.28.6-beta.8",
+    "@commercelayer/react-components": "4.28.6",
     "@commercelayer/sdk": "^6.47.0",
     "@faker-js/faker": "^10.1.0",
     "@headlessui/react": "^2.2.9",
@@ -92,8 +92,8 @@
     "cron-parser": "^5.4.0",
     "cronstrue": "^3.9.0",
     "dotenv": "^17.2.3",
-    "i18next": "^25.6.3",
-    "next": "^16.0.4",
+    "i18next": "^25.7.0",
+    "next": "^16.0.6",
     "next-build-id": "^3.0.0",
     "next-i18next": "^15.4.2",
     "postcss": "^8.5.6",
@@ -106,8 +106,8 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.7",
-    "@next/bundle-analyzer": "^16.0.4",
+    "@biomejs/biome": "^2.3.8",
+    "@next/bundle-analyzer": "^16.0.6",
     "@playwright/test": "1.57.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
@@ -115,6 +115,7 @@
     "@semantic-release/github": "^12.0.2",
     "@semantic-release/npm": "^13.1.2",
     "@semantic-release/release-notes-generator": "^14.1.0",
+    "baseline-browser-mapping": "^2.8.32",
     "npm-check-updates": "^19.1.2",
     "semantic-release": "^25.0.2",
     "serve": "^14.2.5"
