@@ -1,3 +1,10 @@
+## [6.4.1](https://github.com/commercelayer/mfe-checkout/compare/v6.4.0...v6.4.1) (2025-12-03)
+
+
+### Bug Fixes
+
+* avoid placed order with unpaid payment_status ([568b79e](https://github.com/commercelayer/mfe-checkout/commit/568b79eb677ab2e42c3c941daff0c5ed96b8e5fd))
+
 # [6.4.0](https://github.com/commercelayer/mfe-checkout/compare/v6.3.0...v6.4.0) (2025-11-13)
 
 
