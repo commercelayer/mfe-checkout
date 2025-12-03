@@ -167,6 +167,8 @@ test.describe("guest with checkout.com declined payment and retry", () => {
       .locator("text=Declined")
       .waitFor({ state: "visible", timeout: 100000 })
 
+    await checkoutPage.page.reload()
+
     await checkoutPage.setPayment("checkout_com", {
       number: "345678901234564",
       exp: "12/30",

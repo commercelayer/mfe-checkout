@@ -144,7 +144,6 @@ test.describe("with optional company name", () => {
           mfe: {
             default: {
               checkout: {
-                // @ts-expect-error not yet typed
                 optional_company_name: true,
               },
             },
@@ -240,7 +239,6 @@ test.describe("without optional company name", () => {
           mfe: {
             default: {
               checkout: {
-                // @ts-expect-error not yet typed
                 optional_company_name: false,
               },
             },

@@ -628,7 +628,6 @@ test.describe("summary without promo code", () => {
           mfe: {
             default: {
               checkout: {
-                // @ts-expect-error not yet typed
                 hide_promo_code: true,
               },
             },
