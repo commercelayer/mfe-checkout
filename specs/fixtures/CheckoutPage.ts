@@ -870,10 +870,20 @@ export class CheckoutPage {
         if (await pickPlan.isVisible()) {
           await pickPlan.click()
         }
-        const confirmAndPay = klarnaIframe.getByTestId("confirm-and-pay")
+        let confirmAndPay = klarnaIframe.getByTestId("confirm-and-pay")
+        await this.page.waitForTimeout(4000)
+
         if (await confirmAndPay.isVisible()) {
-          await confirmAndPay.click()
+          await confirmAndPay.click({force: true })
         }
+
+        klarnaIframe.getByTestId("confirm-and-pay")
+        await this.page.waitForTimeout(4000)
+
+        if (await confirmAndPay.isVisible()) {
+          await confirmAndPay.click({force: true })
+        }
+
         const button = klarnaIframe.getByRole("button", { name: "Continue" })
         if (await button.isVisible()) {
           button.click()
