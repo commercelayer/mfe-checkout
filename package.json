@@ -73,16 +73,16 @@
     "commercelayer"
   ],
   "dependencies": {
-    "@adyen/adyen-web": "^6.26.0",
-    "@commercelayer/js-auth": "^7.1.0",
-    "@commercelayer/organization-config": "^2.5.0",
+    "@adyen/adyen-web": "^6.27.0",
+    "@commercelayer/js-auth": "^7.1.1",
+    "@commercelayer/organization-config": "^2.5.1",
     "@commercelayer/react-components": "4.28.6",
-    "@commercelayer/sdk": "^6.47.0",
+    "@commercelayer/sdk": "^6.50.1",
     "@faker-js/faker": "^10.1.0",
     "@headlessui/react": "^2.2.9",
-    "@newrelic/browser-agent": "^1.304.0",
+    "@newrelic/browser-agent": "^1.306.0",
     "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/postcss": "4.1.17",
+    "@tailwindcss/postcss": "4.1.18",
     "@types/async-retry": "1.4.8",
     "@types/node": "^24.10.2",
     "@types/react": "^18.3.12",
@@ -92,45 +92,38 @@
     "cron-parser": "^5.4.0",
     "cronstrue": "^3.9.0",
     "dotenv": "^17.2.3",
-    "i18next": "^25.7.2",
-    "next": "^16.0.8",
+    "i18next": "^25.7.3",
+    "next": "^16.0.10",
     "next-build-id": "^3.0.0",
     "next-i18next": "^15.4.3",
     "postcss": "^8.5.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-gtm-module": "^2.0.11",
-    "react-i18next": "^16.4.1",
+    "react-i18next": "^16.5.0",
     "react-router-dom": "^6.28.0",
-    "tailwindcss": "4.1.17",
+    "tailwindcss": "4.1.18",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.8",
-    "@next/bundle-analyzer": "^16.0.8",
+    "@biomejs/biome": "^2.3.9",
+    "@next/bundle-analyzer": "^16.0.10",
     "@playwright/test": "1.57.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^12.0.2",
-    "@semantic-release/npm": "^13.1.2",
+    "@semantic-release/npm": "^13.1.3",
     "@semantic-release/release-notes-generator": "^14.1.0",
-    "baseline-browser-mapping": "^2.9.6",
-    "npm-check-updates": "^19.1.2",
+    "baseline-browser-mapping": "^2.9.9",
+    "npm-check-updates": "^19.2.0",
     "semantic-release": "^25.0.2",
     "serve": "^14.2.5"
   },
   "cacheDirectories": [
     ".next/cache"
   ],
-  "resolutions": {
-    "js-yaml": ">=4.1.1"
-  },
   "pnpm": {
-    "overrides": {
-      "brace-expansion": ">=1.1.12",
-      "on-headers": ">=1.1.0"
-    },
     "onlyBuiltDependencies": [
       "@biomejs/biome",
       "@tailwindcss/oxide",
