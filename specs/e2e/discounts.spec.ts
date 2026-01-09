@@ -1,3 +1,4 @@
+import { euAddress } from "specs/utils/addresses"
 import { expect, test } from "../fixtures/tokenizedPage"
 
 test.describe("with coupon code", () => {
@@ -405,6 +406,311 @@ test.describe("with giftcard covering total", () => {
 
     await checkoutPage.checkCouponCode("testcoupon")
     await checkoutPage.checkCouponError(undefined)
+  })
+})
+
+test.describe("without applied giftcard and multiple gateway", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      giftCardAttributes: {
+        balance_cents: 10000,
+        apply: false,
+      },
+    },
+  })
+
+  test("should execute a free checkout", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setCustomerMail("customer@tk.com")
+    await checkoutPage.setBillingAddress()
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.checkShippingSummary("To be calculated")
+
+    await checkoutPage.selectShippingMethod({
+      text: "Standard Shipping",
+      shipment: 0,
+    })
+
+    await checkoutPage.checkShippingSummary("FREE")
+    await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkTotalAmount("99,00")
+    await checkoutPage.setCoupon(checkoutPage.getGiftCard() as string)
+
+    await checkoutPage.checkGiftCardAmount("-€99,00")
+    await checkoutPage.checkTotalAmount("€0,00")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("This order did not require a payment")
+  })
+})
+
+test.describe("without applied giftcard and single gateway", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      giftCardAttributes: {
+        balance_cents: 10000,
+        apply: false,
+      },
+      market: "PT",
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("should execute a free checkout", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setCustomerMail("customer@tk.com")
+    // await checkoutPage.setBillingAddress()
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    // await checkoutPage.checkShippingSummary("To be calculated")
+
+    // await checkoutPage.selectShippingMethod({
+    //   text: "Standard Shipping",
+    //   shipment: 0,
+    // })
+
+    // await checkoutPage.checkShippingSummary("FREE")
+    // await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkTotalAmount("99,00")
+
+    await checkoutPage.page.waitForTimeout(5000)
+    await checkoutPage.setCoupon(checkoutPage.getGiftCard() as string)
+
+    await checkoutPage.checkGiftCardAmount("-€99,00")
+    await checkoutPage.checkTotalAmount("€0,00")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("This order did not require a payment")
+  })
+})
+
+test.describe("without applied giftcard and single adyen gateway", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      giftCardAttributes: {
+        balance_cents: 10000,
+        apply: false,
+      },
+      market: "LE",
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("should execute a free checkout", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setCustomerMail("customer@tk.com")
+    // await checkoutPage.setBillingAddress()
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    // await checkoutPage.checkShippingSummary("To be calculated")
+
+    // await checkoutPage.selectShippingMethod({
+    //   text: "Standard Shipping",
+    //   shipment: 0,
+    // })
+
+    // await checkoutPage.checkShippingSummary("FREE")
+    // await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkTotalAmount("99,00")
+
+    await checkoutPage.page.waitForTimeout(5000)
+    await checkoutPage.setCoupon(checkoutPage.getGiftCard() as string)
+
+    await checkoutPage.checkGiftCardAmount("-€99,00")
+    await checkoutPage.checkTotalAmount("€0,00")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("This order did not require a payment")
+  })
+})
+
+test.describe("without applied giftcard and single stripe gateway", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      giftCardAttributes: {
+        balance_cents: 10000,
+        apply: false,
+      },
+      market: "DE",
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("should execute a free checkout", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setCustomerMail("customer@tk.com")
+    // await checkoutPage.setBillingAddress()
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    // await checkoutPage.checkShippingSummary("To be calculated")
+
+    // await checkoutPage.selectShippingMethod({
+    //   text: "Standard Shipping",
+    //   shipment: 0,
+    // })
+
+    // await checkoutPage.checkShippingSummary("FREE")
+    // await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkTotalAmount("99,00")
+
+    await checkoutPage.page.waitForTimeout(5000)
+    await checkoutPage.setCoupon(checkoutPage.getGiftCard() as string)
+
+    await checkoutPage.checkGiftCardAmount("-€99,00")
+    await checkoutPage.checkTotalAmount("€0,00")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("This order did not require a payment")
+  })
+})
+
+test.describe("without applied giftcard and single manual gateway", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      giftCardAttributes: {
+        balance_cents: 10000,
+        apply: false,
+      },
+      market: "LX",
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("should execute a free checkout", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setCustomerMail("customer@tk.com")
+    // await checkoutPage.setBillingAddress()
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    // await checkoutPage.checkShippingSummary("To be calculated")
+
+    // await checkoutPage.selectShippingMethod({
+    //   text: "Standard Shipping",
+    //   shipment: 0,
+    // })
+
+    // await checkoutPage.checkShippingSummary("FREE")
+    // await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkTotalAmount("99,00")
+
+    await checkoutPage.page.waitForTimeout(5000)
+    await checkoutPage.setCoupon(checkoutPage.getGiftCard() as string)
+
+    await checkoutPage.checkGiftCardAmount("-€99,00")
+    await checkoutPage.checkTotalAmount("€0,00")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("This order did not require a payment")
+  })
+})
+
+test.describe("without applied giftcard and single klarna gateway", () => {
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      giftCardAttributes: {
+        balance_cents: 10000,
+        apply: false,
+      },
+      market: "FI",
+      addresses: {
+        billingAddress: euAddress,
+        sameShippingAddress: true,
+      },
+    },
+  })
+
+  test("should execute a free checkout", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.setCustomerMail("customer@tk.com")
+    // await checkoutPage.setBillingAddress()
+    await checkoutPage.checkStep("Customer", "open")
+
+    await checkoutPage.save("Customer")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    // await checkoutPage.checkShippingSummary("To be calculated")
+
+    // await checkoutPage.selectShippingMethod({
+    //   text: "Standard Shipping",
+    //   shipment: 0,
+    // })
+
+    // await checkoutPage.checkShippingSummary("FREE")
+    // await checkoutPage.save("Shipping")
+
+    await checkoutPage.checkTotalAmount("99,00")
+
+    await checkoutPage.page.waitForTimeout(5000)
+    await checkoutPage.setCoupon(checkoutPage.getGiftCard() as string)
+
+    await checkoutPage.checkGiftCardAmount("-€99,00")
+    await checkoutPage.checkTotalAmount("€0,00")
+
+    await checkoutPage.save("Payment")
+    await checkoutPage.checkPaymentRecap("This order did not require a payment")
   })
 })
 
