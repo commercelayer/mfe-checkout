@@ -487,7 +487,6 @@ export class CheckoutPage {
   }
 
   async setShippingAddress(address?: Partial<Address>) {
-    // biome-ignore lint/correctness/noUnusedVariables: here we use the rest
     const { billing_info, ...addressToFill } = address || euAddress2
     await this.setAddress({ address: addressToFill, type: "shipping_address" })
   }
@@ -870,18 +869,18 @@ export class CheckoutPage {
         if (await pickPlan.isVisible()) {
           await pickPlan.click()
         }
-        let confirmAndPay = klarnaIframe.getByTestId("confirm-and-pay")
+        const confirmAndPay = klarnaIframe.getByTestId("confirm-and-pay")
         await this.page.waitForTimeout(4000)
 
         if (await confirmAndPay.isVisible()) {
-          await confirmAndPay.click({force: true })
+          await confirmAndPay.click({ force: true })
         }
 
         klarnaIframe.getByTestId("confirm-and-pay")
         await this.page.waitForTimeout(4000)
 
         if (await confirmAndPay.isVisible()) {
-          await confirmAndPay.click({force: true })
+          await confirmAndPay.click({ force: true })
         }
 
         const button = klarnaIframe.getByRole("button", { name: "Continue" })
