@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@adyen/adyen-web':
-        specifier: ^6.29.0
-        version: 6.29.0
+        specifier: 6.28.0
+        version: 6.28.0
       '@commercelayer/js-auth':
         specifier: ^7.2.0
         version: 7.2.0
@@ -156,8 +156,8 @@ packages:
   '@actions/io@2.0.0':
     resolution: {integrity: sha512-Jv33IN09XLO+0HS79aaODsvIRyduiF7NY/F6LYeK5oeUmrsz7aFdRphQjFoESF4jS7lMauDOttKALcpapVDIAg==}
 
-  '@adyen/adyen-web@6.29.0':
-    resolution: {integrity: sha512-IFBW3qonN2jLRSiffPSj7k3Dwm3rxEkYoTs1VwYF9Ju2CNpqEw6+g4Y4L9KDWTeVAkXFa+9Wm51NYRjd92PjHA==}
+  '@adyen/adyen-web@6.28.0':
+    resolution: {integrity: sha512-cCgsUGtRegBMl+8ZKfXt6/M/bnKd4WBfmtbLq74NJbrtOQMo7S+gWBrRGvvVV+VanM2UAmNo6XRHF6Tyhf52Fw==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -1023,8 +1023,8 @@ packages:
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
-  '@types/googlepay@0.7.10':
-    resolution: {integrity: sha512-ByXjDfxEp87zsjw5cVsNKEeA+AIJYcWwJvRqPu85jO0Lp/FeG67csnf4mqbPaIxmdI6+Khp3v5I0yyjq9MrGhw==}
+  '@types/googlepay@0.7.8':
+    resolution: {integrity: sha512-EHl7G7jIeit/Px/fi/Du/19SZDvqrRhy0DjJX40Vzs/97m3sro9mzVyAYNC0pfzpWGDY+zPjtTLEfhV+OYWUcQ==}
 
   '@types/hoist-non-react-statics@3.3.7':
     resolution: {integrity: sha512-PQTyIulDkIDro8P+IHbKCsw7U2xxBYflVzW/FgWdCAePD9xGSidgA76/GeJ6lBKoblyhf9pBY763gbrN+1dI8g==}
@@ -2900,10 +2900,10 @@ snapshots:
 
   '@actions/io@2.0.0': {}
 
-  '@adyen/adyen-web@6.29.0':
+  '@adyen/adyen-web@6.28.0':
     dependencies:
       '@types/applepayjs': 14.0.9
-      '@types/googlepay': 0.7.10
+      '@types/googlepay': 0.7.8
       classnames: 2.5.1
       preact: 10.22.1
 
@@ -2987,7 +2987,7 @@ snapshots:
 
   '@commercelayer/react-components@4.28.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.57.0)(typescript@5.9.3)':
     dependencies:
-      '@adyen/adyen-web': 6.29.0
+      '@adyen/adyen-web': 6.28.0
       '@commercelayer/organization-config': 2.5.1
       '@commercelayer/sdk': 6.52.0
       '@stripe/react-stripe-js': 5.5.0(@stripe/stripe-js@8.6.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3665,7 +3665,7 @@ snapshots:
 
   '@types/estree@1.0.8': {}
 
-  '@types/googlepay@0.7.10': {}
+  '@types/googlepay@0.7.8': {}
 
   '@types/hoist-non-react-statics@3.3.7(@types/react@18.3.27)':
     dependencies:
