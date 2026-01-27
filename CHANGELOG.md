@@ -1,3 +1,11 @@
+## [6.4.4](https://github.com/commercelayer/mfe-checkout/compare/v6.4.3...v6.4.4) (2026-01-27)
+
+
+### Bug Fixes
+
+* enable place order button with gift card and adyen as single payment method ([50b3e15](https://github.com/commercelayer/mfe-checkout/commit/50b3e151fe018d756e1acc5845e8acff49d37a8a))
+* upgrade dependencies and adjust stripe tests ([2f44d74](https://github.com/commercelayer/mfe-checkout/commit/2f44d74a47262cf6c18ebc59cce678a12b42a024))
+
 ## [6.4.3](https://github.com/commercelayer/mfe-checkout/compare/v6.4.2...v6.4.3) (2025-12-17)
 
 
