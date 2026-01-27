@@ -262,7 +262,7 @@ test.describe("guest with adyen partial payments and giftcard covering total", (
     },
   })
 
-  test("Checkout order with giftcar", async ({ checkoutPage }) => {
+  test("Checkout order with giftcard", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Payment", "close")

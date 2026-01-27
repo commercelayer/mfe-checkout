@@ -1387,7 +1387,7 @@ export class CheckoutPage {
         await stripeFrameLocator
           .getByPlaceholder("MM / YY")
           .fill(creditCard.exp)
-        await stripeFrameLocator.locator("#Field-cvcInput").fill(creditCard.cvc)
+        await stripeFrameLocator.locator("#payment-cvcInput").fill(creditCard.cvc)
         break
       }
       case "stripe-paypal": {
