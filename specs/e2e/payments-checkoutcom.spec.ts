@@ -363,6 +363,10 @@ test.describe("guest with checkout.com as single payment method", () => {
         billingAddress: euAddress,
         sameShippingAddress: true,
       },
+      giftCardAttributes: {
+        balance_cents: 500,
+        apply: false,
+      },
     },
   })
 
@@ -376,6 +380,78 @@ test.describe("guest with checkout.com as single payment method", () => {
       "[data-testid=payment-save-wallet]",
     )
     expect(element).not.toBeVisible()
+
+    await checkoutPage.setPayment("checkout_com")
+
+    await checkoutPage.save("Payment", undefined, true)
+
+    await checkoutPage.page
+      .frameLocator('iframe[name="cko-3ds2-iframe"]')
+      .locator("#password")
+      .fill("Checkout1!")
+
+    await checkoutPage.page
+      .frameLocator('iframe[name="cko-3ds2-iframe"]')
+      .locator("text=Continue")
+      .click()
+
+    await checkoutPage.page
+      .locator("text=Thank you for your order!")
+      .waitFor({ state: "visible", timeout: 100000 })
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+  })
+
+  test("should execute a checkout with giftcard", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkTotalAmount("€99,00")
+
+    await checkoutPage.setCoupon(checkoutPage.getGiftCard() as string)
+
+    await checkoutPage.checkGiftCardAmount("-€5,00")
+
+    await checkoutPage.checkTotalAmount("€94,00")
+
+    await checkoutPage.setPayment("checkout_com")
+
+    await checkoutPage.save("Payment", undefined, true)
+
+    await checkoutPage.page
+      .frameLocator('iframe[name="cko-3ds2-iframe"]')
+      .locator("#password")
+      .fill("Checkout1!")
+
+    await checkoutPage.page
+      .frameLocator('iframe[name="cko-3ds2-iframe"]')
+      .locator("text=Continue")
+      .click()
+
+    await checkoutPage.page
+      .locator("text=Thank you for your order!")
+      .waitFor({ state: "visible", timeout: 100000 })
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 4242")
+  })
+
+  test("should execute a checkout with coupon discount", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkTotalAmount("€99,00")
+
+    await checkoutPage.setCoupon("testcoupon")
+
+    await checkoutPage.checkCouponCode("testcoupon")
+
+    await checkoutPage.checkTotalAmount("€89,00")
 
     await checkoutPage.setPayment("checkout_com")
 

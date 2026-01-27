@@ -236,3 +236,43 @@ test.describe("API version v68", () => {
     await checkoutPage.checkPaymentRecap(" ending in ****")
   })
 })
+
+test.describe("guest with adyen partial payments and giftcard covering total", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+
+  test.use({
+    defaultParams: {
+      incognito: true,
+      order: "with-items",
+      orderAttributes: {
+        customer_email: customerEmail,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      addresses: {
+        billingAddress: euAddress2,
+        sameShippingAddress: true,
+      },
+      giftCardAttributes: {
+        balance_cents: 10000,
+        apply: true,
+      },
+      market: "IT4",
+    },
+  })
+
+  test("Checkout order with giftcard", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Payment", "close")
+
+    await checkoutPage.checkGiftCardAmount("-€99,00")
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("This order did not require a payment")
+    await checkoutPage.page.reload()
+    await checkoutPage.checkPaymentRecap("This order did not require a payment")
+  })
+})
