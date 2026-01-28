@@ -3,6 +3,8 @@ import { faker } from "@faker-js/faker"
 import { test } from "../fixtures/tokenizedPage"
 import { euAddress2 } from "../utils/addresses"
 
+test.setTimeout(3 * 60 * 1000)
+
 test.describe("guest with Adyen using givex", () => {
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
@@ -74,6 +76,24 @@ test.describe("guest with Adyen using givex", () => {
     await checkoutPage.checkStep("Payment", "open")
 
     await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.partialPayment({})
+
+    await checkoutPage.checkGiftCardAmount("-€40,00")
+
+    await checkoutPage.checkPaymentRecap("Giftcard ending in 0000")
+    await checkoutPage.page.reload()
+    await checkoutPage.checkPaymentRecap("Giftcard ending in 0000")
+  })
+
+  test("Checkout order only with givex with order expired", async ({ checkoutPage }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.page.waitForTimeout(65000)
 
     await checkoutPage.partialPayment({})
 
