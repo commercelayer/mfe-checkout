@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 
 import { test } from "../fixtures/tokenizedPage"
-import { euAddress2 } from "../utils/addresses"
+import { euAddress } from "../utils/addresses"
 
 test.setTimeout(3 * 60 * 1000)
 
@@ -19,7 +19,7 @@ test.describe("guest with Adyen using givex", () => {
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
       ],
       addresses: {
-        billingAddress: euAddress2,
+        billingAddress: euAddress,
         sameShippingAddress: true,
       },
       market: "IT4",
@@ -94,6 +94,29 @@ test("Checkout order with givex, coupon and credit card and expired order", asyn
 
     await checkoutPage.checkDiscountAmount("-€29,70")
 
+    await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.partialPayment({})
+
+    await checkoutPage.checkTotalAmount("€19,30")
+
+    await checkoutPage.removeCoupon()
+
+    await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.partialPayment({})
+
+    await checkoutPage.checkGiftCardAmount("-€50,00")
+
+    await checkoutPage.setPayment("adyen")
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 1111")
+    await checkoutPage.page.reload()
+    await checkoutPage.checkPaymentRecap("Visa ending in 1111")
+
+
   })
 })
 
@@ -111,7 +134,7 @@ test.describe("guest with Adyen using givex", () => {
         { sku_code: "BASEBHAT000000FFFFFFXXXX", quantity: 1 },
       ],
       addresses: {
-        billingAddress: euAddress2,
+        billingAddress: euAddress,
         sameShippingAddress: true,
       },
       market: "IT4",
