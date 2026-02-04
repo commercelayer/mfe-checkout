@@ -168,6 +168,10 @@ test.describe("guest with Adyen using givex", () => {
 
     await checkoutPage.partialPayment({})
 
+    await checkoutPage.page.waitForTimeout(15000)
+
+    await checkoutPage.partialPayment({})
+
     await checkoutPage.checkGiftCardAmount("-€40,00")
 
     await checkoutPage.checkPaymentRecap("Giftcard ending in 0000")
