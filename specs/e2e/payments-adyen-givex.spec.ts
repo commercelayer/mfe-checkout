@@ -78,10 +78,34 @@ test.describe("guest with Adyen using givex", () => {
     await checkoutPage.checkPaymentRecap("Visa ending in 1111")
   })
 
-
-test("Checkout order with givex, coupon and credit card and expired order", async ({
+  test("Checkout order with partial givex and reload order", async ({
     checkoutPage,
   }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+
+    await checkoutPage.checkStep("Payment", "open")
+
+    await checkoutPage.selectPayment("adyen")
+
+    await checkoutPage.partialPayment({})
+
+    await checkoutPage.page.waitForTimeout(15000)
+
+    await checkoutPage.page.reload()
+
+    await checkoutPage.checkGiftCardAmount("-€50,00")
+
+    await checkoutPage.setPayment("adyen")
+
+    await checkoutPage.save("Payment")
+
+    await checkoutPage.checkPaymentRecap("Visa ending in 1111")
+    await checkoutPage.checkPaymentRecap("Visa ending in 1111")
+  })
+
+  test("Checkout order with givex, coupon and credit card and expired order", async ({
+      checkoutPage,
+    }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkStep("Payment", "open")
