@@ -1,3 +1,12 @@
+## [6.4.5](https://github.com/commercelayer/mfe-checkout/compare/v6.4.4...v6.4.5) (2026-02-20)
+
+
+### Bug Fixes
+
+* avoid double adyen payments with single payment ([710333d](https://github.com/commercelayer/mfe-checkout/commit/710333d871fa2a0dd500775473a957233381940b))
+* update packages and add tests for expired order on adyen and partial payments ([ebd36a1](https://github.com/commercelayer/mfe-checkout/commit/ebd36a1467369eaf1e6d9461875dad8a55ca377f))
+* upgrade dependencies and adyen-web ([9b13186](https://github.com/commercelayer/mfe-checkout/commit/9b131868ac99ffd22e54a67d60506adfd7cf0f23))
+
 ## [6.4.4](https://github.com/commercelayer/mfe-checkout/compare/v6.4.3...v6.4.4) (2026-01-27)
 
 
