@@ -83,7 +83,7 @@
     "@headlessui/react": "^2.2.9",
     "@newrelic/browser-agent": "^1.308.0",
     "@tailwindcss/forms": "^0.5.11",
-    "@tailwindcss/postcss": "4.1.18",
+    "@tailwindcss/postcss": "^4.1.18",
     "@types/async-retry": "1.4.8",
     "@types/node": "^24.10.2",
     "@types/react": "^18.3.12",
@@ -103,7 +103,7 @@
     "react-gtm-module": "^2.0.11",
     "react-i18next": "^16.5.4",
     "react-router-dom": "^6.30.3",
-    "tailwindcss": "4.1.18",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
@@ -132,5 +132,9 @@
       "iframe-resizer",
       "sharp"
     ]
+  },
+  "resolutions": {
+    "minimatch": ">=10.2.1",
+    "ajv": ">=8.18.0"
   }
 }
