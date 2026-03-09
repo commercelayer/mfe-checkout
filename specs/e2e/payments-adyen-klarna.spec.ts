@@ -66,7 +66,8 @@ test.describe("guest with Adyen and Pay with Klarna in Germany", () => {
     },
   })
 
-  test("Checkout order with Pay over time with Klarna", async ({
+  // Klarna Pay over time is currently not available in Germany, skipping the test until it's fixed
+  test.skip("Checkout order with Pay over time with Klarna", async ({
     checkoutPage,
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
