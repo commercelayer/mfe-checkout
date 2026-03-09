@@ -1,3 +1,10 @@
+## [6.4.6](https://github.com/commercelayer/mfe-checkout/compare/v6.4.5...v6.4.6) (2026-03-09)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([19e2ce3](https://github.com/commercelayer/mfe-checkout/commit/19e2ce3128a3a045df2196df90b7024dcf827ce2))
+
 ## [6.4.5](https://github.com/commercelayer/mfe-checkout/compare/v6.4.4...v6.4.5) (2026-02-20)
 
 
