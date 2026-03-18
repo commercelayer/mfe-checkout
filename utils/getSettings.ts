@@ -250,6 +250,18 @@ export const getSettings = async ({
     return invalidateCheckout()
   }
 
+  const mfeConfig = getMfeConfig({
+    jsonConfig: organization.config ?? {},
+    market: `market:id:${marketId}`,
+    params: {
+      lang: order.language_code,
+      orderId: order.id,
+      token: order.token,
+      slug: slug,
+      accessToken,
+    },
+  })
+
   const appSettings: CheckoutSettings = {
     accessToken,
     endpoint: `https://${slug}.${domain}`,
@@ -272,19 +284,9 @@ export const getSettings = async ({
     gtmId: isTest ? organization.gtm_id_test : organization.gtm_id,
     supportEmail: organization.support_email,
     supportPhone: organization.support_phone,
-    termsUrl: order.terms_url,
-    privacyUrl: order.privacy_url,
-    config: getMfeConfig({
-      jsonConfig: organization.config ?? {},
-      market: `market:id:${marketId}`,
-      params: {
-        lang: order.language_code,
-        orderId: order.id,
-        token: order.token,
-        slug: slug,
-        accessToken,
-      },
-    }),
+    termsUrl: order.terms_url ?? mfeConfig?.urls?.terms,
+    privacyUrl: order.privacy_url ?? mfeConfig?.urls?.privacy,
+    config: mfeConfig,
   }
 
   return appSettings
