@@ -261,7 +261,13 @@ In case the order balance is zero — e.g. the customer is paying with a gift ca
 
 #### Privacy acceptance
 
-If the `privacy_url` and `terms_url` attributes of the order are set an info paragraph will be displayed before the "Place order" button, including the related links and a checkbox to accept the terms. Customers won't be able to place the order unless they check it and agree.
+If the `privacy_url` and `terms_url` attributes of the order are set, an info paragraph will be displayed before the "Place order" button, including the related links and a checkbox to accept the terms. Customers won't be able to place the order unless they check it and agree.
+
+As a fallback, if neither `privacy_url` nor `terms_url` is set on the order, the checkout will look for `urls.terms` and `urls.privacy` defined in the organization's MFE configuration (`config.mfe.default.urls`). This allows you to configure default terms and privacy URLs at the organization level without having to set them on every order.
+
+Order-level URLs always take precedence over organization-level URLs when both are present.
+
+URL placeholders are supported in the organization config values: `:lang` is replaced with the order's `language_code`, allowing locale-specific links (e.g. `https://example.com/:lang/terms` becomes `https://example.com/it/terms` for Italian orders).
 
 ### Order subscription
 
@@ -269,7 +275,7 @@ If the `privacy_url` and `terms_url` attributes of the order are set an info par
 
 When a line item includes a frequency, placing the order [creates an order subscription](https://docs.commercelayer.io/core/v/how-tos/placing-orders/subscriptions/generating-the-subscriptions). To activate the subscription, the payment source must be saved in the customer's wallet. Therefore, during checkout with a customer token, the payment source is automatically saved. However, if a guest is checking out, they will receive an alert indicating that the subscription will not renew successfully without a saved payment source.
 
-#### Target order 
+#### Target order
 
 If a customer's payment source has expired or been deleted, or if the order initiating the subscription was placed as a guest, the resulting target order will be `pending`. Upon placement, the payment source will be automatically saved in the customer's wallet, and the order subscription will be automatically updated with the new payment source.
 
