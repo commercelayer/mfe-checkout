@@ -1,3 +1,15 @@
+# [6.5.0](https://github.com/commercelayer/mfe-checkout/compare/v6.4.6...v6.5.0) (2026-03-19)
+
+
+### Bug Fixes
+
+* update @commercelayer/react-components to version 4.29.5 ([902c60d](https://github.com/commercelayer/mfe-checkout/commit/902c60d6340214a91c2c2ad730ab02a1949870ff))
+
+
+### Features
+
+* fallback on privacy and terms urls in organization config ([82e42bd](https://github.com/commercelayer/mfe-checkout/commit/82e42bdcd8a532e812aebaff3c5918c00e55b306))
+
 ## [6.4.6](https://github.com/commercelayer/mfe-checkout/compare/v6.4.5...v6.4.6) (2026-03-09)
 
 
