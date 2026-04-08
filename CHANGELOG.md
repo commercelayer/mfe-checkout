@@ -1,3 +1,10 @@
+## [6.5.1](https://github.com/commercelayer/mfe-checkout/compare/v6.5.0...v6.5.1) (2026-04-08)
+
+
+### Bug Fixes
+
+* refine place order button on errors ([6b4a68f](https://github.com/commercelayer/mfe-checkout/commit/6b4a68f73c1be45c4c532c0dda26002f3acd0ae9))
+
 # [6.5.0](https://github.com/commercelayer/mfe-checkout/compare/v6.4.6...v6.5.0) (2026-03-19)
 
 
