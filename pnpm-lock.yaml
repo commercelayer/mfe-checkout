@@ -18,8 +18,8 @@ importers:
         specifier: ^2.8.0
         version: 2.8.0
       '@commercelayer/react-components':
-        specifier: 4.29.6
-        version: 4.29.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 4.29.7-beta.5
+        version: 4.29.7-beta.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@commercelayer/sdk':
         specifier: ^6.56.0
         version: 6.56.0
@@ -277,8 +277,12 @@ packages:
     resolution: {integrity: sha512-NEGHVSb9S0x8LhGzOzW5wPfKiGvC6YPYtQtCxKbDUpjgkhlc1kHyuT02h0L6VSH7xWkJOVNccIHb7EXg4yDRxA==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@4.29.6':
-    resolution: {integrity: sha512-F+sxIcAnSRZJ5VlsI+H8kr3o/F4q6Enr5fiB+I9VvdyauQgRZrDLbPvr/jsML71DtniGKZMtPOwPjhLyiLoVsQ==}
+  '@commercelayer/organization-config@2.8.4':
+    resolution: {integrity: sha512-ZlgIhQx7vu89ZD3eOCSkCe7kNb5LgEGy0p4Gayi75sxfHfJRXKkoX2NC+nkp2pFosi4SBYhlQFcd/EtzStAQGw==}
+    engines: {node: '>=18', pnpm: '>=7'}
+
+  '@commercelayer/react-components@4.29.7-beta.5':
+    resolution: {integrity: sha512-uVu4zzWU0i/52XbL8aMmy5rJPPuJelCk9cF9j7A+pYE2IubKkv2K54IGyqO8CJkm7jQkO8d0aAsTQsnJt6bJ8w==}
     peerDependencies:
       react: '>=18.0.0'
 
@@ -2782,10 +2786,15 @@ snapshots:
       '@commercelayer/js-auth': 7.3.0
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@4.29.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@commercelayer/organization-config@2.8.4':
+    dependencies:
+      '@commercelayer/js-auth': 7.3.0
+      merge-anything: 5.1.7
+
+  '@commercelayer/react-components@4.29.7-beta.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@adyen/adyen-web': 6.28.0
-      '@commercelayer/organization-config': 2.8.0
+      '@commercelayer/organization-config': 2.8.4
       '@commercelayer/sdk': 6.56.0
       '@stripe/react-stripe-js': 5.6.1(@stripe/stripe-js@8.11.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@stripe/stripe-js': 8.11.0
