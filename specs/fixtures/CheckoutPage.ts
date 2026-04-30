@@ -1320,24 +1320,22 @@ export class CheckoutPage {
       "[data-testid=stripe_payments] iframe",
     )
 
-    // Wait until the button is visible on the Stripe frame
+    // Wait until the Stripe iframe renders the payment method label (button or generic tab)
     await expect(async () => {
-      const button = stripeFrameLocator.getByRole("button", {
-        name: label,
-      })
-      await expect(button).toBeVisible()
+      await expect(
+        stripeFrameLocator.getByText(label, { exact: true }),
+      ).toBeVisible()
     }).toPass()
 
     await this.page.mouse.wheel(0, 300)
 
+    // Stripe may render tabs as <button> elements or as generic elements depending on
+    // how many payment methods are available. Click only when it is a button.
     const cardButton = stripeFrameLocator.getByRole("button", {
       name: label,
     })
     if (await cardButton.isVisible()) {
-      // Click the card button if it is visible
       await cardButton.click({ force: true })
-    } else {
-      throw new Error(`Payment method ${method} is not available`)
     }
     return stripeFrameLocator
   }
