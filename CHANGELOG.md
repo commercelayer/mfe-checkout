@@ -1,3 +1,10 @@
+## [6.5.2](https://github.com/commercelayer/mfe-checkout/compare/v6.5.1...v6.5.2) (2026-04-30)
+
+
+### Bug Fixes
+
+* Stripe selector tests ([cb51a6b](https://github.com/commercelayer/mfe-checkout/commit/cb51a6b11947b704bf9f06d7c99976eab5a931d4))
+
 ## [6.5.1](https://github.com/commercelayer/mfe-checkout/compare/v6.5.0...v6.5.1) (2026-04-08)
 
 
