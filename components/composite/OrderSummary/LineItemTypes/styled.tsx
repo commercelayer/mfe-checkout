@@ -1,5 +1,4 @@
-import { LineItemCode } from "@commercelayer/react-components/line_items/LineItemCode"
-import { LineItemOptions } from "@commercelayer/react-components/line_items/LineItemOptions"
+import { LineItemCode, LineItemOptions } from "@commercelayer/react-components"
 import type { FC } from "react"
 
 export const LineItemWrapper: FC<React.HTMLAttributes<HTMLDivElement>> = (

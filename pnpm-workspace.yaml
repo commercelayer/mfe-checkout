@@ -8,3 +8,4 @@ minimumReleaseAgeExclude:
   - cronstrue@3.20.0
 overrides:
   "postcss": 8.5.15
+blockExoticSubdeps: false

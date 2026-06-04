@@ -1,6 +1,8 @@
-import CustomerContainer from "@commercelayer/react-components/customers/CustomerContainer"
-import OrderContainer from "@commercelayer/react-components/orders/OrderContainer"
-import PlaceOrderContainer from "@commercelayer/react-components/orders/PlaceOrderContainer"
+import {
+  CustomerContainer,
+  OrderContainer,
+  PlaceOrderContainer,
+} from "@commercelayer/react-components"
 import { CheckoutSkeleton } from "components/composite/CheckoutSkeleton"
 import { MainHeader } from "components/composite/MainHeader"
 import { OrderSummary } from "components/composite/OrderSummary"

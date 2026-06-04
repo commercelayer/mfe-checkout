@@ -1,4 +1,4 @@
-import CommerceLayer from "@commercelayer/react-components/auth/CommerceLayer"
+import { CommerceLayer } from "@commercelayer/react-components"
 import { CheckoutHead } from "components/composite/CheckoutTitle"
 import { AppProvider } from "components/data/AppProvider"
 import GlobalStylesProvider from "components/data/GlobalStylesProvider"
@@ -15,10 +15,7 @@ const CheckoutContainer = ({ settings, children }: Props): JSX.Element => {
   return (
     <div>
       <CheckoutHead title={settings.companyName} favicon={settings.favicon} />
-      <CommerceLayer
-        accessToken={settings.accessToken}
-        endpoint={settings.endpoint}
-      >
+      <CommerceLayer accessToken={settings.accessToken}>
         <GlobalStylesProvider primaryColor={primaryColor} />
 
         <AppProvider
