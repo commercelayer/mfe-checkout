@@ -1,4 +1,4 @@
-import type { Errors } from "@commercelayer/react-components/errors/Errors"
+import type { Errors } from "@commercelayer/react-components"
 
 export const messages: Parameters<typeof Errors>[0]["messages"] = [
   {

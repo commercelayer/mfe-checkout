@@ -1,7 +1,9 @@
-import AddressesContainer from "@commercelayer/react-components/addresses/AddressesContainer"
-import BillingAddressForm from "@commercelayer/react-components/addresses/BillingAddressForm"
-import SaveAddressesButton from "@commercelayer/react-components/addresses/SaveAddressesButton"
-import ShippingAddressForm from "@commercelayer/react-components/addresses/ShippingAddressForm"
+import {
+  AddressesContainer,
+  BillingAddressForm,
+  SaveAddressesButton,
+  ShippingAddressForm,
+} from "@commercelayer/react-components"
 import type { Address, Order } from "@commercelayer/sdk"
 import type { ShippingToggleProps } from "components/composite/StepCustomer"
 import { ButtonCss, ButtonWrapper } from "components/ui/Button"

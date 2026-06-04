@@ -1,11 +1,9 @@
-import AddressCountrySelector from "@commercelayer/react-components/addresses/AddressCountrySelector"
-import AddressInput from "@commercelayer/react-components/addresses/AddressInput"
-import AddressStateSelector from "@commercelayer/react-components/addresses/AddressStateSelector"
-import { Errors } from "@commercelayer/react-components/errors/Errors"
-import type {
-  Country,
-  States,
-} from "@commercelayer/react-components/utils/countryStateCity"
+import {
+  AddressCountrySelector,
+  AddressInput,
+  AddressStateSelector,
+  Errors,
+} from "@commercelayer/react-components"
 import {
   evaluateShippingToggle,
   type ShippingToggleProps,
@@ -25,6 +23,8 @@ type TFieldName =
 type TInputType = JSX.IntrinsicElements["input"]["type"]
 type TResource = Parameters<typeof Errors>[0]["resource"]
 type TMessages = Parameters<typeof Errors>[0]["messages"]
+type Country = NonNullable<Parameters<typeof AddressCountrySelector>[0]["countries"]>[number]
+type States = NonNullable<Parameters<typeof AddressStateSelector>[0]["states"]>
 
 interface Props {
   type: TInputType

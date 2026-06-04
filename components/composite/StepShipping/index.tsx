@@ -1,18 +1,20 @@
-import type Errors from "@commercelayer/react-components/errors/Errors"
-import LineItem from "@commercelayer/react-components/line_items/LineItem"
-import LineItemImage from "@commercelayer/react-components/line_items/LineItemImage"
-import LineItemName from "@commercelayer/react-components/line_items/LineItemName"
-import LineItemQuantity from "@commercelayer/react-components/line_items/LineItemQuantity"
-import LineItemsContainer from "@commercelayer/react-components/line_items/LineItemsContainer"
-import Shipment from "@commercelayer/react-components/shipments/Shipment"
-import ShipmentField from "@commercelayer/react-components/shipments/ShipmentField"
-import ShipmentsContainer from "@commercelayer/react-components/shipments/ShipmentsContainer"
-import ShippingMethod from "@commercelayer/react-components/shipping_methods/ShippingMethod"
-import ShippingMethodName from "@commercelayer/react-components/shipping_methods/ShippingMethodName"
-import ShippingMethodPrice from "@commercelayer/react-components/shipping_methods/ShippingMethodPrice"
-import DeliveryLeadTime from "@commercelayer/react-components/skus/DeliveryLeadTime"
-import StockTransfer from "@commercelayer/react-components/stock_transfers/StockTransfer"
-import StockTransferField from "@commercelayer/react-components/stock_transfers/StockTransferField"
+import {
+  type Errors,
+  DeliveryLeadTime,
+  LineItem,
+  LineItemImage,
+  LineItemName,
+  LineItemQuantity,
+  LineItemsContainer,
+  Shipment,
+  ShipmentField,
+  ShipmentsContainer,
+  ShippingMethod,
+  ShippingMethodName,
+  ShippingMethodPrice,
+  StockTransfer,
+  StockTransferField,
+} from "@commercelayer/react-components"
 import type {
   Order,
   ShippingMethod as ShippingMethodCollection,
@@ -200,17 +202,18 @@ export const StepShipping: React.FC<Props> = () => {
                 <>
                   {
                     <ShipmentsContainer>
-                      <OutOfStock
-                        cartUrl={appCtx.cartUrl}
-                        messages={messages}
-                        setOutOfStockError={setOutOfStockError}
-                      />
-                      <NoShippingMethods
-                        messages={messages}
-                        setShippingMethodError={setShippingMethodError}
-                      />
+                      <>
+                        <OutOfStock
+                          cartUrl={appCtx.cartUrl}
+                          messages={messages}
+                          setOutOfStockError={setOutOfStockError}
+                        />
+                        <NoShippingMethods
+                          messages={messages}
+                          setShippingMethodError={setShippingMethodError}
+                        />
 
-                      {!shippingMethodError && !outOfStockError && (
+                        {(!shippingMethodError && !outOfStockError) ? (
                         <>
                           <Shipment
                             autoSelectSingleShippingMethod={autoSelectCallback}
@@ -382,7 +385,8 @@ export const StepShipping: React.FC<Props> = () => {
                             </Button>
                           </ButtonWrapper>
                         </>
-                      )}
+                      ) : null}
+                      </>
                     </ShipmentsContainer>
                   }
                 </>

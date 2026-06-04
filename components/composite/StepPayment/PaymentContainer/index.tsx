@@ -16,6 +16,8 @@ export const PaymentContainer = ({ primaryColor, children }: Props) => {
   return (
     <PaymentMethodsContainer
       config={{
+        // TODO: update checkoutComPayment config for the new API (payment refactor pending)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         checkoutComPayment: {
           success_url: checkoutReturnUrl,
           failure_url: checkoutReturnUrl,
@@ -39,7 +41,7 @@ export const PaymentContainer = ({ primaryColor, children }: Props) => {
               },
             },
           },
-        },
+        } as any,
         adyenPayment: {
           styles: {
             card: {

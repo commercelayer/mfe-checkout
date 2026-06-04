@@ -1,5 +1,4 @@
-import CustomerInput from "@commercelayer/react-components/customers/CustomerInput"
-import Errors from "@commercelayer/react-components/errors/Errors"
+import { CustomerInput, Errors } from "@commercelayer/react-components"
 import classNames from "classnames"
 import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"

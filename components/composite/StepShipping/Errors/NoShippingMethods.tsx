@@ -1,4 +1,4 @@
-import { Errors } from "@commercelayer/react-components/errors/Errors"
+import { Errors } from "@commercelayer/react-components"
 import { type Dispatch, type SetStateAction, useEffect } from "react"
 
 interface Props {

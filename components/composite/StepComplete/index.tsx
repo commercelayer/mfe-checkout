@@ -1,7 +1,9 @@
-import PaymentSource from "@commercelayer/react-components/payment_source/PaymentSource"
-import PaymentSourceBrandIcon from "@commercelayer/react-components/payment_source/PaymentSourceBrandIcon"
-import PaymentSourceBrandName from "@commercelayer/react-components/payment_source/PaymentSourceBrandName"
-import PaymentSourceDetail from "@commercelayer/react-components/payment_source/PaymentSourceDetail"
+import {
+  PaymentSource,
+  PaymentSourceBrandIcon,
+  PaymentSourceBrandName,
+  PaymentSourceDetail,
+} from "@commercelayer/react-components"
 import { OrderSummary } from "components/composite/OrderSummary"
 import { PaymentContainer } from "components/composite/StepPayment/PaymentContainer"
 import { AppContext } from "components/data/AppProvider"

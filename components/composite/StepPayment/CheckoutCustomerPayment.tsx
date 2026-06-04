@@ -1,9 +1,9 @@
-import PaymentMethod, {
+import {
+  PaymentMethod,
   type PaymentMethodOnClickParams,
-} from "@commercelayer/react-components/payment_methods/PaymentMethod"
-import PaymentSource, {
+  PaymentSource,
   type CustomerSaveToWalletProps,
-} from "@commercelayer/react-components/payment_source/PaymentSource"
+} from "@commercelayer/react-components"
 import { Label } from "components/ui/Label"
 import { type MouseEvent, useState } from "react"
 import { useTranslation } from "react-i18next"

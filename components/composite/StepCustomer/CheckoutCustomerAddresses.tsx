@@ -1,9 +1,11 @@
-import AddressesContainer from "@commercelayer/react-components/addresses/AddressesContainer"
-import BillingAddressContainer from "@commercelayer/react-components/addresses/BillingAddressContainer"
-import BillingAddressForm from "@commercelayer/react-components/addresses/BillingAddressForm"
-import SaveAddressesButton from "@commercelayer/react-components/addresses/SaveAddressesButton"
-import ShippingAddressContainer from "@commercelayer/react-components/addresses/ShippingAddressContainer"
-import ShippingAddressForm from "@commercelayer/react-components/addresses/ShippingAddressForm"
+import {
+  AddressesContainer,
+  BillingAddressContainer,
+  BillingAddressForm,
+  SaveAddressesButton,
+  ShippingAddressContainer,
+  ShippingAddressForm,
+} from "@commercelayer/react-components"
 import type { Address, Order } from "@commercelayer/sdk"
 import { Transition } from "@headlessui/react"
 import {
