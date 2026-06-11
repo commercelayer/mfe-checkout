@@ -1,5 +1,6 @@
 // @ts-check
 
+const path = require("path")
 const nextBuildId = require("next-build-id")
 
 const shouldAnalyzeBundles = process.env.ANALYZE === "true"
@@ -7,6 +8,14 @@ const shouldAnalyzeBundles = process.env.ANALYZE === "true"
 /** @type { import('next').NextConfig } */
 let nextConfig = {
   reactStrictMode: true,
+  webpack(config) {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      react: path.resolve(__dirname, "node_modules/react"),
+      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
+    }
+    return config
+  },
   output: process.env.NODE_ENV === "production" ? "export" : "standalone",
   distDir: "out/dist",
   poweredByHeader: false,

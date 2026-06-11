@@ -23,7 +23,9 @@ type TFieldName =
 type TInputType = JSX.IntrinsicElements["input"]["type"]
 type TResource = Parameters<typeof Errors>[0]["resource"]
 type TMessages = Parameters<typeof Errors>[0]["messages"]
-type Country = NonNullable<Parameters<typeof AddressCountrySelector>[0]["countries"]>[number]
+type Country = NonNullable<
+  Parameters<typeof AddressCountrySelector>[0]["countries"]
+>[number]
 type States = NonNullable<Parameters<typeof AddressStateSelector>[0]["states"]>
 
 interface Props {
@@ -108,6 +110,13 @@ export const AddressInputGroup: React.FC<Props> = ({
 
   function renderInput() {
     if (isCountry) {
+      console.log(
+        "render country selector",
+        value,
+        isCountry,
+        shippingCountryCodeLock,
+        defaultCountry,
+      )
       return (
         <>
           <StyledAddressCountrySelector
