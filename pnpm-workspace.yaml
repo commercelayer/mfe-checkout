@@ -2,3 +2,5 @@ allowBuilds:
   core-js: true
   iframe-resizer: true
   sharp: true
+minimumReleaseAgeExclude:
+  - cronstrue@3.20.0
