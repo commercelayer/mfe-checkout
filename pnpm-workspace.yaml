@@ -1,6 +1,10 @@
 allowBuilds:
-  core-js: true
-  iframe-resizer: true
-  sharp: true
+  "@biomejs/biome": true
+  "@tailwindcss/oxide": true
+  "core-js": true
+  "iframe-resizer": true
+  "sharp": true
 minimumReleaseAgeExclude:
   - cronstrue@3.20.0
+overrides:
+  "postcss": 8.5.15
