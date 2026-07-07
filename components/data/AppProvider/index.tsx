@@ -113,7 +113,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
 
   const getOrder = (order: Order) => {
     orderRef.current = order
-    setOrder(order)
+    // OrderContainer (react-components) invokes this callback during render,
+    // so defer the state update to avoid a render-phase setState warning.
+    setTimeout(() => {
+      setOrder(order)
+    }, 0)
   }
 
   const fetchInitialOrder = async (orderId?: string, accessToken?: string) => {
