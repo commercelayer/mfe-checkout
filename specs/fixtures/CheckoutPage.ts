@@ -1327,14 +1327,23 @@ export class CheckoutPage {
       ).toBeVisible()
     }).toPass()
 
-    await this.page.mouse.wheel(0, 300)
-
     // Stripe may render tabs as <button> elements or as generic elements depending on
     // how many payment methods are available. Click only when it is a button.
     const cardButton = stripeFrameLocator.getByRole("button", {
       name: label,
     })
     if (await cardButton.isVisible()) {
+      const box = await cardButton.boundingBox()
+      const viewport = this.page.viewportSize()
+      if (
+        box != null &&
+        viewport != null &&
+        box.y + box.height > viewport.height
+      ) {
+        // Element inside the cross-origin Stripe iframe is below the fold:
+        // Playwright can't scroll the outer page for it, so do it ourselves.
+        await this.page.mouse.wheel(0, box.y + box.height - viewport.height + 100)
+      }
       await cardButton.click({ force: true })
     }
     return stripeFrameLocator
