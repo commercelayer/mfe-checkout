@@ -1,3 +1,11 @@
+## [6.5.4](https://github.com/commercelayer/mfe-checkout/compare/v6.5.3...v6.5.4) (2026-07-08)
+
+
+### Bug Fixes
+
+* defer setOrder to avoid render-phase state update warning ([568de3e](https://github.com/commercelayer/mfe-checkout/commit/568de3e6993425418d0b6078040ffb3678e3f3db))
+* scroll Stripe payment tab into view before clicking ([e48b665](https://github.com/commercelayer/mfe-checkout/commit/e48b665830151f078fbd9774ab2b0644d56e4295))
+
 ## [6.5.3](https://github.com/commercelayer/mfe-checkout/compare/v6.5.2...v6.5.3) (2026-05-14)
 
 
