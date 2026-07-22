@@ -8,6 +8,15 @@ const shouldAnalyzeBundles = process.env.ANALYZE === "true"
 /** @type { import('next').NextConfig } */
 let nextConfig = {
   reactStrictMode: true,
+  // Force a single copy of React/React-DOM to avoid duplicate-React issues.
+  // Mirrored across both bundlers: `turbopack` (Next 16 default) and `webpack`
+  // (used when building with the `--webpack` flag).
+  turbopack: {
+    resolveAlias: {
+      react: "./node_modules/react",
+      "react-dom": "./node_modules/react-dom",
+    },
+  },
   webpack(config) {
     config.resolve.alias = {
       ...config.resolve.alias,
