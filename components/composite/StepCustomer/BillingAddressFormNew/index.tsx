@@ -29,7 +29,6 @@ export const BillingAddressFormNew: React.FC<Props> = ({
   const defaultCountry = settings?.config?.checkout?.default_country
   const optionalBillingInfo = settings?.config?.checkout?.optional_billing_info
   const optionalCompanyName = settings?.config?.checkout?.optional_company_name
-  console.log("optionalCompanyName", optionalCompanyName)
 
   return (
     <div className="mt-0">

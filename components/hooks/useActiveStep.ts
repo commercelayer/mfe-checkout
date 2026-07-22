@@ -1,5 +1,5 @@
 import { AppContext } from "components/data/AppProvider"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 
 interface UseActiveStep {
   activeStep: SingleStepEnum
@@ -35,6 +35,23 @@ export const useActiveStep = (): UseActiveStep => {
   const isLoading = ctx?.isLoading ?? true
   const isFirstLoading = ctx?.isFirstLoading ?? true
 
+  // A loading cycle that was already in flight when the user navigated must
+  // not clobber their choice when it completes: keep track of when the last
+  // cycle started and when the user last picked a step manually.
+  const loadingStartedAtRef = useRef(0)
+  const manualNavAtRef = useRef(0)
+
+  useEffect(() => {
+    if (isLoading) {
+      loadingStartedAtRef.current = Date.now()
+    }
+  }, [isLoading])
+
+  const setActiveStepManual = (step: SingleStepEnum) => {
+    manualNavAtRef.current = Date.now()
+    setActiveStep(step)
+  }
+
   useEffect(() => {
     if (ctx && (isFirstLoading || !ctx.isLoading)) {
       // Alter steps of checkout
@@ -63,17 +80,23 @@ export const useActiveStep = (): UseActiveStep => {
         canSelectPayment &&
         ctx.hasPaymentMethod
 
+      // If the user picked a step after this loading cycle started (e.g.
+      // reopened an accordion while a background refetch was in flight),
+      // their choice wins: update what is activable but don't move them.
+      const keepManualSelection =
+        manualNavAtRef.current > loadingStartedAtRef.current
+
       if (canPlaceOrder) {
-        setActiveStep("Complete")
+        if (!keepManualSelection) setActiveStep("Complete")
         setLastActivableStep("Complete")
       } else if (canSelectPayment) {
-        setActiveStep("Payment")
+        if (!keepManualSelection) setActiveStep("Payment")
         setLastActivableStep("Payment")
       } else if (canSelectShippingMethod) {
-        setActiveStep("Shipping")
+        if (!keepManualSelection) setActiveStep("Shipping")
         setLastActivableStep("Shipping")
       } else {
-        setActiveStep("Customer")
+        if (!keepManualSelection) setActiveStep("Customer")
         setLastActivableStep("Customer")
       }
     }
@@ -82,7 +105,7 @@ export const useActiveStep = (): UseActiveStep => {
   return {
     activeStep,
     lastActivableStep,
-    setActiveStep,
+    setActiveStep: setActiveStepManual,
     isLoading,
     steps,
   }

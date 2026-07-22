@@ -81,10 +81,14 @@ export const StepCustomer: React.FC<Props> = () => {
     !appCtx?.hasSameAddresses,
   )
 
+  // depend on the boolean, not the context object: the provider value is a
+  // fresh object every render, so an object dependency would re-run this on
+  // any re-render and clobber the user's manual toggle
+  const ctxHasSameAddresses = appCtx?.hasSameAddresses
   useEffect(() => {
-    if (!appCtx) return
-    setShipToDifferentAddress(!appCtx.hasSameAddresses)
-  }, [appCtx])
+    if (ctxHasSameAddresses === undefined) return
+    setShipToDifferentAddress(!ctxHasSameAddresses)
+  }, [ctxHasSameAddresses])
 
   const [disabledShipToDifferentAddress, setDisabledShipToDifferentAddress] =
     useState(

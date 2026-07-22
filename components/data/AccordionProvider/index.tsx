@@ -35,7 +35,10 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   isStepRequired = true,
   isStepDone = false,
 }) => {
-  const [isActive, setIsActive] = useState(false)
+  // derived during render: keeping it in state synced by an effect made the
+  // context value lag one commit behind the DOM, so a click landing right
+  // after a step change read a stale value and closed instead of opening
+  const isActive = step === activeStep
   // state to disable pointer on open accordion if cannot progress
   const [cannotGoNext, setCannotGoNext] = useState(true)
   const [status, setStatus] = useState<"done" | "edit" | "disabled" | "skip">(
@@ -47,10 +50,6 @@ export const AccordionProvider: React.FC<AccordionProviderProps> = ({
   }
 
   const closeStep = () => setActiveStep?.(lastActivableStep)
-
-  useEffect(() => {
-    setIsActive(step === activeStep)
-  }, [activeStep])
 
   useEffect(() => {
     return setCannotGoNext(checkIfCannotGoNext(step, steps, lastActivableStep))

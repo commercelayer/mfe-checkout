@@ -110,13 +110,6 @@ export const AddressInputGroup: React.FC<Props> = ({
 
   function renderInput() {
     if (isCountry) {
-      console.log(
-        "render country selector",
-        value,
-        isCountry,
-        shippingCountryCodeLock,
-        defaultCountry,
-      )
       return (
         <>
           <StyledAddressCountrySelector
