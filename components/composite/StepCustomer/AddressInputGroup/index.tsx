@@ -12,7 +12,7 @@ import { AppContext } from "components/data/AppProvider"
 import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"
 import { Label } from "components/ui/form/Label"
-import { type ChangeEvent, useContext } from "react"
+import { type ChangeEvent, type JSX, useContext } from "react"
 import { useTranslation } from "react-i18next"
 
 type TFieldName =

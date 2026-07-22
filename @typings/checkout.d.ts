@@ -4,7 +4,10 @@ declare namespace Organization {
 }
 
 type NullableType<T> = T | null | undefined
-type ChildrenType = JSX.Element[] | JSX.Element | null
+type ChildrenType =
+  | import("react").JSX.Element[]
+  | import("react").JSX.Element
+  | null
 interface HSLProps {
   h: number
   s: string

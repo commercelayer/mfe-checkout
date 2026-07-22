@@ -1,3 +1,5 @@
+import type { JSX } from "react"
+
 interface Props {
   className?: string
   children?: JSX.Element[] | JSX.Element

@@ -3,13 +3,14 @@ import { CheckoutHead } from "components/composite/CheckoutTitle"
 import { AppProvider } from "components/data/AppProvider"
 import GlobalStylesProvider from "components/data/GlobalStylesProvider"
 import hex2hsl from "components/utils/hex2hsl"
+import type { ReactElement } from "react"
 
 interface Props {
   settings: CheckoutSettings
-  children: JSX.Element[] | JSX.Element
+  children: ChildrenType
 }
 
-const CheckoutContainer = ({ settings, children }: Props): JSX.Element => {
+const CheckoutContainer = ({ settings, children }: Props): ReactElement => {
   const primaryColor = hex2hsl(settings.primaryColor)
 
   return (

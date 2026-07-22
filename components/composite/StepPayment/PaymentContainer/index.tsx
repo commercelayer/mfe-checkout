@@ -1,4 +1,5 @@
 import { PaymentMethodsContainer } from "@commercelayer/react-components"
+import type { JSX } from "react"
 import { useTranslation } from "react-i18next"
 
 interface Props {

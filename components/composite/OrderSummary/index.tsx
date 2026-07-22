@@ -79,7 +79,7 @@ export const OrderSummary: React.FC<Props> = ({
           data-testid="items-count"
           typeAccepted={LINE_ITEMS_SHOPPABLE}
         >
-          {(props): JSX.Element => (
+          {(props): React.JSX.Element => (
             <span data-testid="items-count">
               {t("orderRecap.cartContains", { count: props.quantity })}
             </span>

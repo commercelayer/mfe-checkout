@@ -101,7 +101,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   slug,
   domain,
 }) => {
-  const orderRef = useRef<Order>()
+  const orderRef = useRef<Order | undefined>(undefined)
   const [state, dispatch] = useReducer(reducer, { ...initialState, isGuest })
   const [order, setOrder] = useState<NullableType<Order>>()
 

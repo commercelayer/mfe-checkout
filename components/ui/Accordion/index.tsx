@@ -1,7 +1,7 @@
 import classNames from "classnames"
 import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
-import { type FC, type ReactNode, useContext } from "react"
+import { type FC, type JSX, type ReactNode, useContext } from "react"
 
 interface AccordionProps {
   children?: ReactNode
