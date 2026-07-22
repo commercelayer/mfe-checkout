@@ -80,7 +80,7 @@
     "@commercelayer/js-auth": "^7.4.2",
     "@commercelayer/organization-config": "^2.8.4",
     "@commercelayer/react-components": "https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@796",
-    "@commercelayer/sdk": "^6.57.0",
+    "@commercelayer/sdk": "^7.12.1",
     "@faker-js/faker": "^10.5.0",
     "@headlessui/react": "^2.2.10",
     "@newrelic/browser-agent": "^1.316.0",

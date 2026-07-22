@@ -30,8 +30,8 @@ importers:
         specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@796
         version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@796(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@commercelayer/sdk':
-        specifier: ^6.57.0
-        version: 6.57.0
+        specifier: ^7.12.1
+        version: 7.12.1
       '@faker-js/faker':
         specifier: ^10.5.0
         version: 10.5.0
@@ -322,10 +322,6 @@ packages:
     version: 4.29.6
     peerDependencies:
       react: '>=19.0.0'
-
-  '@commercelayer/sdk@6.57.0':
-    resolution: {integrity: sha512-m4Rk8bKd2B32xWLxy+b4K5p0fAuhOG0FN5WGXxTbiVXV88YP3xYEYQZZDDy70A1p9TchsNH+bTnhtRdqn+Mcug==}
-    engines: {node: '>=20'}
 
   '@commercelayer/sdk@7.12.1':
     resolution: {integrity: sha512-TZMPbBtjkrUdToTPrO3lsQvPJRfr/TBreTLMuTYRVWMtpWOjGoAOSRoxmQTktfXCCmVBYyadHsc36a5eW4LOsw==}
@@ -2897,8 +2893,6 @@ snapshots:
       react: 19.2.7
     transitivePeerDependencies:
       - react-dom
-
-  '@commercelayer/sdk@6.57.0': {}
 
   '@commercelayer/sdk@7.12.1': {}
 

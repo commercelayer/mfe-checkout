@@ -1,9 +1,9 @@
-import {
-  CommerceLayer,
-  type Order,
-  type PaymentMethod,
-  type ShippingMethod as ShippingMethodCollection,
+import type {
+  Order,
+  PaymentMethod,
+  ShippingMethod as ShippingMethodCollection,
 } from "@commercelayer/sdk"
+import { CommerceLayer } from "@commercelayer/sdk/bundle"
 import { ActionType, reducer } from "components/data/AppProvider/reducer"
 import {
   calculateSettings,
