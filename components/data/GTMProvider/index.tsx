@@ -9,8 +9,8 @@ import type { DataLayerItemProps, DataLayerProps } from "./typings"
 
 interface GTMProviderData {
   fireAddShippingInfo: (order: Order) => void
-  fireAddPaymentInfo: () => void
-  firePurchase: () => void
+  fireAddPaymentInfo: (order?: Order) => void
+  firePurchase: (order?: Order) => void
 }
 
 export const GTMContext = createContext<GTMProviderData | null>(null)
@@ -115,18 +115,23 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const fireAddPaymentInfo = () => {
-    const lineItems = order?.line_items?.filter((line_item) => {
+  const fireAddPaymentInfo = (orderArg?: Order) => {
+    // Prefer the order passed by the caller (always fully loaded) over the
+    // context order, which may lag behind due to the deferred setOrder state
+    // update — e.g. on the auto-place flow after a gateway redirect back.
+    const currentOrder = orderArg ?? order
+
+    const lineItems = currentOrder?.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
 
-    const paymentMethod = order?.payment_method
+    const paymentMethod = currentOrder?.payment_method
 
     return pushDataLayer({
       eventName: "add_payment_info",
       dataLayer: {
-        coupon: order?.coupon_code,
-        currency: order?.currency_code,
+        coupon: currentOrder?.coupon_code,
+        currency: currentOrder?.currency_code,
         items: lineItems?.map(mapItemsToGTM),
         value: paymentMethod?.price_amount_float,
         payment_type: paymentMethod?.name,
@@ -134,21 +139,23 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const firePurchase = () => {
-    const lineItems = order?.line_items?.filter((line_item) => {
+  const firePurchase = (orderArg?: Order) => {
+    const currentOrder = orderArg ?? order
+
+    const lineItems = currentOrder?.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
 
     return pushDataLayer({
       eventName: "purchase",
       dataLayer: {
-        coupon: order?.coupon_code,
-        currency: order?.currency_code,
+        coupon: currentOrder?.coupon_code,
+        currency: currentOrder?.currency_code,
         items: lineItems?.map(mapItemsToGTM),
-        transaction_id: order?.number,
-        shipping: order?.shipping_amount_float,
-        value: order?.total_amount_with_taxes_float,
-        tax: order?.total_tax_amount_float,
+        transaction_id: currentOrder?.number,
+        shipping: currentOrder?.shipping_amount_float,
+        value: currentOrder?.total_amount_with_taxes_float,
+        tax: currentOrder?.total_tax_amount_float,
       },
     })
   }

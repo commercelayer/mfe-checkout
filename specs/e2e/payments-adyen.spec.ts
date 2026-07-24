@@ -212,7 +212,6 @@ test.describe("API version v68", () => {
     const TIMEOUT = 3000
     await checkoutPage.checkOrderSummary("Order Summary")
 
-    // biome-ignore lint/correctness/noUnusedVariables: here we use the rest
     const { billing_info, ...address } = euAddress
     await checkoutPage.setBillingAddress(address)
     await checkoutPage.save("Customer")
