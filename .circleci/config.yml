@@ -1,13 +1,13 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@5.4.1
-  aws-s3: circleci/aws-s3@4.1.3
+  aws-cli: circleci/aws-cli@5.4.2
+  aws-s3: circleci/aws-s3@5.0.0
 
 jobs:
   test: # this can be any name you choose
     docker:
-      - image: mcr.microsoft.com/playwright:v1.58.1-noble
+      - image: mcr.microsoft.com/playwright:v1.61.1-noble
     resource_class: medium+
     parallelism: 10
 
@@ -61,7 +61,7 @@ jobs:
 
   build:
     docker:
-      - image: cimg/node:24.5.0
+      - image: cimg/node:24.18.0
     resource_class: medium
     environment:
       FOLDER: checkout
@@ -88,7 +88,7 @@ jobs:
 
   build-on-pci-bucket:
     docker:
-      - image: cimg/node:24.5.0
+      - image: cimg/node:24.18.0
     resource_class: medium
     environment:
       FOLDER: checkout
@@ -124,6 +124,7 @@ workflows:
     jobs:
       - test:
           context: commercelayer
+          serial-group: << pipeline.project.slug >>/e2e-tests
           filters:
             tags:
               ignore: /v.*/
