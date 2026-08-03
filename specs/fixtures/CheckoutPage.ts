@@ -366,12 +366,22 @@ export class CheckoutPage {
     text: string
     shipment?: number
   }) {
-    await this.page.getByText(text).nth(shipment).click()
-    await expect(this.page.getByText(text).nth(shipment)).toHaveCount(1)
     const element = this.page.locator(
       `[data-testid=shipments-container] >> nth=${shipment} >> [data-testid=shipping-method-button]:checked`,
     )
-    await expect(element).toBeChecked()
+
+    // react-components v5 sometimes reverts the shipping-method radio to
+    // unchecked shortly after a selection sticks (open library flake, see
+    // memory react-components-v5-state-selector-flake), most visible right
+    // after a coupon-driven order refresh. Re-click and re-verify until the
+    // selection survives a short settle window.
+    await expect(async () => {
+      await this.page.getByText(text).nth(shipment).click()
+      await expect(this.page.getByText(text).nth(shipment)).toHaveCount(1)
+      await expect(element).toBeChecked()
+      await this.page.waitForTimeout(1000)
+      await expect(element).toBeChecked()
+    }).toPass({ timeout: 20000 })
   }
 
   async checkShippingMethodPrice({
@@ -953,12 +963,12 @@ export class CheckoutPage {
           case "givex": {
             await this.page.getByRole("radio", { name: "Givex" }).click()
             await this.page
-              .locator('iframe[title="Iframe for card number"] >> nth=1')
+              .locator('iframe[title="Card number"] >> nth=1')
               .contentFrame()
               .getByRole("textbox", { name: "Card Number" })
               .fill("6036280000000000000")
             await this.page
-              .locator('iframe[title="Iframe for pin"]')
+              .locator('iframe[title="Pin"]')
               .contentFrame()
               .getByRole("textbox", { name: "Pin" })
               .fill("1234")
@@ -1286,13 +1296,14 @@ export class CheckoutPage {
         switch (gateway) {
           case "givex": {
             await this.page.getByRole("radio", { name: "Givex" }).click()
+            await this.page.waitForTimeout(2000)
             await this.page
-              .locator('iframe[title="Iframe for card number"] >> nth=1')
+              .locator('iframe[title="Card number"] >> nth=1')
               .contentFrame()
               .getByRole("textbox", { name: "Card Number" })
               .fill("6036280000000000000")
             await this.page
-              .locator('iframe[title="Iframe for pin"]')
+              .locator('iframe[title="Pin"]')
               .contentFrame()
               .getByRole("textbox", { name: "Pin" })
               .fill("1234")
@@ -1447,6 +1458,15 @@ export class CheckoutPage {
         break
       }
       case "adyen": {
+        // If a previous partial payment (e.g. Givex redeem) left another
+        // gateway selected, Adyen's Drop-in has no active payment method
+        // until Cards is (re-)selected, so submit() throws "No active
+        // payment method" even though the card fields below get filled.
+        const cardsRadio = this.page.getByRole("radio", { name: /^Cards/ })
+        if (await cardsRadio.isVisible()) {
+          await cardsRadio.click()
+        }
+
         await this.page.waitForTimeout(3000)
 
         const cardFrame = this.page.frameLocator("iframe >> nth=0")
