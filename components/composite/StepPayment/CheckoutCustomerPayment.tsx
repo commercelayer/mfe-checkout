@@ -1,8 +1,8 @@
 import {
+  type CustomerSaveToWalletProps,
   PaymentMethod,
   type PaymentMethodOnClickParams,
   PaymentSource,
-  type CustomerSaveToWalletProps,
 } from "@commercelayer/react-components"
 import { Label } from "components/ui/Label"
 import { type MouseEvent, useState } from "react"

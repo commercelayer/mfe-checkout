@@ -211,7 +211,7 @@ export class CheckoutPage {
   }
 
   async getOrderNumber() {
-    const element = await this.page.locator(
+    const element = this.page.locator(
       "[data-testid=complete-checkout-summary] >> strong",
     )
     return element.innerText()
@@ -409,14 +409,10 @@ export class CheckoutPage {
     shipment?: number
     value: boolean
   }) {
-    const element = await this.page.isChecked(
+    const element = this.page.locator(
       `[data-testid=shipments-container] >> nth=${shipment} >> [data-testid=shipping-methods-container] >> nth=${index} >> input[type=radio]`,
     )
-    if (value) {
-      expect(element).toBeTruthy()
-    } else {
-      expect(element).toBeFalsy()
-    }
+    await expect(element).toBeChecked({ checked: value })
   }
 
   async setAddress({
@@ -580,8 +576,7 @@ export class CheckoutPage {
   async checkCartLink(link: string) {
     const element = this.page.locator("[data-testid=edit-cart-link] a").first()
     await expect(element).toBeVisible()
-    const href = await element.getAttribute("href")
-    expect(href).toBe(link)
+    await expect(element).toHaveAttribute("href", link)
   }
 
   async clickReturnToCartLink() {
@@ -589,9 +584,7 @@ export class CheckoutPage {
   }
 
   async checkContinueShoppingLink(status: "present" | "not_present") {
-    const element = await this.page.locator(
-      "[data-testid=button-continue-to-shop]",
-    )
+    const element = this.page.locator("[data-testid=button-continue-to-shop]")
     await expect(element).toHaveCount(status === "not_present" ? 0 : 1)
   }
 
@@ -600,7 +593,7 @@ export class CheckoutPage {
   }
 
   async checkBadgeIndex(step: SingleStepEnum, value: string) {
-    const element = await this.page.locator(
+    const element = this.page.locator(
       `[data-testid=step-header-badge]:near(:text("${step}")) >> text=${value}`,
     )
     await expect(element).toHaveCount(1)
@@ -667,7 +660,7 @@ export class CheckoutPage {
     if (text) {
       await expect(element).toContainText(text)
     } else {
-      expect(element).toBeHidden()
+      await expect(element).toBeHidden()
     }
   }
 
@@ -688,22 +681,21 @@ export class CheckoutPage {
   }
 
   async checkLineItemAmount(text?: string) {
-    const element = await this.page.getByTestId("line-item-amount")
-    if (text !== undefined) {
-      await element.waitFor({ state: "visible" })
-      await expect(await element.innerText()).toBe(text)
-    } else {
+    const element = this.page.getByTestId("line-item-amount")
+    if (text === undefined) {
       await expect(element).toHaveCount(0)
+      return
     }
+    await expect(element).toHaveText(text)
   }
 
   async checkDiscountAmount(text?: string) {
-    const element = await this.page.getByTestId("discount-amount")
-    if (text !== undefined) {
-      await element.waitFor({ state: "visible" })
-    } else {
+    const element = this.page.getByTestId("discount-amount")
+    if (text === undefined) {
       await expect(element).toHaveCount(0)
+      return
     }
+    await expect(element).toHaveText(text)
   }
 
   async checkGiftCardAmount(text?: string) {
@@ -759,7 +751,7 @@ export class CheckoutPage {
     type: SingleStepEnum
     status: "enabled" | "disabled" | "not_present"
   }) {
-    const element = await this.page.locator(
+    const element = this.page.locator(
       `[data-testid=save-${type.toLocaleLowerCase()}-button]`,
     )
     if (status === "not_present") {
@@ -894,28 +886,30 @@ export class CheckoutPage {
         }
 
         const button = klarnaIframe.getByRole("button", { name: "Continue" })
-        if (await button.isVisible()) {
-          button.click()
-        }
-
-        const pagePromise = await this.page
+        // Register the popup listener before the click that opens it: awaiting
+        // the click first lets the event fire with nothing listening for it.
+        const popupPromise = this.page
           .waitForEvent("popup", { timeout: 5000 })
-          .then((pagePromise) => {
-            return pagePromise
+          .catch((error) => {
+            console.log(`no popup ${error}`)
+            return undefined
           })
-          .catch((error) => console.log(`no popup ${error}`))
+        if (await button.isVisible()) {
+          await button.click()
+        }
+        const popup = await popupPromise
 
-        if (pagePromise !== undefined) {
-          await pagePromise.getByText("Demo Bank").click()
-          await pagePromise.getByLabel("Kontonummer").click()
-          await pagePromise.getByLabel("Kontonummer").fill("12345678")
-          await pagePromise.getByLabel("PIN").click()
-          await pagePromise.getByLabel("PIN").fill("1234")
-          await pagePromise.waitForTimeout(2000)
-          await pagePromise.getByRole("button", { name: "Weiter" }).click()
-          await pagePromise.getByLabel("TAN").click()
-          await pagePromise.getByLabel("TAN").fill("12345")
-          await pagePromise.getByRole("button", { name: "Weiter" }).click()
+        if (popup !== undefined) {
+          await popup.getByText("Demo Bank").click()
+          await popup.getByLabel("Kontonummer").click()
+          await popup.getByLabel("Kontonummer").fill("12345678")
+          await popup.getByLabel("PIN").click()
+          await popup.getByLabel("PIN").fill("1234")
+          await popup.waitForTimeout(2000)
+          await popup.getByRole("button", { name: "Weiter" }).click()
+          await popup.getByLabel("TAN").click()
+          await popup.getByLabel("TAN").fill("12345")
+          await popup.getByRole("button", { name: "Weiter" }).click()
         }
         break
       }
@@ -1034,28 +1028,31 @@ export class CheckoutPage {
               await confirmAndPay.click()
             }
             const button = klarnaIframe.getByRole("button", { name: "Weiter" })
-            if (await button.isVisible()) {
-              button.click()
-            }
-
-            const pagePromise = await this.page
+            // Register the popup listener before the click that opens it:
+            // awaiting the click first lets the event fire with nothing
+            // listening for it.
+            const popupPromise = this.page
               .waitForEvent("popup", { timeout: 5000 })
-              .then((pagePromise) => {
-                return pagePromise
+              .catch((error) => {
+                console.log(`no popup ${error}`)
+                return undefined
               })
-              .catch((error) => console.log(`no popup ${error}`))
+            if (await button.isVisible()) {
+              await button.click()
+            }
+            const popup = await popupPromise
 
-            if (pagePromise !== undefined) {
-              await pagePromise.getByText("Demo Bank").click()
-              await pagePromise.getByLabel("Kontonummer").click()
-              await pagePromise.getByLabel("Kontonummer").fill("12345678")
-              await pagePromise.getByLabel("PIN").click()
-              await pagePromise.getByLabel("PIN").fill("1234")
-              await pagePromise.waitForTimeout(2000)
-              await pagePromise.getByRole("button", { name: "Weiter" }).click()
-              await pagePromise.getByLabel("TAN").click()
-              await pagePromise.getByLabel("TAN").fill("12345")
-              await pagePromise.getByRole("button", { name: "Weiter" }).click()
+            if (popup !== undefined) {
+              await popup.getByText("Demo Bank").click()
+              await popup.getByLabel("Kontonummer").click()
+              await popup.getByLabel("Kontonummer").fill("12345678")
+              await popup.getByLabel("PIN").click()
+              await popup.getByLabel("PIN").fill("1234")
+              await popup.waitForTimeout(2000)
+              await popup.getByRole("button", { name: "Weiter" }).click()
+              await popup.getByLabel("TAN").click()
+              await popup.getByLabel("TAN").fill("12345")
+              await popup.getByRole("button", { name: "Weiter" }).click()
             }
             break
           }

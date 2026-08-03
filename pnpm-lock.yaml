@@ -14,12 +14,9 @@ importers:
       '@adyen/adyen-web':
         specifier: 6.28.0
         version: 6.28.0
-      '@commercelayer/core':
-        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core@796
-        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core@796
-      '@commercelayer/hooks':
-        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/hooks@796
-        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/hooks@796(react@19.2.7)
+      '@commercelayer/core-components':
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f08
+        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f08
       '@commercelayer/js-auth':
         specifier: ^7.4.2
         version: 7.4.2
@@ -27,8 +24,11 @@ importers:
         specifier: ^2.8.4
         version: 2.8.4
       '@commercelayer/react-components':
-        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@796
-        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@796(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@4603f08
+        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@4603f08(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@commercelayer/react-hooks-comcomponents':
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08
+        version: '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08(react@19.2.7)'
       '@commercelayer/sdk':
         specifier: ^7.12.1
         version: 7.12.1
@@ -116,22 +116,22 @@ importers:
         version: 1.61.1
       '@semantic-release/changelog':
         specifier: ^6.0.3
-        version: 6.0.3(semantic-release@25.0.5(typescript@5.9.3))
+        version: 6.0.3(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))
       '@semantic-release/commit-analyzer':
         specifier: ^13.0.1
-        version: 13.0.1(semantic-release@25.0.5(typescript@5.9.3))
+        version: 13.0.1(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@semantic-release/git':
         specifier: ^10.0.1
-        version: 10.0.1(semantic-release@25.0.5(typescript@5.9.3))
+        version: 10.0.1(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@semantic-release/github':
         specifier: ^12.0.8
-        version: 12.0.8(semantic-release@25.0.5(typescript@5.9.3))
+        version: 12.0.8(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@semantic-release/npm':
         specifier: ^13.1.5
-        version: 13.1.5(semantic-release@25.0.5(typescript@5.9.3))
+        version: 13.1.5(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))
       '@semantic-release/release-notes-generator':
         specifier: ^14.1.1
-        version: 14.1.1(semantic-release@25.0.5(typescript@5.9.3))
+        version: 14.1.1(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@types/react':
         specifier: ^19.2.17
         version: 19.2.17
@@ -146,10 +146,10 @@ importers:
         version: 19.6.6
       semantic-release:
         specifier: ^25.0.5
-        version: 25.0.5(typescript@5.9.3)
+        version: 25.0.5(supports-color@7.2.0)(typescript@5.9.3)
       serve:
         specifier: ^14.2.6
-        version: 14.2.6
+        version: 14.2.6(supports-color@7.2.0)
 
 packages:
 
@@ -168,8 +168,8 @@ packages:
   '@adyen/adyen-web@6.28.0':
     resolution: {integrity: sha512-cCgsUGtRegBMl+8ZKfXt6/M/bnKd4WBfmtbLq74NJbrtOQMo7S+gWBrRGvvVV+VanM2UAmNo6XRHF6Tyhf52Fw==}
 
-  '@adyen/adyen-web@6.41.0':
-    resolution: {integrity: sha512-gun5iVsUGhqAysRwlT995jZArN8aNmZKYhY/xCtSFQJQQfayp1xGlZz3nviikzjlxWph1HPmeb+nw3GYNaTAew==}
+  '@adyen/adyen-web@6.42.0':
+    resolution: {integrity: sha512-LgRG7DukfirCS/sax6UcNt0D5cBIlgrrFbZRvG31ffy4ARZXwMIjZrKm6HuiaSuDtrFlOxmk6pAYQYeXVoc1VQ==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -276,9 +276,6 @@ packages:
   '@braintree/sanitize-url@7.0.4':
     resolution: {integrity: sha512-hPYRrKFoI+nuckPgDJfyYAkybFvheo4usS0Vw0HNAe+fmGBQA5Az37b/yStO284atBoqqdOUhKJ3d9Zw3PQkcQ==}
 
-  '@braintree/uuid@1.0.1':
-    resolution: {integrity: sha512-Tgu5GoODkf4oj4aLlVIapEPEfjitIHrg5ftqY6pa5Ghr4ZUA9XtZIIZ6ZPdP9x8/X0lt/FB8tRq83QuCQCwOrA==}
-
   '@braintree/uuid@2.0.0':
     resolution: {integrity: sha512-4pv311AIfmU57aUh1w0SvtT5g8O+chQmetpMDoeLAGQzGMqp/eQA9YlHLR1/4xt6kpVgUMqG3ooJDijG69HB1Q==}
 
@@ -289,25 +286,13 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@commercelayer/core@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core@796':
-    resolution: {integrity: sha512-o8KDci9E1aN6lJ6w/xA6Cy1GgkAVCX+k7Iw9RDjo7F9EygbxUrKFYYrUIQsmumrVAaK+q9yXmzoZc+C2X3eqFA==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core@796}
-    version: 1.0.0
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f08':
+    resolution: {integrity: sha512-XLG4NIQYzLrd61+qLVR4yfSDOeaxsh7H0CtGTM4CEed+Wcf8KbTEFwfesIYLJp2lzTX0bjQd5/JgxSAcLlCrmA==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f08}
+    version: 5.0.0-beta.1
 
-  '@commercelayer/core@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core@c459b57fba3daa5baa1f07f128dfff9ea6149c12':
-    resolution: {integrity: sha512-o8KDci9E1aN6lJ6w/xA6Cy1GgkAVCX+k7Iw9RDjo7F9EygbxUrKFYYrUIQsmumrVAaK+q9yXmzoZc+C2X3eqFA==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core@c459b57fba3daa5baa1f07f128dfff9ea6149c12}
-    version: 1.0.0
-
-  '@commercelayer/hooks@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/hooks@796':
-    resolution: {integrity: sha512-+BraqWlyvbos5zIvqNd6bXUs+n9Y1KNAwMzbpSTc6Xq77aJH65/P8aLsWgaKnI+pVwHhZnxsXCSfhDzGGzC31w==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/hooks@796}
-    version: 1.0.0
-    peerDependencies:
-      react: '>=19.0.0'
-
-  '@commercelayer/hooks@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/hooks@c459b57fba3daa5baa1f07f128dfff9ea6149c12':
-    resolution: {integrity: sha512-+BraqWlyvbos5zIvqNd6bXUs+n9Y1KNAwMzbpSTc6Xq77aJH65/P8aLsWgaKnI+pVwHhZnxsXCSfhDzGGzC31w==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/hooks@c459b57fba3daa5baa1f07f128dfff9ea6149c12}
-    version: 1.0.0
-    peerDependencies:
-      react: '>=19.0.0'
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6':
+    resolution: {integrity: sha512-XLG4NIQYzLrd61+qLVR4yfSDOeaxsh7H0CtGTM4CEed+Wcf8KbTEFwfesIYLJp2lzTX0bjQd5/JgxSAcLlCrmA==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6}
+    version: 5.0.0-beta.1
 
   '@commercelayer/js-auth@7.4.2':
     resolution: {integrity: sha512-ifRcoAL1R7o5AU5w4bgmSnNMEWXDc11A+yZwAAZMEkAYrrsaud1X/3xmgY1e0yIXK8AAdIiqfW/Rm/4DdWwAQA==}
@@ -317,14 +302,30 @@ packages:
     resolution: {integrity: sha512-ZlgIhQx7vu89ZD3eOCSkCe7kNb5LgEGy0p4Gayi75sxfHfJRXKkoX2NC+nkp2pFosi4SBYhlQFcd/EtzStAQGw==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@796':
-    resolution: {integrity: sha512-sWVAlnv3EgERE5NGLBaLe8nDNf5gWJYMIKiRSlkmtjuq4xUzs9i0+oyX/wwH+unWD0sm0peWLHD9gUcHIN/vNA==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@796}
-    version: 4.29.6
+  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@4603f08':
+    resolution: {integrity: sha512-mwj+HpQJqp0foMn45cy7QQIDNXgP6EKIlQQcwUkwEOi/0i3HfuoNR7hhwk+eWvZ61o+7htF/jxg7LsE9ZL+LIg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@4603f08}
+    version: 5.0.0-beta.1
+    peerDependencies:
+      react: '>=19.0.0'
+
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08':
+    resolution: {integrity: sha512-5N0Wq5P9neOw5OOWMBLMkfNmSZHEMuiS8FYf5PHoG5fNvijM4H7+zcm3ZjjJFhAm6jALh0SOpU66t+oAv7OOWg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08}
+    version: 5.0.0-beta.1
+    peerDependencies:
+      react: '>=19.0.0'
+
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f0853826f24430cf9d6f4d082980858ae7b6':
+    resolution: {integrity: sha512-5N0Wq5P9neOw5OOWMBLMkfNmSZHEMuiS8FYf5PHoG5fNvijM4H7+zcm3ZjjJFhAm6jALh0SOpU66t+oAv7OOWg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f0853826f24430cf9d6f4d082980858ae7b6}
+    version: 5.0.0-beta.1
     peerDependencies:
       react: '>=19.0.0'
 
   '@commercelayer/sdk@7.12.1':
     resolution: {integrity: sha512-TZMPbBtjkrUdToTPrO3lsQvPJRfr/TBreTLMuTYRVWMtpWOjGoAOSRoxmQTktfXCCmVBYyadHsc36a5eW4LOsw==}
+    engines: {node: '>=20'}
+
+  '@commercelayer/sdk@8.0.0-beta.11':
+    resolution: {integrity: sha512-EhbpwW8GOsty1H3/YiEDzPZDKuvoXW9nMbrnkFQ5+sSgEiSkFXDM/tFxImkwagX7PbHKyHHaEBn5SoAPiNBwtw==}
     engines: {node: '>=20'}
 
   '@discoveryjs/json-ext@0.5.7':
@@ -672,8 +673,8 @@ packages:
   '@paypal/fastlane-sdk-loader@1.2.1':
     resolution: {integrity: sha512-+kiVVpXorfmJjFY7keJrkGAlaXnAjQ7THEU9pi1ULJkr8tTb20fi/1NJeImUtbbkfZ7Zbk2mkT07qicLsXY1nw==}
 
-  '@paypal/paypal-js@10.0.0':
-    resolution: {integrity: sha512-IOAA8Ls7A5WXH8vV8Lbh+QTyVsQWbmqzCMvNFmGO/56D+7i5OMXhjzG2Qhz0WHSiVe+IutqJMWPX2dHJXA7Kgw==}
+  '@paypal/paypal-js@10.0.2':
+    resolution: {integrity: sha512-k9UFibQSLgO63ip9t5klAHCOC1OOrZZtD2HnkxGzphfLkEYAIleIGDaS0NuIRB7mgbbzjRi44lQdCCbSm9ebcQ==}
 
   '@playwright/test@1.61.1':
     resolution: {integrity: sha512-8nKv6+0RJSL9FE4jYOEGXnPeM/Hg12qZpmqzZjRh3qM0Y7c3z1mrOTfFLids72RDQYVh9WpLEfR5WdpNX4fkig==}
@@ -775,15 +776,15 @@ packages:
     resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
     engines: {node: '>=18'}
 
-  '@stripe/react-stripe-js@6.8.0':
-    resolution: {integrity: sha512-nRrPkos00CmUeqXHxtJkXmSbl9/6ybGI4jVebzsiA6QaE5A4iw9dn1C4hUx2tBmQQV2e6pm2aLkPYov4hdta2w==}
+  '@stripe/react-stripe-js@6.8.1':
+    resolution: {integrity: sha512-Wzy7KCF8lM819x8rVFSKUr2ofITdX1c/49ceJprJzGhPzHb3fhrcAoEmNQwV5UYRci7YY1joyG8oz3So3JAMRg==}
     peerDependencies:
       '@stripe/stripe-js': '>=9.5.0 <10.0.0'
       react: '>=16.8.0 <20.0.0'
       react-dom: '>=16.8.0 <20.0.0'
 
-  '@stripe/stripe-js@9.12.0':
-    resolution: {integrity: sha512-wCUYZNYo7E/6B3Rv2i/g/Rmj2mTiOX6HEwWYUWUuNUKwEhzTo/SXuQ1IoNo3mknWIHUQyqdakv1Nl2SiYPrCrw==}
+  '@stripe/stripe-js@9.13.0':
+    resolution: {integrity: sha512-/0c72BUgzzVkVTlsw5uBn8x3waTdVJ/PZGfQ6jY1eu6K7olUPf4d9lgDPA9/0sIdsR8j7o3QIG8fOCO6ItcL7A==}
     engines: {node: '>=12.16'}
 
   '@swc/helpers@0.5.15':
@@ -918,8 +919,8 @@ packages:
   '@types/css-font-loading-module@0.0.7':
     resolution: {integrity: sha512-nl09VhutdjINdWyXxHWN/w9zlNCfr60JUqJbd24YXUuCwgeL0TpFSdElCwb6cxfB6ybE19Gjj4g0jsgkXxKv1Q==}
 
-  '@types/googlepay@0.7.10':
-    resolution: {integrity: sha512-ByXjDfxEp87zsjw5cVsNKEeA+AIJYcWwJvRqPu85jO0Lp/FeG67csnf4mqbPaIxmdI6+Khp3v5I0yyjq9MrGhw==}
+  '@types/googlepay@0.7.11':
+    resolution: {integrity: sha512-njLi4oCyqYx4nT1xoZWFDnLtKVbsbZkJTzLO45X5RW3yJTgDFSg2Wj6dnuXx+ZdZa89gBLkfMIbKNnMi5Y2wpw==}
 
   '@types/googlepay@0.7.8':
     resolution: {integrity: sha512-EHl7G7jIeit/Px/fi/Du/19SZDvqrRhy0DjJX40Vzs/97m3sro9mzVyAYNC0pfzpWGDY+zPjtTLEfhV+OYWUcQ==}
@@ -1071,8 +1072,8 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  braintree-web@3.143.0:
-    resolution: {integrity: sha512-09jPd9s9gpLNjAUjUQ02E8TodR/kYcMpJGGZlgLn4EihR7YQh3xeedEPCDrpwRzFI4Q7a6i9LPWkYyVh1Kr8Ow==}
+  braintree-web@3.144.0:
+    resolution: {integrity: sha512-jYQAcqtH12XBN9laa347gkhJZel2q8Hrd3TUa3tc0IFSNwrMK/SN75m3GtRgfCf9AzHr628HcOb9O9vae+lujA==}
 
   bytes@3.0.0:
     resolution: {integrity: sha512-pMhOfFDPiv9t5jjIXkHosWmkSyQbvsgEVNkz0ERHbuLh2T/7j4Mqqpz523Fe8MVY89KC6Sh/QfS2sM+SjgFDcw==}
@@ -1426,8 +1427,8 @@ packages:
     resolution: {integrity: sha512-2kCCtc+JvcZ86IGAz3Z2Y0A1baIz9fL31pH/0S1IqZr9Iwnjq8izfPtrCyQKO6TLMPELLsQMre7VDqeIKCsHkA==}
     engines: {node: '>=18'}
 
-  framebus@6.0.3:
-    resolution: {integrity: sha512-G/N2p+kFZ1xPBge7tbtTq2KcTR1kSKs1rVbTqH//WdtvJSexS33fsTTOq3yfUWvUczqhujyaFc+omawC9YyRBg==}
+  framebus@6.1.0:
+    resolution: {integrity: sha512-duaN1OV9gU0yDeEqiJaHs/130e8KXatX2yxTzBheR8UK1pFgxMUknhFS2FEIJRGbsEiXPTHsXC6+gfvJHvie6w==}
 
   frames-react@1.2.4:
     resolution: {integrity: sha512-W3x2MJ+YLf1AIzGpBOkMQ+dtN+BQZfjkyZZElVu1+3M6lwYPeXgS467S07GJIagfiplGu0XEMT8zqw0qW0sjMQ==}
@@ -2212,8 +2213,8 @@ packages:
     resolution: {integrity: sha512-kA5WQoNVo4t9lNx2kQNFCxKeBl5IbbSNBl1M/tLkw9WCn+hxNBAW5Qh8gdhs63CJnhjJ2zQWFoqPJP2sK1AV5A==}
     engines: {node: '>= 0.6'}
 
-  rapid-form@4.0.4:
-    resolution: {integrity: sha512-w0FvI95jajaBo8nrWk99voDcUv8AIc4RVy0c8dvoJwV9fdwQTUrNo8gWttWKQQt8dMGzY3o4HLdFshtx1gXt6w==}
+  rapid-form@4.2.0:
+    resolution: {integrity: sha512-UXtE4d4RArd7fLkOVePQs3XIf0bNAcqhSxIpaCRtnHNaS6vHyFwyT3Yy4ZmjwFhPH2Wi0rD2XF09adQUKhBimQ==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -2493,8 +2494,8 @@ packages:
     resolution: {integrity: sha512-zFObLMyZeEwzAoKCyu1B91U79K2t7ApXuQfo8OuxwXLDgcKxuwM+YvcbIhm6QWqz7mHUH1TVytR1PwVVjEuMig==}
     engines: {node: '>=14.18'}
 
-  swr@2.4.2:
-    resolution: {integrity: sha512-ej644Y2bvkIajfR32KGeSSdBXQW+ScjGjkybZgSE7kFpk9eGnV44XY9FJylXi+W75pavSX1PVNB57W5EbhGIYw==}
+  swr@2.5.0:
+    resolution: {integrity: sha512-W0GomadRJe9OfzIoRX0kZHhDSaRRfdiOUeH6uazgR05SibBhDNwfdTbhAxmFtObvkf59fFymo22mooKukosvNA==}
     peerDependencies:
       react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -2755,11 +2756,11 @@ snapshots:
       classnames: 2.5.1
       preact: 10.22.1
 
-  '@adyen/adyen-web@6.41.0':
+  '@adyen/adyen-web@6.42.0':
     dependencies:
-      '@paypal/paypal-js': 10.0.0
+      '@paypal/paypal-js': 10.0.2
       '@types/applepayjs': 14.0.9
-      '@types/googlepay': 0.7.10
+      '@types/googlepay': 0.7.11
       classnames: 2.5.1
       preact: 10.29.2
 
@@ -2837,8 +2838,6 @@ snapshots:
 
   '@braintree/sanitize-url@7.0.4': {}
 
-  '@braintree/uuid@1.0.1': {}
-
   '@braintree/uuid@2.0.0': {}
 
   '@braintree/wrap-promise@2.1.0': {}
@@ -2846,27 +2845,15 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@commercelayer/core@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core@796':
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f08':
     dependencies:
       '@commercelayer/js-auth': 7.4.2
-      '@commercelayer/sdk': 7.12.1
+      '@commercelayer/sdk': 8.0.0-beta.11
 
-  '@commercelayer/core@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core@c459b57fba3daa5baa1f07f128dfff9ea6149c12':
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6':
     dependencies:
       '@commercelayer/js-auth': 7.4.2
-      '@commercelayer/sdk': 7.12.1
-
-  '@commercelayer/hooks@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/hooks@796(react@19.2.7)':
-    dependencies:
-      '@commercelayer/core': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core@c459b57fba3daa5baa1f07f128dfff9ea6149c12
-      react: 19.2.7
-      swr: 2.4.2(react@19.2.7)
-
-  '@commercelayer/hooks@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/hooks@c459b57fba3daa5baa1f07f128dfff9ea6149c12(react@19.2.7)':
-    dependencies:
-      '@commercelayer/core': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core@c459b57fba3daa5baa1f07f128dfff9ea6149c12
-      react: 19.2.7
-      swr: 2.4.2(react@19.2.7)
+      '@commercelayer/sdk': 8.0.0-beta.11
 
   '@commercelayer/js-auth@7.4.2': {}
 
@@ -2875,26 +2862,40 @@ snapshots:
       '@commercelayer/js-auth': 7.4.2
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@796(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@4603f08(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
-      '@adyen/adyen-web': 6.41.0
-      '@commercelayer/core': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core@c459b57fba3daa5baa1f07f128dfff9ea6149c12
-      '@commercelayer/hooks': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/hooks@c459b57fba3daa5baa1f07f128dfff9ea6149c12(react@19.2.7)
+      '@adyen/adyen-web': 6.42.0
+      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6
       '@commercelayer/organization-config': 2.8.4
-      '@commercelayer/sdk': 7.12.1
-      '@stripe/react-stripe-js': 6.8.0(@stripe/stripe-js@9.12.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@stripe/stripe-js': 9.12.0
+      '@commercelayer/react-hooks-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f0853826f24430cf9d6f4d082980858ae7b6(react@19.2.7)
+      '@commercelayer/sdk': 8.0.0-beta.11
+      '@stripe/react-stripe-js': 6.8.1(@stripe/stripe-js@9.13.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@stripe/stripe-js': 9.13.0
       '@tanstack/react-table': 8.21.3(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@types/iframe-resizer': 4.0.0
-      braintree-web: 3.143.0
+      braintree-web: 3.144.0
       frames-react: 1.2.4(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       iframe-resizer: 4.4.5
-      rapid-form: 4.0.4(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      rapid-form: 4.2.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react: 19.2.7
     transitivePeerDependencies:
       - react-dom
 
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08(react@19.2.7)':
+    dependencies:
+      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6
+      react: 19.2.7
+      swr: 2.5.0(react@19.2.7)
+
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f0853826f24430cf9d6f4d082980858ae7b6(react@19.2.7)':
+    dependencies:
+      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6
+      react: 19.2.7
+      swr: 2.5.0(react@19.2.7)
+
   '@commercelayer/sdk@7.12.1': {}
+
+  '@commercelayer/sdk@8.0.0-beta.11': {}
 
   '@discoveryjs/json-ext@0.5.7': {}
 
@@ -3196,7 +3197,7 @@ snapshots:
       envify: 4.1.0
       typescript: 4.9.5
 
-  '@paypal/paypal-js@10.0.0':
+  '@paypal/paypal-js@10.0.2':
     dependencies:
       promise-polyfill: 8.3.0
 
@@ -3241,25 +3242,25 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@semantic-release/changelog@6.0.3(semantic-release@25.0.5(typescript@5.9.3))':
+  '@semantic-release/changelog@6.0.3(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))':
     dependencies:
       '@semantic-release/error': 3.0.0
       aggregate-error: 3.1.0
       fs-extra: 11.3.5
       lodash: 4.18.1
-      semantic-release: 25.0.5(typescript@5.9.3)
+      semantic-release: 25.0.5(supports-color@7.2.0)(typescript@5.9.3)
 
-  '@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.5(typescript@5.9.3))':
+  '@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)':
     dependencies:
       conventional-changelog-angular: 8.3.1
       conventional-changelog-writer: 8.4.0
       conventional-commits-filter: 5.0.0
       conventional-commits-parser: 6.4.0
-      debug: 4.4.3
-      import-from-esm: 2.0.0
+      debug: 4.4.3(supports-color@7.2.0)
+      import-from-esm: 2.0.0(supports-color@7.2.0)
       lodash-es: 4.18.1
       micromatch: 4.0.8
-      semantic-release: 25.0.5(typescript@5.9.3)
+      semantic-release: 25.0.5(supports-color@7.2.0)(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -3267,21 +3268,21 @@ snapshots:
 
   '@semantic-release/error@4.0.0': {}
 
-  '@semantic-release/git@10.0.1(semantic-release@25.0.5(typescript@5.9.3))':
+  '@semantic-release/git@10.0.1(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)':
     dependencies:
       '@semantic-release/error': 3.0.0
       aggregate-error: 3.1.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
       dir-glob: 3.0.1
       execa: 5.1.1
       lodash: 4.18.1
       micromatch: 4.0.8
       p-reduce: 2.1.0
-      semantic-release: 25.0.5(typescript@5.9.3)
+      semantic-release: 25.0.5(supports-color@7.2.0)(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
 
-  '@semantic-release/github@12.0.8(semantic-release@25.0.5(typescript@5.9.3))':
+  '@semantic-release/github@12.0.8(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)':
     dependencies:
       '@octokit/core': 7.0.6
       '@octokit/plugin-paginate-rest': 14.0.0(@octokit/core@7.0.6)
@@ -3289,22 +3290,22 @@ snapshots:
       '@octokit/plugin-throttling': 11.0.3(@octokit/core@7.0.6)
       '@semantic-release/error': 4.0.0
       aggregate-error: 5.0.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
       dir-glob: 3.0.1
-      http-proxy-agent: 9.0.0
-      https-proxy-agent: 9.0.0
+      http-proxy-agent: 9.0.0(supports-color@7.2.0)
+      https-proxy-agent: 9.0.0(supports-color@7.2.0)
       issue-parser: 7.0.2
       lodash-es: 4.18.1
       mime: 4.1.0
       p-filter: 4.1.0
-      semantic-release: 25.0.5(typescript@5.9.3)
+      semantic-release: 25.0.5(supports-color@7.2.0)(typescript@5.9.3)
       tinyglobby: 0.2.17
       undici: 7.27.1
       url-join: 5.0.0
     transitivePeerDependencies:
       - supports-color
 
-  '@semantic-release/npm@13.1.5(semantic-release@25.0.5(typescript@5.9.3))':
+  '@semantic-release/npm@13.1.5(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))':
     dependencies:
       '@actions/core': 3.0.1
       '@semantic-release/error': 4.0.0
@@ -3319,21 +3320,21 @@ snapshots:
       rc: 1.2.8
       read-pkg: 10.1.0
       registry-auth-token: 5.1.1
-      semantic-release: 25.0.5(typescript@5.9.3)
+      semantic-release: 25.0.5(supports-color@7.2.0)(typescript@5.9.3)
       semver: 7.8.1
       tempy: 3.2.0
 
-  '@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.5(typescript@5.9.3))':
+  '@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)':
     dependencies:
       conventional-changelog-angular: 8.3.1
       conventional-changelog-writer: 8.4.0
       conventional-commits-filter: 5.0.0
       conventional-commits-parser: 6.4.0
-      debug: 4.4.3
-      import-from-esm: 2.0.0
+      debug: 4.4.3(supports-color@7.2.0)
+      import-from-esm: 2.0.0(supports-color@7.2.0)
       lodash-es: 4.18.1
       read-package-up: 11.0.0
-      semantic-release: 25.0.5(typescript@5.9.3)
+      semantic-release: 25.0.5(supports-color@7.2.0)(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -3343,14 +3344,14 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
-  '@stripe/react-stripe-js@6.8.0(@stripe/stripe-js@9.12.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@stripe/react-stripe-js@6.8.1(@stripe/stripe-js@9.13.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
-      '@stripe/stripe-js': 9.12.0
+      '@stripe/stripe-js': 9.13.0
       prop-types: 15.8.1
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
 
-  '@stripe/stripe-js@9.12.0': {}
+  '@stripe/stripe-js@9.13.0': {}
 
   '@swc/helpers@0.5.15':
     dependencies:
@@ -3458,7 +3459,7 @@ snapshots:
 
   '@types/css-font-loading-module@0.0.7': {}
 
-  '@types/googlepay@0.7.10': {}
+  '@types/googlepay@0.7.11': {}
 
   '@types/googlepay@0.7.8': {}
 
@@ -3595,7 +3596,7 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  braintree-web@3.143.0:
+  braintree-web@3.144.0:
     dependencies:
       '@braintree/asset-loader': 2.0.3
       '@braintree/browser-detection': 2.1.0
@@ -3608,7 +3609,7 @@ snapshots:
       '@paypal/fastlane-sdk-loader': 1.2.1
       card-validator: 10.0.3
       credit-card-type: 10.2.0
-      framebus: 6.0.3
+      framebus: 6.1.0
       inject-stylesheet: 7.0.0
       promise-polyfill: 8.2.3
       restricted-input: 4.0.3
@@ -3718,11 +3719,11 @@ snapshots:
     dependencies:
       mime-db: 1.54.0
 
-  compression@1.8.1:
+  compression@1.8.1(supports-color@7.2.0):
     dependencies:
       bytes: 3.1.2
       compressible: 2.0.18
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@7.2.0)
       negotiator: 0.6.4
       on-headers: 1.1.0
       safe-buffer: 5.2.1
@@ -3795,13 +3796,17 @@ snapshots:
 
   debounce@1.2.1: {}
 
-  debug@2.6.9:
+  debug@2.6.9(supports-color@7.2.0):
     dependencies:
       ms: 2.0.0
+    optionalDependencies:
+      supports-color: 7.2.0
 
-  debug@4.4.3:
+  debug@4.4.3(supports-color@7.2.0):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 7.2.0
 
   deep-extend@0.6.0: {}
 
@@ -3942,9 +3947,9 @@ snapshots:
       semver-regex: 4.0.5
       super-regex: 1.1.0
 
-  framebus@6.0.3:
+  framebus@6.1.0:
     dependencies:
-      '@braintree/uuid': 1.0.1
+      '@braintree/uuid': 2.0.0
 
   frames-react@1.2.4(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
@@ -4029,17 +4034,17 @@ snapshots:
     dependencies:
       void-elements: 3.1.0
 
-  http-proxy-agent@9.0.0:
+  http-proxy-agent@9.0.0(supports-color@7.2.0):
     dependencies:
       agent-base: 9.0.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
     transitivePeerDependencies:
       - supports-color
 
-  https-proxy-agent@9.0.0:
+  https-proxy-agent@9.0.0(supports-color@7.2.0):
     dependencies:
       agent-base: 9.0.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -4064,9 +4069,9 @@ snapshots:
       parent-module: 1.0.1
       resolve-from: 4.0.0
 
-  import-from-esm@2.0.0:
+  import-from-esm@2.0.0(supports-color@7.2.0):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
       import-meta-resolve: 4.2.0
     transitivePeerDependencies:
       - supports-color
@@ -4533,7 +4538,7 @@ snapshots:
 
   range-parser@1.2.0: {}
 
-  rapid-form@4.0.4(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+  rapid-form@4.2.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
@@ -4674,16 +4679,16 @@ snapshots:
 
   scheduler@0.27.0: {}
 
-  semantic-release@25.0.5(typescript@5.9.3):
+  semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3):
     dependencies:
-      '@semantic-release/commit-analyzer': 13.0.1(semantic-release@25.0.5(typescript@5.9.3))
+      '@semantic-release/commit-analyzer': 13.0.1(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@semantic-release/error': 4.0.0
-      '@semantic-release/github': 12.0.8(semantic-release@25.0.5(typescript@5.9.3))
-      '@semantic-release/npm': 13.1.5(semantic-release@25.0.5(typescript@5.9.3))
-      '@semantic-release/release-notes-generator': 14.1.1(semantic-release@25.0.5(typescript@5.9.3))
+      '@semantic-release/github': 12.0.8(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
+      '@semantic-release/npm': 13.1.5(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))
+      '@semantic-release/release-notes-generator': 14.1.1(semantic-release@25.0.5(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       aggregate-error: 5.0.0
       cosmiconfig: 9.0.1(typescript@5.9.3)
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
       env-ci: 11.2.0
       execa: 9.6.1
       figures: 6.1.0
@@ -4692,7 +4697,7 @@ snapshots:
       git-log-parser: 1.2.1
       hook-std: 4.0.0
       hosted-git-info: 9.0.3
-      import-from-esm: 2.0.0
+      import-from-esm: 2.0.0(supports-color@7.2.0)
       lodash-es: 4.18.1
       marked: 15.0.12
       marked-terminal: 7.3.0(marked@15.0.12)
@@ -4722,7 +4727,7 @@ snapshots:
       path-to-regexp: 3.3.0
       range-parser: 1.2.0
 
-  serve@14.2.6:
+  serve@14.2.6(supports-color@7.2.0):
     dependencies:
       '@zeit/schemas': 2.36.0
       ajv: 8.18.0
@@ -4731,7 +4736,7 @@ snapshots:
       chalk: 5.0.1
       chalk-template: 0.4.0
       clipboardy: 3.0.0
-      compression: 1.8.1
+      compression: 1.8.1(supports-color@7.2.0)
       is-port-reachable: 4.0.0
       serve-handler: 6.1.7
       update-check: 1.5.4
@@ -4889,7 +4894,7 @@ snapshots:
       has-flag: 4.0.0
       supports-color: 7.2.0
 
-  swr@2.4.2(react@19.2.7):
+  swr@2.5.0(react@19.2.7):
     dependencies:
       dequal: 2.0.3
       react: 19.2.7

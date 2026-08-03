@@ -8,6 +8,9 @@ dotenv.config({ path: path.resolve(__dirname, "./.env.local"), quiet: true })
 const config: PlaywrightTestConfig = {
   // Timeout per test
   timeout: 1 * 80 * 1000,
+  // Timeout per web-first assertion. Kept well below the test timeout so a
+  // failed expect() reports expected-vs-actual instead of eating the whole test.
+  expect: { timeout: 10 * 1000 },
   // Test directory
   testDir: "specs/e2e",
   // If a test fails, retry it additional 2 times

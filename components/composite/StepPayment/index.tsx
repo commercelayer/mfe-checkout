@@ -13,7 +13,7 @@ import { AppContext } from "components/data/AppProvider"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
@@ -99,29 +99,38 @@ export const StepPayment: React.FC<{ isPaymentLoading: boolean }> = ({
     }
   }, [autoSelected, hasMultiplePaymentMethods])
 
+  // Both callbacks below are passed to the library <PaymentMethod>, which keys
+  // an effect on them ([autoSelectSinglePaymentMethod, onClick, ...]). They
+  // MUST have stable identities or that effect re-fires every render — with the
+  // coupon/PayPal amount mismatch active that becomes an infinite render loop.
+  // Declared above the early return to satisfy the rules of hooks; appCtx's
+  // setPayment is memoised in AppProvider so [setPayment] stays stable.
+  const setPayment = appCtx?.setPayment
+  const selectPayment = useCallback(
+    ({ payment, order }: PaymentMethodOnClickParams) => {
+      if (
+        // @ts-expect-error available only on adyen
+        order?.payment_source?.payment_methods &&
+        // @ts-expect-error available only on adyen
+        order?.payment_source?.payment_methods?.length > 1
+      ) {
+        setHasMultiplePaymentMethods(true)
+      }
+      setPayment?.({ payment: payment as PaymentMethodType })
+    },
+    [setPayment],
+  )
+  const autoSelectCallback = useCallback(() => {
+    setAutoselected(true)
+  }, [])
+
   // if (!appCtx || !appCtx.hasShippingMethod) {
   // this exit on shippingMethod is causing an error in useEffect to enable button
   if (!appCtx || !accordionCtx) {
     return null
   }
 
-  const { isGuest, isPaymentRequired, setPayment, hasSubscriptions } = appCtx
-
-  const selectPayment = ({ payment, order }: PaymentMethodOnClickParams) => {
-    if (
-      // @ts-expect-error available only on adyen
-      order?.payment_source?.payment_methods &&
-      // @ts-expect-error available only on adyen
-      order?.payment_source?.payment_methods?.length > 1
-    ) {
-      setHasMultiplePaymentMethods(true)
-    }
-    setPayment({ payment: payment as PaymentMethodType })
-  }
-
-  const autoSelectCallback = () => {
-    setAutoselected(true)
-  }
+  const { isGuest, isPaymentRequired, hasSubscriptions } = appCtx
 
   return (
     <StepContainer

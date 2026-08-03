@@ -212,7 +212,7 @@ export function evaluateShippingToggle({
   shippingCountryCodeLock,
 }: EvaluateConditionsProps): ShippingToggleProps {
   if (
-    !!shippingCountryCodeLock &&
+    shippingCountryCodeLock &&
     countryCode &&
     countryCode !== shippingCountryCodeLock
   ) {
