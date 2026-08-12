@@ -6,6 +6,7 @@ settings:
 
 overrides:
   postcss: 8.5.15
+  '@commercelayer/sdk': 8.0.0-beta.11
 
 importers:
 
@@ -30,8 +31,8 @@ importers:
         specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08
         version: '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08(react@19.2.7)'
       '@commercelayer/sdk':
-        specifier: ^7.12.1
-        version: 7.12.1
+        specifier: 8.0.0-beta.11
+        version: 8.0.0-beta.11
       '@faker-js/faker':
         specifier: ^10.5.0
         version: 10.5.0
@@ -319,10 +320,6 @@ packages:
     version: 5.0.0-beta.1
     peerDependencies:
       react: '>=19.0.0'
-
-  '@commercelayer/sdk@7.12.1':
-    resolution: {integrity: sha512-TZMPbBtjkrUdToTPrO3lsQvPJRfr/TBreTLMuTYRVWMtpWOjGoAOSRoxmQTktfXCCmVBYyadHsc36a5eW4LOsw==}
-    engines: {node: '>=20'}
 
   '@commercelayer/sdk@8.0.0-beta.11':
     resolution: {integrity: sha512-EhbpwW8GOsty1H3/YiEDzPZDKuvoXW9nMbrnkFQ5+sSgEiSkFXDM/tFxImkwagX7PbHKyHHaEBn5SoAPiNBwtw==}
@@ -2892,8 +2889,6 @@ snapshots:
       '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6
       react: 19.2.7
       swr: 2.5.0(react@19.2.7)
-
-  '@commercelayer/sdk@7.12.1': {}
 
   '@commercelayer/sdk@8.0.0-beta.11': {}
 
