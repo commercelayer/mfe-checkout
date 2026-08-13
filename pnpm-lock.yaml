@@ -16,8 +16,8 @@ importers:
         specifier: 6.28.0
         version: 6.28.0
       '@commercelayer/core-components':
-        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f08
-        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f08
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@55e0e03
+        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@55e0e03
       '@commercelayer/js-auth':
         specifier: ^7.4.2
         version: 7.4.2
@@ -25,11 +25,11 @@ importers:
         specifier: ^2.8.4
         version: 2.8.4
       '@commercelayer/react-components':
-        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@4603f08
-        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@4603f08(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@55e0e03
+        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@55e0e03(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@commercelayer/react-hooks-comcomponents':
-        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08
-        version: '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08(react@19.2.7)'
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@55e0e03
+        version: '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@55e0e03(react@19.2.7)'
       '@commercelayer/sdk':
         specifier: 8.0.0-beta.11
         version: 8.0.0-beta.11
@@ -287,12 +287,12 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f08':
-    resolution: {integrity: sha512-XLG4NIQYzLrd61+qLVR4yfSDOeaxsh7H0CtGTM4CEed+Wcf8KbTEFwfesIYLJp2lzTX0bjQd5/JgxSAcLlCrmA==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f08}
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@55e0e03':
+    resolution: {integrity: sha512-XLG4NIQYzLrd61+qLVR4yfSDOeaxsh7H0CtGTM4CEed+Wcf8KbTEFwfesIYLJp2lzTX0bjQd5/JgxSAcLlCrmA==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@55e0e03}
     version: 5.0.0-beta.1
 
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6':
-    resolution: {integrity: sha512-XLG4NIQYzLrd61+qLVR4yfSDOeaxsh7H0CtGTM4CEed+Wcf8KbTEFwfesIYLJp2lzTX0bjQd5/JgxSAcLlCrmA==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6}
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@55e0e030fc4a19e0da2ae7a05eecbec0ed50abdd':
+    resolution: {integrity: sha512-XLG4NIQYzLrd61+qLVR4yfSDOeaxsh7H0CtGTM4CEed+Wcf8KbTEFwfesIYLJp2lzTX0bjQd5/JgxSAcLlCrmA==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@55e0e030fc4a19e0da2ae7a05eecbec0ed50abdd}
     version: 5.0.0-beta.1
 
   '@commercelayer/js-auth@7.4.2':
@@ -303,20 +303,20 @@ packages:
     resolution: {integrity: sha512-ZlgIhQx7vu89ZD3eOCSkCe7kNb5LgEGy0p4Gayi75sxfHfJRXKkoX2NC+nkp2pFosi4SBYhlQFcd/EtzStAQGw==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@4603f08':
-    resolution: {integrity: sha512-mwj+HpQJqp0foMn45cy7QQIDNXgP6EKIlQQcwUkwEOi/0i3HfuoNR7hhwk+eWvZ61o+7htF/jxg7LsE9ZL+LIg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@4603f08}
+  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@55e0e03':
+    resolution: {integrity: sha512-k3jjk5GHep+lglHJobsjY+Zh/OOHEBm+x8fc5KrsjKxByVb8+SPaROY55V/aqxiJ9BeYuNJ+3jpZffc1pIPqTg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@55e0e03}
     version: 5.0.0-beta.1
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08':
-    resolution: {integrity: sha512-5N0Wq5P9neOw5OOWMBLMkfNmSZHEMuiS8FYf5PHoG5fNvijM4H7+zcm3ZjjJFhAm6jALh0SOpU66t+oAv7OOWg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08}
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@55e0e03':
+    resolution: {integrity: sha512-N9gcZfdyDMx77Ca87/8Qt5pLlO/PxYwQWkZ9YH3PCydL0UcmpqZt2nJ+xkWP9GD1VUaBBaIGUoJ1fg3JtyGf8Q==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@55e0e03}
     version: 5.0.0-beta.1
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f0853826f24430cf9d6f4d082980858ae7b6':
-    resolution: {integrity: sha512-5N0Wq5P9neOw5OOWMBLMkfNmSZHEMuiS8FYf5PHoG5fNvijM4H7+zcm3ZjjJFhAm6jALh0SOpU66t+oAv7OOWg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f0853826f24430cf9d6f4d082980858ae7b6}
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@55e0e030fc4a19e0da2ae7a05eecbec0ed50abdd':
+    resolution: {integrity: sha512-N9gcZfdyDMx77Ca87/8Qt5pLlO/PxYwQWkZ9YH3PCydL0UcmpqZt2nJ+xkWP9GD1VUaBBaIGUoJ1fg3JtyGf8Q==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@55e0e030fc4a19e0da2ae7a05eecbec0ed50abdd}
     version: 5.0.0-beta.1
     peerDependencies:
       react: '>=19.0.0'
@@ -2842,12 +2842,12 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f08':
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@55e0e03':
     dependencies:
       '@commercelayer/js-auth': 7.4.2
       '@commercelayer/sdk': 8.0.0-beta.11
 
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6':
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@55e0e030fc4a19e0da2ae7a05eecbec0ed50abdd':
     dependencies:
       '@commercelayer/js-auth': 7.4.2
       '@commercelayer/sdk': 8.0.0-beta.11
@@ -2859,12 +2859,12 @@ snapshots:
       '@commercelayer/js-auth': 7.4.2
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@4603f08(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@55e0e03(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       '@adyen/adyen-web': 6.42.0
-      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6
+      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@55e0e030fc4a19e0da2ae7a05eecbec0ed50abdd
       '@commercelayer/organization-config': 2.8.4
-      '@commercelayer/react-hooks-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f0853826f24430cf9d6f4d082980858ae7b6(react@19.2.7)
+      '@commercelayer/react-hooks-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@55e0e030fc4a19e0da2ae7a05eecbec0ed50abdd(react@19.2.7)
       '@commercelayer/sdk': 8.0.0-beta.11
       '@stripe/react-stripe-js': 6.8.1(@stripe/stripe-js@9.13.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@stripe/stripe-js': 9.13.0
@@ -2878,15 +2878,15 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f08(react@19.2.7)':
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@55e0e03(react@19.2.7)':
     dependencies:
-      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6
+      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@55e0e030fc4a19e0da2ae7a05eecbec0ed50abdd
       react: 19.2.7
       swr: 2.5.0(react@19.2.7)
 
-  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@4603f0853826f24430cf9d6f4d082980858ae7b6(react@19.2.7)':
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@55e0e030fc4a19e0da2ae7a05eecbec0ed50abdd(react@19.2.7)':
     dependencies:
-      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@4603f0853826f24430cf9d6f4d082980858ae7b6
+      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@55e0e030fc4a19e0da2ae7a05eecbec0ed50abdd
       react: 19.2.7
       swr: 2.5.0(react@19.2.7)
 
