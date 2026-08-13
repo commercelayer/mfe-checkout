@@ -600,8 +600,14 @@ export class CheckoutPage {
   }
 
   async setCoupon(code: string) {
-    await this.page.fill("[data-testid=input_giftcard_coupon]", code)
-    await this.page.click("[data-testid=submit_giftcard_coupon]")
+    // Type with real key events rather than fill(): the library's coupon input
+    // is controlled, and a single synthetic input event can leave its state
+    // empty while the DOM shows the code. Submit then silently no-ops.
+    const input = this.page.getByTestId("input_giftcard_coupon")
+    await input.click()
+    await input.pressSequentially(code)
+    await expect(input).toHaveValue(code)
+    await this.page.getByTestId("submit_giftcard_coupon").click()
   }
 
   async checkCouponInput({ presence }: { presence: boolean }) {
