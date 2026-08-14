@@ -10,9 +10,17 @@ interface Props {
 export const PaymentContainer = ({ primaryColor, children }: Props) => {
   const { t } = useTranslation()
 
-  const checkoutReturnUrl = `${
-    window.location.href.split("?")[0]
-  }?paymentReturn=true`
+  // Build from the current URL so nothing else in the query string is lost, but drop
+  // the accessToken: Checkout.com validates success_url/failure_url and rejects a URL
+  // carrying the ~1.4 kB JWT with 422 success_url_invalid / failure_url_invalid. The
+  // return is re-authenticated from the token saved in localStorage instead, and
+  // useSettingsOrInvalid recognises the gateway's own return markers.
+  const checkoutReturnUrl = (() => {
+    const url = new URL(window.location.href)
+    url.searchParams.delete("accessToken")
+    url.searchParams.set("paymentReturn", "true")
+    return url.toString()
+  })()
 
   return (
     <PaymentMethodsContainer
