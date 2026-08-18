@@ -30,9 +30,11 @@ const config: PlaywrightTestConfig = {
   },
 
   use: {
-    // Retry a test if its failing with enabled tracing. This allows you to analyse the DOM, console logs, network traffic etc.
+    // Keep a trace for every failed test so it can be analysed after the fact (DOM,
+    // console logs, network traffic). "retry-with-trace" produced nothing here, because
+    // retries are 0 locally and that mode only traces a retry. Matches the CI config.
     // More information: https://playwright.dev/docs/trace-viewer
-    trace: "retry-with-trace",
+    trace: "retain-on-failure",
     headless: false,
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,

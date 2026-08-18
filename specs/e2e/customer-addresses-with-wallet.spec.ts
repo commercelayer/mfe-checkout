@@ -369,6 +369,27 @@ test.describe("address on wallet and payment with affirm", () => {
 
     await checkoutPage.checkPaymentRecap("Affirm ending in ****", 10000)
   })
+})
+
+test.describe("address on wallet with US market", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      incognito: true,
+      market: "US",
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      customerAddresses: [usAddress],
+    },
+  })
 
   test("use address on wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
@@ -583,6 +604,25 @@ test.describe("two address on wallet", () => {
       type: "billing",
       address: euAddress,
     })
+  })
+})
+
+test.describe("two address on wallet and shipping address on customer", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      customerAddresses: [euAddress, euAddress2],
+    },
   })
 
   test("check shipping address on customer", async ({ checkoutPage }) => {
