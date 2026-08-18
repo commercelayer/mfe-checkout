@@ -392,6 +392,24 @@ pnpm dev
 
 7. Someone will attend to your pull request and provide some feedback.
 
+### Testing a local react-components build
+
+To try changes to [react-components](https://github.com/commercelayer/commercelayer-react-components) without publishing them, point `CL_RC_LOCAL_PATH` at your checkout in `.env.local` and keep a build watcher running:
+
+```bash
+echo "CL_RC_LOCAL_PATH=../commercelayer-react-components" >> .env.local
+pnpm rc:watch   # rebuilds the three packages on every change
+pnpm dev        # prints "react-components: LOCAL -> ..." on startup
+```
+
+`package.json` stays untouched, so deploys keep using the pinned `pkg.pr.new` build. A few things to know:
+
+- **Only works with webpack**, which is what `pnpm dev` uses. Under Turbopack the dev server refuses to start, because it would silently serve the published copy instead.
+- **`pnpm build` fails while the variable is set**, on purpose: a production bundle must never embed a path from your machine. Comment the line out to build.
+- Types come from `../commercelayer-react-components/.../dist/index.d.ts` via `tsconfig.json` whenever that checkout exists next to this repo, independently of the variable.
+
+When the change is ready, push it and run `pnpm rc:bump` to move `package.json` to the new commit (defaults to the local checkout's `HEAD`).
+
 ## Need help?
 
 - Join [Commerce Layer's Discord community](https://discord.gg/commercelayer).

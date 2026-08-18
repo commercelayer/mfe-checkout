@@ -19,6 +19,17 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "paths": {
+      "@commercelayer/core-components": [
+        "../commercelayer-react-components/packages/core-components/dist/index.d.ts"
+      ],
+      "@commercelayer/react-hooks-components": [
+        "../commercelayer-react-components/packages/react-hooks-components/dist/index.d.ts"
+      ],
+      "@commercelayer/react-components": [
+        "../commercelayer-react-components/packages/react-components/dist/index.d.ts"
+      ]
+    },
     "incremental": true
   },
   "include": [

@@ -8,6 +8,8 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "NODE_OPTIONS='--inspect' next dev --webpack",
+    "rc:watch": "node scripts/rc-watch.mjs",
+    "rc:bump": "node scripts/rc-bump.mjs",
     "build": "next build",
     "start": "next start -p $PORT",
     "check": "pnpm biome check components pages",
