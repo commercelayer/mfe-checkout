@@ -16,8 +16,8 @@ importers:
         specifier: 6.28.0
         version: 6.28.0
       '@commercelayer/core-components':
-        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@a155484
-        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@a155484
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@1022c3a
+        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@1022c3a
       '@commercelayer/js-auth':
         specifier: ^7.4.2
         version: 7.4.2
@@ -25,11 +25,11 @@ importers:
         specifier: ^2.8.4
         version: 2.8.4
       '@commercelayer/react-components':
-        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@a155484
-        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@a155484(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@1022c3a
+        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@1022c3a(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@commercelayer/react-hooks-comcomponents':
-        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@a155484
-        version: '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@a155484(react@19.2.7)'
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@1022c3a
+        version: '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@1022c3a(react@19.2.7)'
       '@commercelayer/sdk':
         specifier: 8.0.0-beta.11
         version: 8.0.0-beta.11
@@ -169,8 +169,8 @@ packages:
   '@adyen/adyen-web@6.28.0':
     resolution: {integrity: sha512-cCgsUGtRegBMl+8ZKfXt6/M/bnKd4WBfmtbLq74NJbrtOQMo7S+gWBrRGvvVV+VanM2UAmNo6XRHF6Tyhf52Fw==}
 
-  '@adyen/adyen-web@6.42.0':
-    resolution: {integrity: sha512-LgRG7DukfirCS/sax6UcNt0D5cBIlgrrFbZRvG31ffy4ARZXwMIjZrKm6HuiaSuDtrFlOxmk6pAYQYeXVoc1VQ==}
+  '@adyen/adyen-web@6.43.0':
+    resolution: {integrity: sha512-f0kcqAaXm12drURgoVGjOmUyAsG6HrcD3U/dAlVlwTA2NRTkd8dOgLMMAgpcpMAETJ2EXibgrLm5F1GV7hMvhQ==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -287,36 +287,40 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@a155484':
-    resolution: {integrity: sha512-XLG4NIQYzLrd61+qLVR4yfSDOeaxsh7H0CtGTM4CEed+Wcf8KbTEFwfesIYLJp2lzTX0bjQd5/JgxSAcLlCrmA==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@a155484}
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@1022c3a':
+    resolution: {integrity: sha512-pYLDuLAiEBvGLKCEwIk7nXntgEPfTZxBVYpX1HmNC+YqRHG30OBg9lCLfLDwfhpFxacn4ew/r1kflB1F9aOkwg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@1022c3a}
     version: 5.0.0-beta.1
 
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@a1554842666afdb366636e6f1ffcf4a6013abc74':
-    resolution: {integrity: sha512-XLG4NIQYzLrd61+qLVR4yfSDOeaxsh7H0CtGTM4CEed+Wcf8KbTEFwfesIYLJp2lzTX0bjQd5/JgxSAcLlCrmA==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@a1554842666afdb366636e6f1ffcf4a6013abc74}
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@1022c3a1b45e9feab41f61eaaba728eaaa09fa90':
+    resolution: {integrity: sha512-pYLDuLAiEBvGLKCEwIk7nXntgEPfTZxBVYpX1HmNC+YqRHG30OBg9lCLfLDwfhpFxacn4ew/r1kflB1F9aOkwg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@1022c3a1b45e9feab41f61eaaba728eaaa09fa90}
     version: 5.0.0-beta.1
 
   '@commercelayer/js-auth@7.4.2':
     resolution: {integrity: sha512-ifRcoAL1R7o5AU5w4bgmSnNMEWXDc11A+yZwAAZMEkAYrrsaud1X/3xmgY1e0yIXK8AAdIiqfW/Rm/4DdWwAQA==}
     engines: {node: '>=20.0.0'}
 
+  '@commercelayer/js-auth@8.0.0':
+    resolution: {integrity: sha512-IVu8hF7fzg9vVotBj0eeSWY20/jiKmNkT7DFXHTITTNNCmgotSEyepQfLtZWsoriDhQacYfLyrAKDkXKVI0tQQ==}
+    engines: {node: '>=20.0.0'}
+
   '@commercelayer/organization-config@2.8.4':
     resolution: {integrity: sha512-ZlgIhQx7vu89ZD3eOCSkCe7kNb5LgEGy0p4Gayi75sxfHfJRXKkoX2NC+nkp2pFosi4SBYhlQFcd/EtzStAQGw==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@a155484':
-    resolution: {integrity: sha512-ydSMX1mVfdEiGOGGWb4yqnh/S0usgpHL1AJf+73cB4IzlWNnqWo3xhbiJ4hf/H0tnabeOFpCBlfJrCsTkj8nlQ==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@a155484}
+  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@1022c3a':
+    resolution: {integrity: sha512-TZHwwQG0Eq0Cn/dB3fyIRIKcnhiUri1ki4geb36gZBrgaaPzTVJP8SUwlP5JBBjWQslrMed3JudX+7OmP1mwHg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@1022c3a}
     version: 5.0.0-beta.1
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@a155484':
-    resolution: {integrity: sha512-3wt4bUEdYIC0hZ5ihpHIoR/BIx417di0RQdjauwgX9fhR6I3TRpXtH+Hr/Yw7qQi7/sDAcFQC5CS5dh/2dCX3w==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@a155484}
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@1022c3a':
+    resolution: {integrity: sha512-TbUoG7RAZTLHLApM0CQ83g4N99U6MxeKzfCuDvl+QH2k/6EsiczyvFdCJfZfnRITFfMXgB9EUyy3pVoa280CbQ==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@1022c3a}
     version: 5.0.0-beta.1
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@a1554842666afdb366636e6f1ffcf4a6013abc74':
-    resolution: {integrity: sha512-3wt4bUEdYIC0hZ5ihpHIoR/BIx417di0RQdjauwgX9fhR6I3TRpXtH+Hr/Yw7qQi7/sDAcFQC5CS5dh/2dCX3w==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@a1554842666afdb366636e6f1ffcf4a6013abc74}
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@1022c3a1b45e9feab41f61eaaba728eaaa09fa90':
+    resolution: {integrity: sha512-TbUoG7RAZTLHLApM0CQ83g4N99U6MxeKzfCuDvl+QH2k/6EsiczyvFdCJfZfnRITFfMXgB9EUyy3pVoa280CbQ==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@1022c3a1b45e9feab41f61eaaba728eaaa09fa90}
     version: 5.0.0-beta.1
     peerDependencies:
       react: '>=19.0.0'
@@ -363,6 +367,12 @@ packages:
     peerDependencies:
       react: ^18 || ^19 || ^19.0.0-rc
       react-dom: ^18 || ^19 || ^19.0.0-rc
+
+  '@iframe-resizer/core@5.5.9':
+    resolution: {integrity: sha512-HacDQx81pgHlmY48tRogcX02TOXfvjllJzI+xfVYmvEXhxoViyi9yEobhNQEt8Mq6NmrH1vHhz6FRfQ9uBTsjQ==}
+
+  '@iframe-resizer/parent@5.5.9':
+    resolution: {integrity: sha512-DfNb9KlOf7WyCNOM2xWPGxJfWtqA/gg7sjHvqvD4k6cfpntPXrKfCd3WdOPNKA980urGkhOdM9Ye0unV2gnYYw==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -670,8 +680,8 @@ packages:
   '@paypal/fastlane-sdk-loader@1.2.1':
     resolution: {integrity: sha512-+kiVVpXorfmJjFY7keJrkGAlaXnAjQ7THEU9pi1ULJkr8tTb20fi/1NJeImUtbbkfZ7Zbk2mkT07qicLsXY1nw==}
 
-  '@paypal/paypal-js@10.0.2':
-    resolution: {integrity: sha512-k9UFibQSLgO63ip9t5klAHCOC1OOrZZtD2HnkxGzphfLkEYAIleIGDaS0NuIRB7mgbbzjRi44lQdCCbSm9ebcQ==}
+  '@paypal/paypal-js@10.0.3':
+    resolution: {integrity: sha512-GtY3PID9Ey76fIJBAV8PobIwdH6Nsbm7MZlqFwB+MAPQEtVEwGe1EHrsZpb4AK0iuJNs9E3gaB75kgpFSpAEJQ==}
 
   '@playwright/test@1.61.1':
     resolution: {integrity: sha512-8nKv6+0RJSL9FE4jYOEGXnPeM/Hg12qZpmqzZjRh3qM0Y7c3z1mrOTfFLids72RDQYVh9WpLEfR5WdpNX4fkig==}
@@ -927,9 +937,6 @@ packages:
     peerDependencies:
       '@types/react': '*'
 
-  '@types/iframe-resizer@4.0.0':
-    resolution: {integrity: sha512-RKrT4goNVtqZvf9WPkV0cUcphQWXzLVW1IE4yOIY21c1W+obJJbcHFD1lQu5ncNHm/6TeQSeedVf9bmkx2NaGQ==}
-
   '@types/node@24.13.3':
     resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
 
@@ -1031,6 +1038,9 @@ packages:
 
   async-retry@1.3.3:
     resolution: {integrity: sha512-wfr/jstw9xNi/0teMHrRW7dsz3Lt5ARhYNZ2ewpadnhaIp5mbALhOAP+EAdsC7t4Z6wqsDVv9+W6gm1Dk9mEyw==}
+
+  auto-console-group@1.3.0:
+    resolution: {integrity: sha512-W/G5jy1ZPeVYPyqOVGND7EjbzrsLgRD3s+1QegXfJ7bYlphFxjqG60rviFXWw0d2YCj0Clc7hU5/nTqrBEhBIw==}
 
   babel-plugin-react-compiler@1.0.0:
     resolution: {integrity: sha512-Ixm8tFfoKKIPYdCCKYTsqv+Fd4IJ0DQqMyEimo+pxUOMUR9cVPlwTrFt9Avu+3cb6Zp3mAzl+t1MrG2fxxKsxw==}
@@ -1546,10 +1556,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-
-  iframe-resizer@4.4.5:
-    resolution: {integrity: sha512-U8bCywf/Gh07O69RXo6dXAzTtODQrxaHGHRI7Nt4ipXsuq6EMxVsOP/jjaP43YtXz/ibESS0uSVDN3sOGCzSmw==}
-    engines: {node: '>=0.8.0'}
 
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
@@ -2210,8 +2216,8 @@ packages:
     resolution: {integrity: sha512-kA5WQoNVo4t9lNx2kQNFCxKeBl5IbbSNBl1M/tLkw9WCn+hxNBAW5Qh8gdhs63CJnhjJ2zQWFoqPJP2sK1AV5A==}
     engines: {node: '>= 0.6'}
 
-  rapid-form@4.2.0:
-    resolution: {integrity: sha512-UXtE4d4RArd7fLkOVePQs3XIf0bNAcqhSxIpaCRtnHNaS6vHyFwyT3Yy4ZmjwFhPH2Wi0rD2XF09adQUKhBimQ==}
+  rapid-form@5.0.0:
+    resolution: {integrity: sha512-jb6wXx4yXCgh7pPbewbxogbYzJbi6mjR7Yu+yOIRtwcDIiPtmv3lL1Qj5iYJtBjrdQAac1/HFWRiRsaeNFlqVA==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -2491,8 +2497,8 @@ packages:
     resolution: {integrity: sha512-zFObLMyZeEwzAoKCyu1B91U79K2t7ApXuQfo8OuxwXLDgcKxuwM+YvcbIhm6QWqz7mHUH1TVytR1PwVVjEuMig==}
     engines: {node: '>=14.18'}
 
-  swr@2.5.0:
-    resolution: {integrity: sha512-W0GomadRJe9OfzIoRX0kZHhDSaRRfdiOUeH6uazgR05SibBhDNwfdTbhAxmFtObvkf59fFymo22mooKukosvNA==}
+  swr@2.5.1:
+    resolution: {integrity: sha512-BRw55e8r0B7SpDN20CAzoQAHl7y1yP7/Zt7oqUjMv0vSt2u2Xnkm88Ws+VypbV9BXHQVuSuyVq7zMjO16wSExw==}
     peerDependencies:
       react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -2753,9 +2759,9 @@ snapshots:
       classnames: 2.5.1
       preact: 10.22.1
 
-  '@adyen/adyen-web@6.42.0':
+  '@adyen/adyen-web@6.43.0':
     dependencies:
-      '@paypal/paypal-js': 10.0.2
+      '@paypal/paypal-js': 10.0.3
       '@types/applepayjs': 14.0.9
       '@types/googlepay': 0.7.11
       classnames: 2.5.1
@@ -2842,53 +2848,54 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@a155484':
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@1022c3a':
     dependencies:
-      '@commercelayer/js-auth': 7.4.2
+      '@commercelayer/js-auth': 8.0.0
       '@commercelayer/sdk': 8.0.0-beta.11
 
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@a1554842666afdb366636e6f1ffcf4a6013abc74':
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@1022c3a1b45e9feab41f61eaaba728eaaa09fa90':
     dependencies:
-      '@commercelayer/js-auth': 7.4.2
+      '@commercelayer/js-auth': 8.0.0
       '@commercelayer/sdk': 8.0.0-beta.11
 
   '@commercelayer/js-auth@7.4.2': {}
+
+  '@commercelayer/js-auth@8.0.0': {}
 
   '@commercelayer/organization-config@2.8.4':
     dependencies:
       '@commercelayer/js-auth': 7.4.2
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@a155484(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@1022c3a(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
-      '@adyen/adyen-web': 6.42.0
-      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@a1554842666afdb366636e6f1ffcf4a6013abc74
+      '@adyen/adyen-web': 6.43.0
+      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@1022c3a1b45e9feab41f61eaaba728eaaa09fa90
       '@commercelayer/organization-config': 2.8.4
-      '@commercelayer/react-hooks-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@a1554842666afdb366636e6f1ffcf4a6013abc74(react@19.2.7)
+      '@commercelayer/react-hooks-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@1022c3a1b45e9feab41f61eaaba728eaaa09fa90(react@19.2.7)
       '@commercelayer/sdk': 8.0.0-beta.11
+      '@iframe-resizer/parent': 5.5.9
       '@stripe/react-stripe-js': 6.8.1(@stripe/stripe-js@9.13.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@stripe/stripe-js': 9.13.0
       '@tanstack/react-table': 8.21.3(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@types/iframe-resizer': 4.0.0
       braintree-web: 3.144.0
       frames-react: 1.2.4(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      iframe-resizer: 4.4.5
-      rapid-form: 4.2.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      rapid-form: 5.0.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react: 19.2.7
     transitivePeerDependencies:
       - react-dom
 
-  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@a155484(react@19.2.7)':
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@1022c3a(react@19.2.7)':
     dependencies:
-      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@a1554842666afdb366636e6f1ffcf4a6013abc74
+      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@1022c3a1b45e9feab41f61eaaba728eaaa09fa90
       react: 19.2.7
-      swr: 2.5.0(react@19.2.7)
+      swr: 2.5.1(react@19.2.7)
 
-  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@a1554842666afdb366636e6f1ffcf4a6013abc74(react@19.2.7)':
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@1022c3a1b45e9feab41f61eaaba728eaaa09fa90(react@19.2.7)':
     dependencies:
-      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@a1554842666afdb366636e6f1ffcf4a6013abc74
+      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@1022c3a1b45e9feab41f61eaaba728eaaa09fa90
       react: 19.2.7
-      swr: 2.5.0(react@19.2.7)
+      swr: 2.5.1(react@19.2.7)
 
   '@commercelayer/sdk@8.0.0-beta.11': {}
 
@@ -2935,6 +2942,15 @@ snapshots:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
       use-sync-external-store: 1.6.0(react@19.2.7)
+
+  '@iframe-resizer/core@5.5.9':
+    dependencies:
+      auto-console-group: 1.3.0
+
+  '@iframe-resizer/parent@5.5.9':
+    dependencies:
+      '@iframe-resizer/core': 5.5.9
+      auto-console-group: 1.3.0
 
   '@img/colour@1.1.0':
     optional: true
@@ -3192,7 +3208,7 @@ snapshots:
       envify: 4.1.0
       typescript: 4.9.5
 
-  '@paypal/paypal-js@10.0.2':
+  '@paypal/paypal-js@10.0.3':
     dependencies:
       promise-polyfill: 8.3.0
 
@@ -3463,8 +3479,6 @@ snapshots:
       '@types/react': 19.2.17
       hoist-non-react-statics: 3.3.2
 
-  '@types/iframe-resizer@4.0.0': {}
-
   '@types/node@24.13.3':
     dependencies:
       undici-types: 7.18.2
@@ -3553,6 +3567,8 @@ snapshots:
   async-retry@1.3.3:
     dependencies:
       retry: 0.13.1
+
+  auto-console-group@1.3.0: {}
 
   babel-plugin-react-compiler@1.0.0:
     dependencies:
@@ -4057,8 +4073,6 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  iframe-resizer@4.4.5: {}
-
   import-fresh@3.3.1:
     dependencies:
       parent-module: 1.0.1
@@ -4533,7 +4547,7 @@ snapshots:
 
   range-parser@1.2.0: {}
 
-  rapid-form@4.2.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+  rapid-form@5.0.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
@@ -4889,7 +4903,7 @@ snapshots:
       has-flag: 4.0.0
       supports-color: 7.2.0
 
-  swr@2.5.0(react@19.2.7):
+  swr@2.5.1(react@19.2.7):
     dependencies:
       dequal: 2.0.3
       react: 19.2.7
