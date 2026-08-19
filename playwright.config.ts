@@ -24,7 +24,7 @@ const config: PlaywrightTestConfig = {
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
   webServer: {
     command: "pnpm run dev",
-    port: 4000,
+    port: 3000,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },

@@ -404,6 +404,7 @@ pnpm dev        # prints "react-components: LOCAL -> ..." on startup
 
 `package.json` stays untouched, so deploys keep using the pinned `pkg.pr.new` build. A few things to know:
 
+- **Playwright uses it too**: `pnpm test` starts the same dev server, so e2e runs exercise your local library build.
 - **Only works with webpack**, which is what `pnpm dev` uses. Under Turbopack the dev server refuses to start, because it would silently serve the published copy instead.
 - **`pnpm build` fails while the variable is set**, on purpose: a production bundle must never embed a path from your machine. Comment the line out to build.
 - Types come from `../commercelayer-react-components/.../dist/index.d.ts` via `tsconfig.json` whenever that checkout exists next to this repo, independently of the variable.

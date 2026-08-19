@@ -12,8 +12,23 @@ const shouldAnalyzeBundles = process.env.ANALYZE === "true"
 // @commercelayer/* packages resolve from that checkout's dist/ instead of
 // node_modules. Keep `pnpm rc:watch` running alongside `pnpm dev`.
 // package.json is deliberately untouched, so deploys keep using pkg.pr.new.
-const rcLocalRoot = process.env.CL_RC_LOCAL_PATH
-  ? path.resolve(__dirname, process.env.CL_RC_LOCAL_PATH)
+// Next skips .env.local entirely when NODE_ENV is "test", which is how Playwright runs the
+// dev server — so relying on Next to load this would leave local mode silently off in the
+// one scenario it exists for. Read the file ourselves when the variable is not already set.
+function readLocalPathFromEnvFile() {
+  const envFile = path.join(__dirname, ".env.local")
+  if (!fs.existsSync(envFile)) return undefined
+  const match = fs
+    .readFileSync(envFile, "utf8")
+    .match(/^\s*CL_RC_LOCAL_PATH\s*=\s*(.+?)\s*$/m)
+  return match?.[1].replace(/^["']|["']$/g, "")
+}
+
+const rcLocalPathSetting =
+  process.env.CL_RC_LOCAL_PATH ?? readLocalPathFromEnvFile()
+
+const rcLocalRoot = rcLocalPathSetting
+  ? path.resolve(__dirname, rcLocalPathSetting)
   : undefined
 
 const rcPackages = [

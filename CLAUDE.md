@@ -12,6 +12,12 @@ and `@commercelayer/organization-config` to resolve from this app's
 `package.json` is deliberately left pointing at `pkg.pr.new`; deploys are
 unaffected. Use `pnpm rc:bump [sha]` to move it to a published commit.
 
+Playwright runs the same dev server, so `pnpm test` exercises the local checkout too.
+That is deliberate, and it is easy to miss: `next dev` under Playwright runs with
+`NODE_ENV=test`, and Next skips `.env.local` entirely in that mode, so `next.config.js`
+reads the file itself rather than trusting `process.env`. A run that says nothing about
+LOCAL is testing the published package, not your changes.
+
 If a change to the library does not show up:
 
 1. `pnpm rc:watch` must be running — the alias points at `dist/`, not `src/`.
