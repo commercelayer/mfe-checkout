@@ -10,7 +10,7 @@
     "dev": "NODE_OPTIONS='--inspect' next dev --webpack",
     "rc:watch": "node scripts/rc-watch.mjs",
     "rc:bump": "node scripts/rc-bump.mjs",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start -p $PORT",
     "check": "pnpm biome check components pages",
     "check:fix": "pnpm biome check components pages --write",
@@ -78,7 +78,7 @@
   "dependencies": {
     "@adyen/adyen-web": "6.28.0",
     "@commercelayer/core-components": "https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a7",
-    "@commercelayer/react-hooks-comcomponents": "https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a7",
+    "@commercelayer/react-hooks-components": "https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a7",
     "@commercelayer/react-components": "https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@12e87a7",
     "@commercelayer/js-auth": "^7.4.2",
     "@commercelayer/organization-config": "^2.8.4",

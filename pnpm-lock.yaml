@@ -27,9 +27,9 @@ importers:
       '@commercelayer/react-components':
         specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@12e87a7
         version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@12e87a7(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@commercelayer/react-hooks-comcomponents':
+      '@commercelayer/react-hooks-components':
         specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a7
-        version: '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a7(react@19.2.7)'
+        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a7(react@19.2.7)
       '@commercelayer/sdk':
         specifier: 8.0.0-beta.11
         version: 8.0.0-beta.11
