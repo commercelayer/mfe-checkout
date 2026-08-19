@@ -16,7 +16,7 @@
     "check:fix": "pnpm biome check components pages --write",
     "test": "playwright test",
     "test:debug": "PWDEBUG=1 playwright test",
-    "test:ui": "NEXT_PUBLIC_BASE_PATH=http://localhost:3000 playwright test --ui",
+    "test:ui": "NEXT_PUBLIC_BASE_PATH=http://localhost:4000 playwright test --ui",
     "serve": "serve -l tcp://localhost:$PORT/ -n -s out/dist",
     "clean": "pnpm dlx rimraf --glob **/node_modules **/pnpm-lock.yaml",
     "dep:major": "pnpm dlx npm-check-updates --packageFile '**/package.json' -u",

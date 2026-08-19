@@ -4,6 +4,14 @@ import dotenv from "dotenv"
 
 dotenv.config({ path: path.resolve(__dirname, "./.env.local"), quiet: true })
 
+// Playwright starts its own dev server on this port. It is deliberately not 3000:
+// that one is reserved for a dev server started by hand, and `reuseExistingServer`
+// silently adopts whatever already listens there — a leftover `pnpm serve` is enough
+// to run the whole suite against a stale build without a word of warning.
+// E2E_BASE_PORT still drives playwright.config.ci.ts, which attaches to a server
+// someone else started instead of starting one.
+const E2E_PORT = 4000
+
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
   // Timeout per test
@@ -23,8 +31,8 @@ const config: PlaywrightTestConfig = {
   // Run your local dev server before starting the tests:
   // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
   webServer: {
-    command: "pnpm run dev",
-    port: 3000,
+    command: `PORT=${E2E_PORT} pnpm run dev`,
+    port: E2E_PORT,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
@@ -51,7 +59,7 @@ const config: PlaywrightTestConfig = {
         browserName: "chromium",
         // Any Chromium-specific options.
         viewport: { width: 1200, height: 900 },
-        baseURL: `${process.env.E2E_BASE_PROTOCOL}:${process.env.E2E_BASE_URL}:${process.env.E2E_BASE_PORT}`,
+        baseURL: `${process.env.E2E_BASE_PROTOCOL}://${process.env.E2E_BASE_URL}:${E2E_PORT}`,
         launchOptions: {
           // logger: {
           //   isEnabled: (name, severity) => true,
