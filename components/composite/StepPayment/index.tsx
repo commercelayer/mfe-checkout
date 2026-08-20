@@ -1,6 +1,11 @@
 import "@adyen/adyen-web/styles/adyen.css"
 import {
   type PaymentMethodOnClickParams,
+  PaymentSetting,
+  PaymentSettingGiftCard,
+  PaymentSettingGiftCardList,
+  PaymentSettingGiftCardListItem,
+  PaymentSettingName,
   PaymentSource,
   PaymentSourceBrandIcon,
   PaymentSourceBrandName,
@@ -18,6 +23,7 @@ import { Trans, useTranslation } from "react-i18next"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
+import { CheckoutPaymentSessions } from "./CheckoutPaymentSessions"
 import type { PaymentMethodConfig } from "./PaymentContainer"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 
@@ -36,7 +42,8 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
     return null
   }
 
-  const { hasPaymentMethod, isPaymentRequired, isCreditCard } = appCtx
+  const { hasPaymentMethod, isPaymentRequired, isCreditCard, paymentsModel } =
+    appCtx
 
   const recapText = () => {
     if (!isPaymentRequired) {
@@ -44,6 +51,32 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
     }
     if (!hasPaymentMethod || accordionCtx.status === "edit") {
       return t("stepPayment.methodUnselected")
+    }
+
+    // payment_sessions model. There is no payment source to describe, so the
+    // recap comes from the library's readonly mode — the counterpart of the
+    // <PaymentSource readonly> used just below for the older model. Both the
+    // chosen method and any gift cards appear: an order covered entirely by
+    // gift cards has no method at all.
+    if (paymentsModel === "payment_sessions") {
+      return (
+        <div className="flex flex-col">
+          <PaymentSetting readonly>
+            <PaymentSettingName />
+          </PaymentSetting>
+          <PaymentSettingGiftCard readonly>
+            <PaymentSettingGiftCardList>
+              <PaymentSettingGiftCardListItem>
+                {({ code, formattedAmount }) => (
+                  <span className="text-sm text-gray-500">
+                    {code} {formattedAmount}
+                  </span>
+                )}
+              </PaymentSettingGiftCardListItem>
+            </PaymentSettingGiftCardList>
+          </PaymentSettingGiftCard>
+        </div>
+      )
     }
 
     return (
@@ -126,6 +159,14 @@ export const StepPayment: React.FC<{
     setAutoselected(true)
   }, [])
 
+  // payment_sessions model. The library has already stored the selection and
+  // refetched its own order; this refreshes the app's copy so `hasPaymentMethod`
+  // recomputes and the accordion can move on. Same stability requirement as the
+  // callbacks above.
+  const onPaymentSettingSelect = useCallback(() => {
+    setPayment?.({})
+  }, [setPayment])
+
   // if (!appCtx || !appCtx.hasShippingMethod) {
   // this exit on shippingMethod is causing an error in useEffect to enable button
   if (!appCtx || !accordionCtx) {
@@ -146,16 +187,22 @@ export const StepPayment: React.FC<{
           {accordionCtx.isActive && (
             <div>
               {isPaymentRequired ? (
-                isGuest ? (
-                  <CheckoutPayment
-                    paymentConfig={paymentConfig}
-                    isPaymentLoading={isPaymentLoading}
-                    selectPayment={selectPayment}
-                    autoSelectCallback={autoSelectCallback}
-                    hasTitle={hasTitle}
-                  />
-                ) : (
-                  <>
+                <>
+                  {/* Both payment models are mounted together. Each library
+                      tree reads the order and renders nothing when it is not
+                      on its own model, so there is no conditional to keep in
+                      sync here — and none of the older, guest/customer
+                      branching applies to the newer model. */}
+                  <CheckoutPaymentSessions onSelect={onPaymentSettingSelect} />
+                  {isGuest ? (
+                    <CheckoutPayment
+                      paymentConfig={paymentConfig}
+                      isPaymentLoading={isPaymentLoading}
+                      selectPayment={selectPayment}
+                      autoSelectCallback={autoSelectCallback}
+                      hasTitle={hasTitle}
+                    />
+                  ) : (
                     <CheckoutCustomerPayment
                       paymentConfig={paymentConfig}
                       isPaymentLoading={isPaymentLoading}
@@ -164,8 +211,8 @@ export const StepPayment: React.FC<{
                       hasTitle={hasTitle}
                       hasSubscriptions={hasSubscriptions}
                     />
-                  </>
-                )
+                  )}
+                </>
               ) : (
                 <p className="text-sm text-gray-400">
                   {t("stepPayment.amountZero")}
