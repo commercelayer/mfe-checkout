@@ -108,6 +108,11 @@ let nextConfig = {
   // Mirrored across both bundlers: `turbopack` (Next 16 default) and `webpack`
   // (used when building with the `--webpack` flag).
   turbopack: {
+    // LOCAL DEV ONLY — remove before merging.
+    // react-components is linked from a sibling checkout, and Turbopack will
+    // not traverse a symlink leaving the project directory: without this the
+    // build fails with module-not-found across the whole library.
+    root: path.resolve(__dirname, ".."),
     resolveAlias: {
       react: "./node_modules/react",
       "react-dom": "./node_modules/react-dom",
