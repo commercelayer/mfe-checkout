@@ -9,8 +9,8 @@ import type { DataLayerItemProps, DataLayerProps } from "./typings"
 
 interface GTMProviderData {
   fireAddShippingInfo: (order: Order) => void
-  fireAddPaymentInfo: () => void
-  firePurchase: () => void
+  fireAddPaymentInfo: () => Promise<void>
+  firePurchase: () => Promise<void>
 }
 
 export const GTMContext = createContext<GTMProviderData | null>(null)
@@ -44,8 +44,6 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   if (!gtmId || !ctx) {
     return <>{children}</>
   }
-
-  const { order } = ctx
 
   const pushDataLayer = ({ eventName, dataLayer }: DataLayerProps) => {
     try {
@@ -115,7 +113,12 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const fireAddPaymentInfo = () => {
+  const fireAddPaymentInfo = async () => {
+    // The order must be read at call time: this event can be fired right after
+    // mount (redirect back from an external payment gateway), when the order
+    // state is not committed yet.
+    const order = await ctx.getOrderFromRef()
+
     const lineItems = order?.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
@@ -134,7 +137,9 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const firePurchase = () => {
+  const firePurchase = async () => {
+    const order = await ctx.getOrderFromRef()
+
     const lineItems = order?.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
