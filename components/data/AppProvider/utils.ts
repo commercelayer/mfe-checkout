@@ -1,3 +1,7 @@
+import {
+  getPaymentsModel,
+  type PaymentsModel,
+} from "@commercelayer/core-components"
 import type {
   Address,
   AdyenPayment,
@@ -14,7 +18,6 @@ import type {
   WireTransfer,
 } from "@commercelayer/sdk"
 import type { CommerceLayerBundle } from "@commercelayer/sdk/bundle"
-
 import type { AppStateData } from "components/data/AppProvider"
 
 export type LineItemType =
@@ -84,6 +87,7 @@ export interface FetchOrderByIdResponse {
   returnUrl: NullableType<string>
   cartUrl: NullableType<string>
   isCreditCard: boolean
+  paymentsModel: PaymentsModel
   taxIncluded: NullableType<boolean>
   shippingMethodName?: string
   hasSubscriptions: boolean
@@ -259,6 +263,10 @@ export const fetchOrder = (cl: CommerceLayerBundle, orderId: string) => {
         "tax_included",
         "requires_billing_info",
         "total_amount_with_taxes_float",
+        // Needed in cents by the library: the gift card deduction and the
+        // "anything left to pay" derivation work in cents, and an order fetched
+        // without this reads as free — which used to hide the payment step.
+        "total_amount_with_taxes_cents",
         "language_code",
         "subscription_created_at",
         "shipping_address",
@@ -269,6 +277,11 @@ export const fetchOrder = (cl: CommerceLayerBundle, orderId: string) => {
         "customer",
         "line_items",
         "payment_status",
+        // payment_sessions model. `available_payment_settings` is what tells the
+        // two models apart — an order that was never asked for it looks exactly
+        // like an order on the older model.
+        "available_payment_settings",
+        "payment_sessions",
         // "expires_at",
       ],
       shipments: ["shipping_method", "available_shipping_methods"],
@@ -288,6 +301,11 @@ export const fetchOrder = (cl: CommerceLayerBundle, orderId: string) => {
       "customer.customer_addresses",
       "customer.customer_addresses.address",
       "line_items",
+      // payment_sessions model: the setting is how a selection is read back,
+      // the authorization is how a live session is told from a burnt one.
+      "available_payment_settings",
+      "payment_sessions.payment_setting",
+      "payment_sessions.payment_authorization",
     ],
   })
 }
@@ -374,8 +392,22 @@ export function checkPaymentMethod(order: Order) {
   const paymentSource: PaymentSourceType | undefined =
     order.payment_source as PaymentSourceType
 
+  const paymentsModel = getPaymentsModel(order)
+
   let hasPaymentMethod = Boolean(paymentSource?.payment_response?.source)
-  if (
+
+  if (paymentsModel === "payment_sessions") {
+    // There is no payment source on this model. The shopper has chosen when a
+    // Payment Session exists that is not carrying a failed authorization —
+    // exactly what the library treats as the current selection.
+    hasPaymentMethod = (order.payment_sessions ?? []).some((session) => {
+      const status = session.payment_authorization?.status
+      return (
+        status == null ||
+        !["declined", "failed", "canceled", "expired"].includes(status)
+      )
+    })
+  } else if (
     paymentSource?.type === "checkout_com_payments" &&
     !paymentSource?.payment_response?.approved
   ) {
@@ -395,6 +427,7 @@ export function checkPaymentMethod(order: Order) {
     hasPaymentMethod,
     isPaymentRequired: paymentRequired,
     paymentMethod,
+    paymentsModel,
     isComplete,
     isCreditCard: creditCardPayment(paymentMethod),
     paymentSource,

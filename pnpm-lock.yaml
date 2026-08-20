@@ -6,7 +6,9 @@ settings:
 
 overrides:
   postcss: 8.5.15
-  '@commercelayer/sdk': 8.0.0-beta.11
+  '@commercelayer/sdk': https://pkg.pr.new/@commercelayer/sdk@c923f75
+  '@commercelayer/react-components': link:../commercelayer-react-components/packages/react-components
+  '@commercelayer/core-components': link:../commercelayer-react-components/packages/core-components
 
 importers:
 
@@ -16,8 +18,8 @@ importers:
         specifier: 6.28.0
         version: 6.28.0
       '@commercelayer/core-components':
-        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a7
-        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a7
+        specifier: link:../commercelayer-react-components/packages/core-components
+        version: link:../commercelayer-react-components/packages/core-components
       '@commercelayer/js-auth':
         specifier: ^7.4.2
         version: 7.4.2
@@ -25,14 +27,14 @@ importers:
         specifier: ^2.8.4
         version: 2.8.4
       '@commercelayer/react-components':
-        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@12e87a7
-        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@12e87a7(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: link:../commercelayer-react-components/packages/react-components
+        version: link:../commercelayer-react-components/packages/react-components
       '@commercelayer/react-hooks-components':
         specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a7
         version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a7(react@19.2.7)
       '@commercelayer/sdk':
-        specifier: 8.0.0-beta.11
-        version: 8.0.0-beta.11
+        specifier: https://pkg.pr.new/@commercelayer/sdk@c923f75
+        version: https://pkg.pr.new/@commercelayer/sdk@c923f75
       '@faker-js/faker':
         specifier: ^10.5.0
         version: 10.5.0
@@ -169,9 +171,6 @@ packages:
   '@adyen/adyen-web@6.28.0':
     resolution: {integrity: sha512-cCgsUGtRegBMl+8ZKfXt6/M/bnKd4WBfmtbLq74NJbrtOQMo7S+gWBrRGvvVV+VanM2UAmNo6XRHF6Tyhf52Fw==}
 
-  '@adyen/adyen-web@6.43.0':
-    resolution: {integrity: sha512-f0kcqAaXm12drURgoVGjOmUyAsG6HrcD3U/dAlVlwTA2NRTkd8dOgLMMAgpcpMAETJ2EXibgrLm5F1GV7hMvhQ==}
-
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
@@ -253,65 +252,17 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@braintree/asset-loader@2.0.0':
-    resolution: {integrity: sha512-7Zs3/g3lPTfkdtWr7cKh3tk1pDruXR++TXwGKkx7BPuTjjLNFul2JSfI+ScHzNU4u/gZNPNQagsSTlYxIhBgMA==}
-
-  '@braintree/asset-loader@2.0.3':
-    resolution: {integrity: sha512-uREap1j30wKRlC0mK99nNPMpEp77NtB6XixpDfFJPZHmkrmw7IB4skKe+26LZBK1H6oSainFhAyKoP7x3eyOKA==}
-
-  '@braintree/browser-detection@1.17.2':
-    resolution: {integrity: sha512-DdEX09uYs6kHwGt4cbONlxlta/0hfmrDUncP6EtfZxFVywNF9LeRUyon+2LihJTbqgSnGqz9ZL450hkqBd6oSw==}
-
-  '@braintree/browser-detection@2.1.0':
-    resolution: {integrity: sha512-TbWESQre3wXBC3uag8X8xdr0zfD+FuhgUiuRxp2nkJagHB+NgA40zDOI8McGKijYFG7HeeAzNHW1MhFdEE1Blg==}
-
-  '@braintree/event-emitter@0.4.1':
-    resolution: {integrity: sha512-X41357O3OXUDlnwMvS1m0GQEn3zB3s3flOBeg2J5OBvLvdJEIAVpPkblABPtsPrlciDSvfv1aSG5ixHPgFH0Zg==}
-
-  '@braintree/extended-promise@1.0.0':
-    resolution: {integrity: sha512-E9529FJNG4OgeeLJ00vNs3TW67+AeSQobJg0hwfsQk29hgK4bVBsvQHVD4nwDuDD1Czon90K88gfQIFadAMs0w==}
-
-  '@braintree/iframer@2.0.1':
-    resolution: {integrity: sha512-t1zJX5+f1yxHAzBJPaQT/XVMocKodUqjTE+hYvuxxWjqEZIbH8/eT5b5n767jY16mYw3+XiDkKHqcp4Pclq1wg==}
-
-  '@braintree/sanitize-url@7.0.4':
-    resolution: {integrity: sha512-hPYRrKFoI+nuckPgDJfyYAkybFvheo4usS0Vw0HNAe+fmGBQA5Az37b/yStO284atBoqqdOUhKJ3d9Zw3PQkcQ==}
-
-  '@braintree/uuid@2.0.0':
-    resolution: {integrity: sha512-4pv311AIfmU57aUh1w0SvtT5g8O+chQmetpMDoeLAGQzGMqp/eQA9YlHLR1/4xt6kpVgUMqG3ooJDijG69HB1Q==}
-
-  '@braintree/wrap-promise@2.1.0':
-    resolution: {integrity: sha512-UIrJB+AfKU0CCfbMoWrsGpd2D/hBpY/SGgFI6WRHPOwhaZ3g9rz1weiJ6eb6L9KgVyunT7s2tckcPkbHw+NzeA==}
-
   '@colors/colors@1.5.0':
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
-
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a7':
-    resolution: {integrity: sha512-pYLDuLAiEBvGLKCEwIk7nXntgEPfTZxBVYpX1HmNC+YqRHG30OBg9lCLfLDwfhpFxacn4ew/r1kflB1F9aOkwg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a7}
-    version: 5.0.0-beta.1
-
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a76f147b9889877b9f76cb10159cd4d796b':
-    resolution: {integrity: sha512-pYLDuLAiEBvGLKCEwIk7nXntgEPfTZxBVYpX1HmNC+YqRHG30OBg9lCLfLDwfhpFxacn4ew/r1kflB1F9aOkwg==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a76f147b9889877b9f76cb10159cd4d796b}
-    version: 5.0.0-beta.1
 
   '@commercelayer/js-auth@7.4.2':
     resolution: {integrity: sha512-ifRcoAL1R7o5AU5w4bgmSnNMEWXDc11A+yZwAAZMEkAYrrsaud1X/3xmgY1e0yIXK8AAdIiqfW/Rm/4DdWwAQA==}
     engines: {node: '>=20.0.0'}
 
-  '@commercelayer/js-auth@8.0.0':
-    resolution: {integrity: sha512-IVu8hF7fzg9vVotBj0eeSWY20/jiKmNkT7DFXHTITTNNCmgotSEyepQfLtZWsoriDhQacYfLyrAKDkXKVI0tQQ==}
-    engines: {node: '>=20.0.0'}
-
   '@commercelayer/organization-config@2.8.4':
     resolution: {integrity: sha512-ZlgIhQx7vu89ZD3eOCSkCe7kNb5LgEGy0p4Gayi75sxfHfJRXKkoX2NC+nkp2pFosi4SBYhlQFcd/EtzStAQGw==}
     engines: {node: '>=18', pnpm: '>=7'}
-
-  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@12e87a7':
-    resolution: {integrity: sha512-Q+CUva2SkelVK/lWvhs9qcuqdP0WXEKNxMCdGeeNH7cXfPvV40rvSdLLAchUdp67BdpdqA9YaNLioFYGz/75+A==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@12e87a7}
-    version: 5.0.0-beta.1
-    peerDependencies:
-      react: '>=19.0.0'
 
   '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a7':
     resolution: {integrity: sha512-OXvZY990baiuvnoLen2yfTocAK9LQhhhtDBosIo6x6n0QzqUzvTw7lEU2rlzOwNDcK7QOcCElVZBUryGJLJwBw==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a7}
@@ -319,14 +270,9 @@ packages:
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a76f147b9889877b9f76cb10159cd4d796b':
-    resolution: {integrity: sha512-OXvZY990baiuvnoLen2yfTocAK9LQhhhtDBosIo6x6n0QzqUzvTw7lEU2rlzOwNDcK7QOcCElVZBUryGJLJwBw==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a76f147b9889877b9f76cb10159cd4d796b}
-    version: 5.0.0-beta.1
-    peerDependencies:
-      react: '>=19.0.0'
-
-  '@commercelayer/sdk@8.0.0-beta.11':
-    resolution: {integrity: sha512-EhbpwW8GOsty1H3/YiEDzPZDKuvoXW9nMbrnkFQ5+sSgEiSkFXDM/tFxImkwagX7PbHKyHHaEBn5SoAPiNBwtw==}
+  '@commercelayer/sdk@https://pkg.pr.new/@commercelayer/sdk@c923f75':
+    resolution: {integrity: sha512-34a6up4pJ+8aqI4U5tvpF88BiQ0B+EQ8SGZwC9LwEq9njtmLcAN6B8j2M78C3LFF+Tiq0FoT8NvhvIPWMksReQ==, tarball: https://pkg.pr.new/@commercelayer/sdk@c923f75}
+    version: 8.0.0-beta.10
     engines: {node: '>=20'}
 
   '@discoveryjs/json-ext@0.5.7':
@@ -367,12 +313,6 @@ packages:
     peerDependencies:
       react: ^18 || ^19 || ^19.0.0-rc
       react-dom: ^18 || ^19 || ^19.0.0-rc
-
-  '@iframe-resizer/core@5.5.9':
-    resolution: {integrity: sha512-HacDQx81pgHlmY48tRogcX02TOXfvjllJzI+xfVYmvEXhxoViyi9yEobhNQEt8Mq6NmrH1vHhz6FRfQ9uBTsjQ==}
-
-  '@iframe-resizer/parent@5.5.9':
-    resolution: {integrity: sha512-DfNb9KlOf7WyCNOM2xWPGxJfWtqA/gg7sjHvqvD4k6cfpntPXrKfCd3WdOPNKA980urGkhOdM9Ye0unV2gnYYw==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -677,12 +617,6 @@ packages:
   '@octokit/types@16.0.0':
     resolution: {integrity: sha512-sKq+9r1Mm4efXW1FCk7hFSeJo4QKreL/tTbR0rz/qx/r1Oa2VV83LTA/H/MuCOX7uCIJmQVRKBcbmWoySjAnSg==}
 
-  '@paypal/fastlane-sdk-loader@1.2.1':
-    resolution: {integrity: sha512-+kiVVpXorfmJjFY7keJrkGAlaXnAjQ7THEU9pi1ULJkr8tTb20fi/1NJeImUtbbkfZ7Zbk2mkT07qicLsXY1nw==}
-
-  '@paypal/paypal-js@10.0.3':
-    resolution: {integrity: sha512-GtY3PID9Ey76fIJBAV8PobIwdH6Nsbm7MZlqFwB+MAPQEtVEwGe1EHrsZpb4AK0iuJNs9E3gaB75kgpFSpAEJQ==}
-
   '@playwright/test@1.61.1':
     resolution: {integrity: sha512-8nKv6+0RJSL9FE4jYOEGXnPeM/Hg12qZpmqzZjRh3qM0Y7c3z1mrOTfFLids72RDQYVh9WpLEfR5WdpNX4fkig==}
     engines: {node: '>=18'}
@@ -782,17 +716,6 @@ packages:
   '@sindresorhus/merge-streams@4.0.0':
     resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
     engines: {node: '>=18'}
-
-  '@stripe/react-stripe-js@6.8.1':
-    resolution: {integrity: sha512-Wzy7KCF8lM819x8rVFSKUr2ofITdX1c/49ceJprJzGhPzHb3fhrcAoEmNQwV5UYRci7YY1joyG8oz3So3JAMRg==}
-    peerDependencies:
-      '@stripe/stripe-js': '>=9.5.0 <10.0.0'
-      react: '>=16.8.0 <20.0.0'
-      react-dom: '>=16.8.0 <20.0.0'
-
-  '@stripe/stripe-js@9.13.0':
-    resolution: {integrity: sha512-/0c72BUgzzVkVTlsw5uBn8x3waTdVJ/PZGfQ6jY1eu6K7olUPf4d9lgDPA9/0sIdsR8j7o3QIG8fOCO6ItcL7A==}
-    engines: {node: '>=12.16'}
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
@@ -897,22 +820,11 @@ packages:
   '@tailwindcss/postcss@4.3.2':
     resolution: {integrity: sha512-rjVWYCa7Ngbi5AarT6k8TkxUG3Wl1QKzHdIZVsjZSzf36Jmo2IKZt/NHRAwly8oDkbBOH0YTu+CHuf9jPxMc+g==}
 
-  '@tanstack/react-table@8.21.3':
-    resolution: {integrity: sha512-5nNMTSETP4ykGegmVkhjcS8tTLW6Vl4axfEGQN3v0zdHYbK4UfoqfPChclTrJ4EoK9QynqAu9oUf8VEmrpZ5Ww==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16.8'
-      react-dom: '>=16.8'
-
   '@tanstack/react-virtual@3.14.2':
     resolution: {integrity: sha512-IpWnmCLvuymRfeeLNVXIzNEYBFLpd3drVIS91sqV78VTZFyldlChkOocZRCPp1B+Wnk09bcLNme8WaMU/9/9bQ==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  '@tanstack/table-core@8.21.3':
-    resolution: {integrity: sha512-ldZXEhOBb8Is7xLs01fR3YEc3DERiz5silj8tnGkFZytt1abEvl/GhUmCE0PMLaMPTa3Jk4HbKmRlHmu+gCftg==}
-    engines: {node: '>=12'}
 
   '@tanstack/virtual-core@3.17.0':
     resolution: {integrity: sha512-gOxY/hFkPh/XQYhnThBHzkbkX3Ed+z/iushyz+R+JAr213aXxUDgQoTgTdrDpBSRsjFM73P/KfUyWmaF9WHMkQ==}
@@ -925,9 +837,6 @@ packages:
 
   '@types/css-font-loading-module@0.0.7':
     resolution: {integrity: sha512-nl09VhutdjINdWyXxHWN/w9zlNCfr60JUqJbd24YXUuCwgeL0TpFSdElCwb6cxfB6ybE19Gjj4g0jsgkXxKv1Q==}
-
-  '@types/googlepay@0.7.11':
-    resolution: {integrity: sha512-njLi4oCyqYx4nT1xoZWFDnLtKVbsbZkJTzLO45X5RW3yJTgDFSg2Wj6dnuXx+ZdZa89gBLkfMIbKNnMi5Y2wpw==}
 
   '@types/googlepay@0.7.8':
     resolution: {integrity: sha512-EHl7G7jIeit/Px/fi/Du/19SZDvqrRhy0DjJX40Vzs/97m3sro9mzVyAYNC0pfzpWGDY+zPjtTLEfhV+OYWUcQ==}
@@ -1039,9 +948,6 @@ packages:
   async-retry@1.3.3:
     resolution: {integrity: sha512-wfr/jstw9xNi/0teMHrRW7dsz3Lt5ARhYNZ2ewpadnhaIp5mbALhOAP+EAdsC7t4Z6wqsDVv9+W6gm1Dk9mEyw==}
 
-  auto-console-group@1.3.0:
-    resolution: {integrity: sha512-W/G5jy1ZPeVYPyqOVGND7EjbzrsLgRD3s+1QegXfJ7bYlphFxjqG60rviFXWw0d2YCj0Clc7hU5/nTqrBEhBIw==}
-
   babel-plugin-react-compiler@1.0.0:
     resolution: {integrity: sha512-Ixm8tFfoKKIPYdCCKYTsqv+Fd4IJ0DQqMyEimo+pxUOMUR9cVPlwTrFt9Avu+3cb6Zp3mAzl+t1MrG2fxxKsxw==}
 
@@ -1079,9 +985,6 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  braintree-web@3.144.0:
-    resolution: {integrity: sha512-jYQAcqtH12XBN9laa347gkhJZel2q8Hrd3TUa3tc0IFSNwrMK/SN75m3GtRgfCf9AzHr628HcOb9O9vae+lujA==}
-
   bytes@3.0.0:
     resolution: {integrity: sha512-pMhOfFDPiv9t5jjIXkHosWmkSyQbvsgEVNkz0ERHbuLh2T/7j4Mqqpz523Fe8MVY89KC6Sh/QfS2sM+SjgFDcw==}
     engines: {node: '>= 0.8'}
@@ -1100,9 +1003,6 @@ packages:
 
   caniuse-lite@1.0.30001793:
     resolution: {integrity: sha512-iwSsYWaCOoh26cV8NwNRViHlrfUvYsHDfRVcbtmw0Kg6PJIZZXwMkj1442FYLBGkeUf1juAsU3DTfxW579mrPA==}
-
-  card-validator@10.0.3:
-    resolution: {integrity: sha512-xOEDsK3hojV0OIpmrR64eZGpngnOqRDEP20O+WSRtvjLSW6nyekW4i2N9SzYg679uFO3RyHcFHxb+mml5tXc4A==}
 
   chalk-template@0.4.0:
     resolution: {integrity: sha512-/ghrgmhfY8RaSdeo43hNXxpoHAtxdbskUHjPpfqUWGttFgycUhYPGx3YZBCnUCvOa7Doivn1IZec3DEGFoMgLg==}
@@ -1246,9 +1146,6 @@ packages:
       typescript:
         optional: true
 
-  credit-card-type@10.2.0:
-    resolution: {integrity: sha512-1bChi7rCJki1/EML5yYy6uVV6mE21/qFUJCTiDUfq4zl3kjXVqLTDd/wI1+Yqk4NlR4fNTJXj6tLEpECWrlY7w==}
-
   cron-parser@5.6.1:
     resolution: {integrity: sha512-QBm4o1PwZiuY7KFbVvW7FLC8bozy7YWzv+Fz6KRS7sQghzcbDZCGxr/Bc5b6TQreAoSwuWVP491dIcK0THCX6A==}
     engines: {node: '>=18'}
@@ -1300,9 +1197,6 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
-  detectincognitojs@1.6.0:
-    resolution: {integrity: sha512-aOmVmzcPdm1Vovuc0ZHr5Vk86ZSMBUXyvTD2S4JRFZZzg0/gbW8FmM+jDFxKSaDwvlpgH3B103rnxJfAX2ZGqA==}
-
   dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
@@ -1348,10 +1242,6 @@ packages:
     resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
     engines: {node: '>=6'}
 
-  envify@4.1.0:
-    resolution: {integrity: sha512-IKRVVoAYr4pIx4yIWNsz9mOsboxlNXiu7TNBnem/K/uTHdkyzXWDzHCK7UTolqBbgaBz0tQHsD3YNls0uIIjiw==}
-    hasBin: true
-
   environment@1.1.0:
     resolution: {integrity: sha512-xUtoPkMggbz0MPyPiIWr1Kp4aeWJjDZ6SMvURhimjdZgsRuDplF5/s9hcgGhyXMhs+6vpnuoiZ2kFiu3FMnS8Q==}
     engines: {node: '>=18'}
@@ -1374,11 +1264,6 @@ packages:
   escape-string-regexp@5.0.0:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
-
-  esprima@4.0.1:
-    resolution: {integrity: sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==}
-    engines: {node: '>=4'}
-    hasBin: true
 
   execa@5.1.1:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
@@ -1433,15 +1318,6 @@ packages:
   find-versions@6.0.0:
     resolution: {integrity: sha512-2kCCtc+JvcZ86IGAz3Z2Y0A1baIz9fL31pH/0S1IqZr9Iwnjq8izfPtrCyQKO6TLMPELLsQMre7VDqeIKCsHkA==}
     engines: {node: '>=18'}
-
-  framebus@6.1.0:
-    resolution: {integrity: sha512-duaN1OV9gU0yDeEqiJaHs/130e8KXatX2yxTzBheR8UK1pFgxMUknhFS2FEIJRGbsEiXPTHsXC6+gfvJHvie6w==}
-
-  frames-react@1.2.4:
-    resolution: {integrity: sha512-W3x2MJ+YLf1AIzGpBOkMQ+dtN+BQZfjkyZZElVu1+3M6lwYPeXgS467S07GJIagfiplGu0XEMT8zqw0qW0sjMQ==}
-    peerDependencies:
-      react: ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
 
   fs-extra@11.3.5:
     resolution: {integrity: sha512-eKpRKAovdpZtR1WopLHxlBWvAgPny3c4gX1G5Jhwmmw4XJj0ifSD5qB5TOo8hmA0wlRKDAOAhEE1yVPgs6Fgcg==}
@@ -1585,9 +1461,6 @@ packages:
 
   ini@1.3.8:
     resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
-
-  inject-stylesheet@7.0.0:
-    resolution: {integrity: sha512-PjZfvYXKKPz7Y8uDAQPbY3qGMzgB5sjU5PDvvdlkqw751iipPULS4pIBzmrWkDV9fgObgSUpxwHGTSufESoPZQ==}
 
   is-arrayish@0.2.1:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
@@ -1790,10 +1663,6 @@ packages:
 
   lodash@4.18.1:
     resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
-
-  loose-envify@1.4.0:
-    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
-    hasBin: true
 
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
@@ -2190,9 +2059,6 @@ packages:
   preact@10.22.1:
     resolution: {integrity: sha512-jRYbDDgMpIb5LHq3hkI0bbl+l/TQ9UnkdQ0ww+lp+4MMOdqaUYdFc5qeyP+IV8FAd/2Em7drVPeKdQxsiWCf/A==}
 
-  preact@10.29.2:
-    resolution: {integrity: sha512-7tNmwg/7mzzAoB/8kSg6Hl37JraAZw3Z3A0JSY7VXlZwo82Xn0G7wKbNNs2qoF4ZEEsQGTwDAroNdqKs1ofJxQ==}
-
   pretty-ms@9.3.0:
     resolution: {integrity: sha512-gjVS5hOP+M3wMm5nmNOucbIrqudzs9v/57bWRHQWLYklXqoXKrVfYW2W9+glfGsqtPgpiz5WwyEEB+ksXIx3gQ==}
     engines: {node: '>=18'}
@@ -2200,27 +2066,12 @@ packages:
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
-  promise-polyfill@8.2.3:
-    resolution: {integrity: sha512-Og0+jCRQetV84U8wVjMNccfGCnMQ9mGs9Hv78QFe+pSDD3gWTpz0y+1QCuxy5d/vBFuZ3iwP2eycAkvqIMPmWg==}
-
-  promise-polyfill@8.3.0:
-    resolution: {integrity: sha512-H5oELycFml5yto/atYqmjyigJoAo3+OXwolYiH7OfQuYlAqhxNvTfiNMbV9hsC6Yp83yE5r2KTVmtrG6R9i6Pg==}
-
-  prop-types@15.8.1:
-    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
-
   proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
 
   range-parser@1.2.0:
     resolution: {integrity: sha512-kA5WQoNVo4t9lNx2kQNFCxKeBl5IbbSNBl1M/tLkw9WCn+hxNBAW5Qh8gdhs63CJnhjJ2zQWFoqPJP2sK1AV5A==}
     engines: {node: '>= 0.6'}
-
-  rapid-form@5.0.0:
-    resolution: {integrity: sha512-jb6wXx4yXCgh7pPbewbxogbYzJbi6mjR7Yu+yOIRtwcDIiPtmv3lL1Qj5iYJtBjrdQAac1/HFWRiRsaeNFlqVA==}
-    peerDependencies:
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
 
   rc@1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
@@ -2326,9 +2177,6 @@ packages:
   resolve-from@5.0.0:
     resolution: {integrity: sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==}
     engines: {node: '>=8'}
-
-  restricted-input@4.0.3:
-    resolution: {integrity: sha512-VpkwT5Fr3DhvoRZfPnmHDhnYAYETjjNzDlvA4NlW0iknFS47C5X4OCHEpOOxaPjvmka5V8d1ty1jVVoorZKvHg==}
 
   retry@0.13.1:
     resolution: {integrity: sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg==}
@@ -2534,9 +2382,6 @@ packages:
   through2@2.0.5:
     resolution: {integrity: sha512-/mrRod8xqpA+IHSLyGCQ2s8SPHiCDEeQJSep1jqLYeEUClOFG2Qsh+4FU6G9VeqpZnGW/Su8LQGc4YKni5rYSQ==}
 
-  through@2.3.8:
-    resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
-
   time-span@5.1.0:
     resolution: {integrity: sha512-75voc/9G4rDIJleOo4jPvN4/YC4GRZrY8yy1uU4lwrB3XEQbWve8zXoO5No4eFrGcTAMYyoY67p8jRQdtA1HbA==}
     engines: {node: '>=12'}
@@ -2579,11 +2424,6 @@ packages:
   type-fest@5.7.0:
     resolution: {integrity: sha512-1URUxUqfHFM1c+zfSPsa3gnkO7Aq21qyH75SIduNYz4SzY964rn1X2vCMQaHSHhktiw+0kPa2iyb6PUpXqB6Vg==}
     engines: {node: '>=20'}
-
-  typescript@4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
 
   typescript@5.9.3:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
@@ -2759,14 +2599,6 @@ snapshots:
       classnames: 2.5.1
       preact: 10.22.1
 
-  '@adyen/adyen-web@6.43.0':
-    dependencies:
-      '@paypal/paypal-js': 10.0.3
-      '@types/applepayjs': 14.0.9
-      '@types/googlepay': 0.7.11
-      classnames: 2.5.1
-      preact: 10.29.2
-
   '@alloc/quick-lru@5.2.0': {}
 
   '@babel/code-frame@7.29.7':
@@ -2823,81 +2655,23 @@ snapshots:
   '@biomejs/cli-win32-x64@2.5.3':
     optional: true
 
-  '@braintree/asset-loader@2.0.0': {}
-
-  '@braintree/asset-loader@2.0.3': {}
-
-  '@braintree/browser-detection@1.17.2': {}
-
-  '@braintree/browser-detection@2.1.0':
-    dependencies:
-      detectincognitojs: 1.6.0
-
-  '@braintree/event-emitter@0.4.1': {}
-
-  '@braintree/extended-promise@1.0.0': {}
-
-  '@braintree/iframer@2.0.1': {}
-
-  '@braintree/sanitize-url@7.0.4': {}
-
-  '@braintree/uuid@2.0.0': {}
-
-  '@braintree/wrap-promise@2.1.0': {}
-
   '@colors/colors@1.5.0':
     optional: true
 
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a7':
-    dependencies:
-      '@commercelayer/js-auth': 8.0.0
-      '@commercelayer/sdk': 8.0.0-beta.11
-
-  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a76f147b9889877b9f76cb10159cd4d796b':
-    dependencies:
-      '@commercelayer/js-auth': 8.0.0
-      '@commercelayer/sdk': 8.0.0-beta.11
-
   '@commercelayer/js-auth@7.4.2': {}
-
-  '@commercelayer/js-auth@8.0.0': {}
 
   '@commercelayer/organization-config@2.8.4':
     dependencies:
       '@commercelayer/js-auth': 7.4.2
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@12e87a7(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
-    dependencies:
-      '@adyen/adyen-web': 6.43.0
-      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a76f147b9889877b9f76cb10159cd4d796b
-      '@commercelayer/organization-config': 2.8.4
-      '@commercelayer/react-hooks-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a76f147b9889877b9f76cb10159cd4d796b(react@19.2.7)
-      '@commercelayer/sdk': 8.0.0-beta.11
-      '@iframe-resizer/parent': 5.5.9
-      '@stripe/react-stripe-js': 6.8.1(@stripe/stripe-js@9.13.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@stripe/stripe-js': 9.13.0
-      '@tanstack/react-table': 8.21.3(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      braintree-web: 3.144.0
-      frames-react: 1.2.4(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      rapid-form: 5.0.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      react: 19.2.7
-    transitivePeerDependencies:
-      - react-dom
-
   '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a7(react@19.2.7)':
     dependencies:
-      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a76f147b9889877b9f76cb10159cd4d796b
+      '@commercelayer/core-components': link:../commercelayer-react-components/packages/core-components
       react: 19.2.7
       swr: 2.5.1(react@19.2.7)
 
-  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a76f147b9889877b9f76cb10159cd4d796b(react@19.2.7)':
-    dependencies:
-      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a76f147b9889877b9f76cb10159cd4d796b
-      react: 19.2.7
-      swr: 2.5.1(react@19.2.7)
-
-  '@commercelayer/sdk@8.0.0-beta.11': {}
+  '@commercelayer/sdk@https://pkg.pr.new/@commercelayer/sdk@c923f75': {}
 
   '@discoveryjs/json-ext@0.5.7': {}
 
@@ -2942,15 +2716,6 @@ snapshots:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
       use-sync-external-store: 1.6.0(react@19.2.7)
-
-  '@iframe-resizer/core@5.5.9':
-    dependencies:
-      auto-console-group: 1.3.0
-
-  '@iframe-resizer/parent@5.5.9':
-    dependencies:
-      '@iframe-resizer/core': 5.5.9
-      auto-console-group: 1.3.0
 
   '@img/colour@1.1.0':
     optional: true
@@ -3202,16 +2967,6 @@ snapshots:
     dependencies:
       '@octokit/openapi-types': 27.0.0
 
-  '@paypal/fastlane-sdk-loader@1.2.1':
-    dependencies:
-      '@braintree/asset-loader': 2.0.0
-      envify: 4.1.0
-      typescript: 4.9.5
-
-  '@paypal/paypal-js@10.0.3':
-    dependencies:
-      promise-polyfill: 8.3.0
-
   '@playwright/test@1.61.1':
     dependencies:
       playwright: 1.61.1
@@ -3355,15 +3110,6 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
-  '@stripe/react-stripe-js@6.8.1(@stripe/stripe-js@9.13.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
-    dependencies:
-      '@stripe/stripe-js': 9.13.0
-      prop-types: 15.8.1
-      react: 19.2.7
-      react-dom: 19.2.7(react@19.2.7)
-
-  '@stripe/stripe-js@9.13.0': {}
-
   '@swc/helpers@0.5.15':
     dependencies:
       tslib: 2.8.1
@@ -3446,19 +3192,11 @@ snapshots:
       postcss: 8.5.15
       tailwindcss: 4.3.2
 
-  '@tanstack/react-table@8.21.3(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
-    dependencies:
-      '@tanstack/table-core': 8.21.3
-      react: 19.2.7
-      react-dom: 19.2.7(react@19.2.7)
-
   '@tanstack/react-virtual@3.14.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       '@tanstack/virtual-core': 3.17.0
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
-
-  '@tanstack/table-core@8.21.3': {}
 
   '@tanstack/virtual-core@3.17.0': {}
 
@@ -3469,8 +3207,6 @@ snapshots:
       '@types/retry': 0.12.5
 
   '@types/css-font-loading-module@0.0.7': {}
-
-  '@types/googlepay@0.7.11': {}
 
   '@types/googlepay@0.7.8': {}
 
@@ -3568,8 +3304,6 @@ snapshots:
     dependencies:
       retry: 0.13.1
 
-  auto-console-group@1.3.0: {}
-
   babel-plugin-react-compiler@1.0.0:
     dependencies:
       '@babel/types': 7.29.7
@@ -3607,24 +3341,6 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  braintree-web@3.144.0:
-    dependencies:
-      '@braintree/asset-loader': 2.0.3
-      '@braintree/browser-detection': 2.1.0
-      '@braintree/event-emitter': 0.4.1
-      '@braintree/extended-promise': 1.0.0
-      '@braintree/iframer': 2.0.1
-      '@braintree/sanitize-url': 7.0.4
-      '@braintree/uuid': 2.0.0
-      '@braintree/wrap-promise': 2.1.0
-      '@paypal/fastlane-sdk-loader': 1.2.1
-      card-validator: 10.0.3
-      credit-card-type: 10.2.0
-      framebus: 6.1.0
-      inject-stylesheet: 7.0.0
-      promise-polyfill: 8.2.3
-      restricted-input: 4.0.3
-
   bytes@3.0.0: {}
 
   bytes@3.1.2: {}
@@ -3634,10 +3350,6 @@ snapshots:
   camelcase@7.0.1: {}
 
   caniuse-lite@1.0.30001793: {}
-
-  card-validator@10.0.3:
-    dependencies:
-      credit-card-type: 10.2.0
 
   chalk-template@0.4.0:
     dependencies:
@@ -3785,8 +3497,6 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  credit-card-type@10.2.0: {}
-
   cron-parser@5.6.1:
     dependencies:
       luxon: 3.7.2
@@ -3824,8 +3534,6 @@ snapshots:
   dequal@2.0.3: {}
 
   detect-libc@2.1.2: {}
-
-  detectincognitojs@1.6.0: {}
 
   dir-glob@3.0.1:
     dependencies:
@@ -3865,11 +3573,6 @@ snapshots:
 
   env-paths@2.2.1: {}
 
-  envify@4.1.0:
-    dependencies:
-      esprima: 4.0.1
-      through: 2.3.8
-
   environment@1.1.0: {}
 
   error-ex@1.3.4:
@@ -3883,8 +3586,6 @@ snapshots:
   escape-string-regexp@4.0.0: {}
 
   escape-string-regexp@5.0.0: {}
-
-  esprima@4.0.1: {}
 
   execa@5.1.1:
     dependencies:
@@ -3957,17 +3658,6 @@ snapshots:
     dependencies:
       semver-regex: 4.0.5
       super-regex: 1.1.0
-
-  framebus@6.1.0:
-    dependencies:
-      '@braintree/uuid': 2.0.0
-
-  frames-react@1.2.4(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
-    dependencies:
-      classnames: 2.5.1
-      react: 19.2.7
-      react-dom: 19.2.7(react@19.2.7)
-      tslib: 2.8.1
 
   fs-extra@11.3.5:
     dependencies:
@@ -4096,8 +3786,6 @@ snapshots:
   inherits@2.0.4: {}
 
   ini@1.3.8: {}
-
-  inject-stylesheet@7.0.0: {}
 
   is-arrayish@0.2.1: {}
 
@@ -4241,10 +3929,6 @@ snapshots:
   lodash.uniqby@4.7.0: {}
 
   lodash@4.18.1: {}
-
-  loose-envify@1.4.0:
-    dependencies:
-      js-tokens: 4.0.0
 
   lru-cache@10.4.3: {}
 
@@ -4525,32 +4209,15 @@ snapshots:
 
   preact@10.22.1: {}
 
-  preact@10.29.2: {}
-
   pretty-ms@9.3.0:
     dependencies:
       parse-ms: 4.0.0
 
   process-nextick-args@2.0.1: {}
 
-  promise-polyfill@8.2.3: {}
-
-  promise-polyfill@8.3.0: {}
-
-  prop-types@15.8.1:
-    dependencies:
-      loose-envify: 1.4.0
-      object-assign: 4.1.1
-      react-is: 16.13.1
-
   proto-list@1.2.4: {}
 
   range-parser@1.2.0: {}
-
-  rapid-form@5.0.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
-    dependencies:
-      react: 19.2.7
-      react-dom: 19.2.7(react@19.2.7)
 
   rc@1.2.8:
     dependencies:
@@ -4675,10 +4342,6 @@ snapshots:
   resolve-from@4.0.0: {}
 
   resolve-from@5.0.0: {}
-
-  restricted-input@4.0.3:
-    dependencies:
-      '@braintree/browser-detection': 1.17.2
 
   retry@0.13.1: {}
 
@@ -4939,8 +4602,6 @@ snapshots:
       readable-stream: 2.3.8
       xtend: 4.0.2
 
-  through@2.3.8: {}
-
   time-span@5.1.0:
     dependencies:
       convert-hrtime: 5.0.0
@@ -4971,8 +4632,6 @@ snapshots:
   type-fest@5.7.0:
     dependencies:
       tagged-tag: 1.0.0
-
-  typescript@4.9.5: {}
 
   typescript@5.9.3: {}
 

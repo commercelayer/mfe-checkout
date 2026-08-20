@@ -79,6 +79,7 @@ const initialState: AppStateData = {
   hasPaymentMethod: false,
   isPaymentRequired: true,
   isCreditCard: false,
+  paymentsModel: "undetermined",
   shippingCountryCodeLock: "",
   isComplete: false,
   returnUrl: "",
@@ -145,33 +146,35 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       dispatch({ type: ActionType.START_LOADING })
       const order = await getOrderFromRef()
 
-    const { shipments, ...addressInfos } =
-      await checkAndSetDefaultAddressForOrder({
-        cl,
-        order,
+      const { shipments, ...addressInfos } =
+        await checkAndSetDefaultAddressForOrder({
+          cl,
+          order,
+        })
+
+      const others = calculateSettings(
+        shipments != null ? { ...order, shipments: shipments } : order,
+        isShipmentRequired,
+        isGuest,
+        undefined,
+      )
+
+      dispatch({
+        type: ActionType.SET_ORDER,
+        payload: {
+          order,
+          others: {
+            isShipmentRequired,
+            ...others,
+            ...addressInfos,
+          },
+        },
       })
 
-    const others = calculateSettings(
-      shipments != null ? { ...order, shipments: shipments } : order,
-      isShipmentRequired,
-      isGuest,
-      undefined,
-    )
-
-    dispatch({
-      type: ActionType.SET_ORDER,
-      payload: {
-        order,
-        others: {
-          isShipmentRequired,
-          ...others,
-          ...addressInfos,
-        },
-      },
-    })
-
-    await changeLanguage(order.language_code ?? "en")
-  }, [])
+      await changeLanguage(order.language_code ?? "en")
+    },
+    [],
+  )
 
   const setCustomerEmail = useCallback((email: string) => {
     dispatch({

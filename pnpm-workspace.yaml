@@ -14,5 +14,11 @@ overrides:
   # react-components pins the SDK as a hard dependency rather than a peer, so
   # without this the app's v7 and the library's v8 both install and their Order
   # types stop being assignable at the OrderContainer boundary.
-  "@commercelayer/sdk": "8.0.0-beta.11"
+  "@commercelayer/sdk": "https://pkg.pr.new/@commercelayer/sdk@c923f75"
+  # LOCAL DEV ONLY — remove before merging.
+  # Must be `link:` and not `file:`: react-components declares `workspace:*`
+  # dependencies on its two sibling packages, which cannot resolve outside the
+  # monorepo's own node_modules.
+  "@commercelayer/react-components": "link:../commercelayer-react-components/packages/react-components"
+  "@commercelayer/core-components": "link:../commercelayer-react-components/packages/core-components"
 blockExoticSubdeps: false
