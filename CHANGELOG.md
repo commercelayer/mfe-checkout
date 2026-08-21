@@ -1,3 +1,11 @@
+## [6.5.5](https://github.com/commercelayer/mfe-checkout/compare/v6.5.4...v6.5.5) (2026-08-21)
+
+
+### Bug Fixes
+
+* update depencencies respecting semver ([7242ca9](https://github.com/commercelayer/mfe-checkout/commit/7242ca97c694bbaa5d005b8107c73cfc0cd985c2))
+* update GTM context methods to return promises for async handling ([3f755b3](https://github.com/commercelayer/mfe-checkout/commit/3f755b3dd0fd66ce12cd952865d4b6a6d48173f5))
+
 ## [6.5.4](https://github.com/commercelayer/mfe-checkout/compare/v6.5.3...v6.5.4) (2026-07-08)
 
 
