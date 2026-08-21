@@ -70,7 +70,7 @@ test.describe("stripe errors", () => {
     {
       kind: "incomplete cvc decline",
       card: { cvc: "12" },
-      error: "Your card’s security code is incomplete.",
+      error: "Your security code is incomplete.",
     },
   ].forEach(({ kind, card, error }) => {
     test(kind, async ({ checkoutPage }) => {

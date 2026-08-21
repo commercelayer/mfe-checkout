@@ -57,8 +57,8 @@ const StepPlaceOrder: React.FC<Props> = ({
       setIsPlacingOrder(true)
       await placeOrder(order)
       if (gtmCtx?.firePurchase && gtmCtx?.fireAddPaymentInfo) {
-        gtmCtx.fireAddPaymentInfo()
-        gtmCtx.firePurchase()
+        await gtmCtx.fireAddPaymentInfo()
+        await gtmCtx.firePurchase()
       }
       setIsPlacingOrder(false)
     }
