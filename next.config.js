@@ -118,9 +118,9 @@ let nextConfig = {
       ...config.resolve.alias,
       react: path.resolve(__dirname, "node_modules/react"),
       "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
-      // `$` marks an exact match. Without it these aliases swallow deep paths
-      // too, and `@commercelayer/sdk/bundle` — which this app imports — would
-      // resolve to a directory that has no such file, bypassing the exports map.
+      // `$` marks an exact match. Without it these aliases swallow subpaths
+      // too — `@commercelayer/sdk/single-client` and friends would resolve to a
+      // directory that has no such file, bypassing the package's exports map.
       ...Object.fromEntries(
         Object.entries({ ...rcLocalEntries, ...rcSingletonAliases }).map(
           ([name, target]) => [`${name}$`, target],
