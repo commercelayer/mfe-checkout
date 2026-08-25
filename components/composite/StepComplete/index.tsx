@@ -1,4 +1,9 @@
 import {
+  PaymentSetting,
+  PaymentSettingGiftCard,
+  PaymentSettingGiftCardList,
+  PaymentSettingGiftCardListItem,
+  PaymentSettingName,
   PaymentSource,
   PaymentSourceBrandIcon,
   PaymentSourceBrandName,
@@ -196,6 +201,29 @@ export const StepComplete: React.FC<Props> = ({
                   <RecapItemTitle>{t("stepComplete.payment")}</RecapItemTitle>
                   {ctx.isPaymentRequired ? (
                     <RecapBox>
+                      {/* Both payment models are rendered together; each
+                          library tree steps aside when the order is not on its
+                          own model, so there is no conditional to keep in sync
+                          — the same arrangement as the payment step. */}
+                      <FlexContainer className="flex-col items-start font-bold text-md">
+                        {/* No method at all when gift cards covered the order
+                            outright, so the gift cards are listed separately
+                            rather than under the method. */}
+                        <PaymentSetting readonly>
+                          <PaymentSettingName />
+                        </PaymentSetting>
+                        <PaymentSettingGiftCard readonly>
+                          <PaymentSettingGiftCardList>
+                            <PaymentSettingGiftCardListItem>
+                              {({ code, formattedAmount }) => (
+                                <span className="text-sm font-normal text-gray-500">
+                                  {code} {formattedAmount}
+                                </span>
+                              )}
+                            </PaymentSettingGiftCardListItem>
+                          </PaymentSettingGiftCardList>
+                        </PaymentSettingGiftCard>
+                      </FlexContainer>
                       <FlexContainer className="font-bold text-md">
                         <PaymentContainer>
                           <PaymentSource readonly>

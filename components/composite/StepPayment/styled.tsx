@@ -1,6 +1,7 @@
 import {
   PaymentMethodRadioButton,
   PaymentSettingGiftCardAddButton,
+  PaymentSettingGiftCardErrors,
   PaymentSettingGiftCardInput,
   PaymentSettingGiftCardRemoveButton,
   PaymentSettingGiftCardSubmitButton,
@@ -167,6 +168,16 @@ export const StyledGiftCardSessionAdd: FC<any> = (props) => (
   <PaymentSettingGiftCardAddButton
     {...props}
     className={`text-sm text-primary underline cursor-pointer ${props.className || ""}`}
+  />
+)
+
+// Gift card failures are rejected before anything is written to the order, so
+// they never reach <Errors resource="orders"> — they need their own outlet, the
+// same way a failed payment setting selection does.
+export const StyledGiftCardSessionError: FC<any> = (props) => (
+  <PaymentSettingGiftCardErrors
+    {...props}
+    className={`${ErrorCss} text-sm pt-2 ${props.className || ""}`}
   />
 )
 
