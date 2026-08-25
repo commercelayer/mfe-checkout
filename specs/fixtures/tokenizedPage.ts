@@ -6,11 +6,12 @@ import {
   jwtIsSalesChannel,
 } from "@commercelayer/js-auth"
 import type { MfeConfigs } from "@commercelayer/organization-config"
-import type { Address, AddressCreate } from "@commercelayer/sdk"
 import {
+  type Address,
+  type AddressCreate,
   CommerceLayer,
-  type CommerceLayerBundle,
-} from "@commercelayer/sdk/bundle"
+  type CommerceLayerClient,
+} from "@commercelayer/sdk"
 import { test as base } from "@playwright/test"
 import dotenv from "dotenv"
 
@@ -192,7 +193,7 @@ const getSuperToken = async () => {
 }
 
 const getOrder = async (
-  cl: CommerceLayerBundle,
+  cl: CommerceLayerClient,
   params: DefaultParamsProps,
 ) => {
   const email = params.customer?.email || params.orderAttributes?.customer_email
@@ -210,7 +211,7 @@ const getOrder = async (
       break
     case "with-items": {
       let superToken: string | undefined
-      let superCl: CommerceLayerBundle | undefined
+      let superCl: CommerceLayerClient | undefined
 
       if (expires_at != null) {
         superToken = await getSuperToken()
@@ -392,7 +393,7 @@ const getOrder = async (
 }
 
 const updateInventory = async (
-  cl: CommerceLayerBundle,
+  cl: CommerceLayerClient,
   lineItems: SkuItem[],
   quantity: "quantity" | "inventory",
 ) => {
@@ -418,7 +419,7 @@ const updateInventory = async (
 }
 
 const createAndPurchaseGiftCard = async (
-  cl: CommerceLayerBundle,
+  cl: CommerceLayerClient,
   props?: GiftCardProps,
   purchase = false,
 ) => {
@@ -454,7 +455,7 @@ const createLineItems = async ({
   orderId,
   items,
 }: {
-  cl: CommerceLayerBundle
+  cl: CommerceLayerClient
   orderId: string
   items: Array<LineItemObject>
 }) => {
@@ -526,7 +527,7 @@ function isSkuItem(item: SkuItem | BundleItem): item is SkuItem {
 }
 
 const createDefaultLineItem = async (
-  cl: CommerceLayerBundle,
+  cl: CommerceLayerClient,
   orderId: string,
 ) => {
   const sku = (await cl.skus.list()).first()
