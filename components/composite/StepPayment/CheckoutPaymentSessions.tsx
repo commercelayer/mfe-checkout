@@ -18,6 +18,7 @@ import {
   PaymentSettingItem,
   PaymentWrapper,
   StyledGiftCardSessionAdd,
+  StyledGiftCardSessionError,
   StyledGiftCardSessionInput,
   StyledGiftCardSessionRemove,
   StyledGiftCardSessionSubmit,
@@ -86,6 +87,10 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
             />
             <StyledGiftCardSessionSubmit data-testid="gift-card-apply" />
           </GiftCardInputRow>
+          {/* An unknown, expired or empty code is refused before anything is
+              written to the order, so this is the only place the shopper can
+              be told why nothing happened. */}
+          <StyledGiftCardSessionError data-testid="gift-card-error" />
           <StyledGiftCardSessionAdd data-testid="gift-card-add" />
         </GiftCardWrapper>
       </PaymentSettingGiftCard>
