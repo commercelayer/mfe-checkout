@@ -7,6 +7,7 @@ import type {
   AdyenPayment,
   BraintreePayment,
   CheckoutComPayment,
+  CommerceLayerClient,
   CustomerAddress,
   Order,
   OrderUpdate,
@@ -17,7 +18,6 @@ import type {
   StripePayment,
   WireTransfer,
 } from "@commercelayer/sdk"
-import type { CommerceLayerBundle } from "@commercelayer/sdk/bundle"
 import type { AppStateData } from "components/data/AppProvider"
 
 export type LineItemType =
@@ -41,7 +41,7 @@ interface IsNewAddressProps {
 }
 
 interface CheckAndSetDefaultAddressForOrderProps {
-  cl: CommerceLayerBundle
+  cl: CommerceLayerClient
   order: Order
   customerAddresses?: Array<CustomerAddress>
 }
@@ -242,7 +242,7 @@ function isBillingAddressSameAsShippingAddress({
   return true
 }
 
-export const fetchOrder = (cl: CommerceLayerBundle, orderId: string) => {
+export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
   return cl.orders.retrieve(orderId, {
     fields: {
       orders: [

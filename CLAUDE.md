@@ -45,6 +45,39 @@ checkout and validated here — there is no meaningful unit test for "the shoppe
 with a gift card and the rest by wire transfer". The loop is: change the library,
 rebuild it, drive the real checkout in a browser, then read the order back from the API.
 
+### Fixtures
+
+`scripts/new-payments.mjs` mints what a run needs, against the organization configured
+under `NP_*` in `.env.local` (**not** the `E2E_*` block — those are Playwright's, and
+point at a different organization with no `payment_sessions` setup):
+
+```sh
+pnpm np:order              # -> /<orderId>?accessToken=<jwt>
+pnpm np:gift-card 25       # -> a purchased, activated code
+```
+
+`np:order` creates the address, the order, one line item, and assigns the first
+available shipping method — that last step is not optional, a shipment without one
+leaves the checkout stuck on Delivery. It prints only the path and query, so prefix it
+with whatever origin the dev server is on.
+
+Each run needs its **own** order: **placing one is not repeatable**, and a placed order
+renders the thank-you page instead of the payment step. Never reuse an order from
+earlier in the conversation for a run that will end in a place.
+
+Gift cards are spent the same way — a code used on a previous order comes back as
+`422 doesn't match any active gift card`, which is a fine way to exercise the error path
+but is not a bug. Mint a new one. `np:gift-card` does `create` then `_purchase` then
+`_activate`: the first call alone produces a code that exists and is refused.
+
+To capture the output, call node directly — `pnpm run` writes its own progress lines to
+stdout even under `-s`:
+
+```sh
+URL=$(node scripts/new-payments.mjs order)
+CODE=$(node scripts/new-payments.mjs gift-card 25)
+```
+
 ### What is not yours to do
 
 **The dev server belongs to the human.** It runs in a terminal you do not own, and it is
@@ -52,21 +85,9 @@ normally already up. Never start, restart or kill it, and never claim a port. Wh
 change needs a restart — anything in `next.config.js` or `.env.local`, or a
 `pnpm install` — say so and let them do it.
 
-**Orders and gift cards come from the human.** A checkout URL is
-`http://<host>/<orderId>?accessToken=<jwt>`, and both halves are created against a real
-test-mode Commerce Layer organization. Do not invent one, do not go looking for
-credentials to mint one, and do not silently reuse an order from earlier in the
-conversation: **placing an order is not repeatable**, and a placed order renders the
-thank-you page instead of the payment step. Ask for a fresh URL for every run that will
-end in a placed order.
-
-Gift cards are spent the same way. A card used on a previous order comes back as
-`422 doesn't match any active gift card` — a fine way to exercise the error path, but
-not a bug and not a reason to start debugging the library. Ask for a new code.
-
-Automating order creation is an open item. `specs/fixtures/tokenizedPage.ts` (the
-Playwright harness) does create orders, but with the credentials in `.env.local` against
-the real organization — ask before running anything that goes near it.
+The Playwright harness (`specs/fixtures/tokenizedPage.ts`) also creates orders, but
+against the `E2E_*` organization and as part of a full suite run — ask before going near
+it. The `NP_*` scripts above are the cheap path and do not touch it.
 
 ### The loop
 
@@ -74,7 +95,7 @@ the real organization — ask before running anything that goes near it.
 2. Rebuild it there: `pnpm build`, or leave `pnpm rc:watch` running here. The alias
    reads `dist/`, so an unbuilt change is invisible — and looks exactly like a change
    that did not work.
-3. Ask for a checkout URL, plus a gift card code if the run needs one.
+3. `pnpm np:order`, plus `pnpm np:gift-card <amount>` if the run needs one.
 4. Open it with the browser tools and drive the flow. Allow several seconds after
    navigating: the first load after a library rebuild recompiles, and the page renders
    blank or as a skeleton until the order arrives.
