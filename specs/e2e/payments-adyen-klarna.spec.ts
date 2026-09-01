@@ -55,6 +55,13 @@ test.describe("guest with Adyen and Pay with Klarna in Germany", () => {
       order: "with-items",
       orderAttributes: {
         customer_email: customerEmail,
+        // Adyen renders the Klarna hosted pages in the `shopperLocale` it receives,
+        // which defaults to the order's language and not the billing country. The
+        // German address alone only picks the market, so without this the order is
+        // English, Klarna hands back an English page and the German labels this
+        // flow is driven by stop matching. Setting it also localizes the app's own
+        // UI, hence the German assertions below.
+        language_code: "de",
       },
       lineItemsAttributes: [
         { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
@@ -70,7 +77,7 @@ test.describe("guest with Adyen and Pay with Klarna in Germany", () => {
   test.skip("Checkout order with Pay over time with Klarna", async ({
     checkoutPage,
   }) => {
-    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkOrderSummary("Bestellübersicht")
 
     await checkoutPage.checkStep("Shipping", "open")
 
@@ -84,17 +91,18 @@ test.describe("guest with Adyen and Pay with Klarna in Germany", () => {
       type: "adyen-dropin",
       gateway: "klarna_pay_over_time",
       language: "de",
+      confirmationText: "Vielen Dank für deine Bestellung!",
     })
 
-    await checkoutPage.checkPaymentRecap("Klarna ending in ****")
+    await checkoutPage.checkPaymentRecap("Klarna endet mit ****")
     await checkoutPage.page.reload()
-    await checkoutPage.checkPaymentRecap("Klarna ending in ****")
+    await checkoutPage.checkPaymentRecap("Klarna endet mit ****")
   })
 
   test("Checkout order with Pay Later with Klarna", async ({
     checkoutPage,
   }) => {
-    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkOrderSummary("Bestellübersicht")
 
     await checkoutPage.checkStep("Shipping", "open")
 
@@ -108,15 +116,16 @@ test.describe("guest with Adyen and Pay with Klarna in Germany", () => {
       type: "adyen-dropin",
       gateway: "klarna_pay_later",
       language: "de",
+      confirmationText: "Vielen Dank für deine Bestellung!",
     })
 
-    await checkoutPage.checkPaymentRecap("Klarna ending in ****")
+    await checkoutPage.checkPaymentRecap("Klarna endet mit ****")
     await checkoutPage.page.reload()
-    await checkoutPage.checkPaymentRecap("Klarna ending in ****")
+    await checkoutPage.checkPaymentRecap("Klarna endet mit ****")
   })
 
   test("Checkout order with Pay now with Klarna", async ({ checkoutPage }) => {
-    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkOrderSummary("Bestellübersicht")
 
     await checkoutPage.checkStep("Shipping", "open")
 
@@ -130,10 +139,11 @@ test.describe("guest with Adyen and Pay with Klarna in Germany", () => {
       type: "adyen-dropin",
       gateway: "klarna_pay_now",
       language: "de",
+      confirmationText: "Vielen Dank für deine Bestellung!",
     })
 
-    await checkoutPage.checkPaymentRecap("Klarna paynow ending in ****")
+    await checkoutPage.checkPaymentRecap("Klarna paynow endet mit ****")
     await checkoutPage.page.reload()
-    await checkoutPage.checkPaymentRecap("Klarna paynow ending in ****")
+    await checkoutPage.checkPaymentRecap("Klarna paynow endet mit ****")
   })
 })

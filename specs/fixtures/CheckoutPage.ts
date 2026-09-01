@@ -798,6 +798,11 @@ export class CheckoutPage {
     type,
     gateway = "klarna_pay_now",
     language,
+    // The confirmation heading is localized off the order's `language_code`, so a test
+    // running a non-English order has to say what to wait for. Not derivable from
+    // `language` below: that names the locale of the *gateway* flow being driven, and
+    // the France tests pass "fr" while their order stays English.
+    confirmationText = "Thank you for your order!",
   }: {
     type: "adyen-dropin" | "klarna" | "stripe"
     gateway?:
@@ -810,6 +815,7 @@ export class CheckoutPage {
       | "klarna"
       | "givex"
     language?: "fr" | "de" | "us"
+    confirmationText?: string
   }) {
     switch (type) {
       case "klarna": {
@@ -1219,14 +1225,24 @@ export class CheckoutPage {
               //   .click()
               await klarnaIframe.getByTestId("confirm-and-pay").click()
 
+              // This step only appears when Klarna serves the German page, which it
+              // does when the order's language reaches Adyen as `shopperLocale` — see
+              // the `language_code` note in the German Klarna specs. `/IBAN/i` rather
+              // than the full German label because the acronym is untranslated, so it
+              // survives a locale change; the confirm button does not, and is left on
+              // the one label observed to work. The awaits matter independently of
+              // language: without them the fill raced the click and the submit could
+              // fire on an empty field.
               const iban = klarnaIframe.getByRole("textbox", {
-                name: "IBAN übermitteln",
+                name: /IBAN/i,
               })
 
               if (await iban.isVisible()) {
-                iban.click()
-                iban.fill("DE91100000000123456789")
-                klarnaIframe.getByRole("button", { name: "Bestätigen" }).click()
+                await iban.click()
+                await iban.fill("DE91100000000123456789")
+                await klarnaIframe
+                  .getByRole("button", { name: "Bestätigen" })
+                  .click()
               }
             }
             break
@@ -1284,7 +1300,7 @@ export class CheckoutPage {
         }
         await this.page
 
-          .locator("text=Thank you for your order!")
+          .locator(`text=${confirmationText}`)
           .waitFor({ state: "visible", timeout: 60000 })
       }
     }

@@ -91,7 +91,7 @@ interface DefaultParamsProps {
     config?: { mfe: MfeConfigs }
   }
   orderAttributes?: {
-    language_code?: "en" | "it" | "it-IT"
+    language_code?: "en" | "it" | "it-IT" | "de"
     customer_email?: string
     shipping_country_code_lock?: "IT" | "GB" | "US"
     terms_url?: string
