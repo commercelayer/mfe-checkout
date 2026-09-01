@@ -77,9 +77,9 @@
   ],
   "dependencies": {
     "@adyen/adyen-web": "6.28.0",
-    "@commercelayer/core-components": "https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@12e87a7",
-    "@commercelayer/react-hooks-components": "https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@12e87a7",
-    "@commercelayer/react-components": "https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@12e87a7",
+    "@commercelayer/core-components": "5.0.0-beta.13",
+    "@commercelayer/react-hooks-components": "5.0.0-beta.13",
+    "@commercelayer/react-components": "5.0.0-beta.13",
     "@commercelayer/js-auth": "^7.4.2",
     "@commercelayer/organization-config": "^2.8.4",
     "@commercelayer/sdk": "^7.12.1",
