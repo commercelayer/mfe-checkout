@@ -8,6 +8,7 @@
     "edit": "Uredi",
     "free": "Besplatno",
     "apply": "Primijeni",
+    "remove": "Ukloni",
     "privacy_and_terms": "Klikom na potvrdni okvir prihvaćate <bold><termsUrl>uvjete</termsUrl></bold> i <bold><privacyUrl>politiku privatnosti</privacyUrl></bold>.",
     "checkoutTitle": "Blagajna"
   },
@@ -102,7 +103,10 @@
     "saveToWallet": "Spremi novu karticu u novčanik",
     "expires": "Istječe",
     "subscriptionWithoutCustomer": "Za kupnju pretplate morate stvoriti račun.",
-    "subscriptionWithCustomer": "Davanjem podataka o kartici dopuštate tvrtki da tereti vašu karticu za buduća plaćanja u skladu s njihovim uvjetima."
+    "subscriptionWithCustomer": "Davanjem podataka o kartici dopuštate tvrtki da tereti vašu karticu za buduća plaćanja u skladu s njihovim uvjetima.",
+    "useGiftCard": "Koristi poklon karticu",
+    "giftCardCodePlaceholder": "Unesite kod",
+    "addAnotherGiftCard": "Dodaj još jednu"
   },
   "addressForm": {
     "customer_email": "Vaša e-mail adresa",
