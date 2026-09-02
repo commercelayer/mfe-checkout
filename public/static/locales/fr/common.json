@@ -8,6 +8,7 @@
     "edit": "Éditer",
     "free": "Gratuit",
     "apply": "Appliquer",
+    "remove": "Supprimer",
     "privacy_and_terms": "En cliquant sur la case à cocher, vous acceptez <bold><termsUrl>les conditions générales de ventes</termsUrl></bold> et <bold><privacyUrl>la politique de confidentialité des données personnelles</privacyUrl></bold>.",
     "checkoutTitle": "Commande"
   },
@@ -106,7 +107,10 @@
     "saveToWallet": "Enregistrez la nouvelle carte dans votre portefeuille",
     "expires": "Expiration",
     "subscriptionWithoutCustomer": "Un compte doit être créé pour pouvoir acheter par abonnement.",
-    "subscriptionWithCustomer": "En fournissant les informations relatives à votre carte, vous autorisez l’entreprise à débiter votre carte pour les paiements futurs, conformément à ses conditions."
+    "subscriptionWithCustomer": "En fournissant les informations relatives à votre carte, vous autorisez l’entreprise à débiter votre carte pour les paiements futurs, conformément à ses conditions.",
+    "useGiftCard": "Utiliser une carte cadeau",
+    "giftCardCodePlaceholder": "Saisir le code",
+    "addAnotherGiftCard": "En ajouter une autre"
   },
   "addressForm": {
     "customer_email": "Votre courriel",

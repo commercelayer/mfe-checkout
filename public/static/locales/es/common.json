@@ -8,6 +8,7 @@
     "edit": "Editar",
     "free": "Gratis",
     "apply": "Aplicar",
+    "remove": "Eliminar",
     "privacy_and_terms": "Al marcar la casilla, aceptas los <bold><termsUrl>términos</termsUrl></bold> y la <bold><privacyUrl>política de privacidad</privacyUrl></bold>.",
     "checkoutTitle": "Pago"
   },
@@ -106,7 +107,10 @@
     "saveToWallet": "Guardar nueva tarjeta en tu billetera",
     "expires": "Expira",
     "subscriptionWithoutCustomer": "Se debe crear una cuenta para comprar tu suscripción.",
-    "subscriptionWithCustomer": "Al proporcionar la información de tu tarjeta, permites a la empresa cargar en tu tarjeta los pagos futuros de acuerdo con sus términos."
+    "subscriptionWithCustomer": "Al proporcionar la información de tu tarjeta, permites a la empresa cargar en tu tarjeta los pagos futuros de acuerdo con sus términos.",
+    "useGiftCard": "Usar una tarjeta de regalo",
+    "giftCardCodePlaceholder": "Introduce el código",
+    "addAnotherGiftCard": "Agregar otra"
   },
   "addressForm": {
     "customer_email": "Tu dirección de correo electrónico",

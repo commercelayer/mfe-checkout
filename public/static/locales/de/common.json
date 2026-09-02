@@ -8,6 +8,7 @@
     "edit": "Bearbeiten",
     "free": "Gratis",
     "apply": "Anwenden",
+    "remove": "Entfernen",
     "privacy_and_terms": "Durch Anklicken des Kontrollkästchens erklärst Du Dich mit den <bold><termsUrl>Geschäftsbedingungen</termsUrl></bold> und dem <bold><privacyUrl>Datenschutz</privacyUrl></bold> einverstanden.",
     "checkoutTitle": "Bezahlung"
   },
@@ -106,7 +107,10 @@
     "saveToWallet": "Speichere eine neue Karte",
     "expires": "Ablaufdatum",
     "subscriptionWithoutCustomer": "An account must be created in order to purchase your subscription.",
-    "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms."
+    "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms.",
+    "useGiftCard": "Geschenkkarte verwenden",
+    "giftCardCodePlaceholder": "Code eingeben",
+    "addAnotherGiftCard": "Weitere hinzufügen"
   },
   "addressForm": {
     "customer_email": "Deine E-Mail-Adresse",
