@@ -157,11 +157,14 @@ export const StepPayment: React.FC<{ isPaymentLoading: boolean }> = ({
     setAutoselected(true)
   }, [])
 
-  // payment_sessions model. The library has already stored the selection and
+  // payment_sessions model. The library has already stored the change and
   // refetched its own order; this refreshes the app's copy so `hasPaymentMethod`
   // recomputes and the accordion can move on. Same stability requirement as the
   // callbacks above.
-  const onPaymentSettingSelect = useCallback(() => {
+  //
+  // Called for a gift card applied or removed as well as for a method chosen:
+  // both change what is paying for the order.
+  const onPaymentSessionsChange = useCallback(() => {
     setPayment?.({})
   }, [setPayment])
 
@@ -191,7 +194,7 @@ export const StepPayment: React.FC<{ isPaymentLoading: boolean }> = ({
                       on its own model, so there is no conditional to keep in
                       sync here — and none of the older, guest/customer
                       branching applies to the newer model. */}
-                  <CheckoutPaymentSessions onSelect={onPaymentSettingSelect} />
+                  <CheckoutPaymentSessions onSelect={onPaymentSessionsChange} />
                   {isGuest ? (
                     <CheckoutPayment
                       isPaymentLoading={isPaymentLoading}

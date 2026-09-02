@@ -8,6 +8,7 @@
       "edit": "Bewerken",
       "free": "Gratis",
       "apply": "Toepassen",
+      "remove": "Verwijderen",
       "privacy_and_terms": "Door het vakje aan te vinken, gaat u akkoord met de <bold><termsUrl>voorwaarden</termsUrl></bold> en <bold><privacyUrl>privacy</privacyUrl></bold>.",
       "checkoutTitle": "Afrekenen"
     },
@@ -106,7 +107,10 @@
       "saveToWallet": "Nieuwe kaart opslaan in uw portemonnee",
       "expires": "Verloopt",
       "subscriptionWithoutCustomer": "Er moet een account worden aangemaakt om uw abonnement aan te schaffen.",
-      "subscriptionWithCustomer": "Door uw kaartgegevens te verstrekken, geeft u het bedrijf toestemming om uw kaart te belasten voor toekomstige betalingen in overeenstemming met hun voorwaarden."
+      "subscriptionWithCustomer": "Door uw kaartgegevens te verstrekken, geeft u het bedrijf toestemming om uw kaart te belasten voor toekomstige betalingen in overeenstemming met hun voorwaarden.",
+      "useGiftCard": "Cadeaubon gebruiken",
+      "giftCardCodePlaceholder": "Voer code in",
+      "addAnotherGiftCard": "Nog een toevoegen"
     },
     "addressForm": {
       "customer_email": "Uw e-mailadres",

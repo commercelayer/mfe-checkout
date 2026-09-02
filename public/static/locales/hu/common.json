@@ -8,6 +8,7 @@
     "edit": "Módosítás",
     "free": "Ingyenes",
     "apply": "Alkalmaz",
+    "remove": "Eltávolítás",
     "privacy_and_terms": "A jelölőnégyzetre kattintással elfogadja a <bold><termsUrl>terms</termsUrl></bold>-t és a <bold><privacyUrl>privacy</privacyUrl></bold>-t.",
     "checkoutTitle": "Pénztár"
   },
@@ -106,7 +107,10 @@
     "saveToWallet": "Az új bankkártya elmentése",
     "expires": "Lejár",
     "subscriptionWithoutCustomer": "Felhasználói fiók létrehozása szükséges az előfizetéses vásárláshoz",
-    "subscriptionWithCustomer": "Azzal, hogy megadja a bankkártya adatait, felhatalmazza a céget, hogy a jövőben fizetéseket eszközöljön vele összhangban a felhasználási feltételeivel."
+    "subscriptionWithCustomer": "Azzal, hogy megadja a bankkártya adatait, felhatalmazza a céget, hogy a jövőben fizetéseket eszközöljön vele összhangban a felhasználási feltételeivel.",
+    "useGiftCard": "Ajándékkártya használata",
+    "giftCardCodePlaceholder": "Adja meg a kódot",
+    "addAnotherGiftCard": "További hozzáadása"
   },
   "addressForm": {
     "customer_email": "Az ön e-mail címe",

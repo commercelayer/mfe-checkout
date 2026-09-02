@@ -8,6 +8,7 @@
     "edit": "Edit",
     "free": "Free",
     "apply": "Apply",
+    "remove": "Remove",
     "privacy_and_terms": "By clicking the checkbox you agree to <bold><termsUrl>terms</termsUrl></bold> and <bold><privacyUrl>privacy</privacyUrl></bold>.",
     "checkoutTitle": "Checkout"
   },
@@ -106,7 +107,10 @@
     "saveToWallet": "Save new card on your wallet",
     "expires": "Expires",
     "subscriptionWithoutCustomer": "An account must be created in order to purchase your subscription.",
-    "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms."
+    "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms.",
+    "useGiftCard": "Use a gift card",
+    "giftCardCodePlaceholder": "Insert code",
+    "addAnotherGiftCard": "Add another one"
   },
   "addressForm": {
     "customer_email": "Your email address",

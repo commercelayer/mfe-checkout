@@ -78,6 +78,43 @@ URL=$(node scripts/new-payments.mjs order)
 CODE=$(node scripts/new-payments.mjs gift-card 25)
 ```
 
+### The e2e suite
+
+`pnpm test:np` runs the regression net for this payment model — the `@payment-sessions`
+tag, in `specs/e2e/payment-sessions-place.spec.ts` (the three ways an order can be paid
+for, each placed) and `payment-sessions-gift-card.spec.ts` (what stays true while the
+shopper changes their mind). It exists so that adding the next payment setting cannot
+quietly break the ones already working, and it is the reason to reach for the browser
+tools only when something is genuinely new.
+
+Its own harness, `specs/fixtures/newPaymentsPage.ts`, is separate from
+`tokenizedPage.ts` for the reason above: different organization, and none of the
+`payment_source` moves apply. It **runs `scripts/new-payments.mjs` as a child process**
+rather than re-implementing the order sequence — the script already prints one line to
+stdout for exactly this, and one copy of "a shipment needs a shipping method or the
+checkout never reaches Payment" is enough.
+
+Four things about it are not obvious:
+
+- **The assertion that matters is the API read-back**, `expectPaymentToCoverTheOrder`.
+  Every one of these tests ends on a thank-you page that looks correct whatever was
+  charged, so only the sessions summing to `total_amount_with_taxes_cents` says the
+  shopper paid what they agreed to. A new setting gets its session sized by the same
+  rules, so this is what will catch it.
+- **The suite mints an order per test and a gift card for most of them, and the API
+  rate-limits per organization.** Run it a few times in a row, or alongside a browser
+  session doing the same, and fixtures start failing with `Too Many Requests`. That is
+  the environment talking, not the checkout: the harness backs off and retries, and the
+  failure message says so. Space the runs out rather than chasing it.
+- **`data-testid` is a contract of this repository, not the library** — the library ships
+  none, this app passes them in. So a rename breaks the tests in the same commit rather
+  than silently.
+- **The fixture fails the test when the page raises an uncaught error.** Under
+  `next dev` the error overlay covers the page and absorbs every click, so without that
+  check the symptom is a click timing out on an element Playwright can see perfectly
+  well. It cost an afternoon once. Note the overlay also opens for a bare
+  `console.error`, which is why the library reports a recovered failure with `warn`.
+
 ### What is not yours to do
 
 **The dev server belongs to the human.** It runs in a terminal you do not own, and it is
