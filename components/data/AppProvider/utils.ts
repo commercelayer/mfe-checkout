@@ -1,4 +1,5 @@
 import {
+  derivePaymentSessionsState,
   getPaymentsModel,
   type PaymentsModel,
 } from "@commercelayer/core-components"
@@ -397,16 +398,17 @@ export function checkPaymentMethod(order: Order) {
   let hasPaymentMethod = Boolean(paymentSource?.payment_response?.source)
 
   if (paymentsModel === "payment_sessions") {
-    // There is no payment source on this model. The shopper has chosen when a
-    // Payment Session exists that is not carrying a failed authorization —
-    // exactly what the library treats as the current selection.
-    hasPaymentMethod = (order.payment_sessions ?? []).some((session) => {
-      const status = session.payment_authorization?.status
-      return (
-        status == null ||
-        !["declined", "failed", "canceled", "expired"].includes(status)
-      )
-    })
+    // There is no payment source on this model, and "any live session" is not
+    // the question: a gift card is additive, so one applied to a $71 order pays
+    // $25 of it and leaves the rest owed. Payment is in place when nothing is
+    // left to pay, or when the difference has its own session.
+    //
+    // Derived by the same function the payment components use, so this flag —
+    // which drives the accordion, the recap and the step's done state — cannot
+    // disagree with what the shopper sees.
+    const sessionsState = derivePaymentSessionsState(order)
+    hasPaymentMethod =
+      sessionsState.isCovered || sessionsState.currentPaymentSession != null
   } else if (
     paymentSource?.type === "checkout_com_payments" &&
     !paymentSource?.payment_response?.approved

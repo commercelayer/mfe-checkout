@@ -8,6 +8,7 @@
     "edit": "Modifica",
     "free": "Gratis",
     "apply": "Applica",
+    "remove": "Rimuovi",
     "privacy_and_terms": "Accetto i <bold><termsUrl>termini del servizio</termsUrl></bold> e la <bold><privacyUrl>privacy policy</privacyUrl></bold>.",
     "checkoutTitle": "Checkout"
   },
@@ -106,7 +107,10 @@
     "saveToWallet": "Salva la nuova carta sul tuo portafoglio",
     "expires": "Scadenza",
     "subscriptionWithoutCustomer": "Crea un account prima di procedere con il tuo acquisto periodico.",
-    "subscriptionWithCustomer": "Ciascun ordine periodico verrà addebitato sulla carta fornita, come indicato nelle condizioni di vendita."
+    "subscriptionWithCustomer": "Ciascun ordine periodico verrà addebitato sulla carta fornita, come indicato nelle condizioni di vendita.",
+    "useGiftCard": "Usa una gift card",
+    "giftCardCodePlaceholder": "Inserisci il codice",
+    "addAnotherGiftCard": "Aggiungine un'altra"
   },
   "addressForm": {
     "customer_email": "La tua email",
