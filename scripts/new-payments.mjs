@@ -240,10 +240,17 @@ try {
       )
   }
 } catch (error) {
-  // SDK errors carry the API's wording in `errors`, not in `message`.
-  const detail = error?.errors
-    ?.map((e) => e.detail ?? e.title)
+  // SDK errors carry the API's wording in `errors`, not in `message`. Anything
+  // that never reached the API — a DNS or connection failure, a bug in here —
+  // has no `errors` at all, and assuming it does used to replace the real cause
+  // with "error?.errors?.map is not a function".
+  const apiErrors = Array.isArray(error?.errors) ? error.errors : []
+  const detail = apiErrors
+    .map((e) => e.detail ?? e.title)
     .filter(Boolean)
     .join("\n  ")
-  fail(detail ? `Commerce Layer refused this:\n  ${detail}` : String(error))
+  if (detail) {
+    fail(`Commerce Layer refused this:\n  ${detail}`)
+  }
+  fail(error instanceof Error ? `${error.message}\n\n${error.stack ?? ""}` : String(error))
 }

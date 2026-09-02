@@ -8,6 +8,7 @@
     "edit": "Edytuj",
     "free": "Darmowa",
     "apply": "Wprowadź",
+    "remove": "Usuń",
     "privacy_and_terms": "Klikając zgadzasz się na <bold><termsUrl>regulamin</termsUrl></bold> oraz <bold><privacyUrl>zasady prywatności</privacyUrl></bold>.",
     "checkoutTitle": "Checkout"
   },
@@ -106,7 +107,10 @@
     "saveToWallet": "Zapisz kartę do walleta",
     "expires": "Wygasa",
     "subscriptionWithoutCustomer": "Aby kupić subskrypcję, należy założyć konto.",
-    "subscriptionWithCustomer": "Podając dane swojej karty, zezwalasz firmie na obciążenie Twojej karty przyszłymi płatnościami zgodnie z jej warunkami."
+    "subscriptionWithCustomer": "Podając dane swojej karty, zezwalasz firmie na obciążenie Twojej karty przyszłymi płatnościami zgodnie z jej warunkami.",
+    "useGiftCard": "Użyj karty podarunkowej",
+    "giftCardCodePlaceholder": "Wpisz kod",
+    "addAnotherGiftCard": "Dodaj kolejną"
   },
   "addressForm": {
     "customer_email": "Twój adres e-mail",
