@@ -77,9 +77,9 @@
   ],
   "dependencies": {
     "@adyen/adyen-web": "6.28.0",
-    "@commercelayer/core-components": "5.0.0-beta.13",
-    "@commercelayer/react-hooks-components": "5.0.0-beta.13",
-    "@commercelayer/react-components": "5.0.0-beta.13",
+    "@commercelayer/core-components": "5.0.1-beta.0",
+    "@commercelayer/react-hooks-components": "5.0.1-beta.0",
+    "@commercelayer/react-components": "5.0.1-beta.0",
     "@commercelayer/js-auth": "^7.4.2",
     "@commercelayer/organization-config": "^2.8.4",
     "@commercelayer/sdk": "^7.12.1",

@@ -16,8 +16,8 @@ importers:
         specifier: 6.28.0
         version: 6.28.0
       '@commercelayer/core-components':
-        specifier: 5.0.0-beta.13
-        version: 5.0.0-beta.13
+        specifier: 5.0.1-beta.0
+        version: 5.0.1-beta.0
       '@commercelayer/js-auth':
         specifier: ^7.4.2
         version: 7.4.2
@@ -25,11 +25,11 @@ importers:
         specifier: ^2.8.4
         version: 2.8.4
       '@commercelayer/react-components':
-        specifier: 5.0.0-beta.13
-        version: 5.0.0-beta.13(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: 5.0.1-beta.0
+        version: 5.0.1-beta.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@commercelayer/react-hooks-components':
-        specifier: 5.0.0-beta.13
-        version: 5.0.0-beta.13(react@19.2.7)
+        specifier: 5.0.1-beta.0
+        version: 5.0.1-beta.0(react@19.2.7)
       '@commercelayer/sdk':
         specifier: 8.0.0-beta.11
         version: 8.0.0-beta.11
@@ -287,8 +287,8 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@commercelayer/core-components@5.0.0-beta.13':
-    resolution: {integrity: sha512-0CMofk9tkfWtpOQeeoM3xbnTMSeOzLBBKaNDLaegyWy+GoXh1TwoYNA7WgFGgSnbBKxqLuJimUcv5cEMGUFdYA==}
+  '@commercelayer/core-components@5.0.1-beta.0':
+    resolution: {integrity: sha512-5zkoF+v3400kO51Hennimf8WqUQoZNbG6clgMU0ztIZBjMKs/svK0lnuvMZz5Dv2QQ/9Om0t9aeEqvFiEsTATA==}
 
   '@commercelayer/js-auth@7.4.2':
     resolution: {integrity: sha512-ifRcoAL1R7o5AU5w4bgmSnNMEWXDc11A+yZwAAZMEkAYrrsaud1X/3xmgY1e0yIXK8AAdIiqfW/Rm/4DdWwAQA==}
@@ -302,13 +302,13 @@ packages:
     resolution: {integrity: sha512-ZlgIhQx7vu89ZD3eOCSkCe7kNb5LgEGy0p4Gayi75sxfHfJRXKkoX2NC+nkp2pFosi4SBYhlQFcd/EtzStAQGw==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@5.0.0-beta.13':
-    resolution: {integrity: sha512-+8pVdlmOnaR9TVYHgOxzaffvDoWhDAv+8v8+bCUQHUQGtDFnWn17C13gAF9kv6EZWGirq0HNGollwJ5g0xpaDA==}
+  '@commercelayer/react-components@5.0.1-beta.0':
+    resolution: {integrity: sha512-nUqu8B2SWSXOHkiTpmxS+W+iwjt4aQLxXWMkSt9SoTRGXp9/3Z7MBFvkYfTTNaJLBZFqYdEScyT5u1XPSS4ADA==}
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/react-hooks-components@5.0.0-beta.13':
-    resolution: {integrity: sha512-Hw4Ev/iy7no3/C1FiPNvEyxokdmVDsk8M3nmtHu/hZlyJODLnxiSVPYdh5EjztOzd6V2B3rQ3OH5+LPRTPROWw==}
+  '@commercelayer/react-hooks-components@5.0.1-beta.0':
+    resolution: {integrity: sha512-E07bj28rqTimSPVrku/sqlbxTwFEVgJ9I6Z0e3PzFWoLH9jiZz9mmC3DXw46L0sr3TiMtDl2bkhzaItCcVW9yA==}
     peerDependencies:
       react: '>=19.0.0'
 
@@ -2835,7 +2835,7 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@commercelayer/core-components@5.0.0-beta.13':
+  '@commercelayer/core-components@5.0.1-beta.0':
     dependencies:
       '@commercelayer/js-auth': 8.0.0
       '@commercelayer/sdk': 8.0.0-beta.11
@@ -2849,12 +2849,12 @@ snapshots:
       '@commercelayer/js-auth': 7.4.2
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@5.0.0-beta.13(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@commercelayer/react-components@5.0.1-beta.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       '@adyen/adyen-web': 6.43.0
-      '@commercelayer/core-components': 5.0.0-beta.13
+      '@commercelayer/core-components': 5.0.1-beta.0
       '@commercelayer/organization-config': 2.8.4
-      '@commercelayer/react-hooks-components': 5.0.0-beta.13(react@19.2.7)
+      '@commercelayer/react-hooks-components': 5.0.1-beta.0(react@19.2.7)
       '@commercelayer/sdk': 8.0.0-beta.11
       '@iframe-resizer/parent': 5.5.9
       '@stripe/react-stripe-js': 6.8.1(@stripe/stripe-js@9.13.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -2867,9 +2867,9 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@commercelayer/react-hooks-components@5.0.0-beta.13(react@19.2.7)':
+  '@commercelayer/react-hooks-components@5.0.1-beta.0(react@19.2.7)':
     dependencies:
-      '@commercelayer/core-components': 5.0.0-beta.13
+      '@commercelayer/core-components': 5.0.1-beta.0
       react: 19.2.7
       swr: 2.5.1(react@19.2.7)
 

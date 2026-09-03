@@ -9,8 +9,8 @@ minimumReleaseAgeExclude:
   - '@commercelayer/core'
   - '@commercelayer/hooks'
   - '@commercelayer/react-components'
-  - '@commercelayer/core-components@5.0.0-beta.13'
-  - '@commercelayer/react-hooks-components@5.0.0-beta.13'
+  - '@commercelayer/core-components@5.0.0-beta.13 || 5.0.1-beta.0'
+  - '@commercelayer/react-hooks-components@5.0.0-beta.13 || 5.0.1-beta.0'
 overrides:
   "postcss": 8.5.15
   # react-components pins the SDK as a hard dependency rather than a peer, so
