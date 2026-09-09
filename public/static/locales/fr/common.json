@@ -102,6 +102,8 @@
     "endingIn": "<0/> se terminant par <1/>",
     "submit": "Passer commande",
     "submitting": "Commande en cours…",
+    "useGatewayButton": "Complete your payment with the button above to place the order.",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "Cette commande ne nécessite pas de paiement",
     "amountZero": "Le montant total de la commande est nul, vous pouvez passer la commande en l’état.",
     "saveToWallet": "Enregistrez la nouvelle carte dans votre portefeuille",

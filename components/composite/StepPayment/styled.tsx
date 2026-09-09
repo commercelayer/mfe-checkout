@@ -287,3 +287,22 @@ export const StyledGiftCardSessionRemove: FC<any> = (props) => (
     className={`text-sm text-primary underline cursor-pointer ${props.className || ""}`}
   />
 )
+
+// Layout for the element the Adyen Drop-in mounts into. Passed as
+// `containerClassName` rather than wrapped, because the component renders that
+// element itself — it has to, or the Drop-in would have nowhere to attach.
+//
+// The class name is kept in the list so end-to-end tests have a stable hook
+// into the Drop-in, matching the selector the payments playground uses.
+export const ADYEN_CONTAINER_CLASS = "adyen-dropin-container px-4 pb-4 -mt-2"
+
+// A Drop-in that could not load — an expired Adyen session, or a client key not
+// authorized for this origin — fails before any click, so nothing else reports
+// it. A refusal *after* a click is reported as an order error instead, by the
+// place-order button.
+export const AdyenError: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`${ErrorCss} text-sm px-4 pb-4 ${props.className || ""}`}
+  />
+)
