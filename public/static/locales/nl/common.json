@@ -102,6 +102,8 @@
       "endingIn": "<0/> eindigend op <1/>",
       "submit": "Bestelling plaatsen",
       "submitting": "Bestelling plaatsen…",
+      "useGatewayButton": "Complete your payment with the button above to place the order.",
+      "acceptTermsToPay": "Accept the terms and conditions to continue.",
       "notRequired": "Deze bestelling vereist geen betaling",
       "amountZero": "Het totaalbedrag van de bestelling is nul, u kunt de bestelling nu plaatsen zoals deze is",
       "saveToWallet": "Nieuwe kaart opslaan in uw portemonnee",

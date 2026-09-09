@@ -102,6 +102,8 @@
     "endingIn": "<0/> terminando em <1/>",
     "submit": "Concluir encomenda",
     "submitting": "A concluir encomenda…",
+    "useGatewayButton": "Complete your payment with the button above to place the order.",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "Esta encomenda não requer pagamento",
     "amountZero": "O valor total da encomenda é zero, pode concluir a encomenda como está neste momento",
     "saveToWallet": "Guardar novo cartão na sua carteira",

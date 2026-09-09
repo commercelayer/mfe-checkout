@@ -98,6 +98,8 @@
     "endingIn": "<0/> završava s <1/>",
     "submit": "Pošalji narudžbu",
     "submitting": "Slanje narudžbe…",
+    "useGatewayButton": "Complete your payment with the button above to place the order.",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "Ova narudžba ne zahtijeva plaćanje",
     "amountZero": "Ukupan iznos narudžbe je nula, narudžbu možete poslati odmah",
     "saveToWallet": "Spremi novu karticu u novčanik",
