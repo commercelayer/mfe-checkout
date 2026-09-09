@@ -40,3 +40,9 @@ cypress/fixtures/*
 
 # vercel
 .vercel
+
+# Dev-only landing page: a fixed URL redirecting to the freshest
+# payment_sessions order, so a second macOS user — or a phone, when testing
+# Apple Pay — reaches it from one bookmark. Carries an order access token in the
+# redirect, so it never gets committed.
+public/np-latest.html
