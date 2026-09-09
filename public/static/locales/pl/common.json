@@ -102,6 +102,8 @@
     "endingIn": "<0/> numer zakończony cyframi <1/>",
     "submit": "Złóż zamówienie",
     "submitting": "Składanie zamówienia…",
+    "useGatewayButton": "Complete your payment with the button above to place the order.",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "To zamówienie nie wymaga płatności",
     "amountZero": "Suma zamówienia wynosi zero. Możesz złożyć je bez płatności.",
     "saveToWallet": "Zapisz kartę do walleta",

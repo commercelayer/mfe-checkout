@@ -1,6 +1,7 @@
 import type { PaymentSettingGiftCardChildrenProps } from "@commercelayer/react-components"
 import {
   PaymentSetting,
+  PaymentSettingAdyenPayment,
   PaymentSettingGiftCard,
   PaymentSettingGiftCardList,
   PaymentSettingGiftCardListItem,
@@ -11,6 +12,8 @@ import { type JSX, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import {
+  ADYEN_CONTAINER_CLASS,
+  AdyenError,
   GiftCardAddLink,
   GiftCardBody,
   GiftCardHeader,
@@ -60,45 +63,128 @@ interface Props {
  * placed outside would show an empty box on every order that is not on this
  * model.
  *
- * Only `payment_setting_manuals` is implemented so far — other settings are
- * skipped by `<PaymentSetting>` rather than rendered inert.
+ * `payment_setting_manuals` and `payment_setting_adyens` are implemented —
+ * other settings are skipped by `<PaymentSetting>` rather than rendered inert,
+ * and so is an Adyen setting that is disabled or carries no `public_key`.
  */
+/**
+ * Where a gateway sends the shopper back after a redirect.
+ *
+ * The access token comes off, exactly as `PaymentContainer` does it for
+ * Checkout.com and for the same reason: a gateway that validates the URL
+ * rejects one carrying the ~1.5 kB JWT. Adyen refuses a `returnUrl` over 1024
+ * characters from gateway version 72 — which is the version a newly created
+ * payment setting defaults to — with `Field 'returnUrl' may not exceed 1024
+ * characters`.
+ *
+ * Nothing else has to be built for the return: `useLocalStorageToken` has
+ * already saved the token under `checkoutAccessToken`, and
+ * `useSettingsOrInvalid` re-authenticates a return that arrives without one
+ * whenever it recognises a gateway marker — Adyen's `redirectResult` among them.
+ * `paymentReturn=true` is set anyway, as the Checkout.com URL does, so the
+ * return is recognisable even if the marker does not arrive.
+ */
+function paymentReturnUrl(): string | undefined {
+  if (typeof window === "undefined") return undefined
+  const url = new URL(window.location.href)
+  url.searchParams.delete("accessToken")
+  url.searchParams.set("paymentReturn", "true")
+  // Adyen's own return parameters, which are single-use: a second attempt must
+  // not be created with the first one's spent `redirectResult`.
+  for (const spent of ["redirectResult", "sessionId", "resultCode"]) {
+    url.searchParams.delete(spent)
+  }
+  url.hash = ""
+  return url.toString()
+}
+
 export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
+  const { t } = useTranslation()
+
+  /**
+   * The library's own wording, or ours where we have some.
+   *
+   * `meta.error` is the machine-readable half — a gateway's `resultCode`, or a
+   * reason the library named — and `message` is the English default a package
+   * that cannot know our locale has to ship. So the codes we recognise get
+   * translated and everything else falls through, which keeps an unrecognised
+   * refusal legible instead of blank.
+   */
+  const adyenErrorMessage = (error: {
+    message?: string
+    meta?: Record<string, unknown>
+  }): string => {
+    if (error.meta?.error === "TermsNotAccepted") {
+      return t("stepPayment.acceptTermsToPay")
+    }
+    return error.message ?? ""
+  }
+
   return (
     <>
-      <PaymentSetting onSelect={onSelect}>
+      <PaymentSetting onSelect={onSelect} returnUrl={paymentReturnUrl()}>
         {({ setting, isSelected, errors }) => (
-          // A <label> rather than a click handler: one click reaches the radio
-          // exactly once whatever it lands on, so the whole card is the target
-          // without any risk of selecting twice.
-          <PaymentSettingCard
-            htmlFor={setting.id}
-            isSelected={isSelected}
-            data-testid="payment-setting-item"
-          >
-            <PaymentSettingItem>
-              <StyledPaymentSettingRadioButton />
-              <PaymentSettingName />
-            </PaymentSettingItem>
-            <PaymentSettingManualPayment>
-              {() => {
-                // The only thing this branch has to say today. A manual payment
-                // has no gateway UI and nothing to collect, and the amount is
-                // the order total, which the summary already shows — so there
-                // is nothing to render but a failed selection. Bank details
-                // would go here.
-                //
-                // Selection errors live on the setting's context, not on the
-                // order, so <Errors resource="..."> would never see them.
-                if (errors.length === 0) return <></>
+          <>
+            {/* A <label> rather than a click handler: one click reaches the radio
+              exactly once whatever it lands on, so the whole card is the target
+              without any risk of selecting twice. */}
+            <PaymentSettingCard
+              htmlFor={setting.id}
+              isSelected={isSelected}
+              data-testid="payment-setting-item"
+            >
+              <PaymentSettingItem>
+                <StyledPaymentSettingRadioButton />
+                <PaymentSettingName />
+              </PaymentSettingItem>
+              <PaymentSettingManualPayment>
+                {() => {
+                  // The only thing this branch has to say today. A manual payment
+                  // has no gateway UI and nothing to collect, and the amount is
+                  // the order total, which the summary already shows — so there
+                  // is nothing to render but a failed selection. Bank details
+                  // would go here.
+                  //
+                  // Selection errors live on the setting's context, not on the
+                  // order, so <Errors resource="..."> would never see them.
+                  if (errors.length === 0) return <></>
+                  return (
+                    <PaymentSettingError data-testid="payment-setting-error">
+                      {errors.map((error) => error.message).join(" ")}
+                    </PaymentSettingError>
+                  )
+                }}
+              </PaymentSettingManualPayment>
+            </PaymentSettingCard>
+
+            {/* Deliberately outside the card: the card is a <label>, and a click
+              on one of Adyen's inputs inside it would be forwarded to the radio
+              the label points at, taking focus off the field being typed into.
+              The component renders its own mount target and calls the function
+              child after it — the Drop-in has to have somewhere to attach. */}
+            {/* Apple Pay is asked for, not defaulted: its button renders on
+              any Safari with a card in Wallet, and merchant validation then
+              fails unless this exact domain is registered for Apple Pay on the
+              Adyen merchant account — via the Management API
+              `addApplePayDomains`, plus the `.well-known` association file
+              served publicly. Adding it here is a statement that the domains
+              this checkout is served from have been registered. Remove it if
+              that stops being true; a shopper otherwise meets a button that
+              cannot work. */}
+            <PaymentSettingAdyenPayment
+              paymentMethods={["card", "paypal", "google_pay", "apple_pay"]}
+              containerClassName={ADYEN_CONTAINER_CLASS}
+            >
+              {({ errors: adyenErrors }) => {
+                if (adyenErrors.length === 0) return <></>
                 return (
-                  <PaymentSettingError data-testid="payment-setting-error">
-                    {errors.map((error) => error.message).join(" ")}
-                  </PaymentSettingError>
+                  <AdyenError data-testid="adyen-setting-error">
+                    {adyenErrors.map(adyenErrorMessage).join(" ")}
+                  </AdyenError>
                 )
               }}
-            </PaymentSettingManualPayment>
-          </PaymentSettingCard>
+            </PaymentSettingAdyenPayment>
+          </>
         )}
       </PaymentSetting>
 
