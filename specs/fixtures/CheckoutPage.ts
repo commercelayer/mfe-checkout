@@ -1359,7 +1359,10 @@ export class CheckoutPage {
       ) {
         // Element inside the cross-origin Stripe iframe is below the fold:
         // Playwright can't scroll the outer page for it, so do it ourselves.
-        await this.page.mouse.wheel(0, box.y + box.height - viewport.height + 100)
+        await this.page.mouse.wheel(
+          0,
+          box.y + box.height - viewport.height + 100,
+        )
       }
       await cardButton.click({ force: true })
     }
@@ -1411,7 +1414,9 @@ export class CheckoutPage {
         await stripeFrameLocator
           .getByPlaceholder("MM / YY")
           .fill(creditCard.exp)
-        await stripeFrameLocator.locator("#payment-cvcInput").fill(creditCard.cvc)
+        await stripeFrameLocator
+          .locator("#payment-cvcInput")
+          .fill(creditCard.cvc)
         break
       }
       case "stripe-paypal": {
