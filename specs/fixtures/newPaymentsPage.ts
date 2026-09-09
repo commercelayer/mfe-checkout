@@ -261,4 +261,5 @@ export {
   ADYEN_3DS_PASSWORD,
   PaymentSessionsCheckoutPage,
   payPalCredentials,
+  STRIPE_CARD,
 } from "./PaymentSessionsCheckoutPage"
