@@ -34,6 +34,22 @@ export const ADYEN_3DS_CARD = {
 /** The word Adyen's test challenge page accepts. Anything else is refused. */
 export const ADYEN_3DS_PASSWORD = "password"
 
+/**
+ * Stripe's test card that authorizes without a challenge.
+ *
+ * The frictionless one on purpose: what this suite is proving is the chain from
+ * `confirmPayment` through `requires_capture` to a placed order. Stripe's 3DS
+ * card is `4000002500003155`, for when that branch gets its own test.
+ *
+ * https://docs.stripe.com/testing
+ */
+export const STRIPE_CARD = {
+  number: "4242424242424242",
+  exp: "1234",
+  cvc: "123",
+  zip: "10001",
+}
+
 export interface PayPalCredentials {
   email: string
   password: string
@@ -61,6 +77,42 @@ export function payPalCredentials(): PayPalCredentials | null {
   if (email == null || password == null) return null
   if (email.length === 0 || password.length === 0) return null
   return { email, password }
+}
+
+/**
+ * Type into one of Stripe's fields, and put back what Link takes away.
+ *
+ * Stripe's Link expands an inline sign-up — email, mobile, full name — as soon
+ * as a card number starts being typed, and **it takes the focus**. The rest of
+ * the keystrokes then land in its email box, leaving one digit in the card
+ * field and a form that reports itself incomplete. It is not deterministic: how
+ * far the typing gets depends on how long Link's iframe has had to wake up, so
+ * the same fill passes before a gift card has been applied and fails after.
+ *
+ * So each field is verified and, if the value came out short, refilled —
+ * cleared first, since a truncated attempt is still in there. Bounded, because
+ * a field that will not accept a value should fail as itself rather than spin.
+ */
+async function typeStripeField(input: Locator, value: string): Promise<void> {
+  await expect(input).toBeVisible({ timeout: 30_000 })
+  const digits = (text: string): string => text.replace(/[^0-9]/g, "")
+
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    await input.click()
+    if (attempt > 1) {
+      // A previous attempt left something behind, and Stripe reformats as you
+      // type — so the field is emptied rather than appended to.
+      await input.press("ControlOrMeta+a")
+      await input.press("Backspace")
+    }
+    await input.pressSequentially(value, { delay: 20 })
+    if (digits(await input.inputValue()) === digits(value)) return
+  }
+
+  expect(
+    digits(await input.inputValue()),
+    `Stripe kept only part of "${value}"`,
+  ).toBe(digits(value))
 }
 
 export class PaymentSessionsCheckoutPage {
@@ -271,6 +323,59 @@ export class PaymentSessionsCheckoutPage {
    */
   get adyenDropin(): Locator {
     return this.page.locator(".adyen-dropin-container")
+  }
+
+  /**
+   * Stripe's Payment Element, which lives in an iframe Stripe owns.
+   *
+   * Addressed by the container this application names plus the iframe inside
+   * it, rather than by iframe position: the page can carry Adyen's secured
+   * fields at the same time.
+   */
+  get stripeElement(): Locator {
+    return this.page.locator(".stripe-elements-container iframe").first()
+  }
+
+  /**
+   * Fill Stripe's card fields.
+   *
+   * One iframe for all of them, unlike Adyen's field-per-iframe secured fields,
+   * so this is a single frame locator addressed by accessible name. Typed
+   * rather than `fill()`ed for the same reason as Adyen's: the Element listens
+   * for the events real typing produces.
+   */
+  async fillStripeCard(card = STRIPE_CARD): Promise<void> {
+    await expect(this.stripeElement).toBeVisible({ timeout: 30_000 })
+    const frame = this.page
+      .frameLocator(".stripe-elements-container iframe")
+      .first()
+
+    const fields: Array<[RegExp, string]> = [
+      [/card number/i, card.number],
+      [/expiration|expiry/i, card.exp],
+      [/security code|cvc|cvv/i, card.cvc],
+    ]
+    for (const [name, value] of fields) {
+      await typeStripeField(frame.getByRole("textbox", { name }), value)
+    }
+
+    // Some Dashboard configurations ask for a postal code as well; filling it
+    // when it is there is cheaper than a test that fails on an incomplete form.
+    const zip = frame.getByRole("textbox", { name: /zip|postal/i })
+    if ((await zip.count()) > 0) {
+      await zip.click()
+      await zip.pressSequentially(card.zip, { delay: 20 })
+    }
+
+    // Fail here, on the form, rather than later on the thank-you page. An
+    // incomplete Element makes `elements.submit()` show its own validation, and
+    // the place button then reports nothing — correctly, since the shopper
+    // simply has not finished — so a mistyped field is otherwise indis-
+    // tinguishable from a payment that never arrived.
+    await expect(
+      this.page.locator("[data-testid=stripe-state]"),
+      "Stripe's Payment Element does not consider the card complete",
+    ).toHaveText("ready", { timeout: 15_000 })
   }
 
   /** A Drop-in that could not load says so here; a refusal is an order error. */
