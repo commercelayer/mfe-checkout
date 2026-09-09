@@ -80,7 +80,7 @@
     "commercelayer"
   ],
   "dependencies": {
-    "@adyen/adyen-web": "6.28.0",
+    "@adyen/adyen-web": "^6.42.0",
     "@commercelayer/core-components": "5.0.11",
     "@commercelayer/js-auth": "^7.4.2",
     "@commercelayer/organization-config": "^2.8.5",
