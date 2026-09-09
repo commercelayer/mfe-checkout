@@ -102,6 +102,8 @@
     "endingIn": "<0/> ending in <1/>",
     "submit": "Place order",
     "submitting": "Placing order…",
+    "useGatewayButton": "Complete your payment with the button above to place the order.",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "This order does not require payment",
     "amountZero": "The total amount of the order is zero, you can place the order as it is right now",
     "saveToWallet": "Save new card on your wallet",

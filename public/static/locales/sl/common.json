@@ -98,6 +98,8 @@
     "endingIn": "<0/> se konča z <1/>",
     "submit": "Oddaj naročilo",
     "submitting": "Oddajanje naročila…",
+    "useGatewayButton": "Complete your payment with the button above to place the order.",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "To naročilo ne zahteva plačila",
     "amountZero": "Skupni znesek naročila je nič, naročilo lahko oddate takoj",
     "saveToWallet": "Shrani novo kartico v denarnico",
