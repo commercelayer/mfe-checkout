@@ -111,6 +111,35 @@ async function salesChannelToken() {
   return accessToken
 }
 
+/**
+ * A customer token: the same public client id, plus someone's credentials.
+ *
+ * The distinction matters to more than the greeting. `payment_wallets` are
+ * grantable only to the customer who owns them, so saving a card — and every
+ * flow that reuses one — is unreachable with the guest token above. Adyen's
+ * tokenization is gated the same way, on the token rather than on the order.
+ */
+async function customerToken() {
+  const auth = await authenticate("password", {
+    domain: required("NP_DOMAIN"),
+    clientId: required("NP_CLIENT_ID"),
+    username: required("NP_CUSTOMER_EMAIL"),
+    password: required("NP_CUSTOMER_PASSWORD"),
+    scope: `market:code:${marketCode()}`,
+  })
+  // `authenticate` reports a bad password in `errors` rather than throwing, so
+  // without this the failure surfaces much later as an unauthorized order
+  // create — which reads as a broken script rather than a wrong password.
+  if (auth.errors?.length) {
+    fail(
+      `Could not sign in as ${process.env.NP_CUSTOMER_EMAIL}: ` +
+        `${auth.errors[0]?.detail ?? "authentication failed"}\n` +
+        "Check NP_CUSTOMER_EMAIL and NP_CUSTOMER_PASSWORD in .env.local.",
+    )
+  }
+  return auth.accessToken
+}
+
 /** An integration token: client id + secret. Gift cards cannot be minted without it. */
 async function integrationToken() {
   const { accessToken } = await authenticate("client_credentials", {
@@ -130,16 +159,19 @@ function client(accessToken) {
   })
 }
 
-async function createOrder() {
+async function createOrder({ asCustomer = false } = {}) {
   const market = marketCode()
   const skuCode = process.env.NP_SKU_CODE ?? DEFAULT_SKU_CODE
-  const accessToken = await salesChannelToken()
+  const accessToken = asCustomer ? await customerToken() : await salesChannelToken()
   const cl = client(accessToken)
 
   const address = await cl.addresses.create(ADDRESSES[market])
 
   const order = await cl.orders.create({
-    customer_email: CUSTOMER_EMAIL,
+    // The customer's own address, on a customer token: the order is associated
+    // with whoever the token belongs to, and an email that disagreed with it
+    // would put the checkout's Customer step at odds with the order.
+    customer_email: asCustomer ? required("NP_CUSTOMER_EMAIL") : CUSTOMER_EMAIL,
     billing_address: cl.addresses.relationship(address.id),
     shipping_address: cl.addresses.relationship(address.id),
   })
@@ -174,7 +206,8 @@ async function createOrder() {
 
   console.error(
     `\norder ${placed.number} · ${skuCode} · market ${market} · ` +
-      `${placed.formatted_total_amount_with_taxes ?? placed.formatted_total_amount}`,
+      `${placed.formatted_total_amount_with_taxes ?? placed.formatted_total_amount} · ` +
+      `${asCustomer ? `customer ${process.env.NP_CUSTOMER_EMAIL}` : "guest"}`,
   )
   console.error("append this to your checkout origin:\n")
   console.log(`/${order.id}?accessToken=${accessToken}`)
@@ -227,7 +260,10 @@ const [command, ...args] = process.argv.slice(2)
 try {
   switch (command) {
     case "order":
-      await createOrder()
+      // A flag rather than a second subcommand: everything about the order is
+      // the same but the token, and the end-to-end fixture asks for one by
+      // passing this through.
+      await createOrder({ asCustomer: args.includes("--customer") })
       break
     case "gift-card":
       await createGiftCard(args[0])
@@ -235,7 +271,8 @@ try {
     default:
       fail(
         "Usage:\n" +
-          "  pnpm np:order              create an order, print /<id>?accessToken=<jwt>\n" +
+          "  pnpm np:order              create a guest order, print /<id>?accessToken=<jwt>\n" +
+          "  pnpm np:order:customer     the same, signed in as NP_CUSTOMER_EMAIL\n" +
           "  pnpm np:gift-card <amount> mint an active gift card, print its code",
       )
   }
