@@ -102,6 +102,8 @@
     "endingIn": "<0/> végződik <1/>",
     "submit": "Megrendelés elküldése",
     "submitting": "Megrendelés folyamatban…",
+    "useGatewayButton": "Complete your payment with the button above to place the order.",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "Ez a megrendelés nem igényel fizetést",
     "amountZero": "A rendelés teljes összege nulla, így a rendelést most így is leadhatja",
     "saveToWallet": "Az új bankkártya elmentése",

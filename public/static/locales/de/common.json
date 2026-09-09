@@ -102,6 +102,8 @@
     "endingIn": "<0/> endet mit <1/>",
     "submit": "Jetzt bestellen",
     "submitting": "Bestellung wird aufgegeben…",
+    "useGatewayButton": "Complete your payment with the button above to place the order.",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "Diese Bestellung erfordert keine Zahlung",
     "amountZero": "Der Gesamtbetrag der Bestellung ist Null. Du kannst die Bestellung so aufgeben, wie sie jetzt ist",
     "saveToWallet": "Speichere eine neue Karte",
