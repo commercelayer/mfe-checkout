@@ -17,6 +17,52 @@ import { expect, type Locator, type Page } from "@playwright/test"
  * tests lean on lives in the same repository as the tests, and a rename breaks
  * both at once rather than silently.
  */
+/**
+ * Adyen's test card for the 3D Secure 2 **challenge** flow.
+ *
+ * Chosen over a frictionless one on purpose: the challenge is what the shopper
+ * can fail, and failing it is the branch these tests exist for.
+ *
+ * https://docs.adyen.com/development-resources/test-cards-and-credentials/test-card-numbers
+ */
+export const ADYEN_3DS_CARD = {
+  number: "4166676667666746",
+  exp: "0330",
+  cvc: "737",
+}
+
+/** The word Adyen's test challenge page accepts. Anything else is refused. */
+export const ADYEN_3DS_PASSWORD = "password"
+
+export interface PayPalCredentials {
+  email: string
+  password: string
+}
+
+/**
+ * The PayPal **sandbox buyer** these tests log in as, or `null`.
+ *
+ * `NP_*` and deliberately **not** `E2E_PAYPAL_*`. A PayPal sandbox buyer is
+ * only good against the PayPal business sandbox account that the Adyen merchant
+ * account is linked to, and that link is per merchant account — so the buyer
+ * that works for the `payment_source` suite, on the `E2E_*` organization, is
+ * refused here. Sharing the variable produced exactly one confusing failure:
+ * PayPal approves the payment, because the buyer is a perfectly valid PayPal
+ * account, and Adyen then answers `Refused`.
+ *
+ * Returned as `null` rather than thrown so a test can skip with a reason — a
+ * missing sandbox buyer is an environment that cannot run the test, not a
+ * checkout that is broken, and failing the two the same way hides real
+ * regressions behind a setup problem.
+ */
+export function payPalCredentials(): PayPalCredentials | null {
+  const email = process.env.NP_PAYPAL_EMAIL
+  const password = process.env.NP_PAYPAL_PASSWORD
+  if (email == null || password == null) return null
+  if (email.length === 0 || password.length === 0) return null
+  return { email, password }
+}
+
 export class PaymentSessionsCheckoutPage {
   readonly page: Page
 
@@ -77,12 +123,16 @@ export class PaymentSessionsCheckoutPage {
   }
 
   /**
-   * The radio inside a setting card. Its `name` carries the setting id, so
-   * there is no stable value to match on — but there is at most one selected
-   * setting per order, so the group as a whole answers "is anything picked".
+   * Every radio in the setting group. Their `name` carries the setting id, so
+   * there is no stable value to match on.
    */
   get paymentSettingRadios(): Locator {
     return this.page.locator("input[name^=payment-setting-]")
+  }
+
+  /** Whichever radios are currently selected — at most one, per the model. */
+  get checkedPaymentSettingRadios(): Locator {
+    return this.page.locator("input[name^=payment-setting-]:checked")
   }
 
   get termsCheckbox(): Locator {
@@ -118,9 +168,15 @@ export class PaymentSessionsCheckoutPage {
    * state is the first thing that proves the round trip finished.
    */
   async selectPaymentSetting(name: string): Promise<void> {
-    await this.paymentSetting(name).click()
+    const card = this.paymentSetting(name)
+    await card.click()
     try {
-      await expect(this.paymentSettingRadios.first()).toBeChecked()
+      // Scoped to the card that was clicked, not `radios.first()`. That worked
+      // only while `manual` was the one implemented setting: with a second one
+      // rendered, the first radio in the group belongs to whichever setting the
+      // order happens to list first, and the assertion fails on a selection
+      // that in fact succeeded.
+      await expect(card.locator("input[name^=payment-setting-]")).toBeChecked()
     } catch (error) {
       // Selecting writes a session to the order, so a refused selection means
       // the radio stays unchecked and "unexpected value unchecked" is all the
@@ -139,9 +195,16 @@ export class PaymentSessionsCheckoutPage {
     }
   }
 
-  /** True when no payment setting is selected — the state after a gift card changes. */
+  /**
+   * True when no payment setting is selected — the state after a gift card
+   * changes, or after a refused card burnt its Payment Session.
+   *
+   * Counts the checked radios rather than testing one of them: with more than
+   * one setting rendered, "the first is unchecked" is satisfied while another
+   * is selected.
+   */
   async expectNoPaymentSettingSelected(): Promise<void> {
-    await expect(this.paymentSettingRadios.first()).not.toBeChecked()
+    await expect(this.checkedPaymentSettingRadios).toHaveCount(0)
   }
 
   /**
@@ -153,12 +216,24 @@ export class PaymentSessionsCheckoutPage {
    * the "add another one" link.
    */
   async applyGiftCard(code: string): Promise<void> {
-    if ((await this.giftCardInput.count()) === 0) {
+    // Open the section only when it is really closed. "No input" is not that
+    // signal on its own: with a card already applied the field steps aside for
+    // the add link, and pressing the toggle then *closes* a section that was
+    // open — taking the link with it, so the field never comes back. Applying a
+    // second card in a row was enough to hit it.
+    if (
+      (await this.giftCardInput.count()) === 0 &&
+      (await this.giftCardAddLink.count()) === 0
+    ) {
       await this.giftCardToggle.click()
     }
     if ((await this.giftCardAddLink.count()) > 0) {
       await this.giftCardAddLink.click()
     }
+    await expect(
+      this.giftCardInput,
+      "the gift card field never appeared — is another card already applied and the section closed?",
+    ).toBeVisible()
     await this.giftCardInput.fill(code)
     await expect(this.giftCardApplyButton).toBeEnabled()
     await this.giftCardApplyButton.click()
@@ -170,11 +245,261 @@ export class PaymentSessionsCheckoutPage {
     await expect(this.giftCardRow(code)).toBeVisible()
   }
 
+  /**
+   * Take a gift card off the order.
+   *
+   * The wait is long because the same control does two different things: an
+   * unauthorized card is one `DELETE`, but a charged one is refunded — created
+   * `pending`, settled by a background job, and polled for — and the row only
+   * goes once the session reads `refunded`.
+   */
   async removeGiftCard(code: string): Promise<void> {
     await this.giftCardRow(code)
       .locator("[data-testid=gift-card-remove]")
       .click()
-    await expect(this.giftCardRow(code)).toHaveCount(0)
+    await expect(this.giftCardRow(code)).toHaveCount(0, { timeout: 30_000 })
+  }
+
+  /**
+   * The element the Adyen Drop-in mounts into.
+   *
+   * The class comes from this application — `ADYEN_CONTAINER_CLASS` in
+   * `StepPayment/styled.tsx` — because the library renders the container but
+   * takes its class as a prop. Every Adyen locator below is scoped to it, so a
+   * page that also carries the `payment_source` model's Drop-in cannot be
+   * matched by accident.
+   */
+  get adyenDropin(): Locator {
+    return this.page.locator(".adyen-dropin-container")
+  }
+
+  /** A Drop-in that could not load says so here; a refusal is an order error. */
+  get adyenError(): Locator {
+    return this.page.locator("[data-testid=adyen-setting-error]")
+  }
+
+  /**
+   * One of Adyen's PCI secured fields, which each live in their own iframe.
+   *
+   * Addressed by field class and accessible label rather than by iframe
+   * position. `iframe >> nth=0` is what the `payment_source` fixture does, and
+   * it breaks the moment anything else on the page frames something.
+   */
+  private adyenField(
+    field: "cardNumber" | "expiryDate" | "securityCode",
+    label: string,
+  ): Locator {
+    return this.page
+      .frameLocator(
+        `.adyen-dropin-container .adyen-checkout__field--${field} iframe`,
+      )
+      .getByRole("textbox", { name: label })
+  }
+
+  /**
+   * Fill the card form.
+   *
+   * Typed rather than `fill()`ed: Adyen's fields listen for the events real
+   * typing produces, and a single `fill()` can leave the Drop-in believing the
+   * form is still invalid — at which point the place button submits nothing and
+   * the failure looks like a timeout on the thank-you page.
+   */
+  async fillAdyenCard(card = ADYEN_3DS_CARD): Promise<void> {
+    await expect(this.adyenDropin).toBeVisible({ timeout: 30_000 })
+    const fields: Array<
+      [Parameters<typeof this.adyenField>[0], string, string]
+    > = [
+      ["cardNumber", "Card number", card.number],
+      ["expiryDate", "Expiry date", card.exp],
+      ["securityCode", "Security code", card.cvc],
+    ]
+    for (const [field, label, value] of fields) {
+      const input = this.adyenField(field, label)
+      await expect(input).toBeVisible({ timeout: 30_000 })
+      await input.click()
+      await input.pressSequentially(value, { delay: 20 })
+    }
+
+    // Fail here, on the form, rather than later on whatever was supposed to
+    // follow the payment. An invalid field leaves the Drop-in reporting itself
+    // invalid, the place button then submits nothing and — correctly — says
+    // nothing, so the test goes on to wait out a full timeout on a 3DS iframe
+    // that was never coming. A mistyped card number cost exactly that, and read
+    // as a 3DS problem.
+    //
+    // The icon's name is read in English because this suite runs the default
+    // locale; the localised checkout has its own test.
+    await expect(
+      this.adyenDropin.getByRole("img", { name: "Error" }),
+      "Adyen rejected one of the card fields",
+    ).toHaveCount(0)
+  }
+
+  /**
+   * PayPal's row in the Drop-in's method list.
+   *
+   * A radio, like every other method: the Drop-in offers cards and PayPal at
+   * once, and which one is open is what decides who collects.
+   */
+  get adyenPayPalOption(): Locator {
+    return this.adyenDropin.getByRole("radio", { name: /PayPal/i })
+  }
+
+  /**
+   * PayPal's own pay button, inside the expanded row.
+   *
+   * The button itself lives in a cross-origin iframe PayPal renders, so this
+   * addresses the wrapper Adyen mounts it into. Clicking that dispatches a real
+   * mouse event at its centre, which the browser routes into the iframe — the
+   * only way to reach a button no locator can see.
+   */
+  get adyenPayPalButton(): Locator {
+    return this.adyenDropin.locator(".adyen-checkout__paypal__button").first()
+  }
+
+  /**
+   * The application's reason for a disabled place button.
+   *
+   * Rendered from `collection.by === "gateway"` on the handoff: the library
+   * ships no copy, so this test id is this repository's.
+   */
+  get gatewayOwnsButtonHint(): Locator {
+    return this.page.locator("[data-testid=gateway-owns-button]")
+  }
+
+  /**
+   * The card row in the same list.
+   *
+   * Only rendered when the Drop-in has more than one method to offer — with one
+   * it shows the form and no radios at all — so it exists precisely on the
+   * orders where switching back from PayPal is possible.
+   */
+  get adyenCardOption(): Locator {
+    return this.adyenDropin.getByRole("radio", { name: /card/i })
+  }
+
+  /** Open PayPal's row and wait for its button to render. */
+  async selectAdyenPayPal(): Promise<void> {
+    await expect(this.adyenDropin).toBeVisible({ timeout: 30_000 })
+    // Named, because the generic timeout that follows reads as a broken
+    // checkout when it usually means PayPal is not switched on for the Adyen
+    // account this organization points at.
+    await expect(
+      this.adyenPayPalOption,
+      "the Drop-in offered no PayPal row — check that PayPal is enabled on the Adyen account",
+    ).toBeVisible({ timeout: 30_000 })
+    await this.adyenPayPalOption.click({ force: true })
+    await expect(this.adyenPayPalButton).toBeVisible({ timeout: 60_000 })
+  }
+
+  /** Google Pay's row in the Drop-in's method list. */
+  get adyenGooglePayOption(): Locator {
+    return this.adyenDropin.getByRole("radio", { name: /google pay/i })
+  }
+
+  /**
+   * Google Pay's own button.
+   *
+   * A real DOM button, not an iframe: Google's `paymentsClient.createButton()`
+   * returns an element that Adyen appends into this container. So unlike
+   * PayPal's, this one can be addressed and clicked directly.
+   */
+  get adyenGooglePayButton(): Locator {
+    return this.adyenDropin
+      .locator("[data-testid=googlepay-button-container] button")
+      .first()
+  }
+
+  /** Open Google Pay's row and wait for its button to render. */
+  async selectAdyenGooglePay(): Promise<void> {
+    await expect(this.adyenDropin).toBeVisible({ timeout: 30_000 })
+    // Named, because the timeout that follows otherwise reads as a broken
+    // checkout: `isReadyToPay()` decides this, and a browser Google Pay does
+    // not support drops the row before anything of ours runs.
+    await expect(
+      this.adyenGooglePayOption,
+      "the Drop-in offered no Google Pay row — check isReadyToPay() in this browser and that Google Pay is enabled on the Adyen account",
+    ).toBeVisible({ timeout: 30_000 })
+    await this.adyenGooglePayOption.click({ force: true })
+    await expect(this.adyenGooglePayButton).toBeVisible({ timeout: 60_000 })
+  }
+
+  /** Go back to the card row, which puts collection back on our own button. */
+  async selectAdyenCard(): Promise<void> {
+    await expect(this.adyenCardOption).toBeVisible({ timeout: 30_000 })
+    await this.adyenCardOption.click({ force: true })
+  }
+
+  /**
+   * Pay through PayPal's own button, from the click to the approval.
+   *
+   * The popup listener is registered *before* the click that opens it: awaiting
+   * the click first lets the event fire with nothing listening, and the wait
+   * then times out on a window that is already open.
+   *
+   * Everything after the click is PayPal's own sandbox UI, which changes without
+   * warning and is the most likely thing here to break for reasons that are not
+   * this checkout's.
+   */
+  async payWithPayPal(credentials: PayPalCredentials): Promise<void> {
+    const popupPromise = this.page.waitForEvent("popup", { timeout: 60_000 })
+    await this.adyenPayPalButton.click({ force: true })
+    const popup = await popupPromise
+    await popup.waitForLoadState()
+
+    await popup.fill("input[name=login_email]", credentials.email)
+    // Two-step sign-in: the email is submitted on its own, and the password
+    // field does not exist until it has been.
+    await popup.click("#btnNext")
+    await popup.fill("input[name=login_password]", credentials.password)
+    await popup.click("#btnLogin")
+
+    const banner = popup.locator("#gdpr-container >> text=Accept")
+    if (await banner.isVisible().catch(() => false)) {
+      await banner.click()
+    }
+
+    await popup.click('[data-testid="submit-button-initial"]', {
+      timeout: 60_000,
+    })
+  }
+
+  /**
+   * Answer Adyen's 3DS challenge.
+   *
+   * `adyen-web` renders it in place — this is the sessions flow, where the
+   * library owns the whole authentication round trip — so there is no
+   * navigation to wait for, just an iframe that appears after the submit.
+   */
+  async submitThreeDSChallenge(password: string): Promise<void> {
+    const iframe = this.page.locator("iframe[name=threeDSIframe]")
+    await expect(iframe).toBeVisible({ timeout: 60_000 })
+    const challenge = this.page.frameLocator("iframe[name=threeDSIframe]")
+    const input = challenge.getByPlaceholder("enter the word 'password'")
+    await expect(input).toBeVisible({ timeout: 30_000 })
+    await input.fill(password)
+    await challenge.locator("#buttonSubmit").click()
+  }
+
+  /**
+   * Click place without waiting for the outcome.
+   *
+   * The card paths need this: the click submits the Drop-in, and what happens
+   * next is a challenge to answer rather than a page to wait for.
+   */
+  async startPlaceOrder(): Promise<void> {
+    await expect(this.placeButton).toBeEnabled()
+    await this.placeButton.click()
+  }
+
+  /**
+   * Wait for the thank-you page.
+   *
+   * Generous because the wait is a webhook round trip through Adyen, not a
+   * local job: the library polls placeability until the authorization settles.
+   */
+  async expectPlaced(): Promise<void> {
+    await expect(this.paymentRecap).toBeVisible({ timeout: 90_000 })
   }
 
   /**
