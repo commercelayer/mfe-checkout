@@ -106,8 +106,12 @@ function describe(error: unknown): string {
   return error instanceof Error ? error.message : String(error)
 }
 
-async function mintOrder(): Promise<NewPaymentsOrder> {
-  const printed = await mint("order")
+async function mintOrder({
+  asCustomer = false,
+} = {}): Promise<NewPaymentsOrder> {
+  const printed = asCustomer
+    ? await mint("order", "--customer")
+    : await mint("order")
   // Positional groups: this package targets es5, where named ones are a
   // compile error.
   const match = printed.match(/^\/([^?]+)\?accessToken=(.+)$/)
@@ -185,6 +189,16 @@ export async function expectPaymentToCoverTheOrder(
 }
 
 interface FixtureType {
+  /**
+   * Whether the order is minted with a **customer** token rather than a guest
+   * one, from `test.use({ customerOrder: true })`.
+   *
+   * It changes more than the greeting: `payment_wallets` are grantable only to
+   * the customer who owns them, so a saved card — and every flow that reuses
+   * one — is unreachable on a guest order. Adyen's tokenization is gated the
+   * same way, on the token rather than on the order.
+   */
+  customerOrder: boolean
   /** A fresh order on the `payment_sessions` model, already open on Payment. */
   checkout: PaymentSessionsCheckoutPage
   /** The order the checkout is showing, for reading back over the API. */
@@ -194,6 +208,10 @@ interface FixtureType {
 }
 
 export const test = base.extend<FixtureType>({
+  // An option rather than a fixture, so a describe block can ask for one with
+  // `test.use({ customerOrder: true })` and every test in it gets it.
+  customerOrder: [false, { option: true }],
+
   /**
    * One order per test, never shared.
    *
@@ -201,13 +219,8 @@ export const test = base.extend<FixtureType>({
    * instead of the payment step, so a second test reusing it would assert
    * against the wrong screen. That rules out minting in `beforeAll`.
    */
-  // Playwright reads the destructuring pattern to work out what a fixture
-  // depends on and rejects any other form at runtime, so an empty pattern is
-  // how it is told "nothing" — `(_, use)` fails with "First argument must use
-  // the object destructuring pattern".
-  // biome-ignore lint/correctness/noEmptyPattern: required by Playwright, see above
-  newPaymentsOrder: async ({}, use) => {
-    await use(await mintOrder())
+  newPaymentsOrder: async ({ customerOrder }, use) => {
+    await use(await mintOrder({ asCustomer: customerOrder }))
   },
 
   /**

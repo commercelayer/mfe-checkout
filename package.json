@@ -9,6 +9,7 @@
     "preinstall": "npx only-allow pnpm",
     "dev": "NODE_OPTIONS='--inspect' next dev --webpack",
     "np:order": "node scripts/new-payments.mjs order",
+    "np:order:customer": "node scripts/new-payments.mjs order --customer",
     "np:gift-card": "node scripts/new-payments.mjs gift-card",
     "rc:watch": "node scripts/rc-watch.mjs",
     "rc:bump": "node scripts/rc-bump.mjs",
