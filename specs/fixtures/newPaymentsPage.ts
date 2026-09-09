@@ -131,10 +131,15 @@ function client(accessToken: string): CommerceLayerClient {
  *
  * The token minted with the order is a sales-channel token and is enough for
  * this, so no integration credentials are involved.
+ *
+ * `payment_sessions.payment_setting` is included because a session's own
+ * attributes cannot say which setting it belongs to: without the include,
+ * `payment_setting` comes back as a bare linkage and `.type` is `undefined` —
+ * which reads as an assertion failure about the wrong thing.
  */
 export async function readOrder(order: NewPaymentsOrder): Promise<Order> {
   return await client(order.accessToken).orders.retrieve(order.id, {
-    include: ["payment_sessions"],
+    include: ["payment_sessions", "payment_sessions.payment_setting"],
   })
 }
 
@@ -251,4 +256,9 @@ export const test = base.extend<FixtureType>({
 export { expect } from "@playwright/test"
 // Re-exported so a test that has to control navigation itself — one installing
 // a route before the first load — can build its own page object.
-export { PaymentSessionsCheckoutPage } from "./PaymentSessionsCheckoutPage"
+export {
+  ADYEN_3DS_CARD,
+  ADYEN_3DS_PASSWORD,
+  PaymentSessionsCheckoutPage,
+  payPalCredentials,
+} from "./PaymentSessionsCheckoutPage"
