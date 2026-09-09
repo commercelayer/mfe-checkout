@@ -7,6 +7,7 @@ import {
   PaymentSettingGiftCardListItem,
   PaymentSettingManualPayment,
   PaymentSettingName,
+  PaymentSettingStripePayment,
 } from "@commercelayer/react-components"
 import { type JSX, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -26,6 +27,7 @@ import {
   PaymentSettingCard,
   PaymentSettingError,
   PaymentSettingItem,
+  STRIPE_CONTAINER_CLASS,
   StyledGiftCardSessionError,
   StyledGiftCardSessionInput,
   StyledGiftCardSessionRemove,
@@ -184,6 +186,33 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
                 )
               }}
             </PaymentSettingAdyenPayment>
+
+            {/* Outside the card for the same reason as Adyen's: the card is a
+              <label>, and a click on one of Stripe's inputs inside it would be
+              forwarded to the radio the label points at. */}
+            <PaymentSettingStripePayment
+              containerClassName={STRIPE_CONTAINER_CLASS}
+            >
+              {({ errors: stripeErrors, isReady }) => (
+                <>
+                  {/* Whether the Element considers itself complete. Rendered
+                    because the place-order button does not gate on it — an
+                    incomplete form makes `elements.submit()` show its own
+                    validation and the button then reports nothing, by design.
+                    Without this, an end-to-end test that mistypes a field waits
+                    out a timeout on the thank-you page instead of saying what
+                    was wrong. */}
+                  <span hidden data-testid="stripe-state">
+                    {isReady ? "ready" : "incomplete"}
+                  </span>
+                  {stripeErrors.length > 0 && (
+                    <AdyenError data-testid="stripe-setting-error">
+                      {stripeErrors.map((error) => error.message).join(" ")}
+                    </AdyenError>
+                  )}
+                </>
+              )}
+            </PaymentSettingStripePayment>
           </>
         )}
       </PaymentSetting>

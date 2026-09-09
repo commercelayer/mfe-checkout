@@ -296,6 +296,12 @@ export const StyledGiftCardSessionRemove: FC<any> = (props) => (
 // into the Drop-in, matching the selector the payments playground uses.
 export const ADYEN_CONTAINER_CLASS = "adyen-dropin-container px-4 pb-4 -mt-2"
 
+// The same for Stripe's Payment Element, and for the same reasons: the
+// component renders the element itself, and the class name is a stable hook for
+// the end-to-end tests.
+export const STRIPE_CONTAINER_CLASS =
+  "stripe-elements-container px-4 pb-4 -mt-2"
+
 // A Drop-in that could not load — an expired Adyen session, or a client key not
 // authorized for this origin — fails before any click, so nothing else reports
 // it. A refusal *after* a click is reported as an order error instead, by the
