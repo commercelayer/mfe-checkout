@@ -4,13 +4,23 @@ import dotenv from "dotenv"
 
 dotenv.config({ path: path.resolve(__dirname, "./.env.local"), quiet: true })
 
-// Playwright starts its own dev server on this port. It is deliberately not 3000:
-// that one is reserved for a dev server started by hand, and `reuseExistingServer`
-// silently adopts whatever already listens there — a leftover `pnpm serve` is enough
-// to run the whole suite against a stale build without a word of warning.
+// The port Playwright serves on, and adopts a server already listening on.
+//
+// This was 4000 to keep the suite off the port a dev server started by hand
+// uses: `reuseExistingServer` silently adopts whatever answers there, so a
+// leftover `pnpm serve` is enough to run the whole suite against a stale build
+// without a word of warning. **That hazard is real and is now accepted**, for a
+// reason 4000 could not work around: Adyen validates a client key against an
+// allow-list of origins matched on scheme, host *and* port, so the Drop-in only
+// loads on a port registered in the Customer Area — and registering a second one
+// per developer machine is worse than the stale-server risk.
+//
+// So if a payment test fails against a page that looks right, check what is
+// actually serving 3000 before anything else.
+//
 // E2E_BASE_PORT still drives playwright.config.ci.ts, which attaches to a server
 // someone else started instead of starting one.
-const E2E_PORT = 4000
+const E2E_PORT = 3000
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
