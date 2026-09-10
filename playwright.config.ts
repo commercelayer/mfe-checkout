@@ -43,7 +43,9 @@ const config: PlaywrightTestConfig = {
     // retries are 0 locally and that mode only traces a retry. Matches the CI config.
     // More information: https://playwright.dev/docs/trace-viewer
     trace: "retain-on-failure",
-    headless: false,
+    // Headless by default: a full run is 261 tests on a single worker and used
+    // to open a browser window for every one of them. Pass --headed to watch a
+    // specific test, or --debug / test:ui when you need to drive it by hand.
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
     // Artifacts
