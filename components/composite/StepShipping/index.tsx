@@ -5,7 +5,7 @@ import {
   LineItemImage,
   LineItemName,
   LineItemQuantity,
-  LineItemsContainer,
+  LineItems,
   Shipment,
   ShipmentField,
   Shipments,
@@ -332,7 +332,7 @@ export const StepShipping: React.FC<Props> = () => {
                                     </ShippingSummary>
                                   </ShippingMethod>
                                 </GridContainer>
-                                <LineItemsContainer>
+                                <LineItems>
                                   {ShippingLineItems.map((type) => (
                                     <LineItem key={type} type={type}>
                                       <ShippingLineItem>
@@ -391,7 +391,7 @@ export const StepShipping: React.FC<Props> = () => {
                                       </StockTransfer>
                                     </LineItem>
                                   ))}
-                                </LineItemsContainer>
+                                </LineItems>
                               </ShippingWrapper>
                             </Shipment>
                             <ButtonWrapper>

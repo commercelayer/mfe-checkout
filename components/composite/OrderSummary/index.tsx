@@ -2,7 +2,7 @@ import {
   AdjustmentAmount,
   DiscountAmount,
   GiftCardAmount,
-  LineItemsContainer,
+  LineItems,
   LineItemsCount,
   PaymentMethodAmount,
   ShippingAmount,
@@ -90,7 +90,7 @@ export const OrderSummary: React.FC<Props> = ({
   ) : null
   return (
     <Wrapper data-testid="order-summary">
-      <LineItemsContainer>
+      <LineItems>
         <>
           {lineItems}
           {
@@ -105,7 +105,7 @@ export const OrderSummary: React.FC<Props> = ({
             </>
           }
         </>
-      </LineItemsContainer>
+      </LineItems>
       <TotalWrapper>
         <AmountSpacer />
         <AmountWrapper>
