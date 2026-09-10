@@ -114,7 +114,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const [order, setOrder] = useState<NullableType<Order>>()
 
   // The React-19 library keys effects on the callback props we pass it (e.g.
-  // <OrderContainer fetchOrder>, <PaymentMethod onClick/autoSelect...>). A
+  // <Order fetchOrder>, <PaymentMethod onClick/autoSelect...>). A
   // fresh identity each render re-fires those effects every render → infinite
   // update loops. So the CommerceLayer client and every callback below are
   // memoised to a stable identity; mutable state is read through a ref so the
@@ -127,10 +127,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const stateRef = useRef(state)
   stateRef.current = state
 
-  // Passed as <OrderContainer fetchOrder>; closes over only stable refs.
+  // Passed as <Order fetchOrder>; closes over only stable refs.
   const getOrder = useCallback((order: Order) => {
     orderRef.current = order
-    // OrderContainer (react-components) invokes this callback during render,
+    // Order (react-components) invokes this callback during render,
     // so defer the state update to avoid a render-phase setState warning.
     setTimeout(() => {
       setOrder(order)

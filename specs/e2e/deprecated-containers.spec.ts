@@ -24,7 +24,6 @@ import { expect, test } from "../fixtures/tokenizedPage"
  * an allowed warning need not appear.
  */
 const ALLOWED = new Set([
-  "OrderContainer",
   "CustomerContainer",
   "BillingAddressContainer",
   "ShippingAddressContainer",

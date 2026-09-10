@@ -1,6 +1,6 @@
 import {
   CustomerContainer,
-  OrderContainer,
+  Order,
   PlaceOrderContainer,
 } from "@commercelayer/react-components"
 import { CheckoutSkeleton } from "components/composite/CheckoutSkeleton"
@@ -280,7 +280,7 @@ const Checkout: React.FC<Props> = ({
   }
 
   return (
-    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
+    <Order orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
       <GTMProvider
         gtmId={gtmId}
         skipBeginCheckout={checkoutAlreadyStarted || ctx.isComplete}
@@ -291,7 +291,7 @@ const Checkout: React.FC<Props> = ({
             ? renderExpiredPage()
             : renderSteps()}
       </GTMProvider>
-    </OrderContainer>
+    </Order>
   )
 }
 
