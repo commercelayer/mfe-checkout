@@ -1,9 +1,9 @@
 import {
   AddressesContainer,
-  BillingAddressContainer,
+  BillingAddress,
   BillingAddressForm,
   SaveAddressesButton,
-  ShippingAddressContainer,
+  ShippingAddress,
   ShippingAddressForm,
 } from "@commercelayer/react-components"
 import type { Address, Order } from "@commercelayer/sdk"
@@ -169,13 +169,13 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                   {...addressesTransition}
                 >
                   <GridContainer className="mb-4">
-                    <BillingAddressContainer>
+                    <BillingAddress>
                       <CustomerAddressCard
                         addressType="billing"
                         deselect={showBillingAddressForm}
                         onSelect={onSelect}
                       />
-                    </BillingAddressContainer>
+                    </BillingAddress>
                   </GridContainer>
                 </Transition>
 
@@ -248,7 +248,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                 {...addressesTransition}
               >
                 <GridContainer className="mb-4">
-                  <ShippingAddressContainer>
+                  <ShippingAddress>
                     <CustomerAddressCard
                       addressType="shipping"
                       deselect={showShippingAddressForm}
@@ -259,7 +259,7 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
                         )
                       }
                     />
-                  </ShippingAddressContainer>
+                  </ShippingAddress>
                 </GridContainer>
               </Transition>
 

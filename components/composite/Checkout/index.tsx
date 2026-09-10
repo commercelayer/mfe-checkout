@@ -1,5 +1,5 @@
 import {
-  CustomerContainer,
+  Customer,
   Order,
   PlaceOrderContainer,
 } from "@commercelayer/react-components"
@@ -142,7 +142,7 @@ const Checkout: React.FC<Props> = ({
 
   const renderSteps = () => {
     return (
-      <CustomerContainer isGuest={ctx.isGuest}>
+      <Customer isGuest={ctx.isGuest}>
         <LayoutDefault
           aside={
             <div className="flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12 bg-gray-50">
@@ -275,7 +275,7 @@ const Checkout: React.FC<Props> = ({
             </div>
           }
         />
-      </CustomerContainer>
+      </Customer>
     )
   }
 

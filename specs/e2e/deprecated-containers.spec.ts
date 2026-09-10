@@ -9,26 +9,23 @@ import { expect, test } from "../fixtures/tokenizedPage"
  * standalone ones. This walks a checkout far enough to mount all of them and
  * fails when a container that should already be gone still warns.
  *
- * Shrink ALLOWED by one entry per migration commit. Two caveats, both of them
- * easy to misread as "we're done":
+ * ALLOWED is now empty and should stay that way: all five containers that warn
+ * have been migrated. It remains a Set rather than a plain emptiness check so a
+ * future deprecation can be parked here while it is being worked through.
  *
- * 1. Only five of the nine warn at all. LineItemsContainer,
- *    AddressesContainer, PaymentMethodsContainer and PlaceOrderContainer are
- *    silent, so a green run here says nothing about them — grep the imports.
- * 2. A container warns only on the path that mounts it. BillingAddressContainer
- *    and ShippingAddressContainer live in CheckoutCustomerAddresses, which a
- *    guest checkout never renders. They stay in ALLOWED so that the address
- *    book path cannot regress unnoticed if a later spec exercises it.
+ * The one thing this must not be read as is "the migration is complete". Only
+ * five of the nine containers ever warned. LineItemsContainer,
+ * AddressesContainer, PaymentMethodsContainer and PlaceOrderContainer are
+ * silent, so a green run says nothing about them — grep the imports for those.
+ * PaymentMethodsContainer in particular is staying: PlaceOrderButton reads
+ * PaymentMethodContext with no standalone fallback, and in this tree
+ * StepPlaceOrder is a sibling of StepPayment rather than a descendant, so
+ * removing the container would leave the button without a payment source.
  *
  * The assertion is one-way on purpose: every warning seen must be allowed, but
  * an allowed warning need not appear.
  */
-const ALLOWED = new Set([
-  "CustomerContainer",
-  "BillingAddressContainer",
-  "ShippingAddressContainer",
-  "ShipmentsContainer",
-])
+const ALLOWED = new Set<string>([])
 
 /** The five messages disagree on formatting; the container name is the only constant. */
 const DEPRECATION = /(\w+Container)\b[^\n]*\bis deprecated\b/i

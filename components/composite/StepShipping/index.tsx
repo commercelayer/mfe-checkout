@@ -8,7 +8,7 @@ import {
   LineItemsContainer,
   Shipment,
   ShipmentField,
-  ShipmentsContainer,
+  Shipments,
   ShippingMethod,
   ShippingMethodName,
   ShippingMethodPrice,
@@ -218,7 +218,7 @@ export const StepShipping: React.FC<Props> = () => {
               {accordionCtx.isActive && (
                 <>
                   {
-                    <ShipmentsContainer>
+                    <Shipments>
                       <>
                         <OutOfStock
                           cartUrl={appCtx.cartUrl}
@@ -408,7 +408,7 @@ export const StepShipping: React.FC<Props> = () => {
                           </>
                         ) : null}
                       </>
-                    </ShipmentsContainer>
+                    </Shipments>
                   }
                 </>
               )}
