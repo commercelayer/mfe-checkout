@@ -22,8 +22,8 @@ importers:
         specifier: ^2.8.4
         version: 2.8.4
       '@commercelayer/react-components':
-        specifier: 5.0.1-beta.1
-        version: 5.0.1-beta.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: 5.0.2
+        version: 5.0.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@commercelayer/sdk':
         specifier: 8.0.0-beta.11
         version: 8.0.0-beta.11
@@ -281,8 +281,8 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@commercelayer/core-components@5.0.1-beta.0':
-    resolution: {integrity: sha512-5zkoF+v3400kO51Hennimf8WqUQoZNbG6clgMU0ztIZBjMKs/svK0lnuvMZz5Dv2QQ/9Om0t9aeEqvFiEsTATA==}
+  '@commercelayer/core-components@5.0.2':
+    resolution: {integrity: sha512-ON03LJNgDxAYUEbj8gUlLIvyHSNRENpgV2lAFWtD2MFb6aZqjNUzPwf4FCzwhfDHx6vz71z+DGPxEeLBnephnw==}
 
   '@commercelayer/js-auth@7.4.2':
     resolution: {integrity: sha512-ifRcoAL1R7o5AU5w4bgmSnNMEWXDc11A+yZwAAZMEkAYrrsaud1X/3xmgY1e0yIXK8AAdIiqfW/Rm/4DdWwAQA==}
@@ -296,13 +296,13 @@ packages:
     resolution: {integrity: sha512-ZlgIhQx7vu89ZD3eOCSkCe7kNb5LgEGy0p4Gayi75sxfHfJRXKkoX2NC+nkp2pFosi4SBYhlQFcd/EtzStAQGw==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@5.0.1-beta.1':
-    resolution: {integrity: sha512-cs+c2aLOH3ErEhAlvv7TiuUb4DOuTAFm7rUUty+Jlsm+QWEBQdivC0OMCG/mgYztRQyaMWhwBUGEzQq4tMvyag==}
+  '@commercelayer/react-components@5.0.2':
+    resolution: {integrity: sha512-9jviSx57FaDx69a7Mh1JQHIdoX30p7z8BOeL3d5pu5zNwUWRarQwKqf/la+KGi9r6W/lnuq7m9q2KujmmlRzxg==}
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/react-hooks-components@5.0.1-beta.0':
-    resolution: {integrity: sha512-E07bj28rqTimSPVrku/sqlbxTwFEVgJ9I6Z0e3PzFWoLH9jiZz9mmC3DXw46L0sr3TiMtDl2bkhzaItCcVW9yA==}
+  '@commercelayer/react-hooks-components@5.0.2':
+    resolution: {integrity: sha512-OFsXzvu3pZhyZAdjLW639BJbnx2Z6xu36MLjvK/f4IwkzhYNd6YJ2oA3uH+B87pMqlW7rL7dcfBVJUM/tULwTQ==}
     peerDependencies:
       react: '>=19.0.0'
 
@@ -348,12 +348,6 @@ packages:
     peerDependencies:
       react: ^18 || ^19 || ^19.0.0-rc
       react-dom: ^18 || ^19 || ^19.0.0-rc
-
-  '@iframe-resizer/core@5.5.9':
-    resolution: {integrity: sha512-HacDQx81pgHlmY48tRogcX02TOXfvjllJzI+xfVYmvEXhxoViyi9yEobhNQEt8Mq6NmrH1vHhz6FRfQ9uBTsjQ==}
-
-  '@iframe-resizer/parent@5.5.9':
-    resolution: {integrity: sha512-DfNb9KlOf7WyCNOM2xWPGxJfWtqA/gg7sjHvqvD4k6cfpntPXrKfCd3WdOPNKA980urGkhOdM9Ye0unV2gnYYw==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -918,6 +912,9 @@ packages:
     peerDependencies:
       '@types/react': '*'
 
+  '@types/iframe-resizer@4.0.0':
+    resolution: {integrity: sha512-RKrT4goNVtqZvf9WPkV0cUcphQWXzLVW1IE4yOIY21c1W+obJJbcHFD1lQu5ncNHm/6TeQSeedVf9bmkx2NaGQ==}
+
   '@types/node@24.13.3':
     resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
 
@@ -1019,9 +1016,6 @@ packages:
 
   async-retry@1.3.3:
     resolution: {integrity: sha512-wfr/jstw9xNi/0teMHrRW7dsz3Lt5ARhYNZ2ewpadnhaIp5mbALhOAP+EAdsC7t4Z6wqsDVv9+W6gm1Dk9mEyw==}
-
-  auto-console-group@1.3.0:
-    resolution: {integrity: sha512-W/G5jy1ZPeVYPyqOVGND7EjbzrsLgRD3s+1QegXfJ7bYlphFxjqG60rviFXWw0d2YCj0Clc7hU5/nTqrBEhBIw==}
 
   babel-plugin-react-compiler@1.0.0:
     resolution: {integrity: sha512-Ixm8tFfoKKIPYdCCKYTsqv+Fd4IJ0DQqMyEimo+pxUOMUR9cVPlwTrFt9Avu+3cb6Zp3mAzl+t1MrG2fxxKsxw==}
@@ -1537,6 +1531,10 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  iframe-resizer@4.3.11:
+    resolution: {integrity: sha512-5QtnsmfH11GDsuC7Gxd/eNzojudX3346Gb0E+Ku8ln8AtfSq+cWCZtnhCrthrtE7f1CI2/kwHkZ9G4sFYzHP7A==}
+    engines: {node: '>=0.8.0'}
 
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
@@ -2829,7 +2827,7 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@commercelayer/core-components@5.0.1-beta.0':
+  '@commercelayer/core-components@5.0.2':
     dependencies:
       '@commercelayer/js-auth': 8.0.0
       '@commercelayer/sdk': 8.0.0-beta.11
@@ -2843,27 +2841,28 @@ snapshots:
       '@commercelayer/js-auth': 7.4.2
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@5.0.1-beta.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@commercelayer/react-components@5.0.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       '@adyen/adyen-web': 6.43.0
-      '@commercelayer/core-components': 5.0.1-beta.0
+      '@commercelayer/core-components': 5.0.2
       '@commercelayer/organization-config': 2.8.4
-      '@commercelayer/react-hooks-components': 5.0.1-beta.0(react@19.2.7)
+      '@commercelayer/react-hooks-components': 5.0.2(react@19.2.7)
       '@commercelayer/sdk': 8.0.0-beta.11
-      '@iframe-resizer/parent': 5.5.9
       '@stripe/react-stripe-js': 6.8.1(@stripe/stripe-js@9.13.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@stripe/stripe-js': 9.13.0
       '@tanstack/react-table': 8.21.3(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@types/iframe-resizer': 4.0.0
       braintree-web: 3.144.0
       frames-react: 1.2.4(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      iframe-resizer: 4.3.11
       rapid-form: 5.0.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react: 19.2.7
     transitivePeerDependencies:
       - react-dom
 
-  '@commercelayer/react-hooks-components@5.0.1-beta.0(react@19.2.7)':
+  '@commercelayer/react-hooks-components@5.0.2(react@19.2.7)':
     dependencies:
-      '@commercelayer/core-components': 5.0.1-beta.0
+      '@commercelayer/core-components': 5.0.2
       react: 19.2.7
       swr: 2.5.1(react@19.2.7)
 
@@ -2912,15 +2911,6 @@ snapshots:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
       use-sync-external-store: 1.6.0(react@19.2.7)
-
-  '@iframe-resizer/core@5.5.9':
-    dependencies:
-      auto-console-group: 1.3.0
-
-  '@iframe-resizer/parent@5.5.9':
-    dependencies:
-      '@iframe-resizer/core': 5.5.9
-      auto-console-group: 1.3.0
 
   '@img/colour@1.1.0':
     optional: true
@@ -3449,6 +3439,8 @@ snapshots:
       '@types/react': 19.2.17
       hoist-non-react-statics: 3.3.2
 
+  '@types/iframe-resizer@4.0.0': {}
+
   '@types/node@24.13.3':
     dependencies:
       undici-types: 7.18.2
@@ -3537,8 +3529,6 @@ snapshots:
   async-retry@1.3.3:
     dependencies:
       retry: 0.13.1
-
-  auto-console-group@1.3.0: {}
 
   babel-plugin-react-compiler@1.0.0:
     dependencies:
@@ -4042,6 +4032,8 @@ snapshots:
   i18next@26.3.4(typescript@5.9.3):
     optionalDependencies:
       typescript: 5.9.3
+
+  iframe-resizer@4.3.11: {}
 
   import-fresh@3.3.1:
     dependencies:

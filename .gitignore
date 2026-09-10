@@ -8,6 +8,7 @@
 # testing
 /coverage
 /test-results
+/test-results-memory
 
 # next.js
 /.next/
@@ -40,3 +41,7 @@ cypress/fixtures/*
 
 # vercel
 .vercel
+
+# local repro scratch (not shipped)
+/playwright.config.repro.ts
+/specs/repro/

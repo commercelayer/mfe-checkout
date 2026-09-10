@@ -6,11 +6,12 @@ allowBuilds:
   "sharp": true
 minimumReleaseAgeExclude:
   - cronstrue@3.20.0
-  - '@commercelayer/core'
-  - '@commercelayer/hooks'
+  # Our own packages: minimumReleaseAge guards against third-party supply chain
+  # risk, not against ourselves. Left unversioned so a bump never fails the
+  # install with an error that reads like an unpublish.
   - '@commercelayer/react-components'
-  - '@commercelayer/core-components@5.0.0-beta.13 || 5.0.1-beta.0'
-  - '@commercelayer/react-hooks-components@5.0.0-beta.13 || 5.0.1-beta.0'
+  - '@commercelayer/core-components'
+  - '@commercelayer/react-hooks-components'
 overrides:
   "postcss": 8.5.15
   # react-components pins the SDK as a hard dependency rather than a peer, so
