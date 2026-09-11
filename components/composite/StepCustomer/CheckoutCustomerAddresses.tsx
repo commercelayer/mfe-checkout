@@ -1,5 +1,4 @@
 import {
-  AddressesContainer,
   BillingAddress,
   BillingAddressForm,
   SaveAddressesButton,
@@ -155,178 +154,173 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   return (
     <Fragment>
       <AddressSectionEmail readonly emailAddress={emailAddress as string} />
-      {/* Deprecated, and staying — same reason as in CheckoutAddresses:
-          SaveAddressesButton is a sibling of the forms and needs the
-          `saveAddresses` this container alone provides. */}
-      <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
-        <AddressSectionTitle data-testid="billing-address">
-          <>{t("addressForm.billing_address_title")}</>
-        </AddressSectionTitle>
-        <div className="relative">
-          <>
-            {hasCustomerAddresses && (
-              <>
-                <Transition
-                  as="div"
-                  show={!showBillingAddressForm}
-                  {...addressesTransition}
-                >
-                  <GridContainer className="mb-4">
-                    <BillingAddress>
-                      <CustomerAddressCard
-                        addressType="billing"
-                        deselect={showBillingAddressForm}
-                        onSelect={onSelect}
-                      />
-                    </BillingAddress>
-                  </GridContainer>
-                </Transition>
+      <AddressSectionTitle data-testid="billing-address">
+        <>{t("addressForm.billing_address_title")}</>
+      </AddressSectionTitle>
+      <div className="relative">
+        <>
+          {hasCustomerAddresses && (
+            <>
+              <Transition
+                as="div"
+                show={!showBillingAddressForm}
+                {...addressesTransition}
+              >
+                <GridContainer className="mb-4">
+                  <BillingAddress>
+                    <CustomerAddressCard
+                      addressType="billing"
+                      deselect={showBillingAddressForm}
+                      onSelect={onSelect}
+                    />
+                  </BillingAddress>
+                </GridContainer>
+              </Transition>
 
-                {!showBillingAddressForm && hasCustomerAddresses && (
-                  <AddButton
-                    dataTestId="add_new_billing_address"
-                    action={handleShowBillingForm}
+              {!showBillingAddressForm && hasCustomerAddresses && (
+                <AddButton
+                  dataTestId="add_new_billing_address"
+                  action={handleShowBillingForm}
+                />
+              )}
+            </>
+          )}
+        </>
+        <div className="top-0 mt-4">
+          <Transition
+            as="div"
+            show={showBillingAddressForm}
+            beforeEnter={() => setMountBillingAddressForm(true)}
+            afterLeave={() => setMountBillingAddressForm(false)}
+            {...formTransition}
+          >
+            <BillingAddressForm
+              shipToDifferentAddress={shipToDifferentAddress}
+              autoComplete="on"
+              reset={!showBillingAddressForm}
+              errorClassName="hasError"
+            >
+              {mountBillingAddressForm || !hasCustomerAddresses ? (
+                <>
+                  <BillingAddressFormNew
+                    billingAddress={billingAddressFill}
+                    openShippingAddress={openShippingAddress}
                   />
-                )}
-              </>
+                  <AddressFormBottom
+                    addressType="billing"
+                    onClick={handleShowBillingForm}
+                    hasCustomerAddresses={hasCustomerAddresses}
+                  />
+                </>
+              ) : (
+                <Fragment />
+              )}
+            </BillingAddressForm>
+          </Transition>
+        </div>
+      </div>
+      {isShipmentRequired && (
+        <>
+          <Toggle
+            disabled={disabledShipToDifferentAddress}
+            data-testid="button-ship-to-different-address"
+            data-status={shipToDifferentAddress}
+            label={t("addressForm.ship_to_different_address")}
+            checked={shipToDifferentAddress}
+            onChange={handleToggle}
+          />
+          <div className={`${shipToDifferentAddress ? "" : "hidden"} mb-2`}>
+            <AddressSectionTitle data-testid="shipping-address">
+              <>{t("addressForm.shipping_address_title")}</>
+            </AddressSectionTitle>
+          </div>
+          <div
+            className={`${
+              shipToDifferentAddress && hasCustomerAddresses ? "mb-4" : "hidden"
+            }`}
+          >
+            <Transition
+              show={!showShippingAddressForm}
+              as="div"
+              {...addressesTransition}
+            >
+              <GridContainer className="mb-4">
+                <ShippingAddress>
+                  <CustomerAddressCard
+                    addressType="shipping"
+                    deselect={showShippingAddressForm}
+                    onSelect={() =>
+                      localStorage.setItem(
+                        "_save_shipping_address_to_customer_address_book",
+                        "false",
+                      )
+                    }
+                  />
+                </ShippingAddress>
+              </GridContainer>
+            </Transition>
+
+            {!showShippingAddressForm && (
+              <AddButton
+                dataTestId="add_new_shipping_address"
+                action={handleShowShippingForm}
+              />
             )}
-          </>
-          <div className="top-0 mt-4">
+          </div>
+          <div className="mt-4">
             <Transition
               as="div"
-              show={showBillingAddressForm}
-              beforeEnter={() => setMountBillingAddressForm(true)}
-              afterLeave={() => setMountBillingAddressForm(false)}
+              show={showShippingAddressForm}
+              beforeEnter={() => setMountShippingAddressForm(true)}
+              beforeLeave={() => setMountShippingAddressForm(false)}
               {...formTransition}
             >
-              <BillingAddressForm
+              <ShippingAddressForm
+                shipToDifferentAddress={shipToDifferentAddress}
                 autoComplete="on"
-                reset={!showBillingAddressForm}
+                hidden={!shipToDifferentAddress}
+                reset={!mountShippingAddressForm}
                 errorClassName="hasError"
+                className="pt-2"
               >
-                {mountBillingAddressForm || !hasCustomerAddresses ? (
+                {mountShippingAddressForm ? (
                   <>
-                    <BillingAddressFormNew
-                      billingAddress={billingAddressFill}
-                      openShippingAddress={openShippingAddress}
+                    <ShippingAddressFormNew
+                      shippingAddress={shippingAddressFill}
                     />
                     <AddressFormBottom
-                      addressType="billing"
-                      onClick={handleShowBillingForm}
+                      className="mb-4"
+                      addressType="shipping"
+                      onClick={handleShowShippingForm}
                       hasCustomerAddresses={hasCustomerAddresses}
                     />
                   </>
                 ) : (
                   <Fragment />
                 )}
-              </BillingAddressForm>
+              </ShippingAddressForm>
             </Transition>
           </div>
-        </div>
-        {isShipmentRequired && (
-          <>
-            <Toggle
-              disabled={disabledShipToDifferentAddress}
-              data-testid="button-ship-to-different-address"
-              data-status={shipToDifferentAddress}
-              label={t("addressForm.ship_to_different_address")}
-              checked={shipToDifferentAddress}
-              onChange={handleToggle}
-            />
-            <div className={`${shipToDifferentAddress ? "" : "hidden"} mb-2`}>
-              <AddressSectionTitle data-testid="shipping-address">
-                <>{t("addressForm.shipping_address_title")}</>
-              </AddressSectionTitle>
-            </div>
-            <div
-              className={`${
-                shipToDifferentAddress && hasCustomerAddresses
-                  ? "mb-4"
-                  : "hidden"
-              }`}
-            >
-              <Transition
-                show={!showShippingAddressForm}
-                as="div"
-                {...addressesTransition}
-              >
-                <GridContainer className="mb-4">
-                  <ShippingAddress>
-                    <CustomerAddressCard
-                      addressType="shipping"
-                      deselect={showShippingAddressForm}
-                      onSelect={() =>
-                        localStorage.setItem(
-                          "_save_shipping_address_to_customer_address_book",
-                          "false",
-                        )
-                      }
-                    />
-                  </ShippingAddress>
-                </GridContainer>
-              </Transition>
-
-              {!showShippingAddressForm && (
-                <AddButton
-                  dataTestId="add_new_shipping_address"
-                  action={handleShowShippingForm}
-                />
-              )}
-            </div>
-            <div className="mt-4">
-              <Transition
-                as="div"
-                show={showShippingAddressForm}
-                beforeEnter={() => setMountShippingAddressForm(true)}
-                beforeLeave={() => setMountShippingAddressForm(false)}
-                {...formTransition}
-              >
-                <ShippingAddressForm
-                  autoComplete="on"
-                  hidden={!shipToDifferentAddress}
-                  reset={!mountShippingAddressForm}
-                  errorClassName="hasError"
-                  className="pt-2"
-                >
-                  {mountShippingAddressForm ? (
-                    <>
-                      <ShippingAddressFormNew
-                        shippingAddress={shippingAddressFill}
-                      />
-                      <AddressFormBottom
-                        className="mb-4"
-                        addressType="shipping"
-                        onClick={handleShowShippingForm}
-                        hasCustomerAddresses={hasCustomerAddresses}
-                      />
-                    </>
-                  ) : (
-                    <Fragment />
-                  )}
-                </ShippingAddressForm>
-              </Transition>
-            </div>
-          </>
-        )}
-        <AddressSectionSaveForm>
-          <ButtonWrapper>
-            <SaveAddressesButton
-              className={ButtonCss}
-              disabled={isLocalLoader}
-              label={
-                <>
-                  {isLocalLoader && <SpinnerIcon />}
-                  {isShipmentRequired
-                    ? t("stepCustomer.continueToDelivery")
-                    : t("stepShipping.continueToPayment")}
-                </>
-              }
-              data-testid="save-customer-button"
-              onClick={handleSave}
-            />
-          </ButtonWrapper>
-        </AddressSectionSaveForm>
-      </AddressesContainer>
+        </>
+      )}
+      <AddressSectionSaveForm>
+        <ButtonWrapper>
+          <SaveAddressesButton
+            className={ButtonCss}
+            disabled={isLocalLoader}
+            label={
+              <>
+                {isLocalLoader && <SpinnerIcon />}
+                {isShipmentRequired
+                  ? t("stepCustomer.continueToDelivery")
+                  : t("stepShipping.continueToPayment")}
+              </>
+            }
+            data-testid="save-customer-button"
+            onClick={handleSave}
+          />
+        </ButtonWrapper>
+      </AddressSectionSaveForm>
     </Fragment>
   )
 }

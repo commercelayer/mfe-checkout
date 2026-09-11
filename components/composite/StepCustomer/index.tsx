@@ -1,3 +1,4 @@
+import { useAddressForm } from "@commercelayer/react-hooks-components"
 import type { Order } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { AccordionContext } from "components/data/AccordionProvider"
@@ -80,6 +81,21 @@ export const StepCustomer: React.FC<Props> = () => {
   const [shipToDifferentAddress, setShipToDifferentAddress] = useState(
     !appCtx?.hasSameAddresses,
   )
+
+  // `shipToDifferentAddress` belongs to this step, but the library components
+  // that depend on it — the save button, the address cards, the country lock —
+  // are spread across sibling subtrees and used to read it from
+  // `<AddressesContainer>`. With the container gone the only components that
+  // could publish it are the two address forms, and Headless UI unmounts those
+  // whenever the customer picks from the address book. So this step publishes
+  // it itself, which is where it is owned anyway.
+  const { setFlags } = useAddressForm({
+    accessToken: appCtx?.accessToken ?? "",
+    orderId: appCtx?.orderId,
+  })
+  useEffect(() => {
+    setFlags({ shipToDifferentAddress })
+  }, [shipToDifferentAddress, setFlags])
 
   // depend on the boolean, not the context object: the provider value is a
   // fresh object every render, so an object dependency would re-run this on
