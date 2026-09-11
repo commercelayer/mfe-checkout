@@ -76,6 +76,15 @@ export const CheckoutAddresses: React.FC<Props> = ({
         emailAddress={emailAddress}
         setCustomerEmail={setCustomerEmail}
       />
+      {/* Deprecated, and staying. The documented migration moves
+          shipToDifferentAddress onto the two forms and drops the wrapper, but
+          that only works when the save button is a child of a form. Here
+          SaveAddressesButton is their sibling, and it reads `saveAddresses`
+          from AddressContext — which this container is the only thing to
+          provide. The forms even define standalone mode as
+          `parentAddressContext.saveAddresses == null`, so going standalone
+          guarantees the button gets nothing and silently does nothing on
+          click. Unblocked only by the library exporting a provider. */}
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
         <div className="mt-4">
           <AddressSectionTitle>

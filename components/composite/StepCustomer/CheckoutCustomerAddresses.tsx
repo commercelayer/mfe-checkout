@@ -155,6 +155,9 @@ export const CheckoutCustomerAddresses: React.FC<Props> = ({
   return (
     <Fragment>
       <AddressSectionEmail readonly emailAddress={emailAddress as string} />
+      {/* Deprecated, and staying — same reason as in CheckoutAddresses:
+          SaveAddressesButton is a sibling of the forms and needs the
+          `saveAddresses` this container alone provides. */}
       <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
         <AddressSectionTitle data-testid="billing-address">
           <>{t("addressForm.billing_address_title")}</>

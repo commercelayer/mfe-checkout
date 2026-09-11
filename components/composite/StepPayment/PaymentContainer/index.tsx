@@ -23,6 +23,14 @@ export const PaymentContainer = ({ primaryColor, children }: Props) => {
   })()
 
   return (
+    // Deprecated, and staying. The migration says to use <PaymentMethod> in
+    // standalone mode, which provides PaymentMethodContext around its own
+    // children only. That assumes the place-order button sits inside the
+    // payment method subtree; in this tree StepPlaceOrder is a sibling of
+    // StepPayment, and PlaceOrderButton reads PaymentMethodContext with no
+    // standalone fallback of its own. Removing this wrapper would leave the
+    // button without currentPaymentMethodType or paymentSource — a failure at
+    // the money step. Unblocked only by the library exporting a provider.
     <PaymentMethodsContainer
       config={{
         // TODO: update checkoutComPayment config for the new API (payment refactor pending)
