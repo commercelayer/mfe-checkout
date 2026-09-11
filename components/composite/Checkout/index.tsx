@@ -1,8 +1,4 @@
-import {
-  Customer,
-  Order,
-  PlaceOrderContainer,
-} from "@commercelayer/react-components"
+import { Customer, Order } from "@commercelayer/react-components"
 import { CheckoutSkeleton } from "components/composite/CheckoutSkeleton"
 import { MainHeader } from "components/composite/MainHeader"
 import { OrderSummary } from "components/composite/OrderSummary"
@@ -239,44 +235,29 @@ const Checkout: React.FC<Props> = ({
                   isStepDone={ctx.hasPaymentMethod}
                 >
                   <PaymentContainer primaryColor={primaryColor}>
-                    {/* Deprecated, and staying. PlaceOrderButton does have a
-                        standalone fallback for PlaceOrderContext, but it never
-                        provides that context to anyone else — and six other
-                        components read it from here: PaymentMethod,
-                        PaymentMethodRadioButton, PaymentGateway, AdyenPayment,
-                        StripePayment and CheckoutComPayment. Dropping the
-                        wrapper leaves all six on the default context.
-                        Unblocked only by the library exporting a provider. */}
-                    <PlaceOrderContainer
-                      options={{
+                    <AccordionItem
+                      index={3}
+                      header={
+                        <StepHeaderPayment step={getStepNumber("Payment")} />
+                      }
+                    >
+                      <div>
+                        <StepPayment isPaymentLoading={isPaymentLoading} />
+                      </div>
+                    </AccordionItem>
+                    <StepPlaceOrder
+                      isActive={
+                        activeStep === "Payment" || activeStep === "Complete"
+                      }
+                      termsUrl={termsUrl}
+                      privacyUrl={privacyUrl}
+                      placeOrderOptions={{
                         paypalPayerId,
                         checkoutCom: { session_id: checkoutComSession },
-                        adyen: {
-                          redirectResult,
-                        },
-                        stripe: {
-                          paymentIntentClientSecret,
-                        },
+                        adyen: { redirectResult },
+                        stripe: { paymentIntentClientSecret },
                       }}
-                    >
-                      <AccordionItem
-                        index={3}
-                        header={
-                          <StepHeaderPayment step={getStepNumber("Payment")} />
-                        }
-                      >
-                        <div>
-                          <StepPayment isPaymentLoading={isPaymentLoading} />
-                        </div>
-                      </AccordionItem>
-                      <StepPlaceOrder
-                        isActive={
-                          activeStep === "Payment" || activeStep === "Complete"
-                        }
-                        termsUrl={termsUrl}
-                        privacyUrl={privacyUrl}
-                      />
-                    </PlaceOrderContainer>
+                    />
                   </PaymentContainer>
                 </AccordionProvider>
               </Accordion>

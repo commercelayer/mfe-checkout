@@ -25,12 +25,20 @@ interface Props {
   isActive: boolean
   termsUrl: NullableType<string>
   privacyUrl: NullableType<string>
+  /**
+   * The gateway round-trip results that used to be handed to
+   * `<PlaceOrderContainer>`; the standalone button takes them directly.
+   */
+  placeOrderOptions: React.ComponentProps<
+    typeof StyledPlaceOrderButton
+  >["options"]
 }
 
 const StepPlaceOrder: React.FC<Props> = ({
   isActive,
   termsUrl,
   privacyUrl,
+  placeOrderOptions,
 }) => {
   const { t } = useTranslation()
 
@@ -149,6 +157,7 @@ const StepPlaceOrder: React.FC<Props> = ({
         <div className="place-order-button-wrapper ">
           <StyledPlaceOrderButton
             data-testid="save-payment-button"
+            options={placeOrderOptions}
             isActive={isActive}
             onClick={handlePlaceOrder}
             loadingLabel={t("stepPayment.submitting")}
