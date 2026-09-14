@@ -13,7 +13,7 @@ import {
   StepHeaderPayment,
   StepPayment,
 } from "components/composite/StepPayment"
-import { PaymentContainer } from "components/composite/StepPayment/PaymentContainer"
+import { usePaymentMethodsConfig } from "components/composite/StepPayment/PaymentContainer"
 import StepPlaceOrder from "components/composite/StepPlaceOrder"
 import {
   StepHeaderShipping,
@@ -63,6 +63,9 @@ const Checkout: React.FC<Props> = ({
 }) => {
   const ctx = useContext(AppContext)
   const [isExpired, setIsExpired] = useState(false)
+  // Built here rather than by a wrapper: the standalone <PaymentMethod> takes
+  // the gateway configuration directly.
+  const paymentConfig = usePaymentMethodsConfig({ primaryColor })
 
   const { query } = useRouter()
 
@@ -234,31 +237,32 @@ const Checkout: React.FC<Props> = ({
                   isStepRequired={ctx.isPaymentRequired}
                   isStepDone={ctx.hasPaymentMethod}
                 >
-                  <PaymentContainer primaryColor={primaryColor}>
-                    <AccordionItem
-                      index={3}
-                      header={
-                        <StepHeaderPayment step={getStepNumber("Payment")} />
-                      }
-                    >
-                      <div>
-                        <StepPayment isPaymentLoading={isPaymentLoading} />
-                      </div>
-                    </AccordionItem>
-                    <StepPlaceOrder
-                      isActive={
-                        activeStep === "Payment" || activeStep === "Complete"
-                      }
-                      termsUrl={termsUrl}
-                      privacyUrl={privacyUrl}
-                      placeOrderOptions={{
-                        paypalPayerId,
-                        checkoutCom: { session_id: checkoutComSession },
-                        adyen: { redirectResult },
-                        stripe: { paymentIntentClientSecret },
-                      }}
-                    />
-                  </PaymentContainer>
+                  <AccordionItem
+                    index={3}
+                    header={
+                      <StepHeaderPayment step={getStepNumber("Payment")} />
+                    }
+                  >
+                    <div>
+                      <StepPayment
+                        isPaymentLoading={isPaymentLoading}
+                        paymentConfig={paymentConfig}
+                      />
+                    </div>
+                  </AccordionItem>
+                  <StepPlaceOrder
+                    isActive={
+                      activeStep === "Payment" || activeStep === "Complete"
+                    }
+                    termsUrl={termsUrl}
+                    privacyUrl={privacyUrl}
+                    placeOrderOptions={{
+                      paypalPayerId,
+                      checkoutCom: { session_id: checkoutComSession },
+                      adyen: { redirectResult },
+                      stripe: { paymentIntentClientSecret },
+                    }}
+                  />
                 </AccordionProvider>
               </Accordion>
             </div>

@@ -1,5 +1,6 @@
 import { PaymentMethod, PaymentSource } from "@commercelayer/react-components"
 import type { JSX } from "react"
+import type { PaymentMethodConfig } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 import { PaymentSummaryList } from "./PaymentSummaryList"
@@ -10,6 +11,8 @@ import {
 } from "./styled"
 
 interface Props {
+  /** Gateway configuration that used to live on the deprecated container. */
+  paymentConfig: PaymentMethodConfig
   selectPayment: Parameters<typeof PaymentMethod>[0]["onClick"]
   hasTitle: boolean
   autoSelectCallback: () => void
@@ -17,6 +20,7 @@ interface Props {
 }
 
 export const CheckoutPayment = ({
+  paymentConfig,
   selectPayment,
   hasTitle,
   autoSelectCallback,
@@ -24,6 +28,7 @@ export const CheckoutPayment = ({
 }: Props): JSX.Element => {
   return (
     <PaymentMethod
+      config={paymentConfig}
       showLoader={isPaymentLoading}
       autoSelectSinglePaymentMethod={autoSelectCallback}
       activeClass="active"

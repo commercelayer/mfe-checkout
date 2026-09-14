@@ -18,6 +18,7 @@ import { Trans, useTranslation } from "react-i18next"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
+import type { PaymentMethodConfig } from "./PaymentContainer"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 
 interface HeaderProps {
@@ -80,9 +81,10 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
   )
 }
 
-export const StepPayment: React.FC<{ isPaymentLoading: boolean }> = ({
-  isPaymentLoading,
-}) => {
+export const StepPayment: React.FC<{
+  isPaymentLoading: boolean
+  paymentConfig: PaymentMethodConfig
+}> = ({ isPaymentLoading, paymentConfig }) => {
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
   const [hasMultiplePaymentMethods, setHasMultiplePaymentMethods] =
@@ -146,6 +148,7 @@ export const StepPayment: React.FC<{ isPaymentLoading: boolean }> = ({
               {isPaymentRequired ? (
                 isGuest ? (
                   <CheckoutPayment
+                    paymentConfig={paymentConfig}
                     isPaymentLoading={isPaymentLoading}
                     selectPayment={selectPayment}
                     autoSelectCallback={autoSelectCallback}
@@ -154,6 +157,7 @@ export const StepPayment: React.FC<{ isPaymentLoading: boolean }> = ({
                 ) : (
                   <>
                     <CheckoutCustomerPayment
+                      paymentConfig={paymentConfig}
                       isPaymentLoading={isPaymentLoading}
                       selectPayment={selectPayment}
                       autoSelectCallback={autoSelectCallback}

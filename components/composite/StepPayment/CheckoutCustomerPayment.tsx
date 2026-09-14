@@ -8,6 +8,7 @@ import { Label } from "components/ui/Label"
 import { type MouseEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import type { PaymentMethodConfig } from "./PaymentContainer"
 import { PaymentDetails } from "./PaymentDetails"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 import { PaymentSummaryList } from "./PaymentSummaryList"
@@ -19,6 +20,8 @@ import {
 } from "./styled"
 
 interface Props {
+  /** Gateway configuration that used to live on the deprecated container. */
+  paymentConfig: PaymentMethodConfig
   selectPayment: (params: PaymentMethodOnClickParams) => void
   hasTitle: boolean
   autoSelectCallback: () => void
@@ -91,6 +94,7 @@ const TemplateSaveToWalletCheckbox = ({ name }: CustomerSaveToWalletProps) => {
 }
 
 export const CheckoutCustomerPayment: React.FC<Props> = ({
+  paymentConfig,
   selectPayment,
   hasTitle,
   autoSelectCallback,
@@ -100,6 +104,7 @@ export const CheckoutCustomerPayment: React.FC<Props> = ({
   return (
     <>
       <PaymentMethod
+        config={paymentConfig}
         autoSelectSinglePaymentMethod={autoSelectCallback}
         showLoader={isPaymentLoading}
         activeClass="active group"
