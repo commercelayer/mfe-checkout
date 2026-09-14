@@ -20,6 +20,8 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
+      "react": ["./node_modules/@types/react"],
+      "react-dom": ["./node_modules/@types/react-dom"],
       "@commercelayer/core-components": [
         "../commercelayer-react-components/packages/core-components/dist/index.d.ts"
       ],

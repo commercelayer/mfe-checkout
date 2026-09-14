@@ -31,7 +31,14 @@ import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
 import { LINE_ITEMS_SHIPPABLE } from "components/utils/constants"
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react"
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { NoShippingMethods } from "./Errors/NoShippingMethods"
