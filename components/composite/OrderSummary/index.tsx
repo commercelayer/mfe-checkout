@@ -8,6 +8,7 @@ import ShippingAmount from "@commercelayer/react-components/orders/ShippingAmoun
 import SubTotalAmount from "@commercelayer/react-components/orders/SubTotalAmount"
 import TaxesAmount from "@commercelayer/react-components/orders/TaxesAmount"
 import TotalAmount from "@commercelayer/react-components/orders/TotalAmount"
+import { PrototypeAdyenExpress } from "components/composite/PrototypeAdyenExpress"
 import type { AppProviderData } from "components/data/AppProvider"
 import useDeviceDetect from "components/hooks/useDeviceDetect"
 import { useSettingsOrInvalid } from "components/hooks/useSettingsOrInvalid"
@@ -236,6 +237,10 @@ export const OrderSummary: React.FC<Props> = ({
               className="text-xl font-extrabold"
             />
           </RecapLineTotal>
+          {/* PROTOTYPE — opt in with ?express=true, see PrototypeAdyenExpress/README.md */}
+          {!readonly && !appCtx.isComplete && (
+            <PrototypeAdyenExpress appCtx={appCtx} />
+          )}
           {!appCtx.isComplete && <ReturnToCart cartUrl={appCtx.cartUrl} />}
         </AmountWrapper>
       </TotalWrapper>
