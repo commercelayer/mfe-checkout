@@ -46,16 +46,6 @@ interface Props {
   expirationInfo: NullableType<ExpirationInfo>
 }
 
-// Module-level so the array keeps one identity across renders.
-const ORDER_INCLUDE = [
-  "line_items",
-  "shipments.available_shipping_methods",
-  "shipments.shipping_method",
-  "shipments.stock_line_items.line_item",
-  "shipments.stock_transfers.line_item",
-  "shipments.stock_location",
-] as const
-
 const Checkout: React.FC<Props> = ({
   logoUrl,
   primaryColor,
@@ -283,18 +273,7 @@ const Checkout: React.FC<Props> = ({
   }
 
   return (
-    // `line_items` is declared here rather than left to whichever component
-    // happens to need it: GTMProvider reads the cart off the order object
-    // itself, and it fires begin_checkout on the first order it is handed. The
-    // library's own components register their includes when they mount, so
-    // without this the first order can arrive carrying the shipping step's
-    // include list — same order, no line_items, and begin_checkout goes out
-    // with `items: undefined`.
-    <Order
-      orderId={ctx.orderId}
-      fetchOrder={ctx.getOrder}
-      include={ORDER_INCLUDE}
-    >
+    <Order orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
       <GTMProvider
         gtmId={gtmId}
         skipBeginCheckout={checkoutAlreadyStarted || ctx.isComplete}
