@@ -65,8 +65,11 @@ const StepPlaceOrder: React.FC<Props> = ({
       setIsPlacingOrder(true)
       await placeOrder(order)
       if (gtmCtx?.firePurchase && gtmCtx?.fireAddPaymentInfo) {
-        gtmCtx.fireAddPaymentInfo()
-        gtmCtx.firePurchase()
+        // Pass the placed order along: coming back from a payment redirect this
+        // is the only copy of it that exists, the provider's context has not
+        // caught up yet.
+        gtmCtx.fireAddPaymentInfo(order)
+        gtmCtx.firePurchase(order)
       }
       setIsPlacingOrder(false)
     }

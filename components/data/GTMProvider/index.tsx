@@ -9,8 +9,8 @@ import type { DataLayerItemProps, DataLayerProps } from "./typings"
 
 interface GTMProviderData {
   fireAddShippingInfo: (order: Order) => void
-  fireAddPaymentInfo: () => void
-  firePurchase: () => void
+  fireAddPaymentInfo: (order?: Order) => void
+  firePurchase: (order?: Order) => void
 }
 
 export const GTMContext = createContext<GTMProviderData | null>(null)
@@ -29,6 +29,15 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   const isFirstLoading = useRef(true)
   const ctx = useContext(AppContext)
 
+  // The fire* callbacks below are handed to StepPlaceOrder through context and
+  // called from an async handler, so a value captured when this component
+  // rendered can be several renders stale by then. Coming back from a payment
+  // redirect the order is placed before the order lands in this context at all,
+  // and the closure's `order` is still undefined — every field of the event goes
+  // out undefined. Read it at call time instead.
+  const orderRef = useRef<NullableType<Order>>(ctx?.order)
+  orderRef.current = ctx?.order
+
   useEffect(() => {
     if (!gtmId || !ctx || !ctx.order) return
 
@@ -44,8 +53,6 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
   if (!gtmId || !ctx) {
     return <>{children}</>
   }
-
-  const { order } = ctx
 
   const pushDataLayer = ({ eventName, dataLayer }: DataLayerProps) => {
     try {
@@ -115,7 +122,10 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const fireAddPaymentInfo = () => {
+  // `placedOrder` is what the caller holds — after a redirect that is the only
+  // copy that exists yet.
+  const fireAddPaymentInfo = (placedOrder?: Order) => {
+    const order = placedOrder ?? orderRef.current
     const lineItems = order?.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
@@ -134,7 +144,8 @@ export const GTMProvider: React.FC<GTMProviderProps> = ({
     })
   }
 
-  const firePurchase = () => {
+  const firePurchase = (placedOrder?: Order) => {
+    const order = placedOrder ?? orderRef.current
     const lineItems = order?.line_items?.filter((line_item) => {
       return LINE_ITEMS_SHOPPABLE.includes(line_item.item_type as TypeAccepted)
     })
