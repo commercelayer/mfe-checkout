@@ -1366,16 +1366,20 @@ export class CheckoutPage {
       name: label,
     })
     if (await cardButton.isVisible()) {
-      const box = await cardButton.boundingBox()
+      // Playwright cannot scroll the outer page for an element inside a
+      // cross-origin iframe, so bring it into view by hand. It can sit either
+      // side of the fold — the payment tabs move as the accordion above them
+      // opens and closes — and one wheel is not always enough, since scrolling
+      // the page re-lays out what is above it.
       const viewport = this.page.viewportSize()
-      if (
-        box != null &&
-        viewport != null &&
-        box.y + box.height > viewport.height
-      ) {
-        // Element inside the cross-origin Stripe iframe is below the fold:
-        // Playwright can't scroll the outer page for it, so do it ourselves.
-        await this.page.mouse.wheel(0, box.y + box.height - viewport.height + 100)
+      for (let attempt = 0; attempt < 5; attempt++) {
+        const box = await cardButton.boundingBox()
+        if (box == null || viewport == null) break
+        const below = box.y + box.height - viewport.height
+        const above = -box.y
+        if (below <= 0 && above <= 0) break
+        await this.page.mouse.wheel(0, below > 0 ? below + 100 : -(above + 100))
+        await this.page.waitForTimeout(200)
       }
       await cardButton.click({ force: true })
     }
@@ -1427,7 +1431,9 @@ export class CheckoutPage {
         await stripeFrameLocator
           .getByPlaceholder("MM / YY")
           .fill(creditCard.exp)
-        await stripeFrameLocator.locator("#payment-cvcInput").fill(creditCard.cvc)
+        await stripeFrameLocator
+          .locator("#payment-cvcInput")
+          .fill(creditCard.cvc)
         break
       }
       case "stripe-paypal": {
