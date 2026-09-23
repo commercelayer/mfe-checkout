@@ -131,6 +131,7 @@ export const StepCustomer: React.FC<Props> = () => {
     shippingCountryCodeLock,
     setAddresses,
     setCustomerEmail,
+    markStepEdited,
   } = appCtx
 
   const openShippingAddress = ({
@@ -169,7 +170,14 @@ export const StepCustomer: React.FC<Props> = () => {
       })}
     >
       <StepContent>
-        <>
+        {/* biome-ignore lint/a11y/noStaticElementInteractions: not an interactive
+            element — this only observes edits bubbling out of the form below */}
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: change/input events only */}
+        <div
+          onInput={markStepEdited}
+          onChange={markStepEdited}
+          data-testid="step-customer-edits"
+        >
           {accordionCtx.isActive && (
             <>
               {isGuest ? (
@@ -212,7 +220,7 @@ export const StepCustomer: React.FC<Props> = () => {
               )}
             </>
           )}
-        </>
+        </div>
       </StepContent>
     </StepContainer>
   )

@@ -49,6 +49,9 @@ export const useActiveStep = (): UseActiveStep => {
 
   const setActiveStepManual = (step: SingleStepEnum) => {
     manualNavAtRef.current = Date.now()
+    // Leaving a step by hand abandons whatever was typed in it, so it stops
+    // holding the accordion in place.
+    ctx?.clearStepEdits()
     setActiveStep(step)
   }
 
@@ -83,8 +86,15 @@ export const useActiveStep = (): UseActiveStep => {
       // If the user picked a step after this loading cycle started (e.g.
       // reopened an accordion while a background refetch was in flight),
       // their choice wins: update what is activable but don't move them.
+      //
+      // The same goes for a step holding edits they have not saved. Changing a
+      // field starts a refresh of its own — a new country recalculates the
+      // taxes — and moving them when it lands folds the step away with the
+      // edit still in it and the Save button gone. Saving clears the flag, so
+      // the flow advances then exactly as it always did.
       const keepManualSelection =
-        manualNavAtRef.current > loadingStartedAtRef.current
+        manualNavAtRef.current > loadingStartedAtRef.current ||
+        ctx.hasUnsavedStepEdits()
 
       if (canPlaceOrder) {
         if (!keepManualSelection) setActiveStep("Complete")

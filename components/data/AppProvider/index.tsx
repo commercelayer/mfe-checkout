@@ -33,6 +33,18 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   isFirstLoading: boolean
   getOrder: (order: Order) => void
   getOrderFromRef: () => Promise<Order>
+  /**
+   * Whether the open step holds edits the customer has not saved yet. The
+   * accordion needs to know: a field change starts a refresh of its own, and
+   * moving them on when it lands takes the step — and the edit — away.
+   *
+   * A getter over a ref rather than state on purpose. It is written on every
+   * keystroke, and re-rendering the checkout that often resets the address
+   * form under the person typing into it.
+   */
+  hasUnsavedStepEdits: () => boolean
+  markStepEdited: () => void
+  clearStepEdits: () => void
   setCustomerEmail: (email: string) => void
   setAddresses: (order?: Order) => Promise<void>
   setCouponOrGiftCard: () => Promise<void>
@@ -112,6 +124,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const orderRef = useRef<Order | undefined>(undefined)
   const [state, dispatch] = useReducer(reducer, { ...initialState, isGuest })
   const [order, setOrder] = useState<NullableType<Order>>()
+  const stepEditsRef = useRef(false)
+  // Set while a save is in flight and until the customer opens a step by hand
+  // again. Saving re-seeds the form from the order, and those writes surface as
+  // input events like any other — without this they mark the step dirty again
+  // the instant the save cleared it, and the step never folds away.
+  const savingStepRef = useRef(false)
 
   // The React-19 library keys effects on the callback props we pass it (e.g.
   // <Order fetchOrder>, <PaymentMethod onClick/autoSelect...>). A
@@ -175,6 +193,18 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     [],
   )
 
+  const markStepEdited = useCallback(() => {
+    if (savingStepRef.current) return
+    stepEditsRef.current = true
+  }, [])
+
+  const clearStepEdits = useCallback(() => {
+    stepEditsRef.current = false
+    savingStepRef.current = false
+  }, [])
+
+  const hasUnsavedStepEdits = useCallback(() => stepEditsRef.current, [])
+
   const setCustomerEmail = useCallback((email: string) => {
     dispatch({
       type: ActionType.SET_CUSTOMER_EMAIL,
@@ -183,6 +213,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }, [])
 
   const setAddresses = useCallback(async (order?: Order) => {
+    stepEditsRef.current = false
+    savingStepRef.current = true
     dispatch({ type: ActionType.START_LOADING })
     const currentOrder = order ?? (await getOrderFromRef())
 
@@ -278,6 +310,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }, [])
 
   const saveShipments = useCallback(async () => {
+    stepEditsRef.current = false
+    savingStepRef.current = true
     dispatch({ type: ActionType.START_LOADING })
     const currentOrder = await getOrderFromRef()
     const others = calculateSettings(
@@ -348,6 +382,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         cartUrl: state.cartUrl?.replace(":slug", slug),
         orderId,
         order,
+        hasUnsavedStepEdits,
+        markStepEdited,
+        clearStepEdits,
         accessToken,
         isGuest,
         slug,
