@@ -988,6 +988,36 @@ export class CheckoutPage {
             await klarnaIframe.locator("input#otp_field").type("123456")
             await this.page.waitForTimeout(5000)
 
+            // Klarna overlays the confirm page with one or two "offers
+            // selector" dialogs ("Weiter mit Sofort bezahlen", then the
+            // pay-now method selector). They swallow every click until
+            // dismissed, and a dismissed step stays in the DOM, so always
+            // continue from the innermost dialog that is still open.
+            const continueWithOffer = async () => {
+              for (let step = 0; step < 3; step++) {
+                const payNowSelector = klarnaIframe.getByTestId(
+                  "offers-selector-pay-now-selector-continue-button",
+                )
+                const offersSelector = klarnaIframe.getByTestId(
+                  "offers-selector-continue-button",
+                )
+                const button = (await payNowSelector.isVisible())
+                  ? payNowSelector
+                  : offersSelector
+                if (!(await button.isVisible())) {
+                  break
+                }
+                try {
+                  await button.click({ timeout: 10000 })
+                } catch {
+                  break
+                }
+                await this.page.waitForTimeout(2000)
+              }
+            }
+
+            await continueWithOffer()
+
             const selectPayment = klarnaIframe.getByTestId(
               "select-payment-category-or-method-from-stacked-selector",
             )
@@ -1019,13 +1049,59 @@ export class CheckoutPage {
             if (await pickPlan.isVisible()) {
               await pickPlan.click()
             }
+            await continueWithOffer()
+
             const confirmAndPay = klarnaIframe.getByTestId("confirm-and-pay")
             if (await confirmAndPay.isVisible()) {
               await confirmAndPay.click()
             }
-            const button = klarnaIframe.getByRole("button", { name: "Weiter" })
-            if (await button.isVisible()) {
-              button.click()
+            // Klarna finishes the payment through a stack of dialogs: first
+            // confirm the saved demo account, then log into the "Testbank"
+            // demo bank, which now runs inline in an iframe instead of in a
+            // popup.
+            const dialogContinue = klarnaIframe
+              .getByRole("button", { name: "Weiter", exact: true })
+              .last()
+
+            // The demo bank frame is created late and has no stable name, so
+            // look for the frame that holds its form fields.
+            const waitForBankFields = async () => {
+              for (let attempt = 0; attempt < 20; attempt++) {
+                for (const frame of this.page.frames()) {
+                  const fields = frame.getByRole("textbox")
+                  if ((await fields.count().catch(() => 0)) > 0) {
+                    return fields
+                  }
+                }
+                await this.page.waitForTimeout(1000)
+              }
+              return undefined
+            }
+
+            const shown = await dialogContinue
+              .waitFor({ state: "visible", timeout: 15000 })
+              .then(() => true)
+              .catch(() => false)
+
+            if (shown) {
+              // confirm the pre-selected demo account
+              await dialogContinue.click()
+              await this.page.waitForTimeout(3000)
+
+              const bankFields = await waitForBankFields()
+              if (bankFields !== undefined) {
+                await bankFields.nth(0).fill("12345678")
+                await bankFields.nth(1).fill("1234")
+                await dialogContinue.click()
+                await this.page.waitForTimeout(3000)
+
+                const tanFields = await waitForBankFields()
+                if (tanFields !== undefined) {
+                  await tanFields.nth(0).fill("12345")
+                  await dialogContinue.click()
+                  await this.page.waitForTimeout(3000)
+                }
+              }
             }
 
             const pagePromise = await this.page
@@ -1342,7 +1418,10 @@ export class CheckoutPage {
       ) {
         // Element inside the cross-origin Stripe iframe is below the fold:
         // Playwright can't scroll the outer page for it, so do it ourselves.
-        await this.page.mouse.wheel(0, box.y + box.height - viewport.height + 100)
+        await this.page.mouse.wheel(
+          0,
+          box.y + box.height - viewport.height + 100,
+        )
       }
       await cardButton.click({ force: true })
     }
@@ -1394,7 +1473,9 @@ export class CheckoutPage {
         await stripeFrameLocator
           .getByPlaceholder("MM / YY")
           .fill(creditCard.exp)
-        await stripeFrameLocator.locator("#payment-cvcInput").fill(creditCard.cvc)
+        await stripeFrameLocator
+          .locator("#payment-cvcInput")
+          .fill(creditCard.cvc)
         break
       }
       case "stripe-paypal": {
