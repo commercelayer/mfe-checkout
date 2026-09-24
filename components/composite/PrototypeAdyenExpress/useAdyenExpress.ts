@@ -248,7 +248,6 @@ export function useAdyenExpress({ appCtx }: Props): UseAdyenExpress {
               ...(billing ?? shipping),
               email: email ?? billing?.email ?? shipping?.email,
               phone: billing?.phone ?? shipping?.phone,
-              billing_info: "123",
             },
           }),
         )

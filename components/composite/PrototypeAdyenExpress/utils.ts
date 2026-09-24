@@ -128,7 +128,8 @@ export function contactFromGooglePay(
  * any address, so it wins over the order country.
  */
 export function expressCountryCode(order: Order) {
-  const countryCode = "HK" // ?? order.shipping_country_code_lock ?? order.country_code ?? ""
+  const countryCode =
+    order.shipping_country_code_lock ?? order.country_code ?? ""
 
   return countryCode.toUpperCase() || undefined
 }
