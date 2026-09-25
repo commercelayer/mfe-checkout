@@ -1,3 +1,10 @@
+## [6.5.7](https://github.com/commercelayer/mfe-checkout/compare/v6.5.6...v6.5.7) (2026-09-25)
+
+
+### Bug Fixes
+
+* downgrade baseline-browser-mapping to version 2.11.25 and remove minimumReleaseAgeExclude entries ([dc3b819](https://github.com/commercelayer/mfe-checkout/commit/dc3b819b89ac75c8526350599971f3fd145d02f7))
+
 ## [6.5.6](https://github.com/commercelayer/mfe-checkout/compare/v6.5.5...v6.5.6) (2026-09-24)
 
 
