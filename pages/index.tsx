@@ -1,5 +1,5 @@
 import type { NextPage } from "next"
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router"
 
 import Page404 from "./404"
 import Order from "./Order"

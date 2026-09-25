@@ -4,9 +4,6 @@ allowBuilds:
   "core-js": true
   "iframe-resizer": true
   "sharp": true
-minimumReleaseAgeExclude:
-  - cronstrue@3.20.0
-  - baseline-browser-mapping@2.11.16
-  - i18next@26.4.0
 overrides:
   "postcss": ^8.5.26
+  "fflate": ^0.8.3
