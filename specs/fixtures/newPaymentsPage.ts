@@ -148,6 +148,28 @@ export async function readOrder(order: NewPaymentsOrder): Promise<Order> {
 }
 
 /**
+ * The wallet a session stored its card into, once Commerce Layer has linked it.
+ *
+ * Linking is Commerce Layer's, not the checkout's: on Stripe it happens when the
+ * authorization reads the confirmed PaymentIntent, on Adyen when the
+ * `RECURRING_CONTRACT` webhook arrives — which is asynchronous, so callers poll.
+ * Read with the order's own token, which on a customer order is the customer's
+ * and may therefore see the wallet.
+ */
+export async function readSessionWallet(
+  order: NewPaymentsOrder,
+  sessionId: string,
+): Promise<{ vaulting?: boolean | null; walletId?: string }> {
+  const read = await client(order.accessToken).orders.retrieve(order.id, {
+    include: ["payment_sessions", "payment_sessions.payment_wallet"],
+  })
+  const session = (read.payment_sessions ?? []).find(
+    (candidate) => candidate.id === sessionId,
+  )
+  return { vaulting: session?.vaulting, walletId: session?.payment_wallet?.id }
+}
+
+/**
  * Assert the order was placed and that the money taken matches it exactly.
  *
  * This is the assertion the suite exists for. The UI is not the source of

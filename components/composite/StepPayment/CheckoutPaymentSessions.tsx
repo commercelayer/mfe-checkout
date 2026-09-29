@@ -9,6 +9,7 @@ import {
   PaymentSettingName,
   PaymentSettingStripePayment,
 } from "@commercelayer/react-components"
+import { Label } from "components/ui/Label"
 import { type JSX, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -33,6 +34,7 @@ import {
   StyledGiftCardSessionRemove,
   StyledGiftCardSessionSubmit,
   StyledPaymentSettingRadioButton,
+  WalletCheckbox,
 } from "./styled"
 
 interface Props {
@@ -125,7 +127,15 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
   return (
     <>
       <PaymentSetting onSelect={onSelect} returnUrl={paymentReturnUrl()}>
-        {({ setting, isSelected, errors }) => (
+        {({
+          setting,
+          isSelected,
+          isPending,
+          errors,
+          canSaveCard,
+          saveCard,
+          setSaveCard,
+        }) => (
           <>
             {/* A <label> rather than a click handler: one click reaches the radio
               exactly once whatever it lands on, so the whole card is the target
@@ -174,7 +184,13 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
               that stops being true; a shopper otherwise meets a button that
               cannot work. */}
             <PaymentSettingAdyenPayment
-              paymentMethods={["card", "paypal", "google_pay", "apple_pay", "klarna"]}
+              paymentMethods={[
+                "card",
+                "paypal",
+                "google_pay",
+                "apple_pay",
+                "klarna",
+              ]}
               containerClassName={ADYEN_CONTAINER_CLASS}
             >
               {({ errors: adyenErrors }) => {
@@ -186,6 +202,32 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
                 )
               }}
             </PaymentSettingAdyenPayment>
+
+            {/* The consent to keep the card, for a signed-in customer on Stripe
+              — Adyen's Drop-in asks on its own, so the library never offers it
+              there. Above the Element on purpose: the choice is fixed when the
+              Payment Session is created, so changing it replaces the session
+              and the Element remounts empty. Asked before typing, it costs
+              nothing. */}
+            {isSelected && canSaveCard && (
+              <div className="flex items-center px-4 mt-3 mb-4">
+                <WalletCheckbox
+                  name={`save-card-${setting.id}`}
+                  id={`save-card-${setting.id}`}
+                  data-testid="payment-setting-save-card"
+                  className="form-checkbox"
+                  checked={saveCard}
+                  disabled={isPending}
+                  onChange={(event) => {
+                    void setSaveCard(event.target.checked)
+                  }}
+                />
+                <Label
+                  htmlFor={`save-card-${setting.id}`}
+                  textLabel={t("stepPayment.saveToWallet")}
+                />
+              </div>
+            )}
 
             {/* Outside the card for the same reason as Adyen's: the card is a
               <label>, and a click on one of Stripe's inputs inside it would be
