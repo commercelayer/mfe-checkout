@@ -35,6 +35,14 @@ export const ADYEN_3DS_CARD = {
 export const ADYEN_3DS_PASSWORD = "password"
 
 /**
+ * Klarna's playground shopper. Any US number works and no SMS is sent; any
+ * six-digit code is accepted except 999999, which the playground turns into an
+ * error.
+ */
+export const KLARNA_PLAYGROUND_PHONE = "3106683312"
+export const KLARNA_PLAYGROUND_CODE = "123456"
+
+/**
  * Stripe's test card that authorizes without a challenge.
  *
  * The frictionless one on purpose: what this suite is proving is the chain from
@@ -527,6 +535,74 @@ export class PaymentSessionsCheckoutPage {
     ).toBeVisible({ timeout: 30_000 })
     await this.adyenGooglePayOption.click({ force: true })
     await expect(this.adyenGooglePayButton).toBeVisible({ timeout: 60_000 })
+  }
+
+  /**
+   * Klarna's "pay later" row in the Drop-in's method list.
+   *
+   * Adyen offers Klarna per market as up to three rows — pay later, pay over
+   * time, pay now — and which ones appear is the account's and the order's
+   * country's business. "Pay later" is the one Klarna's US playground always
+   * shows.
+   */
+  get adyenKlarnaOption(): Locator {
+    return this.adyenDropin.getByRole("radio", {
+      name: /pay later with klarna/i,
+    })
+  }
+
+  /**
+   * Open Klarna's row.
+   *
+   * Nothing renders inside it: with the Drop-in's own pay button switched off,
+   * Klarna has no fields and no button, and our place button is the one that
+   * sends the shopper to Klarna.
+   */
+  async selectAdyenKlarna(): Promise<void> {
+    await expect(this.adyenDropin).toBeVisible({ timeout: 30_000 })
+    // Named, because the timeout that follows otherwise reads as a broken
+    // checkout when it usually means Klarna is not enabled for this market and
+    // currency on the Adyen account.
+    await expect(
+      this.adyenKlarnaOption,
+      "the Drop-in offered no Klarna row — check that Klarna is enabled on the Adyen account for this market and currency",
+    ).toBeVisible({ timeout: 30_000 })
+    await this.adyenKlarnaOption.click({ force: true })
+  }
+
+  /**
+   * Complete a payment on Klarna's playground, from the redirect to the return.
+   *
+   * The confirmation step loads as a page of its own on another Klarna host,
+   * sometimes after a login hop, so each step waits for its own page rather
+   * than for the previous one to finish.
+   *
+   * Everything here is Klarna's UI, which changes without warning and is the
+   * most likely thing in this path to break for reasons that are not ours.
+   */
+  async payWithKlarna(): Promise<void> {
+    await this.page.waitForURL(/playground\.klarna\.com/, { timeout: 30_000 })
+
+    await this.page
+      .getByRole("textbox")
+      .first()
+      .fill(KLARNA_PLAYGROUND_PHONE, { timeout: 30_000 })
+    await this.page.getByRole("button", { name: "Continue" }).click()
+    await this.page
+      .getByText("Enter the 6-digit code")
+      .first()
+      .waitFor({ timeout: 30_000 })
+    await this.page
+      .getByRole("textbox")
+      .first()
+      .pressSequentially(KLARNA_PLAYGROUND_CODE, { delay: 60 })
+
+    await this.page.waitForURL(/payments\.playground\.klarna\.com/, {
+      timeout: 30_000,
+    })
+    await this.page
+      .getByRole("button", { name: "Pay with Klarna" })
+      .click({ timeout: 30_000 })
   }
 
   /** Go back to the card row, which puts collection back on our own button. */
