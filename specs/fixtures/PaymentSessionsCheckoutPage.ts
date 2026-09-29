@@ -397,6 +397,10 @@ export class PaymentSessionsCheckoutPage {
    * Addressed by field class and accessible label rather than by iframe
    * position. `iframe >> nth=0` is what the `payment_source` fixture does, and
    * it breaks the moment anything else on the page frames something.
+   *
+   * Scoped to the method the shopper has open. A signed-in customer's Drop-in
+   * keeps every stored card's form mounted while collapsed, each with its own
+   * security code, so an unscoped locator matches more than one field.
    */
   private adyenField(
     field: "cardNumber" | "expiryDate" | "securityCode",
@@ -404,7 +408,7 @@ export class PaymentSessionsCheckoutPage {
   ): Locator {
     return this.page
       .frameLocator(
-        `.adyen-dropin-container .adyen-checkout__field--${field} iframe`,
+        `.adyen-dropin-container .adyen-checkout__payment-method--selected .adyen-checkout__field--${field} iframe`,
       )
       .getByRole("textbox", { name: label })
   }
@@ -535,6 +539,79 @@ export class PaymentSessionsCheckoutPage {
     ).toBeVisible({ timeout: 30_000 })
     await this.adyenGooglePayOption.click({ force: true })
     await expect(this.adyenGooglePayButton).toBeVisible({ timeout: 60_000 })
+  }
+
+  /**
+   * This application's "save this card" checkbox, rendered for Stripe on a
+   * signed-in customer's order.
+   */
+  get saveCardCheckbox(): Locator {
+    return this.page.locator("[data-testid=payment-setting-save-card]")
+  }
+
+  /**
+   * Tick "save this card" and wait for the Payment Session it replaces.
+   *
+   * The choice is fixed when a session is created, so ticking the box creates a
+   * new one and Stripe's Element remounts on the new PaymentIntent. The wait is
+   * for the box to settle checked and the Element to be back, so the card is
+   * typed into the form that will actually be confirmed.
+   */
+  async chooseToSaveCard(): Promise<void> {
+    await expect(this.saveCardCheckbox).toBeVisible({ timeout: 30_000 })
+    await this.saveCardCheckbox.check()
+    await expect(this.saveCardCheckbox).toBeChecked({ timeout: 30_000 })
+    await expect(this.saveCardCheckbox).toBeEnabled({ timeout: 30_000 })
+    await expect(this.stripeElement).toBeVisible({ timeout: 30_000 })
+  }
+
+  /**
+   * Adyen's "Cards" row, for entering a new card.
+   *
+   * On a customer with cards already stored the Drop-in leads with those and
+   * opens the first of them, so a new card has to be asked for explicitly.
+   */
+  get adyenNewCardOption(): Locator {
+    return this.adyenDropin.getByRole("radio", { name: /^cards\b/i })
+  }
+
+  /**
+   * The Drop-in's own consent checkbox, which Adyen renders when the session
+   * was created with `vaulting` — `storePaymentMethodMode: askForConsent`.
+   */
+  get adyenSaveCardCheckbox(): Locator {
+    return this.adyenDropin.getByRole("checkbox", {
+      name: /save for my next payment/i,
+    })
+  }
+
+  /**
+   * Tick the Drop-in's consent box, the way a shopper does: on its label.
+   *
+   * Adyen styles the checkbox by laying the label's text over the real input,
+   * so a click aimed at the input is intercepted and `check()` retries until
+   * the test times out.
+   */
+  async saveAdyenCard(): Promise<void> {
+    await expect(this.adyenSaveCardCheckbox).toBeVisible({ timeout: 30_000 })
+    await this.adyenDropin
+      .locator(".adyen-checkout__payment-method--selected")
+      .getByText(/save for my next payment/i)
+      .click()
+    await expect(this.adyenSaveCardCheckbox).toBeChecked()
+  }
+
+  /**
+   * Open the new-card row, whether or not stored cards come first.
+   *
+   * Waited for rather than counted: the rows render after the Drop-in's own
+   * container, and a count taken in between reads zero and leaves the stored
+   * card open. With more than one method on offer — always the case here — the
+   * row exists.
+   */
+  async selectAdyenNewCard(): Promise<void> {
+    await expect(this.adyenNewCardOption).toBeVisible({ timeout: 30_000 })
+    await this.adyenNewCardOption.click({ force: true })
   }
 
   /**
