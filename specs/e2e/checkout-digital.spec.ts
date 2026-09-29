@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker"
 
 import { test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("with digital product", () => {
   test.use({
@@ -68,7 +69,7 @@ test.describe("with digital product", () => {
 })
 
 test.describe("one address on wallet and digital", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({

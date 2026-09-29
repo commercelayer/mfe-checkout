@@ -1,6 +1,5 @@
-import { faker } from "@faker-js/faker"
-
 import { expect, test } from "../fixtures/tokenizedPage"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 /**
  * Safety net for the container -> standalone migration.
@@ -30,7 +29,7 @@ const ALLOWED = new Set<string>([])
 /** The five messages disagree on formatting; the container name is the only constant. */
 const DEPRECATION = /(\w+Container)\b[^\n]*\bis deprecated\b/i
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 
 test.use({
   defaultParams: {

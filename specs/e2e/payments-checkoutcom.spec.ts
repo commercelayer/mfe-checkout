@@ -2,9 +2,10 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("guest with checkout.com", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -65,7 +66,7 @@ test.describe("guest with checkout.com", () => {
 })
 
 test.describe("guest with checkout.com and autocapture", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -121,7 +122,7 @@ test.describe("guest with checkout.com and autocapture", () => {
 })
 
 test.describe("guest with checkout.com declined payment and retry", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -202,7 +203,7 @@ test.describe("guest with checkout.com declined payment and retry", () => {
   })
 })
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 const customerPassword = faker.internet.password()
 
 test.describe("customer with checkout.com without saving", () => {
@@ -347,7 +348,7 @@ test.describe("customer with checkout.com with saving", () => {
 })
 
 test.describe("guest with checkout.com as single payment method", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {

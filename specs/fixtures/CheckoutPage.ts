@@ -1,9 +1,9 @@
 import type { Address } from "@commercelayer/sdk"
-import { faker } from "@faker-js/faker"
 import { expect, type Page } from "@playwright/test"
 
 import type { EcommerceProps } from "../../components/data/GTMProvider/typings"
 import { composeForCheck, euAddress, euAddress2 } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 import { getSuperClient } from "./tokenizedPage"
 
 interface GoToProps {
@@ -114,7 +114,7 @@ export class CheckoutPage {
   async setCustomerMail(email?: string) {
     let customerEmail = email || ""
     if (email === undefined) {
-      customerEmail = faker.internet.email().toLocaleLowerCase()
+      customerEmail = uniqueCustomerEmail()
     }
     await this.page.getByTestId("customer_email").fill(customerEmail)
     await this.page.getByTestId("customer_email").blur()

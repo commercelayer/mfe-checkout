@@ -2,8 +2,9 @@ import { faker } from "@faker-js/faker"
 import { euAddress } from "specs/utils/addresses"
 
 import { expect, test } from "../fixtures/tokenizedPage"
+import { uniqueCustomerEmail } from "../utils/customers"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 
 test.describe("Guest checking out a subscription", () => {
   test.use({
@@ -65,7 +66,7 @@ test.describe("Guest checking out a subscription", () => {
 
 test.describe("Customer checking out a subscription", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({

@@ -2,8 +2,9 @@ import { faker } from "@faker-js/faker"
 
 import { test } from "../fixtures/tokenizedPage"
 import { euAddressNoBillingInfo } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 
 test.describe("with single defaults", () => {
   test.use({
@@ -168,7 +169,7 @@ test.describe("with multi shipping multi payment defaults", () => {
 })
 
 test.describe("customer with address multi shipping single payment defaults", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({

@@ -1,10 +1,9 @@
-import { faker } from "@faker-js/faker"
-
 import { test } from "../fixtures/tokenizedPage"
 import { euAddress, euAddress2 } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("guest with Adyen", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -100,7 +99,7 @@ test.describe("guest with Adyen", () => {
 })
 
 test.describe("guest with Adyen drop-in", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -193,7 +192,7 @@ test.describe("guest with Adyen drop-in", () => {
 })
 
 test.describe("API version v68", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -238,7 +237,7 @@ test.describe("API version v68", () => {
 })
 
 test.describe("guest with adyen partial payments and giftcard covering total", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {

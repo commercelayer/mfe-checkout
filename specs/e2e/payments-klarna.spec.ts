@@ -1,9 +1,9 @@
-import { faker } from "@faker-js/faker"
 import { euAddress2 } from "specs/utils/addresses"
 
 import { expect, test } from "../fixtures/tokenizedPage"
+import { uniqueCustomerEmail } from "../utils/customers"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 
 test.describe("with physical product", () => {
   test.use({

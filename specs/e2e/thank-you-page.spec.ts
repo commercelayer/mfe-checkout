@@ -2,9 +2,10 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("with return url", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   const returnUrl = "https://mock.httpstatus.io/200"
   test.use({
@@ -49,7 +50,7 @@ test.describe("with return url", () => {
 })
 
 test.describe("with cart url", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -92,7 +93,7 @@ test.describe("with cart url", () => {
 })
 
 test.describe("without return url", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -129,9 +130,9 @@ test.describe("without return url", () => {
 })
 
 test.describe("with support phone and email", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const phone = faker.phone.number()
-  const email = faker.internet.email()
+  const email = uniqueCustomerEmail()
   const returnUrl = "https://mock.httpstatus.io/200"
 
   test.use({
@@ -177,7 +178,7 @@ test.describe("with support phone and email", () => {
 })
 
 test.describe("with support phone", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const phone = faker.phone.number()
   const returnUrl = "https://mock.httpstatus.io/200"
 
@@ -223,8 +224,8 @@ test.describe("with support phone", () => {
 })
 
 test.describe("with support email", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
-  const email = faker.internet.email()
+  const customerEmail = uniqueCustomerEmail()
+  const email = uniqueCustomerEmail()
   const returnUrl = "https://mock.httpstatus.io/200"
 
   test.use({
@@ -268,8 +269,8 @@ test.describe("with support email", () => {
 })
 
 test.describe("with custom thankyou page url @organization-config", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
-  const email = faker.internet.email()
+  const customerEmail = uniqueCustomerEmail()
+  const email = uniqueCustomerEmail()
   const thankyouPageUrl =
     "https://mock.httpstatus.io/200?id=:order_id&accessToken=:access_token"
 
@@ -320,8 +321,8 @@ test.describe("with custom thankyou page url @organization-config", () => {
 })
 
 test.describe("with custom thankyou page url @organization-config and token", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
-  const email = faker.internet.email()
+  const customerEmail = uniqueCustomerEmail()
+  const email = uniqueCustomerEmail()
   const thankyouPageUrl =
     "https://mock.httpstatus.io/200?lang=:lang&id=:order_id&token=:token&slug=:slug"
 
@@ -375,7 +376,7 @@ test.describe("with custom thankyou page url @organization-config and token", ()
 })
 
 test.describe("with approved order", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({

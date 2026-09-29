@@ -1,10 +1,9 @@
-import { faker } from "@faker-js/faker"
-
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("guest with wire transfer", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {

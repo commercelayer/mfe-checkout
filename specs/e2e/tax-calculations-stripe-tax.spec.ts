@@ -1,8 +1,8 @@
-import { faker } from "@faker-js/faker"
 import { test } from "../fixtures/tokenizedPage"
 import { atAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 
 test.use({
   defaultParams: {

@@ -1,12 +1,11 @@
-import { faker } from "@faker-js/faker"
-
 import { test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.setTimeout(3 * 60 * 1000)
 
 test.describe("guest with Adyen using givex", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -143,7 +142,7 @@ test.describe("guest with Adyen using givex", () => {
 })
 
 test.describe("guest with Adyen using givex", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {

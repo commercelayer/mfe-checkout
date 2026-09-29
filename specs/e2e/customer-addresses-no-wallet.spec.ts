@@ -2,9 +2,10 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, euAddress2, euAddress3 } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("without addresses", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -76,7 +77,7 @@ test.describe("without addresses", () => {
 })
 
 test.describe("same addresses", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -145,7 +146,7 @@ test.describe("same addresses", () => {
 })
 
 test.describe("different addresses", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({

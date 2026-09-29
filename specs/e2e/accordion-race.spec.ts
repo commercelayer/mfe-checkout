@@ -2,11 +2,10 @@
 // active step changed (or while a background order refetch was in flight)
 // closed the step instead of opening it. See AccordionProvider (derived
 // isActive) and useActiveStep (manual-navigation guard).
-import { faker } from "@faker-js/faker"
-
 import { test } from "../fixtures/tokenizedPage"
+import { uniqueCustomerEmail } from "../utils/customers"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 
 test.describe("accordion race", () => {
   test.use({

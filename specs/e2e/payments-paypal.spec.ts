@@ -1,10 +1,9 @@
-import { faker } from "@faker-js/faker"
-
 import { test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("guest with Paypal", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   test.use({
     defaultParams: {
       order: "with-items",
@@ -42,7 +41,7 @@ test.describe("guest with Paypal", () => {
 })
 
 test.describe("digital products with Paypal", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   test.use({
     defaultParams: {
       order: "digital",

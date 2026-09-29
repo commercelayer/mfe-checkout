@@ -47,7 +47,7 @@ test.describe("guest with Adyen and Pay with Klarna in France", () => {
 })
 
 test.describe("guest with Adyen and Pay with Klarna in Germany", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {

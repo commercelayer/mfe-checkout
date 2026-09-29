@@ -2,9 +2,10 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("customer with Adyen without saving", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -51,7 +52,7 @@ test.describe("customer with Adyen without saving", () => {
 test.describe("customer with Adyen with saving", () => {
   test.describe.configure({ mode: "serial" })
 
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({

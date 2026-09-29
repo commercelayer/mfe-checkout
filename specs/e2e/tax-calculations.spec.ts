@@ -1,9 +1,8 @@
-import { faker } from "@faker-js/faker"
-
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddressNoBillingInfo } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 
 test.describe("with different tax calculators", () => {
   test.use({

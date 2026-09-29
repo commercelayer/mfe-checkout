@@ -1,12 +1,11 @@
-import { faker } from "@faker-js/faker"
-
 import { test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 const TIMEOUT = 2000
 
 test.describe("payment source amount mismatch with stripe", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -95,7 +94,7 @@ test.describe("payment source amount mismatch with stripe", () => {
 })
 
 test.describe("payment source amount mismatch for coupon with stripe", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {

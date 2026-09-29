@@ -2,8 +2,9 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 const customerPassword = faker.internet.password()
 
 test.describe("customer with Stripe without saving", () => {
@@ -155,7 +156,7 @@ test.describe("customer with Stripe with saving", () => {
 })
 
 test.describe("guest with Stripe", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {

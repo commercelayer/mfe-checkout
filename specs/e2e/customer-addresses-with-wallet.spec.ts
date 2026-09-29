@@ -7,10 +7,11 @@ import {
   euAddress3,
   usAddress,
 } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("address on wallet", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -151,7 +152,7 @@ test.describe("address on wallet", () => {
 
 test.describe("address on wallet and payment with checkout.com", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -217,7 +218,7 @@ test.describe("address on wallet and payment with checkout.com", () => {
 
 test.describe("address on wallet and payment with adyen and klarna", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -271,7 +272,7 @@ test.describe("address on wallet and payment with adyen and klarna", () => {
 
 test.describe("address on wallet and payment with adyen and credit card", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -324,7 +325,7 @@ test.describe("address on wallet and payment with adyen and credit card", () => 
 
 test.describe("address on wallet and payment with affirm", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -372,7 +373,7 @@ test.describe("address on wallet and payment with affirm", () => {
 })
 
 test.describe("address on wallet with US market", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -402,7 +403,7 @@ test.describe("address on wallet with US market", () => {
 
 test.describe("with digital product and shipping country code lock", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -441,7 +442,7 @@ test.describe("with digital product and shipping country code lock", () => {
 
 test.describe("addresses on wallet", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -499,7 +500,7 @@ test.describe("addresses on wallet", () => {
 })
 
 test.describe("two address on wallet", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -608,7 +609,7 @@ test.describe("two address on wallet", () => {
 })
 
 test.describe("two address on wallet and shipping address on customer", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -699,7 +700,7 @@ test.describe("two address on wallet and shipping address on customer", () => {
 })
 
 test.describe("two address on wallet and code lock", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -886,7 +887,7 @@ test.describe("two address on wallet and code lock", () => {
 })
 
 test.describe("one address on wallet", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
