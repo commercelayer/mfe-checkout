@@ -39,7 +39,7 @@ test.describe("guest with Braintree", () => {
     const element = await checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
 
     await checkoutPage.setPayment("braintree")
 
@@ -77,7 +77,7 @@ test.describe("guest with Braintree", () => {
     const element = await checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
 
     await checkoutPage.setPayment("braintree", { number: "4000000000001000" })
 
@@ -117,7 +117,7 @@ test.describe("guest with Braintree", () => {
     const element = await checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
 
     await checkoutPage.page.reload()
 

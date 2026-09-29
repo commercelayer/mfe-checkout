@@ -20,7 +20,9 @@ test("should execute a checkout with valid token", async ({ checkoutPage }) => {
 
   await checkoutPage.checkShippingSummary("To be calculated")
 
-  expect(checkoutPage.page.locator("text=Standard Shipping")).toBeVisible()
+  await expect(
+    checkoutPage.page.locator("text=Standard Shipping"),
+  ).toBeVisible()
   await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
   await checkoutPage.checkShippingSummary("FREE")

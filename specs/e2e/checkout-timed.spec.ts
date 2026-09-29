@@ -76,7 +76,7 @@ test.describe("with expires_at in the past", () => {
         checkoutPage.page.getByTestId("expired-message")
       await expiredMessageElement.waitFor()
 
-      expect(expiredMessageElement).toHaveText(
+      await expect(expiredMessageElement).toHaveText(
         "Your order was not completed. Please try again with a new order.",
       )
     })
@@ -105,7 +105,9 @@ test.describe("with expires_at in the past", () => {
       const expiredMessageElement =
         checkoutPage.page.getByTestId("expired-message")
       await expiredMessageElement.waitFor()
-      expect(expiredMessageElement).toHaveText("Your session has expired.")
+      await expect(expiredMessageElement).toHaveText(
+        "Your session has expired.",
+      )
       await checkoutPage.page.getByTestId("button-expire-url-to-shop").waitFor()
     })
   })

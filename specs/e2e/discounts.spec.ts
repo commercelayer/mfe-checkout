@@ -301,10 +301,10 @@ test.describe("with giftcard", () => {
     await checkoutPage.checkShippingSummary("To be calculated")
     await checkoutPage.checkTaxSummary("To be calculated")
 
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Standard Shipping >> nth=1"),
     ).toBeVisible()
 
@@ -377,7 +377,7 @@ test.describe("with giftcard covering total", () => {
     await checkoutPage.checkShippingSummary("To be calculated")
     await checkoutPage.checkTaxSummary("To be calculated")
 
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
 
@@ -740,10 +740,10 @@ test.describe("without applied giftcard", () => {
     await checkoutPage.checkStep("Shipping", "open")
 
     await checkoutPage.checkShippingSummary("To be calculated")
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Standard Shipping >> nth=1"),
     ).toBeVisible()
     await checkoutPage.selectShippingMethod({

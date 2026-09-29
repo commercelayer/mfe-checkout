@@ -30,7 +30,9 @@ test.describe("with customer email and same addresses", () => {
     await checkoutPage.checkStep("Shipping", "open")
 
     await checkoutPage.checkShippingSummary("To be calculated")
-    expect(checkoutPage.page.locator("text=Standard Shipping")).toBeVisible()
+    await expect(
+      checkoutPage.page.locator("text=Standard Shipping"),
+    ).toBeVisible()
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.save("Shipping")
@@ -222,7 +224,9 @@ test.describe("with do no track SKU", () => {
     await checkoutPage.checkStep("Shipping", "open")
 
     await checkoutPage.checkShippingSummary("To be calculated")
-    expect(checkoutPage.page.locator("text=Standard Shipping")).toBeVisible()
+    await expect(
+      checkoutPage.page.locator("text=Standard Shipping"),
+    ).toBeVisible()
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.save("Shipping")

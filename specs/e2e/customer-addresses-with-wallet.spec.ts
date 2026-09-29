@@ -189,7 +189,14 @@ test.describe("address on wallet and payment with checkout.com", () => {
     const element = checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).not.toBeVisible()
+    // A signed-in customer entering a new card is offered to keep it: the app
+    // renders this checkbox for every non-guest order that has no subscription in
+    // it (`StepPayment/index.tsx`, `CheckoutCustomerPayment`). The assertion here
+    // used to say the opposite and never failed, because it was written without
+    // `await` — a web-first assertion left unawaited polls on its own for ten
+    // seconds while the test walks on, and its rejection lands after the test has
+    // finished, where nothing reads it.
+    await expect(element).toBeVisible()
 
     await checkoutPage.save("Payment", undefined, true)
 

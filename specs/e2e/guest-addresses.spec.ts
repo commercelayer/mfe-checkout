@@ -296,7 +296,7 @@ test.describe("with customer email and shipping country code lock", () => {
     const element = checkoutPage.page.locator(
       "[data-testid=input_shipping_address_country_code]",
     )
-    expect(element).toBeDisabled()
+    await expect(element).toBeDisabled()
     const shippingAddress = {
       ...euAddress,
       first_name: "Matteo",
