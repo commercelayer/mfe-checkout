@@ -57,6 +57,7 @@ const config: PlaywrightTestConfig = {
     // to open a browser window for every one of them. Pass --headed to watch a
     // specific test, or --debug / test:ui when you need to drive it by hand.
     viewport: { width: 1280, height: 720 },
+    headless: false,
     ignoreHTTPSErrors: true,
     // Artifacts
     screenshot: "only-on-failure",

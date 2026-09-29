@@ -17,5 +17,5 @@ overrides:
   # react-components pins the SDK as a hard dependency rather than a peer, so
   # without this the app's v7 and the library's v8 both install and their Order
   # types stop being assignable at the OrderContainer boundary.
-  "@commercelayer/sdk": "https://pkg.pr.new/@commercelayer/sdk@c923f75"
+  "@commercelayer/sdk": "https://pkg.pr.new/@commercelayer/sdk@57f8b0a"
 blockExoticSubdeps: false
