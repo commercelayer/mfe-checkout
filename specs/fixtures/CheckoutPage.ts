@@ -39,57 +39,67 @@ export class CheckoutPage {
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/${orderId}?accessToken=${token}`
 
-    await this.page.route("**/api/organization**", (route) => {
-      // // Add a prefix to the title.
-      const body = {
-        data: {
-          id: "organization-id",
-          type: "organizations",
-          attributes: {
-            name: process.env.NEXT_PUBLIC_SLUG as string,
-            slug: process.env.NEXT_PUBLIC_SLUG as string,
-            domain: null,
-            support_phone: "",
-            support_email: "",
-            logo_url:
-              "https://data.commercelayer.app/assets/logos/full-logo/black/commercelayer_full_logo_black.svg",
-            favicon_url:
-              "https://data.commercelayer.app/assets/images/favicons/favicon-32x32.png",
-            primary_color: "",
-            contrast_color: null,
-            gtm_id: "",
-            gtm_id_test: "",
-            discount_disabled: null,
-            account_disabled: null,
-            acceptance_disabled: null,
-            max_concurrent_promotions: 10,
-            max_concurrent_imports: 10,
-            created_at: "2022-02-24T14:04:55.307Z",
-            updated_at: "2022-12-15T09:14:36.994Z",
-            reference: null,
-            reference_origin: null,
-            metadata: {},
-            config: null,
-          },
-        },
-      }
-      route.fulfill({
-        // Pass all fields from the response.
-        status: 200,
-        contentType: "application/json",
-        // Override response body.
-        body: JSON.stringify({
-          ...body,
+    // The versioned path too. react-components pins every request to API
+    // version 2026-05, so its own organization fetch goes to
+    // `/api/2026-05/organization` while this app's stays unversioned — and a
+    // pattern matching only the latter let the library read the real config.
+    // It then found the organization's terms and privacy URLs, required them
+    // to be accepted, and this mock's `config: null` meant the app never
+    // rendered the checkbox to accept them: a place button disabled for good.
+    await this.page.route(
+      /\/api\/(\d{4}-\d{2}\/)?organization(\?|$)/,
+      (route) => {
+        // // Add a prefix to the title.
+        const body = {
           data: {
-            ...body.data,
+            id: "organization-id",
+            type: "organizations",
             attributes: {
-              ...body.data.attributes,
-              ...this.attributes?.organization,
+              name: process.env.NEXT_PUBLIC_SLUG as string,
+              slug: process.env.NEXT_PUBLIC_SLUG as string,
+              domain: null,
+              support_phone: "",
+              support_email: "",
+              logo_url:
+                "https://data.commercelayer.app/assets/logos/full-logo/black/commercelayer_full_logo_black.svg",
+              favicon_url:
+                "https://data.commercelayer.app/assets/images/favicons/favicon-32x32.png",
+              primary_color: "",
+              contrast_color: null,
+              gtm_id: "",
+              gtm_id_test: "",
+              discount_disabled: null,
+              account_disabled: null,
+              acceptance_disabled: null,
+              max_concurrent_promotions: 10,
+              max_concurrent_imports: 10,
+              created_at: "2022-02-24T14:04:55.307Z",
+              updated_at: "2022-12-15T09:14:36.994Z",
+              reference: null,
+              reference_origin: null,
+              metadata: {},
+              config: null,
             },
           },
-        }),
-      })
-    })
+        }
+        route.fulfill({
+          // Pass all fields from the response.
+          status: 200,
+          contentType: "application/json",
+          // Override response body.
+          body: JSON.stringify({
+            ...body,
+            data: {
+              ...body.data,
+              attributes: {
+                ...body.data.attributes,
+                ...this.attributes?.organization,
+              },
+            },
+          }),
+        })
+      },
+    )
     await this.page.goto(`${url}`, {
       waitUntil: "load",
     })
