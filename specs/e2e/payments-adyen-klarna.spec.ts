@@ -1,10 +1,16 @@
-import { faker } from "@faker-js/faker"
-
 import { test } from "../fixtures/tokenizedPage"
 import { deAddress, euAddress2 } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
+
+// Every test here hands over to Klarna's hosted page and walks its login, its
+// one-time code and, on the German pay-now flow, an offer selector it puts in
+// front of the confirmation. That is well past the 80s the rest of the suite
+// runs on, and the failures it produces land wherever the budget happens to run
+// out rather than on anything this checkout did.
+test.setTimeout(3 * 60 * 1000)
 
 test.describe("guest with Adyen and Pay with Klarna in France", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {

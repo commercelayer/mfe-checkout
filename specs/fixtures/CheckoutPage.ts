@@ -1038,11 +1038,47 @@ export class CheckoutPage {
             if (await pickPlan.isVisible()) {
               await pickPlan.click()
             }
+            // Klarna now interposes an offer selector over the confirmation on
+            // the German pay-now flow, and leaves the screen it came from in
+            // the DOM — visible and enabled — underneath the one it moved to.
+            // `confirm-and-pay` is rendered the whole time, so the only reading
+            // that holds is whether it takes the click: when it does not, clear
+            // whatever is on top and try again. The selector's test id varies
+            // with the offer Klarna decides to push, and only the topmost one
+            // takes a click, so the candidates go newest first.
             const confirmAndPay = klarnaIframe.getByTestId("confirm-and-pay")
-            if (await confirmAndPay.isVisible()) {
-              await confirmAndPay.click()
+            const offersContinue = klarnaIframe.getByTestId(
+              /^offers-selector-.*continue-button$/,
+            )
+            for (let attempt = 0; attempt < 3; attempt++) {
+              if (!(await confirmAndPay.isVisible())) break
+              const confirmed = await confirmAndPay
+                .click({ timeout: 5000 })
+                .then(() => true)
+                .catch(() => false)
+              if (confirmed) break
+              for (const candidate of (await offersContinue.all()).reverse()) {
+                if (!(await candidate.isVisible())) continue
+                const advanced = await candidate
+                  .click({ timeout: 3000 })
+                  .then(() => true)
+                  .catch(() => false)
+                if (advanced) break
+              }
+              await this.page.waitForTimeout(2000)
             }
             const button = klarnaIframe.getByRole("button", { name: "Weiter" })
+            // The confirmation leads to one of two endings. The older one opens
+            // a popup for the bank login (handled below); the newer one keeps a
+            // bank account Klarna already has on file, preselected under "Wähle
+            // ein Konto aus", and only wants it confirmed. Both put the same
+            // button on screen, and both put it there a moment after the
+            // confirmation — so wait for it instead of reading its visibility
+            // the instant we arrive, which is what left the flow sitting on the
+            // account picker with nothing clicked.
+            await button
+              .waitFor({ state: "visible", timeout: 15000 })
+              .catch(() => undefined)
             // Register the popup listener before the click that opens it:
             // awaiting the click first lets the event fire with nothing
             // listening for it.
@@ -1068,6 +1104,32 @@ export class CheckoutPage {
               await popup.getByLabel("TAN").click()
               await popup.getByLabel("TAN").fill("12345")
               await popup.getByRole("button", { name: "Weiter" }).click()
+            }
+            // Klarna's newer pay-now flow keeps the bank login in its XS2A
+            // widget, a cross-origin iframe, and has no popup at all. The two
+            // fields are the widget's; the button that submits them is not — it
+            // belongs to the Klarna page around it.
+            const xs2a = this.page.frameLocator('iframe[src*="xs2a"]')
+            const bankUser = xs2a.getByLabel("Benutzername")
+            await bankUser
+              .waitFor({ state: "visible", timeout: 15000 })
+              .catch(() => undefined)
+            if (await bankUser.isVisible()) {
+              await bankUser.fill("user")
+              await xs2a.getByLabel("Passwort").fill("pass")
+              await klarnaIframe.getByRole("button", { name: "Weiter" }).click()
+              // The bank then asks for a one-time code, in the same widget and
+              // again with the button outside it.
+              const bankOtp = xs2a.getByLabel("OTP")
+              await bankOtp
+                .waitFor({ state: "visible", timeout: 20000 })
+                .catch(() => undefined)
+              if (await bankOtp.isVisible()) {
+                await bankOtp.fill("12345")
+                await klarnaIframe
+                  .getByRole("button", { name: "Weiter" })
+                  .click()
+              }
             }
             break
           }
