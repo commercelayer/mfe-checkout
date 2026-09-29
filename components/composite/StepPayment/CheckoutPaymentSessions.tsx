@@ -174,7 +174,7 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
               that stops being true; a shopper otherwise meets a button that
               cannot work. */}
             <PaymentSettingAdyenPayment
-              paymentMethods={["card", "paypal", "google_pay", "apple_pay"]}
+              paymentMethods={["card", "paypal", "google_pay", "apple_pay", "klarna"]}
               containerClassName={ADYEN_CONTAINER_CLASS}
             >
               {({ errors: adyenErrors }) => {
