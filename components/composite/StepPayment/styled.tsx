@@ -106,16 +106,35 @@ export const StyledPaymentMethodRadioButton: FC<any> = (props) => (
 // Card-per-setting rather than rows in a single box: each option is its own
 // target, which is what makes the selected one showable as a highlighted card.
 // `isSelected` reaches here through <PaymentSetting>'s function children.
+//
+// The border lives on this wrapper, not on the <label>, so that the gateway's
+// form opens inside the card the way the payment_source boxes do. The gateway
+// mount targets cannot go inside the label: a click on one of their inputs
+// would be forwarded to the radio the label points at. Colors and the selected
+// state mirror `.payment-wrapper` in styles/payment.css.
+export const PaymentSettingBox: FC<
+  HTMLAttributes<HTMLDivElement> & { isSelected?: boolean }
+> = ({ isSelected, ...props }) => (
+  <div
+    {...props}
+    className={`text-black rounded-sm mb-5 transition duration-200 ease-in ${
+      isSelected === true
+        ? "border-2 border-primary bg-white shadow-md"
+        : "border border-gray-300 bg-gray-50 hover:border-gray-400"
+    } ${props.className || ""}`}
+  />
+)
+
+// The clickable header of a setting's card. Padding is here rather than on the
+// box, so an unselected card is clickable edge to edge.
 export const PaymentSettingCard: FC<
   LabelHTMLAttributes<HTMLLabelElement> & { isSelected?: boolean }
 > = ({ isSelected, ...props }) => (
   // biome-ignore lint/a11y/noLabelWithoutControl: htmlFor comes from the caller, the only place the setting id is known
   <label
     {...props}
-    className={`block border rounded-md px-4 py-4 mb-3 cursor-pointer transition duration-200 ease-in ${
-      isSelected === true
-        ? "border-primary bg-primary/5"
-        : "border-gray-200 bg-gray-50 hover:border-gray-300"
+    className={`block p-4 ${
+      isSelected === true ? "cursor-default" : "cursor-pointer"
     } ${props.className || ""}`}
   />
 )
@@ -131,12 +150,14 @@ export const StyledPaymentSettingRadioButton: FC<any> = (props) => (
   />
 )
 
+// Type and height match the payment_source title row, where the price column's
+// `leading-8` sets the height, so both models' cards are the same size.
 export const PaymentSettingItem: FC<HTMLAttributes<HTMLDivElement>> = (
   props,
 ) => (
   <div
     {...props}
-    className={`payment group flex flex-row items-center text-base font-bold ${props.className || ""}`}
+    className={`payment group flex flex-row items-center min-h-8 text-sm font-bold leading-none ${props.className || ""}`}
   />
 )
 
@@ -161,7 +182,7 @@ export const GiftCardWrapper: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
 export const GiftCardHeader: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
   <div
     {...props}
-    className={`flex items-center justify-between ${props.className || ""}`}
+    className={`flex items-center justify-between min-h-8 ${props.className || ""}`}
   />
 )
 
@@ -170,12 +191,13 @@ export const GiftCardTitle: FC<HTMLAttributes<HTMLParagraphElement>> = (
 ) => (
   <p
     {...props}
-    className={`text-base font-bold text-black ${props.className || ""}`}
+    className={`text-sm font-bold leading-none text-black ${props.className || ""}`}
   />
 )
 
 // Same switch as components/ui/Toggle, without that component's own row
-// wrapper: here the label sits on the left and the switch on the right.
+// wrapper: here the label sits on the left and the switch on the right. Scaled
+// down to a 24×14 track so it does not outweigh the 14px title beside it.
 interface GiftCardSwitchProps {
   checked: boolean
   label: string
@@ -196,13 +218,13 @@ export const GiftCardSwitch: FC<GiftCardSwitchProps> = ({
     aria-label={label}
     onClick={onChange}
     data-state={checked ? "checked" : "unchecked"}
-    className="relative inline-flex h-5 w-9 shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-gray-200 data-[state=checked]:bg-primary focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-primary cursor-pointer"
+    className="relative inline-flex h-3.5 w-6 shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-gray-200 data-[state=checked]:bg-primary focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-primary cursor-pointer"
     {...rest}
   >
     <span
       aria-hidden="true"
       data-state={checked ? "checked" : "unchecked"}
-      className="inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out data-[state=checked]:translate-x-4"
+      className="inline-block h-2.5 w-2.5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out data-[state=checked]:translate-x-2.5"
     />
   </button>
 )
@@ -259,6 +281,12 @@ export const StyledGiftCardSessionSubmit: FC<any> = (props) => (
   />
 )
 
+// The gift card box's two text actions, Remove and "add another one": bold
+// 13px with a grey underline, so they read as links without competing with the
+// code and the amount beside them.
+const GiftCardLinkCss =
+  "text-[13px] font-bold text-primary underline decoration-[#C4C4C4] cursor-pointer"
+
 // Opening the input again after a card has been applied. Plain markup: which
 // controls are on screen is this application's business, not the library's.
 export const GiftCardAddLink: FC<HTMLAttributes<HTMLButtonElement>> = (
@@ -267,7 +295,7 @@ export const GiftCardAddLink: FC<HTMLAttributes<HTMLButtonElement>> = (
   <button
     {...props}
     type="button"
-    className={`text-sm text-primary underline cursor-pointer ${props.className || ""}`}
+    className={`${GiftCardLinkCss} ${props.className || ""}`}
   />
 )
 
@@ -284,7 +312,7 @@ export const StyledGiftCardSessionError: FC<any> = (props) => (
 export const StyledGiftCardSessionRemove: FC<any> = (props) => (
   <PaymentSettingGiftCardRemoveButton
     {...props}
-    className={`text-sm text-primary underline cursor-pointer ${props.className || ""}`}
+    className={`${GiftCardLinkCss} ${props.className || ""}`}
   />
 )
 
