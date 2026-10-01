@@ -25,6 +25,7 @@ import {
   GiftCardSwitch,
   GiftCardTitle,
   GiftCardWrapper,
+  PaymentSettingBox,
   PaymentSettingCard,
   PaymentSettingError,
   PaymentSettingItem,
@@ -136,10 +137,14 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
           saveCard,
           setSaveCard,
         }) => (
-          <>
+          <PaymentSettingBox
+            isSelected={isSelected}
+            data-testid="payment-setting-box"
+          >
             {/* A <label> rather than a click handler: one click reaches the radio
               exactly once whatever it lands on, so the whole card is the target
-              without any risk of selecting twice. */}
+              without any risk of selecting twice. The border is on the box
+              around it, so the gateway's form below still sits inside it. */}
             <PaymentSettingCard
               htmlFor={setting.id}
               isSelected={isSelected}
@@ -169,7 +174,7 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
               </PaymentSettingManualPayment>
             </PaymentSettingCard>
 
-            {/* Deliberately outside the card: the card is a <label>, and a click
+            {/* Deliberately outside the label: the label is a <label>, and a click
               on one of Adyen's inputs inside it would be forwarded to the radio
               the label points at, taking focus off the field being typed into.
               The component renders its own mount target and calls the function
@@ -229,7 +234,7 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
               </div>
             )}
 
-            {/* Outside the card for the same reason as Adyen's: the card is a
+            {/* Outside the label for the same reason as Adyen's: the header is a
               <label>, and a click on one of Stripe's inputs inside it would be
               forwarded to the radio the label points at. */}
             <PaymentSettingStripePayment
@@ -255,7 +260,7 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
                 </>
               )}
             </PaymentSettingStripePayment>
-          </>
+          </PaymentSettingBox>
         )}
       </PaymentSetting>
 
@@ -345,12 +350,12 @@ const GiftCardSection = ({
               {({ code, formattedAmount }) => (
                 <GiftCardRow data-testid="gift-card-session">
                   <GiftCardIcon />
-                  <span className="flex-1 font-mono break-all">{code}</span>
+                  <span className="min-w-0 font-mono break-all">{code}</span>
                   <StyledGiftCardSessionRemove
                     data-testid="gift-card-remove"
                     label={t("general.remove")}
                   />
-                  <span className="font-bold">{formattedAmount}</span>
+                  <span className="ml-auto font-bold">{formattedAmount}</span>
                 </GiftCardRow>
               )}
             </PaymentSettingGiftCardListItem>
