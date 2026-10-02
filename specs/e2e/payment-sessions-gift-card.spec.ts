@@ -83,6 +83,36 @@ test.describe("gift cards on the payment_sessions model", {
   })
 
   /**
+   * After the session is cleared the shopper has to pick again, so they must
+   * still be in the payment step to do it — with the gift card box as they left
+   * it. With a Stripe session cleared this way the step used to close: the app
+   * recomputed whether payment was in place from its copy of the order from
+   * before the apply, and moved on to the recap, unmounting the step and the
+   * box's open state with it.
+   *
+   * Stripe on purpose: the same flow with the manual setting does not close the
+   * step even on the broken code, so the test above cannot catch this.
+   *
+   * Proven by picking again rather than by counting checked radios, which an
+   * unmounted step satisfies trivially: picking needs the step to be there.
+   */
+  test("applying a gift card after picking Stripe keeps the payment step open", async ({
+    checkout,
+    mintGiftCard,
+  }) => {
+    const code = await mintGiftCard(10)
+
+    await checkout.selectPaymentSetting("Stripe")
+    await checkout.applyGiftCardSuccessfully(code)
+
+    await checkout.selectPaymentSetting(WIRE)
+    await expect(checkout.giftCardToggle).toHaveAttribute(
+      "aria-checked",
+      "true",
+    )
+  })
+
+  /**
    * An unknown, expired or spent code is refused before anything is written to
    * the order, so `<Errors resource="orders">` never sees it — the gift card box
    * has its own outlet. A control that silently does nothing is the failure

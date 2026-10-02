@@ -3,6 +3,7 @@ import {
   PaymentSettingGiftCard,
   PaymentSettingGiftCardList,
   PaymentSettingGiftCardListItem,
+  PaymentSettingInstrument,
   PaymentSettingName,
   PaymentSource,
   PaymentSourceBrandIcon,
@@ -51,6 +52,14 @@ interface Props {
   thankyouPageUrl: NullableType<string>
   orderNumber: string
 }
+
+// The `<1/>` in `stepPayment.endingIn` is self-closing, so `<Trans>` clones
+// whatever sits in that slot without its children. The digits therefore have
+// to come in as a prop of something that renders them itself — the role
+// `<PaymentSourceDetail>` plays in the older model's recap.
+const LastDigits: React.FC<{ digits: string }> = ({ digits }) => (
+  <span className="ml-1 font-normal">{digits}</span>
+)
 
 export const StepComplete: React.FC<Props> = ({
   logoUrl,
@@ -200,29 +209,103 @@ export const StepComplete: React.FC<Props> = ({
                   <RecapItemTitle>{t("stepComplete.payment")}</RecapItemTitle>
                   {ctx.isPaymentRequired ? (
                     <RecapBox>
-                      {/* Both payment models are rendered together; each
+                      {/* One row per Payment Session, with what it paid, so the
+                          amounts line up and add up to the total: the method
+                          first, then the gift cards. A table rather than flex
+                          rows because the amounts have to share a column.
+
+                          The method row names what was charged — the card
+                          with its last digits, or PayPal, Klarna — never the
+                          account email. A setting with nothing to describe,
+                          such as a manual payment, falls back to its name. The
+                          instrument is known once the payment is authorized,
+                          which a placed order is. No icon where the set has no
+                          artwork: a broken image is worse than none.
+
+                          A gift card shows only its last four characters: the
+                          code is spendable, and the receipt is not the place to
+                          repeat it.
+
+                          Both payment models are rendered together; each
                           library tree steps aside when the order is not on its
                           own model, so there is no conditional to keep in sync
                           — the same arrangement as the payment step. */}
-                      <FlexContainer className="flex-col items-start font-bold text-md">
-                        {/* No method at all when gift cards covered the order
-                            outright, so the gift cards are listed separately
-                            rather than under the method. */}
-                        <PaymentSetting readonly>
-                          <PaymentSettingName />
-                        </PaymentSetting>
-                        <PaymentSettingGiftCard readonly>
-                          <PaymentSettingGiftCardList>
-                            <PaymentSettingGiftCardListItem>
-                              {({ code, formattedAmount }) => (
-                                <span className="text-sm font-normal text-gray-500">
-                                  {code} {formattedAmount}
-                                </span>
-                              )}
-                            </PaymentSettingGiftCardListItem>
-                          </PaymentSettingGiftCardList>
-                        </PaymentSettingGiftCard>
-                      </FlexContainer>
+                      <table className="w-full text-md">
+                        <tbody>
+                          <PaymentSetting readonly>
+                            {({ currentPaymentSession }) => (
+                              <tr>
+                                <td className="py-1 font-bold">
+                                  <PaymentSettingInstrument
+                                    fallback={<PaymentSettingName />}
+                                  >
+                                    {({
+                                      isCard,
+                                      brandName,
+                                      cardLastDigits,
+                                      iconUrl,
+                                      label,
+                                    }) => (
+                                      <span
+                                        className="flex items-center"
+                                        data-testid="payment-instrument"
+                                      >
+                                        {iconUrl != null && (
+                                          // biome-ignore lint/performance/noImgElement: static build, cannot use Image
+                                          <img
+                                            src={iconUrl}
+                                            width={32}
+                                            alt=""
+                                            className="mr-2"
+                                          />
+                                        )}
+                                        {isCard &&
+                                        brandName != null &&
+                                        cardLastDigits != null ? (
+                                          <Trans i18nKey="stepPayment.endingIn">
+                                            {brandName}
+                                            <LastDigits
+                                              digits={cardLastDigits}
+                                            />
+                                          </Trans>
+                                        ) : (
+                                          label
+                                        )}
+                                      </span>
+                                    )}
+                                  </PaymentSettingInstrument>
+                                </td>
+                                <td className="py-1 pl-4 text-right whitespace-nowrap">
+                                  {currentPaymentSession?.formatted_amount}
+                                </td>
+                              </tr>
+                            )}
+                          </PaymentSetting>
+                          <PaymentSettingGiftCard readonly>
+                            <PaymentSettingGiftCardList>
+                              <PaymentSettingGiftCardListItem>
+                                {({ code, formattedAmount }) => (
+                                  <tr data-testid="gift-card-recap">
+                                    <td className="py-1 font-bold">
+                                      <span className="flex items-center">
+                                        <Trans i18nKey="stepPayment.endingIn">
+                                          {t("orderRecap.giftcard_amount")}
+                                          <LastDigits
+                                            digits={(code ?? "").slice(-4)}
+                                          />
+                                        </Trans>
+                                      </span>
+                                    </td>
+                                    <td className="py-1 pl-4 text-right whitespace-nowrap">
+                                      {formattedAmount}
+                                    </td>
+                                  </tr>
+                                )}
+                              </PaymentSettingGiftCardListItem>
+                            </PaymentSettingGiftCardList>
+                          </PaymentSettingGiftCard>
+                        </tbody>
+                      </table>
                       <FlexContainer className="font-bold text-md">
                         <PaymentSource readonly>
                           <PaymentSourceBrandIcon className="mr-2" />

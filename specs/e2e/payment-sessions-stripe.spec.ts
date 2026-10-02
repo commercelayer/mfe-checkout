@@ -62,6 +62,10 @@ test.describe("paying with Stripe on the payment_sessions model", {
 
     await checkout.placeOrder()
 
+    // The recap names the card that was charged. `payment_instrument` is filled
+    // when the payment is authorized, so an empty recap here means the field
+    // did not reach the thank-you page — not that the payment failed.
+    await expect(checkout.paymentInstrument).toContainText("4242")
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 1 })
   })
 
@@ -93,7 +97,7 @@ test.describe("paying with Stripe on the payment_sessions model", {
 
     await checkout.placeOrder()
 
-    await expect(checkout.paymentRecap).toContainText(code)
+    await expect(checkout.giftCardRecap(code)).toBeVisible()
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 2 })
   })
 })
