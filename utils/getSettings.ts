@@ -190,6 +190,7 @@ export const getSettings = async ({
     organization: slug,
     accessToken,
     domain,
+    apiVersion: "2026-05",
   })
 
   const [organizationResource, orderResource] = await Promise.all([

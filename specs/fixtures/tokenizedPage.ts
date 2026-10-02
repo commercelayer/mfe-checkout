@@ -442,6 +442,7 @@ const getClient = (token: string) => {
     organization: process.env.NEXT_PUBLIC_SLUG as string,
     accessToken: token,
     domain: process.env.NEXT_PUBLIC_DOMAIN,
+    apiVersion: "2026-05",
   })
 }
 

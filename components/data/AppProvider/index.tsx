@@ -139,7 +139,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   // memoised to a stable identity; mutable state is read through a ref so the
   // callbacks never need to close over changing values.
   const cl = useMemo(
-    () => CommerceLayer({ organization: slug, accessToken, domain }),
+    () =>
+      CommerceLayer({
+        organization: slug,
+        accessToken,
+        domain,
+        apiVersion: "2026-05",
+      }),
     [slug, accessToken, domain],
   )
 
