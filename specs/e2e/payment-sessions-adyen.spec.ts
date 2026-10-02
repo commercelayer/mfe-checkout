@@ -1,4 +1,5 @@
 import {
+  ADYEN_3DS_CARD,
   ADYEN_3DS_PASSWORD,
   expect,
   expectPaymentToCoverTheOrder,
@@ -49,6 +50,10 @@ test.describe("paying with Adyen on the payment_sessions model", {
     await checkout.submitThreeDSChallenge(ADYEN_3DS_PASSWORD)
     await checkout.expectPlaced()
 
+    // The recap names the card that was charged, as it does for Stripe.
+    await expect(checkout.paymentInstrument).toContainText(
+      ADYEN_3DS_CARD.number.slice(-4),
+    )
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 1 })
   })
 
@@ -166,8 +171,8 @@ test.describe("paying with Adyen on the payment_sessions model", {
     await checkout.submitThreeDSChallenge(ADYEN_3DS_PASSWORD)
     await checkout.expectPlaced()
 
-    await expect(checkout.paymentRecap).toContainText(first)
-    await expect(checkout.paymentRecap).toContainText(second)
+    await expect(checkout.giftCardRecap(first)).toBeVisible()
+    await expect(checkout.giftCardRecap(second)).toBeVisible()
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 3 })
   })
 
