@@ -1,4 +1,7 @@
-import type { PaymentSettingGiftCardChildrenProps } from "@commercelayer/react-components"
+import type {
+  PaymentSettingGiftCardChildrenProps,
+  PaymentSettingOnSelectParams,
+} from "@commercelayer/react-components"
 import {
   PaymentSetting,
   PaymentSettingAdyenPayment,
@@ -8,9 +11,11 @@ import {
   PaymentSettingManualPayment,
   PaymentSettingName,
   PaymentSettingStripePayment,
+  useOrderContainer,
 } from "@commercelayer/react-components"
+import type { Order } from "@commercelayer/sdk"
 import { Label } from "components/ui/Label"
-import { type JSX, useEffect, useRef, useState } from "react"
+import { type JSX, useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 import {
@@ -46,8 +51,14 @@ interface Props {
    * Applying or removing a gift card calls it too: both also delete the session
    * paying the difference, so the answer to "is payment in place" changes
    * without anyone touching the method selector.
+   *
+   * It receives the order as the library has just refetched it. The app's own
+   * copy is not up to date yet at this point: the library hands its order over
+   * from an effect of its provider, and a parent's effects run after its
+   * children's. Recomputing from that copy would answer from the order as it
+   * was before the change.
    */
-  onSelect: () => void
+  onSelect: (order?: Order) => void
 }
 
 /**
@@ -125,9 +136,16 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
     return error.message ?? ""
   }
 
+  const onSettingSelect = useCallback(
+    ({ order }: PaymentSettingOnSelectParams) => {
+      onSelect(order)
+    },
+    [onSelect],
+  )
+
   return (
     <>
-      <PaymentSetting onSelect={onSelect} returnUrl={paymentReturnUrl()}>
+      <PaymentSetting onSelect={onSettingSelect} returnUrl={paymentReturnUrl()}>
         {({
           setting,
           isSelected,
@@ -298,9 +316,10 @@ const GiftCardSection = ({
   canAddGiftCard,
   onChange,
 }: PaymentSettingGiftCardChildrenProps & {
-  onChange: () => void
+  onChange: (order?: Order) => void
 }): JSX.Element => {
   const { t } = useTranslation()
+  const { order } = useOrderContainer()
   const appliedCount = giftCardSessions.length
   const [isOpen, setIsOpen] = useState(false)
   const [isInputVisible, setIsInputVisible] = useState(true)
@@ -317,7 +336,8 @@ const GiftCardSection = ({
   // Both operations also delete the session paying the difference, so the app's
   // copy of the order is now wrong about whether payment is in place — the
   // accordion and the recap read that flag. The library has already refetched
-  // its own copy; this is what tells the app to catch up.
+  // its own copy, and that copy is the one passed on: `appliedCount` was
+  // derived from it, while the app's own is still the order from before.
   //
   // Skipping the first run matters: on mount nothing changed, and calling in
   // would refetch the order on every render of the payment step.
@@ -325,8 +345,8 @@ const GiftCardSection = ({
   useEffect(() => {
     if (notifiedCount.current === appliedCount) return
     notifiedCount.current = appliedCount
-    onChange()
-  }, [appliedCount, onChange])
+    onChange(order ?? undefined)
+  }, [appliedCount, onChange, order])
 
   return (
     <GiftCardWrapper data-testid="gift-card-sessions">

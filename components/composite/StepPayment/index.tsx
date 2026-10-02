@@ -11,7 +11,10 @@ import {
   PaymentSourceBrandName,
   PaymentSourceDetail,
 } from "@commercelayer/react-components"
-import type { PaymentMethod as PaymentMethodType } from "@commercelayer/sdk"
+import type {
+  Order,
+  PaymentMethod as PaymentMethodType,
+} from "@commercelayer/sdk"
 import classNames from "classnames"
 import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
@@ -165,10 +168,15 @@ export const StepPayment: React.FC<{
   // callbacks above.
   //
   // Called for a gift card applied or removed as well as for a method chosen:
-  // both change what is paying for the order.
-  const onPaymentSessionsChange = useCallback(() => {
-    setPayment?.({})
-  }, [setPayment])
+  // both change what is paying for the order. The order comes from the
+  // library: without it `setPayment` would recompute from the app's copy, which
+  // at this point is still the order from before the change.
+  const onPaymentSessionsChange = useCallback(
+    (order?: Order) => {
+      setPayment?.({ order })
+    },
+    [setPayment],
+  )
 
   // if (!appCtx || !appCtx.hasShippingMethod) {
   // this exit on shippingMethod is causing an error in useEffect to enable button

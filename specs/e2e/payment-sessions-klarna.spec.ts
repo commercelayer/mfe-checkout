@@ -84,7 +84,7 @@ test.describe("paying with Klarna through Adyen", {
     await checkout.page.waitForURL(/localhost:\d+\//, { timeout: 45_000 })
     await checkout.expectPlaced()
 
-    await expect(checkout.paymentRecap).toContainText(code)
+    await expect(checkout.giftCardRecap(code)).toBeVisible()
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 2 })
   })
 })
