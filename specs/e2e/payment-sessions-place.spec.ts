@@ -61,7 +61,7 @@ test.describe("placing an order on the payment_sessions model", {
     await expect(checkout.paymentRecap).toContainText(
       "Wire Transfer Payment Setting",
     )
-    await expect(checkout.paymentRecap).toContainText(code)
+    await expect(checkout.giftCardRecap(code)).toBeVisible()
 
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 2 })
   })
@@ -90,7 +90,7 @@ test.describe("placing an order on the payment_sessions model", {
     await checkout.acceptTerms()
     await checkout.placeOrder()
 
-    await expect(checkout.paymentRecap).toContainText(code)
+    await expect(checkout.giftCardRecap(code)).toBeVisible()
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 1 })
   })
 

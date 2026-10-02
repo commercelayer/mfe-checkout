@@ -174,7 +174,7 @@ test.describe("paying with PayPal through Adyen", {
     await checkout.payWithPayPal(credentials)
     await checkout.expectPlaced()
 
-    await expect(checkout.paymentRecap).toContainText(code)
+    await expect(checkout.giftCardRecap(code)).toBeVisible()
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 2 })
   })
 })

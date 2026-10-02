@@ -219,6 +219,21 @@ export class PaymentSessionsCheckoutPage {
     return this.page.locator("[data-testid=payment-recap]")
   }
 
+  /** What was charged, on the thank-you recap: the card or the account. */
+  get paymentInstrument(): Locator {
+    return this.paymentRecap.locator("[data-testid=payment-instrument]")
+  }
+
+  /**
+   * A gift card's row on the thank-you recap. Found by the code's last four
+   * characters, because that is all the recap shows of it.
+   */
+  giftCardRecap(code: string): Locator {
+    return this.paymentRecap
+      .locator("[data-testid=gift-card-recap]")
+      .filter({ hasText: code.slice(-4) })
+  }
+
   /**
    * Pick a payment setting and wait until the order has actually stored it.
    *
