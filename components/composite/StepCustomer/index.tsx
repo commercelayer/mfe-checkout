@@ -81,10 +81,13 @@ export const StepCustomer: React.FC<Props> = () => {
     !appCtx?.hasSameAddresses,
   )
 
+  // Sync only when hasSameAddresses changes: depending on the whole appCtx
+  // would reset the user's toggle choice on every unrelated context update
+  const hasSameAddressesCtx = appCtx?.hasSameAddresses
   useEffect(() => {
-    if (!appCtx) return
-    setShipToDifferentAddress(!appCtx.hasSameAddresses)
-  }, [appCtx])
+    if (hasSameAddressesCtx === undefined) return
+    setShipToDifferentAddress(!hasSameAddressesCtx)
+  }, [hasSameAddressesCtx])
 
   const [disabledShipToDifferentAddress, setDisabledShipToDifferentAddress] =
     useState(

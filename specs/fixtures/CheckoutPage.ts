@@ -1196,6 +1196,14 @@ export class CheckoutPage {
                 await selectPayment.click()
               }
 
+              // Klarna may ask to confirm the (preselected) payment method before enabling "Payer avec"
+              const continueButton = klarnaIframe.getByRole("button", {
+                name: "Continuer",
+              })
+              if (await continueButton.isVisible()) {
+                await continueButton.click()
+              }
+
               const confirm = klarnaIframe.locator(
                 "[data-testid=confirm-and-pay]",
               )
