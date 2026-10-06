@@ -1,3 +1,10 @@
+## [6.5.8](https://github.com/commercelayer/mfe-checkout/compare/v6.5.7...v6.5.8) (2026-10-06)
+
+
+### Bug Fixes
+
+* avoid unattended behaviour for toggle on customer step for shipping address ([724b1f3](https://github.com/commercelayer/mfe-checkout/commit/724b1f3917a7937c12a4c31e61c936088dcaef93))
+
 ## [6.5.7](https://github.com/commercelayer/mfe-checkout/compare/v6.5.6...v6.5.7) (2026-09-25)
 
 
