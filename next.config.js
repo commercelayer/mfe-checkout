@@ -114,6 +114,14 @@ let nextConfig = {
     },
   },
   webpack(config) {
+    // Webpack's persistent cache keys on this file, not on .env.local, so
+    // toggling CL_RC_LOCAL_PATH would keep serving whichever copy of the
+    // packages was resolved before — the published one after turning local mode
+    // on, with the dev server restarted and the local dist up to date. Folding
+    // the mode into the cache version makes the switch invalidate it.
+    if (config.cache && typeof config.cache === "object") {
+      config.cache.version = `${config.cache.version ?? ""}|rc:${rcLocalRoot ?? "published"}`
+    }
     config.resolve.alias = {
       ...config.resolve.alias,
       react: path.resolve(__dirname, "node_modules/react"),
