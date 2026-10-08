@@ -1,3 +1,10 @@
+## [6.5.9](https://github.com/commercelayer/mfe-checkout/compare/v6.5.8...v6.5.9) (2026-10-08)
+
+
+### Bug Fixes
+
+* bump deps, adjust klarna and customers tests ([eeb96a1](https://github.com/commercelayer/mfe-checkout/commit/eeb96a1b6589e37bafd82cb62f9ab90d6246a732))
+
 ## [6.5.8](https://github.com/commercelayer/mfe-checkout/compare/v6.5.7...v6.5.8) (2026-10-06)
 
 
