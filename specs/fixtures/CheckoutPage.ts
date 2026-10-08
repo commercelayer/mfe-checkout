@@ -1,6 +1,6 @@
 import type { Address } from "@commercelayer/sdk"
 import { faker } from "@faker-js/faker"
-import { expect, type Page } from "@playwright/test"
+import { expect, type Locator, type Page } from "@playwright/test"
 
 import type { EcommerceProps } from "../../components/data/GTMProvider/typings"
 import { composeForCheck, euAddress, euAddress2 } from "../utils/addresses"
@@ -1158,7 +1158,9 @@ export class CheckoutPage {
               await selectPayment.click()
             }
 
-            await klarnaIframe.getByTestId("confirm-and-pay").click()
+            await this.confirmKlarnaPayment([
+              klarnaIframe.getByTestId("offers-selector-continue-button"),
+            ])
 
             break
           }
@@ -1196,24 +1198,16 @@ export class CheckoutPage {
                 await selectPayment.click()
               }
 
-              // Klarna may ask to confirm the (preselected) payment method before enabling "Payer avec"
-              const continueButton = klarnaIframe.getByRole("button", {
-                name: "Continuer",
-              })
-              if (await continueButton.isVisible()) {
-                await continueButton.click()
+              if (
+                await klarnaIframe.getByTestId("confirm-and-pay").isVisible()
+              ) {
+                await this.confirmKlarnaPayment([
+                  klarnaIframe.getByRole("button", { name: "Continuer" }),
+                ])
               }
 
-              const confirm = klarnaIframe.locator(
-                "[data-testid=confirm-and-pay]",
-              )
-
-              if (await confirm.isVisible()) {
-                await confirm.click()
-              }
-
-              const popup = await klarnaIframe.locator(
-                '[data-testid="SmoothCheckoutPopUp:enable"]',
+              const popup = klarnaIframe.getByTestId(
+                "SmoothCheckoutPopUp:enable",
               )
               if (await popup.isVisible()) {
                 await popup.click()
@@ -1388,6 +1382,29 @@ export class CheckoutPage {
     }
   }
 
+  // Klarna may re-render the confirm button as disabled and open dialogs
+  // (at any moment, even more than once) asking to confirm the preselected
+  // payment method or offer: keep dismissing them until Klarna leaves the
+  // confirm screen. The confirm button is clicked only once, since Klarna
+  // keeps it on screen while processing the payment.
+  async confirmKlarnaPayment(dialogButtons: Locator[]) {
+    const confirm = this.page.getByTestId("confirm-and-pay")
+    const popup = this.page.getByTestId("SmoothCheckoutPopUp:enable")
+    let confirmed = false
+    await expect(async () => {
+      for (const button of [...dialogButtons, popup]) {
+        if (await button.isVisible()) {
+          await button.click({ timeout: 2000 })
+        }
+      }
+      if (!confirmed && (await confirm.isEnabled())) {
+        await confirm.click({ timeout: 2000 })
+        confirmed = true
+      }
+      await expect(confirm).toBeHidden({ timeout: 3000 })
+    }).toPass({ timeout: 45000 })
+  }
+
   async selectStripePaymentMethod(
     method: "card" | "paypal" | "affirm" | "klarna",
   ) {
@@ -1417,21 +1434,29 @@ export class CheckoutPage {
       name: label,
     })
     if (await cardButton.isVisible()) {
-      const box = await cardButton.boundingBox()
-      const viewport = this.page.viewportSize()
-      if (
-        box != null &&
-        viewport != null &&
-        box.y + box.height > viewport.height
-      ) {
-        // Element inside the cross-origin Stripe iframe is below the fold:
-        // Playwright can't scroll the outer page for it, so do it ourselves.
-        await this.page.mouse.wheel(
-          0,
-          box.y + box.height - viewport.height + 100,
-        )
-      }
-      await cardButton.click({ force: true })
+      // The forced click can miss while Stripe's accordion is still shifting
+      // (e.g. Link form expanding), so retry until the method is expanded.
+      await expect(async () => {
+        if ((await cardButton.getAttribute("aria-expanded")) === "true") return
+        const box = await cardButton.boundingBox()
+        const viewport = this.page.viewportSize()
+        if (
+          box != null &&
+          viewport != null &&
+          box.y + box.height > viewport.height
+        ) {
+          // Element inside the cross-origin Stripe iframe is below the fold:
+          // Playwright can't scroll the outer page for it, so do it ourselves.
+          await this.page.mouse.wheel(
+            0,
+            box.y + box.height - viewport.height + 100,
+          )
+        }
+        await cardButton.click({ force: true })
+        await expect(cardButton).toHaveAttribute("aria-expanded", "true", {
+          timeout: 2000,
+        })
+      }).toPass({ timeout: 20000 })
     }
     return stripeFrameLocator
   }

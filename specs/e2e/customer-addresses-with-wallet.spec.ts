@@ -584,6 +584,27 @@ test.describe("two address on wallet", () => {
       address: euAddress,
     })
   })
+})
+
+// Separate customer: the fixture adds customerAddresses on every test, so
+// sharing the customer with the test above would leave 4 addresses on wallet
+test.describe("two address on wallet with shipping address", () => {
+  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      customerAddresses: [euAddress, euAddress2],
+    },
+  })
 
   test("check shipping address on customer", async ({ checkoutPage }) => {
     // await checkoutPage.page.pause()

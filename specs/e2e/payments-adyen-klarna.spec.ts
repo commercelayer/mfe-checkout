@@ -4,6 +4,9 @@ import { test } from "../fixtures/tokenizedPage"
 import { deAddress, euAddress2 } from "../utils/addresses"
 
 test.describe("guest with Adyen and Pay with Klarna in France", () => {
+  // Klarna sandbox flow (OTP, dialogs, redirect, thank you page) can exceed the default timeout
+  test.slow(true, "Klarna sandbox flow is slow")
+
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({
@@ -47,6 +50,9 @@ test.describe("guest with Adyen and Pay with Klarna in France", () => {
 })
 
 test.describe("guest with Adyen and Pay with Klarna in Germany", () => {
+  // Klarna sandbox flow (OTP, dialogs, redirect, thank you page) can exceed the default timeout
+  test.slow(true, "Klarna sandbox flow is slow")
+
   const customerEmail = faker.internet.email().toLocaleLowerCase()
 
   test.use({

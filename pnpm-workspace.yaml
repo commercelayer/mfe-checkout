@@ -4,6 +4,8 @@ allowBuilds:
   "core-js": true
   "iframe-resizer": true
   "sharp": true
+# Only our own packages may skip the minimum release age (default 1 day in pnpm 11)
+minimumReleaseAgeExclude:
+  - '@commercelayer/*'
 overrides:
-  "postcss": ^8.5.26
-  "fflate": ^0.8.3
+  "braces": ">=3.0.3"
