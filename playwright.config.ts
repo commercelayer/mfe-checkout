@@ -20,7 +20,7 @@ import { ENV } from "varlock/env"
 //
 // E2E_BASE_PORT still drives playwright.config.ci.ts, which attaches to a server
 // someone else started instead of starting one.
-const E2E_PORT = 3000
+const E2E_PORT = 4000
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {

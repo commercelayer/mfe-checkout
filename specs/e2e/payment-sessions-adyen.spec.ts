@@ -216,11 +216,16 @@ test.describe("paying with Adyen on the payment_sessions model", {
     // `refunded`, not deleted — a charged one cannot be.
     await expect(checkout.totalAmount).toHaveText(totalBefore)
 
-    const order = await readOrder(newPaymentsOrder)
-    const giftCards = (order.payment_sessions ?? []).filter(
-      (session) => session.gift_card_code === code,
-    )
-    expect(giftCards).toHaveLength(1)
-    expect(giftCards[0]?.status).toBe("refunded")
+    await expect
+      .poll(
+        async () => {
+          const order = await readOrder(newPaymentsOrder)
+          return (order.payment_sessions ?? [])
+            .filter((session) => session.gift_card_code === code)
+            .map((session) => session.status)
+        },
+        { timeout: 30_000 },
+      )
+      .toEqual(["refunded"])
   })
 })
