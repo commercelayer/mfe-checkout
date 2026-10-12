@@ -6,7 +6,7 @@ settings:
 
 overrides:
   postcss: 8.5.15
-  '@commercelayer/sdk': https://pkg.pr.new/@commercelayer/sdk@57f8b0a
+  '@commercelayer/sdk': 8.0.2
 
 importers:
 
@@ -31,8 +31,8 @@ importers:
         specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@9c08390
         version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@9c08390(react@19.2.7)
       '@commercelayer/sdk':
-        specifier: https://pkg.pr.new/@commercelayer/sdk@57f8b0a
-        version: https://pkg.pr.new/@commercelayer/sdk@57f8b0a
+        specifier: 8.0.2
+        version: 8.0.2
       '@faker-js/faker':
         specifier: ^10.5.0
         version: 10.5.0
@@ -312,9 +312,8 @@ packages:
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/sdk@https://pkg.pr.new/@commercelayer/sdk@57f8b0a':
-    resolution: {integrity: sha512-cWoOVjEpvet39vKAz5ZDKc04B7+fOzJjSEj9ryQ+5M4Tvylj6ssiJ7Mi6q2yh/TORlaqUj8IZv52SgvH7oCuXw==, tarball: https://pkg.pr.new/@commercelayer/sdk@57f8b0a}
-    version: 8.0.0-beta.13
+  '@commercelayer/sdk@8.0.2':
+    resolution: {integrity: sha512-OdKFC4qDUvQDeNpYRi+wChQFqktc74sFaQxK8NpaEeGx8mkepribmP+pOI0d7Xy1GdeExv5D5es9ZxRenLY0vA==}
     engines: {node: '>=20'}
 
   '@discoveryjs/json-ext@0.5.7':
@@ -2819,7 +2818,7 @@ snapshots:
   '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@9c08390':
     dependencies:
       '@commercelayer/js-auth': 8.0.0
-      '@commercelayer/sdk': https://pkg.pr.new/@commercelayer/sdk@57f8b0a
+      '@commercelayer/sdk': 8.0.2
 
   '@commercelayer/js-auth@7.4.2': {}
 
@@ -2836,7 +2835,7 @@ snapshots:
       '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@9c08390
       '@commercelayer/organization-config': 2.8.4
       '@commercelayer/react-hooks-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@9c08390(react@19.2.7)
-      '@commercelayer/sdk': https://pkg.pr.new/@commercelayer/sdk@57f8b0a
+      '@commercelayer/sdk': 8.0.2
       '@stripe/react-stripe-js': 6.8.1(@stripe/stripe-js@9.13.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@stripe/stripe-js': 9.13.0
       '@tanstack/react-table': 8.21.3(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -2855,7 +2854,7 @@ snapshots:
       react: 19.2.7
       swr: 2.5.1(react@19.2.7)
 
-  '@commercelayer/sdk@https://pkg.pr.new/@commercelayer/sdk@57f8b0a': {}
+  '@commercelayer/sdk@8.0.2': {}
 
   '@discoveryjs/json-ext@0.5.7': {}
 

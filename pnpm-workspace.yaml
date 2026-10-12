@@ -12,10 +12,12 @@ minimumReleaseAgeExclude:
   - '@commercelayer/react-components'
   - '@commercelayer/core-components'
   - '@commercelayer/react-hooks-components'
+  - '@commercelayer/sdk'
 overrides:
   "postcss": 8.5.15
-  # react-components pins the SDK as a hard dependency rather than a peer, so
-  # without this the app's v7 and the library's v8 both install and their Order
-  # types stop being assignable at the OrderContainer boundary.
-  "@commercelayer/sdk": "https://pkg.pr.new/@commercelayer/sdk@57f8b0a"
+  # react-components pins the SDK as a hard dependency rather than a peer — the
+  # preview in use still names a pkg.pr.new build of it — so without this two
+  # copies install and their Order types stop being assignable at the
+  # OrderContainer boundary. Keep it in step with the app's own dependency.
+  "@commercelayer/sdk": "8.0.2"
 blockExoticSubdeps: false
