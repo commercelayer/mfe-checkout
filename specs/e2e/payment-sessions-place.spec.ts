@@ -25,13 +25,11 @@ test.describe("placing an order on the payment_sessions model", {
     checkout,
     newPaymentsOrder,
   }) => {
-    await checkout.selectPaymentSetting("Wire Transfer Payment Setting")
+    await checkout.selectPaymentSetting("Pay with Wire Transfer")
     await checkout.acceptTerms()
     await checkout.placeOrder()
 
-    await expect(checkout.paymentRecap).toContainText(
-      "Wire Transfer Payment Setting",
-    )
+    await expect(checkout.paymentRecap).toContainText("Pay with Wire Transfer")
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 1 })
   })
 
@@ -51,16 +49,14 @@ test.describe("placing an order on the payment_sessions model", {
     await expect(checkout.giftCardAmount).toBeVisible()
     await expect(checkout.totalAmount).not.toHaveText(totalBefore)
 
-    await checkout.selectPaymentSetting("Wire Transfer Payment Setting")
+    await checkout.selectPaymentSetting("Pay with Wire Transfer")
     await checkout.acceptTerms()
     await checkout.placeOrder()
 
     // Both payments are named on the recap. An empty or partial recap here is
     // usually a component missing from one of the two payment trees rather
     // than a payment that failed.
-    await expect(checkout.paymentRecap).toContainText(
-      "Wire Transfer Payment Setting",
-    )
+    await expect(checkout.paymentRecap).toContainText("Pay with Wire Transfer")
     await expect(checkout.giftCardRecap(code)).toBeVisible()
 
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 2 })
@@ -80,22 +76,20 @@ test.describe("placing an order on the payment_sessions model", {
     checkout,
     newPaymentsOrder,
   }) => {
-    await checkout.selectPaymentSetting("Wire Transfer Payment Setting")
+    await checkout.selectPaymentSetting("Pay with Wire Transfer")
 
     await checkout.page.reload()
     await checkout.waitForPaymentStep()
     await expect(
       checkout
-        .paymentSetting("Wire Transfer Payment Setting")
+        .paymentSetting("Pay with Wire Transfer")
         .locator("input[name^=payment-setting-]"),
     ).toBeChecked()
 
     await checkout.acceptTerms()
     await checkout.placeOrder()
 
-    await expect(checkout.paymentRecap).toContainText(
-      "Wire Transfer Payment Setting",
-    )
+    await expect(checkout.paymentRecap).toContainText("Pay with Wire Transfer")
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 1 })
   })
 
@@ -170,6 +164,6 @@ test.describe("placing an order on the payment_sessions model", {
     // Rendered at all, and the controls answer — which is what the overlay took
     // away when this failure reached the host application.
     await checkout.waitForPaymentStep()
-    await checkout.selectPaymentSetting("Wire Transfer Payment Setting")
+    await checkout.selectPaymentSetting("Pay with Wire Transfer")
   })
 })

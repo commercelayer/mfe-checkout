@@ -73,9 +73,11 @@ rebuild it, drive the real checkout in a browser, then read the order back from 
 
 ### Fixtures
 
-`scripts/new-payments.mjs` mints what a run needs, against the organization configured
-under `NP_*` in `.env.local` (**not** the `E2E_*` block — those are Playwright's, and
-point at a different organization with no `payment_sessions` setup):
+`scripts/new-payments.mjs` mints what a run needs, in the same organization as the rest
+of the suite (`NEXT_PUBLIC_SLUG`, with the `E2E_*` clients) but in the market named by
+`PAYMENT_SETTINGS_MARKET_CODE` in `.env.local`. That market offers payment settings
+instead of payment methods, and that alone is what puts its orders on the
+`payment_sessions` model:
 
 ```sh
 pnpm np:order              # -> /<orderId>?accessToken=<jwt>
@@ -114,8 +116,8 @@ quietly break the ones already working, and it is the reason to reach for the br
 tools only when something is genuinely new.
 
 Its own harness, `specs/fixtures/newPaymentsPage.ts`, is separate from
-`tokenizedPage.ts` for the reason above: different organization, and none of the
-`payment_source` moves apply. It **runs `scripts/new-payments.mjs` as a child process**
+`tokenizedPage.ts` because none of the `payment_source` moves apply: its orders live in
+a different market, on the other payments model. It **runs `scripts/new-payments.mjs` as a child process**
 rather than re-implementing the order sequence — the script already prints one line to
 stdout for exactly this, and one copy of "a shipment needs a shipping method or the
 checkout never reaches Payment" is enough.
@@ -148,9 +150,11 @@ normally already up. Never start, restart or kill it, and never claim a port. Wh
 change needs a restart — anything in `next.config.js` or `.env.local`, or a
 `pnpm install` — say so and let them do it.
 
-The Playwright harness (`specs/fixtures/tokenizedPage.ts`) also creates orders, but
-against the `E2E_*` organization and as part of a full suite run — ask before going near
-it. The `NP_*` scripts above are the cheap path and do not touch it.
+The Playwright harness (`specs/fixtures/tokenizedPage.ts`) also creates orders, in the
+`payment_source` markets and as part of a full suite run — ask before going near it. The
+`np:*` scripts above are the cheap path and do not touch it. Both share the
+organization's rate limit, so a payment_sessions run and a full suite run at the same
+time slow each other down.
 
 ### The loop
 

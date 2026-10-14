@@ -12,7 +12,7 @@ function signedInBuyer(): NonNullable<
   const credentials = braintreePayPalCredentials()
   test.skip(
     credentials == null,
-    "no PayPal sandbox buyer in NP_BRAINTREE_PAYPAL_* or NP_PAYPAL_*",
+    "no PayPal sandbox buyer in PAYMENT_SETTINGS_BRAINTREE_PAYPAL_* or PAYMENT_SETTINGS_PAYPAL_*",
   )
   return credentials as NonNullable<typeof credentials>
 }

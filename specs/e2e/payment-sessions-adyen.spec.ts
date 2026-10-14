@@ -24,8 +24,8 @@ import {
  * - the Adyen client key must authorise this origin (scheme, host **and**
  *   port — which is why this suite serves on 3000 rather than Playwright's own
  *   4000, and why `E2E_PORT` is not free to change);
- * - `NP_*` must point at an organization whose market offers an Adyen payment
- *   setting with a `public_key`.
+ * - `PAYMENT_SETTINGS_MARKET_CODE` must name a market that offers an Adyen
+ *   payment setting with a `public_key`.
  *
  * A rejected origin arrives as a generic network error, indistinguishable from
  * a blip, so an unexplained failure to load the Drop-in is worth checking there

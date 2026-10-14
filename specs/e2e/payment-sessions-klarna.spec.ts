@@ -22,7 +22,7 @@ import {
  * at all.
  *
  * Runs against Klarna's US playground, so the order has to be in a market and
- * currency the Adyen account has Klarna enabled for; `NP_*` provides one.
+ * currency the Adyen account has Klarna enabled for; `PAYMENT_SETTINGS_MARKET_CODE` names one.
  */
 test.describe("paying with Klarna through Adyen", {
   tag: "@payment-sessions",
