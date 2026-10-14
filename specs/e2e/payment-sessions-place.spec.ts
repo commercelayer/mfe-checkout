@@ -67,6 +67,39 @@ test.describe("placing an order on the payment_sessions model", {
   })
 
   /**
+   * Coming back to a checkout whose method was already picked: the order
+   * carries a live session, so on arrival everything reads as payment in place.
+   * On this model that is not the same as paid — the gateway's form, when
+   * there is one, still has to be filled in — so the page has to open on the
+   * Payment step rather than fold it away behind the place button.
+   *
+   * A manual setting is enough to get there, and is then placed through the
+   * reused session to show it is still the one being paid with.
+   */
+  test("reopens on the payment step with the reused session", async ({
+    checkout,
+    newPaymentsOrder,
+  }) => {
+    await checkout.selectPaymentSetting("Wire Transfer Payment Setting")
+
+    await checkout.page.reload()
+    await checkout.waitForPaymentStep()
+    await expect(
+      checkout
+        .paymentSetting("Wire Transfer Payment Setting")
+        .locator("input[name^=payment-setting-]"),
+    ).toBeChecked()
+
+    await checkout.acceptTerms()
+    await checkout.placeOrder()
+
+    await expect(checkout.paymentRecap).toContainText(
+      "Wire Transfer Payment Setting",
+    )
+    await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 1 })
+  })
+
+  /**
    * Gift cards can cover an order outright, and then there is no method session
    * at all and the setting selector disappears — so this is the one path where
    * the order is placed without anything being selected. The card is minted for
