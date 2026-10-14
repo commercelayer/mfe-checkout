@@ -13,11 +13,11 @@ importers:
   .:
     dependencies:
       '@adyen/adyen-web':
-        specifier: 6.28.0
-        version: 6.28.0
+        specifier: ^6.42.0
+        version: 6.47.0
       '@commercelayer/core-components':
-        specifier: 5.0.11
-        version: 5.0.11
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@08e0442
+        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@08e0442
       '@commercelayer/js-auth':
         specifier: ^7.4.2
         version: 7.4.2
@@ -25,11 +25,11 @@ importers:
         specifier: ^2.8.5
         version: 2.8.5
       '@commercelayer/react-components':
-        specifier: 5.0.11
-        version: 5.0.11(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@08e0442
+        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@08e0442(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@commercelayer/react-hooks-components':
-        specifier: 5.0.11
-        version: 5.0.11(react@19.3.1)
+        specifier: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@08e0442
+        version: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@08e0442(react@19.3.1)
       '@commercelayer/sdk':
         specifier: 8.0.2
         version: 8.0.2
@@ -126,9 +126,6 @@ importers:
         version: 2.11.33
 
 packages:
-
-  '@adyen/adyen-web@6.28.0':
-    resolution: {integrity: sha512-cCgsUGtRegBMl+8ZKfXt6/M/bnKd4WBfmtbLq74NJbrtOQMo7S+gWBrRGvvVV+VanM2UAmNo6XRHF6Tyhf52Fw==}
 
   '@adyen/adyen-web@6.47.0':
     resolution: {integrity: sha512-GK4bH0CZA7NMRW3G71U5jT6IhWxdlgxsYnfc2660kD044s7RiykztfzJyU7MAPuHA5GKAJp3dfWoNgcefrGYhw==}
@@ -240,8 +237,9 @@ packages:
   '@braintree/wrap-promise@2.1.0':
     resolution: {integrity: sha512-UIrJB+AfKU0CCfbMoWrsGpd2D/hBpY/SGgFI6WRHPOwhaZ3g9rz1weiJ6eb6L9KgVyunT7s2tckcPkbHw+NzeA==}
 
-  '@commercelayer/core-components@5.0.11':
-    resolution: {integrity: sha512-S/pmRP/6l4EfX9mAL++//ohYLPjdLLhO+Hv4EKsnHmwOJLygMbvOwHtgY3R1OrdEdg2YHrvjLgWQjVCgedQ4DA==}
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@08e0442':
+    resolution: {integrity: sha512-Ny2QnCSv2L7vm4J+E2uDeKr/ssCrf++8Vh/h8OpF9qKN/dhbDLTZFbPOgOy+jf7M5dd/GeIwsSoU3508qNtZ0A==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@08e0442}
+    version: 5.0.5
 
   '@commercelayer/js-auth@7.4.2':
     resolution: {integrity: sha512-ifRcoAL1R7o5AU5w4bgmSnNMEWXDc11A+yZwAAZMEkAYrrsaud1X/3xmgY1e0yIXK8AAdIiqfW/Rm/4DdWwAQA==}
@@ -255,13 +253,15 @@ packages:
     resolution: {integrity: sha512-qGdC9JnxLdris2ux/HFRL+yl4uZlXGN0cdclZnU5OeLkCydqrZx/ld4zR4xqyhznq/QSfnXcTN6YOeXe7eIHFA==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@5.0.11':
-    resolution: {integrity: sha512-to0LIv9fCpy/xwQcQO55qYsYr7cXLjlm4MrnMisFYoolDEubgei43hcYgcBVrDvRfw/e3Kxrp4GLP94sXtO8sQ==}
+  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@08e0442':
+    resolution: {integrity: sha512-urwDF5iXzFkM22jp82ftbDzlYXgq3ekAKqhpXiHRwKMHtmf2NgIGVyC266czlxY0ql9nswOvmmEhV8D2XKTh6A==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@08e0442}
+    version: 5.0.5
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/react-hooks-components@5.0.11':
-    resolution: {integrity: sha512-xJ5CZTIzDn5T4NYreK8PIlBprL5by3H4l041HTyG1MxJYkG0UW4zKs4IHq68Dsbcr7j6Ra+lFoSSaAmegRTjwQ==}
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@08e0442':
+    resolution: {integrity: sha512-iPLBwpzqxbTNzUS0fgKu2hNzsU0s+3HuD5BBPfuS05oisFrbs/TVt6jFaf6+e61BtpSiTIqnmTzz0Vkd/7zXeQ==, tarball: https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@08e0442}
+    version: 5.0.5
     peerDependencies:
       react: '>=19.0.0'
 
@@ -746,9 +746,6 @@ packages:
   '@types/googlepay@0.7.13':
     resolution: {integrity: sha512-Tj9Y/UfYxUHepJe84AXeLLeBaNHySq9NorRTQ0M2uzqEBS+mmzdJYJeK2Z4XhO58gtkndC0915DM7eIn90DCPA==}
 
-  '@types/googlepay@0.7.8':
-    resolution: {integrity: sha512-EHl7G7jIeit/Px/fi/Du/19SZDvqrRhy0DjJX40Vzs/97m3sro9mzVyAYNC0pfzpWGDY+zPjtTLEfhV+OYWUcQ==}
-
   '@types/hoist-non-react-statics@3.3.7':
     resolution: {integrity: sha512-PQTyIulDkIDro8P+IHbKCsw7U2xxBYflVzW/FgWdCAePD9xGSidgA76/GeJ6lBKoblyhf9pBY763gbrN+1dI8g==}
     peerDependencies:
@@ -1191,9 +1188,6 @@ packages:
     resolution: {integrity: sha512-YUbWYCgErwnMAVkjUnYa+KlMBzGpHwiIt/DE7f0G33AuX2LH9UcTk6KgWxd3zRU+pN3u/C+Xl3EnMLM4Hea7Sg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  preact@10.22.1:
-    resolution: {integrity: sha512-jRYbDDgMpIb5LHq3hkI0bbl+l/TQ9UnkdQ0ww+lp+4MMOdqaUYdFc5qeyP+IV8FAd/2Em7drVPeKdQxsiWCf/A==}
-
   preact@10.29.8:
     resolution: {integrity: sha512-ej2aVZ+vZ8WO7tvlQWRM9N63A0KzF9q4mWJfDUHgYaIofWY9hu74QdnQrjoPMmZi2/nZ5gN0bJCQF49xQqx09Q==}
     peerDependencies:
@@ -1427,13 +1421,6 @@ packages:
 
 snapshots:
 
-  '@adyen/adyen-web@6.28.0':
-    dependencies:
-      '@types/applepayjs': 14.0.9
-      '@types/googlepay': 0.7.8
-      classnames: 2.5.1
-      preact: 10.22.1
-
   '@adyen/adyen-web@6.47.0':
     dependencies:
       '@paypal/paypal-js': 11.1.0
@@ -1513,7 +1500,7 @@ snapshots:
 
   '@braintree/wrap-promise@2.1.0': {}
 
-  '@commercelayer/core-components@5.0.11':
+  '@commercelayer/core-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@08e0442':
     dependencies:
       '@commercelayer/js-auth': 8.0.2
       '@commercelayer/sdk': 8.0.2
@@ -1527,12 +1514,12 @@ snapshots:
       '@commercelayer/js-auth': 7.4.2
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@5.0.11(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@commercelayer/react-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-components@08e0442(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
       '@adyen/adyen-web': 6.47.0
-      '@commercelayer/core-components': 5.0.11
+      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@08e0442
       '@commercelayer/organization-config': 2.8.5
-      '@commercelayer/react-hooks-components': 5.0.11(react@19.3.1)
+      '@commercelayer/react-hooks-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@08e0442(react@19.3.1)
       '@commercelayer/sdk': 8.0.2
       '@stripe/react-stripe-js': 6.12.0(@stripe/stripe-js@9.17.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@stripe/stripe-js': 9.17.0
@@ -1547,9 +1534,9 @@ snapshots:
       - preact-render-to-string
       - react-dom
 
-  '@commercelayer/react-hooks-components@5.0.11(react@19.3.1)':
+  '@commercelayer/react-hooks-components@https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/react-hooks-components@08e0442(react@19.3.1)':
     dependencies:
-      '@commercelayer/core-components': 5.0.11
+      '@commercelayer/core-components': https://pkg.pr.new/commercelayer/commercelayer-react-components/@commercelayer/core-components@08e0442
       react: 19.3.1
       swr: 2.5.1(react@19.3.1)
 
@@ -1947,8 +1934,6 @@ snapshots:
 
   '@types/googlepay@0.7.13': {}
 
-  '@types/googlepay@0.7.8': {}
-
   '@types/hoist-non-react-statics@3.3.7(@types/react@19.3.0)':
     dependencies:
       '@types/react': 19.3.0
@@ -2301,8 +2286,6 @@ snapshots:
       nanoid: 3.3.20
       picocolors: 1.1.1
       source-map-js: 1.2.2
-
-  preact@10.22.1: {}
 
   preact@10.29.8: {}
 
