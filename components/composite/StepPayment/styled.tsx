@@ -330,6 +330,39 @@ export const ADYEN_CONTAINER_CLASS = "adyen-dropin-container px-4 pb-4 -mt-2"
 export const STRIPE_CONTAINER_CLASS =
   "stripe-elements-container px-4 pb-4 -mt-2"
 
+// Braintree's Hosted Fields. Unlike the two above, the library renders only the
+// containers the iframes mount into, so the layout is ours: the class names
+// below are the whole of it. The border goes on the iframe's container, which
+// is the element Braintree marks `braintree-hosted-fields-focused` (styled in
+// payment.css, shared with the older Braintree gateway).
+export const BRAINTREE_CONTAINER_CLASS =
+  "braintree-hosted-fields-container flex flex-col gap-3 px-4 pb-4 -mt-2"
+
+export const BRAINTREE_CLASS_NAMES = {
+  field: "flex flex-col gap-1 grow",
+  label: "text-xs text-gray-400",
+  input:
+    "h-10 px-3 border rounded-sm bg-gray-50 transition duration-300 ease-in-out",
+  cardDetails: "flex gap-3",
+}
+
+// Apple Pay's button, drawn by Safari itself. Only the size is ours; Apple's
+// guidelines want it as wide as the form and no less than 30px tall.
+export const APPLE_PAY_BUTTON_CLASS =
+  "block w-full h-11 rounded-md cursor-pointer"
+
+// The block above Braintree's card fields that holds its wallets' buttons. It
+// is rendered in every setting's box and is empty in most — any other
+// gateway's, and Braintree's where no wallet can be offered — so `empty:hidden`
+// is what keeps its padding from opening a gap in each of them.
+export const BRAINTREE_WALLETS_CLASS =
+  "braintree-wallets flex flex-col gap-3 px-4 pb-3 -mt-2 empty:hidden"
+
+// The "or pay by card" divider under the wallets, shown only when the block
+// right before it has something in it.
+export const BRAINTREE_WALLETS_DIVIDER_CLASS =
+  "hidden [.braintree-wallets:not(:empty)+&]:flex items-center gap-3 px-4 pb-3 text-xs text-gray-400"
+
 // A Drop-in that could not load — an expired Adyen session, or a client key not
 // authorized for this origin — fails before any click, so nothing else reports
 // it. A refusal *after* a click is reported as an order error instead, by the

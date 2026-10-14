@@ -120,7 +120,9 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
 export const StepPayment: React.FC<{
   isPaymentLoading: boolean
   paymentConfig: PaymentMethodConfig
-}> = ({ isPaymentLoading, paymentConfig }) => {
+  /** The store's name, which a wallet's own sheet shows to the shopper. */
+  companyName: string
+}> = ({ isPaymentLoading, paymentConfig, companyName }) => {
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
   const [hasMultiplePaymentMethods, setHasMultiplePaymentMethods] =
@@ -204,7 +206,10 @@ export const StepPayment: React.FC<{
                       on its own model, so there is no conditional to keep in
                       sync here — and none of the older, guest/customer
                       branching applies to the newer model. */}
-                  <CheckoutPaymentSessions onSelect={onPaymentSessionsChange} />
+                  <CheckoutPaymentSessions
+                    onSelect={onPaymentSessionsChange}
+                    companyName={companyName}
+                  />
                   {isGuest ? (
                     <CheckoutPayment
                       paymentConfig={paymentConfig}

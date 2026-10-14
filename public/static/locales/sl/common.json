@@ -108,7 +108,15 @@
     "subscriptionWithCustomer": "Z zagotavljanjem podatkov o kartici dovoljujete podjetju, da bremeni vašo kartico za prihodnja plačila v skladu z njihovimi pogoji.",
     "useGiftCard": "Uporabi darilno kartico",
     "giftCardCodePlaceholder": "Vnesite kodo",
-    "addAnotherGiftCard": "Dodaj še eno"
+    "addAnotherGiftCard": "Dodaj še eno",
+    "cardNumber": "Številka kartice",
+    "cardExpiration": "Datum poteka",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Izpolnite podatke kartice.",
+    "cardNotAuthenticated": "Kartice ni bilo mogoče overiti. Poskusite znova ali uporabite drugo kartico.",
+    "paymentDeclined": "Plačilo je bilo zavrnjeno. Poskusite z drugo kartico.",
+    "orPayByCard": "ali plačajte s kartico",
+    "paymentMethodNotLoaded": "Izbranega načina plačila ni mogoče naložiti."
   },
   "addressForm": {
     "customer_email": "Vaš e-naslov",
