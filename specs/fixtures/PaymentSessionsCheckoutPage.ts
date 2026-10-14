@@ -476,6 +476,15 @@ export class PaymentSessionsCheckoutPage {
     return this.page.locator(".braintree-paypal-button")
   }
 
+  /**
+   * The iframe that holds PayPal's real button. PayPal's SDK mounts three in
+   * the container — a prerender placeholder, the button itself and a
+   * close-detection frame — so a bare `iframe` matches all of them.
+   */
+  get braintreePayPalFrame(): Locator {
+    return this.braintreePayPalButton.locator("iframe.component-frame")
+  }
+
   /** What Braintree's PayPal reports about itself — the terms gate, a gift card. */
   get braintreePayPalError(): Locator {
     return this.page.locator("[data-testid=braintree-paypal-setting-error]")
