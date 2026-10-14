@@ -112,7 +112,15 @@
     "subscriptionWithCustomer": "Ciascun ordine periodico verrà addebitato sulla carta fornita, come indicato nelle condizioni di vendita.",
     "useGiftCard": "Usa una gift card",
     "giftCardCodePlaceholder": "Inserisci il codice",
-    "addAnotherGiftCard": "Aggiungine un'altra"
+    "addAnotherGiftCard": "Aggiungine un'altra",
+    "cardNumber": "Numero della carta",
+    "cardExpiration": "Data di scadenza",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Completa i dati della carta.",
+    "cardNotAuthenticated": "Non è stato possibile autenticare la carta. Riprova o usa un'altra carta.",
+    "paymentDeclined": "Il pagamento è stato rifiutato. Prova con un'altra carta.",
+    "orPayByCard": "oppure paga con carta",
+    "paymentMethodNotLoaded": "Impossibile caricare il metodo di pagamento selezionato."
   },
   "addressForm": {
     "customer_email": "La tua email",
