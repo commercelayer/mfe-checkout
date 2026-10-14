@@ -112,7 +112,15 @@
     "subscriptionWithCustomer": "Ao fornecer as informações do seu cartão, autoriza a empresa a cobrar o seu cartão para pagamentos futuros, de acordo com os seus termos.",
     "useGiftCard": "Utilizar um cartão-oferta",
     "giftCardCodePlaceholder": "Introduza o código",
-    "addAnotherGiftCard": "Adicionar outro"
+    "addAnotherGiftCard": "Adicionar outro",
+    "cardNumber": "Número do cartão",
+    "cardExpiration": "Data de validade",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Preencha os dados do cartão.",
+    "cardNotAuthenticated": "Não foi possível autenticar o cartão. Tente novamente ou use outro cartão.",
+    "paymentDeclined": "O pagamento foi recusado. Tente outro cartão.",
+    "orPayByCard": "ou pague com cartão",
+    "paymentMethodNotLoaded": "Não foi possível carregar o método de pagamento selecionado."
   },
   "addressForm": {
     "customer_email": "O seu endereço de email",

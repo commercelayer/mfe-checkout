@@ -112,7 +112,15 @@
     "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms.",
     "useGiftCard": "Geschenkkarte verwenden",
     "giftCardCodePlaceholder": "Code eingeben",
-    "addAnotherGiftCard": "Weitere hinzufügen"
+    "addAnotherGiftCard": "Weitere hinzufügen",
+    "cardNumber": "Kartennummer",
+    "cardExpiration": "Ablaufdatum",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Vervollständige die Kartendaten.",
+    "cardNotAuthenticated": "Die Karte konnte nicht authentifiziert werden. Versuche es erneut oder verwende eine andere Karte.",
+    "paymentDeclined": "Die Zahlung wurde abgelehnt. Versuche es mit einer anderen Karte.",
+    "orPayByCard": "oder mit Karte bezahlen",
+    "paymentMethodNotLoaded": "Die ausgewählte Zahlungsmethode konnte nicht geladen werden."
   },
   "addressForm": {
     "customer_email": "Deine E-Mail-Adresse",

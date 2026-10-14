@@ -58,6 +58,35 @@ export const STRIPE_CARD = {
   zip: "10001",
 }
 
+/**
+ * Braintree's sandbox cards, by what 3D Secure does with them.
+ *
+ * Two of them, because Braintree's sandbox refuses the same card for the same
+ * amount within a short window (`GATEWAY_REJECTED`, its duplicate check) — and
+ * every order these tests mint costs the same. The challenge card also covers
+ * the split test, whose amount is smaller.
+ *
+ * Note what does **not** work for a refusal here: the `fake-…-declined` nonces.
+ * Commerce Layer authorizes through Braintree's GraphQL API, which charges them
+ * like any other card. The sandbox declines on the *amount* instead —
+ * 2000.00–2999.99 is a processor decline.
+ *
+ * https://developer.paypal.com/braintree/docs/guides/3d-secure/testing-go-live
+ */
+export const BRAINTREE_CHALLENGE_CARD = {
+  number: "4000000000001091",
+  exp: "1230",
+  cvv: "123",
+}
+export const BRAINTREE_FRICTIONLESS_CARD = {
+  number: "4000000000001000",
+  exp: "1230",
+  cvv: "123",
+}
+
+/** The one-time code Cardinal's sandbox challenge accepts. */
+export const BRAINTREE_3DS_CODE = "1234"
+
 export interface PayPalCredentials {
   email: string
   password: string
@@ -79,6 +108,30 @@ export interface PayPalCredentials {
  * checkout that is broken, and failing the two the same way hides real
  * regressions behind a setup problem.
  */
+/**
+ * The PayPal sandbox buyer for **Braintree's** PayPal, or `null`.
+ *
+ * Braintree's sandbox is linked to a PayPal business sandbox of its own, and a
+ * buyer only works against the business account it belongs to — the lesson the
+ * Adyen PayPal tests already paid for. So it reads `NP_BRAINTREE_PAYPAL_*`
+ * first, and falls back to the Adyen buyer only while no dedicated one exists:
+ * if the fallback is refused inside PayPal's popup, that is the sign a
+ * Braintree buyer is needed, not a bug in the checkout.
+ */
+export function braintreePayPalCredentials(): PayPalCredentials | null {
+  const email = process.env.NP_BRAINTREE_PAYPAL_EMAIL
+  const password = process.env.NP_BRAINTREE_PAYPAL_PASSWORD
+  if (
+    email != null &&
+    email.length > 0 &&
+    password != null &&
+    password.length > 0
+  ) {
+    return { email, password }
+  }
+  return payPalCredentials()
+}
+
 export function payPalCredentials(): PayPalCredentials | null {
   const email = process.env.NP_PAYPAL_EMAIL
   const password = process.env.NP_PAYPAL_PASSWORD
@@ -257,11 +310,15 @@ export class PaymentSessionsCheckoutPage {
       // the radio stays unchecked and "unexpected value unchecked" is all the
       // failure says. The application renders the reason in its own outlet,
       // because a selection error lives on the setting's context rather than
-      // on the order — so read it out and put it in the message.
+      // on the order — so read it out and put it in the message. The visible
+      // copy is the same for every failure, so the API's reason is read from
+      // the attribute the outlet carries it in.
       const reason = await this.page
         .locator("[data-testid=payment-setting-error]")
-        .allInnerTexts()
-        .catch(() => [])
+        .evaluateAll((nodes) =>
+          nodes.map((node) => node.getAttribute("data-error-detail") ?? ""),
+        )
+        .catch(() => [] as string[])
       const said = reason.join(" ").trim()
       if (said.length > 0) {
         throw new Error(`Selecting "${name}" was refused: ${said}`)
@@ -399,6 +456,101 @@ export class PaymentSessionsCheckoutPage {
       this.page.locator("[data-testid=stripe-state]"),
       "Stripe's Payment Element does not consider the card complete",
     ).toHaveText("ready", { timeout: 15_000 })
+  }
+
+  /**
+   * Braintree's Hosted Fields. The containers are this application's —
+   * `BRAINTREE_CONTAINER_CLASS` in `StepPayment/styled.tsx` — and each field is
+   * an iframe Braintree mounts inside one of them.
+   */
+  get braintreeForm(): Locator {
+    return this.page.locator(".braintree-hosted-fields-container")
+  }
+
+  /**
+   * PayPal's button for Braintree, rendered by PayPal's SDK into the container
+   * this application names (`braintree-paypal-button`). Clicked through the
+   * wrapper for the reason Adyen's is: the button lives in PayPal's iframe.
+   */
+  get braintreePayPalButton(): Locator {
+    return this.page.locator(".braintree-paypal-button")
+  }
+
+  /** What Braintree's PayPal reports about itself — the terms gate, a gift card. */
+  get braintreePayPalError(): Locator {
+    return this.page.locator("[data-testid=braintree-paypal-setting-error]")
+  }
+
+  /** What the Braintree form reports about itself, before or after a click. */
+  get braintreeError(): Locator {
+    return this.page.locator("[data-testid=braintree-setting-error]")
+  }
+
+  /**
+   * One Hosted Field's input. Each frame also carries hidden autofill inputs,
+   * so the visible one is picked by the name Braintree tags it with.
+   */
+  private braintreeField(field: string): Locator {
+    return this.page
+      .frameLocator(`iframe[name="braintree-hosted-field-${field}"]`)
+      .locator(`input[data-braintree-name="${field}"]`)
+  }
+
+  /**
+   * Fill Braintree's card fields, retyping any that did not take.
+   *
+   * Keystrokes into a cross-origin iframe can be dropped under load, leaving a
+   * partial value that surfaces much later as an incomplete form. Braintree
+   * marks the container it mounted a field in with
+   * `braintree-hosted-fields-valid`, so that is what each field waits for.
+   */
+  async fillBraintreeCard(card = BRAINTREE_CHALLENGE_CARD): Promise<void> {
+    await expect(
+      this.page.locator('iframe[name="braintree-hosted-field-number"]'),
+    ).toBeVisible({ timeout: 30_000 })
+    const fields: Array<[string, string]> = [
+      ["number", card.number],
+      ["expirationDate", card.exp],
+      ["cvv", card.cvv],
+    ]
+    for (const [field, value] of fields) {
+      const container = this.page.locator(
+        `div:has(> iframe[name="braintree-hosted-field-${field}"])`,
+      )
+      const input = this.braintreeField(field)
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        await input.click()
+        await input.fill("")
+        await input.pressSequentially(value, { delay: 30 })
+        try {
+          await expect(container).toHaveClass(/braintree-hosted-fields-valid/, {
+            timeout: 3_000,
+          })
+          break
+        } catch (error) {
+          if (attempt === 3) throw error
+        }
+      }
+    }
+
+    // Fail here, on the form, rather than on the thank-you page — for the
+    // reason the Stripe helper gives.
+    await expect(
+      this.page.locator("[data-testid=braintree-state]"),
+      "Braintree's Hosted Fields do not consider the card complete",
+    ).toHaveText("ready", { timeout: 15_000 })
+  }
+
+  /**
+   * Complete the sandbox issuer's 3DS challenge, which Cardinal mounts in a
+   * modal iframe of its own on top of the checkout.
+   */
+  async completeBraintreeChallenge(code = BRAINTREE_3DS_CODE): Promise<void> {
+    const challenge = this.page.frameLocator("#Cardinal-CCA-IFrame")
+    const input = challenge.getByPlaceholder("Enter Code Here")
+    await expect(input).toBeVisible({ timeout: 30_000 })
+    await input.fill(code)
+    await challenge.getByRole("button", { name: "SUBMIT" }).click()
   }
 
   /** A Drop-in that could not load says so here; a refusal is an order error. */
@@ -714,9 +866,12 @@ export class PaymentSessionsCheckoutPage {
    * warning and is the most likely thing here to break for reasons that are not
    * this checkout's.
    */
-  async payWithPayPal(credentials: PayPalCredentials): Promise<void> {
+  async payWithPayPal(
+    credentials: PayPalCredentials,
+    button: Locator = this.adyenPayPalButton,
+  ): Promise<void> {
     const popupPromise = this.page.waitForEvent("popup", { timeout: 60_000 })
-    await this.adyenPayPalButton.click({ force: true })
+    await button.click({ force: true })
     const popup = await popupPromise
     await popup.waitForLoadState()
 
@@ -785,6 +940,13 @@ export class PaymentSessionsCheckoutPage {
    */
   async acceptTerms(): Promise<void> {
     if ((await this.termsCheckbox.count()) === 0) return
+    // Scrolled into view first, on its own. Left to `check()`, the scroll and
+    // the click are one action, and in a headed browser whose focus is still
+    // inside a cross-origin iframe — a Braintree Hosted Field, just typed into
+    // — the click lands in that frame instead: the checkbox sees no event at
+    // all and `check()` fails with "did not change its state". A shopper
+    // scrolls before clicking, so this is the automation's problem, not theirs.
+    await this.termsCheckbox.scrollIntoViewIfNeeded()
     await this.termsCheckbox.check()
   }
 

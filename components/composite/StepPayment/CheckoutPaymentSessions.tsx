@@ -5,10 +5,12 @@ import type {
 import {
   PaymentSetting,
   PaymentSettingAdyenPayment,
+  PaymentSettingBraintreeApplePay,
+  PaymentSettingBraintreePayment,
+  PaymentSettingBraintreePayPal,
   PaymentSettingGiftCard,
   PaymentSettingGiftCardList,
   PaymentSettingGiftCardListItem,
-  PaymentSettingManualPayment,
   PaymentSettingName,
   PaymentSettingStripePayment,
   useOrderContainer,
@@ -21,6 +23,11 @@ import { useTranslation } from "react-i18next"
 import {
   ADYEN_CONTAINER_CLASS,
   AdyenError,
+  APPLE_PAY_BUTTON_CLASS,
+  BRAINTREE_CLASS_NAMES,
+  BRAINTREE_CONTAINER_CLASS,
+  BRAINTREE_WALLETS_CLASS,
+  BRAINTREE_WALLETS_DIVIDER_CLASS,
   GiftCardAddLink,
   GiftCardBody,
   GiftCardHeader,
@@ -59,6 +66,12 @@ interface Props {
    * was before the change.
    */
   onSelect: (order?: Order) => void
+  /**
+   * The store's name. Apple Pay's sheet shows it — "Pay {companyName}" — and
+   * merchant validation sends it to Apple, so it is the organization's own
+   * name, never a translated string.
+   */
+  companyName: string
 }
 
 /**
@@ -79,9 +92,10 @@ interface Props {
  * placed outside would show an empty box on every order that is not on this
  * model.
  *
- * `payment_setting_manuals` and `payment_setting_adyens` are implemented —
+ * `payment_setting_manuals`, `payment_setting_adyens`,
+ * `payment_setting_stripes` and `payment_setting_braintrees` are implemented —
  * other settings are skipped by `<PaymentSetting>` rather than rendered inert,
- * and so is an Adyen setting that is disabled or carries no `public_key`.
+ * and so is a setting that is disabled or whose gateway carries no `public_key`.
  */
 /**
  * Where a gateway sends the shopper back after a redirect.
@@ -114,7 +128,10 @@ function paymentReturnUrl(): string | undefined {
   return url.toString()
 }
 
-export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
+export const CheckoutPaymentSessions = ({
+  onSelect,
+  companyName,
+}: Props): JSX.Element => {
   const { t } = useTranslation()
 
   /**
@@ -132,6 +149,37 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
   }): string => {
     if (error.meta?.error === "TermsNotAccepted") {
       return t("stepPayment.acceptTermsToPay")
+    }
+    return error.message ?? ""
+  }
+
+  /**
+   * Braintree's codes in our words. The library's `message` is English, and
+   * the codes are Braintree's own (`HOSTED_FIELDS_…`, `THREEDS_…`), the 3DS
+   * status when the shopper did not authenticate, or the authorization status
+   * when Braintree refused the payment.
+   */
+  const braintreeErrorMessage = (error: {
+    message?: string
+    meta?: Record<string, unknown>
+  }): string => {
+    const code = typeof error.meta?.error === "string" ? error.meta.error : ""
+    if (code === "TermsNotAccepted") {
+      return t("stepPayment.acceptTermsToPay")
+    }
+    if (code.startsWith("HOSTED_FIELDS_FIELDS_")) {
+      return t("stepPayment.completeCardDetails")
+    }
+    if (
+      code.startsWith("THREEDS_") ||
+      code.startsWith("authenticate_") ||
+      code.startsWith("challenge_") ||
+      code === "liability_not_shifted"
+    ) {
+      return t("stepPayment.cardNotAuthenticated")
+    }
+    if (code === "declined" || code === "failed") {
+      return t("stepPayment.paymentDeclined")
     }
     return error.message ?? ""
   }
@@ -172,24 +220,24 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
                 <StyledPaymentSettingRadioButton />
                 <PaymentSettingName />
               </PaymentSettingItem>
-              <PaymentSettingManualPayment>
-                {() => {
-                  // The only thing this branch has to say today. A manual payment
-                  // has no gateway UI and nothing to collect, and the amount is
-                  // the order total, which the summary already shows — so there
-                  // is nothing to render but a failed selection. Bank details
-                  // would go here.
-                  //
-                  // Selection errors live on the setting's context, not on the
-                  // order, so <Errors resource="..."> would never see them.
-                  if (errors.length === 0) return <></>
-                  return (
-                    <PaymentSettingError data-testid="payment-setting-error">
-                      {errors.map((error) => error.message).join(" ")}
-                    </PaymentSettingError>
-                  )
-                }}
-              </PaymentSettingManualPayment>
+              {/* A selection that failed never became a Payment Session, so no
+                gateway component below mounts to say so: this is the only
+                place the shopper hears about it, whatever the setting. The
+                API's wording ("invalid query" for a 500) means nothing to
+                them, so the copy is ours, and the raw reason rides along in an
+                attribute for whoever has to debug it. Selection errors live on
+                the setting's context, not on the order, so
+                <Errors resource="..."> would never see them. */}
+              {errors.length > 0 && (
+                <PaymentSettingError
+                  data-testid="payment-setting-error"
+                  data-error-detail={errors
+                    .map((error) => error.message)
+                    .join(" ")}
+                >
+                  {t("stepPayment.paymentMethodNotLoaded")}
+                </PaymentSettingError>
+              )}
             </PaymentSettingCard>
 
             {/* Deliberately outside the label: the label is a <label>, and a click
@@ -278,6 +326,91 @@ export const CheckoutPaymentSessions = ({ onSelect }: Props): JSX.Element => {
                 </>
               )}
             </PaymentSettingStripePayment>
+
+            {/* Braintree's wallets, above its card fields. All of them stay
+              live at once — the place button pays by card, each wallet through
+              its own button — and each renders nothing where it cannot be
+              offered, so on a browser without Apple Pay and a merchant without
+              PayPal the block is empty and `empty:hidden` takes it away.
+
+              Mounting Apple Pay is a statement that the domains this checkout
+              is served from are registered for Apple Pay on the Braintree
+              merchant: its button renders on any Safari that can pay, and
+              merchant validation then fails on a domain that is not. Remove it
+              if that stops being true. */}
+            <div className={BRAINTREE_WALLETS_CLASS}>
+              <PaymentSettingBraintreeApplePay
+                displayName={companyName}
+                className={APPLE_PAY_BUTTON_CLASS}
+              >
+                {({ errors: applePayErrors }) =>
+                  applePayErrors.length > 0 ? (
+                    <AdyenError
+                      data-testid="apple-pay-setting-error"
+                      className="px-0 pb-0"
+                    >
+                      {applePayErrors.map(braintreeErrorMessage).join(" ")}
+                    </AdyenError>
+                  ) : (
+                    <></>
+                  )
+                }
+              </PaymentSettingBraintreeApplePay>
+              <PaymentSettingBraintreePayPal className="braintree-paypal-button">
+                {({ errors: payPalErrors }) =>
+                  payPalErrors.length > 0 ? (
+                    <AdyenError
+                      data-testid="braintree-paypal-setting-error"
+                      className="px-0 pb-0"
+                    >
+                      {payPalErrors.map(braintreeErrorMessage).join(" ")}
+                    </AdyenError>
+                  ) : (
+                    <></>
+                  )
+                }
+              </PaymentSettingBraintreePayPal>
+            </div>
+            {/* One divider for however many wallets there are, shown only when
+              the block above has something in it. */}
+            <div className={BRAINTREE_WALLETS_DIVIDER_CLASS}>
+              <span className="h-px grow bg-gray-200" />
+              {t("stepPayment.orPayByCard")}
+              <span className="h-px grow bg-gray-200" />
+            </div>
+
+            {/* Outside the label for the same reason again. Braintree's
+              fields are its iframes, but the containers are ours, and a
+              <label> around them would forward every click to the radio. */}
+            <PaymentSettingBraintreePayment
+              containerClassName={BRAINTREE_CONTAINER_CLASS}
+              classNames={BRAINTREE_CLASS_NAMES}
+              fields={{
+                number: { label: t("stepPayment.cardNumber") },
+                expirationDate: { label: t("stepPayment.cardExpiration") },
+                cvv: { label: t("stepPayment.cardCvv") },
+              }}
+              styles={{
+                input: { "font-size": "16px", "font-family": "monospace" },
+              }}
+            >
+              {({ errors: braintreeErrors, isReady }) => (
+                <>
+                  {/* Rendered for the reason Stripe's is: the place button
+                    does not gate on it, so without a marker an end-to-end
+                    test that mistypes a field waits out a timeout instead of
+                    saying what was wrong. */}
+                  <span hidden data-testid="braintree-state">
+                    {isReady ? "ready" : "incomplete"}
+                  </span>
+                  {braintreeErrors.length > 0 && (
+                    <AdyenError data-testid="braintree-setting-error">
+                      {braintreeErrors.map(braintreeErrorMessage).join(" ")}
+                    </AdyenError>
+                  )}
+                </>
+              )}
+            </PaymentSettingBraintreePayment>
           </PaymentSettingBox>
         )}
       </PaymentSetting>

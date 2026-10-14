@@ -108,7 +108,15 @@
     "subscriptionWithCustomer": "Davanjem podataka o kartici dopuštate tvrtki da tereti vašu karticu za buduća plaćanja u skladu s njihovim uvjetima.",
     "useGiftCard": "Koristi poklon karticu",
     "giftCardCodePlaceholder": "Unesite kod",
-    "addAnotherGiftCard": "Dodaj još jednu"
+    "addAnotherGiftCard": "Dodaj još jednu",
+    "cardNumber": "Broj kartice",
+    "cardExpiration": "Datum isteka",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Dovršite podatke o kartici.",
+    "cardNotAuthenticated": "Kartica nije mogla biti autentificirana. Pokušajte ponovno ili koristite drugu karticu.",
+    "paymentDeclined": "Plaćanje je odbijeno. Pokušajte s drugom karticom.",
+    "orPayByCard": "ili platite karticom",
+    "paymentMethodNotLoaded": "Odabrani način plaćanja nije moguće učitati."
   },
   "addressForm": {
     "customer_email": "Vaša e-mail adresa",

@@ -148,6 +148,44 @@ export async function readOrder(order: NewPaymentsOrder): Promise<Order> {
 }
 
 /**
+ * Raise the order's total to at least `minCents`, by quantity, with the order's
+ * own token.
+ *
+ * For gateways whose sandbox decides the outcome from the amount — Braintree's
+ * declines everything between 2000.00 and 2999.99. A quantity change rebuilds
+ * the shipments without a shipping method, which would leave the checkout stuck
+ * on Delivery, so the first available one is set again, as the fixture script
+ * does on creation. Reload the checkout afterwards.
+ */
+export async function raiseOrderTotalTo(
+  order: NewPaymentsOrder,
+  minCents: number,
+): Promise<void> {
+  const cl = client(order.accessToken)
+  const read = await cl.orders.retrieve(order.id, { include: ["line_items"] })
+  const sku = (read.line_items ?? []).find((item) => item.item_type === "skus")
+  if (sku?.unit_amount_cents == null) {
+    throw new Error(`Order ${order.id} has no priced SKU line item to scale.`)
+  }
+  const others =
+    (read.total_amount_with_taxes_cents ?? 0) - (sku.total_amount_cents ?? 0)
+  const quantity = Math.ceil((minCents - others) / sku.unit_amount_cents)
+  await cl.line_items.update({ id: sku.id, quantity })
+
+  const { shipments } = await cl.orders.retrieve(order.id, {
+    include: ["shipments.available_shipping_methods"],
+  })
+  for (const shipment of shipments ?? []) {
+    const [shippingMethod] = shipment.available_shipping_methods ?? []
+    if (shippingMethod == null) continue
+    await cl.shipments.update({
+      id: shipment.id,
+      shipping_method: cl.shipping_methods.relationship(shippingMethod.id),
+    })
+  }
+}
+
+/**
  * The wallet a session stored its card into, once Commerce Layer has linked it.
  *
  * Linking is Commerce Layer's, not the checkout's: on Stripe it happens when the
@@ -294,6 +332,10 @@ export { expect } from "@playwright/test"
 export {
   ADYEN_3DS_CARD,
   ADYEN_3DS_PASSWORD,
+  BRAINTREE_3DS_CODE,
+  BRAINTREE_CHALLENGE_CARD,
+  BRAINTREE_FRICTIONLESS_CARD,
+  braintreePayPalCredentials,
   PaymentSessionsCheckoutPage,
   payPalCredentials,
   STRIPE_CARD,

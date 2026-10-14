@@ -112,7 +112,15 @@
       "subscriptionWithCustomer": "Door uw kaartgegevens te verstrekken, geeft u het bedrijf toestemming om uw kaart te belasten voor toekomstige betalingen in overeenstemming met hun voorwaarden.",
       "useGiftCard": "Cadeaubon gebruiken",
       "giftCardCodePlaceholder": "Voer code in",
-      "addAnotherGiftCard": "Nog een toevoegen"
+      "addAnotherGiftCard": "Nog een toevoegen",
+      "cardNumber": "Kaartnummer",
+      "cardExpiration": "Vervaldatum",
+      "cardCvv": "CVV",
+      "completeCardDetails": "Vul de kaartgegevens volledig in.",
+      "cardNotAuthenticated": "De kaart kon niet worden geverifieerd. Probeer het opnieuw of gebruik een andere kaart.",
+      "paymentDeclined": "De betaling is geweigerd. Probeer een andere kaart.",
+      "orPayByCard": "of betaal met kaart",
+      "paymentMethodNotLoaded": "De geselecteerde betaalmethode kan niet worden geladen."
     },
     "addressForm": {
       "customer_email": "Uw e-mailadres",

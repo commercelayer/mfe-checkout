@@ -112,7 +112,15 @@
     "subscriptionWithCustomer": "Azzal, hogy megadja a bankkártya adatait, felhatalmazza a céget, hogy a jövőben fizetéseket eszközöljön vele összhangban a felhasználási feltételeivel.",
     "useGiftCard": "Ajándékkártya használata",
     "giftCardCodePlaceholder": "Adja meg a kódot",
-    "addAnotherGiftCard": "További hozzáadása"
+    "addAnotherGiftCard": "További hozzáadása",
+    "cardNumber": "Kártyaszám",
+    "cardExpiration": "Lejárati dátum",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Add meg a kártya adatait.",
+    "cardNotAuthenticated": "A kártyát nem sikerült hitelesíteni. Próbáld újra, vagy használj másik kártyát.",
+    "paymentDeclined": "A fizetést elutasították. Próbálkozz másik kártyával.",
+    "orPayByCard": "vagy fizess kártyával",
+    "paymentMethodNotLoaded": "A kiválasztott fizetési mód nem tölthető be."
   },
   "addressForm": {
     "customer_email": "Az ön e-mail címe",
