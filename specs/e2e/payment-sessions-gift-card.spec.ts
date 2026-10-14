@@ -22,7 +22,7 @@ import {
 test.describe("gift cards on the payment_sessions model", {
   tag: "@payment-sessions",
 }, () => {
-  const WIRE = "Wire Transfer Payment Setting"
+  const WIRE = "Pay with Wire Transfer"
 
   /**
    * The full round trip the flow has to survive: pay part with a card, change

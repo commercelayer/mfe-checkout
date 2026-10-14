@@ -95,11 +95,12 @@ export interface PayPalCredentials {
 /**
  * The PayPal **sandbox buyer** these tests log in as, or `null`.
  *
- * `NP_*` and deliberately **not** `E2E_PAYPAL_*`. A PayPal sandbox buyer is
- * only good against the PayPal business sandbox account that the Adyen merchant
- * account is linked to, and that link is per merchant account — so the buyer
- * that works for the `payment_source` suite, on the `E2E_*` organization, is
- * refused here. Sharing the variable produced exactly one confusing failure:
+ * `PAYMENT_SETTINGS_PAYPAL_*` and deliberately **not** `E2E_PAYPAL_*`. A
+ * PayPal sandbox buyer is only good against the PayPal business sandbox account
+ * that the Adyen merchant account is linked to, and that link is per merchant
+ * account — so the buyer that works for the `payment_source` suite's PayPal is
+ * not necessarily accepted here, even in the same organization. Sharing the
+ * variable produced exactly one confusing failure:
  * PayPal approves the payment, because the buyer is a perfectly valid PayPal
  * account, and Adyen then answers `Refused`.
  *
@@ -113,14 +114,14 @@ export interface PayPalCredentials {
  *
  * Braintree's sandbox is linked to a PayPal business sandbox of its own, and a
  * buyer only works against the business account it belongs to — the lesson the
- * Adyen PayPal tests already paid for. So it reads `NP_BRAINTREE_PAYPAL_*`
+ * Adyen PayPal tests already paid for. So it reads `PAYMENT_SETTINGS_BRAINTREE_PAYPAL_*`
  * first, and falls back to the Adyen buyer only while no dedicated one exists:
  * if the fallback is refused inside PayPal's popup, that is the sign a
  * Braintree buyer is needed, not a bug in the checkout.
  */
 export function braintreePayPalCredentials(): PayPalCredentials | null {
-  const email = process.env.NP_BRAINTREE_PAYPAL_EMAIL
-  const password = process.env.NP_BRAINTREE_PAYPAL_PASSWORD
+  const email = process.env.PAYMENT_SETTINGS_BRAINTREE_PAYPAL_EMAIL
+  const password = process.env.PAYMENT_SETTINGS_BRAINTREE_PAYPAL_PASSWORD
   if (
     email != null &&
     email.length > 0 &&
@@ -133,8 +134,8 @@ export function braintreePayPalCredentials(): PayPalCredentials | null {
 }
 
 export function payPalCredentials(): PayPalCredentials | null {
-  const email = process.env.NP_PAYPAL_EMAIL
-  const password = process.env.NP_PAYPAL_PASSWORD
+  const email = process.env.PAYMENT_SETTINGS_PAYPAL_EMAIL
+  const password = process.env.PAYMENT_SETTINGS_PAYPAL_PASSWORD
   if (email == null || password == null) return null
   if (email.length === 0 || password.length === 0) return null
   return { email, password }

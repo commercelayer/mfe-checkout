@@ -45,7 +45,9 @@ const API_VERSION = "2026-05"
 const DEFAULT_SKU_CODE = "SHIRTWLS000000FFFFFFLXXX"
 const CUSTOMER_EMAIL = "john.doe@example.com"
 
-// No fallback market: an unknown code must fail loudly rather than quietly
+// Keyed by country, not by market: a market's code is whatever the organization
+// named it ("USANEWPAYMENTS"), so it says nothing about where it sells. No
+// fallback country either: an unknown one must fail loudly rather than quietly
 // billing a US order to an Italian address.
 const ADDRESSES = {
   US: {
@@ -58,7 +60,7 @@ const ADDRESSES = {
     country_code: "US",
     phone: "+1 212 000 0000",
   },
-  EU: {
+  IT: {
     first_name: "John",
     last_name: "Doe",
     line_1: "Via Roma 1",
@@ -70,15 +72,16 @@ const ADDRESSES = {
   },
 }
 
-const MARKET_CURRENCY = { US: "USD", EU: "EUR" }
+const COUNTRY_CURRENCY = { US: "USD", IT: "EUR" }
 
 function required(name) {
   const value = process.env[name]
   if (!value) {
     fail(
       `${name} is not set in .env.local.\n` +
-        "These are the new-payments organization's credentials and are NOT the " +
-        "E2E_* ones, which belong to a different organization — see .env.local.sample.",
+        "The organization and its credentials are the E2E_* and NEXT_PUBLIC_* " +
+        "ones the rest of the suite uses; only the PAYMENT_SETTINGS_* block is " +
+        "specific to these fixtures — see .env.local.sample.",
     )
   }
   return value
@@ -89,12 +92,18 @@ function fail(message) {
   process.exit(1)
 }
 
+/** The market offering payment settings, which puts its orders on payment_sessions. */
 function marketCode() {
-  const code = required("NP_MARKET_CODE")
+  return required("PAYMENT_SETTINGS_MARKET_CODE")
+}
+
+/** The country the market sells to, which the order's address has to be in. */
+function countryCode() {
+  const code = required("PAYMENT_SETTINGS_COUNTRY_CODE")
   if (!(code in ADDRESSES)) {
     fail(
-      `NP_MARKET_CODE is "${code}", which has no address in this script. ` +
-        `Known: ${Object.keys(ADDRESSES).join(", ")}. Add one rather than ` +
+      `PAYMENT_SETTINGS_COUNTRY_CODE is "${code}", which has no address in this ` +
+        `script. Known: ${Object.keys(ADDRESSES).join(", ")}. Add one rather than ` +
         "letting it fall back — a mismatched country silently changes tax and shipping.",
     )
   }
@@ -104,8 +113,8 @@ function marketCode() {
 /** A sales-channel token: public client id, no secret. What the checkout uses. */
 async function salesChannelToken() {
   const { accessToken } = await authenticate("client_credentials", {
-    domain: required("NP_DOMAIN"),
-    clientId: required("NP_CLIENT_ID"),
+    domain: required("NEXT_PUBLIC_DOMAIN"),
+    clientId: required("E2E_CLIENT_ID"),
     scope: `market:code:${marketCode()}`,
   })
   return accessToken
@@ -121,10 +130,10 @@ async function salesChannelToken() {
  */
 async function customerToken() {
   const auth = await authenticate("password", {
-    domain: required("NP_DOMAIN"),
-    clientId: required("NP_CLIENT_ID"),
-    username: required("NP_CUSTOMER_EMAIL"),
-    password: required("NP_CUSTOMER_PASSWORD"),
+    domain: required("NEXT_PUBLIC_DOMAIN"),
+    clientId: required("E2E_CLIENT_ID"),
+    username: required("PAYMENT_SETTINGS_CUSTOMER_EMAIL"),
+    password: required("PAYMENT_SETTINGS_CUSTOMER_PASSWORD"),
     scope: `market:code:${marketCode()}`,
   })
   // `authenticate` reports a bad password in `errors` rather than throwing, so
@@ -132,9 +141,9 @@ async function customerToken() {
   // create — which reads as a broken script rather than a wrong password.
   if (auth.errors?.length) {
     fail(
-      `Could not sign in as ${process.env.NP_CUSTOMER_EMAIL}: ` +
+      `Could not sign in as ${process.env.PAYMENT_SETTINGS_CUSTOMER_EMAIL}: ` +
         `${auth.errors[0]?.detail ?? "authentication failed"}\n` +
-        "Check NP_CUSTOMER_EMAIL and NP_CUSTOMER_PASSWORD in .env.local.",
+        "Check PAYMENT_SETTINGS_CUSTOMER_EMAIL and PAYMENT_SETTINGS_CUSTOMER_PASSWORD in .env.local.",
     )
   }
   return auth.accessToken
@@ -143,17 +152,17 @@ async function customerToken() {
 /** An integration token: client id + secret. Gift cards cannot be minted without it. */
 async function integrationToken() {
   const { accessToken } = await authenticate("client_credentials", {
-    domain: required("NP_DOMAIN"),
-    clientId: required("NP_INTEGRATION_CLIENT_ID"),
-    clientSecret: required("NP_INTEGRATION_CLIENT_SECRET"),
+    domain: required("NEXT_PUBLIC_DOMAIN"),
+    clientId: required("E2E_INTEGRATION_CLIENT_ID"),
+    clientSecret: required("E2E_INTEGRATION_CLIENT_SECRET"),
   })
   return accessToken
 }
 
 function client(accessToken) {
   return CommerceLayer({
-    organization: required("NP_SLUG"),
-    domain: required("NP_DOMAIN"),
+    organization: required("NEXT_PUBLIC_SLUG"),
+    domain: required("NEXT_PUBLIC_DOMAIN"),
     accessToken,
     apiVersion: API_VERSION,
   })
@@ -161,17 +170,21 @@ function client(accessToken) {
 
 async function createOrder({ asCustomer = false } = {}) {
   const market = marketCode()
-  const skuCode = process.env.NP_SKU_CODE ?? DEFAULT_SKU_CODE
-  const accessToken = asCustomer ? await customerToken() : await salesChannelToken()
+  const skuCode = process.env.PAYMENT_SETTINGS_SKU_CODE ?? DEFAULT_SKU_CODE
+  const accessToken = asCustomer
+    ? await customerToken()
+    : await salesChannelToken()
   const cl = client(accessToken)
 
-  const address = await cl.addresses.create(ADDRESSES[market])
+  const address = await cl.addresses.create(ADDRESSES[countryCode()])
 
   const order = await cl.orders.create({
     // The customer's own address, on a customer token: the order is associated
     // with whoever the token belongs to, and an email that disagreed with it
     // would put the checkout's Customer step at odds with the order.
-    customer_email: asCustomer ? required("NP_CUSTOMER_EMAIL") : CUSTOMER_EMAIL,
+    customer_email: asCustomer
+      ? required("PAYMENT_SETTINGS_CUSTOMER_EMAIL")
+      : CUSTOMER_EMAIL,
     billing_address: cl.addresses.relationship(address.id),
     shipping_address: cl.addresses.relationship(address.id),
   })
@@ -207,7 +220,7 @@ async function createOrder({ asCustomer = false } = {}) {
   console.error(
     `\norder ${placed.number} · ${skuCode} · market ${market} · ` +
       `${placed.formatted_total_amount_with_taxes ?? placed.formatted_total_amount} · ` +
-      `${asCustomer ? `customer ${process.env.NP_CUSTOMER_EMAIL}` : "guest"}`,
+      `${asCustomer ? `customer ${process.env.PAYMENT_SETTINGS_CUSTOMER_EMAIL}` : "guest"}`,
   )
   console.error("append this to your checkout origin:\n")
   console.log(`/${order.id}?accessToken=${accessToken}`)
@@ -219,13 +232,13 @@ async function createGiftCard(amountArg) {
     fail("Usage: pnpm np:gift-card <amount>   e.g. pnpm np:gift-card 25")
   }
 
-  const market = marketCode()
+  const currency = COUNTRY_CURRENCY[countryCode()]
   const cl = client(await integrationToken())
 
   const code = randomCode()
   const giftCard = await cl.gift_cards.create({
     code,
-    currency_code: MARKET_CURRENCY[market],
+    currency_code: currency,
     balance_cents: Math.round(amount * 100),
   })
 
@@ -236,7 +249,7 @@ async function createGiftCard(amountArg) {
   await cl.gift_cards._activate(giftCard.id)
 
   console.error(
-    `\ngift card ${amount.toFixed(2)} ${MARKET_CURRENCY[market]} · purchased · activated\n`,
+    `\ngift card ${amount.toFixed(2)} ${currency} · purchased · activated\n`,
   )
   console.log(code)
 }
@@ -272,7 +285,7 @@ try {
       fail(
         "Usage:\n" +
           "  pnpm np:order              create a guest order, print /<id>?accessToken=<jwt>\n" +
-          "  pnpm np:order:customer     the same, signed in as NP_CUSTOMER_EMAIL\n" +
+          "  pnpm np:order:customer     the same, signed in as PAYMENT_SETTINGS_CUSTOMER_EMAIL\n" +
           "  pnpm np:gift-card <amount> mint an active gift card, print its code",
       )
   }
@@ -289,5 +302,9 @@ try {
   if (detail) {
     fail(`Commerce Layer refused this:\n  ${detail}`)
   }
-  fail(error instanceof Error ? `${error.message}\n\n${error.stack ?? ""}` : String(error))
+  fail(
+    error instanceof Error
+      ? `${error.message}\n\n${error.stack ?? ""}`
+      : String(error),
+  )
 }
