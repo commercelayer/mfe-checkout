@@ -58,9 +58,10 @@ export interface NewPaymentsOrder {
  * be captured, so running it beats re-implementing the sequence here and
  * letting the two drift.
  *
- * It is *not* `tokenizedPage.ts`: that harness builds orders against the `E2E_*`
- * organization, which has no `payment_sessions` setup at all. These use the
- * `NP_*` block.
+ * It is *not* `tokenizedPage.ts`, although both work in the same organization:
+ * that harness builds orders in markets offering payment methods, which puts
+ * them on the `payment_source` model for good. These are created in the market
+ * named by `PAYMENT_SETTINGS_MARKET_CODE`, which offers payment settings.
  */
 async function mint(...args: string[]): Promise<string> {
   // Minting is setup, not the behaviour under test, and it talks to a shared
@@ -80,7 +81,7 @@ async function mint(...args: string[]): Promise<string> {
       if (value.length === 0) {
         throw new Error(
           `scripts/new-payments.mjs ${args.join(" ")} printed nothing. ` +
-            "Check the NP_* credentials in .env.local.",
+            "Check the PAYMENT_SETTINGS_* block in .env.local.",
         )
       }
       return value
@@ -123,8 +124,8 @@ async function mintOrder({
 
 function client(accessToken: string): CommerceLayerClient {
   return CommerceLayer({
-    organization: process.env.NP_SLUG as string,
-    domain: process.env.NP_DOMAIN,
+    organization: process.env.NEXT_PUBLIC_SLUG as string,
+    domain: process.env.NEXT_PUBLIC_DOMAIN,
     accessToken,
     apiVersion: API_VERSION,
   })

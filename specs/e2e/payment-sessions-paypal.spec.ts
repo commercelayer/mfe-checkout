@@ -24,10 +24,11 @@ import {
  *
  * - PayPal must be switched on for the Adyen account, or the Drop-in offers no
  *   PayPal row and there is nothing to click;
- * - `NP_PAYPAL_EMAIL` / `NP_PAYPAL_PASSWORD` must be a PayPal **sandbox
- *   buyer** created under the PayPal developer account that owns the business
- *   sandbox account *this* Adyen merchant account is linked to — the `E2E_*`
- *   buyer belongs to another one and is refused. Without them the paying tests
+ * - `PAYMENT_SETTINGS_PAYPAL_EMAIL` / `PAYMENT_SETTINGS_PAYPAL_PASSWORD` must
+ *   be a PayPal **sandbox buyer** created under the PayPal developer account
+ *   that owns the business sandbox account *this* Adyen merchant account is
+ *   linked to — `E2E_PAYPAL_*` is the `payment_source` suite's buyer and is not
+ *   necessarily accepted. Without them the paying tests
  *   skip rather than fail: an unrunnable test and a broken checkout must not
  *   look alike.
  *
@@ -47,7 +48,7 @@ function signedInBuyer(): NonNullable<ReturnType<typeof payPalCredentials>> {
   const credentials = payPalCredentials()
   test.skip(
     credentials == null,
-    "no PayPal sandbox buyer in NP_PAYPAL_EMAIL / NP_PAYPAL_PASSWORD",
+    "no PayPal sandbox buyer in PAYMENT_SETTINGS_PAYPAL_EMAIL / PAYMENT_SETTINGS_PAYPAL_PASSWORD",
   )
   return credentials as NonNullable<typeof credentials>
 }
