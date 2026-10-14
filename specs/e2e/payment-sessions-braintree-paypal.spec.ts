@@ -40,7 +40,7 @@ test.describe("paying with PayPal through Braintree", {
     await checkout.selectPaymentSetting("Braintree")
     await checkout.acceptTerms()
 
-    await expect(checkout.braintreePayPalButton.locator("iframe")).toBeVisible({
+    await expect(checkout.braintreePayPalFrame).toBeVisible({
       timeout: 30_000,
     })
     await expect(
@@ -57,7 +57,7 @@ test.describe("paying with PayPal through Braintree", {
     test.setTimeout(120_000)
 
     await checkout.selectPaymentSetting("Braintree")
-    await expect(checkout.braintreePayPalButton.locator("iframe")).toBeVisible({
+    await expect(checkout.braintreePayPalFrame).toBeVisible({
       timeout: 30_000,
     })
 
@@ -77,7 +77,7 @@ test.describe("paying with PayPal through Braintree", {
 
     await checkout.selectPaymentSetting("Braintree")
     await checkout.acceptTerms()
-    await expect(checkout.braintreePayPalButton.locator("iframe")).toBeVisible({
+    await expect(checkout.braintreePayPalFrame).toBeVisible({
       timeout: 30_000,
     })
 
@@ -112,7 +112,7 @@ test.describe("paying with PayPal through Braintree", {
 
     await checkout.selectPaymentSetting("Braintree")
     await checkout.acceptTerms()
-    await expect(checkout.braintreePayPalButton.locator("iframe")).toBeVisible({
+    await expect(checkout.braintreePayPalFrame).toBeVisible({
       timeout: 30_000,
     })
 
