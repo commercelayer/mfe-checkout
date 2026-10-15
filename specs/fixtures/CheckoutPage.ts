@@ -39,7 +39,16 @@ export class CheckoutPage {
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/${orderId}?accessToken=${token}`
 
-    await this.page.route("**/api/organization**", (route) => {
+    // The path carries the API version since SDK 8 — `/api/2026-05/organization`,
+    // not `/api/organization` — so the pattern has to tolerate the segment being
+    // there or not. A glob that only matched the unversioned path stopped
+    // intercepting silently: the real organization answered instead, and every
+    // test quietly ran against the live MFE config — its restricted province
+    // lists, its terms and privacy URLs — rather than the `config: null` below.
+    // The symptoms land far from here: a state select with no matching option,
+    // and a Place order button that never enables because the terms checkbox
+    // nobody ticked is now rendered.
+    await this.page.route(/\/api\/(\d{4}-\d{2}\/)?organization/, (route) => {
       // // Add a prefix to the title.
       const body = {
         data: {
