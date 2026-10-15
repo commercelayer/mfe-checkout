@@ -1,4 +1,4 @@
-import TotalAmount from "@commercelayer/react-components/orders/TotalAmount"
+import { TotalAmount } from "@commercelayer/react-components"
 import useDeviceDetect from "components/hooks/useDeviceDetect"
 import type { FC } from "react"
 import { useTranslation } from "react-i18next"

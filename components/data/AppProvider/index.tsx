@@ -1,9 +1,9 @@
-import {
-  CommerceLayer,
-  type Order,
-  type PaymentMethod,
-  type ShippingMethod as ShippingMethodCollection,
+import type {
+  Order,
+  PaymentMethod,
+  ShippingMethod as ShippingMethodCollection,
 } from "@commercelayer/sdk"
+import { CommerceLayer } from "@commercelayer/sdk/bundle"
 import { ActionType, reducer } from "components/data/AppProvider/reducer"
 import {
   calculateSettings,
@@ -12,7 +12,16 @@ import {
   fetchOrder,
 } from "components/data/AppProvider/utils"
 import { changeLanguage } from "i18next"
-import { createContext, useEffect, useReducer, useRef, useState } from "react"
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from "react"
+import { apiVersion } from "utils/apiVersion"
 
 export interface AppProviderData extends FetchOrderByIdResponse {
   isLoading: boolean
@@ -25,6 +34,18 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   isFirstLoading: boolean
   getOrder: (order: Order) => void
   getOrderFromRef: () => Promise<Order>
+  /**
+   * Whether the open step holds edits the customer has not saved yet. The
+   * accordion needs to know: a field change starts a refresh of its own, and
+   * moving them on when it lands takes the step — and the edit — away.
+   *
+   * A getter over a ref rather than state on purpose. It is written on every
+   * keystroke, and re-rendering the checkout that often resets the address
+   * form under the person typing into it.
+   */
+  hasUnsavedStepEdits: () => boolean
+  markStepEdited: () => void
+  clearStepEdits: () => void
   setCustomerEmail: (email: string) => void
   setAddresses: (order?: Order) => Promise<void>
   setCouponOrGiftCard: () => Promise<void>
@@ -101,68 +122,101 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   slug,
   domain,
 }) => {
-  const orderRef = useRef<Order>()
+  const orderRef = useRef<Order | undefined>(undefined)
   const [state, dispatch] = useReducer(reducer, { ...initialState, isGuest })
   const [order, setOrder] = useState<NullableType<Order>>()
+  const stepEditsRef = useRef(false)
+  // Set while a save is in flight and until the customer opens a step by hand
+  // again. Saving re-seeds the form from the order, and those writes surface as
+  // input events like any other — without this they mark the step dirty again
+  // the instant the save cleared it, and the step never folds away.
+  const savingStepRef = useRef(false)
 
-  const cl = CommerceLayer({
-    organization: slug,
-    accessToken,
-    domain,
-  })
+  // The React-19 library keys effects on the callback props we pass it (e.g.
+  // <Order fetchOrder>, <PaymentMethod onClick/autoSelect...>). A
+  // fresh identity each render re-fires those effects every render → infinite
+  // update loops. So the CommerceLayer client and every callback below are
+  // memoised to a stable identity; mutable state is read through a ref so the
+  // callbacks never need to close over changing values.
+  const cl = useMemo(
+    () =>
+      CommerceLayer({ organization: slug, accessToken, domain, apiVersion }),
+    [slug, accessToken, domain],
+  )
 
-  const getOrder = (order: Order) => {
+  const stateRef = useRef(state)
+  stateRef.current = state
+
+  // Passed as <Order fetchOrder>; closes over only stable refs.
+  const getOrder = useCallback((order: Order) => {
     orderRef.current = order
-    // OrderContainer (react-components) invokes this callback during render,
+    // Order (react-components) invokes this callback during render,
     // so defer the state update to avoid a render-phase setState warning.
     setTimeout(() => {
       setOrder(order)
     }, 0)
-  }
+  }, [])
 
-  const fetchInitialOrder = async (orderId?: string, accessToken?: string) => {
-    if (!orderId || !accessToken) {
-      return
-    }
-    dispatch({ type: ActionType.START_LOADING })
-    const order = await getOrderFromRef()
+  const fetchInitialOrder = useCallback(
+    async (orderId?: string, accessToken?: string) => {
+      if (!orderId || !accessToken) {
+        return
+      }
+      dispatch({ type: ActionType.START_LOADING })
+      const order = await getOrderFromRef()
 
-    const { shipments, ...addressInfos } =
-      await checkAndSetDefaultAddressForOrder({
-        cl,
-        order,
+      const { shipments, ...addressInfos } =
+        await checkAndSetDefaultAddressForOrder({
+          cl,
+          order,
+        })
+
+      const others = calculateSettings(
+        shipments != null ? { ...order, shipments: shipments } : order,
+        isShipmentRequired,
+        isGuest,
+        undefined,
+      )
+
+      dispatch({
+        type: ActionType.SET_ORDER,
+        payload: {
+          order,
+          others: {
+            isShipmentRequired,
+            ...others,
+            ...addressInfos,
+          },
+        },
       })
 
-    const others = calculateSettings(
-      shipments != null ? { ...order, shipments: shipments } : order,
-      isShipmentRequired,
-      isGuest,
-      undefined,
-    )
+      await changeLanguage(order.language_code ?? "en")
+    },
+    [],
+  )
 
-    dispatch({
-      type: ActionType.SET_ORDER,
-      payload: {
-        order,
-        others: {
-          isShipmentRequired,
-          ...others,
-          ...addressInfos,
-        },
-      },
-    })
+  const markStepEdited = useCallback(() => {
+    if (savingStepRef.current) return
+    stepEditsRef.current = true
+  }, [])
 
-    await changeLanguage(order.language_code ?? "en")
-  }
+  const clearStepEdits = useCallback(() => {
+    stepEditsRef.current = false
+    savingStepRef.current = false
+  }, [])
 
-  const setCustomerEmail = (email: string) => {
+  const hasUnsavedStepEdits = useCallback(() => stepEditsRef.current, [])
+
+  const setCustomerEmail = useCallback((email: string) => {
     dispatch({
       type: ActionType.SET_CUSTOMER_EMAIL,
       payload: { customerEmail: email },
     })
-  }
+  }, [])
 
-  const setAddresses = async (order?: Order) => {
+  const setAddresses = useCallback(async (order?: Order) => {
+    stepEditsRef.current = false
+    savingStepRef.current = true
     dispatch({ type: ActionType.START_LOADING })
     const currentOrder = order ?? (await getOrderFromRef())
 
@@ -172,7 +226,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       // FIX We are using customer addresses saved in reducer because
       // we don't receive them from fetchOrder
       isGuest,
-      state.customerAddresses,
+      stateRef.current.customerAddresses,
     )
     setTimeout(() => {
       dispatch({
@@ -183,18 +237,18 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         },
       })
     }, 100)
-  }
+  }, [])
 
-  const setCouponOrGiftCard = async (order?: Order) => {
+  const setCouponOrGiftCard = useCallback(async (order?: Order) => {
     const currentOrder = order ?? (await getOrderFromRef())
-    if (state.order) {
+    if (stateRef.current.order) {
       dispatch({ type: ActionType.START_LOADING })
 
       const others = calculateSettings(
         currentOrder,
-        state.isShipmentRequired,
+        stateRef.current.isShipmentRequired,
         isGuest,
-        state.customerAddresses,
+        stateRef.current.customerAddresses,
       )
       setTimeout(() => {
         dispatch({
@@ -203,46 +257,49 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         })
       }, 100)
     }
-  }
+  }, [])
 
-  const selectShipment = async (params: {
-    shippingMethod: ShippingMethodCollection | Record<string, any>
-    shipmentId: string
-    order?: Order
-  }) => {
-    // dispatch({ type: ActionType.START_LOADING })
-    // TODO Remove after fixing components
-    const currentOrder = params.order ?? (await fetchOrder(cl, orderId))
+  const selectShipment = useCallback(
+    async (params: {
+      shippingMethod: ShippingMethodCollection | Record<string, any>
+      shipmentId: string
+      order?: Order
+    }) => {
+      // dispatch({ type: ActionType.START_LOADING })
+      // TODO Remove after fixing components
+      const currentOrder = params.order ?? (await fetchOrder(cl, orderId))
 
-    const others = calculateSettings(
-      currentOrder,
-      state.isShipmentRequired,
-      isGuest,
-      state.customerAddresses,
-    )
+      const others = calculateSettings(
+        currentOrder,
+        stateRef.current.isShipmentRequired,
+        isGuest,
+        stateRef.current.customerAddresses,
+      )
 
-    dispatch({
-      type: ActionType.SELECT_SHIPMENT,
-      payload: {
-        order: currentOrder,
-        others,
-        shipment: {
-          shippingMethod: params.shippingMethod,
-          shipmentId: params.shipmentId,
+      dispatch({
+        type: ActionType.SELECT_SHIPMENT,
+        payload: {
+          order: currentOrder,
+          others,
+          shipment: {
+            shippingMethod: params.shippingMethod,
+            shipmentId: params.shipmentId,
+          },
         },
-      },
-    })
-  }
+      })
+    },
+    [],
+  )
 
-  const autoSelectShippingMethod = async (order?: Order) => {
+  const autoSelectShippingMethod = useCallback(async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
     const currentOrder = order ?? (await fetchOrder(cl, orderId))
 
     const others = calculateSettings(
       currentOrder,
-      state.isShipmentRequired,
+      stateRef.current.isShipmentRequired,
       isGuest,
-      state.customerAddresses,
+      stateRef.current.customerAddresses,
     )
     setTimeout(() => {
       dispatch({
@@ -252,16 +309,18 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     }, 100)
 
     return currentOrder
-  }
+  }, [])
 
-  const saveShipments = async () => {
+  const saveShipments = useCallback(async () => {
+    stepEditsRef.current = false
+    savingStepRef.current = true
     dispatch({ type: ActionType.START_LOADING })
     const currentOrder = await getOrderFromRef()
     const others = calculateSettings(
       currentOrder,
-      state.isShipmentRequired,
+      stateRef.current.isShipmentRequired,
       isGuest,
-      state.customerAddresses,
+      stateRef.current.customerAddresses,
     )
 
     setTimeout(() => {
@@ -272,29 +331,29 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     }, 100)
 
     return currentOrder
-  }
+  }, [])
 
-  const setPayment = async (params: {
-    payment?: PaymentMethod
-    order?: Order
-  }) => {
-    dispatch({ type: ActionType.START_LOADING })
-    const currentOrder = params.order ?? (await getOrderFromRef())
+  const setPayment = useCallback(
+    async (params: { payment?: PaymentMethod; order?: Order }) => {
+      dispatch({ type: ActionType.START_LOADING })
+      const currentOrder = params.order ?? (await getOrderFromRef())
 
-    const others = calculateSettings(
-      currentOrder,
-      state.isShipmentRequired,
-      isGuest,
-      state.customerAddresses,
-    )
+      const others = calculateSettings(
+        currentOrder,
+        stateRef.current.isShipmentRequired,
+        isGuest,
+        stateRef.current.customerAddresses,
+      )
 
-    dispatch({
-      type: ActionType.SET_PAYMENT,
-      payload: { payment: params.payment, order: currentOrder, others },
-    })
-  }
+      dispatch({
+        type: ActionType.SET_PAYMENT,
+        payload: { payment: params.payment, order: currentOrder, others },
+      })
+    },
+    [],
+  )
 
-  const placeOrder = async (order?: Order) => {
+  const placeOrder = useCallback(async (order?: Order) => {
     dispatch({ type: ActionType.START_LOADING })
     if (order && order.customer_email != null) {
       setCustomerEmail(order.customer_email)
@@ -305,11 +364,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       type: ActionType.PLACE_ORDER,
       payload: { order: currentOrder },
     })
-  }
+  }, [])
 
-  const getOrderFromRef = async () => {
+  const getOrderFromRef = useCallback(async () => {
     return orderRef.current || (await fetchOrder(cl, orderId))
-  }
+  }, [cl, orderId])
 
   useEffect(() => {
     const unsubscribe = () => {
@@ -325,6 +384,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         cartUrl: state.cartUrl?.replace(":slug", slug),
         orderId,
         order,
+        hasUnsavedStepEdits,
+        markStepEdited,
+        clearStepEdits,
         accessToken,
         isGuest,
         slug,

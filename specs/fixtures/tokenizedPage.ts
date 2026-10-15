@@ -6,14 +6,14 @@ import {
   jwtIsSalesChannel,
 } from "@commercelayer/js-auth"
 import type { MfeConfigs } from "@commercelayer/organization-config"
+import type { Address, AddressCreate } from "@commercelayer/sdk"
 import {
-  type Address,
-  type AddressCreate,
   CommerceLayer,
-  type CommerceLayerClient,
-} from "@commercelayer/sdk"
+  type CommerceLayerBundle,
+} from "@commercelayer/sdk/bundle"
 import { test as base } from "@playwright/test"
 import dotenv from "dotenv"
+import { apiVersion } from "../../utils/apiVersion"
 
 import { CheckoutPage } from "./CheckoutPage"
 
@@ -92,7 +92,7 @@ interface DefaultParamsProps {
     config?: { mfe: MfeConfigs }
   }
   orderAttributes?: {
-    language_code?: "en" | "it" | "it-IT"
+    language_code?: "en" | "it" | "it-IT" | "de"
     customer_email?: string
     shipping_country_code_lock?: "IT" | "GB" | "US"
     terms_url?: string
@@ -193,7 +193,7 @@ const getSuperToken = async () => {
 }
 
 const getOrder = async (
-  cl: CommerceLayerClient,
+  cl: CommerceLayerBundle,
   params: DefaultParamsProps,
 ) => {
   const email = params.customer?.email || params.orderAttributes?.customer_email
@@ -211,7 +211,7 @@ const getOrder = async (
       break
     case "with-items": {
       let superToken: string | undefined
-      let superCl: CommerceLayerClient | undefined
+      let superCl: CommerceLayerBundle | undefined
 
       if (expires_at != null) {
         superToken = await getSuperToken()
@@ -393,7 +393,7 @@ const getOrder = async (
 }
 
 const updateInventory = async (
-  cl: CommerceLayerClient,
+  cl: CommerceLayerBundle,
   lineItems: SkuItem[],
   quantity: "quantity" | "inventory",
 ) => {
@@ -419,7 +419,7 @@ const updateInventory = async (
 }
 
 const createAndPurchaseGiftCard = async (
-  cl: CommerceLayerClient,
+  cl: CommerceLayerBundle,
   props?: GiftCardProps,
   purchase = false,
 ) => {
@@ -442,6 +442,7 @@ const getClient = (token: string) => {
     organization: process.env.NEXT_PUBLIC_SLUG as string,
     accessToken: token,
     domain: process.env.NEXT_PUBLIC_DOMAIN,
+    apiVersion,
   })
 }
 
@@ -455,7 +456,7 @@ const createLineItems = async ({
   orderId,
   items,
 }: {
-  cl: CommerceLayerClient
+  cl: CommerceLayerBundle
   orderId: string
   items: Array<LineItemObject>
 }) => {
@@ -527,7 +528,7 @@ function isSkuItem(item: SkuItem | BundleItem): item is SkuItem {
 }
 
 const createDefaultLineItem = async (
-  cl: CommerceLayerClient,
+  cl: CommerceLayerBundle,
   orderId: string,
 ) => {
   const sku = (await cl.skus.list()).first()

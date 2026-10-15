@@ -1,9 +1,9 @@
 import type { Address } from "@commercelayer/sdk"
-import { faker } from "@faker-js/faker"
 import { expect, type Locator, type Page } from "@playwright/test"
 
 import type { EcommerceProps } from "../../components/data/GTMProvider/typings"
 import { composeForCheck, euAddress, euAddress2 } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 import { getSuperClient } from "./tokenizedPage"
 
 interface GoToProps {
@@ -39,7 +39,16 @@ export class CheckoutPage {
       process.env.NEXT_PUBLIC_BASE_PATH || ""
     }/${orderId}?accessToken=${token}`
 
-    await this.page.route("**/api/organization**", (route) => {
+    // The path carries the API version since SDK 8 — `/api/2026-05/organization`,
+    // not `/api/organization` — so the pattern has to tolerate the segment being
+    // there or not. A glob that only matched the unversioned path stopped
+    // intercepting silently: the real organization answered instead, and every
+    // test quietly ran against the live MFE config — its restricted province
+    // lists, its terms and privacy URLs — rather than the `config: null` below.
+    // The symptoms land far from here: a state select with no matching option,
+    // and a Place order button that never enables because the terms checkbox
+    // nobody ticked is now rendered.
+    await this.page.route(/\/api\/(\d{4}-\d{2}\/)?organization/, (route) => {
       // // Add a prefix to the title.
       const body = {
         data: {
@@ -114,7 +123,7 @@ export class CheckoutPage {
   async setCustomerMail(email?: string) {
     let customerEmail = email || ""
     if (email === undefined) {
-      customerEmail = faker.internet.email().toLocaleLowerCase()
+      customerEmail = uniqueCustomerEmail()
     }
     await this.page.getByTestId("customer_email").fill(customerEmail)
     await this.page.getByTestId("customer_email").blur()
@@ -211,7 +220,7 @@ export class CheckoutPage {
   }
 
   async getOrderNumber() {
-    const element = await this.page.locator(
+    const element = this.page.locator(
       "[data-testid=complete-checkout-summary] >> strong",
     )
     return element.innerText()
@@ -366,12 +375,22 @@ export class CheckoutPage {
     text: string
     shipment?: number
   }) {
-    await this.page.getByText(text).nth(shipment).click()
-    await expect(this.page.getByText(text).nth(shipment)).toHaveCount(1)
     const element = this.page.locator(
       `[data-testid=shipments-container] >> nth=${shipment} >> [data-testid=shipping-method-button]:checked`,
     )
-    await expect(element).toBeChecked()
+
+    // react-components v5 sometimes reverts the shipping-method radio to
+    // unchecked shortly after a selection sticks (open library flake, see
+    // memory react-components-v5-state-selector-flake), most visible right
+    // after a coupon-driven order refresh. Re-click and re-verify until the
+    // selection survives a short settle window.
+    await expect(async () => {
+      await this.page.getByText(text).nth(shipment).click()
+      await expect(this.page.getByText(text).nth(shipment)).toHaveCount(1)
+      await expect(element).toBeChecked()
+      await this.page.waitForTimeout(1000)
+      await expect(element).toBeChecked()
+    }).toPass({ timeout: 20000 })
   }
 
   async checkShippingMethodPrice({
@@ -399,14 +418,10 @@ export class CheckoutPage {
     shipment?: number
     value: boolean
   }) {
-    const element = await this.page.isChecked(
+    const element = this.page.locator(
       `[data-testid=shipments-container] >> nth=${shipment} >> [data-testid=shipping-methods-container] >> nth=${index} >> input[type=radio]`,
     )
-    if (value) {
-      expect(element).toBeTruthy()
-    } else {
-      expect(element).toBeFalsy()
-    }
+    await expect(element).toBeChecked({ checked: value })
   }
 
   async setAddress({
@@ -570,8 +585,7 @@ export class CheckoutPage {
   async checkCartLink(link: string) {
     const element = this.page.locator("[data-testid=edit-cart-link] a").first()
     await expect(element).toBeVisible()
-    const href = await element.getAttribute("href")
-    expect(href).toBe(link)
+    await expect(element).toHaveAttribute("href", link)
   }
 
   async clickReturnToCartLink() {
@@ -579,9 +593,7 @@ export class CheckoutPage {
   }
 
   async checkContinueShoppingLink(status: "present" | "not_present") {
-    const element = await this.page.locator(
-      "[data-testid=button-continue-to-shop]",
-    )
+    const element = this.page.locator("[data-testid=button-continue-to-shop]")
     await expect(element).toHaveCount(status === "not_present" ? 0 : 1)
   }
 
@@ -590,15 +602,24 @@ export class CheckoutPage {
   }
 
   async checkBadgeIndex(step: SingleStepEnum, value: string) {
-    const element = await this.page.locator(
+    const element = this.page.locator(
       `[data-testid=step-header-badge]:near(:text("${step}")) >> text=${value}`,
     )
     await expect(element).toHaveCount(1)
   }
 
   async setCoupon(code: string) {
-    await this.page.fill("[data-testid=input_giftcard_coupon]", code)
-    await this.page.click("[data-testid=submit_giftcard_coupon]")
+    // Type with real key events rather than fill(): the library's coupon input
+    // is controlled, and a single synthetic input event can leave its state
+    // empty while the DOM shows the code. Submit then silently no-ops.
+    // Select-all first so the first keystroke replaces any leftover text — a
+    // rejected coupon stays in the field, and pressSequentially appends.
+    const input = this.page.getByTestId("input_giftcard_coupon")
+    await input.click()
+    await input.press("ControlOrMeta+a")
+    await input.pressSequentially(code)
+    await expect(input).toHaveValue(code)
+    await this.page.getByTestId("submit_giftcard_coupon").click()
   }
 
   async checkCouponInput({ presence }: { presence: boolean }) {
@@ -657,7 +678,7 @@ export class CheckoutPage {
     if (text) {
       await expect(element).toContainText(text)
     } else {
-      expect(element).toBeHidden()
+      await expect(element).toBeHidden()
     }
   }
 
@@ -678,22 +699,21 @@ export class CheckoutPage {
   }
 
   async checkLineItemAmount(text?: string) {
-    const element = await this.page.getByTestId("line-item-amount")
-    if (text !== undefined) {
-      await element.waitFor({ state: "visible" })
-      await expect(await element.innerText()).toBe(text)
-    } else {
+    const element = this.page.getByTestId("line-item-amount")
+    if (text === undefined) {
       await expect(element).toHaveCount(0)
+      return
     }
+    await expect(element).toHaveText(text)
   }
 
   async checkDiscountAmount(text?: string) {
-    const element = await this.page.getByTestId("discount-amount")
-    if (text !== undefined) {
-      await element.waitFor({ state: "visible" })
-    } else {
+    const element = this.page.getByTestId("discount-amount")
+    if (text === undefined) {
       await expect(element).toHaveCount(0)
+      return
     }
+    await expect(element).toHaveText(text)
   }
 
   async checkGiftCardAmount(text?: string) {
@@ -749,7 +769,7 @@ export class CheckoutPage {
     type: SingleStepEnum
     status: "enabled" | "disabled" | "not_present"
   }) {
-    const element = await this.page.locator(
+    const element = this.page.locator(
       `[data-testid=save-${type.toLocaleLowerCase()}-button]`,
     )
     if (status === "not_present") {
@@ -787,6 +807,11 @@ export class CheckoutPage {
     type,
     gateway = "klarna_pay_now",
     language,
+    // The confirmation heading is localized off the order's `language_code`, so a test
+    // running a non-English order has to say what to wait for. Not derivable from
+    // `language` below: that names the locale of the *gateway* flow being driven, and
+    // the France tests pass "fr" while their order stays English.
+    confirmationText = "Thank you for your order!",
   }: {
     type: "adyen-dropin" | "klarna" | "stripe"
     gateway?:
@@ -799,6 +824,7 @@ export class CheckoutPage {
       | "klarna"
       | "givex"
     language?: "fr" | "de" | "us"
+    confirmationText?: string
   }) {
     switch (type) {
       case "klarna": {
@@ -884,28 +910,30 @@ export class CheckoutPage {
         }
 
         const button = klarnaIframe.getByRole("button", { name: "Continue" })
-        if (await button.isVisible()) {
-          button.click()
-        }
-
-        const pagePromise = await this.page
+        // Register the popup listener before the click that opens it: awaiting
+        // the click first lets the event fire with nothing listening for it.
+        const popupPromise = this.page
           .waitForEvent("popup", { timeout: 5000 })
-          .then((pagePromise) => {
-            return pagePromise
+          .catch((error) => {
+            console.log(`no popup ${error}`)
+            return undefined
           })
-          .catch((error) => console.log(`no popup ${error}`))
+        if (await button.isVisible()) {
+          await button.click()
+        }
+        const popup = await popupPromise
 
-        if (pagePromise !== undefined) {
-          await pagePromise.getByText("Demo Bank").click()
-          await pagePromise.getByLabel("Kontonummer").click()
-          await pagePromise.getByLabel("Kontonummer").fill("12345678")
-          await pagePromise.getByLabel("PIN").click()
-          await pagePromise.getByLabel("PIN").fill("1234")
-          await pagePromise.waitForTimeout(2000)
-          await pagePromise.getByRole("button", { name: "Weiter" }).click()
-          await pagePromise.getByLabel("TAN").click()
-          await pagePromise.getByLabel("TAN").fill("12345")
-          await pagePromise.getByRole("button", { name: "Weiter" }).click()
+        if (popup !== undefined) {
+          await popup.getByText("Demo Bank").click()
+          await popup.getByLabel("Kontonummer").click()
+          await popup.getByLabel("Kontonummer").fill("12345678")
+          await popup.getByLabel("PIN").click()
+          await popup.getByLabel("PIN").fill("1234")
+          await popup.waitForTimeout(2000)
+          await popup.getByRole("button", { name: "Weiter" }).click()
+          await popup.getByLabel("TAN").click()
+          await popup.getByLabel("TAN").fill("12345")
+          await popup.getByRole("button", { name: "Weiter" }).click()
         }
         break
       }
@@ -953,12 +981,12 @@ export class CheckoutPage {
           case "givex": {
             await this.page.getByRole("radio", { name: "Givex" }).click()
             await this.page
-              .locator('iframe[title="Iframe for card number"] >> nth=1')
+              .locator('iframe[title="Card number"] >> nth=1')
               .contentFrame()
               .getByRole("textbox", { name: "Card Number" })
               .fill("6036280000000000000")
             await this.page
-              .locator('iframe[title="Iframe for pin"]')
+              .locator('iframe[title="Pin"]')
               .contentFrame()
               .getByRole("textbox", { name: "Pin" })
               .fill("1234")
@@ -1052,8 +1080,25 @@ export class CheckoutPage {
             await continueWithOffer()
 
             const confirmAndPay = klarnaIframe.getByTestId("confirm-and-pay")
-            if (await confirmAndPay.isVisible()) {
-              await confirmAndPay.click()
+            const offersContinue = klarnaIframe.getByTestId(
+              /^offers-selector-.*continue-button$/,
+            )
+            for (let attempt = 0; attempt < 3; attempt++) {
+              if (!(await confirmAndPay.isVisible())) break
+              const confirmed = await confirmAndPay
+                .click({ timeout: 5000 })
+                .then(() => true)
+                .catch(() => false)
+              if (confirmed) break
+              for (const candidate of (await offersContinue.all()).reverse()) {
+                if (!(await candidate.isVisible())) continue
+                const advanced = await candidate
+                  .click({ timeout: 3000 })
+                  .then(() => true)
+                  .catch(() => false)
+                if (advanced) break
+              }
+              await this.page.waitForTimeout(2000)
             }
             // Klarna finishes the payment through a stack of dialogs: first
             // confirm the saved demo account, then log into the "Testbank"
@@ -1106,11 +1151,10 @@ export class CheckoutPage {
 
             const pagePromise = await this.page
               .waitForEvent("popup", { timeout: 5000 })
-              .then((pagePromise) => {
-                return pagePromise
+              .catch((error) => {
+                console.log(`no popup ${error}`)
+                return undefined
               })
-              .catch((error) => console.log(`no popup ${error}`))
-
             if (pagePromise !== undefined) {
               await pagePromise.getByText("Demo Bank").click()
               await pagePromise.getByLabel("Kontonummer").click()
@@ -1122,6 +1166,32 @@ export class CheckoutPage {
               await pagePromise.getByLabel("TAN").click()
               await pagePromise.getByLabel("TAN").fill("12345")
               await pagePromise.getByRole("button", { name: "Weiter" }).click()
+            }
+            // Klarna's newer pay-now flow keeps the bank login in its XS2A
+            // widget, a cross-origin iframe, and has no popup at all. The two
+            // fields are the widget's; the button that submits them is not — it
+            // belongs to the Klarna page around it.
+            const xs2a = this.page.frameLocator('iframe[src*="xs2a"]')
+            const bankUser = xs2a.getByLabel("Benutzername")
+            await bankUser
+              .waitFor({ state: "visible", timeout: 15000 })
+              .catch(() => undefined)
+            if (await bankUser.isVisible()) {
+              await bankUser.fill("user")
+              await xs2a.getByLabel("Passwort").fill("pass")
+              await klarnaIframe.getByRole("button", { name: "Weiter" }).click()
+              // The bank then asks for a one-time code, in the same widget and
+              // again with the button outside it.
+              const bankOtp = xs2a.getByLabel("OTP")
+              await bankOtp
+                .waitFor({ state: "visible", timeout: 20000 })
+                .catch(() => undefined)
+              if (await bankOtp.isVisible()) {
+                await bankOtp.fill("12345")
+                await klarnaIframe
+                  .getByRole("button", { name: "Weiter" })
+                  .click()
+              }
             }
             break
           }
@@ -1281,14 +1351,24 @@ export class CheckoutPage {
               //   .click()
               await klarnaIframe.getByTestId("confirm-and-pay").click()
 
+              // This step only appears when Klarna serves the German page, which it
+              // does when the order's language reaches Adyen as `shopperLocale` — see
+              // the `language_code` note in the German Klarna specs. `/IBAN/i` rather
+              // than the full German label because the acronym is untranslated, so it
+              // survives a locale change; the confirm button does not, and is left on
+              // the one label observed to work. The awaits matter independently of
+              // language: without them the fill raced the click and the submit could
+              // fire on an empty field.
               const iban = klarnaIframe.getByRole("textbox", {
-                name: "IBAN übermitteln",
+                name: /IBAN/i,
               })
 
               if (await iban.isVisible()) {
-                iban.click()
-                iban.fill("DE91100000000123456789")
-                klarnaIframe.getByRole("button", { name: "Bestätigen" }).click()
+                await iban.click()
+                await iban.fill("DE91100000000123456789")
+                await klarnaIframe
+                  .getByRole("button", { name: "Bestätigen" })
+                  .click()
               }
             }
             break
@@ -1346,7 +1426,7 @@ export class CheckoutPage {
         }
         await this.page
 
-          .locator("text=Thank you for your order!")
+          .locator(`text=${confirmationText}`)
           .waitFor({ state: "visible", timeout: 60000 })
       }
     }
@@ -1364,13 +1444,14 @@ export class CheckoutPage {
         switch (gateway) {
           case "givex": {
             await this.page.getByRole("radio", { name: "Givex" }).click()
+            await this.page.waitForTimeout(2000)
             await this.page
-              .locator('iframe[title="Iframe for card number"] >> nth=1')
+              .locator('iframe[title="Card number"] >> nth=1')
               .contentFrame()
               .getByRole("textbox", { name: "Card Number" })
               .fill("6036280000000000000")
             await this.page
-              .locator('iframe[title="Iframe for pin"]')
+              .locator('iframe[title="Pin"]')
               .contentFrame()
               .getByRole("textbox", { name: "Pin" })
               .fill("1234")
@@ -1438,19 +1519,23 @@ export class CheckoutPage {
       // (e.g. Link form expanding), so retry until the method is expanded.
       await expect(async () => {
         if ((await cardButton.getAttribute("aria-expanded")) === "true") return
-        const box = await cardButton.boundingBox()
+        // Playwright cannot scroll the outer page for an element inside a
+        // cross-origin iframe, so bring it into view by hand. It can sit either
+        // side of the fold — the payment tabs move as the accordion above them
+        // opens and closes — and one wheel is not always enough, since
+        // scrolling the page re-lays out what is above it.
         const viewport = this.page.viewportSize()
-        if (
-          box != null &&
-          viewport != null &&
-          box.y + box.height > viewport.height
-        ) {
-          // Element inside the cross-origin Stripe iframe is below the fold:
-          // Playwright can't scroll the outer page for it, so do it ourselves.
+        for (let attempt = 0; attempt < 5; attempt++) {
+          const box = await cardButton.boundingBox()
+          if (box == null || viewport == null) break
+          const below = box.y + box.height - viewport.height
+          const above = -box.y
+          if (below <= 0 && above <= 0) break
           await this.page.mouse.wheel(
             0,
-            box.y + box.height - viewport.height + 100,
+            below > 0 ? below + 100 : -(above + 100),
           )
+          await this.page.waitForTimeout(200)
         }
         await cardButton.click({ force: true })
         await expect(cardButton).toHaveAttribute("aria-expanded", "true", {
@@ -1561,6 +1646,15 @@ export class CheckoutPage {
         break
       }
       case "adyen": {
+        // If a previous partial payment (e.g. Givex redeem) left another
+        // gateway selected, Adyen's Drop-in has no active payment method
+        // until Cards is (re-)selected, so submit() throws "No active
+        // payment method" even though the card fields below get filled.
+        const cardsRadio = this.page.getByRole("radio", { name: /^Cards/ })
+        if (await cardsRadio.isVisible()) {
+          await cardsRadio.click()
+        }
+
         await this.page.waitForTimeout(3000)
 
         const cardFrame = this.page.frameLocator("iframe >> nth=0")

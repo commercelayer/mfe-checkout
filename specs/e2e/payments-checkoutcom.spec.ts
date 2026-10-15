@@ -2,9 +2,10 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("guest with checkout.com", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -38,7 +39,7 @@ test.describe("guest with checkout.com", () => {
     const element = checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
 
     await checkoutPage.save("Payment", undefined, true)
 
@@ -65,7 +66,7 @@ test.describe("guest with checkout.com", () => {
 })
 
 test.describe("guest with checkout.com and autocapture", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -94,7 +95,7 @@ test.describe("guest with checkout.com and autocapture", () => {
     const element = checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
 
     await checkoutPage.save("Payment", undefined, true)
 
@@ -121,7 +122,7 @@ test.describe("guest with checkout.com and autocapture", () => {
 })
 
 test.describe("guest with checkout.com declined payment and retry", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -157,7 +158,7 @@ test.describe("guest with checkout.com declined payment and retry", () => {
     })
 
     let element = checkoutPage.page.locator("[data-testid=payment-save-wallet]")
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
 
     await checkoutPage.save("Payment", undefined, true)
 
@@ -176,7 +177,7 @@ test.describe("guest with checkout.com declined payment and retry", () => {
     })
 
     element = checkoutPage.page.locator("[data-testid=payment-save-wallet]")
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
 
     await checkoutPage.save("Payment", undefined, true)
 
@@ -202,7 +203,7 @@ test.describe("guest with checkout.com declined payment and retry", () => {
   })
 })
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 const customerPassword = faker.internet.password()
 
 test.describe("customer with checkout.com without saving", () => {
@@ -242,8 +243,8 @@ test.describe("customer with checkout.com without saving", () => {
     const element = checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).toBeVisible()
-    expect(element).not.toBeChecked()
+    await expect(element).toBeVisible()
+    await expect(element).not.toBeChecked()
 
     await checkoutPage.save("Payment", undefined, true)
 
@@ -302,11 +303,11 @@ test.describe("customer with checkout.com with saving", () => {
     await checkoutPage.setPayment("checkout_com")
 
     let element = checkoutPage.page.locator("[data-testid=payment-save-wallet]")
-    expect(element).toBeVisible()
-    expect(element).not.toBeChecked()
+    await expect(element).toBeVisible()
+    await expect(element).not.toBeChecked()
     await element.check()
     element = checkoutPage.page.locator("[data-testid=payment-save-wallet]")
-    expect(element).toBeChecked()
+    await expect(element).toBeChecked()
 
     await checkoutPage.save("Payment", undefined, true)
 
@@ -347,7 +348,7 @@ test.describe("customer with checkout.com with saving", () => {
 })
 
 test.describe("guest with checkout.com as single payment method", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -379,7 +380,7 @@ test.describe("guest with checkout.com as single payment method", () => {
     const element = checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
 
     await checkoutPage.setPayment("checkout_com")
 
@@ -442,7 +443,9 @@ test.describe("guest with checkout.com as single payment method", () => {
     await checkoutPage.checkPaymentRecap("Visa ending in 4242")
   })
 
-  test("should execute a checkout with coupon discount", async ({ checkoutPage }) => {
+  test("should execute a checkout with coupon discount", async ({
+    checkoutPage,
+  }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
 
     await checkoutPage.checkTotalAmount("€99,00")

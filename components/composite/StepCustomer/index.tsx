@@ -1,3 +1,4 @@
+import { useAddressForm } from "@commercelayer/react-hooks-components"
 import type { Order } from "@commercelayer/sdk"
 import classNames from "classnames"
 import { AccordionContext } from "components/data/AccordionProvider"
@@ -81,13 +82,29 @@ export const StepCustomer: React.FC<Props> = () => {
     !appCtx?.hasSameAddresses,
   )
 
-  // Sync only when hasSameAddresses changes: depending on the whole appCtx
-  // would reset the user's toggle choice on every unrelated context update
-  const hasSameAddressesCtx = appCtx?.hasSameAddresses
+  // `shipToDifferentAddress` belongs to this step, but the library components
+  // that depend on it — the save button, the address cards, the country lock —
+  // are spread across sibling subtrees and used to read it from
+  // `<AddressesContainer>`. With the container gone the only components that
+  // could publish it are the two address forms, and Headless UI unmounts those
+  // whenever the customer picks from the address book. So this step publishes
+  // it itself, which is where it is owned anyway.
+  const { setFlags } = useAddressForm({
+    accessToken: appCtx?.accessToken ?? "",
+    orderId: appCtx?.orderId,
+  })
   useEffect(() => {
-    if (hasSameAddressesCtx === undefined) return
-    setShipToDifferentAddress(!hasSameAddressesCtx)
-  }, [hasSameAddressesCtx])
+    setFlags({ shipToDifferentAddress })
+  }, [shipToDifferentAddress, setFlags])
+
+  // depend on the boolean, not the context object: the provider value is a
+  // fresh object every render, so an object dependency would re-run this on
+  // any re-render and clobber the user's manual toggle
+  const ctxHasSameAddresses = appCtx?.hasSameAddresses
+  useEffect(() => {
+    if (ctxHasSameAddresses === undefined) return
+    setShipToDifferentAddress(!ctxHasSameAddresses)
+  }, [ctxHasSameAddresses])
 
   const [disabledShipToDifferentAddress, setDisabledShipToDifferentAddress] =
     useState(
@@ -114,6 +131,7 @@ export const StepCustomer: React.FC<Props> = () => {
     shippingCountryCodeLock,
     setAddresses,
     setCustomerEmail,
+    markStepEdited,
   } = appCtx
 
   const openShippingAddress = ({
@@ -152,7 +170,14 @@ export const StepCustomer: React.FC<Props> = () => {
       })}
     >
       <StepContent>
-        <>
+        {/* biome-ignore lint/a11y/noStaticElementInteractions: not an interactive
+            element — this only observes edits bubbling out of the form below */}
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: change/input events only */}
+        <div
+          onInput={markStepEdited}
+          onChange={markStepEdited}
+          data-testid="step-customer-edits"
+        >
           {accordionCtx.isActive && (
             <>
               {isGuest ? (
@@ -195,7 +220,7 @@ export const StepCustomer: React.FC<Props> = () => {
               )}
             </>
           )}
-        </>
+        </div>
       </StepContent>
     </StepContainer>
   )
@@ -211,7 +236,7 @@ export function evaluateShippingToggle({
   shippingCountryCodeLock,
 }: EvaluateConditionsProps): ShippingToggleProps {
   if (
-    !!shippingCountryCodeLock &&
+    shippingCountryCodeLock &&
     countryCode &&
     countryCode !== shippingCountryCodeLock
   ) {

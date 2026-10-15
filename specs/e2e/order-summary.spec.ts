@@ -2,9 +2,10 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("with return to cart", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   const cartUrl = "https://www.google.com"
   test.use({
@@ -38,7 +39,7 @@ test.describe("with return to cart", () => {
 })
 
 test.describe("with return to cart and slug as parameter", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   const cartUrl = "https://:slug.commercelayer.io"
   test.use({
@@ -68,7 +69,7 @@ test.describe("with return to cart and slug as parameter", () => {
 })
 
 test.describe("without return to cart", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -94,7 +95,7 @@ test.describe("without return to cart", () => {
 })
 
 test.describe("quantity and unit price", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -141,7 +142,7 @@ test.describe("quantity and unit price", () => {
 })
 
 test.describe("sku options", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const company = faker.company.name()
   const firstName = faker.person.firstName()
   const lastName = faker.person.lastName()
@@ -200,7 +201,7 @@ test.describe("sku options", () => {
 })
 
 test.describe("sku options with price", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const firstName = faker.person.firstName()
   const lastName = faker.person.lastName()
   const letters = `${firstName[0]}${lastName[0]}`
@@ -263,7 +264,7 @@ test.describe("buying gift card", () => {
 })
 
 test.describe("using gift card", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const phone = faker.phone.number()
   const returnUrl = "https://www.google.com"
 
@@ -310,7 +311,7 @@ test.describe("using gift card", () => {
 })
 
 test.describe("with tax included", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   const cartUrl = "https://www.google.com"
   test.use({
@@ -345,7 +346,7 @@ test.describe("with tax included", () => {
 })
 
 test.describe("with tax not included", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   const cartUrl = "https://www.google.com"
   test.use({
@@ -400,7 +401,7 @@ test.describe("with tax not included", () => {
 })
 
 test.describe("with digital product", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -442,7 +443,7 @@ test.describe("with digital product", () => {
 })
 
 test.describe("count with only free items", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -464,7 +465,7 @@ test.describe("count with only free items", () => {
 })
 
 test.describe("count with mixed items", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {

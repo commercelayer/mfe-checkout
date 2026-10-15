@@ -2,8 +2,9 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 const customerPassword = faker.internet.password()
 
 test.describe("customer with Stripe without saving", () => {
@@ -90,14 +91,18 @@ test.describe("customer with Stripe with saving", () => {
 
     await checkoutPage.checkPaymentSummary("€10,00")
 
-    let element = await checkoutPage.page.waitForSelector("[data-testid=payment-save-wallet]")
+    let element = await checkoutPage.page.waitForSelector(
+      "[data-testid=payment-save-wallet]",
+    )
     expect(await element.isVisible()).toBeTruthy()
     expect(await element.isChecked()).toBeFalsy()
     await checkoutPage.page.mouse.wheel(0, 300)
     await checkoutPage.page.waitForTimeout(2000)
     await element.check({ force: true })
 
-    element = await checkoutPage.page.waitForSelector("[data-testid=payment-save-wallet]")
+    element = await checkoutPage.page.waitForSelector(
+      "[data-testid=payment-save-wallet]",
+    )
     expect(await element.isChecked()).toBeTruthy()
 
     await checkoutPage.save("Payment")
@@ -155,7 +160,7 @@ test.describe("customer with Stripe with saving", () => {
 })
 
 test.describe("guest with Stripe", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
