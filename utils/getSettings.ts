@@ -1,18 +1,21 @@
 import { jwtDecode, jwtIsSalesChannel } from "@commercelayer/js-auth"
 import { getMfeConfig } from "@commercelayer/organization-config"
-import CommerceLayer, {
-  type CommerceLayerClient,
+import {
   CommerceLayerStatic,
   type Order,
   type Organization,
 } from "@commercelayer/sdk"
+import {
+  CommerceLayer,
+  type CommerceLayerBundle,
+} from "@commercelayer/sdk/bundle"
 import retry from "async-retry"
-
 import type { TypeAccepted } from "components/data/AppProvider/utils"
 import {
   LINE_ITEMS_SHIPPABLE,
   LINE_ITEMS_SHOPPABLE,
 } from "components/utils/constants"
+import { apiVersion } from "utils/apiVersion"
 
 const RETRIES = 2
 
@@ -64,7 +67,7 @@ async function retryCall<T>(
 }
 
 function getOrganization(
-  cl: CommerceLayerClient,
+  cl: CommerceLayerBundle,
 ): Promise<FetchResource<Organization> | undefined> {
   return retryCall<Organization>(() =>
     cl.organization.retrieve({
@@ -87,7 +90,7 @@ function getOrganization(
 }
 
 function getOrder(
-  cl: CommerceLayerClient,
+  cl: CommerceLayerBundle,
   orderId: string,
 ): Promise<FetchResource<Order> | undefined> {
   return retryCall<Order>(() =>
@@ -189,6 +192,7 @@ export const getSettings = async ({
     organization: slug,
     accessToken,
     domain,
+    apiVersion,
   })
 
   const [organizationResource, orderResource] = await Promise.all([

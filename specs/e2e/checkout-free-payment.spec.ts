@@ -26,7 +26,9 @@ test.describe("with shippable sku", () => {
 
     await checkoutPage.checkShippingSummary("To be calculated")
 
-    expect(checkoutPage.page.locator("text=Standard Shipping")).toBeVisible()
+    await expect(
+      checkoutPage.page.locator("text=Standard Shipping"),
+    ).toBeVisible()
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.checkShippingSummary("FREE")
@@ -38,7 +40,7 @@ test.describe("with shippable sku", () => {
       "[data-testid=step-header-info] >> text=This order does not require payment",
     )
 
-    expect(element).toBeVisible()
+    await expect(element).toBeVisible()
 
     await checkoutPage.save("Payment")
 
@@ -115,7 +117,7 @@ test.describe("with shippable sku single free shipping method", () => {
       "[data-testid=step-header-info] >> text=This order does not require payment",
     )
 
-    expect(element).toBeVisible()
+    await expect(element).toBeVisible()
 
     await checkoutPage.save("Payment")
 
@@ -195,10 +197,10 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.checkShippingSummary("To be calculated")
     await checkoutPage.checkTaxSummary("To be calculated")
 
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Express Delivery >> nth=0"),
     ).toBeVisible()
 
@@ -231,10 +233,10 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.checkShippingSummary("To be calculated")
     await checkoutPage.checkTaxSummary("To be calculated")
 
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Express Delivery >> nth=0"),
     ).toBeVisible()
 
@@ -253,7 +255,7 @@ test.describe("with giftcard down to zero", () => {
       "[data-testid=step-header-info] >> text=This order does not require payment",
     )
 
-    expect(element).toBeVisible()
+    await expect(element).toBeVisible()
 
     await checkoutPage.save("Payment")
 
@@ -277,10 +279,10 @@ test.describe("with giftcard down to zero", () => {
     await checkoutPage.checkShippingSummary("To be calculated")
     await checkoutPage.checkTaxSummary("To be calculated")
 
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Express Delivery >> nth=0"),
     ).toBeVisible()
 
@@ -299,7 +301,7 @@ test.describe("with giftcard down to zero", () => {
       "[data-testid=step-header-info] >> text=This order does not require payment",
     )
 
-    expect(element).toBeVisible()
+    await expect(element).toBeVisible()
 
     await checkoutPage.removeGiftCard()
 
@@ -307,7 +309,7 @@ test.describe("with giftcard down to zero", () => {
       "[data-testid=step-header-info] >> text=This order does not require payment",
     )
 
-    expect(element).toHaveCount(0)
+    await expect(element).toHaveCount(0)
 
     await checkoutPage.selectPayment("stripe")
 
@@ -351,10 +353,10 @@ test.describe("with coupon down to zero", () => {
     await checkoutPage.checkShippingSummary("To be calculated")
     await checkoutPage.checkTaxSummary("To be calculated")
 
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Standard Shipping >> nth=0"),
     ).toBeVisible()
-    expect(
+    await expect(
       checkoutPage.page.locator("text=Express Delivery >> nth=0"),
     ).toBeVisible()
 

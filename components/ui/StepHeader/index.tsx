@@ -1,3 +1,4 @@
+import type { JSX } from "react"
 import { Badge } from "../Badge"
 
 interface Props {

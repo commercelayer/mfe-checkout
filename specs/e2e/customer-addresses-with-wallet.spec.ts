@@ -7,10 +7,11 @@ import {
   euAddress3,
   usAddress,
 } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("address on wallet", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -151,7 +152,7 @@ test.describe("address on wallet", () => {
 
 test.describe("address on wallet and payment with checkout.com", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -188,7 +189,14 @@ test.describe("address on wallet and payment with checkout.com", () => {
     const element = checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).not.toBeVisible()
+    // A signed-in customer entering a new card is offered to keep it: the app
+    // renders this checkbox for every non-guest order that has no subscription in
+    // it (`StepPayment/index.tsx`, `CheckoutCustomerPayment`). The assertion here
+    // used to say the opposite and never failed, because it was written without
+    // `await` — a web-first assertion left unawaited polls on its own for ten
+    // seconds while the test walks on, and its rejection lands after the test has
+    // finished, where nothing reads it.
+    await expect(element).toBeVisible()
 
     await checkoutPage.save("Payment", undefined, true)
 
@@ -217,7 +225,7 @@ test.describe("address on wallet and payment with checkout.com", () => {
 
 test.describe("address on wallet and payment with adyen and klarna", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -271,7 +279,7 @@ test.describe("address on wallet and payment with adyen and klarna", () => {
 
 test.describe("address on wallet and payment with adyen and credit card", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -324,7 +332,7 @@ test.describe("address on wallet and payment with adyen and credit card", () => 
 
 test.describe("address on wallet and payment with affirm", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -369,6 +377,27 @@ test.describe("address on wallet and payment with affirm", () => {
 
     await checkoutPage.checkPaymentRecap("Affirm ending in ****", 10000)
   })
+})
+
+test.describe("address on wallet with US market", () => {
+  const customerEmail = uniqueCustomerEmail()
+  const customerPassword = faker.internet.password()
+
+  test.use({
+    defaultParams: {
+      incognito: true,
+      market: "US",
+      order: "with-items",
+      customer: {
+        email: customerEmail,
+        password: customerPassword,
+      },
+      lineItemsAttributes: [
+        { sku_code: "CANVASAU000000FFFFFF1824", quantity: 1 },
+      ],
+      customerAddresses: [usAddress],
+    },
+  })
 
   test("use address on wallet", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
@@ -381,7 +410,7 @@ test.describe("address on wallet and payment with affirm", () => {
 
 test.describe("with digital product and shipping country code lock", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -420,7 +449,7 @@ test.describe("with digital product and shipping country code lock", () => {
 
 test.describe("addresses on wallet", () => {
   test.describe.configure({ mode: "serial" })
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -478,7 +507,7 @@ test.describe("addresses on wallet", () => {
 })
 
 test.describe("two address on wallet", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -589,7 +618,7 @@ test.describe("two address on wallet", () => {
 // Separate customer: the fixture adds customerAddresses on every test, so
 // sharing the customer with the test above would leave 4 addresses on wallet
 test.describe("two address on wallet with shipping address", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -680,7 +709,7 @@ test.describe("two address on wallet with shipping address", () => {
 })
 
 test.describe("two address on wallet and code lock", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -867,7 +896,7 @@ test.describe("two address on wallet and code lock", () => {
 })
 
 test.describe("one address on wallet", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({

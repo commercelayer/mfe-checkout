@@ -21,6 +21,11 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
   const paymentIntentClientSecret = searchParams.get(
     "payment_intent_client_secret",
   )
+  // Checkout.com stamps the session id on the URL it returns the shopper to after a
+  // 3DS challenge, the same way Adyen uses redirectResult and Stripe uses
+  // payment_intent_client_secret. Without it here, a return that arrived without an
+  // accessToken was treated as a plain visit and redirected to /404.
+  const checkoutComSessionId = searchParams.get("cko-session-id")
   const [settings, setSettings] = useState<
     CheckoutSettings | InvalidCheckoutSettings | undefined
   >(undefined)
@@ -31,8 +36,15 @@ export const useSettingsOrInvalid = (): UseSettingsOrInvalid => {
     accessToken as string,
   )
 
+  // `startsWith` rather than `===`: a gateway that appends its own marker with "?" onto
+  // a URL that already has a query string yields "?paymentReturn=true?cko-session-id=x",
+  // which parses as the single value "true?cko-session-id=x" and leaves cko-session-id
+  // unreadable. Both guards would otherwise fail at once and send the shopper to /404.
   const isPaymentReturn =
-    paymentReturn === "true" || !!redirectResult || !!paymentIntentClientSecret
+    paymentReturn?.startsWith("true") === true ||
+    !!redirectResult ||
+    !!paymentIntentClientSecret ||
+    !!checkoutComSessionId
 
   useEffect(() => {
     if (accessToken && accessToken !== savedAccessToken) {

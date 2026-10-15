@@ -6,6 +6,8 @@ settings:
 
 overrides:
   braces: '>=3.0.3'
+  postcss: 8.5.15
+  '@commercelayer/sdk': 8.0.3
 
 importers:
 
@@ -14,6 +16,9 @@ importers:
       '@adyen/adyen-web':
         specifier: 6.28.0
         version: 6.28.0
+      '@commercelayer/core-components':
+        specifier: 5.0.8
+        version: 5.0.8
       '@commercelayer/js-auth':
         specifier: ^7.4.2
         version: 7.4.2
@@ -21,17 +26,20 @@ importers:
         specifier: ^2.8.5
         version: 2.8.5
       '@commercelayer/react-components':
-        specifier: 4.29.7
-        version: 4.29.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 5.0.8
+        version: 5.0.8(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@commercelayer/react-hooks-components':
+        specifier: 5.0.8
+        version: 5.0.8(react@19.3.0)
       '@commercelayer/sdk':
-        specifier: ^6.58.0
-        version: 6.58.0
+        specifier: 8.0.3
+        version: 8.0.3
       '@faker-js/faker':
         specifier: ^10.6.0
         version: 10.6.0
       '@headlessui/react':
         specifier: ^2.2.10
-        version: 2.2.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.2.10(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@newrelic/browser-agent':
         specifier: ^1.323.0
         version: 1.323.0
@@ -47,9 +55,6 @@ importers:
       '@types/node':
         specifier: ^24.19.1
         version: 24.19.1
-      '@types/react':
-        specifier: ^18.3.31
-        version: 18.3.31
       '@types/react-gtm-module':
         specifier: ^2.0.4
         version: 2.0.4
@@ -73,28 +78,28 @@ importers:
         version: 26.4.2(typescript@5.9.3)
       next:
         specifier: ^16.4.0
-        version: 16.4.0(@playwright/test@1.63.0)(@types/node@24.19.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 16.4.0(@playwright/test@1.63.0)(@types/node@24.19.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       next-build-id:
         specifier: ^3.0.0
         version: 3.0.0
       next-i18next:
         specifier: ^16.3.1
-        version: 16.3.1(@types/react@18.3.31)(i18next@26.4.2(typescript@5.9.3))(next@16.4.0(@playwright/test@1.63.0)(@types/node@24.19.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@16.6.6(i18next@26.4.2(typescript@5.9.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))(react@18.3.1)
+        version: 16.3.1(@types/react@19.3.0)(i18next@26.4.2(typescript@5.9.3))(next@16.4.0(@playwright/test@1.63.0)(@types/node@24.19.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-i18next@16.6.6(i18next@26.4.2(typescript@5.9.3))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3))(react@19.3.0)
       react:
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^19.2.7
+        version: 19.3.0
       react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.2.7
+        version: 19.3.0(react@19.3.0)
       react-gtm-module:
         specifier: ^2.0.11
         version: 2.0.11
       react-i18next:
         specifier: ^16.6.6
-        version: 16.6.6(i18next@26.4.2(typescript@5.9.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+        version: 16.6.6(i18next@26.4.2(typescript@5.9.3))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3)
       react-router:
         specifier: ^7.18.4
-        version: 7.18.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 7.18.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       tailwindcss:
         specifier: ^4.3.3
         version: 4.3.3
@@ -113,31 +118,40 @@ importers:
         version: 1.63.0
       '@semantic-release/changelog':
         specifier: ^7.0.0
-        version: 7.0.0(semantic-release@25.0.9(typescript@5.9.3))
+        version: 7.0.0(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))
       '@semantic-release/commit-analyzer':
         specifier: ^13.0.1
-        version: 13.0.1(semantic-release@25.0.9(typescript@5.9.3))
+        version: 13.0.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@semantic-release/git':
         specifier: ^10.0.1
-        version: 10.0.1(semantic-release@25.0.9(typescript@5.9.3))
+        version: 10.0.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@semantic-release/github':
         specifier: ^12.0.10
-        version: 12.0.10(semantic-release@25.0.9(typescript@5.9.3))
+        version: 12.0.10(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@semantic-release/npm':
         specifier: ^13.2.0
-        version: 13.2.0(semantic-release@25.0.9(typescript@5.9.3))
+        version: 13.2.0(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))
       '@semantic-release/release-notes-generator':
         specifier: ^14.1.1
-        version: 14.1.1(semantic-release@25.0.9(typescript@5.9.3))
+        version: 14.1.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
+      '@types/react':
+        specifier: ^19.2.17
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.3.0(@types/react@19.3.0)
       baseline-browser-mapping:
         specifier: ^2.11.27
         version: 2.11.27
+      npm-check-updates:
+        specifier: ^19.6.6
+        version: 19.6.6
       semantic-release:
         specifier: ^25.0.9
-        version: 25.0.9(typescript@5.9.3)
+        version: 25.0.9(supports-color@7.2.0)(typescript@5.9.3)
       serve:
         specifier: ^14.2.6
-        version: 14.2.6
+        version: 14.2.6(supports-color@7.2.0)
 
 packages:
 
@@ -155,6 +169,9 @@ packages:
 
   '@adyen/adyen-web@6.28.0':
     resolution: {integrity: sha512-cCgsUGtRegBMl+8ZKfXt6/M/bnKd4WBfmtbLq74NJbrtOQMo7S+gWBrRGvvVV+VanM2UAmNo6XRHF6Tyhf52Fw==}
+
+  '@adyen/adyen-web@6.46.0':
+    resolution: {integrity: sha512-iIXcHre49uS4GxKaVw1NQQvlLAd56gei+lse0dP/hx+HwOKp4hJVDwD75zJgrOUlpwIVxj74iOA9+31e2Faquw==}
 
   '@alloc/quick-lru@5.3.0':
     resolution: {integrity: sha512-U4+70Pc5ZS9osnCBCE5Jha/ciHM+Yp+CNMNC/7HvYbNRk1Ldd+f7qO65W5qfhu/TCv+/ozljlXXe9Nj8419DMA==}
@@ -263,23 +280,34 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
+  '@commercelayer/core-components@5.0.8':
+    resolution: {integrity: sha512-2M2KYx7f+3y9kg8GtK3tIrCKnsR5bgKzb4dbx/3hBsrUzAoDoXNkxF7qfwIFoYEHI5FMi2gNsgg1UsQEDSfqnA==}
+
   '@commercelayer/js-auth@7.4.2':
     resolution: {integrity: sha512-ifRcoAL1R7o5AU5w4bgmSnNMEWXDc11A+yZwAAZMEkAYrrsaud1X/3xmgY1e0yIXK8AAdIiqfW/Rm/4DdWwAQA==}
+    engines: {node: '>=20.0.0'}
+
+  '@commercelayer/js-auth@8.0.2':
+    resolution: {integrity: sha512-xwQWXuYtW6PBehzJoeI8fgmSnE79xPR4yK/SrevZwBERG0xLaCDPsihw684Ri1m5PMbHH/k1AwqncXpyu45OiQ==}
     engines: {node: '>=20.0.0'}
 
   '@commercelayer/organization-config@2.8.5':
     resolution: {integrity: sha512-qGdC9JnxLdris2ux/HFRL+yl4uZlXGN0cdclZnU5OeLkCydqrZx/ld4zR4xqyhznq/QSfnXcTN6YOeXe7eIHFA==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@4.29.7':
-    resolution: {integrity: sha512-GWqEy8CFTbe09b+mEgxu988DvesfodgQ6U1o/Gy1OH6AIqkgdyBfhceISI78tIa81nNRAZS7VC/VFFpMnYY9FA==}
+  '@commercelayer/react-components@5.0.8':
+    resolution: {integrity: sha512-rOUqkEPB+4Z12cFzzocadmQESBWzrKhZLIT6LwnYNh/4hg8+BGIwQU3Qo0GYNTrYcqPIslrU7Pk2zkMOpm8fGQ==}
     peerDependencies:
-      react: '>=18.0.0'
+      react: '>=19.0.0'
 
-  '@commercelayer/sdk@6.58.0':
-    resolution: {integrity: sha512-AoTMeIXim3/JNbuffvMtE4XY0eGn7qVOxdTFpVvuQrz5LVSimJYEFL/VMzqMap4vukHsZdYq4p5X+ZzXXP/Jbg==}
+  '@commercelayer/react-hooks-components@5.0.8':
+    resolution: {integrity: sha512-TzSbkxk2JKziTiu+HJQ7Jg46EN46crfRt/NZRX3q2bZqjSQ6uE6U0Otj9BirRGYLctCVUj9mS+NbUpD661k6PA==}
+    peerDependencies:
+      react: '>=19.0.0'
+
+  '@commercelayer/sdk@8.0.3':
+    resolution: {integrity: sha512-vb8FbdaLswYuib5V/AUbQnvWgdBEKV/lEpccLFgHUPAInl/AxaB92WgcPZbwvm33Dv1e9HXq5rPOOBsSclwwzA==}
     engines: {node: '>=20'}
-    deprecated: SDK v6 is no longer supported, please upgrade to @commercelayer/sdk v8
 
   '@discoveryjs/json-ext@0.5.7':
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
@@ -641,6 +669,9 @@ packages:
   '@paypal/fastlane-sdk-loader@1.2.1':
     resolution: {integrity: sha512-+kiVVpXorfmJjFY7keJrkGAlaXnAjQ7THEU9pi1ULJkr8tTb20fi/1NJeImUtbbkfZ7Zbk2mkT07qicLsXY1nw==}
 
+  '@paypal/paypal-js@11.0.0':
+    resolution: {integrity: sha512-V1xjR8oTPRU55V11OzsUd2wXE9QUTqs8ybPcgtkp4rVN+XB05taMFzn5nfhsK+LlTCehs07IfHSdXJdjXXgXYQ==}
+
   '@playwright/test@1.63.0':
     resolution: {integrity: sha512-oxMK4vllB9RK5NQ2l1pq1IfOf2AvnEuj/vYGDj0H2nMtmtZpKtCwt/l00GEO6xjGfpBNAvjovvYdCm50dRQkpQ==}
     engines: {node: '>=20'}
@@ -737,15 +768,15 @@ packages:
     resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
     engines: {node: '>=18'}
 
-  '@stripe/react-stripe-js@5.6.1':
-    resolution: {integrity: sha512-5xBrjkGmFvKvpMod6VvpOaFaa67eRbmieKeFTePZyOr/sUXzm7A3YY91l330pS0usUst5PxTZDUZHWfOc0v1GA==}
+  '@stripe/react-stripe-js@6.12.0':
+    resolution: {integrity: sha512-5RVfx92MTb66+ELuQTreUqX2oFvma5wybZ7MaifoNo0QgrjbJiLZcysGw5kIHU7p1TCd1Lx5JnasoqteSwlUsg==}
     peerDependencies:
-      '@stripe/stripe-js': '>=8.0.0 <9.0.0'
+      '@stripe/stripe-js': '>=9.16.0 <10.0.0'
       react: '>=16.8.0 <20.0.0'
       react-dom: '>=16.8.0 <20.0.0'
 
-  '@stripe/stripe-js@8.11.0':
-    resolution: {integrity: sha512-3fVF4z3efsgwgyj64nFK+6F4/vMw0mUXD2TBbOfftJtKVNx4JNv3CSfe1fY4DCtCk0JFp8/YPNcRkzgV0HJ8cg==}
+  '@stripe/stripe-js@9.17.0':
+    resolution: {integrity: sha512-uidL4OJum5kivsOAQnVfQmYLJ2zdgirtmT0zWgskASZ4TPXxpXQ0MNrzW4NsXB90uEqmPHpSEtciLFbF1QQvNA==}
     engines: {node: '>=12.16'}
 
   '@swc/helpers@0.5.23':
@@ -877,6 +908,9 @@ packages:
   '@types/css-font-loading-module@0.0.7':
     resolution: {integrity: sha512-nl09VhutdjINdWyXxHWN/w9zlNCfr60JUqJbd24YXUuCwgeL0TpFSdElCwb6cxfB6ybE19Gjj4g0jsgkXxKv1Q==}
 
+  '@types/googlepay@0.7.12':
+    resolution: {integrity: sha512-fZ6NfTyw3qd7v8Rmp0DCpwwG3cT0Rm2pbUkVakl6KcYexreOuYL3vC/ECCn2slpRZcJ492LgMZ9/V2Dd3Io/hg==}
+
   '@types/googlepay@0.7.8':
     resolution: {integrity: sha512-EHl7G7jIeit/Px/fi/Du/19SZDvqrRhy0DjJX40Vzs/97m3sro9mzVyAYNC0pfzpWGDY+zPjtTLEfhV+OYWUcQ==}
 
@@ -885,8 +919,8 @@ packages:
     peerDependencies:
       '@types/react': '*'
 
-  '@types/iframe-resizer@3.5.13':
-    resolution: {integrity: sha512-/Np2ntlOWd/NOHs23Mj7QlNEnZ6SL02AWWdYZLm4RQNukDdpqpagfMAdin5FvQDLngR8LWfh/qUnYxuDmR8BCg==}
+  '@types/iframe-resizer@4.0.0':
+    resolution: {integrity: sha512-RKrT4goNVtqZvf9WPkV0cUcphQWXzLVW1IE4yOIY21c1W+obJJbcHFD1lQu5ncNHm/6TeQSeedVf9bmkx2NaGQ==}
 
   '@types/node@24.19.1':
     resolution: {integrity: sha512-aS3/DG0oM05K0RIXXP+hKjinGG5IgSSVGzswZxW3O0sS3pH4/fycXundUC9XsszgKCk4gHXylTEK6hyFxVxnoQ==}
@@ -894,14 +928,16 @@ packages:
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
-  '@types/prop-types@15.7.15':
-    resolution: {integrity: sha512-F6bEyamV9jKGAFBEmlQnesRPGOQqS2+Uwi0Em15xenOxHaf2hv6L8YCVn3rPdPJOiJfPiCnLIRyvwVaqMY3MIw==}
+  '@types/react-dom@19.3.0':
+    resolution: {integrity: sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==}
+    peerDependencies:
+      '@types/react': ^19.3.0
 
   '@types/react-gtm-module@2.0.4':
     resolution: {integrity: sha512-5wPMWsUE5AI6O0B0K1/zbs0rFHBKu+7NWXQwDXhqvA12ooLD6W1AYiWZqR4UiOd7ixZDV1H5Ys301zEsqyIfNg==}
 
-  '@types/react@18.3.31':
-    resolution: {integrity: sha512-vfEqpXTvwT91yhmwdfouStN2hSKwTvyRs8qpLfADyrq/kxDw0hZM7Wk9Ug1FELj8hIby+S/+kQCSRFF32nv2Qw==}
+  '@types/react@19.3.0':
+    resolution: {integrity: sha512-N0rFCuH9YoxG9/m61l9MfpJKfmLOVU0em7ipIz6TRgSSkvReLB9vL85GB+yr8Bs5leqpvg96JSwF4ZS1s4viQg==}
 
   '@types/retry@0.12.5':
     resolution: {integrity: sha512-3xSjTp3v03X/lSQLkczaN9UIEwJMoMCA1+Nb5HfbJEQWogdeQIyVtTvxPXDQjZ5zws8rFQfVfRdz03ARihPJgw==}
@@ -1251,6 +1287,10 @@ packages:
     resolution: {integrity: sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==}
     engines: {node: '>=4.0.0'}
 
+  dequal@2.0.3:
+    resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
+    engines: {node: '>=6'}
+
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
@@ -1514,8 +1554,8 @@ packages:
       typescript:
         optional: true
 
-  iframe-resizer@4.4.5:
-    resolution: {integrity: sha512-U8bCywf/Gh07O69RXo6dXAzTtODQrxaHGHRI7Nt4ipXsuq6EMxVsOP/jjaP43YtXz/ibESS0uSVDN3sOGCzSmw==}
+  iframe-resizer@4.3.11:
+    resolution: {integrity: sha512-5QtnsmfH11GDsuC7Gxd/eNzojudX3346Gb0E+Ku8ln8AtfSq+cWCZtnhCrthrtE7f1CI2/kwHkZ9G4sFYzHP7A==}
     engines: {node: '>=0.8.0'}
 
   import-fresh@3.3.1:
@@ -1645,10 +1685,6 @@ packages:
 
   jsonfile@6.2.1:
     resolution: {integrity: sha512-zwOTdL3rFQ/lRdBnntKVOX6k5cKJwEc1HdilT71BWEu7J41gXIB2MRp+vxduPSwZJPWBxEzv4yH1wYLJGUHX4Q==}
-
-  jwt-decode@4.0.0:
-    resolution: {integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==}
-    engines: {node: '>=18'}
 
   lightningcss-android-arm64@1.32.0:
     resolution: {integrity: sha512-YK7/ClTt4kAK0vo6w3X+Pnm0D2cf2vPHbhOXdoNti1Ga0al1P4TBZhwjATvjNwLEBCnKvjJc2jQgHXH0NEwlAg==}
@@ -1924,6 +1960,11 @@ packages:
     resolution: {integrity: sha512-ARftfC5HdUNu9jJeL8pHj8debUIHA2b91FizCoMzY4lG6dDX13jdvTK0TBe24IBDRf2HvJSzzwEPvmbkQWHRSg==}
     engines: {node: '>=20'}
 
+  npm-check-updates@19.6.6:
+    resolution: {integrity: sha512-AvlRcnlUEyBEJfblUSjYMJwYKvCIWDRuCDa6x3hyUMTMkI3kslmFm0LDqwgzQfshfNh0Z3ouKiA4fLjRN7HejQ==}
+    engines: {node: '>=20.0.0', npm: '>=8.12.1'}
+    hasBin: true
+
   npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
     engines: {node: '>=8'}
@@ -2167,16 +2208,20 @@ packages:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
     engines: {node: '>=10.13.0'}
 
-  postcss@8.5.23:
-    resolution: {integrity: sha512-g50586zr4bZmwFiTlflMu8E0bDTb5I5gertgwAKmsdUlTQIhZtunzUlD1WSzwcVWPoAVpsrA6vlfCD7oXvRwgg==}
-    engines: {node: ^10 || ^12 || >=14}
-
-  postcss@8.5.28:
-    resolution: {integrity: sha512-RRuzqDtt5Y9h3quz5hWhK+TPnsmVs6WwSU6LkJMeY4HstUEDuYTG8UJSdawMRzmzAtV+KEoG8N3Qg2qLy5vM/A==}
+  postcss@8.5.15:
+    resolution: {integrity: sha512-FfR8sjd4em2T6fb3I2MwAJU7HWVMr9zba+enmQeeWFfCbm+UOC/0X4DS8XtpUTMwWMGbjKYP7xjfNekzyGmB3A==}
     engines: {node: ^10 || ^12 || >=14}
 
   preact@10.22.1:
     resolution: {integrity: sha512-jRYbDDgMpIb5LHq3hkI0bbl+l/TQ9UnkdQ0ww+lp+4MMOdqaUYdFc5qeyP+IV8FAd/2Em7drVPeKdQxsiWCf/A==}
+
+  preact@10.29.8:
+    resolution: {integrity: sha512-ej2aVZ+vZ8WO7tvlQWRM9N63A0KzF9q4mWJfDUHgYaIofWY9hu74QdnQrjoPMmZi2/nZ5gN0bJCQF49xQqx09Q==}
+    peerDependencies:
+      preact-render-to-string: '>=5'
+    peerDependenciesMeta:
+      preact-render-to-string:
+        optional: true
 
   pretty-ms@9.3.1:
     resolution: {integrity: sha512-HzMy3Geq23nVALD/M2LliU+F+M+gVNsvkQWWqeBZ8HDiCgzo6YPJ/Omrmtq24EFrIsk0a3EkQGEd7bDOo+IhGA==}
@@ -2187,6 +2232,9 @@ packages:
 
   promise-polyfill@8.2.3:
     resolution: {integrity: sha512-Og0+jCRQetV84U8wVjMNccfGCnMQ9mGs9Hv78QFe+pSDD3gWTpz0y+1QCuxy5d/vBFuZ3iwP2eycAkvqIMPmWg==}
+
+  promise-polyfill@8.3.0:
+    resolution: {integrity: sha512-H5oELycFml5yto/atYqmjyigJoAo3+OXwolYiH7OfQuYlAqhxNvTfiNMbV9hsC6Yp83yE5r2KTVmtrG6R9i6Pg==}
 
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -2212,8 +2260,11 @@ packages:
     resolution: {integrity: sha512-kA5WQoNVo4t9lNx2kQNFCxKeBl5IbbSNBl1M/tLkw9WCn+hxNBAW5Qh8gdhs63CJnhjJ2zQWFoqPJP2sK1AV5A==}
     engines: {node: '>= 0.6'}
 
-  rapid-form@2.1.0:
-    resolution: {integrity: sha512-tZwrgbQLUDK8AFgVsw2DVd8eCqxuujblrc4QPyML/3qneR1/RzaDx5HB29zdAgp8TS4OC17DlD8fiQNiJx+6Tg==}
+  rapid-form@5.0.0:
+    resolution: {integrity: sha512-jb6wXx4yXCgh7pPbewbxogbYzJbi6mjR7Yu+yOIRtwcDIiPtmv3lL1Qj5iYJtBjrdQAac1/HFWRiRsaeNFlqVA==}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
 
   rc@1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
@@ -2225,10 +2276,10 @@ packages:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
       react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
 
-  react-dom@18.3.1:
-    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
+  react-dom@19.3.0:
+    resolution: {integrity: sha512-JDk8dgif51OjFoDE70+OT9ICyYr+69HlmihNwp1+Nsfbna3t5sIiCa9ZJktDmQ4/1b/rn26hIAR2uYXDMr5r0Q==}
     peerDependencies:
-      react: ^18.3.1
+      react: ^19.3.0
 
   react-gtm-module@2.0.11:
     resolution: {integrity: sha512-8gyj4TTxeP7eEyc2QKawEuQoAZdjKvMY4pgWfycGmqGByhs17fR+zEBs0JUDq4US/l+vbTl+6zvUIx27iDo/Vw==}
@@ -2267,8 +2318,8 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
 
-  react@18.3.1:
-    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
+  react@19.3.0:
+    resolution: {integrity: sha512-E8LUcbtBWt20bbl2YoHfx4ZDBdxVTfOKtCZn9cDSJ4l6/nuoApcpIBcj47t2wZoVX8g2ZHuMHbiShgCR1T5Sog==}
     engines: {node: '>=0.10.0'}
 
   read-package-up@11.0.0:
@@ -2333,8 +2384,8 @@ packages:
   safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
 
-  scheduler@0.23.2:
-    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
+  scheduler@0.28.0:
+    resolution: {integrity: sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==}
 
   semantic-release@25.0.9:
     resolution: {integrity: sha512-bxve7csK0/Txr++CkfrmV+X1r4jqiSOw2WsSad9E2S68R+ZfLBwDn8IceM8WfiOmKQIHgsQc1cNA8Dzg7U75pg==}
@@ -2504,6 +2555,11 @@ packages:
   supports-hyperlinks@3.2.0:
     resolution: {integrity: sha512-zFObLMyZeEwzAoKCyu1B91U79K2t7ApXuQfo8OuxwXLDgcKxuwM+YvcbIhm6QWqz7mHUH1TVytR1PwVVjEuMig==}
     engines: {node: '>=14.18'}
+
+  swr@2.5.1:
+    resolution: {integrity: sha512-BRw55e8r0B7SpDN20CAzoQAHl7y1yP7/Zt7oqUjMv0vSt2u2Xnkm88Ws+VypbV9BXHQVuSuyVq7zMjO16wSExw==}
+    peerDependencies:
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   tabbable@6.5.0:
     resolution: {integrity: sha512-wieBHXygIm7OyQOu5hQlkk62/WyCFYGlWg7L6/ZCUZwx0o398Zkn4pVmMyfYhfMG8kGrj/Krt8eIk6UKC6VzwA==}
@@ -2780,6 +2836,16 @@ snapshots:
       classnames: 2.5.1
       preact: 10.22.1
 
+  '@adyen/adyen-web@6.46.0':
+    dependencies:
+      '@paypal/paypal-js': 11.0.0
+      '@types/applepayjs': 14.0.9
+      '@types/googlepay': 0.7.12
+      classnames: 2.5.1
+      preact: 10.29.8
+    transitivePeerDependencies:
+      - preact-render-to-string
+
   '@alloc/quick-lru@5.3.0': {}
 
   '@babel/code-frame@7.29.7':
@@ -2852,33 +2918,47 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
+  '@commercelayer/core-components@5.0.8':
+    dependencies:
+      '@commercelayer/js-auth': 8.0.2
+      '@commercelayer/sdk': 8.0.3
+
   '@commercelayer/js-auth@7.4.2': {}
+
+  '@commercelayer/js-auth@8.0.2': {}
 
   '@commercelayer/organization-config@2.8.5':
     dependencies:
       '@commercelayer/js-auth': 7.4.2
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@4.29.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@commercelayer/react-components@5.0.8(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
-      '@adyen/adyen-web': 6.28.0
+      '@adyen/adyen-web': 6.46.0
+      '@commercelayer/core-components': 5.0.8
       '@commercelayer/organization-config': 2.8.5
-      '@commercelayer/sdk': 6.58.0
-      '@stripe/react-stripe-js': 5.6.1(@stripe/stripe-js@8.11.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@stripe/stripe-js': 8.11.0
-      '@tanstack/react-table': 8.21.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/iframe-resizer': 3.5.13
+      '@commercelayer/react-hooks-components': 5.0.8(react@19.3.0)
+      '@commercelayer/sdk': 8.0.3
+      '@stripe/react-stripe-js': 6.12.0(@stripe/stripe-js@9.17.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@stripe/stripe-js': 9.17.0
+      '@tanstack/react-table': 8.21.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@types/iframe-resizer': 4.0.0
       braintree-web: 3.146.0
-      frames-react: 1.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      iframe-resizer: 4.4.5
-      jwt-decode: 4.0.0
-      lodash: 4.18.1
-      rapid-form: 2.1.0
-      react: 18.3.1
+      frames-react: 1.2.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      iframe-resizer: 4.3.11
+      rapid-form: 5.0.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      react: 19.3.0
     transitivePeerDependencies:
+      - preact-render-to-string
       - react-dom
 
-  '@commercelayer/sdk@6.58.0': {}
+  '@commercelayer/react-hooks-components@5.0.8(react@19.3.0)':
+    dependencies:
+      '@commercelayer/core-components': 5.0.8
+      react: 19.3.0
+      swr: 2.5.1(react@19.3.0)
+
+  '@commercelayer/sdk@8.0.3': {}
 
   '@discoveryjs/json-ext@0.5.7': {}
 
@@ -2898,31 +2978,31 @@ snapshots:
       '@floating-ui/core': 1.8.0
       '@floating-ui/utils': 0.2.12
 
-  '@floating-ui/react-dom@2.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@floating-ui/react-dom@2.1.9(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@floating-ui/dom': 1.8.0
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
 
-  '@floating-ui/react@0.26.28(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@floating-ui/react@0.26.28(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
-      '@floating-ui/react-dom': 2.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@floating-ui/react-dom': 2.1.9(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@floating-ui/utils': 0.2.12
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
       tabbable: 6.5.0
 
   '@floating-ui/utils@0.2.12': {}
 
-  '@headlessui/react@2.2.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@headlessui/react@2.2.10(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
-      '@floating-ui/react': 0.26.28(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@react-aria/focus': 3.22.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@react-aria/interactions': 3.28.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tanstack/react-virtual': 3.14.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      use-sync-external-store: 1.7.0(react@18.3.1)
+      '@floating-ui/react': 0.26.28(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@react-aria/focus': 3.22.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@react-aria/interactions': 3.28.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@tanstack/react-virtual': 3.14.13(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
+      use-sync-external-store: 1.7.0(react@19.3.0)
 
   '@img/colour@1.1.0':
     optional: true
@@ -3074,7 +3154,7 @@ snapshots:
 
   '@newrelic/rrweb-snapshot@1.1.2':
     dependencies:
-      postcss: 8.5.28
+      postcss: 8.5.15
 
   '@newrelic/rrweb-types@1.1.2': {}
 
@@ -3196,6 +3276,10 @@ snapshots:
       envify: 4.1.0
       typescript: 4.9.5
 
+  '@paypal/paypal-js@11.0.0':
+    dependencies:
+      promise-polyfill: 8.3.0
+
   '@playwright/test@1.63.0':
     dependencies:
       playwright: 1.63.0
@@ -3214,45 +3298,45 @@ snapshots:
 
   '@polka/url@1.0.0-next.29': {}
 
-  '@react-aria/focus@3.22.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@react-aria/focus@3.22.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@swc/helpers': 0.5.23
-      react: 18.3.1
-      react-aria: 3.52.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.3.0
+      react-aria: 3.52.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      react-dom: 19.3.0(react@19.3.0)
 
-  '@react-aria/interactions@3.28.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@react-aria/interactions@3.28.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
-      '@react-types/shared': 3.36.1(react@18.3.1)
+      '@react-types/shared': 3.36.1(react@19.3.0)
       '@swc/helpers': 0.5.23
-      react: 18.3.1
-      react-aria: 3.52.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.3.0
+      react-aria: 3.52.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      react-dom: 19.3.0(react@19.3.0)
 
-  '@react-types/shared@3.36.1(react@18.3.1)':
+  '@react-types/shared@3.36.1(react@19.3.0)':
     dependencies:
-      react: 18.3.1
+      react: 19.3.0
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@semantic-release/changelog@7.0.0(semantic-release@25.0.9(typescript@5.9.3))':
+  '@semantic-release/changelog@7.0.0(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))':
     dependencies:
       '@semantic-release/error': 4.0.0
       aggregate-error: 5.0.0
       lodash-es: 4.18.1
-      semantic-release: 25.0.9(typescript@5.9.3)
+      semantic-release: 25.0.9(supports-color@7.2.0)(typescript@5.9.3)
 
-  '@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.9(typescript@5.9.3))':
+  '@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)':
     dependencies:
       conventional-changelog-angular: 8.3.1
       conventional-changelog-writer: 8.4.0
       conventional-commits-filter: 5.0.0
       conventional-commits-parser: 6.4.0
-      debug: 4.4.3
-      import-from-esm: 2.0.0
+      debug: 4.4.3(supports-color@7.2.0)
+      import-from-esm: 2.0.0(supports-color@7.2.0)
       lodash-es: 4.18.1
       micromatch: 4.0.8
-      semantic-release: 25.0.9(typescript@5.9.3)
+      semantic-release: 25.0.9(supports-color@7.2.0)(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -3260,21 +3344,21 @@ snapshots:
 
   '@semantic-release/error@4.0.0': {}
 
-  '@semantic-release/git@10.0.1(semantic-release@25.0.9(typescript@5.9.3))':
+  '@semantic-release/git@10.0.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)':
     dependencies:
       '@semantic-release/error': 3.0.0
       aggregate-error: 3.1.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
       dir-glob: 3.0.1
       execa: 5.1.1
       lodash: 4.18.1
       micromatch: 4.0.8
       p-reduce: 2.1.0
-      semantic-release: 25.0.9(typescript@5.9.3)
+      semantic-release: 25.0.9(supports-color@7.2.0)(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
 
-  '@semantic-release/github@12.0.10(semantic-release@25.0.9(typescript@5.9.3))':
+  '@semantic-release/github@12.0.10(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)':
     dependencies:
       '@octokit/core': 7.0.8
       '@octokit/plugin-paginate-rest': 15.0.0(@octokit/core@7.0.8)
@@ -3282,15 +3366,15 @@ snapshots:
       '@octokit/plugin-throttling': 11.0.5(@octokit/core@7.0.8)
       '@semantic-release/error': 4.0.0
       aggregate-error: 5.0.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
       dir-glob: 3.0.1
-      http-proxy-agent: 9.1.0
-      https-proxy-agent: 9.1.0
+      http-proxy-agent: 9.1.0(supports-color@7.2.0)
+      https-proxy-agent: 9.1.0(supports-color@7.2.0)
       issue-parser: 7.0.2
       lodash-es: 4.18.1
       mime: 4.1.0
       p-filter: 4.1.0
-      semantic-release: 25.0.9(typescript@5.9.3)
+      semantic-release: 25.0.9(supports-color@7.2.0)(typescript@5.9.3)
       tinyglobby: 0.2.17
       undici: 7.29.1
       url-join: 5.0.0
@@ -3298,7 +3382,7 @@ snapshots:
       - kerberos
       - supports-color
 
-  '@semantic-release/npm@13.2.0(semantic-release@25.0.9(typescript@5.9.3))':
+  '@semantic-release/npm@13.2.0(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))':
     dependencies:
       '@actions/core': 3.0.1
       '@semantic-release/error': 4.0.0
@@ -3313,21 +3397,21 @@ snapshots:
       rc: 1.2.8
       read-pkg: 10.1.0
       registry-auth-token: 5.1.1
-      semantic-release: 25.0.9(typescript@5.9.3)
+      semantic-release: 25.0.9(supports-color@7.2.0)(typescript@5.9.3)
       semver: 7.8.5
       tempy: 3.2.0
 
-  '@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.9(typescript@5.9.3))':
+  '@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)':
     dependencies:
       conventional-changelog-angular: 8.3.1
       conventional-changelog-writer: 8.4.0
       conventional-commits-filter: 5.0.0
       conventional-commits-parser: 6.4.0
-      debug: 4.4.3
-      import-from-esm: 2.0.0
+      debug: 4.4.3(supports-color@7.2.0)
+      import-from-esm: 2.0.0(supports-color@7.2.0)
       lodash-es: 4.18.1
       read-package-up: 11.0.0
-      semantic-release: 25.0.9(typescript@5.9.3)
+      semantic-release: 25.0.9(supports-color@7.2.0)(typescript@5.9.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -3337,14 +3421,14 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
-  '@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@8.11.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@stripe/react-stripe-js@6.12.0(@stripe/stripe-js@9.17.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
-      '@stripe/stripe-js': 8.11.0
+      '@stripe/stripe-js': 9.17.0
       prop-types: 15.8.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
 
-  '@stripe/stripe-js@8.11.0': {}
+  '@stripe/stripe-js@9.17.0': {}
 
   '@swc/helpers@0.5.23':
     dependencies:
@@ -3421,20 +3505,20 @@ snapshots:
       '@alloc/quick-lru': 5.3.0
       '@tailwindcss/node': 4.3.3
       '@tailwindcss/oxide': 4.3.3
-      postcss: 8.5.28
+      postcss: 8.5.15
       tailwindcss: 4.3.3
 
-  '@tanstack/react-table@8.21.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@tanstack/react-table@8.21.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@tanstack/table-core': 8.21.3
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
 
-  '@tanstack/react-virtual@3.14.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@tanstack/react-virtual@3.14.13(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@tanstack/virtual-core': 3.17.11
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
 
   '@tanstack/table-core@8.21.3': {}
 
@@ -3448,14 +3532,16 @@ snapshots:
 
   '@types/css-font-loading-module@0.0.7': {}
 
+  '@types/googlepay@0.7.12': {}
+
   '@types/googlepay@0.7.8': {}
 
-  '@types/hoist-non-react-statics@3.3.7(@types/react@18.3.31)':
+  '@types/hoist-non-react-statics@3.3.7(@types/react@19.3.0)':
     dependencies:
-      '@types/react': 18.3.31
+      '@types/react': 19.3.0
       hoist-non-react-statics: 3.3.2
 
-  '@types/iframe-resizer@3.5.13': {}
+  '@types/iframe-resizer@4.0.0': {}
 
   '@types/node@24.19.1':
     dependencies:
@@ -3463,13 +3549,14 @@ snapshots:
 
   '@types/normalize-package-data@2.4.4': {}
 
-  '@types/prop-types@15.7.15': {}
+  '@types/react-dom@19.3.0(@types/react@19.3.0)':
+    dependencies:
+      '@types/react': 19.3.0
 
   '@types/react-gtm-module@2.0.4': {}
 
-  '@types/react@18.3.31':
+  '@types/react@19.3.0':
     dependencies:
-      '@types/prop-types': 15.7.15
       csstype: 3.2.3
 
   '@types/retry@0.12.5': {}
@@ -3709,11 +3796,11 @@ snapshots:
     dependencies:
       mime-db: 1.54.0
 
-  compression@1.8.1:
+  compression@1.8.1(supports-color@7.2.0):
     dependencies:
       bytes: 3.1.2
       compressible: 2.0.18
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@7.2.0)
       negotiator: 0.6.4
       on-headers: 1.1.0
       safe-buffer: 5.2.1
@@ -3788,17 +3875,23 @@ snapshots:
 
   debounce@1.2.1: {}
 
-  debug@2.6.9:
+  debug@2.6.9(supports-color@7.2.0):
     dependencies:
       ms: 2.0.0
+    optionalDependencies:
+      supports-color: 7.2.0
 
-  debug@4.4.3:
+  debug@4.4.3(supports-color@7.2.0):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 7.2.0
 
   decamelize@1.2.0: {}
 
   deep-extend@0.6.0: {}
+
+  dequal@2.0.3: {}
 
   detect-libc@2.1.2: {}
 
@@ -3946,11 +4039,11 @@ snapshots:
     dependencies:
       '@braintree/uuid': 2.0.0
 
-  frames-react@1.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  frames-react@1.2.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
       classnames: 2.5.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
       tslib: 2.8.1
 
   fs-extra@11.4.1:
@@ -4026,19 +4119,19 @@ snapshots:
     dependencies:
       void-elements: 3.1.0
 
-  http-proxy-agent@9.1.0:
+  http-proxy-agent@9.1.0(supports-color@7.2.0):
     dependencies:
       agent-base: 9.0.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
       proxy-agent-negotiate: 1.1.0
     transitivePeerDependencies:
       - kerberos
       - supports-color
 
-  https-proxy-agent@9.1.0:
+  https-proxy-agent@9.1.0(supports-color@7.2.0):
     dependencies:
       agent-base: 9.0.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
       proxy-agent-negotiate: 1.1.0
     transitivePeerDependencies:
       - kerberos
@@ -4058,16 +4151,16 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  iframe-resizer@4.4.5: {}
+  iframe-resizer@4.3.11: {}
 
   import-fresh@3.3.1:
     dependencies:
       parent-module: 1.0.1
       resolve-from: 4.0.0
 
-  import-from-esm@2.0.0:
+  import-from-esm@2.0.0(supports-color@7.2.0):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
       import-meta-resolve: 4.2.0
     transitivePeerDependencies:
       - supports-color
@@ -4151,8 +4244,6 @@ snapshots:
       universalify: 2.0.1
     optionalDependencies:
       graceful-fs: 4.2.11
-
-  jwt-decode@4.0.0: {}
 
   lightningcss-android-arm64@1.32.0:
     optional: true
@@ -4327,28 +4418,28 @@ snapshots:
 
   next-build-id@3.0.0: {}
 
-  next-i18next@16.3.1(@types/react@18.3.31)(i18next@26.4.2(typescript@5.9.3))(next@16.4.0(@playwright/test@1.63.0)(@types/node@24.19.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-i18next@16.6.6(i18next@26.4.2(typescript@5.9.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3))(react@18.3.1):
+  next-i18next@16.3.1(@types/react@19.3.0)(i18next@26.4.2(typescript@5.9.3))(next@16.4.0(@playwright/test@1.63.0)(@types/node@24.19.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-i18next@16.6.6(i18next@26.4.2(typescript@5.9.3))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3))(react@19.3.0):
     dependencies:
-      '@types/hoist-non-react-statics': 3.3.7(@types/react@18.3.31)
+      '@types/hoist-non-react-statics': 3.3.7(@types/react@19.3.0)
       hoist-non-react-statics: 3.3.2
       i18next: 26.4.2(typescript@5.9.3)
       i18next-resources-to-backend: 1.2.3
-      next: 16.4.0(@playwright/test@1.63.0)(@types/node@24.19.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
-      react-i18next: 16.6.6(i18next@26.4.2(typescript@5.9.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      next: 16.4.0(@playwright/test@1.63.0)(@types/node@24.19.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      react: 19.3.0
+      react-i18next: 16.6.6(i18next@26.4.2(typescript@5.9.3))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3)
     transitivePeerDependencies:
       - '@types/react'
 
-  next@16.4.0(@playwright/test@1.63.0)(@types/node@24.19.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next@16.4.0(@playwright/test@1.63.0)(@types/node@24.19.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
       '@next/env': 16.4.0
       '@swc/helpers': 0.5.23
       baseline-browser-mapping: 2.11.25
       caniuse-lite: 1.0.30001810
-      postcss: 8.5.23
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      styled-jsx: 5.1.6(react@18.3.1)
+      postcss: 8.5.15
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
+      styled-jsx: 5.1.6(react@19.3.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 16.4.0
       '@next/swc-darwin-x64': 16.4.0
@@ -4385,6 +4476,8 @@ snapshots:
       validate-npm-package-license: 3.0.4
 
   normalize-url@9.0.1: {}
+
+  npm-check-updates@19.6.6: {}
 
   npm-run-path@4.0.1:
     dependencies:
@@ -4520,19 +4613,15 @@ snapshots:
 
   pngjs@5.0.0: {}
 
-  postcss@8.5.23:
-    dependencies:
-      nanoid: 3.3.19
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
-
-  postcss@8.5.28:
+  postcss@8.5.15:
     dependencies:
       nanoid: 3.3.19
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
   preact@10.22.1: {}
+
+  preact@10.29.8: {}
 
   pretty-ms@9.3.1:
     dependencies:
@@ -4541,6 +4630,8 @@ snapshots:
   process-nextick-args@2.0.1: {}
 
   promise-polyfill@8.2.3: {}
+
+  promise-polyfill@8.3.0: {}
 
   prop-types@15.8.1:
     dependencies:
@@ -4560,7 +4651,10 @@ snapshots:
 
   range-parser@1.2.0: {}
 
-  rapid-form@2.1.0: {}
+  rapid-form@5.0.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+    dependencies:
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
 
   rc@1.2.8:
     dependencies:
@@ -4569,62 +4663,59 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  react-aria@3.52.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-aria@3.52.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
       '@internationalized/date': 3.12.4
       '@internationalized/number': 3.6.8
       '@internationalized/string': 3.2.10
-      '@react-types/shared': 3.36.1(react@18.3.1)
+      '@react-types/shared': 3.36.1(react@19.3.0)
       '@swc/helpers': 0.5.23
       aria-hidden: 1.2.6
       clsx: 2.1.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-stately: 3.50.0(react@18.3.1)
-      use-sync-external-store: 1.7.0(react@18.3.1)
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
+      react-stately: 3.50.0(react@19.3.0)
+      use-sync-external-store: 1.7.0(react@19.3.0)
 
-  react-dom@18.3.1(react@18.3.1):
+  react-dom@19.3.0(react@19.3.0):
     dependencies:
-      loose-envify: 1.4.0
-      react: 18.3.1
-      scheduler: 0.23.2
+      react: 19.3.0
+      scheduler: 0.28.0
 
   react-gtm-module@2.0.11: {}
 
-  react-i18next@16.6.6(i18next@26.4.2(typescript@5.9.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3):
+  react-i18next@16.6.6(i18next@26.4.2(typescript@5.9.3))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3):
     dependencies:
       '@babel/runtime': 7.29.7
       html-parse-stringify: 3.1.0
       i18next: 26.4.2(typescript@5.9.3)
-      react: 18.3.1
-      use-sync-external-store: 1.7.0(react@18.3.1)
+      react: 19.3.0
+      use-sync-external-store: 1.7.0(react@19.3.0)
     optionalDependencies:
-      react-dom: 18.3.1(react@18.3.1)
+      react-dom: 19.3.0(react@19.3.0)
       typescript: 5.9.3
 
   react-is@16.13.1: {}
 
-  react-router@7.18.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-router@7.18.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
       cookie: 1.1.1
-      react: 18.3.1
+      react: 19.3.0
       set-cookie-parser: 2.7.2
     optionalDependencies:
-      react-dom: 18.3.1(react@18.3.1)
+      react-dom: 19.3.0(react@19.3.0)
 
-  react-stately@3.50.0(react@18.3.1):
+  react-stately@3.50.0(react@19.3.0):
     dependencies:
       '@internationalized/date': 3.12.4
       '@internationalized/number': 3.6.8
       '@internationalized/string': 3.2.10
-      '@react-types/shared': 3.36.1(react@18.3.1)
+      '@react-types/shared': 3.36.1(react@19.3.0)
       '@swc/helpers': 0.5.23
-      react: 18.3.1
-      use-sync-external-store: 1.7.0(react@18.3.1)
+      react: 19.3.0
+      use-sync-external-store: 1.7.0(react@19.3.0)
 
-  react@18.3.1:
-    dependencies:
-      loose-envify: 1.4.0
+  react@19.3.0: {}
 
   read-package-up@11.0.0:
     dependencies:
@@ -4697,20 +4788,18 @@ snapshots:
 
   safe-buffer@5.2.1: {}
 
-  scheduler@0.23.2:
-    dependencies:
-      loose-envify: 1.4.0
+  scheduler@0.28.0: {}
 
-  semantic-release@25.0.9(typescript@5.9.3):
+  semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3):
     dependencies:
-      '@semantic-release/commit-analyzer': 13.0.1(semantic-release@25.0.9(typescript@5.9.3))
+      '@semantic-release/commit-analyzer': 13.0.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       '@semantic-release/error': 4.0.0
-      '@semantic-release/github': 12.0.10(semantic-release@25.0.9(typescript@5.9.3))
-      '@semantic-release/npm': 13.2.0(semantic-release@25.0.9(typescript@5.9.3))
-      '@semantic-release/release-notes-generator': 14.1.1(semantic-release@25.0.9(typescript@5.9.3))
+      '@semantic-release/github': 12.0.10(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
+      '@semantic-release/npm': 13.2.0(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))
+      '@semantic-release/release-notes-generator': 14.1.1(semantic-release@25.0.9(supports-color@7.2.0)(typescript@5.9.3))(supports-color@7.2.0)
       aggregate-error: 5.0.0
       cosmiconfig: 9.0.2(typescript@5.9.3)
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@7.2.0)
       env-ci: 11.2.0
       execa: 9.6.1
       figures: 6.1.0
@@ -4719,7 +4808,7 @@ snapshots:
       git-log-parser: 1.2.1
       hook-std: 4.0.0
       hosted-git-info: 9.0.3
-      import-from-esm: 2.0.0
+      import-from-esm: 2.0.0(supports-color@7.2.0)
       lodash-es: 4.18.1
       marked: 15.0.12
       marked-terminal: 7.3.0(marked@15.0.12)
@@ -4750,7 +4839,7 @@ snapshots:
       path-to-regexp: 3.3.0
       range-parser: 1.2.0
 
-  serve@14.2.6:
+  serve@14.2.6(supports-color@7.2.0):
     dependencies:
       '@zeit/schemas': 2.36.0
       ajv: 8.18.0
@@ -4759,7 +4848,7 @@ snapshots:
       chalk: 5.0.1
       chalk-template: 0.4.0
       clipboardy: 3.0.0
-      compression: 1.8.1
+      compression: 1.8.1(supports-color@7.2.0)
       is-port-reachable: 4.0.0
       serve-handler: 6.1.7
       update-check: 1.5.4
@@ -4904,10 +4993,10 @@ snapshots:
 
   strip-json-comments@2.0.1: {}
 
-  styled-jsx@5.1.6(react@18.3.1):
+  styled-jsx@5.1.6(react@19.3.0):
     dependencies:
       client-only: 0.0.1
-      react: 18.3.1
+      react: 19.3.0
 
   super-regex@1.1.0:
     dependencies:
@@ -4927,6 +5016,12 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
       supports-color: 7.2.0
+
+  swr@2.5.1(react@19.3.0):
+    dependencies:
+      dequal: 2.0.3
+      react: 19.3.0
+      use-sync-external-store: 1.7.0(react@19.3.0)
 
   tabbable@6.5.0: {}
 
@@ -5027,9 +5122,9 @@ snapshots:
 
   url-join@5.0.0: {}
 
-  use-sync-external-store@1.7.0(react@18.3.1):
+  use-sync-external-store@1.7.0(react@19.3.0):
     dependencies:
-      react: 18.3.1
+      react: 19.3.0
 
   util-deprecate@1.0.2: {}
 

@@ -8,10 +8,14 @@
 # testing
 /coverage
 /test-results
+/test-results-memory
 
 # next.js
 /.next/
 /out/
+
+# typescript
+*.tsbuildinfo
 
 # production
 /build
@@ -37,3 +41,10 @@ cypress/fixtures/*
 
 # vercel
 .vercel
+
+# local repro scratch (not shipped)
+/playwright.config.repro.ts
+/specs/repro/
+
+# written by `next build`/`next dev`, not ours to keep
+/AGENTS.md

@@ -1,10 +1,9 @@
-import { faker } from "@faker-js/faker"
-
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("terms and privacy", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -137,7 +136,7 @@ test.describe("terms and privacy", () => {
 })
 
 test.describe("only terms", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -174,7 +173,7 @@ test.describe("only terms", () => {
 })
 
 test.describe("only privacy", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -211,7 +210,7 @@ test.describe("only privacy", () => {
 })
 
 test.describe("terms and privacy from org config", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -267,7 +266,7 @@ test.describe("terms and privacy from org config", () => {
 })
 
 test.describe("order terms_url takes precedence over org config", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -334,7 +333,7 @@ test.describe("order terms_url takes precedence over org config", () => {
 })
 
 test.describe(":lang param is replaced in org config urls", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
