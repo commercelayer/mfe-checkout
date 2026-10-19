@@ -3,6 +3,7 @@ import type {
   AdyenPayment,
   BraintreePayment,
   CheckoutComPayment,
+  CommerceLayerBundle,
   CustomerAddress,
   Order,
   OrderUpdate,
@@ -13,7 +14,6 @@ import type {
   StripePayment,
   WireTransfer,
 } from "@commercelayer/sdk"
-import type { CommerceLayerBundle } from "@commercelayer/sdk/bundle"
 
 import type { AppStateData } from "components/data/AppProvider"
 

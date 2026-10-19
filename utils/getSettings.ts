@@ -1,14 +1,12 @@
 import { jwtDecode, jwtIsSalesChannel } from "@commercelayer/js-auth"
 import { getMfeConfig } from "@commercelayer/organization-config"
 import {
+  CommerceLayer,
+  type CommerceLayerBundle,
   CommerceLayerStatic,
   type Order,
   type Organization,
 } from "@commercelayer/sdk"
-import {
-  CommerceLayer,
-  type CommerceLayerBundle,
-} from "@commercelayer/sdk/bundle"
 import retry from "async-retry"
 import type { TypeAccepted } from "components/data/AppProvider/utils"
 import {

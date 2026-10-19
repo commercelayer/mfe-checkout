@@ -6,11 +6,12 @@ import {
   jwtIsSalesChannel,
 } from "@commercelayer/js-auth"
 import type { MfeConfigs } from "@commercelayer/organization-config"
-import type { Address, AddressCreate } from "@commercelayer/sdk"
 import {
+  type Address,
+  type AddressCreate,
   CommerceLayer,
   type CommerceLayerBundle,
-} from "@commercelayer/sdk/bundle"
+} from "@commercelayer/sdk"
 import { test as base } from "@playwright/test"
 import dotenv from "dotenv"
 import { apiVersion } from "../../utils/apiVersion"
