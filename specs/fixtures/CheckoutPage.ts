@@ -379,17 +379,26 @@ export class CheckoutPage {
       `[data-testid=shipments-container] >> nth=${shipment} >> [data-testid=shipping-method-button]:checked`,
     )
 
-    // react-components v5 sometimes reverts the shipping-method radio to
-    // unchecked shortly after a selection sticks (open library flake, see
-    // memory react-components-v5-state-selector-flake), most visible right
-    // after a coupon-driven order refresh. Re-click and re-verify until the
-    // selection survives a short settle window.
+    // After an order update that resets shipping (a coupon, typically),
+    // react-components keeps rendering the previous method as checked until
+    // its shipments refetch lands (commercelayer-react-components#884). A click
+    // in that window hits an already-checked radio, so nothing is saved, and
+    // the radio then clears. The radio can't be trusted as proof of a save;
+    // with a single shipment the save button can, since it follows the order.
+    // With several it only enables once all are set, so fall back to the radio.
+    const saveButton = this.page.getByTestId("save-shipping-button")
+    const isSingleShipment =
+      (await this.page.locator("[data-testid=shipments-container]").count()) ===
+      1
     await expect(async () => {
       await this.page.getByText(text).nth(shipment).click()
       await expect(this.page.getByText(text).nth(shipment)).toHaveCount(1)
       await expect(element).toBeChecked()
       await this.page.waitForTimeout(1000)
       await expect(element).toBeChecked()
+      if (isSingleShipment) {
+        await expect(saveButton).toBeEnabled({ timeout: 3000 })
+      }
     }).toPass({ timeout: 20000 })
   }
 
