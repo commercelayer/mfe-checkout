@@ -45,6 +45,3 @@ cypress/fixtures/*
 # local repro scratch (not shipped)
 /playwright.config.repro.ts
 /specs/repro/
-
-# written by `next build`/`next dev`, not ours to keep
-/AGENTS.md
