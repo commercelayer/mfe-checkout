@@ -16,10 +16,6 @@ import { uniqueCustomerEmail } from "../utils/customers"
  * five of the nine containers ever warned. LineItemsContainer,
  * AddressesContainer, PaymentMethodsContainer and PlaceOrderContainer are
  * silent, so a green run says nothing about them — grep the imports for those.
- * PaymentMethodsContainer in particular is staying: PlaceOrderButton reads
- * PaymentMethodContext with no standalone fallback, and in this tree
- * StepPlaceOrder is a sibling of StepPayment rather than a descendant, so
- * removing the container would leave the button without a payment source.
  *
  * The assertion is one-way on purpose: every warning seen must be allowed, but
  * an allowed warning need not appear.
@@ -73,8 +69,8 @@ test("mounts no deprecated container outside the allowlist", async ({
   await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
   await checkoutPage.save("Shipping")
 
-  // Stop at Payment: PaymentMethodsContainer and PlaceOrderContainer are
-  // mounted by now, and placing the order would add nothing to observe.
+  // Stop at Payment: every step's components are mounted by now, and placing
+  // the order would add nothing to observe.
   await checkoutPage.checkStep("Payment", "open")
   await checkoutPage.selectPayment("stripe")
 
