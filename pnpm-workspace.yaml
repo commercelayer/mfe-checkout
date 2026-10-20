@@ -12,8 +12,11 @@ minimumReleaseAgeExclude:
   # install with an error that reads like an unpublish.
   - '@commercelayer/*'
 overrides:
-  "braces": ">=3.0.3"
-  "postcss": 8.5.15
+  # Security floors for exact pins we can't bump: serve 14.2.6 pins
+  # compression 1.8.1 (GHSA-vc2v-76pw-4v95) and @newrelic/browser-agent pins
+  # fflate 0.8.2 (GHSA-px8p-9vwx-vf98). Drop each once its parent moves past it.
+  "compression": "^1.8.2"
+  "fflate": "^0.8.3"
   # react-components pins the SDK as a hard dependency rather than a peer, so
   # without this the app's v7 and the library's v8 both install and their Order
   # types stop being assignable at the OrderContainer boundary.
