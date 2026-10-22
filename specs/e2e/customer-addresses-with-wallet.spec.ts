@@ -9,6 +9,12 @@ import {
 } from "../utils/addresses"
 import { uniqueCustomerEmail } from "../utils/customers"
 
+// Most tests here run a full checkout through a hosted gateway (Stripe,
+// checkout.com, Klarna, Adyen, Affirm) after the wallet steps, which does not
+// fit the project's 75s CI budget: they time out on the way to the thank-you
+// page of an order that is going through.
+test.setTimeout(3 * 60 * 1000)
+
 test.describe("address on wallet", () => {
   test.describe.configure({ mode: "serial" })
   const customerEmail = uniqueCustomerEmail()
