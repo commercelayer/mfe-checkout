@@ -1,7 +1,9 @@
-import Errors from "@commercelayer/react-components/errors/Errors"
-import GiftCardOrCouponInput from "@commercelayer/react-components/gift_cards/GiftCardOrCouponInput"
-import GiftCardOrCouponRemoveButton from "@commercelayer/react-components/gift_cards/GiftCardOrCouponRemoveButton"
-import GiftCardOrCouponSubmit from "@commercelayer/react-components/gift_cards/GiftCardOrCouponSubmit"
+import {
+  Errors,
+  GiftCardOrCouponInput,
+  GiftCardOrCouponRemoveButton,
+  GiftCardOrCouponSubmit,
+} from "@commercelayer/react-components"
 import { ButtonCss } from "components/ui/Button"
 import { ErrorCss } from "components/ui/form/Error"
 import { InputCss } from "components/ui/form/Input"

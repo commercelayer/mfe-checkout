@@ -2,11 +2,12 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 const TIMEOUT = 2000
 
 test.describe("guest with Braintree", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
 
   test.use({
     defaultParams: {
@@ -38,7 +39,7 @@ test.describe("guest with Braintree", () => {
     const element = await checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
 
     await checkoutPage.setPayment("braintree")
 
@@ -76,7 +77,7 @@ test.describe("guest with Braintree", () => {
     const element = await checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
 
     await checkoutPage.setPayment("braintree", { number: "4000000000001000" })
 
@@ -116,7 +117,7 @@ test.describe("guest with Braintree", () => {
     const element = await checkoutPage.page.locator(
       "[data-testid=payment-save-wallet]",
     )
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
 
     await checkoutPage.page.reload()
 
@@ -145,7 +146,7 @@ test.describe("guest with Braintree", () => {
   })
 })
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 const customerPassword = faker.internet.password()
 
 test.describe("customer with Braintree without saving", () => {

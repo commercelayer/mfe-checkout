@@ -1,7 +1,8 @@
-import AddressesContainer from "@commercelayer/react-components/addresses/AddressesContainer"
-import BillingAddressForm from "@commercelayer/react-components/addresses/BillingAddressForm"
-import SaveAddressesButton from "@commercelayer/react-components/addresses/SaveAddressesButton"
-import ShippingAddressForm from "@commercelayer/react-components/addresses/ShippingAddressForm"
+import {
+  BillingAddressForm,
+  SaveAddressesButton,
+  ShippingAddressForm,
+} from "@commercelayer/react-components"
 import type { Address, Order } from "@commercelayer/sdk"
 import type { ShippingToggleProps } from "components/composite/StepCustomer"
 import { ButtonCss, ButtonWrapper } from "components/ui/Button"
@@ -74,64 +75,67 @@ export const CheckoutAddresses: React.FC<Props> = ({
         emailAddress={emailAddress}
         setCustomerEmail={setCustomerEmail}
       />
-      <AddressesContainer shipToDifferentAddress={shipToDifferentAddress}>
+      <div className="mt-4">
+        <AddressSectionTitle>
+          <>{t("addressForm.billing_address_title")}</>
+        </AddressSectionTitle>
+      </div>
+      <BillingAddressForm
+        shipToDifferentAddress={shipToDifferentAddress}
+        autoComplete="on"
+        errorClassName="hasError"
+      >
         <div className="mt-4">
-          <AddressSectionTitle>
-            <>{t("addressForm.billing_address_title")}</>
-          </AddressSectionTitle>
-        </div>
-        <BillingAddressForm autoComplete="on" errorClassName="hasError">
-          <div className="mt-4">
-            <BillingAddressFormNew
-              billingAddress={billingAddress}
-              openShippingAddress={openShippingAddress}
-            />
-          </div>
-        </BillingAddressForm>
-        {isShipmentRequired && (
-          <Toggle
-            disabled={disabledShipToDifferentAddress}
-            data-testid="button-ship-to-different-address"
-            data-status={shipToDifferentAddress}
-            label={t("addressForm.ship_to_different_address")}
-            checked={shipToDifferentAddress}
-            onChange={handleToggleDifferentAddress}
+          <BillingAddressFormNew
+            billingAddress={billingAddress}
+            openShippingAddress={openShippingAddress}
           />
-        )}
+        </div>
+      </BillingAddressForm>
+      {isShipmentRequired && (
+        <Toggle
+          disabled={disabledShipToDifferentAddress}
+          data-testid="button-ship-to-different-address"
+          data-status={shipToDifferentAddress}
+          label={t("addressForm.ship_to_different_address")}
+          checked={shipToDifferentAddress}
+          onChange={handleToggleDifferentAddress}
+        />
+      )}
 
-        {isShipmentRequired && shipToDifferentAddress && (
-          <ShippingAddressForm
-            autoComplete="on"
-            hidden={!shipToDifferentAddress}
-            errorClassName="hasError"
-          >
-            <AddressSectionTitle>
-              <>{t("addressForm.shipping_address_title")}</>
-            </AddressSectionTitle>
-            <div className="mt-4">
-              <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
-            </div>
-          </ShippingAddressForm>
-        )}
-        <AddressSectionSaveForm>
-          <ButtonWrapper>
-            <SaveAddressesButton
-              className={ButtonCss}
-              disabled={isLocalLoader}
-              label={
-                <>
-                  {isLocalLoader && <SpinnerIcon />}
-                  {isShipmentRequired
-                    ? t("stepCustomer.continueToDelivery")
-                    : t("stepShipping.continueToPayment")}
-                </>
-              }
-              data-testid="save-customer-button"
-              onClick={handleSave}
-            />
-          </ButtonWrapper>
-        </AddressSectionSaveForm>
-      </AddressesContainer>
+      {isShipmentRequired && shipToDifferentAddress && (
+        <ShippingAddressForm
+          shipToDifferentAddress={shipToDifferentAddress}
+          autoComplete="on"
+          hidden={!shipToDifferentAddress}
+          errorClassName="hasError"
+        >
+          <AddressSectionTitle>
+            <>{t("addressForm.shipping_address_title")}</>
+          </AddressSectionTitle>
+          <div className="mt-4">
+            <ShippingAddressFormNew shippingAddress={shippingAddressFill} />
+          </div>
+        </ShippingAddressForm>
+      )}
+      <AddressSectionSaveForm>
+        <ButtonWrapper>
+          <SaveAddressesButton
+            className={ButtonCss}
+            disabled={isLocalLoader}
+            label={
+              <>
+                {isLocalLoader && <SpinnerIcon />}
+                {isShipmentRequired
+                  ? t("stepCustomer.continueToDelivery")
+                  : t("stepShipping.continueToPayment")}
+              </>
+            }
+            data-testid="save-customer-button"
+            onClick={handleSave}
+          />
+        </ButtonWrapper>
+      </AddressSectionSaveForm>
     </Fragment>
   )
 }

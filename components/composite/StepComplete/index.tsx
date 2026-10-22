@@ -1,9 +1,10 @@
-import PaymentSource from "@commercelayer/react-components/payment_source/PaymentSource"
-import PaymentSourceBrandIcon from "@commercelayer/react-components/payment_source/PaymentSourceBrandIcon"
-import PaymentSourceBrandName from "@commercelayer/react-components/payment_source/PaymentSourceBrandName"
-import PaymentSourceDetail from "@commercelayer/react-components/payment_source/PaymentSourceDetail"
+import {
+  PaymentSource,
+  PaymentSourceBrandIcon,
+  PaymentSourceBrandName,
+  PaymentSourceDetail,
+} from "@commercelayer/react-components"
 import { OrderSummary } from "components/composite/OrderSummary"
-import { PaymentContainer } from "components/composite/StepPayment/PaymentContainer"
 import { AppContext } from "components/data/AppProvider"
 import { Base } from "components/ui/Base"
 import { Button } from "components/ui/Button"
@@ -195,27 +196,25 @@ export const StepComplete: React.FC<Props> = ({
                   {ctx.isPaymentRequired ? (
                     <RecapBox>
                       <FlexContainer className="font-bold text-md">
-                        <PaymentContainer>
-                          <PaymentSource readonly>
-                            <PaymentSourceBrandIcon className="mr-2" />
-                            <PaymentSourceBrandName className="mr-1">
-                              {({ brand }) => {
-                                if (ctx.isCreditCard) {
-                                  return (
-                                    <Trans i18nKey="stepPayment.endingIn">
-                                      {brand}
-                                      <PaymentSourceDetail
-                                        className="ml-1 font-normal"
-                                        type="last4"
-                                      />
-                                    </Trans>
-                                  )
-                                }
-                                return <>{getTranslations(brand, t)}</>
-                              }}
-                            </PaymentSourceBrandName>
-                          </PaymentSource>
-                        </PaymentContainer>
+                        <PaymentSource readonly>
+                          <PaymentSourceBrandIcon className="mr-2" />
+                          <PaymentSourceBrandName className="mr-1">
+                            {({ brand }) => {
+                              if (ctx.isCreditCard) {
+                                return (
+                                  <Trans i18nKey="stepPayment.endingIn">
+                                    {brand}
+                                    <PaymentSourceDetail
+                                      className="ml-1 font-normal"
+                                      type="last4"
+                                    />
+                                  </Trans>
+                                )
+                              }
+                              return <>{getTranslations(brand, t)}</>
+                            }}
+                          </PaymentSourceBrandName>
+                        </PaymentSource>
                       </FlexContainer>
                     </RecapBox>
                   ) : (

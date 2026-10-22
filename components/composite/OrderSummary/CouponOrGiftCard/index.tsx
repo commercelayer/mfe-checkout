@@ -1,6 +1,8 @@
-import type { TErrorComponent } from "@commercelayer/react-components/errors/Errors"
-import GiftCardOrCouponCode from "@commercelayer/react-components/gift_cards/GiftCardOrCouponCode"
-import GiftCardOrCouponForm from "@commercelayer/react-components/gift_cards/GiftCardOrCouponForm"
+import type { TErrorComponent } from "@commercelayer/react-components"
+import {
+  GiftCardOrCouponCode,
+  GiftCardOrCouponForm,
+} from "@commercelayer/react-components"
 import type { Order } from "@commercelayer/sdk"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"

@@ -3,7 +3,7 @@ import type {
   AdyenPayment,
   BraintreePayment,
   CheckoutComPayment,
-  CommerceLayerClient,
+  CommerceLayerBundle,
   CustomerAddress,
   Order,
   OrderUpdate,
@@ -38,7 +38,7 @@ interface IsNewAddressProps {
 }
 
 interface CheckAndSetDefaultAddressForOrderProps {
-  cl: CommerceLayerClient
+  cl: CommerceLayerBundle
   order: Order
   customerAddresses?: Array<CustomerAddress>
 }
@@ -108,7 +108,7 @@ function isNewAddress({
     !hasAddressIntoAddresses &&
     customerAddresses &&
     customerAddresses?.length > 1 &&
-    Boolean(address)
+    address
   ) {
     return true
   }
@@ -116,7 +116,7 @@ function isNewAddress({
     !hasAddressIntoAddresses &&
     customerAddresses &&
     customerAddresses?.length > 1 &&
-    Boolean(!address)
+    !address
   ) {
     return false
   }
@@ -145,7 +145,7 @@ export async function checkAndSetDefaultAddressForOrder({
   }
 
   if (
-    !!order.shipping_country_code_lock &&
+    order.shipping_country_code_lock &&
     order.shipping_country_code_lock !== address.country_code
   ) {
     return {}
@@ -238,7 +238,7 @@ function isBillingAddressSameAsShippingAddress({
   return true
 }
 
-export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
+export const fetchOrder = (cl: CommerceLayerBundle, orderId: string) => {
   return cl.orders.retrieve(orderId, {
     fields: {
       orders: [

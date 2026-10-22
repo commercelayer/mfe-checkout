@@ -1,6 +1,4 @@
-import CustomerContainer from "@commercelayer/react-components/customers/CustomerContainer"
-import OrderContainer from "@commercelayer/react-components/orders/OrderContainer"
-import PlaceOrderContainer from "@commercelayer/react-components/orders/PlaceOrderContainer"
+import { Customer, Order } from "@commercelayer/react-components"
 import { CheckoutSkeleton } from "components/composite/CheckoutSkeleton"
 import { MainHeader } from "components/composite/MainHeader"
 import { OrderSummary } from "components/composite/OrderSummary"
@@ -15,7 +13,7 @@ import {
   StepHeaderPayment,
   StepPayment,
 } from "components/composite/StepPayment"
-import { PaymentContainer } from "components/composite/StepPayment/PaymentContainer"
+import { usePaymentMethodsConfig } from "components/composite/StepPayment/PaymentContainer"
 import StepPlaceOrder from "components/composite/StepPlaceOrder"
 import {
   StepHeaderShipping,
@@ -65,6 +63,9 @@ const Checkout: React.FC<Props> = ({
 }) => {
   const ctx = useContext(AppContext)
   const [isExpired, setIsExpired] = useState(false)
+  // Built here rather than by a wrapper: the standalone <PaymentMethod> takes
+  // the gateway configuration directly.
+  const paymentConfig = usePaymentMethodsConfig({ primaryColor })
 
   const { query } = useRouter()
 
@@ -140,7 +141,7 @@ const Checkout: React.FC<Props> = ({
 
   const renderSteps = () => {
     return (
-      <CustomerContainer isGuest={ctx.isGuest}>
+      <Customer isGuest={ctx.isGuest}>
         <LayoutDefault
           aside={
             <div className="flex flex-col min-h-full p-5 md:px-8 lg:px-12 lg:pt-10 xl:px-24 xl:pt-12 bg-gray-50">
@@ -236,49 +237,43 @@ const Checkout: React.FC<Props> = ({
                   isStepRequired={ctx.isPaymentRequired}
                   isStepDone={ctx.hasPaymentMethod}
                 >
-                  <PaymentContainer primaryColor={primaryColor}>
-                    <PlaceOrderContainer
-                      options={{
-                        paypalPayerId,
-                        checkoutCom: { session_id: checkoutComSession },
-                        adyen: {
-                          redirectResult,
-                        },
-                        stripe: {
-                          paymentIntentClientSecret,
-                        },
-                      }}
-                    >
-                      <AccordionItem
-                        index={3}
-                        header={
-                          <StepHeaderPayment step={getStepNumber("Payment")} />
-                        }
-                      >
-                        <div>
-                          <StepPayment isPaymentLoading={isPaymentLoading} />
-                        </div>
-                      </AccordionItem>
-                      <StepPlaceOrder
-                        isActive={
-                          activeStep === "Payment" || activeStep === "Complete"
-                        }
-                        termsUrl={termsUrl}
-                        privacyUrl={privacyUrl}
+                  <AccordionItem
+                    index={3}
+                    header={
+                      <StepHeaderPayment step={getStepNumber("Payment")} />
+                    }
+                  >
+                    <div>
+                      <StepPayment
+                        isPaymentLoading={isPaymentLoading}
+                        paymentConfig={paymentConfig}
                       />
-                    </PlaceOrderContainer>
-                  </PaymentContainer>
+                    </div>
+                  </AccordionItem>
+                  <StepPlaceOrder
+                    isActive={
+                      activeStep === "Payment" || activeStep === "Complete"
+                    }
+                    termsUrl={termsUrl}
+                    privacyUrl={privacyUrl}
+                    placeOrderOptions={{
+                      paypalPayerId,
+                      checkoutCom: { session_id: checkoutComSession },
+                      adyen: { redirectResult },
+                      stripe: { paymentIntentClientSecret },
+                    }}
+                  />
                 </AccordionProvider>
               </Accordion>
             </div>
           }
         />
-      </CustomerContainer>
+      </Customer>
     )
   }
 
   return (
-    <OrderContainer orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
+    <Order orderId={ctx.orderId} fetchOrder={ctx.getOrder}>
       <GTMProvider
         gtmId={gtmId}
         skipBeginCheckout={checkoutAlreadyStarted || ctx.isComplete}
@@ -289,7 +284,7 @@ const Checkout: React.FC<Props> = ({
             ? renderExpiredPage()
             : renderSteps()}
       </GTMProvider>
-    </OrderContainer>
+    </Order>
   )
 }
 
