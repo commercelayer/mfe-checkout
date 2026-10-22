@@ -1487,13 +1487,12 @@ export class CheckoutPage {
           await button.click({ timeout: 2000 })
         }
       }
-      // `isVisible()` answers at once, while `isEnabled()` waits for the button:
-      // once Klarna redirects back to the thank-you page the button is gone
-      // for good, and an unguarded `isEnabled()` hangs until the test times out.
+      // isEnabled() waits for the element: once Klarna redirects back to the
+      // checkout the button never returns, and without a timeout this hangs
+      // until the test times out, with the order already placed.
       if (
         !confirmed &&
-        (await confirm.isVisible()) &&
-        (await confirm.isEnabled({ timeout: 2000 }))
+        (await confirm.isEnabled({ timeout: 1000 }).catch(() => false))
       ) {
         await confirm.click({ timeout: 2000 })
         confirmed = true
