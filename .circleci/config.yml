@@ -16,6 +16,18 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          # discover is a plain `find`, so this needs no install. Only an empty
+          # selection halts, so if list-tests turns out not to split per node it
+          # never fires and the node runs as before.
+          name: Skip node without tests
+          command: |
+            atoms=$(circleci testsuite list-tests e2e)
+            echo "Selected test atoms:"
+            echo "${atoms:-<none>}"
+            if [ -z "$atoms" ]; then
+              circleci-agent step halt
+            fi
       - restore_cache:
           name: Restore pnpm Package Cache
           keys:
