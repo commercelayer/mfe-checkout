@@ -103,6 +103,7 @@
     "notRequired": "To naročilo ne zahteva plačila",
     "amountZero": "Skupni znesek naročila je nič, naročilo lahko oddate takoj",
     "saveToWallet": "Shrani novo kartico v denarnico",
+    "savePaymentMethodToWallet": "Shrani ta način plačila v denarnico",
     "expires": "Poteče",
     "subscriptionWithoutCustomer": "Za nakup naročnine morate ustvariti račun.",
     "subscriptionWithCustomer": "Z zagotavljanjem podatkov o kartici dovoljujete podjetju, da bremeni vašo kartico za prihodnja plačila v skladu z njihovimi pogoji.",
