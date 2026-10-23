@@ -91,6 +91,8 @@ test.describe("paying with PayPal through Braintree", {
       | { account_email?: string }
       | undefined
     expect(instrument?.account_email).toBe(credentials.email)
+    // Braintree names no method on the instrument; the recap still says PayPal.
+    await expect(checkout.paymentInstrument).toHaveText("PayPal")
   })
 
   /**
