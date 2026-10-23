@@ -105,8 +105,8 @@ test.describe("saving a card on the payment_sessions model", {
       test.setTimeout(240_000)
 
       await checkout.selectPaymentSetting("Braintree")
-      // Worded as a payment method, not a card: the choice covers whatever
-      // pays the session, Apple Pay included.
+      // Worded as a payment method, not a card: the choice goes with the
+      // session, so an Apple Pay payment on it may be stored too.
       await expect(
         checkout.page.getByText("Save this payment method on your wallet"),
       ).toBeVisible({ timeout: 30_000 })

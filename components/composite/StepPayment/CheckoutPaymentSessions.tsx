@@ -281,9 +281,9 @@ export const CheckoutPaymentSessions = ({
               the session and the form remounts empty. Asked before typing, it
               costs nothing.
 
-              Worded as a card only on Stripe. On Braintree the choice covers
-              the whole session, and Apple Pay paid through the same setting is
-              stored too. */}
+              Worded as a card only on Stripe. On Braintree the choice goes
+              with the session, not with the card fields, so an Apple Pay
+              payment on the same setting may be stored too. */}
             {isSelected && canSaveCard && (
               <div className="flex items-center px-4 mt-3 mb-4">
                 <WalletCheckbox
