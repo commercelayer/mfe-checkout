@@ -1,11 +1,12 @@
 /**
  * Fixtures for the payment_sessions payment components.
  *
- * Two subcommands, both printing one line to stdout and everything else to
+ * Three subcommands, each printing one line to stdout and everything else to
  * stderr:
  *
  *   pnpm np:order              -> /<orderId>?accessToken=<jwt>
  *   pnpm np:gift-card 25       -> <CODE>
+ *   node scripts/new-payments.mjs customer -> {"email":…,"password":…}
  *
  * To pipe the result, call node directly:
  *
@@ -25,6 +26,7 @@
  * the payment step never renders.
  */
 
+import { randomBytes } from "node:crypto"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { authenticate } from "@commercelayer/js-auth"
@@ -255,6 +257,24 @@ async function createGiftCard(amountArg) {
 }
 
 /**
+ * A customer of their own, for a test that leaves something behind on it.
+ *
+ * Saving a card links a wallet to the customer, and a wallet in use cannot be
+ * removed by any token — so on the shared customer every run would add one
+ * more for good. A customer per run keeps that to one wallet each, and never
+ * puts a card in front of a test that expects none.
+ */
+async function createCustomer() {
+  const cl = client(await integrationToken())
+  const email = `e2e-payment-settings-${Date.now()}-${randomCode().toLowerCase()}@example.com`
+  const password = randomBytes(18).toString("base64url")
+  await cl.customers.create({ email, password })
+
+  console.error(`\ncustomer ${email}\n`)
+  console.log(JSON.stringify({ email, password }))
+}
+
+/**
  * Gift card codes must be unique within the organization, and a spent one
  * cannot be topped up here — so every run mints a new code rather than reusing
  * a memorable one.
@@ -281,12 +301,17 @@ try {
     case "gift-card":
       await createGiftCard(args[0])
       break
+    case "customer":
+      await createCustomer()
+      break
     default:
       fail(
         "Usage:\n" +
           "  pnpm np:order              create a guest order, print /<id>?accessToken=<jwt>\n" +
           "  pnpm np:order:customer     the same, signed in as PAYMENT_SETTINGS_CUSTOMER_EMAIL\n" +
-          "  pnpm np:gift-card <amount> mint an active gift card, print its code",
+          "  pnpm np:gift-card <amount> mint an active gift card, print its code\n" +
+          "  node scripts/new-payments.mjs customer\n" +
+          "                             create a customer with a password, print {email, password}",
       )
   }
 } catch (error) {

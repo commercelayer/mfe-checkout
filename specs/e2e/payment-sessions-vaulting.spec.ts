@@ -1,6 +1,7 @@
 import type { NewPaymentsOrder } from "../fixtures/newPaymentsPage"
 import {
   ADYEN_3DS_PASSWORD,
+  BRAINTREE_CHALLENGE_CARD,
   expect,
   expectPaymentToCoverTheOrder,
   readOrder,
@@ -16,14 +17,15 @@ import {
  * `vaulting: true` asks Commerce Layer to store the card during the charge, and
  * Commerce Layer links the `payment_wallet` to the session itself — from the
  * confirmed PaymentIntent on Stripe, from Adyen's `RECURRING_CONTRACT` webhook
- * on Adyen. So what these tests prove is the asking, and that the answer
- * arrives: the wallet is read back off the session.
+ * on Adyen, from the authorized transaction on Braintree. So what these tests
+ * prove is the asking, and that the answer arrives: the wallet is read back off
+ * the session.
  *
  * Who gives consent differs, and that is the design. Adyen's Drop-in renders
  * its own checkbox once the session asks for consent; Stripe's Element, driven
- * by the PaymentIntent's secret, has none, so the checkbox is this
- * application's — and ticking it replaces the session, because `vaulting` is
- * fixed at creation.
+ * by the PaymentIntent's secret, and Braintree's Hosted Fields have none, so
+ * the checkbox is this application's — and ticking it replaces the session,
+ * because `vaulting` is fixed at creation.
  *
  * A signed-in customer throughout: a wallet belongs to a customer, and the
  * library never asks on a guest's behalf.
@@ -85,6 +87,42 @@ test.describe("saving a card on the payment_sessions model", {
 
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 1 })
     await expectWalletLinked(newPaymentsOrder, "payment_setting_adyens")
+  })
+
+  /**
+   * A customer of its own, unlike the tests above. Braintree stores the same
+   * card under a new token every time, so each run links one more wallet, and
+   * a wallet a payment has used cannot be removed — on the shared customer they
+   * would pile up for good, which is why the Stripe test is skipped instead.
+   */
+  test.describe("on Braintree", () => {
+    test.use({ customerOrder: "fresh" })
+
+    test("stores a card the shopper chose to save, after its 3DS challenge, as a wallet", async ({
+      checkout,
+      newPaymentsOrder,
+    }) => {
+      test.setTimeout(240_000)
+
+      await checkout.selectPaymentSetting("Braintree")
+      // Worded as a payment method, not a card: the choice covers whatever
+      // pays the session, Apple Pay included.
+      await expect(
+        checkout.page.getByText("Save this payment method on your wallet"),
+      ).toBeVisible({ timeout: 30_000 })
+      // Hosted Fields have no checkbox of their own, so the consent is this
+      // application's, as on Stripe — and ticking it replaces the session.
+      await checkout.chooseToSaveCard(checkout.braintreeForm)
+      await checkout.fillBraintreeCard(BRAINTREE_CHALLENGE_CARD)
+      await checkout.acceptTerms()
+
+      await checkout.placeButton.click()
+      await checkout.completeBraintreeChallenge()
+      await checkout.expectPlaced()
+
+      await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 1 })
+      await expectWalletLinked(newPaymentsOrder, "payment_setting_braintrees")
+    })
   })
 })
 
