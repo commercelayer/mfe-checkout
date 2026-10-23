@@ -43,6 +43,9 @@ const PAYMENT_TAKEN_STATES = ["authorized", "paid", "partially_paid"]
 
 const run = promisify(execFile)
 
+/** Who the order belongs to: a guest, the shared customer, or a new one. */
+type CustomerOrder = boolean | "fresh"
+
 export interface NewPaymentsOrder {
   id: string
   accessToken: string
@@ -63,7 +66,10 @@ export interface NewPaymentsOrder {
  * them on the `payment_source` model for good. These are created in the market
  * named by `PAYMENT_SETTINGS_MARKET_CODE`, which offers payment settings.
  */
-async function mint(...args: string[]): Promise<string> {
+async function mint(
+  args: string[],
+  env: NodeJS.ProcessEnv = process.env,
+): Promise<string> {
   // Minting is setup, not the behaviour under test, and it talks to a shared
   // staging organization over the network — where a connection failure is
   // something that happens. A bounded retry keeps a blip from failing a test
@@ -75,7 +81,7 @@ async function mint(...args: string[]): Promise<string> {
       const { stdout } = await run(
         "node",
         ["scripts/new-payments.mjs", ...args],
-        { cwd: repoRoot },
+        { cwd: repoRoot, env },
       )
       const value = stdout.trim()
       if (value.length === 0) {
@@ -109,10 +115,15 @@ function describe(error: unknown): string {
 
 async function mintOrder({
   asCustomer = false,
+}: {
+  asCustomer?: CustomerOrder
 } = {}): Promise<NewPaymentsOrder> {
-  const printed = asCustomer
-    ? await mint("order", "--customer")
-    : await mint("order")
+  const printed =
+    asCustomer === "fresh"
+      ? await mint(["order", "--customer"], await freshCustomerEnv())
+      : asCustomer
+        ? await mint(["order", "--customer"])
+        : await mint(["order"])
   // Positional groups: this package targets es5, where named ones are a
   // compile error.
   const match = printed.match(/^\/([^?]+)\?accessToken=(.+)$/)
@@ -120,6 +131,23 @@ async function mintOrder({
     throw new Error(`Could not read an order out of: ${printed}`)
   }
   return { id: match[1], accessToken: match[2] }
+}
+
+/**
+ * The environment `new-payments.mjs` signs in with, pointed at a customer
+ * created for this test alone. The script reads `.env.local` without
+ * overriding what it is given, so these win.
+ */
+async function freshCustomerEnv(): Promise<NodeJS.ProcessEnv> {
+  const { email, password } = JSON.parse(await mint(["customer"])) as {
+    email: string
+    password: string
+  }
+  return {
+    ...process.env,
+    PAYMENT_SETTINGS_CUSTOMER_EMAIL: email,
+    PAYMENT_SETTINGS_CUSTOMER_PASSWORD: password,
+  }
 }
 
 function client(accessToken: string): CommerceLayerClient {
@@ -258,8 +286,12 @@ interface FixtureType {
    * the customer who owns them, so a saved card — and every flow that reuses
    * one — is unreachable on a guest order. Adyen's tokenization is gated the
    * same way, on the token rather than on the order.
+   *
+   * `"fresh"` signs in as a customer created for the test alone, for a test
+   * that leaves something on the customer for good — a saved card, which no
+   * token can remove once a payment has used it.
    */
-  customerOrder: boolean
+  customerOrder: CustomerOrder
   /** A fresh order on the `payment_sessions` model, already open on Payment. */
   checkout: PaymentSessionsCheckoutPage
   /** The order the checkout is showing, for reading back over the API. */
@@ -296,7 +328,9 @@ export const test = base.extend<FixtureType>({
   // the object destructuring pattern".
   // biome-ignore lint/correctness/noEmptyPattern: required by Playwright, see above
   mintGiftCard: async ({}, use) => {
-    await use(async (amount: number) => await mint("gift-card", String(amount)))
+    await use(
+      async (amount: number) => await mint(["gift-card", String(amount)]),
+    )
   },
 
   checkout: async ({ page, newPaymentsOrder }, use) => {
