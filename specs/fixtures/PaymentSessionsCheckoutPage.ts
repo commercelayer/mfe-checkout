@@ -719,8 +719,8 @@ export class PaymentSessionsCheckoutPage {
   }
 
   /**
-   * This application's "save this card" checkbox, rendered for Stripe on a
-   * signed-in customer's order.
+   * This application's "save this card" checkbox, rendered for Stripe and
+   * Braintree on a signed-in customer's order.
    */
   get saveCardCheckbox(): Locator {
     return this.page.locator("[data-testid=payment-setting-save-card]")
@@ -730,16 +730,17 @@ export class PaymentSessionsCheckoutPage {
    * Tick "save this card" and wait for the Payment Session it replaces.
    *
    * The choice is fixed when a session is created, so ticking the box creates a
-   * new one and Stripe's Element remounts on the new PaymentIntent. The wait is
-   * for the box to settle checked and the Element to be back, so the card is
-   * typed into the form that will actually be confirmed.
+   * new one and the payment form remounts on it — Stripe's Element on the new
+   * PaymentIntent, Braintree's fields on the new client token. The wait is for
+   * the box to settle checked and `form` to be back, so the card is typed into
+   * the form that will actually be paid with.
    */
-  async chooseToSaveCard(): Promise<void> {
+  async chooseToSaveCard(form: Locator = this.stripeElement): Promise<void> {
     await expect(this.saveCardCheckbox).toBeVisible({ timeout: 30_000 })
     await this.saveCardCheckbox.check()
     await expect(this.saveCardCheckbox).toBeChecked({ timeout: 30_000 })
     await expect(this.saveCardCheckbox).toBeEnabled({ timeout: 30_000 })
-    await expect(this.stripeElement).toBeVisible({ timeout: 30_000 })
+    await expect(form).toBeVisible({ timeout: 30_000 })
   }
 
   /**
