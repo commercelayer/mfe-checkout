@@ -107,6 +107,7 @@
     "notRequired": "Esta encomenda não requer pagamento",
     "amountZero": "O valor total da encomenda é zero, pode concluir a encomenda como está neste momento",
     "saveToWallet": "Guardar novo cartão na sua carteira",
+    "savePaymentMethodToWallet": "Guardar este método de pagamento na sua carteira",
     "expires": "Expira",
     "subscriptionWithoutCustomer": "É necessário criar uma conta para poder adquirir a sua subscrição.",
     "subscriptionWithCustomer": "Ao fornecer as informações do seu cartão, autoriza a empresa a cobrar o seu cartão para pagamentos futuros, de acordo com os seus termos.",

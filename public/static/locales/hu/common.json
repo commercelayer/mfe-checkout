@@ -107,6 +107,7 @@
     "notRequired": "Ez a megrendelés nem igényel fizetést",
     "amountZero": "A rendelés teljes összege nulla, így a rendelést most így is leadhatja",
     "saveToWallet": "Az új bankkártya elmentése",
+    "savePaymentMethodToWallet": "A fizetési mód elmentése",
     "expires": "Lejár",
     "subscriptionWithoutCustomer": "Felhasználói fiók létrehozása szükséges az előfizetéses vásárláshoz",
     "subscriptionWithCustomer": "Azzal, hogy megadja a bankkártya adatait, felhatalmazza a céget, hogy a jövőben fizetéseket eszközöljön vele összhangban a felhasználási feltételeivel.",
