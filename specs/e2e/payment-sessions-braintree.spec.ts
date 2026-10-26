@@ -64,6 +64,17 @@ test.describe("paying with Braintree on the payment_sessions model", {
     await expect(checkout.paymentRecap).toBeVisible({ timeout: 60_000 })
 
     await expect(checkout.paymentInstrument).toContainText("1091")
+    // Braintree spells the brand `VISA`; the icon set's file is `visa.svg`. A
+    // URL built from the brand as given is a broken image.
+    await expect
+      .poll(
+        async () =>
+          await checkout.paymentInstrument
+            .locator("img")
+            .evaluate((img: HTMLImageElement) => img.naturalWidth),
+        { message: "the card brand icon did not load", timeout: 15_000 },
+      )
+      .toBeGreaterThan(0)
     await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 1 })
   })
 
