@@ -17,7 +17,7 @@
     "test": "playwright test",
     "test:debug": "PWDEBUG=1 playwright test",
     "test:ui": "NEXT_PUBLIC_BASE_PATH=http://localhost:4000 playwright test --ui",
-    "serve": "serve -l tcp://localhost:$PORT/ -n -s out/dist",
+    "serve": "pnpm dlx serve@14.2.6 -l tcp://localhost:$PORT/ -n -s out/dist",
     "release": "pnpm --config.enable-global-virtual-store=false dlx --package=semantic-release@25.0.9 --package=@semantic-release/commit-analyzer@13.0.1 --package=@semantic-release/release-notes-generator@14.1.1 --package=@semantic-release/changelog@7.0.0 --package=@semantic-release/npm@13.2.0 --package=@semantic-release/git@10.0.1 --package=@semantic-release/github@12.0.10 semantic-release",
     "clean": "pnpm dlx rimraf --glob **/node_modules **/pnpm-lock.yaml",
     "dep:major": "pnpm dlx npm-check-updates --cooldown 1 --reject '@commercelayer/*' --packageFile '**/package.json' -u && pnpm dlx npm-check-updates --filter '@commercelayer/*' --packageFile '**/package.json' -u",
@@ -95,12 +95,12 @@
     "async-retry": "^1.3.3",
     "classnames": "^2.5.1",
     "cron-parser": "^5.10.2",
-    "cronstrue": "^3.33.0",
+    "cronstrue": "^3.38.0",
     "dotenv": "^17.4.2",
-    "i18next": "^26.5.2",
-    "next": "^16.4.2",
+    "i18next": "^26.5.11",
+    "next": "^16.4.3",
     "next-build-id": "^3.0.0",
-    "next-i18next": "^16.4.1",
+    "next-i18next": "^16.4.3",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-gtm-module": "^2.0.11",
@@ -110,14 +110,12 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.15",
-    "@next/bundle-analyzer": "^16.4.2",
+    "@biomejs/biome": "^2.6.3",
+    "@next/bundle-analyzer": "^16.4.3",
     "@playwright/test": "^1.64.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "baseline-browser-mapping": "^2.11.29",
-    "npm-check-updates": "^19.6.6",
-    "serve": "^14.2.6"
+    "baseline-browser-mapping": "^2.11.33"
   },
   "cacheDirectories": [
     ".next/cache"
