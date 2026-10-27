@@ -108,6 +108,7 @@
     "amountZero": "L'importo totale dell'ordine è zero, puoi effettuare l'ordine così com'è adesso",
     "saveToWallet": "Salva la nuova carta sul tuo portafoglio",
     "savePaymentMethodToWallet": "Salva questo metodo di pagamento sul tuo portafoglio",
+    "paypalUnavailable": "PayPal non è disponibile per questo ordine.",
     "expires": "Scadenza",
     "subscriptionWithoutCustomer": "Crea un account prima di procedere con il tuo acquisto periodico.",
     "subscriptionWithCustomer": "Ciascun ordine periodico verrà addebitato sulla carta fornita, come indicato nelle condizioni di vendita.",

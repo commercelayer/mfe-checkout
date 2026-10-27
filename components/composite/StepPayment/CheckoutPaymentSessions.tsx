@@ -12,6 +12,7 @@ import {
   PaymentSettingGiftCardList,
   PaymentSettingGiftCardListItem,
   PaymentSettingName,
+  PaymentSettingPayPalPayment,
   PaymentSettingStripePayment,
   useOrderContainer,
 } from "@commercelayer/react-components"
@@ -419,6 +420,27 @@ export const CheckoutPaymentSessions = ({
                 </>
               )}
             </PaymentSettingBraintreePayment>
+
+            {/* PayPal as a setting of its own. Its button is the only way to
+              pay it, so the place button stands aside and says so, and the
+              order is placed on its own once PayPal has approved. Outside the
+              label: a click on PayPal's button must not reach the radio. */}
+            <PaymentSettingPayPalPayment className="paypal-setting-button px-4 pb-4">
+              {({ errors: payPalErrors, isUnavailable }) => (
+                <>
+                  {isUnavailable && (
+                    <AdyenError data-testid="paypal-setting-unavailable">
+                      {t("stepPayment.paypalUnavailable")}
+                    </AdyenError>
+                  )}
+                  {payPalErrors.length > 0 && (
+                    <AdyenError data-testid="paypal-setting-error">
+                      {payPalErrors.map(braintreeErrorMessage).join(" ")}
+                    </AdyenError>
+                  )}
+                </>
+              )}
+            </PaymentSettingPayPalPayment>
           </PaymentSettingBox>
         )}
       </PaymentSetting>

@@ -104,6 +104,7 @@
     "amountZero": "Ukupan iznos narudžbe je nula, narudžbu možete poslati odmah",
     "saveToWallet": "Spremi novu karticu u novčanik",
     "savePaymentMethodToWallet": "Spremi ovaj način plaćanja u novčanik",
+    "paypalUnavailable": "PayPal nije dostupan za ovu narudžbu.",
     "expires": "Istječe",
     "subscriptionWithoutCustomer": "Za kupnju pretplate morate stvoriti račun.",
     "subscriptionWithCustomer": "Davanjem podataka o kartici dopuštate tvrtki da tereti vašu karticu za buduća plaćanja u skladu s njihovim uvjetima.",

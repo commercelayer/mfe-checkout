@@ -108,6 +108,7 @@
     "amountZero": "A rendelés teljes összege nulla, így a rendelést most így is leadhatja",
     "saveToWallet": "Az új bankkártya elmentése",
     "savePaymentMethodToWallet": "A fizetési mód elmentése",
+    "paypalUnavailable": "A PayPal nem érhető el ehhez a rendeléshez.",
     "expires": "Lejár",
     "subscriptionWithoutCustomer": "Felhasználói fiók létrehozása szükséges az előfizetéses vásárláshoz",
     "subscriptionWithCustomer": "Azzal, hogy megadja a bankkártya adatait, felhatalmazza a céget, hogy a jövőben fizetéseket eszközöljön vele összhangban a felhasználási feltételeivel.",

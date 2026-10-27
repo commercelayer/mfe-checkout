@@ -108,6 +108,7 @@
       "amountZero": "Het totaalbedrag van de bestelling is nul, u kunt de bestelling nu plaatsen zoals deze is",
       "saveToWallet": "Nieuwe kaart opslaan in uw portemonnee",
       "savePaymentMethodToWallet": "Deze betaalmethode opslaan in uw portemonnee",
+      "paypalUnavailable": "PayPal is niet beschikbaar voor deze bestelling.",
       "expires": "Verloopt",
       "subscriptionWithoutCustomer": "Er moet een account worden aangemaakt om uw abonnement aan te schaffen.",
       "subscriptionWithCustomer": "Door uw kaartgegevens te verstrekken, geeft u het bedrijf toestemming om uw kaart te belasten voor toekomstige betalingen in overeenstemming met hun voorwaarden.",
