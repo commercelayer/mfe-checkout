@@ -108,6 +108,7 @@
     "amountZero": "Suma zamówienia wynosi zero. Możesz złożyć je bez płatności.",
     "saveToWallet": "Zapisz kartę do walleta",
     "savePaymentMethodToWallet": "Zapisz tę metodę płatności do walleta",
+    "paypalUnavailable": "PayPal nie jest dostępny dla tego zamówienia.",
     "expires": "Wygasa",
     "subscriptionWithoutCustomer": "Aby kupić subskrypcję, należy założyć konto.",
     "subscriptionWithCustomer": "Podając dane swojej karty, zezwalasz firmie na obciążenie Twojej karty przyszłymi płatnościami zgodnie z jej warunkami.",

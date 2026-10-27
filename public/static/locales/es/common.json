@@ -108,6 +108,7 @@
     "amountZero": "El total del pedido es cero, puedes realizar el pedido tal como está ahora",
     "saveToWallet": "Guardar nueva tarjeta en tu billetera",
     "savePaymentMethodToWallet": "Guardar este método de pago en tu billetera",
+    "paypalUnavailable": "PayPal no está disponible para este pedido.",
     "expires": "Expira",
     "subscriptionWithoutCustomer": "Se debe crear una cuenta para comprar tu suscripción.",
     "subscriptionWithCustomer": "Al proporcionar la información de tu tarjeta, permites a la empresa cargar en tu tarjeta los pagos futuros de acuerdo con sus términos.",

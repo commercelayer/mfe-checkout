@@ -108,6 +108,7 @@
     "amountZero": "Le montant total de la commande est nul, vous pouvez passer la commande en l’état.",
     "saveToWallet": "Enregistrez la nouvelle carte dans votre portefeuille",
     "savePaymentMethodToWallet": "Enregistrez ce moyen de paiement dans votre portefeuille",
+    "paypalUnavailable": "PayPal n'est pas disponible pour cette commande.",
     "expires": "Expiration",
     "subscriptionWithoutCustomer": "Un compte doit être créé pour pouvoir acheter par abonnement.",
     "subscriptionWithCustomer": "En fournissant les informations relatives à votre carte, vous autorisez l’entreprise à débiter votre carte pour les paiements futurs, conformément à ses conditions.",
