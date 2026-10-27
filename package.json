@@ -83,7 +83,7 @@
     "@commercelayer/organization-config": "^2.8.5",
     "@commercelayer/react-components": "5.0.11",
     "@commercelayer/react-hooks-components": "5.0.11",
-    "@commercelayer/sdk": "8.0.3",
+    "@commercelayer/sdk": "8.0.2",
     "@faker-js/faker": "^10.6.0",
     "@headlessui/react": "^2.2.10",
     "@newrelic/browser-agent": "^1.324.0",

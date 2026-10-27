@@ -7,7 +7,7 @@ settings:
 overrides:
   compression: ^1.8.2
   fflate: ^0.8.3
-  '@commercelayer/sdk': 8.0.3
+  '@commercelayer/sdk': 8.0.2
 
 importers:
 
@@ -32,8 +32,8 @@ importers:
         specifier: 5.0.11
         version: 5.0.11(react@19.3.1)
       '@commercelayer/sdk':
-        specifier: 8.0.3
-        version: 8.0.3
+        specifier: 8.0.2
+        version: 8.0.2
       '@faker-js/faker':
         specifier: ^10.6.0
         version: 10.6.0
@@ -260,8 +260,8 @@ packages:
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/sdk@8.0.3':
-    resolution: {integrity: sha512-vb8FbdaLswYuib5V/AUbQnvWgdBEKV/lEpccLFgHUPAInl/AxaB92WgcPZbwvm33Dv1e9HXq5rPOOBsSclwwzA==}
+  '@commercelayer/sdk@8.0.2':
+    resolution: {integrity: sha512-OdKFC4qDUvQDeNpYRi+wChQFqktc74sFaQxK8NpaEeGx8mkepribmP+pOI0d7Xy1GdeExv5D5es9ZxRenLY0vA==}
     engines: {node: '>=20'}
 
   '@discoveryjs/json-ext@0.5.7':
@@ -1796,7 +1796,7 @@ snapshots:
   '@commercelayer/core-components@5.0.11':
     dependencies:
       '@commercelayer/js-auth': 8.0.2
-      '@commercelayer/sdk': 8.0.3
+      '@commercelayer/sdk': 8.0.2
 
   '@commercelayer/js-auth@7.4.2': {}
 
@@ -1813,7 +1813,7 @@ snapshots:
       '@commercelayer/core-components': 5.0.11
       '@commercelayer/organization-config': 2.8.5
       '@commercelayer/react-hooks-components': 5.0.11(react@19.3.1)
-      '@commercelayer/sdk': 8.0.3
+      '@commercelayer/sdk': 8.0.2
       '@stripe/react-stripe-js': 6.12.0(@stripe/stripe-js@9.17.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@stripe/stripe-js': 9.17.0
       '@tanstack/react-table': 8.21.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -1833,7 +1833,7 @@ snapshots:
       react: 19.3.1
       swr: 2.5.1(react@19.3.1)
 
-  '@commercelayer/sdk@8.0.3': {}
+  '@commercelayer/sdk@8.0.2': {}
 
   '@discoveryjs/json-ext@0.5.7': {}
 
