@@ -657,6 +657,21 @@ export class PaymentSessionsCheckoutPage {
    * Rendered from `collection.by === "gateway"` on the handoff: the library
    * ships no copy, so this test id is this repository's.
    */
+  /**
+   * PayPal's own button for the PayPal payment setting: the `<paypal-button>`
+   * custom element PayPal's v6 SDK registers, in the container this
+   * application names (`paypal-setting-button`). Not an iframe, unlike the
+   * buttons PayPal renders for Adyen and Braintree.
+   */
+  get payPalSettingButton(): Locator {
+    return this.page.locator(".paypal-setting-button paypal-button")
+  }
+
+  /** What the PayPal setting reports about itself — the terms gate, a refusal. */
+  get payPalSettingError(): Locator {
+    return this.page.locator("[data-testid=paypal-setting-error]")
+  }
+
   get gatewayOwnsButtonHint(): Locator {
     return this.page.locator("[data-testid=gateway-owns-button]")
   }

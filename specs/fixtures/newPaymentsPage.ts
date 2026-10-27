@@ -375,3 +375,30 @@ export {
   payPalCredentials,
   STRIPE_CARD,
 } from "./PaymentSessionsCheckoutPage"
+
+/**
+ * The paying session vaulted, and Commerce Layer linked a wallet to it.
+ *
+ * Polled because Adyen's wallet arrives on a webhook some seconds after the
+ * payment; Stripe's is usually there already.
+ */
+export async function expectWalletLinked(
+  order: NewPaymentsOrder,
+  settingType: string,
+): Promise<void> {
+  const placed = await readOrder(order)
+  const session = (placed.payment_sessions ?? []).find(
+    (candidate) => candidate.payment_setting?.type === settingType,
+  )
+  expect(session, `no ${settingType} session on the order`).toBeDefined()
+  const sessionId = session?.id as string
+
+  expect((await readSessionWallet(order, sessionId)).vaulting).toBe(true)
+  await expect
+    .poll(async () => (await readSessionWallet(order, sessionId)).walletId, {
+      message: "Commerce Layer linked no payment_wallet to the session",
+      timeout: 90_000,
+      intervals: [2_000, 5_000],
+    })
+    .toBeTruthy()
+}
