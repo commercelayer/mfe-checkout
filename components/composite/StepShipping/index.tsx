@@ -203,6 +203,15 @@ export const StepShipping: React.FC<Props> = () => {
     return null
   }
 
+  // Both <Shipments> (fetching the shipments) and <Shipment> (auto-selecting
+  // the method) show a loader, and each defaults to the text "Loading...".
+  const shippingSkeleton = (
+    <div className="animate-pulse">
+      <div className="w-1/2 h-5 mt-6 bg-gray-200" />
+      <div className="h-20 my-5 bg-gray-200" />
+    </div>
+  )
+
   const { isShipmentRequired, shipments } = appCtx
 
   // Render nothing if shipping is not required
@@ -225,7 +234,7 @@ export const StepShipping: React.FC<Props> = () => {
               {accordionCtx.isActive && (
                 <>
                   {
-                    <Shipments>
+                    <Shipments loader={shippingSkeleton}>
                       <>
                         <OutOfStock
                           cartUrl={appCtx.cartUrl}
@@ -243,12 +252,7 @@ export const StepShipping: React.FC<Props> = () => {
                               autoSelectSingleShippingMethod={
                                 autoSelectCallback
                               }
-                              loader={
-                                <div className="animate-pulse">
-                                  <div className="w-1/2 h-5 mt-6 bg-gray-200" />
-                                  <div className="h-20 my-5 bg-gray-200" />
-                                </div>
-                              }
+                              loader={shippingSkeleton}
                             >
                               <ShippingWrapper data-testid="shipments-container">
                                 {shipments.length > 1 && (
