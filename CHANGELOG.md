@@ -1,3 +1,26 @@
+# [7.0.0](https://github.com/commercelayer/mfe-checkout/compare/v6.5.9...v7.0.0) (2026-10-29)
+
+
+### Bug Fixes
+
+* pin the react-components preview in the form its own deps use ([7636675](https://github.com/commercelayer/mfe-checkout/commit/7636675daadd1b4fd4f65cbdb3e297f8b1f56351))
+* show the skeleton while shipments load ([effae26](https://github.com/commercelayer/mfe-checkout/commit/effae2649f39d2b157b55f4eb26fc8921ac6d0e6))
+
+
+### Features
+
+* migrate to react-components v5 and replace the deprecated containers ([04cebb7](https://github.com/commercelayer/mfe-checkout/commit/04cebb734f9f392714c97bd9ee3b59810ba4bcc4))
+* release the checkout on react-components v5 ([6482909](https://github.com/commercelayer/mfe-checkout/commit/64829092d1c226c7edacf9a57e343efdde40e922))
+
+
+### BREAKING CHANGES
+
+* the checkout runs on react-components v5, React 19 and SDK 8,
+and the deprecated containers are gone, so forks that customize them have to
+migrate. Orders are read and written through API version 2026-05, the address
+forms use the organization's configured country and state lists, and builds
+must run with webpack (`--webpack`); Turbopack is not supported.
+
 ## [6.5.9](https://github.com/commercelayer/mfe-checkout/compare/v6.5.8...v6.5.9) (2026-10-08)
 
 
