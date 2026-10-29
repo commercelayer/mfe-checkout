@@ -134,6 +134,9 @@ jobs:
         with:
           use_bedrock: "true"
           github_token: ${{ secrets.CI_TRIAGE_GH_TOKEN }}
+          # The `dispatch` job starts this run with GITHUB_TOKEN, so the actor
+          # is github-actions[bot], which the action rejects by default.
+          allowed_bots: github-actions
           claude_args: >-
             --model ${{ vars.BEDROCK_MODEL || 'anthropic.claude-opus-5-5' }}
             --max-turns 120
