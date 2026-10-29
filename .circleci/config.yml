@@ -5,11 +5,12 @@ orbs:
   aws-s3: circleci/aws-s3@4.1.3
 
 jobs:
-  test: # this can be any name you choose
+  # Installs and builds once; the parallel `test` nodes attach the result
+  # instead of each repeating it. A rerun from failed reuses this workspace.
+  e2e-build:
     docker:
       - image: mcr.microsoft.com/playwright:v1.63.0-noble
     resource_class: medium+
-    parallelism: 10
 
     environment:
       PLAYWRIGHT_BROWSERS_PATH: 0
@@ -42,9 +43,33 @@ jobs:
             - ./node_modules
             - ./.next/cache
       - run:
-          name: Export and serve
+          name: Export
           command: |
             pnpm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            # Chromium is inside node_modules (PLAYWRIGHT_BROWSERS_PATH=0)
+            - node_modules
+            - out/dist
+
+  test:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.63.0-noble
+    resource_class: medium+
+    parallelism: 10
+
+    environment:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install pnpm
+          command: |
+            npm install -g pnpm@11
       - run:
           name: Run tests
           no_output_timeout: 15m
@@ -120,8 +145,15 @@ jobs:
 workflows:
   tests:
     jobs:
+      - e2e-build:
+          context: commercelayer
+          filters:
+            tags:
+              ignore: /v.*/
       - test:
           context: commercelayer
+          requires:
+            - e2e-build
           filters:
             tags:
               ignore: /v.*/
