@@ -1,7 +1,6 @@
-import { faker } from "@faker-js/faker"
-
 import { test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("braintree errors", () => {
   ;[
@@ -22,7 +21,7 @@ test.describe("braintree errors", () => {
     },
   ].forEach(({ kind, code, error }) => {
     test.describe(kind, () => {
-      const customerEmail = faker.internet.email().toLocaleLowerCase()
+      const customerEmail = uniqueCustomerEmail()
 
       test.use({
         defaultParams: {

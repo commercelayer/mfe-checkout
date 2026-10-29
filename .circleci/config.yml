@@ -13,7 +13,6 @@ jobs:
 
     environment:
       PLAYWRIGHT_BROWSERS_PATH: 0
-      PLAYWRIGHT_JUNIT_OUTPUT_NAME: test-results/junit.xml
 
     steps:
       - checkout
@@ -50,12 +49,11 @@ jobs:
           name: Run tests
           no_output_timeout: 15m
           command: |
-            mkdir test-results
             pnpm run serve --no-request-logging &
-            TESTFILES=$(circleci tests glob "specs/e2e/**/*.spec.ts")
-            echo $TESTFILES | circleci tests run --command="xargs pnpm playwright test --config=playwright.config.ci.ts --reporter=list" --verbose --split-by=timings
+            circleci testsuite run e2e
       - store_test_results:
-          path: test-results/junit.xml
+          # Must match outputs.junit in .circleci/test-suites.yml
+          path: test-reports
       - store_artifacts:
           path: test-results
 

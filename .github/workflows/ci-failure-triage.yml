@@ -1,0 +1,159 @@
+name: CI failure triage
+
+# CircleCI reports each job back as a commit status. When the e2e job finishes,
+# fetch the Playwright traces it kept (trace: "retain-on-failure", so any trace
+# means a failed attempt — including tests that passed on retry) and have Claude
+# diagnose them and open or update issues labelled `triage`.
+#
+# `status` workflows only run from the default branch, so this takes effect once
+# merged to main; it then fires for commits on every branch.
+#
+# Secrets:
+#   CIRCLECI_TOKEN        CircleCI personal API token (read is enough)
+#   AWS_BEDROCK_ROLE_ARN  IAM role Claude runs as on Amazon Bedrock, assumed
+#                         through GitHub OIDC (no long-lived AWS keys)
+#   CI_TRIAGE_GH_TOKEN    issues read/write on mfe-checkout and
+#                         commercelayer-react-components (the default
+#                         GITHUB_TOKEN can't write to another repo)
+#
+# Variables:
+#   AWS_REGION            Bedrock region, e.g. eu-west-1
+#   BEDROCK_MODEL         optional; defaults to Claude Opus 5.5. Set an
+#                         inference profile ID here if the account needs one.
+
+on:
+  status:
+  # Replay a past job: gh workflow run ci-failure-triage.yml -f target_url=<CircleCI job URL> -f sha=<commit>
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: CircleCI e2e job URL
+        required: true
+      sha:
+        description: Commit the job tested
+        required: true
+
+permissions:
+  contents: read
+  id-token: write # AWS OIDC for Bedrock
+
+concurrency:
+  group: ci-triage-${{ github.event.target_url || inputs.target_url }}
+  cancel-in-progress: false
+
+jobs:
+  triage:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.context == 'ci/circleci: test' &&
+      (github.event.state == 'success' || github.event.state == 'failure'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Download failure traces
+        id: traces
+        env:
+          CIRCLE_TOKEN: ${{ secrets.CIRCLECI_TOKEN }}
+          TARGET_URL: ${{ github.event.target_url || inputs.target_url }}
+        run: |
+          set -euo pipefail
+          job=$(echo "$TARGET_URL" | grep -oE '[0-9]+' | tail -1)
+          api="https://circleci.com/api/v2/project/gh/${GITHUB_REPOSITORY}/${job}/artifacts"
+          mkdir -p traces
+          : > artifacts.tsv
+          token=""
+          while :; do
+            page=$(curl -sfS -H "Circle-Token: $CIRCLE_TOKEN" "${api}${token:+?page-token=$token}")
+            echo "$page" | jq -r '.items[] | select(.path | test("(trace\\.zip|error-context\\.md)$")) | [.node_index, .path, .url] | @tsv' >> artifacts.tsv
+            token=$(echo "$page" | jq -r '.next_page_token // empty')
+            [ -z "$token" ] && break
+          done
+          while IFS=$'\t' read -r node path url; do
+            dest="traces/node${node}/${path}"
+            mkdir -p "$(dirname "$dest")"
+            curl -sfSL -H "Circle-Token: $CIRCLE_TOKEN" -o "$dest" "$url"
+          done < artifacts.tsv
+          count=$(find traces -name trace.zip | wc -l | tr -d ' ')
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "job=$job" >> "$GITHUB_OUTPUT"
+          echo "Found $count failed attempts in CircleCI job $job"
+
+      - name: Checkout the commit that was tested
+        if: steps.traces.outputs.count != '0'
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.sha || inputs.sha }}
+          path: app
+
+      - name: Resolve pinned react-components version
+        if: steps.traces.outputs.count != '0'
+        id: rc
+        run: echo "version=$(jq -r '.dependencies["@commercelayer/react-components"]' app/package.json | tr -d '^~')" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout react-components at the pinned release
+        if: steps.traces.outputs.count != '0'
+        uses: actions/checkout@v5
+        with:
+          repository: commercelayer/commercelayer-react-components
+          ref: v${{ steps.rc.outputs.version }}
+          path: react-components
+
+      - name: Authenticate to AWS
+        if: steps.traces.outputs.count != '0'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_BEDROCK_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Diagnose and file issues
+        if: steps.traces.outputs.count != '0'
+        uses: anthropics/claude-code-action@v1
+        env:
+          GH_TOKEN: ${{ secrets.CI_TRIAGE_GH_TOKEN }}
+        with:
+          use_bedrock: "true"
+          github_token: ${{ secrets.CI_TRIAGE_GH_TOKEN }}
+          claude_args: >-
+            --model ${{ vars.BEDROCK_MODEL || 'anthropic.claude-opus-5-5' }}
+            --max-turns 120
+            --allowedTools "Read,Grep,Glob,Write,Bash(unzip:*),Bash(node:*),Bash(ls:*),Bash(find:*),Bash(jq:*),Bash(gh issue list:*),Bash(gh issue view:*),Bash(gh issue create:*),Bash(gh issue comment:*),Bash(gh search issues:*)"
+          prompt: |
+            You are triaging flaky and failing Playwright e2e tests for commercelayer/mfe-checkout.
+            Do not change any code. Your only outputs are GitHub issues and comments.
+
+            Context
+            - CircleCI job: ${{ github.event.target_url || inputs.target_url }} (commit ${{ github.event.sha || inputs.sha }}).
+              A green job can still contain failed attempts: the suite retries twice, so a trace here may belong to a test that passed on retry.
+            - ./traces/ holds one folder per failed attempt: trace.zip (Playwright trace) and error-context.md (test name, error, page snapshot).
+            - ./app/ is the app at the tested commit. Tests are in app/specs/, helpers in app/specs/fixtures/.
+            - ./react-components/ is commercelayer-react-components at v${{ steps.rc.outputs.version }}, the release the app pins.
+
+            For each failed attempt
+            1. Read error-context.md for the test name and error. Group attempts of the same test with the same error together.
+            2. Unzip the trace and find the root cause from the evidence, not the error message alone:
+               test.trace has the actions and errors with timestamps; *.network has requests with timing and the
+               request/response bodies under resources/; *.trace has DOM snapshots. Use small node scripts to read them.
+               Line up the failing action against the API calls around it and look for overlapping requests,
+               responses that arrive after the test moved on, or state that does not match the server.
+            3. Read the code involved (app components, test helpers, react-components source) to confirm the cause.
+            4. Decide where it belongs:
+               - react-components bug → commercelayer/commercelayer-react-components
+               - app bug, or a test/helper bug (wrong wait, waiting on an element that is gone, missing guard) → commercelayer/mfe-checkout
+               - external cause (a payment sandbox down or very slow, Commerce Layer API 429/5xx, network) → no issue; mention it in the summary only.
+               If you cannot determine the cause from the evidence, avoid opening the issue in mfe-checkout.
+
+            Before opening anything, check for an existing open issue
+            - Search open issues in both repos for the spec file name, the test title, and the key function/file you blamed.
+            - Issues opened by this workflow contain a marker line `<!-- ci-triage: <spec file> › <test title> -->`.
+            - If an open issue already covers the same cause, add a short comment with this occurrence (job link, timings) instead of a new issue.
+              Do not comment more than once per issue per run.
+
+            Opening an issue
+            - Label it `triage`. Keep it short and factual: what fails, the evidence (timestamps, requests), the cause, a suggested fix if you are confident.
+              Reference code as path:line at the version above. Distinguish what you confirmed from what you inferred.
+            - Include the CircleCI job link and the marker line at the end of the body.
+            - Write the body to a file and use `gh issue create --repo <repo> --label triage --body-file <file>`.
+            - Open at most 5 new issues per run; if there are more distinct causes, list the rest in the summary.
+            - Mention only code, issues, pull requests, and evidence relevant to the failure only for mfe-checkout and commercelayer-react-components repos.
+
+            Finish with a summary: each failed test, the cause, and the issue created or commented on (or why none).

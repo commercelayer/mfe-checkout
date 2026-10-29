@@ -1,8 +1,7 @@
-import { faker } from "@faker-js/faker"
-
 import { expect, test } from "../fixtures/tokenizedPage"
+import { uniqueCustomerEmail } from "../utils/customers"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 
 test.describe("with expires_at in the future", () => {
   test.describe("no expiration_info", () => {
@@ -77,7 +76,7 @@ test.describe("with expires_at in the past", () => {
         checkoutPage.page.getByTestId("expired-message")
       await expiredMessageElement.waitFor()
 
-      expect(expiredMessageElement).toHaveText(
+      await expect(expiredMessageElement).toHaveText(
         "Your order was not completed. Please try again with a new order.",
       )
     })
@@ -106,7 +105,9 @@ test.describe("with expires_at in the past", () => {
       const expiredMessageElement =
         checkoutPage.page.getByTestId("expired-message")
       await expiredMessageElement.waitFor()
-      expect(expiredMessageElement).toHaveText("Your session has expired.")
+      await expect(expiredMessageElement).toHaveText(
+        "Your session has expired.",
+      )
       await checkoutPage.page.getByTestId("button-expire-url-to-shop").waitFor()
     })
   })

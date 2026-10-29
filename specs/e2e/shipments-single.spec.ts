@@ -1,9 +1,8 @@
-import { faker } from "@faker-js/faker"
-
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 
 test.describe("with customer email and same addresses", () => {
   test.use({
@@ -31,7 +30,9 @@ test.describe("with customer email and same addresses", () => {
     await checkoutPage.checkStep("Shipping", "open")
 
     await checkoutPage.checkShippingSummary("To be calculated")
-    expect(checkoutPage.page.locator("text=Standard Shipping")).toBeVisible()
+    await expect(
+      checkoutPage.page.locator("text=Standard Shipping"),
+    ).toBeVisible()
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.save("Shipping")
@@ -223,7 +224,9 @@ test.describe("with do no track SKU", () => {
     await checkoutPage.checkStep("Shipping", "open")
 
     await checkoutPage.checkShippingSummary("To be calculated")
-    expect(checkoutPage.page.locator("text=Standard Shipping")).toBeVisible()
+    await expect(
+      checkoutPage.page.locator("text=Standard Shipping"),
+    ).toBeVisible()
     await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
 
     await checkoutPage.save("Shipping")

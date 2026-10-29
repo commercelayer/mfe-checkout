@@ -1,0 +1,8 @@
+# Smarter Testing: `circleci testsuite run e2e` in .circleci/config.yml.
+# Test atoms are spec files. "Rerun workflow from failed" reruns only the files
+# with a failed test, and parallel nodes split by the timings in the junit report.
+name: e2e
+discover: find specs/e2e -name '*.spec.ts' | sort
+run: PLAYWRIGHT_JUNIT_OUTPUT_NAME="<< outputs.junit >>" pnpm playwright test --config=playwright.config.ci.ts --reporter=list,junit << test.atoms >>
+outputs:
+  junit: test-reports/junit.xml

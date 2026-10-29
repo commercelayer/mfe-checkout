@@ -2,8 +2,9 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, euAddress2 } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 
 test.describe("with customer email", () => {
   test.use({
@@ -295,7 +296,7 @@ test.describe("with customer email and shipping country code lock", () => {
     const element = checkoutPage.page.locator(
       "[data-testid=input_shipping_address_country_code]",
     )
-    expect(element).toBeDisabled()
+    await expect(element).toBeDisabled()
     const shippingAddress = {
       ...euAddress,
       first_name: "Matteo",

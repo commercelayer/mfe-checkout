@@ -1,11 +1,10 @@
-import { faker } from "@faker-js/faker"
-
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress, usAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 const TIMEOUT = 200
 
-const customerEmail = faker.internet.email().toLocaleLowerCase()
+const customerEmail = uniqueCustomerEmail()
 
 test.describe("multi shipments", () => {
   test.use({

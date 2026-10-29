@@ -2,9 +2,10 @@ import { faker } from "@faker-js/faker"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
+import { uniqueCustomerEmail } from "../utils/customers"
 
 test.describe("customer with Adyen without saving", () => {
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -39,8 +40,8 @@ test.describe("customer with Adyen without saving", () => {
     await checkoutPage.selectPayment("adyen")
 
     const element = checkoutPage.page.getByTestId("payment-save-wallet")
-    expect(element).toBeVisible()
-    expect(element).not.toBeChecked()
+    await expect(element).toBeVisible()
+    await expect(element).not.toBeChecked()
 
     await checkoutPage.setPayment("adyen")
 
@@ -51,7 +52,7 @@ test.describe("customer with Adyen without saving", () => {
 test.describe("customer with Adyen with saving", () => {
   test.describe.configure({ mode: "serial" })
 
-  const customerEmail = faker.internet.email().toLocaleLowerCase()
+  const customerEmail = uniqueCustomerEmail()
   const customerPassword = faker.internet.password()
 
   test.use({
@@ -88,11 +89,11 @@ test.describe("customer with Adyen with saving", () => {
     await checkoutPage.setPayment("adyen")
 
     let element = checkoutPage.page.getByTestId("payment-save-wallet")
-    expect(element).toBeVisible()
-    expect(element).not.toBeChecked()
+    await expect(element).toBeVisible()
+    await expect(element).not.toBeChecked()
     await element.check()
     element = checkoutPage.page.getByTestId("payment-save-wallet")
-    expect(element).toBeChecked()
+    await expect(element).toBeChecked()
 
     await checkoutPage.save("Payment")
   })
@@ -131,7 +132,7 @@ test.describe("customer with Adyen with saving", () => {
     await checkoutPage.page.waitForTimeout(2000)
 
     const element = checkoutPage.page.getByTestId("payment-save-wallet")
-    expect(element).not.toBeVisible()
+    await expect(element).not.toBeVisible()
     await checkoutPage.checkStep("Payment", "open")
 
     await checkoutPage.save("Payment")
