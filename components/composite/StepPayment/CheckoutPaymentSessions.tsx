@@ -30,7 +30,6 @@ import {
   BRAINTREE_CONTAINER_CLASS,
   BRAINTREE_WALLETS_CLASS,
   BRAINTREE_WALLETS_DIVIDER_CLASS,
-  GiftCardAddLink,
   GiftCardBody,
   GiftCardHeader,
   GiftCardIcon,
@@ -183,15 +182,16 @@ export const CheckoutPaymentSessions = ({
     if (code.startsWith("HOSTED_FIELDS_FIELDS_")) {
       return t("stepPayment.completeCardDetails")
     }
+    // A card that failed 3DS and one the processor refused end the same way
+    // for the shopper — no payment, try another card — so they share a message.
     if (
       code.startsWith("THREEDS_") ||
       code.startsWith("authenticate_") ||
       code.startsWith("challenge_") ||
-      code === "liability_not_shifted"
+      code === "liability_not_shifted" ||
+      code === "declined" ||
+      code === "failed"
     ) {
-      return t("stepPayment.cardNotAuthenticated")
-    }
-    if (code === "declined" || code === "failed") {
       return t("stepPayment.paymentDeclined")
     }
     return error.message ?? ""
@@ -298,9 +298,10 @@ export const CheckoutPaymentSessions = ({
               the session and the form remounts empty. Asked before typing, it
               costs nothing.
 
-              Worded as a card only on Stripe. On Braintree the choice goes
-              with the session, not with the card fields, so an Apple Pay
-              payment on the same setting is stored too. */}
+              Worded as a card on Braintree too, where the choice goes with the
+              session and an Apple Pay payment on it is stored as well: the
+              checkbox sits above the card form, and one label is one fewer
+              string to translate. */}
             {isSelected && canSaveCard && (
               <div className="flex items-center px-4 mt-3 mb-4">
                 <WalletCheckbox
@@ -316,11 +317,7 @@ export const CheckoutPaymentSessions = ({
                 />
                 <Label
                   htmlFor={`save-card-${setting.id}`}
-                  textLabel={t(
-                    setting.type === "payment_setting_stripes"
-                      ? "stepPayment.saveToWallet"
-                      : "stepPayment.savePaymentMethodToWallet",
-                  )}
+                  textLabel={t("stepPayment.saveToWallet")}
                 />
               </div>
             )}
@@ -397,10 +394,9 @@ export const CheckoutPaymentSessions = ({
               </PaymentSettingBraintreePayPal>
             </div>
             {/* One divider for however many wallets there are, shown only when
-              the block above has something in it. */}
+              the block above has something in it. A bare rule: the card form
+              under it says what it is. */}
             <div className={BRAINTREE_WALLETS_DIVIDER_CLASS}>
-              <span className="h-px grow bg-gray-200" />
-              {t("stepPayment.orPayByCard")}
               <span className="h-px grow bg-gray-200" />
             </div>
 
@@ -438,15 +434,15 @@ export const CheckoutPaymentSessions = ({
             </PaymentSettingBraintreePayment>
 
             {/* PayPal as a setting of its own. Its button is the only way to
-              pay it, so the place button stands aside and says so, and the
-              order is placed on its own once PayPal has approved. Outside the
-              label: a click on PayPal's button must not reach the radio. */}
+              pay it, so the place button stands aside, and the order is
+              placed on its own once PayPal has approved. Outside the label: a
+              click on PayPal's button must not reach the radio. */}
             <PaymentSettingPayPalPayment className="paypal-setting-button px-4 pb-4">
               {({ errors: payPalErrors, isUnavailable }) => (
                 <>
                   {isUnavailable && (
                     <AdyenError data-testid="paypal-setting-unavailable">
-                      {t("stepPayment.paypalUnavailable")}
+                      {t("stepPayment.paymentMethodNotLoaded")}
                     </AdyenError>
                   )}
                   {payPalErrors.length > 0 && (
@@ -501,16 +497,6 @@ const GiftCardSection = ({
   const { order } = useOrderContainer()
   const appliedCount = giftCardSessions.length
   const [isOpen, setIsOpen] = useState(false)
-  const [isInputVisible, setIsInputVisible] = useState(true)
-  const [seenCount, setSeenCount] = useState(appliedCount)
-
-  // A card was applied or removed. On apply the field steps aside for the "add
-  // another one" link, so a shopper who is done is not left looking at an empty
-  // field; on removal it comes back.
-  if (appliedCount !== seenCount) {
-    setSeenCount(appliedCount)
-    setIsInputVisible(appliedCount === 0)
-  }
 
   // Both operations also delete the session paying the difference, so the app's
   // copy of the order is now wrong about whether payment is in place — the
@@ -560,11 +546,13 @@ const GiftCardSection = ({
             </PaymentSettingGiftCardListItem>
           </PaymentSettingGiftCardList>
 
-          {isOpen && isInputVisible && (
+          {/* Stays on screen, emptied, after a card is applied, for as long as
+              another one can be. */}
+          {isOpen && canAddGiftCard && (
             <GiftCardInputRow>
               <StyledGiftCardSessionInput
                 data-testid="gift-card-input"
-                placeholder={t("stepPayment.giftCardCodePlaceholder")}
+                placeholder={t("orderRecap.gift_card_code")}
               />
               {/* The library defaults these two to English, which is right for
                   a package that cannot know the host's i18n — but it means the
@@ -582,17 +570,6 @@ const GiftCardSection = ({
               be told why nothing happened. */}
           {isOpen && (
             <StyledGiftCardSessionError data-testid="gift-card-error" />
-          )}
-
-          {isOpen && canAddGiftCard && !isInputVisible && (
-            <GiftCardAddLink
-              data-testid="gift-card-add"
-              onClick={() => {
-                setIsInputVisible(true)
-              }}
-            >
-              {t("stepPayment.addAnotherGiftCard")}
-            </GiftCardAddLink>
           )}
         </GiftCardBody>
       )}

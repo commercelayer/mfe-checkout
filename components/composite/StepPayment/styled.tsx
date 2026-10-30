@@ -281,23 +281,10 @@ export const StyledGiftCardSessionSubmit: FC<any> = (props) => (
   />
 )
 
-// The gift card box's two text actions, Remove and "add another one": bold
-// 13px with a grey underline, so they read as links without competing with the
-// code and the amount beside them.
+// The gift card box's Remove: bold 13px with a grey underline, so it reads as a
+// link without competing with the code and the amount beside it.
 const GiftCardLinkCss =
   "text-[13px] font-bold text-primary underline decoration-[#C4C4C4] cursor-pointer"
-
-// Opening the input again after a card has been applied. Plain markup: which
-// controls are on screen is this application's business, not the library's.
-export const GiftCardAddLink: FC<HTMLAttributes<HTMLButtonElement>> = (
-  props,
-) => (
-  <button
-    {...props}
-    type="button"
-    className={`${GiftCardLinkCss} ${props.className || ""}`}
-  />
-)
 
 // Gift card failures are rejected before anything is written to the order, so
 // they never reach <Errors resource="orders"> — they need their own outlet, the
@@ -358,7 +345,7 @@ export const APPLE_PAY_BUTTON_CLASS =
 export const BRAINTREE_WALLETS_CLASS =
   "braintree-wallets flex flex-col gap-3 px-4 pb-3 -mt-2 empty:hidden"
 
-// The "or pay by card" divider under the wallets, shown only when the block
+// The divider under the wallets, shown only when the block
 // right before it has something in it.
 export const BRAINTREE_WALLETS_DIVIDER_CLASS =
   "hidden [.braintree-wallets:not(:empty)+&]:flex items-center gap-3 px-4 pb-3 text-xs text-gray-400"

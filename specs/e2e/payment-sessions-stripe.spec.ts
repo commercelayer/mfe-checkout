@@ -36,9 +36,8 @@ test.describe("paying with Stripe on the payment_sessions model", {
     await expect(checkout.stripeElement).toBeVisible({ timeout: 30_000 })
 
     // Ours to collect through, unlike a wallet's own button: the place button
-    // is live rather than disabled with a reason.
+    // is live rather than hidden.
     await expect(checkout.placeButton).toBeEnabled()
-    await expect(checkout.gatewayOwnsButtonHint).toBeHidden()
   })
 
   /**

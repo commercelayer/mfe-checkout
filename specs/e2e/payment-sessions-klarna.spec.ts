@@ -39,7 +39,6 @@ test.describe("paying with Klarna through Adyen", {
 
     // Ours stays the button that pays: Klarna is not a Gateway-Owned Button.
     await expect(checkout.placeButton).toBeEnabled()
-    await expect(checkout.gatewayOwnsButtonHint).toBeHidden()
 
     await checkout.startPlaceOrder()
     await checkout.payWithKlarna()

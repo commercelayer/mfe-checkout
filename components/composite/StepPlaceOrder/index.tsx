@@ -53,7 +53,7 @@ const StepPlaceOrder: React.FC<Props> = ({
   const isResumingPayment =
     collectedOutOfBand === "in-progress" || collectedOutOfBand === "done"
   // The selected method carries its own pay button, and it is the only thing
-  // that can open the popup. Ours would throw, so it says so instead.
+  // that can open the popup. Ours would throw, so it steps aside.
   const collectsItself = collection?.by === "gateway"
 
   const privacyAndTermsId = useId()
@@ -185,15 +185,15 @@ const StepPlaceOrder: React.FC<Props> = ({
             </Label>
           </FlexContainer>
         )}
-        {collectsItself && !isResumingPayment && (
-          <div
-            className="mx-5 mb-2.5 text-sm text-gray-500 md:mx-0"
-            data-testid="gateway-owns-button"
-          >
-            {t("stepPayment.useGatewayButton")}
-          </div>
-        )}
-        <div className="place-order-button-wrapper ">
+        {/* Hidden, not unmounted: once the gateway's own button has been
+          paid with, this is the button that places the order on its own, and
+          it has to be mounted to see that happen. Important, because the
+          wrapper's own rule sets a display from md up. */}
+        <div
+          className={`place-order-button-wrapper ${
+            collectsItself && !isResumingPayment ? "hidden!" : ""
+          }`}
+        >
           <StyledPlaceOrderButton
             data-testid="save-payment-button"
             options={placeOrderOptions}

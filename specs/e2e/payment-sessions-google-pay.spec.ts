@@ -32,17 +32,14 @@ test.describe("paying with Google Pay through Adyen", {
     await checkout.acceptTerms()
 
     await expect(checkout.placeButton).toBeEnabled()
-    await expect(checkout.gatewayOwnsButtonHint).toBeHidden()
 
     await checkout.selectAdyenGooglePay()
 
-    await expect(checkout.placeButton).toBeDisabled()
-    await expect(checkout.gatewayOwnsButtonHint).toBeVisible()
+    await expect(checkout.placeButton).toBeHidden()
 
     await checkout.selectAdyenCard()
 
     await expect(checkout.placeButton).toBeEnabled()
-    await expect(checkout.gatewayOwnsButtonHint).toBeHidden()
   })
 
   /**

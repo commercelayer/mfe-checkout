@@ -39,7 +39,6 @@ test.describe("paying with Braintree on the payment_sessions model", {
       checkout.page.locator('iframe[name="braintree-hosted-field-number"]'),
     ).toBeVisible({ timeout: 30_000 })
     await expect(checkout.placeButton).toBeEnabled()
-    await expect(checkout.gatewayOwnsButtonHint).toBeHidden()
   })
 
   /**

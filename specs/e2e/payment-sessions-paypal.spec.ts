@@ -61,7 +61,7 @@ test.describe("paying with PayPal through Adyen", {
    *
    * Worth having on its own: `collection` is republished on every `onSelect`,
    * and a stale `{ by: "gateway" }` left behind after switching back to the
-   * card would leave a shopper with a permanently dead place button and a form
+   * card would leave a shopper with no place button at all and a form
    * that fills in perfectly.
    */
   test("moves collection to PayPal's own button, and back", async ({
@@ -74,19 +74,15 @@ test.describe("paying with PayPal through Adyen", {
 
     // The card is what the Drop-in opens on, and it is ours to submit.
     await expect(checkout.placeButton).toBeEnabled()
-    await expect(checkout.gatewayOwnsButtonHint).toBeHidden()
 
     await checkout.selectAdyenPayPal()
 
-    // Two pay buttons are now on screen and that is the design: ours, disabled
-    // with a reason the application words, and PayPal's inside the open row.
-    await expect(checkout.placeButton).toBeDisabled()
-    await expect(checkout.gatewayOwnsButtonHint).toBeVisible()
+    // One pay button on screen, PayPal's inside the open row: ours steps aside.
+    await expect(checkout.placeButton).toBeHidden()
 
     await checkout.selectAdyenCard()
 
     await expect(checkout.placeButton).toBeEnabled()
-    await expect(checkout.gatewayOwnsButtonHint).toBeHidden()
   })
 
   /**

@@ -103,10 +103,8 @@ test.describe("saving a card on the payment_sessions model", {
       test.setTimeout(240_000)
 
       await checkout.selectPaymentSetting("Braintree")
-      // Worded as a payment method, not a card: the choice goes with the
-      // session, so an Apple Pay payment on it is stored too.
       await expect(
-        checkout.page.getByText("Save this payment method on your wallet"),
+        checkout.page.getByText("Save new card on your wallet"),
       ).toBeVisible({ timeout: 30_000 })
       // Hosted Fields have no checkbox of their own, so the consent is this
       // application's, as on Stripe — and ticking it replaces the session.

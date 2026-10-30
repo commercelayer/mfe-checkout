@@ -41,8 +41,7 @@ test.describe("paying with the PayPal payment setting", {
 
     await checkout.selectPaymentSetting(PAYPAL)
     await expect(checkout.payPalSettingButton).toBeVisible({ timeout: 30_000 })
-    await expect(checkout.gatewayOwnsButtonHint).toBeVisible()
-    await expect(checkout.placeButton).toBeDisabled()
+    await expect(checkout.placeButton).toBeHidden()
   })
 
   test("explains itself when clicked before the terms are accepted", async ({
