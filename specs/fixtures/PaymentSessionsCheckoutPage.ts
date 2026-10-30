@@ -211,11 +211,6 @@ export class PaymentSessionsCheckoutPage {
     return this.page.locator("[data-testid=gift-card-apply]")
   }
 
-  /** The "add another one" link, shown once a card is applied. */
-  get giftCardAddLink(): Locator {
-    return this.page.locator("[data-testid=gift-card-add]")
-  }
-
   get giftCardError(): Locator {
     return this.page.locator("[data-testid=gift-card-error]")
   }
@@ -343,29 +338,16 @@ export class PaymentSessionsCheckoutPage {
   /**
    * Apply a gift card code, whatever state the box is in.
    *
-   * Three cases have to be handled and each is reachable from a real flow: the
-   * box is collapsed (nothing applied yet), the box is open with the field
-   * showing, or a card is already applied and the field has stepped aside for
-   * the "add another one" link.
+   * The box is either collapsed, or open with the field showing: the field
+   * stays, emptied, after a card is applied, for as long as another one can be.
    */
   async applyGiftCard(code: string): Promise<void> {
-    // Open the section only when it is really closed. "No input" is not that
-    // signal on its own: with a card already applied the field steps aside for
-    // the add link, and pressing the toggle then *closes* a section that was
-    // open — taking the link with it, so the field never comes back. Applying a
-    // second card in a row was enough to hit it.
-    if (
-      (await this.giftCardInput.count()) === 0 &&
-      (await this.giftCardAddLink.count()) === 0
-    ) {
+    if ((await this.giftCardInput.count()) === 0) {
       await this.giftCardToggle.click()
-    }
-    if ((await this.giftCardAddLink.count()) > 0) {
-      await this.giftCardAddLink.click()
     }
     await expect(
       this.giftCardInput,
-      "the gift card field never appeared — is another card already applied and the section closed?",
+      "the gift card field never appeared — is the order already covered?",
     ).toBeVisible()
     await this.giftCardInput.fill(code)
     await expect(this.giftCardApplyButton).toBeEnabled()
@@ -670,10 +652,6 @@ export class PaymentSessionsCheckoutPage {
   /** What the PayPal setting reports about itself — the terms gate, a refusal. */
   get payPalSettingError(): Locator {
     return this.page.locator("[data-testid=paypal-setting-error]")
-  }
-
-  get gatewayOwnsButtonHint(): Locator {
-    return this.page.locator("[data-testid=gateway-owns-button]")
   }
 
   /**

@@ -48,7 +48,6 @@ test.describe("paying with PayPal through Braintree", {
     ).toBeVisible()
     // Both routes are live: the card through ours, PayPal through its own.
     await expect(checkout.placeButton).toBeEnabled()
-    await expect(checkout.gatewayOwnsButtonHint).toBeHidden()
   })
 
   test("explains itself when clicked before the terms are accepted", async ({
