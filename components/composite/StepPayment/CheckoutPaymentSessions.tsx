@@ -21,6 +21,7 @@ import { Label } from "components/ui/Label"
 import { type JSX, useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
+import { PaymentSkeleton } from "./PaymentSkeleton"
 import {
   ADYEN_CONTAINER_CLASS,
   AdyenError,
@@ -50,6 +51,17 @@ import {
   StyledPaymentSettingRadioButton,
   WalletCheckbox,
 } from "./styled"
+
+/**
+ * The legacy market's payment skeleton, shown where the selected setting's
+ * form will appear: while its Payment Session is created, then until the
+ * gateway has painted. Padded like the gateway containers it stands in for.
+ */
+const settingLoader = (
+  <div className="px-4 pb-4 -mt-2" data-testid="payment-setting-loader">
+    <PaymentSkeleton />
+  </div>
+)
 
 interface Props {
   /**
@@ -194,7 +206,11 @@ export const CheckoutPaymentSessions = ({
 
   return (
     <>
-      <PaymentSetting onSelect={onSettingSelect} returnUrl={paymentReturnUrl()}>
+      <PaymentSetting
+        onSelect={onSettingSelect}
+        returnUrl={paymentReturnUrl()}
+        loader={settingLoader}
+      >
         {({
           setting,
           isSelected,
