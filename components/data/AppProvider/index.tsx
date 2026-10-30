@@ -92,6 +92,7 @@ const initialState: AppStateData = {
   hasPaymentMethod: false,
   isPaymentRequired: true,
   isCreditCard: false,
+  paymentsModel: "undetermined",
   shippingCountryCodeLock: "",
   isComplete: false,
   returnUrl: "",

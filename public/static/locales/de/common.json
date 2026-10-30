@@ -8,6 +8,7 @@
     "edit": "Bearbeiten",
     "free": "Gratis",
     "apply": "Anwenden",
+    "remove": "Entfernen",
     "privacy_and_terms": "Durch Anklicken des Kontrollkästchens erklärst Du Dich mit den <bold><termsUrl>Geschäftsbedingungen</termsUrl></bold> und dem <bold><privacyUrl>Datenschutz</privacyUrl></bold> einverstanden.",
     "checkoutTitle": "Bezahlung"
   },
@@ -101,12 +102,20 @@
     "endingIn": "<0/> endet mit <1/>",
     "submit": "Jetzt bestellen",
     "submitting": "Bestellung wird aufgegeben…",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "Diese Bestellung erfordert keine Zahlung",
     "amountZero": "Der Gesamtbetrag der Bestellung ist Null. Du kannst die Bestellung so aufgeben, wie sie jetzt ist",
     "saveToWallet": "Speichere eine neue Karte",
     "expires": "Ablaufdatum",
     "subscriptionWithoutCustomer": "An account must be created in order to purchase your subscription.",
-    "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms."
+    "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms.",
+    "useGiftCard": "Geschenkkarte verwenden",
+    "cardNumber": "Kartennummer",
+    "cardExpiration": "Ablaufdatum",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Vervollständige die Kartendaten.",
+    "paymentDeclined": "Die Zahlung wurde abgelehnt. Versuche es mit einer anderen Karte.",
+    "paymentMethodNotLoaded": "Die ausgewählte Zahlungsmethode konnte nicht geladen werden."
   },
   "addressForm": {
     "customer_email": "Deine E-Mail-Adresse",

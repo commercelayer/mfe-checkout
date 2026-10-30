@@ -8,6 +8,7 @@
       "edit": "Bewerken",
       "free": "Gratis",
       "apply": "Toepassen",
+      "remove": "Verwijderen",
       "privacy_and_terms": "Door het vakje aan te vinken, gaat u akkoord met de <bold><termsUrl>voorwaarden</termsUrl></bold> en <bold><privacyUrl>privacy</privacyUrl></bold>.",
       "checkoutTitle": "Afrekenen"
     },
@@ -101,12 +102,20 @@
       "endingIn": "<0/> eindigend op <1/>",
       "submit": "Bestelling plaatsen",
       "submitting": "Bestelling plaatsen…",
+      "acceptTermsToPay": "Accept the terms and conditions to continue.",
       "notRequired": "Deze bestelling vereist geen betaling",
       "amountZero": "Het totaalbedrag van de bestelling is nul, u kunt de bestelling nu plaatsen zoals deze is",
       "saveToWallet": "Nieuwe kaart opslaan in uw portemonnee",
       "expires": "Verloopt",
       "subscriptionWithoutCustomer": "Er moet een account worden aangemaakt om uw abonnement aan te schaffen.",
-      "subscriptionWithCustomer": "Door uw kaartgegevens te verstrekken, geeft u het bedrijf toestemming om uw kaart te belasten voor toekomstige betalingen in overeenstemming met hun voorwaarden."
+      "subscriptionWithCustomer": "Door uw kaartgegevens te verstrekken, geeft u het bedrijf toestemming om uw kaart te belasten voor toekomstige betalingen in overeenstemming met hun voorwaarden.",
+      "useGiftCard": "Cadeaubon gebruiken",
+      "cardNumber": "Kaartnummer",
+      "cardExpiration": "Vervaldatum",
+      "cardCvv": "CVV",
+      "completeCardDetails": "Vul de kaartgegevens volledig in.",
+      "paymentDeclined": "De betaling is geweigerd. Probeer een andere kaart.",
+      "paymentMethodNotLoaded": "De geselecteerde betaalmethode kan niet worden geladen."
     },
     "addressForm": {
       "customer_email": "Uw e-mailadres",

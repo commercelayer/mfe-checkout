@@ -96,8 +96,22 @@ export const useActiveStep = (): UseActiveStep => {
         manualNavAtRef.current > loadingStartedAtRef.current ||
         ctx.hasUnsavedStepEdits()
 
+      // payment_sessions model: a session exists the moment a method is
+      // picked, so "payment in place" turns true before the gateway's form has
+      // been filled in — and that form lives inside the Payment step. Moving on
+      // to Complete would unmount it, along with anything else the shopper had
+      // open there, such as the gift card box. The same holds when arriving at
+      // the page: a session left from an earlier visit is reused, and landing
+      // on Complete would fold away the form it still needs, so the shopper
+      // would have to reopen the step to pay. An order with nothing to pay has
+      // no form, and still lands on Complete.
+      const staysOnPayment =
+        ctx.paymentsModel === "payment_sessions" && ctx.isPaymentRequired
+
       if (canPlaceOrder) {
-        if (!keepManualSelection) setActiveStep("Complete")
+        if (!keepManualSelection) {
+          setActiveStep(staysOnPayment ? "Payment" : "Complete")
+        }
         setLastActivableStep("Complete")
       } else if (canSelectPayment) {
         if (!keepManualSelection) setActiveStep("Payment")

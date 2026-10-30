@@ -1,7 +1,22 @@
-import { PaymentMethodRadioButton } from "@commercelayer/react-components"
+import {
+  PaymentMethodRadioButton,
+  PaymentSettingGiftCardErrors,
+  PaymentSettingGiftCardInput,
+  PaymentSettingGiftCardRemoveButton,
+  PaymentSettingGiftCardSubmitButton,
+  PaymentSettingRadioButton,
+} from "@commercelayer/react-components"
+import { ButtonCss } from "components/ui/Button/index"
 import { CheckCss } from "components/ui/form/CheckBox"
+import { ErrorCss } from "components/ui/form/Error"
+import { InputCss } from "components/ui/form/Input"
 import { RadioCss } from "components/ui/form/RadioButton"
-import type { FC, HTMLAttributes, InputHTMLAttributes } from "react"
+import type {
+  FC,
+  HTMLAttributes,
+  InputHTMLAttributes,
+  LabelHTMLAttributes,
+} from "react"
 
 export const PaymentWrapper: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
   <div {...props} className={`payment-wrapper ${props.className || ""}`} />
@@ -83,5 +98,265 @@ export const StyledPaymentMethodRadioButton: FC<any> = (props) => (
   <PaymentMethodRadioButton
     {...props}
     className={`${RadioCss} ${props.className || ""}`}
+  />
+)
+
+// payment_sessions model.
+//
+// Card-per-setting rather than rows in a single box: each option is its own
+// target, which is what makes the selected one showable as a highlighted card.
+// `isSelected` reaches here through <PaymentSetting>'s function children.
+//
+// The border lives on this wrapper, not on the <label>, so that the gateway's
+// form opens inside the card the way the payment_source boxes do. The gateway
+// mount targets cannot go inside the label: a click on one of their inputs
+// would be forwarded to the radio the label points at. Colors and the selected
+// state mirror `.payment-wrapper` in styles/payment.css.
+export const PaymentSettingBox: FC<
+  HTMLAttributes<HTMLDivElement> & { isSelected?: boolean }
+> = ({ isSelected, ...props }) => (
+  <div
+    {...props}
+    className={`text-black rounded-sm mb-5 transition duration-200 ease-in ${
+      isSelected === true
+        ? "border-2 border-primary bg-white shadow-md"
+        : "border border-gray-300 bg-gray-50 hover:border-gray-400"
+    } ${props.className || ""}`}
+  />
+)
+
+// The clickable header of a setting's card. Padding is here rather than on the
+// box, so an unselected card is clickable edge to edge.
+export const PaymentSettingCard: FC<
+  LabelHTMLAttributes<HTMLLabelElement> & { isSelected?: boolean }
+> = ({ isSelected, ...props }) => (
+  // biome-ignore lint/a11y/noLabelWithoutControl: htmlFor comes from the caller, the only place the setting id is known
+  <label
+    {...props}
+    className={`block p-4 ${
+      isSelected === true ? "cursor-default" : "cursor-pointer"
+    } ${props.className || ""}`}
+  />
+)
+
+// Visually hidden rather than absent: the card is a <label> pointing at this
+// input, so it is what makes clicking anywhere on the card select the setting,
+// and what a keyboard and a screen reader still reach. `sr-only` keeps all of
+// that; `hidden` would throw it away and leave the card inert.
+export const StyledPaymentSettingRadioButton: FC<any> = (props) => (
+  <PaymentSettingRadioButton
+    {...props}
+    className={`sr-only ${props.className || ""}`}
+  />
+)
+
+// Type and height match the payment_source title row, where the price column's
+// `leading-8` sets the height, so both models' cards are the same size.
+export const PaymentSettingItem: FC<HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => (
+  <div
+    {...props}
+    className={`payment group flex flex-row items-center min-h-8 text-sm font-bold leading-none ${props.className || ""}`}
+  />
+)
+
+export const PaymentSettingError: FC<HTMLAttributes<HTMLDivElement>> = (
+  props,
+) => (
+  <div
+    {...props}
+    className={`${ErrorCss} text-sm pl-0 ${props.className || ""}`}
+  />
+)
+
+// Gift cards on the payment_sessions model. A gift card is a payment here, not
+// a discount, so it lives in the payment step rather than beside the coupon.
+export const GiftCardWrapper: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`border border-gray-200 rounded-md px-4 py-4 ${props.className || ""}`}
+  />
+)
+
+export const GiftCardHeader: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`flex items-center justify-between min-h-8 ${props.className || ""}`}
+  />
+)
+
+export const GiftCardTitle: FC<HTMLAttributes<HTMLParagraphElement>> = (
+  props,
+) => (
+  <p
+    {...props}
+    className={`text-sm font-bold leading-none text-black ${props.className || ""}`}
+  />
+)
+
+// Same switch as components/ui/Toggle, without that component's own row
+// wrapper: here the label sits on the left and the switch on the right. Scaled
+// down to a 24×14 track so it does not outweigh the 14px title beside it.
+interface GiftCardSwitchProps {
+  checked: boolean
+  label: string
+  onChange: () => void
+  "data-testid"?: string
+}
+
+export const GiftCardSwitch: FC<GiftCardSwitchProps> = ({
+  checked,
+  label,
+  onChange,
+  ...rest
+}) => (
+  <button
+    type="button"
+    role="switch"
+    aria-checked={checked}
+    aria-label={label}
+    onClick={onChange}
+    data-state={checked ? "checked" : "unchecked"}
+    className="relative inline-flex h-3.5 w-6 shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-gray-200 data-[state=checked]:bg-primary focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-primary cursor-pointer"
+    {...rest}
+  >
+    <span
+      aria-hidden="true"
+      data-state={checked ? "checked" : "unchecked"}
+      className="inline-block h-2.5 w-2.5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out data-[state=checked]:translate-x-2.5"
+    />
+  </button>
+)
+
+// Spacing lives on the container: the rows, the input and the link come and go
+// independently, and a bottom margin on each leaves a gap under whichever
+// happens to be last.
+export const GiftCardBody: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} className={`pt-4 space-y-3 ${props.className || ""}`} />
+)
+
+export const GiftCardRow: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`flex items-center gap-3 text-sm border border-gray-200 rounded-md px-3 py-3 ${props.className || ""}`}
+  />
+)
+
+export const GiftCardIcon: FC<HTMLAttributes<HTMLSpanElement>> = (props) => (
+  <span
+    {...props}
+    aria-hidden="true"
+    className={`flex items-center justify-center w-8 h-8 shrink-0 rounded-sm bg-gray-100 text-gray-400 ${props.className || ""}`}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      className="w-4 h-4"
+    >
+      <title>Gift card</title>
+      <path d="M3 8h14v8a2 2 0 0 1-2 2h-4V8H3Zm6 10H5a2 2 0 0 1-2-2V8h6v10ZM2 4.5A1.5 1.5 0 0 1 3.5 3h13A1.5 1.5 0 0 1 18 4.5V6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4.5Z" />
+    </svg>
+  </span>
+)
+
+// The input and Apply read as one control, so the button loses its own left
+// radius and the app-wide full-width rule from ButtonCss.
+export const GiftCardInputRow: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} className={`flex ${props.className || ""}`} />
+)
+
+export const StyledGiftCardSessionInput: FC<any> = (props) => (
+  <PaymentSettingGiftCardInput
+    {...props}
+    className={`${InputCss} flex-1 rounded-r-none ${props.className || ""}`}
+  />
+)
+
+export const StyledGiftCardSessionSubmit: FC<any> = (props) => (
+  <PaymentSettingGiftCardSubmitButton
+    {...props}
+    className={`${ButtonCss} w-auto! lg:w-auto! rounded-l-none px-6 ${props.className || ""}`}
+  />
+)
+
+// The gift card box's Remove: bold 13px with a grey underline, so it reads as a
+// link without competing with the code and the amount beside it.
+const GiftCardLinkCss =
+  "text-[13px] font-bold text-primary underline decoration-[#C4C4C4] cursor-pointer"
+
+// Gift card failures are rejected before anything is written to the order, so
+// they never reach <Errors resource="orders"> — they need their own outlet, the
+// same way a failed payment setting selection does.
+export const StyledGiftCardSessionError: FC<any> = (props) => (
+  <PaymentSettingGiftCardErrors
+    {...props}
+    className={`${ErrorCss} text-sm pt-2 ${props.className || ""}`}
+  />
+)
+
+export const StyledGiftCardSessionRemove: FC<any> = (props) => (
+  <PaymentSettingGiftCardRemoveButton
+    {...props}
+    className={`${GiftCardLinkCss} ${props.className || ""}`}
+  />
+)
+
+// Layout for the element the Adyen Drop-in mounts into. Passed as
+// `containerClassName` rather than wrapped, because the component renders that
+// element itself — it has to, or the Drop-in would have nowhere to attach.
+//
+// The class name is kept in the list so end-to-end tests have a stable hook
+// into the Drop-in, matching the selector the payments playground uses.
+export const ADYEN_CONTAINER_CLASS = "adyen-dropin-container px-4 pb-4 -mt-2"
+
+// The same for Stripe's Payment Element, and for the same reasons: the
+// component renders the element itself, and the class name is a stable hook for
+// the end-to-end tests.
+export const STRIPE_CONTAINER_CLASS =
+  "stripe-elements-container px-4 pb-4 -mt-2"
+
+// Braintree's Hosted Fields. Unlike the two above, the library renders only the
+// containers the iframes mount into, so the layout is ours: the class names
+// below are the whole of it. The border goes on the iframe's container, which
+// is the element Braintree marks `braintree-hosted-fields-focused` (styled in
+// payment.css, shared with the older Braintree gateway).
+export const BRAINTREE_CONTAINER_CLASS =
+  "braintree-hosted-fields-container flex flex-col gap-3 px-4 pb-4 -mt-2"
+
+export const BRAINTREE_CLASS_NAMES = {
+  field: "flex flex-col gap-1 grow",
+  label: "text-xs text-gray-400",
+  input:
+    "h-10 px-3 border rounded-sm bg-gray-50 transition duration-300 ease-in-out",
+  cardDetails: "flex gap-3",
+}
+
+// Apple Pay's button, drawn by Safari itself. Only the size is ours; Apple's
+// guidelines want it as wide as the form and no less than 30px tall.
+export const APPLE_PAY_BUTTON_CLASS =
+  "block w-full h-11 rounded-md cursor-pointer"
+
+// The block above Braintree's card fields that holds its wallets' buttons. It
+// is rendered in every setting's box and is empty in most — any other
+// gateway's, and Braintree's where no wallet can be offered — so `empty:hidden`
+// is what keeps its padding from opening a gap in each of them.
+export const BRAINTREE_WALLETS_CLASS =
+  "braintree-wallets flex flex-col gap-3 px-4 pb-3 -mt-2 empty:hidden"
+
+// The divider under the wallets, shown only when the block
+// right before it has something in it.
+export const BRAINTREE_WALLETS_DIVIDER_CLASS =
+  "hidden [.braintree-wallets:not(:empty)+&]:flex items-center gap-3 px-4 pb-3 text-xs text-gray-400"
+
+// A Drop-in that could not load — an expired Adyen session, or a client key not
+// authorized for this origin — fails before any click, so nothing else reports
+// it. A refusal *after* a click is reported as an order error instead, by the
+// place-order button.
+export const AdyenError: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div
+    {...props}
+    className={`${ErrorCss} text-sm px-4 pb-4 ${props.className || ""}`}
   />
 )

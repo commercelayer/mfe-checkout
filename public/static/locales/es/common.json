@@ -8,6 +8,7 @@
     "edit": "Editar",
     "free": "Gratis",
     "apply": "Aplicar",
+    "remove": "Eliminar",
     "privacy_and_terms": "Al marcar la casilla, aceptas los <bold><termsUrl>términos</termsUrl></bold> y la <bold><privacyUrl>política de privacidad</privacyUrl></bold>.",
     "checkoutTitle": "Pago"
   },
@@ -101,12 +102,20 @@
     "endingIn": "<0/> que termina en <1/>",
     "submit": "Realizar pedido",
     "submitting": "Realizando pedido…",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "Este pedido no requiere pago",
     "amountZero": "El total del pedido es cero, puedes realizar el pedido tal como está ahora",
     "saveToWallet": "Guardar nueva tarjeta en tu billetera",
     "expires": "Expira",
     "subscriptionWithoutCustomer": "Se debe crear una cuenta para comprar tu suscripción.",
-    "subscriptionWithCustomer": "Al proporcionar la información de tu tarjeta, permites a la empresa cargar en tu tarjeta los pagos futuros de acuerdo con sus términos."
+    "subscriptionWithCustomer": "Al proporcionar la información de tu tarjeta, permites a la empresa cargar en tu tarjeta los pagos futuros de acuerdo con sus términos.",
+    "useGiftCard": "Usar una tarjeta de regalo",
+    "cardNumber": "Número de tarjeta",
+    "cardExpiration": "Fecha de caducidad",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Completa los datos de la tarjeta.",
+    "paymentDeclined": "El pago ha sido rechazado. Prueba con otra tarjeta.",
+    "paymentMethodNotLoaded": "No se ha podido cargar el método de pago seleccionado."
   },
   "addressForm": {
     "customer_email": "Tu dirección de correo electrónico",

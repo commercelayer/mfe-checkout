@@ -1,12 +1,20 @@
 import "@adyen/adyen-web/styles/adyen.css"
 import {
   type PaymentMethodOnClickParams,
+  PaymentSetting,
+  PaymentSettingGiftCard,
+  PaymentSettingGiftCardList,
+  PaymentSettingGiftCardListItem,
+  PaymentSettingName,
   PaymentSource,
   PaymentSourceBrandIcon,
   PaymentSourceBrandName,
   PaymentSourceDetail,
 } from "@commercelayer/react-components"
-import type { PaymentMethod as PaymentMethodType } from "@commercelayer/sdk"
+import type {
+  Order,
+  PaymentMethod as PaymentMethodType,
+} from "@commercelayer/sdk"
 import classNames from "classnames"
 import { AccordionContext } from "components/data/AccordionProvider"
 import { AppContext } from "components/data/AppProvider"
@@ -18,6 +26,7 @@ import { Trans, useTranslation } from "react-i18next"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
 import { CheckoutPayment } from "./CheckoutPayment"
+import { CheckoutPaymentSessions } from "./CheckoutPaymentSessions"
 import type { PaymentMethodConfig } from "./PaymentContainer"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 
@@ -36,7 +45,8 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
     return null
   }
 
-  const { hasPaymentMethod, isPaymentRequired, isCreditCard } = appCtx
+  const { hasPaymentMethod, isPaymentRequired, isCreditCard, paymentsModel } =
+    appCtx
 
   const recapText = () => {
     if (!isPaymentRequired) {
@@ -44,6 +54,32 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
     }
     if (!hasPaymentMethod || accordionCtx.status === "edit") {
       return t("stepPayment.methodUnselected")
+    }
+
+    // payment_sessions model. There is no payment source to describe, so the
+    // recap comes from the library's readonly mode — the counterpart of the
+    // <PaymentSource readonly> used just below for the older model. Both the
+    // chosen method and any gift cards appear: an order covered entirely by
+    // gift cards has no method at all.
+    if (paymentsModel === "payment_sessions") {
+      return (
+        <div className="flex flex-col">
+          <PaymentSetting readonly>
+            <PaymentSettingName />
+          </PaymentSetting>
+          <PaymentSettingGiftCard readonly>
+            <PaymentSettingGiftCardList>
+              <PaymentSettingGiftCardListItem>
+                {({ code, formattedAmount }) => (
+                  <span className="text-sm text-gray-500">
+                    {code} {formattedAmount}
+                  </span>
+                )}
+              </PaymentSettingGiftCardListItem>
+            </PaymentSettingGiftCardList>
+          </PaymentSettingGiftCard>
+        </div>
+      )
     }
 
     return (
@@ -84,7 +120,9 @@ export const StepHeaderPayment: React.FC<HeaderProps> = ({ step }) => {
 export const StepPayment: React.FC<{
   isPaymentLoading: boolean
   paymentConfig: PaymentMethodConfig
-}> = ({ isPaymentLoading, paymentConfig }) => {
+  /** The store's name, which a wallet's own sheet shows to the shopper. */
+  companyName: string
+}> = ({ isPaymentLoading, paymentConfig, companyName }) => {
   const appCtx = useContext(AppContext)
   const accordionCtx = useContext(AccordionContext)
   const [hasMultiplePaymentMethods, setHasMultiplePaymentMethods] =
@@ -126,6 +164,22 @@ export const StepPayment: React.FC<{
     setAutoselected(true)
   }, [])
 
+  // payment_sessions model. The library has already stored the change and
+  // refetched its own order; this refreshes the app's copy so `hasPaymentMethod`
+  // recomputes and the accordion can move on. Same stability requirement as the
+  // callbacks above.
+  //
+  // Called for a gift card applied or removed as well as for a method chosen:
+  // both change what is paying for the order. The order comes from the
+  // library: without it `setPayment` would recompute from the app's copy, which
+  // at this point is still the order from before the change.
+  const onPaymentSessionsChange = useCallback(
+    (order?: Order) => {
+      setPayment?.({ order })
+    },
+    [setPayment],
+  )
+
   // if (!appCtx || !appCtx.hasShippingMethod) {
   // this exit on shippingMethod is causing an error in useEffect to enable button
   if (!appCtx || !accordionCtx) {
@@ -146,16 +200,25 @@ export const StepPayment: React.FC<{
           {accordionCtx.isActive && (
             <div>
               {isPaymentRequired ? (
-                isGuest ? (
-                  <CheckoutPayment
-                    paymentConfig={paymentConfig}
-                    isPaymentLoading={isPaymentLoading}
-                    selectPayment={selectPayment}
-                    autoSelectCallback={autoSelectCallback}
-                    hasTitle={hasTitle}
+                <>
+                  {/* Both payment models are mounted together. Each library
+                      tree reads the order and renders nothing when it is not
+                      on its own model, so there is no conditional to keep in
+                      sync here — and none of the older, guest/customer
+                      branching applies to the newer model. */}
+                  <CheckoutPaymentSessions
+                    onSelect={onPaymentSessionsChange}
+                    companyName={companyName}
                   />
-                ) : (
-                  <>
+                  {isGuest ? (
+                    <CheckoutPayment
+                      paymentConfig={paymentConfig}
+                      isPaymentLoading={isPaymentLoading}
+                      selectPayment={selectPayment}
+                      autoSelectCallback={autoSelectCallback}
+                      hasTitle={hasTitle}
+                    />
+                  ) : (
                     <CheckoutCustomerPayment
                       paymentConfig={paymentConfig}
                       isPaymentLoading={isPaymentLoading}
@@ -164,8 +227,8 @@ export const StepPayment: React.FC<{
                       hasTitle={hasTitle}
                       hasSubscriptions={hasSubscriptions}
                     />
-                  </>
-                )
+                  )}
+                </>
               ) : (
                 <p className="text-sm text-gray-400">
                   {t("stepPayment.amountZero")}
