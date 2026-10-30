@@ -86,7 +86,7 @@
     "@commercelayer/sdk": "8.0.2",
     "@faker-js/faker": "^10.6.0",
     "@headlessui/react": "^2.2.10",
-    "@newrelic/browser-agent": "^1.324.0",
+    "@newrelic/browser-agent": "^1.324.1",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/async-retry": "1.4.8",
@@ -100,22 +100,22 @@
     "i18next": "^26.5.11",
     "next": "^16.4.3",
     "next-build-id": "^3.0.0",
-    "next-i18next": "^16.4.3",
+    "next-i18next": "^16.4.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-gtm-module": "^2.0.11",
     "react-i18next": "^16.6.6",
-    "react-router": "^7.18.4",
+    "react-router": "^7.18.5",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.3",
+    "@biomejs/biome": "^2.6.4",
     "@next/bundle-analyzer": "^16.4.3",
     "@playwright/test": "^1.64.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "baseline-browser-mapping": "^2.11.33"
+    "baseline-browser-mapping": "^2.11.34"
   },
   "cacheDirectories": [
     ".next/cache"
