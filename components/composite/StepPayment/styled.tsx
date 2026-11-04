@@ -338,6 +338,10 @@ export const BRAINTREE_CLASS_NAMES = {
 export const APPLE_PAY_BUTTON_CLASS =
   "block w-full h-11 rounded-md cursor-pointer"
 
+// Google Pay's button, drawn by Google into this container and filling it, so
+// the container sets the size: as wide as the form, as tall as Apple's.
+export const GOOGLE_PAY_BUTTON_CLASS = "braintree-google-pay-button block w-full h-11"
+
 // The block above Braintree's card fields that holds its wallets' buttons. It
 // is rendered in every setting's box and is empty in most — any other
 // gateway's, and Braintree's where no wallet can be offered — so `empty:hidden`
