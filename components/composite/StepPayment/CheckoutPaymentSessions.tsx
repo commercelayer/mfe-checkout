@@ -6,6 +6,7 @@ import {
   PaymentSetting,
   PaymentSettingAdyenPayment,
   PaymentSettingBraintreeApplePay,
+  PaymentSettingBraintreeGooglePay,
   PaymentSettingBraintreePayment,
   PaymentSettingBraintreePayPal,
   PaymentSettingGiftCard,
@@ -38,6 +39,7 @@ import {
   GiftCardSwitch,
   GiftCardTitle,
   GiftCardWrapper,
+  GOOGLE_PAY_BUTTON_CLASS,
   PaymentSettingBox,
   PaymentSettingCard,
   PaymentSettingError,
@@ -352,14 +354,19 @@ export const CheckoutPaymentSessions = ({
             {/* Braintree's wallets, above its card fields. All of them stay
               live at once — the place button pays by card, each wallet through
               its own button — and each renders nothing where it cannot be
-              offered, so on a browser without Apple Pay and a merchant without
-              PayPal the block is empty and `empty:hidden` takes it away.
+              offered, so on a browser without Apple Pay or Google Pay and a
+              merchant without PayPal the block is empty and `empty:hidden`
+              takes it away.
 
               Mounting Apple Pay is a statement that the domains this checkout
               is served from are registered for Apple Pay on the Braintree
               merchant: its button renders on any Safari that can pay, and
               merchant validation then fails on a domain that is not. Remove it
-              if that stops being true. */}
+              if that stops being true. Google Pay needs no such statement:
+              Google has nothing to validate after the click, so its button
+              renders only where it can work. It renders nothing on a
+              production merchant for now, which needs a Google merchant ID
+              the payment setting does not carry yet. */}
             <div className={BRAINTREE_WALLETS_CLASS}>
               <PaymentSettingBraintreeApplePay
                 displayName={companyName}
@@ -378,6 +385,23 @@ export const CheckoutPaymentSessions = ({
                   )
                 }
               </PaymentSettingBraintreeApplePay>
+              <PaymentSettingBraintreeGooglePay
+                merchantName={companyName}
+                className={GOOGLE_PAY_BUTTON_CLASS}
+              >
+                {({ errors: googlePayErrors }) =>
+                  googlePayErrors.length > 0 ? (
+                    <AdyenError
+                      data-testid="google-pay-setting-error"
+                      className="px-0 pb-0"
+                    >
+                      {googlePayErrors.map(braintreeErrorMessage).join(" ")}
+                    </AdyenError>
+                  ) : (
+                    <></>
+                  )
+                }
+              </PaymentSettingBraintreeGooglePay>
               <PaymentSettingBraintreePayPal className="braintree-paypal-button">
                 {({ errors: payPalErrors }) =>
                   payPalErrors.length > 0 ? (
