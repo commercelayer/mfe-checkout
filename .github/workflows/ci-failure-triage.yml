@@ -20,8 +20,10 @@ name: CI failure triage
 #
 # Variables:
 #   AWS_REGION            Bedrock region, e.g. eu-west-1
-#   BEDROCK_MODEL         optional; defaults to Claude Opus 5.5. Set an
-#                         inference profile ID here if the account needs one.
+#   BEDROCK_MODEL         optional; defaults to the EU cross-region inference
+#                         profile for Claude Opus 5.5. The bare model ID
+#                         failed on this account in eu-west-1, so set an
+#                         inference profile ID here, not a model ID.
 
 on:
   status:
@@ -148,9 +150,9 @@ jobs:
           # is github-actions[bot], which the action rejects by default.
           allowed_bots: github-actions
           claude_args: >-
-            --model ${{ vars.BEDROCK_MODEL || 'anthropic.claude-opus-5-5' }}
+            --model ${{ vars.BEDROCK_MODEL || 'eu.anthropic.claude-opus-5-5' }}
             --max-turns 120
-            --allowedTools "Read,Grep,Glob,Write,Bash(unzip:*),Bash(node:*),Bash(ls:*),Bash(find:*),Bash(jq:*),Bash(gh issue list:*),Bash(gh issue view:*),Bash(gh issue create:*),Bash(gh issue comment:*),Bash(gh search issues:*)"
+            --allowedTools "Read,Grep,Glob,Write,Bash(unzip:*),Bash(node:*),Bash(ls:*),Bash(find:*),Bash(jq:*),Bash(gh issue list:*),Bash(gh issue view:*),Bash(gh issue create:*),Bash(gh issue comment:*),Bash(gh search issues:*),Bash(gh release list:*),Bash(gh release view:*)"
           prompt: |
             You are triaging flaky and failing Playwright e2e tests for commercelayer/mfe-checkout.
             Do not change any code. Your only outputs are GitHub issues and comments.
@@ -176,11 +178,16 @@ jobs:
                - external cause (a payment sandbox down or very slow, Commerce Layer API 429/5xx, network) → no issue; mention it in the summary only.
                If you cannot determine the cause from the evidence, avoid opening the issue in mfe-checkout.
 
-            Before opening anything, check for an existing open issue
-            - Search open issues in both repos for the spec file name, the test title, and the key function/file you blamed.
+            Before opening anything, check for an existing issue
+            - Search both repos for the spec file name, the test title, and the key function/file you blamed:
+              open issues, and the 50 most recently closed (`gh issue list --repo <repo> --state closed --limit 50`).
             - Issues opened by this workflow contain a marker line `<!-- ci-triage: <spec file> › <test title> -->`.
             - If an open issue already covers the same cause, add a short comment with this occurrence (job link, timings) instead of a new issue.
               Do not comment more than once per issue per run.
+            - If a closed issue covers the same cause, find the react-components release that shipped its fix
+              (`gh release list` / `gh release view --repo commercelayer/commercelayer-react-components`).
+              - Fixed in a release newer than v${{ steps.rc.outputs.version }}: open nothing; in the summary say the app needs to move to that release.
+              - Fixed in v${{ steps.rc.outputs.version }} or earlier, or no release found: the fix did not hold. Open a new issue that links the closed one.
 
             Opening an issue
             - Label it `triage`. Keep it short and factual: what fails, the evidence (timestamps, requests), the cause, a suggested fix if you are confident.
