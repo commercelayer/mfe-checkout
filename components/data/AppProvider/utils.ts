@@ -1,9 +1,14 @@
+import {
+  derivePaymentSessionsState,
+  getPaymentsModel,
+  type PaymentsModel,
+} from "@commercelayer/core-components"
 import type {
   Address,
   AdyenPayment,
   BraintreePayment,
   CheckoutComPayment,
-  CommerceLayerBundle,
+  CommerceLayerClient,
   CustomerAddress,
   Order,
   OrderUpdate,
@@ -14,7 +19,6 @@ import type {
   StripePayment,
   WireTransfer,
 } from "@commercelayer/sdk"
-
 import type { AppStateData } from "components/data/AppProvider"
 
 export type LineItemType =
@@ -38,7 +42,7 @@ interface IsNewAddressProps {
 }
 
 interface CheckAndSetDefaultAddressForOrderProps {
-  cl: CommerceLayerBundle
+  cl: CommerceLayerClient
   order: Order
   customerAddresses?: Array<CustomerAddress>
 }
@@ -84,6 +88,7 @@ export interface FetchOrderByIdResponse {
   returnUrl: NullableType<string>
   cartUrl: NullableType<string>
   isCreditCard: boolean
+  paymentsModel: PaymentsModel
   taxIncluded: NullableType<boolean>
   shippingMethodName?: string
   hasSubscriptions: boolean
@@ -238,7 +243,7 @@ function isBillingAddressSameAsShippingAddress({
   return true
 }
 
-export const fetchOrder = (cl: CommerceLayerBundle, orderId: string) => {
+export const fetchOrder = (cl: CommerceLayerClient, orderId: string) => {
   return cl.orders.retrieve(orderId, {
     fields: {
       orders: [
@@ -259,6 +264,10 @@ export const fetchOrder = (cl: CommerceLayerBundle, orderId: string) => {
         "tax_included",
         "requires_billing_info",
         "total_amount_with_taxes_float",
+        // Needed in cents by the library: the gift card deduction and the
+        // "anything left to pay" derivation work in cents, and an order fetched
+        // without this reads as free — which used to hide the payment step.
+        "total_amount_with_taxes_cents",
         "language_code",
         "subscription_created_at",
         "shipping_address",
@@ -269,6 +278,11 @@ export const fetchOrder = (cl: CommerceLayerBundle, orderId: string) => {
         "customer",
         "line_items",
         "payment_status",
+        // payment_sessions model. `available_payment_settings` is what tells the
+        // two models apart — an order that was never asked for it looks exactly
+        // like an order on the older model.
+        "available_payment_settings",
+        "payment_sessions",
         // "expires_at",
       ],
       shipments: ["shipping_method", "available_shipping_methods"],
@@ -288,6 +302,11 @@ export const fetchOrder = (cl: CommerceLayerBundle, orderId: string) => {
       "customer.customer_addresses",
       "customer.customer_addresses.address",
       "line_items",
+      // payment_sessions model: the setting is how a selection is read back,
+      // the authorization is how a live session is told from a burnt one.
+      "available_payment_settings",
+      "payment_sessions.payment_setting",
+      "payment_sessions.payment_authorization",
     ],
   })
 }
@@ -374,8 +393,23 @@ export function checkPaymentMethod(order: Order) {
   const paymentSource: PaymentSourceType | undefined =
     order.payment_source as PaymentSourceType
 
+  const paymentsModel = getPaymentsModel(order)
+
   let hasPaymentMethod = Boolean(paymentSource?.payment_response?.source)
-  if (
+
+  if (paymentsModel === "payment_sessions") {
+    // There is no payment source on this model, and "any live session" is not
+    // the question: a gift card is additive, so one applied to a $71 order pays
+    // $25 of it and leaves the rest owed. Payment is in place when nothing is
+    // left to pay, or when the difference has its own session.
+    //
+    // Derived by the same function the payment components use, so this flag —
+    // which drives the accordion, the recap and the step's done state — cannot
+    // disagree with what the shopper sees.
+    const sessionsState = derivePaymentSessionsState(order)
+    hasPaymentMethod =
+      sessionsState.isCovered || sessionsState.currentPaymentSession != null
+  } else if (
     paymentSource?.type === "checkout_com_payments" &&
     !paymentSource?.payment_response?.approved
   ) {
@@ -395,6 +429,7 @@ export function checkPaymentMethod(order: Order) {
     hasPaymentMethod,
     isPaymentRequired: paymentRequired,
     paymentMethod,
+    paymentsModel,
     isComplete,
     isCreditCard: creditCardPayment(paymentMethod),
     paymentSource,

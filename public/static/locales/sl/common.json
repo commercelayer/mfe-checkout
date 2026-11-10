@@ -8,6 +8,7 @@
     "edit": "Uredi",
     "free": "Brezplačno",
     "apply": "Uporabi",
+    "remove": "Odstrani",
     "privacy_and_terms": "S klikom na potrditveno polje se strinjate s <bold><termsUrl>pogoji</termsUrl></bold> in <bold><privacyUrl>zasebnostjo</privacyUrl></bold>.",
     "checkoutTitle": "Blagajna"
   },
@@ -97,12 +98,20 @@
     "endingIn": "<0/> se konča z <1/>",
     "submit": "Oddaj naročilo",
     "submitting": "Oddajanje naročila…",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "To naročilo ne zahteva plačila",
     "amountZero": "Skupni znesek naročila je nič, naročilo lahko oddate takoj",
     "saveToWallet": "Shrani novo kartico v denarnico",
     "expires": "Poteče",
     "subscriptionWithoutCustomer": "Za nakup naročnine morate ustvariti račun.",
-    "subscriptionWithCustomer": "Z zagotavljanjem podatkov o kartici dovoljujete podjetju, da bremeni vašo kartico za prihodnja plačila v skladu z njihovimi pogoji."
+    "subscriptionWithCustomer": "Z zagotavljanjem podatkov o kartici dovoljujete podjetju, da bremeni vašo kartico za prihodnja plačila v skladu z njihovimi pogoji.",
+    "useGiftCard": "Uporabi darilno kartico",
+    "cardNumber": "Številka kartice",
+    "cardExpiration": "Datum poteka",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Izpolnite podatke kartice.",
+    "paymentDeclined": "Plačilo je bilo zavrnjeno. Poskusite z drugo kartico.",
+    "paymentMethodNotLoaded": "Izbranega načina plačila ni mogoče naložiti."
   },
   "addressForm": {
     "customer_email": "Vaš e-naslov",

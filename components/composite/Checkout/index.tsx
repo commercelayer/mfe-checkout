@@ -247,6 +247,7 @@ const Checkout: React.FC<Props> = ({
                       <StepPayment
                         isPaymentLoading={isPaymentLoading}
                         paymentConfig={paymentConfig}
+                        companyName={companyName}
                       />
                     </div>
                   </AccordionItem>

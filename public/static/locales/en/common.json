@@ -8,6 +8,7 @@
     "edit": "Edit",
     "free": "Free",
     "apply": "Apply",
+    "remove": "Remove",
     "privacy_and_terms": "By clicking the checkbox you agree to <bold><termsUrl>terms</termsUrl></bold> and <bold><privacyUrl>privacy</privacyUrl></bold>.",
     "checkoutTitle": "Checkout"
   },
@@ -101,12 +102,20 @@
     "endingIn": "<0/> ending in <1/>",
     "submit": "Place order",
     "submitting": "Placing order…",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "This order does not require payment",
     "amountZero": "The total amount of the order is zero, you can place the order as it is right now",
     "saveToWallet": "Save new card on your wallet",
     "expires": "Expires",
     "subscriptionWithoutCustomer": "An account must be created in order to purchase your subscription.",
-    "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms."
+    "subscriptionWithCustomer": "By providing your card information, you allow the company to charge your card for future payments in accordance with their terms.",
+    "useGiftCard": "Use a gift card",
+    "cardNumber": "Card number",
+    "cardExpiration": "Expiration date",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Complete the card details.",
+    "paymentDeclined": "The payment was declined. Try another card.",
+    "paymentMethodNotLoaded": "Unable to load the selected payment method."
   },
   "addressForm": {
     "customer_email": "Your email address",

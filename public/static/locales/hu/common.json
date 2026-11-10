@@ -8,6 +8,7 @@
     "edit": "Módosítás",
     "free": "Ingyenes",
     "apply": "Alkalmaz",
+    "remove": "Eltávolítás",
     "privacy_and_terms": "A jelölőnégyzetre kattintással elfogadja a <bold><termsUrl>terms</termsUrl></bold>-t és a <bold><privacyUrl>privacy</privacyUrl></bold>-t.",
     "checkoutTitle": "Pénztár"
   },
@@ -101,12 +102,20 @@
     "endingIn": "<0/> végződik <1/>",
     "submit": "Megrendelés elküldése",
     "submitting": "Megrendelés folyamatban…",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "Ez a megrendelés nem igényel fizetést",
     "amountZero": "A rendelés teljes összege nulla, így a rendelést most így is leadhatja",
     "saveToWallet": "Az új bankkártya elmentése",
     "expires": "Lejár",
     "subscriptionWithoutCustomer": "Felhasználói fiók létrehozása szükséges az előfizetéses vásárláshoz",
-    "subscriptionWithCustomer": "Azzal, hogy megadja a bankkártya adatait, felhatalmazza a céget, hogy a jövőben fizetéseket eszközöljön vele összhangban a felhasználási feltételeivel."
+    "subscriptionWithCustomer": "Azzal, hogy megadja a bankkártya adatait, felhatalmazza a céget, hogy a jövőben fizetéseket eszközöljön vele összhangban a felhasználási feltételeivel.",
+    "useGiftCard": "Ajándékkártya használata",
+    "cardNumber": "Kártyaszám",
+    "cardExpiration": "Lejárati dátum",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Add meg a kártya adatait.",
+    "paymentDeclined": "A fizetést elutasították. Próbálkozz másik kártyával.",
+    "paymentMethodNotLoaded": "A kiválasztott fizetési mód nem tölthető be."
   },
   "addressForm": {
     "customer_email": "Az ön e-mail címe",

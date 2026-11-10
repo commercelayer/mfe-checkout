@@ -8,6 +8,7 @@
     "edit": "Éditer",
     "free": "Gratuit",
     "apply": "Appliquer",
+    "remove": "Supprimer",
     "privacy_and_terms": "En cliquant sur la case à cocher, vous acceptez <bold><termsUrl>les conditions générales de ventes</termsUrl></bold> et <bold><privacyUrl>la politique de confidentialité des données personnelles</privacyUrl></bold>.",
     "checkoutTitle": "Commande"
   },
@@ -101,12 +102,20 @@
     "endingIn": "<0/> se terminant par <1/>",
     "submit": "Passer commande",
     "submitting": "Commande en cours…",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "Cette commande ne nécessite pas de paiement",
     "amountZero": "Le montant total de la commande est nul, vous pouvez passer la commande en l’état.",
     "saveToWallet": "Enregistrez la nouvelle carte dans votre portefeuille",
     "expires": "Expiration",
     "subscriptionWithoutCustomer": "Un compte doit être créé pour pouvoir acheter par abonnement.",
-    "subscriptionWithCustomer": "En fournissant les informations relatives à votre carte, vous autorisez l’entreprise à débiter votre carte pour les paiements futurs, conformément à ses conditions."
+    "subscriptionWithCustomer": "En fournissant les informations relatives à votre carte, vous autorisez l’entreprise à débiter votre carte pour les paiements futurs, conformément à ses conditions.",
+    "useGiftCard": "Utiliser une carte cadeau",
+    "cardNumber": "Numéro de carte",
+    "cardExpiration": "Date d'expiration",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Complétez les informations de la carte.",
+    "paymentDeclined": "Le paiement a été refusé. Essayez une autre carte.",
+    "paymentMethodNotLoaded": "Impossible de charger le moyen de paiement sélectionné."
   },
   "addressForm": {
     "customer_email": "Votre courriel",
