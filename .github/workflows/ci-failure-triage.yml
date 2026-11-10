@@ -111,6 +111,54 @@ jobs:
           echo "job=$job" >> "$GITHUB_OUTPUT"
           echo "Found $count failed attempts in CircleCI job $job"
 
+      # Retries and parallel nodes often repeat one failure several times.
+      # Group the attempts by test and error so Claude reads one trace per
+      # group instead of every copy; this is most of the run's token cost.
+      - name: Group failed attempts by test and error
+        if: steps.traces.outputs.count != '0'
+        run: |
+          node <<'EOF'
+          const fs = require("node:fs")
+          const path = require("node:path")
+          const attemptDirs = (dir) =>
+            fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+              const p = path.join(dir, entry.name)
+              if (entry.isDirectory()) return attemptDirs(p)
+              return entry.name === "trace.zip" ? [dir] : []
+            })
+          const groups = new Map()
+          for (const dir of attemptDirs("traces").sort()) {
+            const file = path.join(dir, "error-context.md")
+            const context = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : ""
+            const name = context.match(/^- Name: (.+)$/m)?.[1] ?? `unknown test (${dir})`
+            const details = context.split("# Error details")[1]?.match(/```\n([\s\S]*?)```/)?.[1] ?? ""
+            const lines = details.split("\n").map((line) => line.trim()).filter(Boolean)
+            // First error line plus the locator it waited on; digits collapsed so
+            // timings and ids don't split one failure into several groups.
+            const error = [lines[0], lines.find((line) => line.startsWith("Locator:"))]
+              .filter(Boolean)
+              .join(" · ")
+              .replace(/\d+/g, "N")
+            const key = `${name}\n${error}`
+            if (!groups.has(key)) groups.set(key, { name, error, dirs: [] })
+            groups.get(key).dirs.push(dir)
+          }
+          const sections = [...groups.values()].map((group, i) =>
+            [
+              `## Group ${i + 1}: ${group.name}`,
+              "",
+              `Error: ${group.error || "unknown"}`,
+              "",
+              `Attempts (${group.dirs.length}):`,
+              ...group.dirs.map((dir, j) => `- ${dir}${j === 0 ? " (diagnose this one)" : ""}`),
+              "",
+            ].join("\n"),
+          )
+          fs.writeFileSync("traces/groups.md", sections.join("\n"))
+          console.log(`${groups.size} groups from ${attemptDirs("traces").length} failed attempts\n`)
+          console.log(sections.join("\n"))
+          EOF
+
       - name: Checkout the commit that was tested
         if: steps.traces.outputs.count != '0'
         uses: actions/checkout@v5
@@ -161,11 +209,14 @@ jobs:
             - CircleCI job: ${{ inputs.target_url }} (commit ${{ inputs.sha }}).
               A green job can still contain failed attempts: the suite retries twice, so a trace here may belong to a test that passed on retry.
             - ./traces/ holds one folder per failed attempt: trace.zip (Playwright trace) and error-context.md (test name, error, page snapshot).
+            - ./traces/groups.md groups those attempts by test and error, and marks the first attempt of each group.
             - ./app/ is the app at the tested commit. Tests are in app/specs/, helpers in app/specs/fixtures/.
             - ./react-components/ is commercelayer-react-components at v${{ steps.rc.outputs.version }}, the release the app pins.
 
-            For each failed attempt
-            1. Read error-context.md for the test name and error. Group attempts of the same test with the same error together.
+            For each group in groups.md
+            1. Diagnose the attempt marked "diagnose this one". Open another attempt of the same group only when that one is
+               inconclusive, or to confirm a later attempt failed the same way; then say in the summary that you did.
+               If two groups turn out to share a cause, treat them as one.
             2. Unzip the trace and find the root cause from the evidence, not the error message alone:
                test.trace has the actions and errors with timestamps; *.network has requests with timing and the
                request/response bodies under resources/; *.trace has DOM snapshots. Use small node scripts to read them.
