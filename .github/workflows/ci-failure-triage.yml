@@ -199,7 +199,7 @@ jobs:
           allowed_bots: github-actions
           claude_args: >-
             --model ${{ vars.BEDROCK_MODEL || 'eu.anthropic.claude-opus-5-5' }}
-            --max-turns 120
+            --max-turns 90
             --allowedTools "Read,Grep,Glob,Write,Bash(unzip:*),Bash(node:*),Bash(ls:*),Bash(find:*),Bash(jq:*),Bash(gh issue list:*),Bash(gh issue view:*),Bash(gh issue create:*),Bash(gh issue comment:*),Bash(gh search issues:*),Bash(gh release list:*),Bash(gh release view:*)"
           prompt: |
             You are triaging flaky and failing Playwright e2e tests for commercelayer/mfe-checkout.
