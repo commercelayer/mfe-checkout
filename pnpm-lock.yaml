@@ -16,8 +16,8 @@ importers:
         specifier: 6.28.0
         version: 6.28.0
       '@commercelayer/core-components':
-        specifier: 5.0.13
-        version: 5.0.13
+        specifier: 5.0.14
+        version: 5.0.14
       '@commercelayer/js-auth':
         specifier: ^7.4.2
         version: 7.4.2
@@ -25,11 +25,11 @@ importers:
         specifier: ^2.8.5
         version: 2.8.5
       '@commercelayer/react-components':
-        specifier: 5.0.13
-        version: 5.0.13(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: 5.0.14
+        version: 5.0.14(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@commercelayer/react-hooks-components':
-        specifier: 5.0.13
-        version: 5.0.13(react@19.3.1)
+        specifier: 5.0.14
+        version: 5.0.14(react@19.3.1)
       '@commercelayer/sdk':
         specifier: 8.0.4
         version: 8.0.4
@@ -240,8 +240,8 @@ packages:
   '@braintree/wrap-promise@2.1.0':
     resolution: {integrity: sha512-UIrJB+AfKU0CCfbMoWrsGpd2D/hBpY/SGgFI6WRHPOwhaZ3g9rz1weiJ6eb6L9KgVyunT7s2tckcPkbHw+NzeA==}
 
-  '@commercelayer/core-components@5.0.13':
-    resolution: {integrity: sha512-8K6tu99Ve1miWUVxxb4YYlmrlZzqldDU+QKCzV9p/59kc+Hi+zEvNmQ9O1PRMrUo7SErtYuhsuIvWd/v7P+TBg==}
+  '@commercelayer/core-components@5.0.14':
+    resolution: {integrity: sha512-a+O4KJuP73XtFGwlIyBADqrXYHE17jo0tx/axcymGsS9Emauqt6VwrZLcpqOEl3dnYblZqRmvuM1It0dKxTqkQ==}
 
   '@commercelayer/js-auth@7.4.2':
     resolution: {integrity: sha512-ifRcoAL1R7o5AU5w4bgmSnNMEWXDc11A+yZwAAZMEkAYrrsaud1X/3xmgY1e0yIXK8AAdIiqfW/Rm/4DdWwAQA==}
@@ -255,13 +255,13 @@ packages:
     resolution: {integrity: sha512-qGdC9JnxLdris2ux/HFRL+yl4uZlXGN0cdclZnU5OeLkCydqrZx/ld4zR4xqyhznq/QSfnXcTN6YOeXe7eIHFA==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@5.0.13':
-    resolution: {integrity: sha512-safbHuk5ZoqTANWExIK25oyOojo8BiYK9WCchRkfW4KE+nmJsimAPf6qO2n413J2HCZhSeGSVx0O0PS7SoYz9w==}
+  '@commercelayer/react-components@5.0.14':
+    resolution: {integrity: sha512-C3bXhHPg/udUIKBREcsVplO3tyLiteorQtCTgjGh8M9zmHozwm7JMDTh7v9qala/Q+OVBUZ5wfEJrasJvFNNyA==}
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/react-hooks-components@5.0.13':
-    resolution: {integrity: sha512-eGNPE14qKAM/bWItKX6Xt1kpJMFoT7SFIQ3it5fGzd55B4j32nyXWjiBG33ZpF/KMz1KlFoAc5c+3PhkeGZ2/A==}
+  '@commercelayer/react-hooks-components@5.0.14':
+    resolution: {integrity: sha512-SwFV2t036v0qVMg5s5TeoA3SC7a5WkZ1MXhuYHPcT5BJ75Sa0HCQBtbRnvJanlecvn2csS3Z1CXTSrDXzKFBHg==}
     peerDependencies:
       react: '>=19.0.0'
 
@@ -856,9 +856,6 @@ packages:
   cookie@1.1.1:
     resolution: {integrity: sha512-ei8Aos7ja0weRpFzJnEA9UHJ/7XQmqglbRwnf2ATjcB9Wq874VKH9kfjjirM6UhU2/E5fFYadylyhFldcqSidQ==}
     engines: {node: '>=18'}
-
-  credit-card-type@10.2.0:
-    resolution: {integrity: sha512-1bChi7rCJki1/EML5yYy6uVV6mE21/qFUJCTiDUfq4zl3kjXVqLTDd/wI1+Yqk4NlR4fNTJXj6tLEpECWrlY7w==}
 
   credit-card-type@10.3.1:
     resolution: {integrity: sha512-mmHHMrNofu9WF/U1qlZTuzoEixmT7robK7s26ut8HgrjxXVPRWGlVb1l6K+fDNLJdShc4zv4ml+ZE5KwKHpZMA==}
@@ -1516,7 +1513,7 @@ snapshots:
 
   '@braintree/wrap-promise@2.1.0': {}
 
-  '@commercelayer/core-components@5.0.13':
+  '@commercelayer/core-components@5.0.14':
     dependencies:
       '@commercelayer/js-auth': 8.1.0
       '@commercelayer/sdk': 8.0.4
@@ -1530,12 +1527,12 @@ snapshots:
       '@commercelayer/js-auth': 7.4.2
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@5.0.13(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@commercelayer/react-components@5.0.14(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
       '@adyen/adyen-web': 6.48.1
-      '@commercelayer/core-components': 5.0.13
+      '@commercelayer/core-components': 5.0.14
       '@commercelayer/organization-config': 2.8.5
-      '@commercelayer/react-hooks-components': 5.0.13(react@19.3.1)
+      '@commercelayer/react-hooks-components': 5.0.14(react@19.3.1)
       '@commercelayer/sdk': 8.0.4
       '@stripe/react-stripe-js': 6.12.0(@stripe/stripe-js@9.17.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@stripe/stripe-js': 9.17.0
@@ -1550,9 +1547,9 @@ snapshots:
       - preact-render-to-string
       - react-dom
 
-  '@commercelayer/react-hooks-components@5.0.13(react@19.3.1)':
+  '@commercelayer/react-hooks-components@5.0.14(react@19.3.1)':
     dependencies:
-      '@commercelayer/core-components': 5.0.13
+      '@commercelayer/core-components': 5.0.14
       react: 19.3.1
       swr: 2.5.1(react@19.3.1)
 
@@ -2028,7 +2025,7 @@ snapshots:
 
   card-validator@10.0.3:
     dependencies:
-      credit-card-type: 10.2.0
+      credit-card-type: 10.3.1
 
   classnames@2.5.1: {}
 
@@ -2051,8 +2048,6 @@ snapshots:
   commander@7.2.0: {}
 
   cookie@1.1.1: {}
-
-  credit-card-type@10.2.0: {}
 
   credit-card-type@10.3.1: {}
 
