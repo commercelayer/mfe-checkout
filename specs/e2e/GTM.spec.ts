@@ -29,6 +29,41 @@ test.describe("multi shipments", () => {
     },
   })
 
+  // #680: a Save clicked while a shipping method change is still being written
+  // must report the methods just picked, not the ones from before.
+  test("save waits for shipping method changes in flight", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.selectShippingMethod({
+      text: "Standard Shipping",
+      shipment: 1,
+    })
+
+    await checkoutPage.page.route(/\/shipments\/\w+/, async (route) => {
+      if (route.request().method() === "PATCH") {
+        await new Promise((resolve) => setTimeout(resolve, 2500))
+      }
+      await route.continue().catch(() => {})
+    })
+
+    await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
+    await checkoutPage.selectShippingMethod({
+      text: "Express Delivery",
+      shipment: 1,
+    })
+
+    await checkoutPage.save("Shipping")
+
+    const dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 2)
+    expect(
+      dataLayer.map(({ ecommerce }) => ecommerce.shipping_tier),
+    ).toEqual(["Express Delivery", "Express Delivery"])
+  })
+
   test("check begin and shipments", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
     let dataLayer = await checkoutPage.getDataLayer("begin_checkout", 1)

@@ -160,11 +160,28 @@ export const StepShipping: React.FC<Props> = () => {
     })
   }
 
+  // The library reports a shipping method change only once its whole update —
+  // PATCH, shipments refetch, order refetch — has landed, and keeps that
+  // shipment's radios disabled until then. Saving earlier hands GTM and the
+  // step summary the order from before the change, so wait for every radio
+  // to settle first.
+  const shipmentsRef = useRef<HTMLDivElement>(null)
+  const waitForShippingMethodUpdates = async () => {
+    const deadline = Date.now() + 15000
+    while (
+      shipmentsRef.current?.querySelector("input[type=radio]:disabled") &&
+      Date.now() < deadline
+    ) {
+      await new Promise((resolve) => setTimeout(resolve, 100))
+    }
+  }
+
   const handleSave = async () => {
     if (!appCtx) return
 
     setIsLocalLoader(true)
 
+    await waitForShippingMethodUpdates()
     const updatedOrder = await appCtx.saveShipments()
 
     setIsLocalLoader(false)
@@ -230,7 +247,7 @@ export const StepShipping: React.FC<Props> = () => {
       <StepContent>
         <>
           {isShipmentRequired && (
-            <div>
+            <div ref={shipmentsRef}>
               {accordionCtx.isActive && (
                 <>
                   {
