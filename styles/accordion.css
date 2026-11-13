@@ -32,7 +32,13 @@
   opacity: 1;
 }
 
+/* A transparent body still lays out its content, which overflows the 0-height
+   box and, in its own opacity layer, sits above the Place order button that
+   follows the Payment tab, swallowing its clicks (#683). */
 .accordion-tab.disabled .accordion-body {
   max-height: 0;
   opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
 }

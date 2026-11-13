@@ -20,8 +20,10 @@ name: CI failure triage
 #
 # Variables:
 #   AWS_REGION            Bedrock region, e.g. eu-west-1
-#   BEDROCK_MODEL         optional; defaults to Claude Opus 5.5. Set an
-#                         inference profile ID here if the account needs one.
+#   BEDROCK_MODEL         optional; defaults to the EU cross-region inference
+#                         profile for Claude Opus 5.5. The bare model ID
+#                         failed on this account in eu-west-1, so set an
+#                         inference profile ID here, not a model ID.
 
 on:
   status:
@@ -109,6 +111,54 @@ jobs:
           echo "job=$job" >> "$GITHUB_OUTPUT"
           echo "Found $count failed attempts in CircleCI job $job"
 
+      # Retries and parallel nodes often repeat one failure several times.
+      # Group the attempts by test and error so Claude reads one trace per
+      # group instead of every copy; this is most of the run's token cost.
+      - name: Group failed attempts by test and error
+        if: steps.traces.outputs.count != '0'
+        run: |
+          node <<'EOF'
+          const fs = require("node:fs")
+          const path = require("node:path")
+          const attemptDirs = (dir) =>
+            fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+              const p = path.join(dir, entry.name)
+              if (entry.isDirectory()) return attemptDirs(p)
+              return entry.name === "trace.zip" ? [dir] : []
+            })
+          const groups = new Map()
+          for (const dir of attemptDirs("traces").sort()) {
+            const file = path.join(dir, "error-context.md")
+            const context = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : ""
+            const name = context.match(/^- Name: (.+)$/m)?.[1] ?? `unknown test (${dir})`
+            const details = context.split("# Error details")[1]?.match(/```\n([\s\S]*?)```/)?.[1] ?? ""
+            const lines = details.split("\n").map((line) => line.trim()).filter(Boolean)
+            // First error line plus the locator it waited on; digits collapsed so
+            // timings and ids don't split one failure into several groups.
+            const error = [lines[0], lines.find((line) => line.startsWith("Locator:"))]
+              .filter(Boolean)
+              .join(" · ")
+              .replace(/\d+/g, "N")
+            const key = `${name}\n${error}`
+            if (!groups.has(key)) groups.set(key, { name, error, dirs: [] })
+            groups.get(key).dirs.push(dir)
+          }
+          const sections = [...groups.values()].map((group, i) =>
+            [
+              `## Group ${i + 1}: ${group.name}`,
+              "",
+              `Error: ${group.error || "unknown"}`,
+              "",
+              `Attempts (${group.dirs.length}):`,
+              ...group.dirs.map((dir, j) => `- ${dir}${j === 0 ? " (diagnose this one)" : ""}`),
+              "",
+            ].join("\n"),
+          )
+          fs.writeFileSync("traces/groups.md", sections.join("\n"))
+          console.log(`${groups.size} groups from ${attemptDirs("traces").length} failed attempts\n`)
+          console.log(sections.join("\n"))
+          EOF
+
       - name: Checkout the commit that was tested
         if: steps.traces.outputs.count != '0'
         uses: actions/checkout@v5
@@ -148,9 +198,9 @@ jobs:
           # is github-actions[bot], which the action rejects by default.
           allowed_bots: github-actions
           claude_args: >-
-            --model ${{ vars.BEDROCK_MODEL || 'anthropic.claude-opus-5-5' }}
-            --max-turns 120
-            --allowedTools "Read,Grep,Glob,Write,Bash(unzip:*),Bash(node:*),Bash(ls:*),Bash(find:*),Bash(jq:*),Bash(gh issue list:*),Bash(gh issue view:*),Bash(gh issue create:*),Bash(gh issue comment:*),Bash(gh search issues:*)"
+            --model ${{ vars.BEDROCK_MODEL || 'eu.anthropic.claude-opus-5-5' }}
+            --max-turns 90
+            --allowedTools "Read,Grep,Glob,Write,Bash(unzip:*),Bash(node:*),Bash(ls:*),Bash(find:*),Bash(jq:*),Bash(gh issue list:*),Bash(gh issue view:*),Bash(gh issue create:*),Bash(gh issue comment:*),Bash(gh search issues:*),Bash(gh release list:*),Bash(gh release view:*)"
           prompt: |
             You are triaging flaky and failing Playwright e2e tests for commercelayer/mfe-checkout.
             Do not change any code. Your only outputs are GitHub issues and comments.
@@ -159,11 +209,14 @@ jobs:
             - CircleCI job: ${{ inputs.target_url }} (commit ${{ inputs.sha }}).
               A green job can still contain failed attempts: the suite retries twice, so a trace here may belong to a test that passed on retry.
             - ./traces/ holds one folder per failed attempt: trace.zip (Playwright trace) and error-context.md (test name, error, page snapshot).
+            - ./traces/groups.md groups those attempts by test and error, and marks the first attempt of each group.
             - ./app/ is the app at the tested commit. Tests are in app/specs/, helpers in app/specs/fixtures/.
             - ./react-components/ is commercelayer-react-components at v${{ steps.rc.outputs.version }}, the release the app pins.
 
-            For each failed attempt
-            1. Read error-context.md for the test name and error. Group attempts of the same test with the same error together.
+            For each group in groups.md
+            1. Diagnose the attempt marked "diagnose this one". Open another attempt of the same group only when that one is
+               inconclusive, or to confirm a later attempt failed the same way; then say in the summary that you did.
+               If two groups turn out to share a cause, treat them as one.
             2. Unzip the trace and find the root cause from the evidence, not the error message alone:
                test.trace has the actions and errors with timestamps; *.network has requests with timing and the
                request/response bodies under resources/; *.trace has DOM snapshots. Use small node scripts to read them.
@@ -176,11 +229,16 @@ jobs:
                - external cause (a payment sandbox down or very slow, Commerce Layer API 429/5xx, network) → no issue; mention it in the summary only.
                If you cannot determine the cause from the evidence, avoid opening the issue in mfe-checkout.
 
-            Before opening anything, check for an existing open issue
-            - Search open issues in both repos for the spec file name, the test title, and the key function/file you blamed.
+            Before opening anything, check for an existing issue
+            - Search both repos for the spec file name, the test title, and the key function/file you blamed:
+              open issues, and the 50 most recently closed (`gh issue list --repo <repo> --state closed --limit 50`).
             - Issues opened by this workflow contain a marker line `<!-- ci-triage: <spec file> › <test title> -->`.
             - If an open issue already covers the same cause, add a short comment with this occurrence (job link, timings) instead of a new issue.
               Do not comment more than once per issue per run.
+            - If a closed issue covers the same cause, find the react-components release that shipped its fix
+              (`gh release list` / `gh release view --repo commercelayer/commercelayer-react-components`).
+              - Fixed in a release newer than v${{ steps.rc.outputs.version }}: open nothing; in the summary say the app needs to move to that release.
+              - Fixed in v${{ steps.rc.outputs.version }} or earlier, or no release found: the fix did not hold. Open a new issue that links the closed one.
 
             Opening an issue
             - Label it `triage`. Keep it short and factual: what fails, the evidence (timestamps, requests), the cause, a suggested fix if you are confident.

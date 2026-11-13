@@ -29,9 +29,44 @@ test.describe("multi shipments", () => {
     },
   })
 
+  // #680: a Save clicked while a shipping method change is still being written
+  // must report the methods just picked, not the ones from before.
+  test("save waits for shipping method changes in flight", async ({
+    checkoutPage,
+  }) => {
+    await checkoutPage.checkOrderSummary("Order Summary")
+    await checkoutPage.checkStep("Shipping", "open")
+
+    await checkoutPage.selectShippingMethod({ text: "Standard Shipping" })
+    await checkoutPage.selectShippingMethod({
+      text: "Standard Shipping",
+      shipment: 1,
+    })
+
+    await checkoutPage.page.route(/\/shipments\/\w+/, async (route) => {
+      if (route.request().method() === "PATCH") {
+        await new Promise((resolve) => setTimeout(resolve, 2500))
+      }
+      await route.continue().catch(() => {})
+    })
+
+    await checkoutPage.selectShippingMethod({ text: "Express Delivery" })
+    await checkoutPage.selectShippingMethod({
+      text: "Express Delivery",
+      shipment: 1,
+    })
+
+    await checkoutPage.save("Shipping")
+
+    const dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 2)
+    expect(
+      dataLayer.map(({ ecommerce }) => ecommerce.shipping_tier),
+    ).toEqual(["Express Delivery", "Express Delivery"])
+  })
+
   test("check begin and shipments", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
-    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.value).toBe(244)
@@ -51,13 +86,10 @@ test.describe("multi shipments", () => {
       text: "Standard Shipping",
       shipment: 1,
     })
-    await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
 
     await checkoutPage.save("Shipping")
 
-    await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
-
-    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 2)
     expect(dataLayer.length).toBe(2)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.shipping_tier).toBe("Standard Shipping")
@@ -78,12 +110,10 @@ test.describe("multi shipments", () => {
       text: "Express Delivery",
       shipment: 1,
     })
-    await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
 
     await checkoutPage.save("Shipping")
-    await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
 
-    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 4)
     expect(dataLayer.length).toBe(4)
     expect(dataLayer[2].ecommerce.currency).toBe("EUR")
     expect(dataLayer[2].ecommerce.shipping_tier).toBe("Express Delivery")
@@ -105,12 +135,10 @@ test.describe("multi shipments", () => {
       text: "Standard Shipping",
       shipment: 1,
     })
-    await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
 
     await checkoutPage.save("Shipping")
 
-    await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
-    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 6)
     expect(dataLayer.length).toBe(6)
     expect(dataLayer[4].ecommerce.currency).toBe("EUR")
     expect(dataLayer[4].ecommerce.shipping_tier).toBe("Express Delivery")
@@ -131,12 +159,10 @@ test.describe("multi shipments", () => {
       text: "Express Delivery",
       shipment: 1,
     })
-    await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
 
     await checkoutPage.save("Shipping")
 
-    await checkoutPage.page.waitForTimeout(TIMEOUT * 10)
-    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 8)
     expect(dataLayer.length).toBe(8)
     expect(dataLayer[6].ecommerce.currency).toBe("EUR")
     expect(dataLayer[6].ecommerce.shipping_tier).toBe("Standard Shipping")
@@ -182,7 +208,7 @@ test.describe("single shipment", () => {
 
   test("check payment and purchase", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
-    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.value).toBe(244)
@@ -194,7 +220,7 @@ test.describe("single shipment", () => {
 
     await checkoutPage.save("Shipping")
 
-    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.shipping_tier).toBe("Standard Shipping")
@@ -207,14 +233,14 @@ test.describe("single shipment", () => {
 
     await checkoutPage.save("Payment")
 
-    dataLayer = await checkoutPage.getDataLayer("add_payment_info")
+    dataLayer = await checkoutPage.getDataLayer("add_payment_info", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.payment_type).toBe("Stripe Payment")
     expect(dataLayer[0].ecommerce.value).toBe(10)
     expect(dataLayer[0].ecommerce.items?.length).toBe(2)
 
-    dataLayer = await checkoutPage.getDataLayer("purchase")
+    dataLayer = await checkoutPage.getDataLayer("purchase", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.value).toBe(254)
@@ -253,7 +279,7 @@ test.describe("with single shipping method", () => {
     await checkoutPage.setBillingAddress(usAddress)
     await checkoutPage.save("Customer")
 
-    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("USD")
     expect(dataLayer[0].ecommerce.value).toBe(118.8)
@@ -263,7 +289,7 @@ test.describe("with single shipping method", () => {
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
 
-    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("USD")
     expect(dataLayer[0].ecommerce.shipping_tier).toBe("Express Delivery")
@@ -277,7 +303,7 @@ test.describe("with single shipping method", () => {
     await checkoutPage.setBillingAddress(usAddress)
     await checkoutPage.save("Customer")
 
-    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("USD")
     expect(dataLayer[0].ecommerce.value).toBe(118.8)
@@ -287,7 +313,7 @@ test.describe("with single shipping method", () => {
     await checkoutPage.checkStep("Shipping", "close")
     await checkoutPage.checkStep("Payment", "open")
 
-    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("USD")
     expect(dataLayer[0].ecommerce.shipping_tier).toBe("Express Delivery")
@@ -298,7 +324,7 @@ test.describe("with single shipping method", () => {
     await checkoutPage.save("Shipping")
     await checkoutPage.checkStep("Shipping", "close")
 
-    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 2)
     expect(dataLayer.length).toBe(2)
     expect(dataLayer[0].ecommerce.currency).toBe("USD")
     expect(dataLayer[0].ecommerce.shipping_tier).toBe("Express Delivery")
@@ -330,7 +356,7 @@ test.describe("with digital products", () => {
     await checkoutPage.setBillingAddress(usAddress)
     await checkoutPage.save("Customer")
 
-    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("USD")
     expect(dataLayer[0].ecommerce.value).toBe(15)
@@ -340,21 +366,21 @@ test.describe("with digital products", () => {
     await checkoutPage.checkStep("Shipping", "not_present")
     await checkoutPage.checkStep("Payment", "open")
 
-    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 0)
     expect(dataLayer.length).toBe(0)
 
     await checkoutPage.selectPayment("wire")
 
     await checkoutPage.save("Payment")
 
-    dataLayer = await checkoutPage.getDataLayer("add_payment_info")
+    dataLayer = await checkoutPage.getDataLayer("add_payment_info", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("USD")
     expect(dataLayer[0].ecommerce.payment_type).toBe("Wire Transfer")
     expect(dataLayer[0].ecommerce.value).toBe(0)
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
 
-    dataLayer = await checkoutPage.getDataLayer("purchase")
+    dataLayer = await checkoutPage.getDataLayer("purchase", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("USD")
     expect(dataLayer[0].ecommerce.value).toBe(18.3)
@@ -383,7 +409,7 @@ test.describe("with bundle", () => {
 
   test("check payment and purchase", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
-    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.value).toBe(105)
@@ -401,7 +427,7 @@ test.describe("with bundle", () => {
 
     await checkoutPage.save("Shipping")
 
-    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.shipping_tier).toBe("Standard Shipping")
@@ -414,14 +440,14 @@ test.describe("with bundle", () => {
 
     await checkoutPage.save("Payment")
 
-    dataLayer = await checkoutPage.getDataLayer("add_payment_info")
+    dataLayer = await checkoutPage.getDataLayer("add_payment_info", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.payment_type).toBe("Stripe Payment")
     expect(dataLayer[0].ecommerce.value).toBe(10)
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
 
-    dataLayer = await checkoutPage.getDataLayer("purchase")
+    dataLayer = await checkoutPage.getDataLayer("purchase", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.value).toBe(115)
@@ -440,7 +466,7 @@ test.describe("with bundle", () => {
     checkoutPage,
   }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
-    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.value).toBe(105)
@@ -458,7 +484,7 @@ test.describe("with bundle", () => {
 
     await checkoutPage.save("Shipping")
 
-    dataLayer = await checkoutPage.getDataLayer("add_shipping_info")
+    dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.shipping_tier).toBe("Standard Shipping")
@@ -469,17 +495,17 @@ test.describe("with bundle", () => {
 
     await checkoutPage.save("Payment", "Paga con PayPal")
 
-    dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    dataLayer = await checkoutPage.getDataLayer("begin_checkout", 0)
     expect(dataLayer.length).toBe(0)
 
-    dataLayer = await checkoutPage.getDataLayer("add_payment_info")
+    dataLayer = await checkoutPage.getDataLayer("add_payment_info", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.payment_type).toBe("Paypal Payment")
     expect(dataLayer[0].ecommerce.value).toBe(0)
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
 
-    dataLayer = await checkoutPage.getDataLayer("purchase")
+    dataLayer = await checkoutPage.getDataLayer("purchase", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.value).toBe(105)
@@ -496,7 +522,7 @@ test.describe("with bundle", () => {
 
   test("avoid events when order placed on reload", async ({ checkoutPage }) => {
     await checkoutPage.checkOrderSummary("Order Summary")
-    let dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    let dataLayer = await checkoutPage.getDataLayer("begin_checkout", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.value).toBe(105)
@@ -520,14 +546,14 @@ test.describe("with bundle", () => {
 
     await checkoutPage.save("Payment")
 
-    dataLayer = await checkoutPage.getDataLayer("add_payment_info")
+    dataLayer = await checkoutPage.getDataLayer("add_payment_info", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.payment_type).toBe("Stripe Payment")
     expect(dataLayer[0].ecommerce.value).toBe(10)
     expect(dataLayer[0].ecommerce.items?.length).toBe(1)
 
-    dataLayer = await checkoutPage.getDataLayer("purchase")
+    dataLayer = await checkoutPage.getDataLayer("purchase", 1)
     expect(dataLayer.length).toBe(1)
     expect(dataLayer[0].ecommerce.currency).toBe("EUR")
     expect(dataLayer[0].ecommerce.value).toBe(115)
@@ -545,7 +571,7 @@ test.describe("with bundle", () => {
 
     await checkoutPage.checkPaymentRecap("Visa ending in 4242")
 
-    dataLayer = await checkoutPage.getDataLayer("begin_checkout")
+    dataLayer = await checkoutPage.getDataLayer("begin_checkout", 0)
     expect(dataLayer.length).toBe(0)
   })
 })

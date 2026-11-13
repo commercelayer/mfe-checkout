@@ -204,19 +204,33 @@ export class CheckoutPage {
     )
   }
 
+  // GTM events are pushed some time after the action that fires them, so wait
+  // until the expected number has arrived instead of sleeping. Checking that
+  // an event did not fire still needs a pause, or it would pass before a stray
+  // event lands.
   async getDataLayer(
     eventToTrack:
       | "begin_checkout"
       | "add_shipping_info"
       | "add_payment_info"
       | "purchase",
+    expectedCount: number,
   ) {
-    await this.page.waitForTimeout(2000)
-    const dataLayer: DataLayerWindowProps[] =
-      await this.page.evaluate("window.dataLayer")
-    return dataLayer?.filter(
-      ({ event }: DataLayerWindowProps) => event === eventToTrack,
-    )
+    const read = async () => {
+      const dataLayer: DataLayerWindowProps[] =
+        await this.page.evaluate("window.dataLayer")
+      return (
+        dataLayer?.filter(
+          ({ event }: DataLayerWindowProps) => event === eventToTrack,
+        ) ?? []
+      )
+    }
+    if (expectedCount === 0) {
+      await this.page.waitForTimeout(2000)
+    } else {
+      await expect.poll(async () => (await read()).length).toBe(expectedCount)
+    }
+    return read()
   }
 
   async getOrderNumber() {
@@ -395,7 +409,9 @@ export class CheckoutPage {
       await expect(this.page.getByText(text).nth(shipment)).toHaveCount(1)
       await expect(element).toBeChecked()
       await this.page.waitForTimeout(1000)
-      await expect(element).toBeChecked()
+      // Short, so a click that saved nothing is retried within a second
+      // instead of after the default expect timeout.
+      await expect(element).toBeChecked({ timeout: 1000 })
       if (isSingleShipment) {
         await expect(saveButton).toBeEnabled({ timeout: 3000 })
       }
