@@ -36,16 +36,10 @@ export const useActiveStep = (): UseActiveStep => {
   const isFirstLoading = ctx?.isFirstLoading ?? true
 
   // A loading cycle that was already in flight when the user navigated must
-  // not clobber their choice when it completes: keep track of when the last
-  // cycle started and when the user last picked a step manually.
-  const loadingStartedAtRef = useRef(0)
+  // not clobber their choice when it completes: compare when the user last
+  // picked a step manually with when the last cycle started
+  // (`ctx.getLoadingStartedAt`).
   const manualNavAtRef = useRef(0)
-
-  useEffect(() => {
-    if (isLoading) {
-      loadingStartedAtRef.current = Date.now()
-    }
-  }, [isLoading])
 
   const setActiveStepManual = (step: SingleStepEnum) => {
     manualNavAtRef.current = Date.now()
@@ -93,7 +87,7 @@ export const useActiveStep = (): UseActiveStep => {
       // edit still in it and the Save button gone. Saving clears the flag, so
       // the flow advances then exactly as it always did.
       const keepManualSelection =
-        manualNavAtRef.current > loadingStartedAtRef.current ||
+        manualNavAtRef.current > ctx.getLoadingStartedAt() ||
         ctx.hasUnsavedStepEdits()
 
       if (canPlaceOrder) {

@@ -201,7 +201,11 @@ export const StepShipping: React.FC<Props> = () => {
   autoSelectRef.current = async (order?: Order) => {
     if (!appCtx) return
 
-    const updatedOrder = await appCtx.autoSelectShippingMethod(order)
+    // The selection can land after the customer has left this step; it then
+    // updates the order without moving them.
+    const updatedOrder = await appCtx.autoSelectShippingMethod(order, {
+      background: !accordionCtx?.isActive,
+    })
     if (gtmCtx?.fireAddShippingInfo) {
       gtmCtx.fireAddShippingInfo(updatedOrder)
     }

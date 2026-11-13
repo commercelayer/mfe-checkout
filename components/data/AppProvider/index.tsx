@@ -51,7 +51,15 @@ export interface AppProviderData extends FetchOrderByIdResponse {
   setCouponOrGiftCard: () => Promise<void>
   saveShipments: () => Promise<Order>
   placeOrder: (order?: Order) => Promise<void>
-  setPayment: (params: { payment?: PaymentMethod; order?: Order }) => void
+  /**
+   * `background` marks a call that reports work started from a step the
+   * customer has since left: it updates the order without moving them.
+   */
+  setPayment: (params: {
+    payment?: PaymentMethod
+    order?: Order
+    background?: boolean
+  }) => void
   selectShipment: (params: {
     shippingMethod: {
       id: string
@@ -59,7 +67,12 @@ export interface AppProviderData extends FetchOrderByIdResponse {
     shipmentId: string
     order?: Order
   }) => Promise<void>
-  autoSelectShippingMethod: (order?: Order) => Promise<Order>
+  autoSelectShippingMethod: (
+    order?: Order,
+    options?: { background?: boolean },
+  ) => Promise<Order>
+  /** When the last loading cycle that may move the customer began. */
+  getLoadingStartedAt: () => number
 }
 
 export interface AppStateData extends FetchOrderByIdResponse {
@@ -147,6 +160,19 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const stateRef = useRef(state)
   stateRef.current = state
 
+  // When the last loading cycle that may move the customer to another step
+  // began. Stamped here, when the work starts, rather than when a render
+  // shows `isLoading` turning true: that render can land after a click on a
+  // step, and the cycle would then override a choice made after it started.
+  const loadingStartedAtRef = useRef(0)
+  const startLoading = useCallback((options?: { background?: boolean }) => {
+    if (!options?.background) {
+      loadingStartedAtRef.current = Date.now()
+    }
+    dispatch({ type: ActionType.START_LOADING })
+  }, [])
+  const getLoadingStartedAt = useCallback(() => loadingStartedAtRef.current, [])
+
   // Passed as <Order fetchOrder>; closes over only stable refs.
   const getOrder = useCallback((order: Order) => {
     orderRef.current = order
@@ -162,7 +188,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
       if (!orderId || !accessToken) {
         return
       }
-      dispatch({ type: ActionType.START_LOADING })
+      startLoading()
       const order = await getOrderFromRef()
 
       const { shipments, ...addressInfos } =
@@ -217,7 +243,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setAddresses = useCallback(async (order?: Order) => {
     stepEditsRef.current = false
     savingStepRef.current = true
-    dispatch({ type: ActionType.START_LOADING })
+    startLoading()
     const currentOrder = order ?? (await getOrderFromRef())
 
     const others = calculateSettings(
@@ -242,7 +268,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   const setCouponOrGiftCard = useCallback(async (order?: Order) => {
     const currentOrder = order ?? (await getOrderFromRef())
     if (stateRef.current.order) {
-      dispatch({ type: ActionType.START_LOADING })
+      startLoading()
 
       const others = calculateSettings(
         currentOrder,
@@ -291,30 +317,33 @@ export const AppProvider: React.FC<AppProviderProps> = ({
     [],
   )
 
-  const autoSelectShippingMethod = useCallback(async (order?: Order) => {
-    dispatch({ type: ActionType.START_LOADING })
-    const currentOrder = order ?? (await fetchOrder(cl, orderId))
+  const autoSelectShippingMethod = useCallback(
+    async (order?: Order, options?: { background?: boolean }) => {
+      startLoading(options)
+      const currentOrder = order ?? (await fetchOrder(cl, orderId))
 
-    const others = calculateSettings(
-      currentOrder,
-      stateRef.current.isShipmentRequired,
-      isGuest,
-      stateRef.current.customerAddresses,
-    )
-    setTimeout(() => {
-      dispatch({
-        type: ActionType.SAVE_SHIPMENTS,
-        payload: { order: currentOrder, others },
-      })
-    }, 100)
+      const others = calculateSettings(
+        currentOrder,
+        stateRef.current.isShipmentRequired,
+        isGuest,
+        stateRef.current.customerAddresses,
+      )
+      setTimeout(() => {
+        dispatch({
+          type: ActionType.SAVE_SHIPMENTS,
+          payload: { order: currentOrder, others },
+        })
+      }, 100)
 
-    return currentOrder
-  }, [])
+      return currentOrder
+    },
+    [],
+  )
 
   const saveShipments = useCallback(async () => {
     stepEditsRef.current = false
     savingStepRef.current = true
-    dispatch({ type: ActionType.START_LOADING })
+    startLoading()
     const currentOrder = await getOrderFromRef()
     const others = calculateSettings(
       currentOrder,
@@ -334,8 +363,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   }, [])
 
   const setPayment = useCallback(
-    async (params: { payment?: PaymentMethod; order?: Order }) => {
-      dispatch({ type: ActionType.START_LOADING })
+    async (params: {
+      payment?: PaymentMethod
+      order?: Order
+      background?: boolean
+    }) => {
+      startLoading({ background: params.background })
       const currentOrder = params.order ?? (await getOrderFromRef())
 
       const others = calculateSettings(
@@ -354,7 +387,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
   )
 
   const placeOrder = useCallback(async (order?: Order) => {
-    dispatch({ type: ActionType.START_LOADING })
+    startLoading()
     if (order && order.customer_email != null) {
       setCustomerEmail(order.customer_email)
     }
@@ -385,6 +418,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({
         orderId,
         order,
         hasUnsavedStepEdits,
+        getLoadingStartedAt,
         markStepEdited,
         clearStepEdits,
         accessToken,

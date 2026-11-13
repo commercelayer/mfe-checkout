@@ -13,7 +13,7 @@ import { AppContext } from "components/data/AppProvider"
 import { StepContainer } from "components/ui/StepContainer"
 import { StepContent } from "components/ui/StepContent"
 import { StepHeader } from "components/ui/StepHeader"
-import { useCallback, useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useRef, useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 
 import { CheckoutCustomerPayment } from "./CheckoutCustomerPayment"
@@ -108,6 +108,11 @@ export const StepPayment: React.FC<{
   // Declared above the early return to satisfy the rules of hooks; appCtx's
   // setPayment is memoised in AppProvider so [setPayment] stays stable.
   const setPayment = appCtx?.setPayment
+  // The library's auto-select reports back once the payment source exists,
+  // even when the customer has left this step by then (#681). Read through a
+  // ref so the callback keeps its identity.
+  const isActiveRef = useRef(false)
+  isActiveRef.current = accordionCtx?.isActive ?? false
   const selectPayment = useCallback(
     ({ payment, order }: PaymentMethodOnClickParams) => {
       if (
@@ -118,7 +123,10 @@ export const StepPayment: React.FC<{
       ) {
         setHasMultiplePaymentMethods(true)
       }
-      setPayment?.({ payment: payment as PaymentMethodType })
+      setPayment?.({
+        payment: payment as PaymentMethodType,
+        background: !isActiveRef.current,
+      })
     },
     [setPayment],
   )
