@@ -6,7 +6,7 @@ settings:
 
 overrides:
   fflate: ^0.8.3
-  '@commercelayer/sdk': 8.0.2
+  '@commercelayer/sdk': 8.0.4
 
 importers:
 
@@ -16,8 +16,8 @@ importers:
         specifier: 6.28.0
         version: 6.28.0
       '@commercelayer/core-components':
-        specifier: 5.0.11
-        version: 5.0.11
+        specifier: 5.0.15
+        version: 5.0.15
       '@commercelayer/js-auth':
         specifier: ^7.4.2
         version: 7.4.2
@@ -25,14 +25,14 @@ importers:
         specifier: ^2.8.5
         version: 2.8.5
       '@commercelayer/react-components':
-        specifier: 5.0.11
-        version: 5.0.11(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: 5.0.15
+        version: 5.0.15(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@commercelayer/react-hooks-components':
-        specifier: 5.0.11
-        version: 5.0.11(react@19.3.1)
+        specifier: 5.0.15
+        version: 5.0.15(react@19.3.1)
       '@commercelayer/sdk':
-        specifier: 8.0.2
-        version: 8.0.2
+        specifier: 8.0.4
+        version: 8.0.4
       '@faker-js/faker':
         specifier: ^10.6.0
         version: 10.6.0
@@ -130,8 +130,8 @@ packages:
   '@adyen/adyen-web@6.28.0':
     resolution: {integrity: sha512-cCgsUGtRegBMl+8ZKfXt6/M/bnKd4WBfmtbLq74NJbrtOQMo7S+gWBrRGvvVV+VanM2UAmNo6XRHF6Tyhf52Fw==}
 
-  '@adyen/adyen-web@6.47.0':
-    resolution: {integrity: sha512-GK4bH0CZA7NMRW3G71U5jT6IhWxdlgxsYnfc2660kD044s7RiykztfzJyU7MAPuHA5GKAJp3dfWoNgcefrGYhw==}
+  '@adyen/adyen-web@6.48.1':
+    resolution: {integrity: sha512-rBkXV+4qBZcMlwcImcNqOW9OpvhLzB/s62z6j3oYnDhV4HZIywUJ12VvFW1BkyWSXghXKdaK2s2FbXmoZMed2Q==}
 
   '@alloc/quick-lru@5.3.0':
     resolution: {integrity: sha512-U4+70Pc5ZS9osnCBCE5Jha/ciHM+Yp+CNMNC/7HvYbNRk1Ldd+f7qO65W5qfhu/TCv+/ozljlXXe9Nj8419DMA==}
@@ -240,33 +240,33 @@ packages:
   '@braintree/wrap-promise@2.1.0':
     resolution: {integrity: sha512-UIrJB+AfKU0CCfbMoWrsGpd2D/hBpY/SGgFI6WRHPOwhaZ3g9rz1weiJ6eb6L9KgVyunT7s2tckcPkbHw+NzeA==}
 
-  '@commercelayer/core-components@5.0.11':
-    resolution: {integrity: sha512-S/pmRP/6l4EfX9mAL++//ohYLPjdLLhO+Hv4EKsnHmwOJLygMbvOwHtgY3R1OrdEdg2YHrvjLgWQjVCgedQ4DA==}
+  '@commercelayer/core-components@5.0.15':
+    resolution: {integrity: sha512-EfSYg4xx1k6B+SLCWbeLBmtVxfhMw/4SwXS+z6IRjtzIlkc7sEJJTkshoLxPo24P19NMdzfBhBpcCPuNQ+8zQA==}
 
   '@commercelayer/js-auth@7.4.2':
     resolution: {integrity: sha512-ifRcoAL1R7o5AU5w4bgmSnNMEWXDc11A+yZwAAZMEkAYrrsaud1X/3xmgY1e0yIXK8AAdIiqfW/Rm/4DdWwAQA==}
     engines: {node: '>=20.0.0'}
 
-  '@commercelayer/js-auth@8.0.2':
-    resolution: {integrity: sha512-xwQWXuYtW6PBehzJoeI8fgmSnE79xPR4yK/SrevZwBERG0xLaCDPsihw684Ri1m5PMbHH/k1AwqncXpyu45OiQ==}
+  '@commercelayer/js-auth@8.1.0':
+    resolution: {integrity: sha512-IJF/AxR07/tf2m2SuHf4XikKbT3K/hr2lIOkdgpUEUvRWZ1gnPMQLl7T8f4NzshaKvI6y89mSrL7k2AMI8LyLQ==}
     engines: {node: '>=20.0.0'}
 
   '@commercelayer/organization-config@2.8.5':
     resolution: {integrity: sha512-qGdC9JnxLdris2ux/HFRL+yl4uZlXGN0cdclZnU5OeLkCydqrZx/ld4zR4xqyhznq/QSfnXcTN6YOeXe7eIHFA==}
     engines: {node: '>=18', pnpm: '>=7'}
 
-  '@commercelayer/react-components@5.0.11':
-    resolution: {integrity: sha512-to0LIv9fCpy/xwQcQO55qYsYr7cXLjlm4MrnMisFYoolDEubgei43hcYgcBVrDvRfw/e3Kxrp4GLP94sXtO8sQ==}
+  '@commercelayer/react-components@5.0.15':
+    resolution: {integrity: sha512-k++RDCFwvk1A8DDCDI5c4OLhmmCn2QH2WkVF/nDCebRHZ9nFlkyb5FgdOPvVo7uK90OJKKXB0y8P7NmJFLB59g==}
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/react-hooks-components@5.0.11':
-    resolution: {integrity: sha512-xJ5CZTIzDn5T4NYreK8PIlBprL5by3H4l041HTyG1MxJYkG0UW4zKs4IHq68Dsbcr7j6Ra+lFoSSaAmegRTjwQ==}
+  '@commercelayer/react-hooks-components@5.0.15':
+    resolution: {integrity: sha512-E4EQu4j5+esbkSFb5nw8yhyWf2xufqJQCk2zb63tlua2v3ByFevwxIrSsAoM2GHKkAJyQdeOgykznoQV2vztiA==}
     peerDependencies:
       react: '>=19.0.0'
 
-  '@commercelayer/sdk@8.0.2':
-    resolution: {integrity: sha512-OdKFC4qDUvQDeNpYRi+wChQFqktc74sFaQxK8NpaEeGx8mkepribmP+pOI0d7Xy1GdeExv5D5es9ZxRenLY0vA==}
+  '@commercelayer/sdk@8.0.4':
+    resolution: {integrity: sha512-a4B/pLEU6oe2PhFK6oHfy0jwbjoj5BX88RGqtvquToKAovrGSCAuQcxD0wKoN+7B5JgcqzyKn9SRsUERl1nrmA==}
     engines: {node: '>=20'}
 
   '@discoveryjs/json-ext@0.5.7':
@@ -575,8 +575,8 @@ packages:
   '@paypal/fastlane-sdk-loader@1.2.1':
     resolution: {integrity: sha512-+kiVVpXorfmJjFY7keJrkGAlaXnAjQ7THEU9pi1ULJkr8tTb20fi/1NJeImUtbbkfZ7Zbk2mkT07qicLsXY1nw==}
 
-  '@paypal/paypal-js@11.1.0':
-    resolution: {integrity: sha512-Nq8i7p/aIVmwBb9h00YFvbvrZOcQUs37FKlhx6gDiV6O/h0K5Zto2qRtZBLdfD1o7pK9CVlbPqb2iApS0O4aiA==}
+  '@paypal/paypal-js@11.2.1':
+    resolution: {integrity: sha512-Oi9JAxXOZrTpPWvJtlf98r76AvjIsn5kud7ZgqaqCL0JUOS3rqNzCbPmmWt9eg9Gw0qMf3KpVX+sEusQGe09pw==}
 
   '@playwright/test@1.64.1':
     resolution: {integrity: sha512-IaYGml/nSOiZWROfPtuIL7neuu9qDOZ3TNvNljUIrhDMxiGTgPjzj/g9p9RxpS2tSepPDRY+UwAaEeiKtUvIAg==}
@@ -815,8 +815,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  braintree-web@3.147.0:
-    resolution: {integrity: sha512-0c/7LAYQfWThr5E40B6diBav6AY2Z0vixQy3MLxeZn/q+lwns8NpkVl5H1c4Tw607lk9Y7tC1zwmyGmJ3uhA/w==}
+  braintree-web@3.148.0:
+    resolution: {integrity: sha512-z+gKO37jvT05djIphEl4aygGhwUVZvgzRKSR0JPAPDie0N9NtpBs5nl/159XQ9R7q9aQHy7GuvImYZhFgGB5hw==}
     engines: {npm: '>11.7.0'}
 
   camelcase@5.3.1:
@@ -857,8 +857,8 @@ packages:
     resolution: {integrity: sha512-ei8Aos7ja0weRpFzJnEA9UHJ/7XQmqglbRwnf2ATjcB9Wq874VKH9kfjjirM6UhU2/E5fFYadylyhFldcqSidQ==}
     engines: {node: '>=18'}
 
-  credit-card-type@10.2.0:
-    resolution: {integrity: sha512-1bChi7rCJki1/EML5yYy6uVV6mE21/qFUJCTiDUfq4zl3kjXVqLTDd/wI1+Yqk4NlR4fNTJXj6tLEpECWrlY7w==}
+  credit-card-type@10.3.1:
+    resolution: {integrity: sha512-mmHHMrNofu9WF/U1qlZTuzoEixmT7robK7s26ut8HgrjxXVPRWGlVb1l6K+fDNLJdShc4zv4ml+ZE5KwKHpZMA==}
 
   cron-parser@5.10.2:
     resolution: {integrity: sha512-JfAYMY0LZaWQTuict8PhtF/ksSnq8xefSDmQUnnoqvkPYkU/y3UP0DTWzJKFBz0P1IXsDG8q0vY3zHkoFZOhvw==}
@@ -1434,9 +1434,9 @@ snapshots:
       classnames: 2.5.1
       preact: 10.22.1
 
-  '@adyen/adyen-web@6.47.0':
+  '@adyen/adyen-web@6.48.1':
     dependencies:
-      '@paypal/paypal-js': 11.1.0
+      '@paypal/paypal-js': 11.2.1
       '@types/applepayjs': 14.0.9
       '@types/googlepay': 0.7.13
       classnames: 2.5.1
@@ -1513,32 +1513,32 @@ snapshots:
 
   '@braintree/wrap-promise@2.1.0': {}
 
-  '@commercelayer/core-components@5.0.11':
+  '@commercelayer/core-components@5.0.15':
     dependencies:
-      '@commercelayer/js-auth': 8.0.2
-      '@commercelayer/sdk': 8.0.2
+      '@commercelayer/js-auth': 8.1.0
+      '@commercelayer/sdk': 8.0.4
 
   '@commercelayer/js-auth@7.4.2': {}
 
-  '@commercelayer/js-auth@8.0.2': {}
+  '@commercelayer/js-auth@8.1.0': {}
 
   '@commercelayer/organization-config@2.8.5':
     dependencies:
       '@commercelayer/js-auth': 7.4.2
       merge-anything: 5.1.7
 
-  '@commercelayer/react-components@5.0.11(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@commercelayer/react-components@5.0.15(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
-      '@adyen/adyen-web': 6.47.0
-      '@commercelayer/core-components': 5.0.11
+      '@adyen/adyen-web': 6.48.1
+      '@commercelayer/core-components': 5.0.15
       '@commercelayer/organization-config': 2.8.5
-      '@commercelayer/react-hooks-components': 5.0.11(react@19.3.1)
-      '@commercelayer/sdk': 8.0.2
+      '@commercelayer/react-hooks-components': 5.0.15(react@19.3.1)
+      '@commercelayer/sdk': 8.0.4
       '@stripe/react-stripe-js': 6.12.0(@stripe/stripe-js@9.17.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@stripe/stripe-js': 9.17.0
       '@tanstack/react-table': 8.21.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@types/iframe-resizer': 4.0.0
-      braintree-web: 3.147.0
+      braintree-web: 3.148.0
       frames-react: 1.2.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       iframe-resizer: 4.3.11
       rapid-form: 5.0.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -1547,13 +1547,13 @@ snapshots:
       - preact-render-to-string
       - react-dom
 
-  '@commercelayer/react-hooks-components@5.0.11(react@19.3.1)':
+  '@commercelayer/react-hooks-components@5.0.15(react@19.3.1)':
     dependencies:
-      '@commercelayer/core-components': 5.0.11
+      '@commercelayer/core-components': 5.0.15
       react: 19.3.1
       swr: 2.5.1(react@19.3.1)
 
-  '@commercelayer/sdk@8.0.2': {}
+  '@commercelayer/sdk@8.0.4': {}
 
   '@discoveryjs/json-ext@0.5.7': {}
 
@@ -1805,7 +1805,7 @@ snapshots:
       envify: 4.1.0
       typescript: 4.9.5
 
-  '@paypal/paypal-js@11.1.0':
+  '@paypal/paypal-js@11.2.1':
     dependencies:
       promise-polyfill: 8.3.0
 
@@ -2000,7 +2000,7 @@ snapshots:
 
   baseline-browser-mapping@2.11.33: {}
 
-  braintree-web@3.147.0:
+  braintree-web@3.148.0:
     dependencies:
       '@braintree/asset-loader': 2.1.0
       '@braintree/browser-detection': 2.1.0
@@ -2012,7 +2012,7 @@ snapshots:
       '@braintree/wrap-promise': 2.1.0
       '@paypal/fastlane-sdk-loader': 1.2.1
       card-validator: 10.0.3
-      credit-card-type: 10.2.0
+      credit-card-type: 10.3.1
       framebus: 6.2.0
       inject-stylesheet: 7.1.0
       promise-polyfill: 8.2.3
@@ -2025,7 +2025,7 @@ snapshots:
 
   card-validator@10.0.3:
     dependencies:
-      credit-card-type: 10.2.0
+      credit-card-type: 10.3.1
 
   classnames@2.5.1: {}
 
@@ -2049,7 +2049,7 @@ snapshots:
 
   cookie@1.1.1: {}
 
-  credit-card-type@10.2.0: {}
+  credit-card-type@10.3.1: {}
 
   cron-parser@5.10.2:
     dependencies:
