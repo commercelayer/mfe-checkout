@@ -1,3 +1,15 @@
+## [7.0.1](https://github.com/commercelayer/mfe-checkout/compare/v7.0.0...v7.0.1) (2026-11-17)
+
+
+### Bug Fixes
+
+* keep a disabled step body from covering the Place order button ([8dfbab3](https://github.com/commercelayer/mfe-checkout/commit/8dfbab3d3adf5d7df1406ba5a69acf4eea9671f8))
+* keep the step the customer picked when a loading cycle started earlier lands ([a6233f4](https://github.com/commercelayer/mfe-checkout/commit/a6233f44238390b72fdc447b8bfc3d33fdf97b86))
+* update react-components to 5.0.13 and sdk to 8.0.4 ([d80ab72](https://github.com/commercelayer/mfe-checkout/commit/d80ab72090c254d815d6f47e7652cc664272d29c))
+* update react-components to 5.0.14 ([8cb2973](https://github.com/commercelayer/mfe-checkout/commit/8cb2973c771824c15094a30d1dedf18c286b35ff))
+* update react-components to 5.0.15 ([02b6159](https://github.com/commercelayer/mfe-checkout/commit/02b615931fc1f16798988aa488d48f9312390d66))
+* wait for shipping method changes in flight before saving shipments ([4a73f63](https://github.com/commercelayer/mfe-checkout/commit/4a73f632913284476ad5196134c36cccd771b462))
+
 # [7.0.0](https://github.com/commercelayer/mfe-checkout/compare/v6.5.9...v7.0.0) (2026-10-29)
 
 
