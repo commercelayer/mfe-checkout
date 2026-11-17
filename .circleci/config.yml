@@ -152,6 +152,10 @@ workflows:
               ignore: /v.*/
       - test:
           context: commercelayer
+          # One pipeline's e2e run at a time: two at once put 20 nodes on the
+          # same organization and trip the API rate limit. A newer pipeline's
+          # run takes priority, so an older one still queued is skipped.
+          serial-group: << pipeline.project.slug >>/e2e-tests
           requires:
             - e2e-build
           filters:
