@@ -1493,15 +1493,25 @@ export class CheckoutPage {
   // payment method or offer: keep dismissing them until Klarna leaves the
   // confirm screen. The confirm button is clicked only once, since Klarna
   // keeps it on screen while processing the payment.
+  //
+  // Some offers (French "Payer en 3 fois") add a mandatory terms checkbox to
+  // the confirm screen, and Klarna rejects the confirm click until it's ticked
+  // (#689). It can render after a first click, so tick it whenever it shows up
+  // unchecked and allow one more click.
   async confirmKlarnaPayment(dialogButtons: Locator[]) {
     const confirm = this.page.getByTestId("confirm-and-pay")
     const popup = this.page.getByTestId("SmoothCheckoutPopUp:enable")
+    const terms = this.page.locator("#mandatory_terms-checkbox")
     let confirmed = false
     await expect(async () => {
       for (const button of [...dialogButtons, popup]) {
         if (await button.isVisible()) {
           await button.click({ timeout: 2000 })
         }
+      }
+      if ((await terms.isVisible()) && !(await terms.isChecked())) {
+        await terms.check({ timeout: 2000 })
+        confirmed = false
       }
       // isEnabled() waits for the element: once Klarna redirects back to the
       // checkout the button never returns, and without a timeout this hangs
