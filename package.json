@@ -98,7 +98,7 @@
     "cronstrue": "^3.38.0",
     "dotenv": "^17.4.2",
     "i18next": "^26.5.11",
-    "next": "^16.4.3",
+    "next": "^16.4.6",
     "next-build-id": "^3.0.0",
     "next-i18next": "^16.4.3",
     "react": "^19.3.1",
@@ -111,7 +111,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.6.3",
-    "@next/bundle-analyzer": "^16.4.3",
+    "@next/bundle-analyzer": "^16.4.6",
     "@playwright/test": "^1.64.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
