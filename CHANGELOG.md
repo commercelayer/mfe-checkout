@@ -1,3 +1,10 @@
+## [7.0.2](https://github.com/commercelayer/mfe-checkout/compare/v7.0.1...v7.0.2) (2026-11-18)
+
+
+### Bug Fixes
+
+* update next to 16.4.6 ([4aa7ceb](https://github.com/commercelayer/mfe-checkout/commit/4aa7ceb7cbd2b3ab40506974f430da19e822d00c))
+
 ## [7.0.1](https://github.com/commercelayer/mfe-checkout/compare/v7.0.0...v7.0.1) (2026-11-17)
 
 
