@@ -38,7 +38,8 @@
       "correctness": {
         "useExhaustiveDependencies": "off",
         "useUniqueElementIds": "warn",
-        "useHookAtTopLevel": "error"
+        "useHookAtTopLevel": "error",
+        "usePlaywrightValidDescribeCallback": "off"
       },
       "style": {
         "noParameterAssign": "error",
