@@ -377,14 +377,19 @@ If the _Delivery_ step is [automatically populated](#single-shipping-method), th
 git clone https://github.com/<your username>/mfe-checkout.git && cd mfe-checkout
 ```
 
-3. First, install dependencies and run the development server:
+3. Install the dependencies (Node.js 22.3 or later):
 
 ```bash
 pnpm install
-pnpm dev
 ```
 
-4. Create a `.env.local` file to set your environment. All the available variables are documented in `.env.schema`: copy the ones you need into `.env.local` and set their values. `.env.local` is git-ignored and takes precedence over `.env.schema`.
+4. Create a `.env.local` file in the project root with your organization slug, then start the development server with `pnpm dev`:
+
+```bash
+NEXT_PUBLIC_SLUG=<your-organization-slug>
+```
+
+`.env.local` is git-ignored.
 
 5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can use the following format to open the checkout: `http://localhost:3000/:orderId?accessToken=<your-access-token>`.
 
@@ -402,14 +407,14 @@ pnpm rc:watch   # rebuilds the three packages on every change
 pnpm dev        # prints "react-components: LOCAL -> ..." on startup
 ```
 
-`package.json` stays untouched, so deploys keep using the pinned `pkg.pr.new` build. A few things to know:
+`package.json` stays untouched, so deploys keep using the react-components release it pins. A few things to know:
 
 - **Playwright uses it too**: `pnpm test` starts the same dev server, so e2e runs exercise your local library build.
 - **Only works with webpack**, which is what `pnpm dev` uses. Under Turbopack the dev server refuses to start, because it would silently serve the published copy instead.
 - **`pnpm build` fails while the variable is set**, on purpose: a production bundle must never embed a path from your machine. Comment the line out to build.
 - Types come from `../commercelayer-react-components/.../dist/index.d.ts` via `tsconfig.json` whenever that checkout exists next to this repo, independently of the variable.
 
-When the change is ready, push it and run `pnpm rc:bump` to move `package.json` to the new commit (defaults to the local checkout's `HEAD`).
+When the change is ready, release react-components and bump the three `@commercelayer/*` versions in `package.json`. If `package.json` points at `pkg.pr.new` preview builds instead, push the change and run `pnpm rc:bump` to move them to the new commit (defaults to the local checkout's `HEAD`).
 
 ## Need help?
 
