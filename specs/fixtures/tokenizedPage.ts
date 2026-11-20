@@ -1,4 +1,3 @@
-import path from "node:path"
 import {
   authenticate,
   createAssertion,
@@ -13,15 +12,10 @@ import {
   type CommerceLayerBundle,
 } from "@commercelayer/sdk"
 import { test as base } from "@playwright/test"
-import dotenv from "dotenv"
+import { ENV } from "varlock/env"
 import { apiVersion } from "../../utils/apiVersion"
 
 import { CheckoutPage } from "./CheckoutPage"
-
-dotenv.config({
-  path: path.resolve(__dirname, "../../.env.local"),
-  quiet: true,
-})
 
 type OrderType =
   | "plain"
@@ -128,17 +122,17 @@ const getToken = async (market?: ValidMarket, customerId?: string) => {
   if (customerId == null) {
     return (
       await authenticate("client_credentials", {
-        domain: process.env.NEXT_PUBLIC_DOMAIN as string,
-        clientId: process.env.E2E_CLIENT_ID as string,
+        domain: ENV.NEXT_PUBLIC_DOMAIN,
+        clientId: ENV.E2E_CLIENT_ID,
         scope,
       })
     ).accessToken
   }
   return (
     await authenticate("urn:ietf:params:oauth:grant-type:jwt-bearer", {
-      domain: process.env.NEXT_PUBLIC_DOMAIN as string,
-      clientId: process.env.E2E_CLIENT_ID as string,
-      clientSecret: process.env.E2E_CLIENT_SECRET as string,
+      domain: ENV.NEXT_PUBLIC_DOMAIN,
+      clientId: ENV.E2E_CLIENT_ID,
+      clientSecret: ENV.E2E_CLIENT_SECRET,
       scope,
       assertion: await createAssertion({
         payload: {
@@ -185,9 +179,9 @@ const getCustomerUserToken = async ({
 
 const getSuperToken = async () => {
   const token = await authenticate("client_credentials", {
-    domain: process.env.NEXT_PUBLIC_DOMAIN as string,
-    clientId: process.env.E2E_INTEGRATION_CLIENT_ID as string,
-    clientSecret: process.env.E2E_INTEGRATION_CLIENT_SECRET as string,
+    domain: ENV.NEXT_PUBLIC_DOMAIN,
+    clientId: ENV.E2E_INTEGRATION_CLIENT_ID,
+    clientSecret: ENV.E2E_INTEGRATION_CLIENT_SECRET,
   })
 
   return token.accessToken
@@ -440,9 +434,9 @@ const createAndPurchaseGiftCard = async (
 
 const getClient = (token: string) => {
   return CommerceLayer({
-    organization: process.env.NEXT_PUBLIC_SLUG as string,
+    organization: ENV.NEXT_PUBLIC_SLUG,
     accessToken: token,
-    domain: process.env.NEXT_PUBLIC_DOMAIN,
+    domain: ENV.NEXT_PUBLIC_DOMAIN,
     apiVersion,
   })
 }

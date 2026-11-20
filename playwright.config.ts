@@ -1,8 +1,8 @@
-import path from "node:path"
+// Resolve the env once here, in the main process: workers and the dev server
+// started by `webServer` inherit the result instead of each fetching from AWS.
+import "varlock/auto-load"
 import type { PlaywrightTestConfig } from "@playwright/test"
-import dotenv from "dotenv"
-
-dotenv.config({ path: path.resolve(__dirname, "./.env.local"), quiet: true })
+import { ENV } from "varlock/env"
 
 // Playwright starts its own dev server on this port. It is deliberately not 3000:
 // that one is reserved for a dev server started by hand, and `reuseExistingServer`
@@ -35,6 +35,11 @@ const config: PlaywrightTestConfig = {
     port: E2E_PORT,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
+    // `pnpm run dev` goes through `varlock run`, which starts Next in a process
+    // group of its own and forwards SIGTERM/SIGINT to it. Playwright's default
+    // SIGKILL ends varlock before it can forward anything and leaves Next
+    // listening on E2E_PORT, where the next run would silently reuse it.
+    gracefulShutdown: { signal: "SIGTERM", timeout: 10 * 1000 },
   },
 
   use: {
@@ -61,7 +66,7 @@ const config: PlaywrightTestConfig = {
         browserName: "chromium",
         // Any Chromium-specific options.
         viewport: { width: 1200, height: 900 },
-        baseURL: `${process.env.E2E_BASE_PROTOCOL}://${process.env.E2E_BASE_URL}:${E2E_PORT}`,
+        baseURL: `${ENV.E2E_BASE_PROTOCOL}://${ENV.E2E_BASE_URL}:${E2E_PORT}`,
         launchOptions: {
           // logger: {
           //   isEnabled: (name, severity) => true,

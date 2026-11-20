@@ -2,12 +2,12 @@
   "name": "mfe-checkout",
   "version": "7.0.2",
   "engines": {
-    "node": ">=20.x"
+    "node": ">=22.3"
   },
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "NODE_OPTIONS='--inspect' next dev --webpack",
+    "dev": "varlock run --filter 'NEXT_PUBLIC_*,CL_RC_LOCAL_PATH' -- env NODE_OPTIONS=--inspect next dev --webpack",
     "rc:watch": "node scripts/rc-watch.mjs",
     "rc:bump": "node scripts/rc-bump.mjs",
     "build": "next build --webpack",
@@ -96,7 +96,6 @@
     "classnames": "^2.5.1",
     "cron-parser": "^5.10.2",
     "cronstrue": "^3.38.0",
-    "dotenv": "^17.4.2",
     "i18next": "^26.5.11",
     "next": "^16.4.6",
     "next-build-id": "^3.0.0",
@@ -115,7 +114,9 @@
     "@playwright/test": "^1.64.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "baseline-browser-mapping": "^2.11.33"
+    "@varlock/aws-secrets-plugin": "^1.3.0",
+    "baseline-browser-mapping": "^2.11.33",
+    "varlock": "^1.25.0"
   },
   "cacheDirectories": [
     ".next/cache"

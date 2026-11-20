@@ -69,9 +69,6 @@ importers:
       cronstrue:
         specifier: ^3.38.0
         version: 3.38.0
-      dotenv:
-        specifier: ^17.4.2
-        version: 17.4.2
       i18next:
         specifier: ^26.5.11
         version: 26.5.11(typescript@5.9.3)
@@ -121,9 +118,15 @@ importers:
       '@types/react-dom':
         specifier: ^19.3.0
         version: 19.3.0(@types/react@19.3.0)
+      '@varlock/aws-secrets-plugin':
+        specifier: ^1.3.0
+        version: 1.3.0(varlock@1.25.0)
       baseline-browser-mapping:
         specifier: ^2.11.33
         version: 2.11.33
+      varlock:
+        specifier: ^1.25.0
+        version: 1.25.0
 
 packages:
 
@@ -774,6 +777,30 @@ packages:
   '@types/retry@0.12.5':
     resolution: {integrity: sha512-3xSjTp3v03X/lSQLkczaN9UIEwJMoMCA1+Nb5HfbJEQWogdeQIyVtTvxPXDQjZ5zws8rFQfVfRdz03ARihPJgw==}
 
+  '@varlock/aws-secrets-plugin@1.3.0':
+    resolution: {integrity: sha512-JtjxuL0FygPWOMj+MxZLTxw18uTsOcc96wpXnzbBBj149BGSgqwKvDhUKqu8q3bouZEsTb4HVAO5bouaI+8wqg==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      varlock: ^1.25.0
+
+  '@varlock/native-helper-darwin@1.24.0':
+    resolution: {integrity: sha512-/uMRBzTZxdtlwyszdPbamFojDfRQYTNY0l20SoX8UoTXrI+Kq7B3tt2ZDP0WfOhb9EAP1egAewBuGLj8NzemMQ==}
+    os: [darwin]
+
+  '@varlock/native-helper-linux-arm64@1.24.0':
+    resolution: {integrity: sha512-o2cMTiRtFNMNijxQxb8I7L6aQnEOTxB4QKYIZKAqbjoUCAFhStCwl1n2hj1J/rvCegSSaJT040T7r4culNZEqg==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@varlock/native-helper-linux-x64@1.24.0':
+    resolution: {integrity: sha512-gToIgVYiYBf5rEdgM2nUV+r/5pPdQWZu6/GW4uZQqYQ0ApRL3ZTPXF2D9FWnDXDhI5CyXnckxokzP5azcSRDBA==}
+    cpu: [x64]
+    os: [linux]
+
+  '@varlock/native-helper-win32-x64@1.24.0':
+    resolution: {integrity: sha512-qudkH54KfX8dBmsQyAlC8BYlPwrxF0Drg6q4MHHVC7l7taTClYNqf6M6xRdIoNynyPDKTTPNjpOvoHwvRanEpg==}
+    os: [win32, linux]
+
   '@xstate/fsm@1.6.5':
     resolution: {integrity: sha512-b5o1I6aLNeYlU/3CPlj/Z91ybk1gUsKT+5NAJI+2W4UjvS5KLG28K9v5UvNoFVjHV8PajVZ00RH3vnjyQO7ZAw==}
 
@@ -886,10 +913,6 @@ packages:
 
   dijkstrajs@1.0.3:
     resolution: {integrity: sha512-qiSlmBq9+BCdCA/L46dw8Uy93mloxsPSbwnm5yrKn2vMPiy8KyAskTF6zuV/j5BMsmOGZDPs7KjU+mjb670kfA==}
-
-  dotenv@17.4.2:
-    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
-    engines: {node: '>=12'}
 
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
@@ -1377,6 +1400,11 @@ packages:
     resolution: {integrity: sha512-6L+EeigHMQhdaIPNIFUKwfWJSwWFQ8gJbJ2DLOs5sDIegTwR9fRxvnM3uciHKjIZhFz+KAv2emhWMRvDmMcY8A==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  varlock@1.25.0:
+    resolution: {integrity: sha512-SBTZzrqQD+er1dPCJLE/BzHsCHKJj6j3HHuJHq4b+erDB06MS3MZ/EUgXwKkCytYiM97BZyLk8Plf6Qs2ezkGg==}
+    engines: {bun: '>=1.3.3', node: '>=22.3.0'}
+    hasBin: true
 
   void-elements@3.1.0:
     resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
@@ -1967,6 +1995,22 @@ snapshots:
 
   '@types/retry@0.12.5': {}
 
+  '@varlock/aws-secrets-plugin@1.3.0(varlock@1.25.0)':
+    dependencies:
+      varlock: 1.25.0
+
+  '@varlock/native-helper-darwin@1.24.0':
+    optional: true
+
+  '@varlock/native-helper-linux-arm64@1.24.0':
+    optional: true
+
+  '@varlock/native-helper-linux-x64@1.24.0':
+    optional: true
+
+  '@varlock/native-helper-win32-x64@1.24.0':
+    optional: true
+
   '@xstate/fsm@1.6.5': {}
 
   acorn-walk@8.3.5:
@@ -2063,8 +2107,6 @@ snapshots:
   detectincognitojs@1.6.0: {}
 
   dijkstrajs@1.0.3: {}
-
-  dotenv@17.4.2: {}
 
   duplexer@0.1.2: {}
 
@@ -2477,6 +2519,13 @@ snapshots:
   use-sync-external-store@1.7.0(react@19.3.1):
     dependencies:
       react: 19.3.1
+
+  varlock@1.25.0:
+    optionalDependencies:
+      '@varlock/native-helper-darwin': 1.24.0
+      '@varlock/native-helper-linux-arm64': 1.24.0
+      '@varlock/native-helper-linux-x64': 1.24.0
+      '@varlock/native-helper-win32-x64': 1.24.0
 
   void-elements@3.1.0: {}
 
