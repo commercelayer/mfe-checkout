@@ -766,6 +766,43 @@ export class PaymentSessionsCheckoutPage {
   }
 
   /**
+   * A card the customer stored earlier, under the Drop-in's "Saved payment
+   * methods": brand and last four digits. Matched on the digits only, because
+   * the brand's wording is Adyen's and changes with the locale.
+   *
+   * A row, not a radio: with a single saved card the Drop-in renders it as a
+   * plain item, already open, above "More payment options".
+   */
+  adyenStoredCardOption(lastFour = ADYEN_3DS_CARD.number.slice(-4)): Locator {
+    return this.adyenDropin
+      .locator(".adyen-checkout__payment-method")
+      .filter({ hasText: `•••• ${lastFour}` })
+      .first()
+  }
+
+  /**
+   * Pay with a stored card from the Drop-in's own list: open its row and type
+   * the security code, which is all the Drop-in asks for again.
+   */
+  async payWithStoredAdyenCard(card = ADYEN_3DS_CARD): Promise<void> {
+    const option = this.adyenStoredCardOption(card.number.slice(-4))
+    await expect(option).toBeVisible({ timeout: 30_000 })
+    // Opened only when it is not already: a click on the open row's header
+    // would be harmless today, but nothing promises it stays a no-op.
+    if (!(await option.evaluate((el) => el.classList.contains("adyen-checkout__payment-method--selected")))) {
+      await option.locator(".adyen-checkout__payment-method__header").click({ force: true })
+    }
+    const cvc = this.adyenField("securityCode", "Security code")
+    await expect(cvc).toBeVisible({ timeout: 30_000 })
+    await cvc.click()
+    await cvc.pressSequentially(card.cvc, { delay: 20 })
+    await expect(
+      this.adyenDropin.getByRole("img", { name: "Error" }),
+      "Adyen rejected the security code",
+    ).toHaveCount(0)
+  }
+
+  /**
    * Klarna's "pay later" row in the Drop-in's method list.
    *
    * Adyen offers Klarna per market as up to three rows — pay later, pay over

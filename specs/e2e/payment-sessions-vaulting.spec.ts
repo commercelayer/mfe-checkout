@@ -88,6 +88,34 @@ test.describe("saving a card on the payment_sessions model", {
   })
 
   /**
+   * Paying with a card the Drop-in lists, stored by the test above or an
+   * earlier run: Adyen returns the same token for the same card, so the
+   * customer keeps exactly one.
+   *
+   * The wallet check is the point. Adyen's sessions flow sends `/payments`
+   * from the browser, so Commerce Layer learns of the payment only from
+   * webhooks, and a subscription created from this order needs the session's
+   * `payment_wallet`.
+   */
+  test("pays with an Adyen card stored in the Drop-in, and links its wallet", async ({
+    checkout,
+    newPaymentsOrder,
+  }) => {
+    test.setTimeout(240_000)
+
+    await checkout.selectPaymentSetting("Adyen")
+    await checkout.payWithStoredAdyenCard()
+    await checkout.acceptTerms()
+
+    await checkout.startPlaceOrder()
+    await checkout.submitThreeDSChallenge(ADYEN_3DS_PASSWORD)
+    await checkout.expectPlaced()
+
+    await expectPaymentToCoverTheOrder(newPaymentsOrder, { sessions: 1 })
+    await expectWalletLinked(newPaymentsOrder, "payment_setting_adyens")
+  })
+
+  /**
    * A customer of its own, unlike the tests above. Braintree stores the same
    * card under a new token every time, so each run links one more wallet, and
    * a wallet a payment has used cannot be removed — on the shared customer they
