@@ -1,5 +1,6 @@
 import type { Address } from "@commercelayer/sdk"
 import { expect, type Locator, type Page } from "@playwright/test"
+import { ENV } from "varlock/env"
 
 import type { EcommerceProps } from "../../components/data/GTMProvider/typings"
 import { composeForCheck, euAddress, euAddress2 } from "../utils/addresses"
@@ -36,7 +37,7 @@ export class CheckoutPage {
 
   async goto({ orderId, token }: GoToProps) {
     const url = `${
-      process.env.NEXT_PUBLIC_BASE_PATH || ""
+      ENV.NEXT_PUBLIC_BASE_PATH || ""
     }/${orderId}?accessToken=${token}`
 
     // The path carries the API version since SDK 8 — `/api/2026-05/organization`,
@@ -55,8 +56,8 @@ export class CheckoutPage {
           id: "organization-id",
           type: "organizations",
           attributes: {
-            name: process.env.NEXT_PUBLIC_SLUG as string,
-            slug: process.env.NEXT_PUBLIC_SLUG as string,
+            name: ENV.NEXT_PUBLIC_SLUG,
+            slug: ENV.NEXT_PUBLIC_SLUG,
             domain: null,
             support_phone: "",
             support_email: "",
@@ -981,16 +982,13 @@ export class CheckoutPage {
               ),
             ])
             await newPage.waitForLoadState()
-            await newPage.fill(
-              "input[name=login_email]",
-              process.env.E2E_PAYPAL_EMAIL as string,
-            )
+            await newPage.fill("input[name=login_email]", ENV.E2E_PAYPAL_EMAIL)
 
             await newPage.click("#btnNext")
 
             await newPage.fill(
               "input[name=login_password]",
-              process.env.E2E_PAYPAL_PASSWORD as string,
+              ENV.E2E_PAYPAL_PASSWORD,
             )
 
             await newPage.click("#btnLogin")
@@ -1790,16 +1788,13 @@ export class CheckoutPage {
         await buttonId.click()
 
         if (waitText === "Paga con PayPal") {
-          await this.page.fill(
-            "input[name=login_email]",
-            process.env.E2E_PAYPAL_EMAIL as string,
-          )
+          await this.page.fill("input[name=login_email]", ENV.E2E_PAYPAL_EMAIL)
 
           await this.page.click("#btnNext")
 
           await this.page.fill(
             "input[name=login_password]",
-            process.env.E2E_PAYPAL_PASSWORD as string,
+            ENV.E2E_PAYPAL_PASSWORD,
           )
 
           await this.page.click("#btnLogin")

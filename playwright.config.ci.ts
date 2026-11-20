@@ -1,4 +1,8 @@
+// Resolve the env once here, in the main process: workers inherit the result
+// instead of each fetching from AWS.
+import "varlock/auto-load"
 import type { PlaywrightTestConfig } from "@playwright/test"
+import { ENV } from "varlock/env"
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
@@ -38,7 +42,7 @@ const config: PlaywrightTestConfig = {
         // Any Chromium-specific options.
         headless: true,
         viewport: { width: 1200, height: 900 },
-        baseURL: `${process.env.E2E_BASE_PROTOCOL}://${process.env.E2E_BASE_URL}:${process.env.E2E_BASE_PORT}`,
+        baseURL: `${ENV.E2E_BASE_PROTOCOL}://${ENV.E2E_BASE_URL}:${ENV.E2E_BASE_PORT}`,
         ignoreHTTPSErrors: true,
       },
     },

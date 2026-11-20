@@ -1,14 +1,15 @@
+import { ENV } from "varlock/env"
 import { expect, test } from "../fixtures/tokenizedPage"
 
 test("should navigate to the 404 page with no params", async ({ page }) => {
-  page.goto(`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`)
+  page.goto(`${ENV.NEXT_PUBLIC_BASE_PATH || ""}/`)
   await expect(page.locator("text=This order is not accessible.")).toBeVisible()
 })
 
 test("should navigate to the 404 page with wrong orderId, no token", async ({
   page,
 }) => {
-  page.goto(`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/Asdakfrsf`)
+  page.goto(`${ENV.NEXT_PUBLIC_BASE_PATH || ""}/Asdakfrsf`)
   await expect(page.locator("text=This order is not accessible.")).toBeVisible()
 })
 
@@ -70,9 +71,7 @@ test.describe("add default params to page", () => {
     page,
   }) => {
     page.goto(
-      `${
-        process.env.NEXT_PUBLIC_BASE_PATH || ""
-      }/wrongOrderId?accessToken=wrongToken`,
+      `${ENV.NEXT_PUBLIC_BASE_PATH || ""}/wrongOrderId?accessToken=wrongToken`,
     )
     await expect(
       page.locator("text=This order is not accessible."),

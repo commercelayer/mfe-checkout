@@ -384,7 +384,7 @@ pnpm install
 pnpm dev
 ```
 
-4. Set your environment with `.env.local` starting from `.env.local.sample`.
+4. Create a `.env.local` file to set your environment. All the available variables are documented in `.env.schema`: copy the ones you need into `.env.local` and set their values. `.env.local` is git-ignored and takes precedence over `.env.schema`.
 
 5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can use the following format to open the checkout: `http://localhost:3000/:orderId?accessToken=<your-access-token>`.
 

@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker"
+import { ENV } from "varlock/env"
 
 import { expect, test } from "../fixtures/tokenizedPage"
 import { euAddress } from "../utils/addresses"
@@ -366,7 +367,7 @@ test.describe("with custom thankyou page url @organization-config and token", ()
       .replace(":lang", "it-IT")
       .replace(":order_id", checkoutPage.getOrderId() as string)
       .replace(":token", checkoutPage.getOrderToken() as string)
-      .replace(":slug", process.env.NEXT_PUBLIC_SLUG as string)
+      .replace(":slug", ENV.NEXT_PUBLIC_SLUG)
 
     await checkoutPage.page.waitForURL(thankyouPageReplaced, {
       timeout: 10000,
