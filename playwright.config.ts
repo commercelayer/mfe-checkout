@@ -35,6 +35,11 @@ const config: PlaywrightTestConfig = {
     port: E2E_PORT,
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
+    // `pnpm run dev` goes through `varlock run`, which starts Next in a process
+    // group of its own and forwards SIGTERM/SIGINT to it. Playwright's default
+    // SIGKILL ends varlock before it can forward anything and leaves Next
+    // listening on E2E_PORT, where the next run would silently reuse it.
+    gracefulShutdown: { signal: "SIGTERM", timeout: 10 * 1000 },
   },
 
   use: {
