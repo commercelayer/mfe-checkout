@@ -22,8 +22,8 @@ import {
  * of the environment or they fail for reasons that are not the code's:
  *
  * - the Adyen client key must authorise this origin (scheme, host **and**
- *   port — which is why this suite serves on 3000 rather than Playwright's own
- *   4000, and why `E2E_PORT` is not free to change);
+ *   port: `http://localhost:4000`, Playwright's own dev server, which is why
+ *   `E2E_PORT` is not free to change);
  * - `PAYMENT_SETTINGS_MARKET_CODE` must name a market that offers an Adyen
  *   payment setting with a `public_key`.
  *
