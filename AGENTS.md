@@ -75,7 +75,7 @@ rebuild it, drive the real checkout in a browser, then read the order back from 
 
 `scripts/new-payments.mjs` mints what a run needs, in the same organization as the rest
 of the suite (`NEXT_PUBLIC_SLUG`, with the `E2E_*` clients) but in the market named by
-`PAYMENT_SETTINGS_MARKET_CODE` in `.env.local`. That market offers payment settings
+`PAYMENT_SETTINGS_MARKET_CODE` (see `.env.schema`). That market offers payment settings
 instead of payment methods, and that alone is what puts its orders on the
 `payment_sessions` model:
 

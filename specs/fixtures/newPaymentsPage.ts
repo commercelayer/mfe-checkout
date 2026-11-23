@@ -8,13 +8,11 @@ import {
   type PaymentSession,
 } from "@commercelayer/sdk"
 import { test as base, expect } from "@playwright/test"
-import dotenv from "dotenv"
+import { ENV } from "varlock/env"
 
 import { PaymentSessionsCheckoutPage } from "./PaymentSessionsCheckoutPage"
 
 const repoRoot = path.resolve(__dirname, "../..")
-
-dotenv.config({ path: path.join(repoRoot, ".env.local"), quiet: true })
 
 /**
  * Every client pins the version. Omitted, the SDK builds unversioned URLs and
@@ -87,7 +85,7 @@ async function mint(
       if (value.length === 0) {
         throw new Error(
           `scripts/new-payments.mjs ${args.join(" ")} printed nothing. ` +
-            "Check the PAYMENT_SETTINGS_* block in .env.local.",
+            "Check the PAYMENT_SETTINGS_* values (see .env.schema).",
         )
       }
       return value
@@ -135,8 +133,8 @@ async function mintOrder({
 
 /**
  * The environment `new-payments.mjs` signs in with, pointed at a customer
- * created for this test alone. The script reads `.env.local` without
- * overriding what it is given, so these win.
+ * created for this test alone. The process environment takes precedence over
+ * .env.schema when the script loads it, so these win.
  */
 async function freshCustomerEnv(): Promise<NodeJS.ProcessEnv> {
   const { email, password } = JSON.parse(await mint(["customer"])) as {
@@ -152,8 +150,8 @@ async function freshCustomerEnv(): Promise<NodeJS.ProcessEnv> {
 
 function client(accessToken: string): CommerceLayerClient {
   return CommerceLayer({
-    organization: process.env.NEXT_PUBLIC_SLUG as string,
-    domain: process.env.NEXT_PUBLIC_DOMAIN,
+    organization: ENV.NEXT_PUBLIC_SLUG,
+    domain: ENV.NEXT_PUBLIC_DOMAIN,
     accessToken,
     apiVersion: API_VERSION,
   })
@@ -370,7 +368,6 @@ export {
   BRAINTREE_3DS_CODE,
   BRAINTREE_CHALLENGE_CARD,
   BRAINTREE_FRICTIONLESS_CARD,
-  braintreePayPalCredentials,
   PaymentSessionsCheckoutPage,
   payPalCredentials,
   STRIPE_CARD,

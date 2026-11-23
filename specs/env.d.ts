@@ -48,6 +48,19 @@ export type CoercedEnvSchema = {
   CL_RC_LOCAL_PATH?: string;
   
   /**
+   * **NEXT_DEV_TUNNEL_HOST**  
+   * Hostname the dev server is reached through when it is not localhost, such as  
+   * an ngrok or Cloudflare tunnel, which Apple Pay's domain registration and any  
+   * real wallet test require. Hostname only, no scheme and no path. Next serves  
+   * its dev assets and HMR socket only to the origin it listens on, so without  
+   * this a tunnelled page loads and then gets a 403 on every /_next/* request:  
+   * Fast Refresh retries and the page reloads on a loop, which can interrupt a  
+   * payment halfway through. Per developer, so set it in `.env.local`.  
+   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M29%2022h-5a2.003%202.003%200%200%201-2-2v-6a2%202%200%200%201%202-2h5v2h-5v6h5ZM18%2012h-4V8h-2v14h6a2.003%202.003%200%200%200%202-2v-6a2%202%200%200%200-2-2m-4%208v-6h4v6Zm-6-8H3v2h5v2H4a2%202%200%200%200-2%202v2a2%202%200%200%200%202%202h6v-8a2%202%200%200%200-2-2m0%208H4v-2h4Z%22%2F%3E%3C%2Fsvg%3E)   
+   */
+  NEXT_DEV_TUNNEL_HOST?: string;
+  
+  /**
    * **E2E_BASE_URL**  
    * Host, protocol and port of the app under test. Locally, playwright.config.ts  
    * always starts its own dev server on port 4000 and ignores E2E_BASE_PORT;  
@@ -110,13 +123,69 @@ export type CoercedEnvSchema = {
    */
   E2E_PAYPAL_PASSWORD: string;
   
+  /**
+   * **PAYMENT_SETTINGS_MARKET_CODE**  
+   * The market offering payment settings, and the country it sells to: the  
+   * script needs the country for the order's address, and a market code says  
+   * nothing about where it sells.  
+   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M29%2022h-5a2.003%202.003%200%200%201-2-2v-6a2%202%200%200%201%202-2h5v2h-5v6h5ZM18%2012h-4V8h-2v14h6a2.003%202.003%200%200%200%202-2v-6a2%202%200%200%200-2-2m-4%208v-6h4v6Zm-6-8H3v2h5v2H4a2%202%200%200%200-2%202v2a2%202%200%200%200%202%202h6v-8a2%202%200%200%200-2-2m0%208H4v-2h4Z%22%2F%3E%3C%2Fsvg%3E)   
+   */
+  PAYMENT_SETTINGS_MARKET_CODE?: string;
+  
+  /**
+   * **PAYMENT_SETTINGS_COUNTRY_CODE**  
+   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M29%2022h-5a2.003%202.003%200%200%201-2-2v-6a2%202%200%200%201%202-2h5v2h-5v6h5ZM18%2012h-4V8h-2v14h6a2.003%202.003%200%200%200%202-2v-6a2%202%200%200%200-2-2m-4%208v-6h4v6Zm-6-8H3v2h5v2H4a2%202%200%200%200-2%202v2a2%202%200%200%200%202%202h6v-8a2%202%200%200%200-2-2m0%208H4v-2h4Z%22%2F%3E%3C%2Fsvg%3E)   
+   */
+  PAYMENT_SETTINGS_COUNTRY_CODE?: string;
+  
+  /**
+   * **PAYMENT_SETTINGS_SKU_CODE**  
+   * SKU the fixture orders are made of.  
+   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M29%2022h-5a2.003%202.003%200%200%201-2-2v-6a2%202%200%200%201%202-2h5v2h-5v6h5ZM18%2012h-4V8h-2v14h6a2.003%202.003%200%200%200%202-2v-6a2%202%200%200%200-2-2m-4%208v-6h4v6Zm-6-8H3v2h5v2H4a2%202%200%200%200-2%202v2a2%202%200%200%200%202%202h6v-8a2%202%200%200%200-2-2m0%208H4v-2h4Z%22%2F%3E%3C%2Fsvg%3E)   
+   */
+  PAYMENT_SETTINGS_SKU_CODE: string;
+  
+  /**
+   * **PAYMENT_SETTINGS_CUSTOMER_EMAIL** 🔐 _sensitive_  
+   * A registered customer, for `pnpm np:order:customer`. Needed because  
+   * payment_wallets are grantable only to the customer who owns them: saving a  
+   * card, and every flow that reuses one, is unreachable with a guest token. Not  
+   * the customer the payment_source tests use: the vaulting tests leave a  
+   * payment_wallet behind on every run, and they would pile up on it.  
+   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M29%2022h-5a2.003%202.003%200%200%201-2-2v-6a2%202%200%200%201%202-2h5v2h-5v6h5ZM18%2012h-4V8h-2v14h6a2.003%202.003%200%200%200%202-2v-6a2%202%200%200%200-2-2m-4%208v-6h4v6Zm-6-8H3v2h5v2H4a2%202%200%200%200-2%202v2a2%202%200%200%200%202%202h6v-8a2%202%200%200%200-2-2m0%208H4v-2h4Z%22%2F%3E%3C%2Fsvg%3E)   
+   */
+  PAYMENT_SETTINGS_CUSTOMER_EMAIL?: string;
+  
+  /**
+   * **PAYMENT_SETTINGS_CUSTOMER_PASSWORD** 🔐 _sensitive_  
+   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M29%2022h-5a2.003%202.003%200%200%201-2-2v-6a2%202%200%200%201%202-2h5v2h-5v6h5ZM18%2012h-4V8h-2v14h6a2.003%202.003%200%200%200%202-2v-6a2%202%200%200%200-2-2m-4%208v-6h4v6Zm-6-8H3v2h5v2H4a2%202%200%200%200-2%202v2a2%202%200%200%200%202%202h6v-8a2%202%200%200%200-2-2m0%208H4v-2h4Z%22%2F%3E%3C%2Fsvg%3E)   
+   */
+  PAYMENT_SETTINGS_CUSTOMER_PASSWORD?: string;
+  
+  /**
+   * **PAYMENT_SETTINGS_PAYPAL_EMAIL** 🔐 _sensitive_  
+   * The PayPal sandbox buyer for the payment_sessions PayPal tests, through Adyen  
+   * and Braintree alike: both sandboxes are linked to the same PayPal business  
+   * sandbox account. Not interchangeable with E2E_PAYPAL_*: a buyer only works  
+   * against the PayPal business account it belongs to, and that link is per  
+   * merchant account.  
+   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M29%2022h-5a2.003%202.003%200%200%201-2-2v-6a2%202%200%200%201%202-2h5v2h-5v6h5ZM18%2012h-4V8h-2v14h6a2.003%202.003%200%200%200%202-2v-6a2%202%200%200%200-2-2m-4%208v-6h4v6Zm-6-8H3v2h5v2H4a2%202%200%200%200-2%202v2a2%202%200%200%200%202%202h6v-8a2%202%200%200%200-2-2m0%208H4v-2h4Z%22%2F%3E%3C%2Fsvg%3E)   
+   */
+  PAYMENT_SETTINGS_PAYPAL_EMAIL?: string;
+  
+  /**
+   * **PAYMENT_SETTINGS_PAYPAL_PASSWORD** 🔐 _sensitive_  
+   * ![icon](data:image/svg+xml;utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20fill%3D%22%23808080%22%20d%3D%22M29%2022h-5a2.003%202.003%200%200%201-2-2v-6a2%202%200%200%201%202-2h5v2h-5v6h5ZM18%2012h-4V8h-2v14h6a2.003%202.003%200%200%200%202-2v-6a2%202%200%200%200-2-2m-4%208v-6h4v6Zm-6-8H3v2h5v2H4a2%202%200%200%200-2%202v2a2%202%200%200%200%202%202h6v-8a2%202%200%200%200-2-2m0%208H4v-2h4Z%22%2F%3E%3C%2Fsvg%3E)   
+   */
+  PAYMENT_SETTINGS_PAYPAL_PASSWORD?: string;
+  
 };
 
-type _CoercedEnvSchema_25ff5c59 = CoercedEnvSchema;
+type _CoercedEnvSchema_0c1beac1 = CoercedEnvSchema;
 
 declare module 'varlock/env' {
-  export interface TypedEnvSchema extends Readonly<_CoercedEnvSchema_25ff5c59> {}
-  export interface PublicTypedEnvSchema extends Readonly<Pick<_CoercedEnvSchema_25ff5c59, 'NEXT_PUBLIC_BASE_PATH' | 'NEXT_PUBLIC_SLUG' | 'NEXT_PUBLIC_DOMAIN' | 'NEXT_PUBLIC_HOSTED' | 'CL_RC_LOCAL_PATH' | 'E2E_BASE_URL' | 'E2E_BASE_PROTOCOL' | 'E2E_BASE_PORT'>> {}
+  export interface TypedEnvSchema extends Readonly<_CoercedEnvSchema_0c1beac1> {}
+  export interface PublicTypedEnvSchema extends Readonly<Pick<_CoercedEnvSchema_0c1beac1, 'NEXT_PUBLIC_BASE_PATH' | 'NEXT_PUBLIC_SLUG' | 'NEXT_PUBLIC_DOMAIN' | 'NEXT_PUBLIC_HOSTED' | 'CL_RC_LOCAL_PATH' | 'NEXT_DEV_TUNNEL_HOST' | 'E2E_BASE_URL' | 'E2E_BASE_PROTOCOL' | 'E2E_BASE_PORT' | 'PAYMENT_SETTINGS_MARKET_CODE' | 'PAYMENT_SETTINGS_COUNTRY_CODE' | 'PAYMENT_SETTINGS_SKU_CODE'>> {}
 }
 
 
@@ -126,4 +195,4 @@ export type EnvSchemaAsStrings = {
       : (NonNullable<CoercedEnvSchema[Property]> extends boolean ? ('true' | 'false') : string)
 };
 
-type _EnvSchemaAsStrings_25ff5c59 = EnvSchemaAsStrings;
+type _EnvSchemaAsStrings_0c1beac1 = EnvSchemaAsStrings;

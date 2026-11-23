@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page } from "@playwright/test"
+import { ENV } from "varlock/env"
 
 /**
  * Page object for the payment step of an order on the `payment_sessions` model.
@@ -108,34 +109,13 @@ export interface PayPalCredentials {
  * missing sandbox buyer is an environment that cannot run the test, not a
  * checkout that is broken, and failing the two the same way hides real
  * regressions behind a setup problem.
- */
-/**
- * The PayPal sandbox buyer for **Braintree's** PayPal, or `null`.
  *
- * Braintree's sandbox is linked to a PayPal business sandbox of its own, and a
- * buyer only works against the business account it belongs to — the lesson the
- * Adyen PayPal tests already paid for. So it reads `PAYMENT_SETTINGS_BRAINTREE_PAYPAL_*`
- * first, and falls back to the Adyen buyer only while no dedicated one exists:
- * if the fallback is refused inside PayPal's popup, that is the sign a
- * Braintree buyer is needed, not a bug in the checkout.
+ * Braintree's PayPal tests log in with the same buyer: Braintree's sandbox is
+ * linked to the same PayPal business sandbox account.
  */
-export function braintreePayPalCredentials(): PayPalCredentials | null {
-  const email = process.env.PAYMENT_SETTINGS_BRAINTREE_PAYPAL_EMAIL
-  const password = process.env.PAYMENT_SETTINGS_BRAINTREE_PAYPAL_PASSWORD
-  if (
-    email != null &&
-    email.length > 0 &&
-    password != null &&
-    password.length > 0
-  ) {
-    return { email, password }
-  }
-  return payPalCredentials()
-}
-
 export function payPalCredentials(): PayPalCredentials | null {
-  const email = process.env.PAYMENT_SETTINGS_PAYPAL_EMAIL
-  const password = process.env.PAYMENT_SETTINGS_PAYPAL_PASSWORD
+  const email = ENV.PAYMENT_SETTINGS_PAYPAL_EMAIL
+  const password = ENV.PAYMENT_SETTINGS_PAYPAL_PASSWORD
   if (email == null || password == null) return null
   if (email.length === 0 || password.length === 0) return null
   return { email, password }

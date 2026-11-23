@@ -26,19 +26,14 @@
  * the payment step never renders.
  */
 
+// Loads .env.schema from the working directory, which is the repo root both
+// under pnpm and when the e2e fixtures run this script. Spawned by a test, it
+// reuses the env the Playwright config resolved, and re-resolves only when the
+// caller changes a value, so an override such as a fresh customer still wins.
+import "varlock/auto-load"
 import { randomBytes } from "node:crypto"
-import path from "node:path"
-import { fileURLToPath } from "node:url"
 import { authenticate } from "@commercelayer/js-auth"
 import { CommerceLayer } from "@commercelayer/sdk"
-import dotenv from "dotenv"
-
-const repoRoot = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "..",
-)
-
-dotenv.config({ path: path.join(repoRoot, ".env.local"), quiet: true })
 
 // Every client instantiation pins the version. Omitted, the SDK builds
 // unversioned URLs and talks to a different API surface than the app does.
@@ -80,10 +75,11 @@ function required(name) {
   const value = process.env[name]
   if (!value) {
     fail(
-      `${name} is not set in .env.local.\n` +
+      `${name} is not set.\n` +
         "The organization and its credentials are the E2E_* and NEXT_PUBLIC_* " +
-        "ones the rest of the suite uses; only the PAYMENT_SETTINGS_* block is " +
-        "specific to these fixtures — see .env.local.sample.",
+        "ones the rest of the suite uses; only the PAYMENT_SETTINGS_* ones are " +
+        "specific to these fixtures — see .env.schema. A value set in " +
+        ".env.local takes precedence.",
     )
   }
   return value
@@ -145,7 +141,7 @@ async function customerToken() {
     fail(
       `Could not sign in as ${process.env.PAYMENT_SETTINGS_CUSTOMER_EMAIL}: ` +
         `${auth.errors[0]?.detail ?? "authentication failed"}\n` +
-        "Check PAYMENT_SETTINGS_CUSTOMER_EMAIL and PAYMENT_SETTINGS_CUSTOMER_PASSWORD in .env.local.",
+        "Check PAYMENT_SETTINGS_CUSTOMER_EMAIL and PAYMENT_SETTINGS_CUSTOMER_PASSWORD.",
     )
   }
   return auth.accessToken

@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "varlock run --filter 'NEXT_PUBLIC_*,CL_RC_LOCAL_PATH' -- env NODE_OPTIONS=--inspect next dev --webpack",
+    "dev": "varlock run --filter 'NEXT_PUBLIC_*,CL_RC_LOCAL_PATH,NEXT_DEV_TUNNEL_HOST' -- env NODE_OPTIONS=--inspect next dev --webpack",
     "np:order": "node scripts/new-payments.mjs order",
     "np:order:customer": "node scripts/new-payments.mjs order --customer",
     "np:gift-card": "node scripts/new-payments.mjs gift-card",

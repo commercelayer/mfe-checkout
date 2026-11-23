@@ -1,18 +1,16 @@
 import {
-  braintreePayPalCredentials,
   expect,
   expectPaymentToCoverTheOrder,
+  payPalCredentials,
   readOrder,
   test,
 } from "../fixtures/newPaymentsPage"
 
-function signedInBuyer(): NonNullable<
-  ReturnType<typeof braintreePayPalCredentials>
-> {
-  const credentials = braintreePayPalCredentials()
+function signedInBuyer(): NonNullable<ReturnType<typeof payPalCredentials>> {
+  const credentials = payPalCredentials()
   test.skip(
     credentials == null,
-    "no PayPal sandbox buyer in PAYMENT_SETTINGS_BRAINTREE_PAYPAL_* or PAYMENT_SETTINGS_PAYPAL_*",
+    "no PayPal sandbox buyer in PAYMENT_SETTINGS_PAYPAL_*",
   )
   return credentials as NonNullable<typeof credentials>
 }
