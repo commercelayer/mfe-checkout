@@ -74,7 +74,7 @@ test.describe("paying with PayPal through Braintree", {
 
     await checkout.selectPaymentSetting("Braintree")
     await checkout.acceptTerms()
-    await expect(checkout.braintreePayPalFrame).toBeVisible({
+    await expect(checkout.braintreePayPalInnerButton).toBeVisible({
       timeout: 30_000,
     })
 
@@ -111,7 +111,7 @@ test.describe("paying with PayPal through Braintree", {
 
     await checkout.selectPaymentSetting("Braintree")
     await checkout.acceptTerms()
-    await expect(checkout.braintreePayPalFrame).toBeVisible({
+    await expect(checkout.braintreePayPalInnerButton).toBeVisible({
       timeout: 30_000,
     })
 

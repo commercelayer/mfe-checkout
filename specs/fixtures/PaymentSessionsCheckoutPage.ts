@@ -448,6 +448,20 @@ export class PaymentSessionsCheckoutPage {
     return this.braintreePayPalButton.locator("iframe.component-frame")
   }
 
+  /**
+   * PayPal's real button, inside `braintreePayPalFrame`.
+   *
+   * Wait for this one, not the frame, before clicking `braintreePayPalButton`.
+   * The frame turns visible a moment before PayPal mounts the button in it,
+   * and a click that lands in between opens no popup.
+   */
+  get braintreePayPalInnerButton(): Locator {
+    return this.braintreePayPalFrame
+      .contentFrame()
+      .locator("[role=link], [role=button]")
+      .first()
+  }
+
   /** What Braintree's PayPal reports about itself — the terms gate, a gift card. */
   get braintreePayPalError(): Locator {
     return this.page.locator("[data-testid=braintree-paypal-setting-error]")
