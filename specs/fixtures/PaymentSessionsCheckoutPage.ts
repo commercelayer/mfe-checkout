@@ -803,8 +803,14 @@ export class PaymentSessionsCheckoutPage {
     await expect(option).toBeVisible({ timeout: 30_000 })
     // Opened only when it is not already: a click on the open row's header
     // would be harmless today, but nothing promises it stays a no-op.
-    if (!(await option.evaluate((el) => el.classList.contains("adyen-checkout__payment-method--selected")))) {
-      await option.locator(".adyen-checkout__payment-method__header").click({ force: true })
+    if (
+      !(await option.evaluate((el) =>
+        el.classList.contains("adyen-checkout__payment-method--selected"),
+      ))
+    ) {
+      await option
+        .locator(".adyen-checkout__payment-method__header")
+        .click({ force: true })
     }
     const cvc = this.adyenField("securityCode", "Security code")
     await expect(cvc).toBeVisible({ timeout: 30_000 })
