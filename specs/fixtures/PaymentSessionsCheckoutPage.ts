@@ -480,6 +480,47 @@ export class PaymentSessionsCheckoutPage {
   }
 
   /**
+   * Checkout.com's Google Pay button, mounted by Checkout.com into the element
+   * this application names (`CHECKOUT_COM_GOOGLE_PAY_CLASS`). The button
+   * itself is Google's, in an iframe of its own.
+   */
+  get checkoutComGooglePay(): Locator {
+    return this.page.locator(".checkout-com-google-pay-button")
+  }
+
+  get checkoutComGooglePayError(): Locator {
+    return this.page.locator("[data-testid=checkout-com-google-pay-error]")
+  }
+
+  /** Click Google Pay's button, through its wrapper: the button is Google's. */
+  async clickCheckoutComGooglePay(): Promise<void> {
+    const button = this.checkoutComGooglePay.locator("iframe, button").first()
+    await expect(button).toBeVisible({ timeout: 30_000 })
+    await button.click()
+  }
+
+  /**
+   * Open Google Pay's sheet, which is a popup on Google's domain, and return it.
+   *
+   * Clicked again when no popup comes: Google's button is on the page a moment
+   * before it opens anything, and a click in that moment is swallowed without a
+   * word — the button takes focus and nothing else happens. A shopper clicks
+   * again; so does this.
+   */
+  async openCheckoutComGooglePaySheet(): Promise<Page> {
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      const popup = this.page
+        .context()
+        .waitForEvent("page", { timeout: 5_000 })
+        .catch(() => null)
+      await this.clickCheckoutComGooglePay()
+      const opened = await popup
+      if (opened != null) return opened
+    }
+    throw new Error("Google Pay's sheet did not open")
+  }
+
+  /**
    * Fill Checkout.com's card form, one iframe per field. Typed rather than
    * `fill()`ed, as the other gateways' fields are: the form listens for the
    * events real typing produces.

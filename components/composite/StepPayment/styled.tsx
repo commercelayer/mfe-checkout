@@ -359,6 +359,17 @@ export const BRAINTREE_WALLETS_CLASS =
 export const BRAINTREE_WALLETS_DIVIDER_CLASS =
   "hidden [.braintree-wallets:not(:empty)+&]:flex items-center gap-3 px-4 pb-3 text-xs text-gray-400"
 
+// The same block and divider for Checkout.com's wallets, above its card form.
+export const CHECKOUT_COM_WALLETS_CLASS =
+  "checkout-com-wallets flex flex-col gap-3 px-4 pb-3 -mt-2 empty:hidden"
+
+export const CHECKOUT_COM_WALLETS_DIVIDER_CLASS =
+  "hidden [.checkout-com-wallets:not(:empty)+&]:flex items-center gap-3 px-4 pb-3 text-xs text-gray-400"
+
+// Checkout.com's Google Pay button, mounted by Checkout.com into this element.
+export const CHECKOUT_COM_GOOGLE_PAY_CLASS =
+  "checkout-com-google-pay-button block w-full"
+
 // A Drop-in that could not load — an expired Adyen session, or a client key not
 // authorized for this origin — fails before any click, so nothing else reports
 // it. A refusal *after* a click is reported as an order error instead, by the

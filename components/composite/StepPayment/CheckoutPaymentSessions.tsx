@@ -9,6 +9,7 @@ import {
   PaymentSettingBraintreeGooglePay,
   PaymentSettingBraintreePayment,
   PaymentSettingBraintreePayPal,
+  PaymentSettingCheckoutComGooglePay,
   PaymentSettingCheckoutComPayment,
   PaymentSettingGiftCard,
   PaymentSettingGiftCardList,
@@ -33,6 +34,9 @@ import {
   BRAINTREE_WALLETS_CLASS,
   BRAINTREE_WALLETS_DIVIDER_CLASS,
   CHECKOUT_COM_CONTAINER_CLASS,
+  CHECKOUT_COM_GOOGLE_PAY_CLASS,
+  CHECKOUT_COM_WALLETS_CLASS,
+  CHECKOUT_COM_WALLETS_DIVIDER_CLASS,
   GiftCardBody,
   GiftCardHeader,
   GiftCardIcon,
@@ -352,6 +356,37 @@ export const CheckoutPaymentSessions = ({
                 </>
               )}
             </PaymentSettingStripePayment>
+
+            {/* Checkout.com's wallets, above its card form, as Braintree's
+              are. Google Pay renders only where Checkout.com's payment session
+              offers it and the browser can pay, and nothing otherwise, so the
+              block is empty and `empty:hidden` takes it away.
+
+              Apple Pay is not mounted: its button renders on any Safari that
+              can pay, and the payment then fails unless this checkout's
+              domains are registered for Apple Pay on the Checkout.com account.
+              Add <PaymentSettingCheckoutComApplePay> here once they are. */}
+            <div className={CHECKOUT_COM_WALLETS_CLASS}>
+              <PaymentSettingCheckoutComGooglePay
+                className={CHECKOUT_COM_GOOGLE_PAY_CLASS}
+              >
+                {({ errors: googlePayErrors }) =>
+                  googlePayErrors.length > 0 ? (
+                    <AdyenError
+                      data-testid="checkout-com-google-pay-error"
+                      className="px-0 pb-0"
+                    >
+                      {googlePayErrors.map(adyenErrorMessage).join(" ")}
+                    </AdyenError>
+                  ) : (
+                    <></>
+                  )
+                }
+              </PaymentSettingCheckoutComGooglePay>
+            </div>
+            <div className={CHECKOUT_COM_WALLETS_DIVIDER_CLASS}>
+              <span className="h-px grow bg-gray-200" />
+            </div>
 
             {/* Checkout.com's card form, outside the label for the reason
               Stripe's is. Cards only: the library mounts Checkout.com's card
