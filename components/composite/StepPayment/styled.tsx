@@ -317,6 +317,10 @@ export const ADYEN_CONTAINER_CLASS = "adyen-dropin-container px-4 pb-4 -mt-2"
 export const STRIPE_CONTAINER_CLASS =
   "stripe-elements-container px-4 pb-4 -mt-2"
 
+// And for Checkout.com's card form, for the same reasons again.
+export const CHECKOUT_COM_CONTAINER_CLASS =
+  "checkout-com-card-container px-4 pb-4 -mt-2"
+
 // Braintree's Hosted Fields. Unlike the two above, the library renders only the
 // containers the iframes mount into, so the layout is ours: the class names
 // below are the whole of it. The border goes on the iframe's container, which

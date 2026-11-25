@@ -1,4 +1,4 @@
-import { expect, type Locator, type Page } from "@playwright/test"
+import { expect, type Frame, type Locator, type Page } from "@playwright/test"
 import { ENV } from "varlock/env"
 
 /**
@@ -60,6 +60,23 @@ export const STRIPE_CARD = {
 }
 
 /**
+ * Checkout.com's sandbox Visa. With 3DS on the session, Checkout.com's
+ * simulator challenges it inside the page, and answers to
+ * `CHECKOUT_COM_3DS_PASSWORD`. Either way the shopper then comes back through
+ * the session's `success_url` or `failure_url`, so every payment on this card
+ * exercises the return path.
+ *
+ * https://www.checkout.com/docs/developer-resources/testing
+ */
+export const CHECKOUT_COM_CARD = {
+  name: "John Doe",
+  number: "4242424242424242",
+  exp: "1230",
+  cvc: "100",
+}
+export const CHECKOUT_COM_3DS_PASSWORD = "Checkout1!"
+
+/**
  * Braintree's sandbox cards, by what 3D Secure does with them.
  *
  * Two of them, because Braintree's sandbox refuses the same card for the same
@@ -119,6 +136,38 @@ export function payPalCredentials(): PayPalCredentials | null {
   if (email == null || password == null) return null
   if (email.length === 0 || password.length === 0) return null
   return { email, password }
+}
+
+/**
+ * Type into one of Checkout.com's fields, and type again what it dropped.
+ *
+ * The card number has come out short — three digits of sixteen, the form then
+ * reporting itself incomplete — while the scheme is being looked up from the
+ * first digits. So each field is verified and refilled, cleared first, the way
+ * Stripe's are. Compared on digits for the numeric fields, since Checkout.com
+ * formats them as they are typed, and as typed for the name.
+ */
+async function typeCheckoutComField(
+  input: Locator,
+  value: string,
+): Promise<void> {
+  await expect(input).toBeVisible({ timeout: 30_000 })
+  const numeric = /^[0-9]+$/.test(value)
+  const normalize = (text: string): string =>
+    numeric ? text.replace(/[^0-9]/g, "") : text.trim()
+
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    await input.click()
+    if (attempt > 1) {
+      await input.press("ControlOrMeta+a")
+      await input.press("Backspace")
+    }
+    await input.pressSequentially(value, { delay: 30 })
+    if (normalize(await input.inputValue()) === normalize(value)) return
+  }
+  throw new Error(
+    `Checkout.com's field kept "${await input.inputValue()}" instead of "${value}"`,
+  )
 }
 
 /**
@@ -419,6 +468,99 @@ export class PaymentSessionsCheckoutPage {
       this.page.locator("[data-testid=stripe-state]"),
       "Stripe's Payment Element does not consider the card complete",
     ).toHaveText("ready", { timeout: 15_000 })
+  }
+
+  /**
+   * Checkout.com's card form, mounted into the container this application
+   * names (`CHECKOUT_COM_CONTAINER_CLASS`). Each field is an iframe of
+   * Checkout.com's own, marked with a `data-testid` by Checkout.com.
+   */
+  get checkoutComForm(): Locator {
+    return this.page.locator(".checkout-com-card-container")
+  }
+
+  /**
+   * Fill Checkout.com's card form, one iframe per field. Typed rather than
+   * `fill()`ed, as the other gateways' fields are: the form listens for the
+   * events real typing produces.
+   */
+  async fillCheckoutComCard(card = CHECKOUT_COM_CARD): Promise<void> {
+    const fields: Array<[string, string]> = [
+      ["cardholder-name", card.name],
+      ["card-number", card.number],
+      ["card-expiry-date", card.exp],
+      ["card-cvv", card.cvc],
+    ]
+    for (const [field, value] of fields) {
+      await typeCheckoutComField(
+        this.checkoutComForm
+          .frameLocator(`iframe[data-testid=${field}]`)
+          .getByRole("textbox"),
+        value,
+      )
+    }
+
+    // Fail here, on the form, rather than later on the thank-you page: the
+    // place button reports nothing for an incomplete form, by design.
+    await expect(
+      this.page.locator("[data-testid=checkout-com-state]"),
+      "Checkout.com's card form does not consider the card complete",
+    ).toHaveText("ready", { timeout: 15_000 })
+  }
+
+  /**
+   * Answer Checkout.com's simulated 3DS challenge.
+   *
+   * The simulator is the issuer's page inside Checkout.com's modal, and the
+   * modal's iframe is out of reach of a frame locator, so the frame is found by
+   * its name among the page's frames instead. It allows three attempts before
+   * failing the payment, so a test after a failure answers wrongly `attempts`
+   * times.
+   */
+  async submitCheckoutComChallenge(
+    password = CHECKOUT_COM_3DS_PASSWORD,
+    attempts = 1,
+  ): Promise<void> {
+    const PASSWORD =
+      "input#password, input[name=password], input[type=password]"
+    // Checkout.com replaces the frame once it has loaded, so the frame is
+    // looked for again on every attempt, as the one that holds the field.
+    const findChallenge = async (): Promise<Frame> => {
+      let found: Frame | undefined
+      await expect
+        .poll(
+          async () => {
+            for (const frame of this.page.frames()) {
+              if (frame.isDetached() || frame.name() !== "cko-3ds2-iframe") {
+                continue
+              }
+              const count = await frame
+                .locator(PASSWORD)
+                .count()
+                .catch(() => 0)
+              if (count > 0) {
+                found = frame
+                return true
+              }
+            }
+            return false
+          },
+          { message: "Checkout.com's 3DS challenge", timeout: 60_000 },
+        )
+        .toBe(true)
+      return found as Frame
+    }
+
+    for (let attempt = 1; attempt <= attempts; attempt++) {
+      const frame = await findChallenge()
+      if (attempt > 1) {
+        await expect(
+          frame.getByText(`${4 - attempt} attempt(s) remaining`),
+        ).toBeVisible({ timeout: 30_000 })
+      }
+      await frame.locator(PASSWORD).first().fill(password)
+      await frame.getByRole("button", { name: /continue/i }).click()
+    }
   }
 
   /**

@@ -9,6 +9,7 @@ import {
   PaymentSettingBraintreeGooglePay,
   PaymentSettingBraintreePayment,
   PaymentSettingBraintreePayPal,
+  PaymentSettingCheckoutComPayment,
   PaymentSettingGiftCard,
   PaymentSettingGiftCardList,
   PaymentSettingGiftCardListItem,
@@ -31,6 +32,7 @@ import {
   BRAINTREE_CONTAINER_CLASS,
   BRAINTREE_WALLETS_CLASS,
   BRAINTREE_WALLETS_DIVIDER_CLASS,
+  CHECKOUT_COM_CONTAINER_CLASS,
   GiftCardBody,
   GiftCardHeader,
   GiftCardIcon,
@@ -350,6 +352,30 @@ export const CheckoutPaymentSessions = ({
                 </>
               )}
             </PaymentSettingStripePayment>
+
+            {/* Checkout.com's card form, outside the label for the reason
+              Stripe's is. Cards only: the library mounts Checkout.com's card
+              component rather than Flow, so the place-order button stays the
+              one way to pay. */}
+            <PaymentSettingCheckoutComPayment
+              containerClassName={CHECKOUT_COM_CONTAINER_CLASS}
+            >
+              {({ errors: checkoutComErrors, isReady }) => (
+                <>
+                  {/* Same reason as Stripe's: the place-order button does not
+                    gate on it, so an end-to-end test needs another way to
+                    tell an incomplete form from a slow one. */}
+                  <span hidden data-testid="checkout-com-state">
+                    {isReady ? "ready" : "incomplete"}
+                  </span>
+                  {checkoutComErrors.length > 0 && (
+                    <AdyenError data-testid="checkout-com-setting-error">
+                      {checkoutComErrors.map(adyenErrorMessage).join(" ")}
+                    </AdyenError>
+                  )}
+                </>
+              )}
+            </PaymentSettingCheckoutComPayment>
 
             {/* Braintree's wallets, above its card fields. All of them stay
               live at once — the place button pays by card, each wallet through
