@@ -175,6 +175,38 @@ export async function readOrder(order: NewPaymentsOrder): Promise<Order> {
 }
 
 /**
+ * The order's billing address, and below it the addresses in the address book
+ * of the customer who owns the order.
+ *
+ * Both are read with the order's own token, which on a customer order is the
+ * customer's: a customer token lists only that customer's addresses. Meant for
+ * an order minted with `customerOrder: "fresh"`, whose address book starts
+ * empty.
+ */
+export async function readBillingAddress(
+  order: NewPaymentsOrder,
+): Promise<{ line_1?: string | null; city?: string | null }> {
+  const { billing_address: address } = await client(
+    order.accessToken,
+  ).orders.retrieve(order.id, { include: ["billing_address"] })
+  return { line_1: address?.line_1, city: address?.city }
+}
+
+/** The addresses in the order customer's address book. */
+export async function readCustomerAddresses(
+  order: NewPaymentsOrder,
+): Promise<{ line_1?: string | null; city?: string | null }[]> {
+  const addresses = await client(order.accessToken).customer_addresses.list({
+    include: ["address"],
+  })
+  // A plain array: the SDK's `ListResponse` never deep-equals one.
+  return Array.from(addresses, (entry) => ({
+    line_1: entry.address?.line_1,
+    city: entry.address?.city,
+  }))
+}
+
+/**
  * Raise the order's total to at least `minCents`, by quantity, with the order's
  * own token.
  *
