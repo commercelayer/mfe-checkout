@@ -27,7 +27,6 @@ import { useTranslation } from "react-i18next"
 import { PaymentSkeleton } from "./PaymentSkeleton"
 import {
   ADYEN_CONTAINER_CLASS,
-  AdyenError,
   APPLE_PAY_BUTTON_CLASS,
   BRAINTREE_CLASS_NAMES,
   BRAINTREE_CONTAINER_CLASS,
@@ -46,6 +45,7 @@ import {
   GiftCardTitle,
   GiftCardWrapper,
   GOOGLE_PAY_BUTTON_CLASS,
+  PaymentFormError,
   PaymentSettingBox,
   PaymentSettingCard,
   PaymentSettingError,
@@ -163,7 +163,7 @@ export const CheckoutPaymentSessions = ({
    * translated and everything else falls through, which keeps an unrecognised
    * refusal legible instead of blank.
    */
-  const adyenErrorMessage = (error: {
+  const paymentFormErrorMessage = (error: {
     message?: string
     meta?: Record<string, unknown>
   }): string => {
@@ -292,9 +292,9 @@ export const CheckoutPaymentSessions = ({
               {({ errors: adyenErrors }) => {
                 if (adyenErrors.length === 0) return <></>
                 return (
-                  <AdyenError data-testid="adyen-setting-error">
-                    {adyenErrors.map(adyenErrorMessage).join(" ")}
-                  </AdyenError>
+                  <PaymentFormError data-testid="adyen-setting-error">
+                    {adyenErrors.map(paymentFormErrorMessage).join(" ")}
+                  </PaymentFormError>
                 )
               }}
             </PaymentSettingAdyenPayment>
@@ -349,9 +349,9 @@ export const CheckoutPaymentSessions = ({
                     {isReady ? "ready" : "incomplete"}
                   </span>
                   {stripeErrors.length > 0 && (
-                    <AdyenError data-testid="stripe-setting-error">
+                    <PaymentFormError data-testid="stripe-setting-error">
                       {stripeErrors.map((error) => error.message).join(" ")}
-                    </AdyenError>
+                    </PaymentFormError>
                   )}
                 </>
               )}
@@ -372,12 +372,12 @@ export const CheckoutPaymentSessions = ({
               >
                 {({ errors: googlePayErrors }) =>
                   googlePayErrors.length > 0 ? (
-                    <AdyenError
+                    <PaymentFormError
                       data-testid="checkout-com-google-pay-error"
                       className="px-0 pb-0"
                     >
-                      {googlePayErrors.map(adyenErrorMessage).join(" ")}
-                    </AdyenError>
+                      {googlePayErrors.map(paymentFormErrorMessage).join(" ")}
+                    </PaymentFormError>
                   ) : (
                     <></>
                   )
@@ -404,9 +404,9 @@ export const CheckoutPaymentSessions = ({
                     {isReady ? "ready" : "incomplete"}
                   </span>
                   {checkoutComErrors.length > 0 && (
-                    <AdyenError data-testid="checkout-com-setting-error">
-                      {checkoutComErrors.map(adyenErrorMessage).join(" ")}
-                    </AdyenError>
+                    <PaymentFormError data-testid="checkout-com-setting-error">
+                      {checkoutComErrors.map(paymentFormErrorMessage).join(" ")}
+                    </PaymentFormError>
                   )}
                 </>
               )}
@@ -435,12 +435,12 @@ export const CheckoutPaymentSessions = ({
               >
                 {({ errors: applePayErrors }) =>
                   applePayErrors.length > 0 ? (
-                    <AdyenError
+                    <PaymentFormError
                       data-testid="apple-pay-setting-error"
                       className="px-0 pb-0"
                     >
                       {applePayErrors.map(braintreeErrorMessage).join(" ")}
-                    </AdyenError>
+                    </PaymentFormError>
                   ) : (
                     <></>
                   )
@@ -452,12 +452,12 @@ export const CheckoutPaymentSessions = ({
               >
                 {({ errors: googlePayErrors }) =>
                   googlePayErrors.length > 0 ? (
-                    <AdyenError
+                    <PaymentFormError
                       data-testid="google-pay-setting-error"
                       className="px-0 pb-0"
                     >
                       {googlePayErrors.map(braintreeErrorMessage).join(" ")}
-                    </AdyenError>
+                    </PaymentFormError>
                   ) : (
                     <></>
                   )
@@ -466,12 +466,12 @@ export const CheckoutPaymentSessions = ({
               <PaymentSettingBraintreePayPal className="braintree-paypal-button">
                 {({ errors: payPalErrors }) =>
                   payPalErrors.length > 0 ? (
-                    <AdyenError
+                    <PaymentFormError
                       data-testid="braintree-paypal-setting-error"
                       className="px-0 pb-0"
                     >
                       {payPalErrors.map(braintreeErrorMessage).join(" ")}
-                    </AdyenError>
+                    </PaymentFormError>
                   ) : (
                     <></>
                   )
@@ -510,9 +510,9 @@ export const CheckoutPaymentSessions = ({
                     {isReady ? "ready" : "incomplete"}
                   </span>
                   {braintreeErrors.length > 0 && (
-                    <AdyenError data-testid="braintree-setting-error">
+                    <PaymentFormError data-testid="braintree-setting-error">
                       {braintreeErrors.map(braintreeErrorMessage).join(" ")}
-                    </AdyenError>
+                    </PaymentFormError>
                   )}
                 </>
               )}
@@ -526,14 +526,14 @@ export const CheckoutPaymentSessions = ({
               {({ errors: payPalErrors, isUnavailable }) => (
                 <>
                   {isUnavailable && (
-                    <AdyenError data-testid="paypal-setting-unavailable">
+                    <PaymentFormError data-testid="paypal-setting-unavailable">
                       {t("stepPayment.paymentMethodNotLoaded")}
-                    </AdyenError>
+                    </PaymentFormError>
                   )}
                   {payPalErrors.length > 0 && (
-                    <AdyenError data-testid="paypal-setting-error">
+                    <PaymentFormError data-testid="paypal-setting-error">
                       {payPalErrors.map(braintreeErrorMessage).join(" ")}
-                    </AdyenError>
+                    </PaymentFormError>
                   )}
                 </>
               )}

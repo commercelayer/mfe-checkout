@@ -370,11 +370,11 @@ export const CHECKOUT_COM_WALLETS_DIVIDER_CLASS =
 export const CHECKOUT_COM_GOOGLE_PAY_CLASS =
   "checkout-com-google-pay-button block w-full"
 
-// A Drop-in that could not load — an expired Adyen session, or a client key not
+// A payment form that could not load — an expired session, or a key not
 // authorized for this origin — fails before any click, so nothing else reports
 // it. A refusal *after* a click is reported as an order error instead, by the
 // place-order button.
-export const AdyenError: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+export const PaymentFormError: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
   <div
     {...props}
     className={`${ErrorCss} text-sm px-4 pb-4 ${props.className || ""}`}
