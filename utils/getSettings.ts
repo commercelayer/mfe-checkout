@@ -2,7 +2,7 @@ import { jwtDecode, jwtIsSalesChannel } from "@commercelayer/js-auth"
 import { getMfeConfig } from "@commercelayer/organization-config"
 import {
   CommerceLayer,
-  type CommerceLayerBundle,
+  type CommerceLayerClient,
   CommerceLayerStatic,
   type Order,
   type Organization,
@@ -65,7 +65,7 @@ async function retryCall<T>(
 }
 
 function getOrganization(
-  cl: CommerceLayerBundle,
+  cl: CommerceLayerClient,
 ): Promise<FetchResource<Organization> | undefined> {
   return retryCall<Organization>(() =>
     cl.organization.retrieve({
@@ -88,7 +88,7 @@ function getOrganization(
 }
 
 function getOrder(
-  cl: CommerceLayerBundle,
+  cl: CommerceLayerClient,
   orderId: string,
 ): Promise<FetchResource<Order> | undefined> {
   return retryCall<Order>(() =>

@@ -114,6 +114,14 @@ let nextConfig = {
     },
   },
   webpack(config) {
+    // Webpack's persistent cache keys on this file, not on .env.local, so
+    // toggling CL_RC_LOCAL_PATH would keep serving whichever copy of the
+    // packages was resolved before — the published one after turning local mode
+    // on, with the dev server restarted and the local dist up to date. Folding
+    // the mode into the cache version makes the switch invalidate it.
+    if (config.cache && typeof config.cache === "object") {
+      config.cache.version = `${config.cache.version ?? ""}|rc:${rcLocalRoot ?? "published"}`
+    }
     config.resolve.alias = {
       ...config.resolve.alias,
       react: path.resolve(__dirname, "node_modules/react"),
@@ -131,6 +139,20 @@ let nextConfig = {
   },
   // The local dist lives outside this project's root.
   ...(rcLocalEntries ? { experimental: { externalDir: true } } : {}),
+  // Hostnames the dev server will serve its own assets and HMR socket to.
+  //
+  // Next refuses both to any origin but the one it listens on, so a dev server
+  // reached through a tunnel serves the HTML and then 403s every `/_next/*`
+  // request. Fast Refresh cannot attach, retries, and the page reloads on a
+  // loop — which is indistinguishable from an application bug and can interrupt
+  // a payment halfway through.
+  //
+  // Set to the tunnel's hostname alone, without a scheme. Nothing is listed by
+  // default because the value is per developer: hard-coding one here would put
+  // somebody's personal domain in everyone's config.
+  ...(process.env.NEXT_DEV_TUNNEL_HOST
+    ? { allowedDevOrigins: [process.env.NEXT_DEV_TUNNEL_HOST] }
+    : {}),
   output: process.env.NODE_ENV === "production" ? "export" : "standalone",
   distDir: "out/dist",
   poweredByHeader: false,

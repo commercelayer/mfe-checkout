@@ -59,9 +59,10 @@ test.describe("multi shipments", () => {
     await checkoutPage.save("Shipping")
 
     const dataLayer = await checkoutPage.getDataLayer("add_shipping_info", 2)
-    expect(
-      dataLayer.map(({ ecommerce }) => ecommerce.shipping_tier),
-    ).toEqual(["Express Delivery", "Express Delivery"])
+    expect(dataLayer.map(({ ecommerce }) => ecommerce.shipping_tier)).toEqual([
+      "Express Delivery",
+      "Express Delivery",
+    ])
   })
 
   test("check begin and shipments", async ({ checkoutPage }) => {

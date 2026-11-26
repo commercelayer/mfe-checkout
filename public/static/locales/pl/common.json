@@ -8,6 +8,7 @@
     "edit": "Edytuj",
     "free": "Darmowa",
     "apply": "Wprowadź",
+    "remove": "Usuń",
     "privacy_and_terms": "Klikając zgadzasz się na <bold><termsUrl>regulamin</termsUrl></bold> oraz <bold><privacyUrl>zasady prywatności</privacyUrl></bold>.",
     "checkoutTitle": "Checkout"
   },
@@ -101,12 +102,20 @@
     "endingIn": "<0/> numer zakończony cyframi <1/>",
     "submit": "Złóż zamówienie",
     "submitting": "Składanie zamówienia…",
+    "acceptTermsToPay": "Accept the terms and conditions to continue.",
     "notRequired": "To zamówienie nie wymaga płatności",
     "amountZero": "Suma zamówienia wynosi zero. Możesz złożyć je bez płatności.",
     "saveToWallet": "Zapisz kartę do walleta",
     "expires": "Wygasa",
     "subscriptionWithoutCustomer": "Aby kupić subskrypcję, należy założyć konto.",
-    "subscriptionWithCustomer": "Podając dane swojej karty, zezwalasz firmie na obciążenie Twojej karty przyszłymi płatnościami zgodnie z jej warunkami."
+    "subscriptionWithCustomer": "Podając dane swojej karty, zezwalasz firmie na obciążenie Twojej karty przyszłymi płatnościami zgodnie z jej warunkami.",
+    "useGiftCard": "Użyj karty podarunkowej",
+    "cardNumber": "Numer karty",
+    "cardExpiration": "Data ważności",
+    "cardCvv": "CVV",
+    "completeCardDetails": "Uzupełnij dane karty.",
+    "paymentDeclined": "Płatność została odrzucona. Spróbuj innej karty.",
+    "paymentMethodNotLoaded": "Nie można załadować wybranej metody płatności."
   },
   "addressForm": {
     "customer_email": "Twój adres e-mail",

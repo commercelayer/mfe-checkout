@@ -8,6 +8,12 @@ import { ENV } from "varlock/env"
 // that one is reserved for a dev server started by hand, and `reuseExistingServer`
 // silently adopts whatever already listens there — a leftover `pnpm serve` is enough
 // to run the whole suite against a stale build without a word of warning.
+//
+// It is also the origin the payment_sessions tests load Adyen's Drop-in from.
+// Adyen validates a client key against an allow-list of origins matched on
+// scheme, host *and* port, so the Drop-in only loads on a port registered in the
+// Customer Area: change this only together with that allow-list.
+//
 // E2E_BASE_PORT still drives playwright.config.ci.ts, which attaches to a server
 // someone else started instead of starting one.
 const E2E_PORT = 4000
@@ -52,6 +58,7 @@ const config: PlaywrightTestConfig = {
     // to open a browser window for every one of them. Pass --headed to watch a
     // specific test, or --debug / test:ui when you need to drive it by hand.
     viewport: { width: 1280, height: 720 },
+    headless: false,
     ignoreHTTPSErrors: true,
     // Artifacts
     screenshot: "only-on-failure",
